@@ -6,10 +6,6 @@ app/config/parameters.yml
 app/cache/*
 app/logs/*
 vendor/*
-web/bundles/*
-web/css/*
-web/js/*
-web/uploads/*
 
 # -- Composer -----------------------------------------
 composer.phar
