@@ -1,3 +1,19 @@
+dicars_contabilidad:
+    resource: "@DicarsContabilidadBundle/Resources/config/routing.yml"
+    prefix:   /
+
+dicars_logistica:
+    resource: "@DicarsLogisticaBundle/Resources/config/routing.yml"
+    prefix:   /
+
+dicars_ventas:
+    resource: "@DicarsVentasBundle/Resources/config/routing.yml"
+    prefix:   /
+
+dicars_data:
+    resource: "@DicarsDataBundle/Resources/config/routing.yml"
+    prefix:   /
+
 # Internal routing configuration to handle ESI
 #_internal:
 #    resource: "@FrameworkBundle/Resources/config/routing/internal.xml"

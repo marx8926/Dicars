@@ -1,0 +1,7 @@
+parameters:
+#    dicars_ventas.example.class: Dicars\VentasBundle\Example
+
+services:
+#    dicars_ventas.example:
+#        class: %dicars_ventas.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
