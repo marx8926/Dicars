@@ -1,0 +1,7 @@
+parameters:
+#    dicars_login.example.class: Dicars\LoginBundle\Example
+
+services:
+#    dicars_login.example:
+#        class: %dicars_login.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
