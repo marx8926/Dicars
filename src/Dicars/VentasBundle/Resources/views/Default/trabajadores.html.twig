@@ -1,20 +1,20 @@
 {% extends "::baseCharisma.html.twig" %}
-{% block title %}Clientes - Ventas -{% endblock %}
+{% block title %}Trabajadores - Ventas -{% endblock %}
 {% block breadcrumb %}
 <li>
 	<a href="{{path('dicars_ventas_homepage')}}">Ventas</a> <span class="divider">/</span>
 </li>
 <li>
-	<a href="{{path('dicars_ventas_clientes')}}">Clientes</a>
+	<a href="{{path('dicars_ventas_trabajadores')}}">Trabajadores</a>
 </li>
 {% endblock %}
 {% block content %}
 <div class="row-fluid sortable">		
 	<div class="box span12">
 		<div class="box-header well" data-original-title>
-			<h2><i class="icon-user"></i>Clientes</h2>
+			<h2><i class="icon-user"></i>Trabajadores</h2>
 			<div class="box-icon">
-				<a href="#" class="btn btn-registrar btn-round" alt="Registrar Cliente"><i class="icon-plus"></i></a>
+				<a href="#" class="btn btn-registrar btn-round" alt="Registrar Trabajador"><i class="icon-plus"></i></a>
 				<!-- a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
 				<a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a -->
 			</div>
@@ -26,7 +26,7 @@
 					  <th>Nombres</th>
 					  <th>Apellidos</th>
 					  <th>DNI</th>
-					  <th>Línea de Crédito</th>
+					  <th>Teléfono</th>
 					  <th>Acciones</th>
 				  </tr>
 			  </thead>   
@@ -296,7 +296,7 @@
 		  <div class="modal hide fade" id="modalRegistro">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">x</button>
-				<h3>Registrar Cliente</h3>
+				<h3>Registrar Trabajador</h3>
 			</div>
 			<div class="modal-body">
 				<form class="form-horizontal">
@@ -314,13 +314,19 @@
 						</div>
 					  </div>
 					  <div class="control-group">
-						<label class="control-label" for="focusedInput">Línea de Crédito</label>
+						<label class="control-label" for="focusedInput">Fecha de Nacimiento</label>
+						<div class="controls">
+						  <input type="text" class="input-xlarge datepicker" id="date01" value="03/05/13">
+						</div>
+					  </div>
+					  <div class="control-group">
+						<label class="control-label" for="focusedInput">DNI</label>
 						<div class="controls">
 						  <input class="input-xlarge focused" id="focusedInput" type="text">
 						</div>
 					  </div>
 					  <div class="control-group">
-						<label class="control-label" for="focusedInput">DNI</label>
+						<label class="control-label" for="focusedInput">Teléfono</label>
 						<div class="controls">
 						  <input class="input-xlarge focused" id="focusedInput" type="text">
 						</div>
@@ -373,18 +379,6 @@
 						  </select>
 						</div>
 					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="zona">Zona</label>
-						<div class="controls">
-						  <select id="zona" data-rel="chosen">
-							<option>Option 1</option>
-							<option>Option 2</option>
-							<option>Option 3</option>
-							<option>Option 4</option>
-							<option>Option 5</option>
-						  </select>
-						</div>
-					  </div>
 					  <div class="form-actions">
 						<button type="submit" class="btn btn-primary">Guardar</button>
 						<button class="btn" data-dismiss="modal">Cancelar</button>
@@ -400,7 +394,7 @@
 		<div class="modal hide fade" id="modalVerDatos">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">x</button>
-				<h3>Datos del Cliente</h3>
+				<h3>Datos del Trabajador</h3>
 			</div>
 			<div class="modal-body">
 				<div class="form-horizontal">
@@ -418,15 +412,21 @@
 						</div>
 					  </div>
 					  <div class="control-group">
-						<label class="control-label" for="focusedInput">Línea de Crédito</label>
+						<label class="control-label" for="focusedInput">Fecha de Nacimiento</label>
 						<div class="controls">
-						  <span class="help-inline" style="margin-top:5px;">1000000</span>
+						  <span class="help-inline" style="margin-top:5px;">26-04-1990</span>
 						</div>
 					  </div>
 					  <div class="control-group">
 						<label class="control-label" for="focusedInput">DNI</label>
 						<div class="controls">
 						  <span class="help-inline" style="margin-top:5px;">12345678</span>
+						</div>
+					  </div>
+					  <div class="control-group">
+						<label class="control-label" for="focusedInput">Teléfono</label>
+						<div class="controls">
+						  <span class="help-inline" style="margin-top:5px;">123456789</span>
 						</div>
 					  </div>
 					  <div class="control-group">
@@ -459,12 +459,6 @@
 						  <span class="help-inline" style="margin-top:5px;">Victor Larco</span>
 						</div>
 					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="zona">Zona</label>
-						<div class="controls">
-						  <span class="help-inline" style="margin-top:5px;">Zona 9</span>
-						</div>
-					  </div>
 					  <div class="form-actions">
 						<!-- button type="submit" class="btn btn-primary">Guardar</button -->
 						<button class="btn" data-dismiss="modal">Cerrar</button>
@@ -484,17 +478,17 @@
 {% endblock %}
 {% block javascript %}
 <script type="text/javascript">
-//mostrar Registrar Cliente------------------------------------>
+//mostrar Registrar Trabajador------------------------------------>
 $('.btn-registrar').click(function(e){
 	e.preventDefault();
 	$('#modalRegistro').modal('show');
 });
-//mostrar Editar Cliente------------------------------------>
+//mostrar Editar Trabajador------------------------------------>
 $('.btn-editar').click(function(e){
 	e.preventDefault();
 	$('#modalRegistro').modal('show');
 });
-//mostrar Ver Datos Cliente------------------------------------>
+//mostrar Ver Datos Trabajador------------------------------------>
 $('.btn-datos').click(function(e){
 	e.preventDefault();
 	$('#modalVerDatos').modal('show');

@@ -3,4 +3,13 @@ dicars_ventas_homepage:
     defaults: { _controller: DicarsVentasBundle:Default:index }
 dicars_ventas_clientes:
     pattern: /clientes
-    defaults: { _controller: DicarsVentasBundle:Default:cliente }
+    defaults: { _controller: DicarsVentasBundle:Default:clientes }
+dicars_ventas_clientes_dm:
+    pattern: /clientes_dm
+    defaults: { _controller: DicarsVentasBundle:Default:clientes_dm }
+dicars_ventas_trabajadores:
+    pattern: /trabajadores
+    defaults: { _controller: DicarsVentasBundle:Default:trabajadores }
+dicars_ventas_separar_productos:
+    pattern: /separar_productos
+    defaults: { _controller: DicarsVentasBundle:Default:separar_productos }

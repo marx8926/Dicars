@@ -10,8 +10,20 @@ class DefaultController extends Controller
     {
         return $this->render('DicarsVentasBundle:Default:index.html.twig');
     }
-    public function clienteAction()
+    public function clientesAction()
     {
     	return $this->render('DicarsVentasBundle:Default:cliente.html.twig');
+    }
+    public function clientes_dmAction()
+    {
+    	return $this->render('DicarsVentasBundle:Default:clientesmorososdeudores.html.twig');
+    }
+    public function trabajadoresAction()
+    {
+    	return $this->render('DicarsVentasBundle:Default:trabajadores.html.twig');
+    }
+    public function separar_productosAction()
+    {
+    	return $this->render('DicarsVentasBundle:Default:separar_productos.html.twig');
     }
 }
