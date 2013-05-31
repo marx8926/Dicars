@@ -1,5 +1,5 @@
 {% extends "::baseCharisma.html.twig" %}
-{% block title %}Clientes - Ventas -{% endblock %}
+{% block title %}Separar Productos - Ventas -{% endblock %}
 {% block breadcrumb %}
 <li>
 	<a href="{{path('dicars_ventas_homepage')}}">Ventas</a> <span class="divider">/</span>
@@ -26,241 +26,54 @@
 					<label class="control-label" for="cliente">Cliente</label>
 					<div class="controls">
 					  <input class="input-xlarge focused" id="cliente" type="text">
-					  <button type="button" class="btn btn-primary btn-buscarc">Buscar</button>
+					  <button type="button" class="btn btn-info btn-buscarc" style="margin-left: 15px;"><i class="icon-search icon-white"></i>Buscar</button>
 					</div>
 				  </div>
 				  <div class="control-group">
 					<label class="control-label" for="producto">Producto</label>
 					<div class="controls">
 					  <input class="input-xlarge focused" id="producto" type="text">
-					  <button type="button" class="btn btn-primary btn-buscarp">Buscar</button>
+					  <button type="button" class="btn btn-info btn-buscarp" style="margin-left: 15px;"><i class="icon-search icon-white"></i>Buscar</button>
 					</div>
 				  </div>
 				  <div class="control-group">
 					<label class="control-label" for="cantidad">Cantidad</label>
 					<div class="controls">
-					  <input id="cantidad" name="cantidad" type="number">
+					  <input id="cantidad" name="cantidad" type="number" style="margin: 0 18px 0 0;">
 					  <label style="display:inline;">Precio/Unidad</label>
-					  <input id="precio" name="precio" type="number">
-					  <button type="submit" class="btn btn-primary">Agregar</button>
+					  <input id="precio" name="precio" type="number" style="margin: 0 18px;">
+					  <button type="submit" class="btn btn-primary"><i class="icon-plus icon-white"></i>Agregar</button>
 					</div>
 				  </div>
 				</fieldset>
-			  </div>
+			</div>
 			<table class="table table-striped table-bordered bootstrap-datatable datatable">
-			  <thead>
-				  <tr>
-					  <th>Cantidad</th>
-					  <th>Nombre de Producto</th>
-					  <th>Código</th>
-					  <th>Precio</th>
-					  <th>Acciones</th>
-				  </tr>
-			  </thead>   
-			  <tbody>
-				<tr>
-					<td>David R</td>
-					<td class="center">2012/01/01</td>
-					<td class="center">Member</td>
-					<td class="center">
-						<span class="label label-success">Active</span>
-					</td>
-					<td class="center">
-						<a class="btn btn-info btn-editar" href="#">
-							<i class="icon-edit icon-white"></i>  
-							Edita
-						<a class="btn btn-danger" href="#">
-							<i class="icon-trash icon-white"></i> 
-							Eliminar
-						</a>
-					</td>
-				</tr>
-				<tr>
-					<td>Chris Jack</td>
-					<td class="center">2012/01/01</td>
-					<td class="center">Member</td>
-					<td class="center">
-						<span class="label label-success">Active</span>
-					</td>
-					<td class="center">
-						<a class="btn btn-info" href="#">
-							<i class="icon-edit icon-white"></i>  
-							Editar                                            
-						</a>
-						<a class="btn btn-danger" href="#">
-							<i class="icon-trash icon-white"></i> 
-							Eliminar
-						</a>
-					</td>
-				</tr>
-				<tr>
-					<td>Jack Chris</td>
-					<td class="center">2012/01/01</td>
-					<td class="center">Member</td>
-					<td class="center">
-						<span class="label label-success">Active</span>
-					</td>
-					<td class="center">
-						<a class="btn btn-info" href="#">
-							<i class="icon-edit icon-white"></i>  
-							Editar                                            
-						</a>
-						<a class="btn btn-danger" href="#">
-							<i class="icon-trash icon-white"></i> 
-							Eliminar
-						</a>
-					</td>
-				</tr>
-				<tr>
-					<td>Muhammad Usman</td>
-					<td class="center">2012/01/01</td>
-					<td class="center">Member</td>
-					<td class="center">
-						<span class="label label-success">Active</span>
-					</td>
-					<td class="center">
-						<a class="btn btn-info" href="#">
-							<i class="icon-edit icon-white"></i>  
-							Editar                                            
-						</a>
-						<a class="btn btn-danger" href="#">
-							<i class="icon-trash icon-white"></i> 
-							Eliminar
-						</a>
-					</td>
-				</tr>
-				<tr>
-					<td>Sheikh Heera</td>
-					<td class="center">2012/02/01</td>
-					<td class="center">Staff</td>
-					<td class="center">
-						<span class="label label-important">Banned</span>
-					</td>
-					<td class="center">
-						<a class="btn btn-info" href="#">
-							<i class="icon-edit icon-white"></i>  
-							Editar                                            
-						</a>
-						<a class="btn btn-danger" href="#">
-							<i class="icon-trash icon-white"></i> 
-							Eliminar
-						</a>
-					</td>
-				</tr>
-				<tr>
-					<td>Helen Garner</td>
-					<td class="center">2012/02/01</td>
-					<td class="center">Staff</td>
-					<td class="center">
-						<span class="label label-important">Banned</span>
-					</td>
-					<td class="center">
-						<a class="btn btn-info" href="#">
-							<i class="icon-edit icon-white"></i>  
-							Editar                                            
-						</a>
-						<a class="btn btn-danger" href="#">
-							<i class="icon-trash icon-white"></i> 
-							Eliminar
-						</a>
-					</td>
-				</tr>
-				<tr>
-					<td>Saruar Ahmed</td>
-					<td class="center">2012/03/01</td>
-					<td class="center">Member</td>
-					<td class="center">
-						<span class="label label-warning">Pending</span>
-					</td>
-					<td class="center">
-						<a class="btn btn-info" href="#">
-							<i class="icon-edit icon-white"></i>  
-							Editar                                            
-						</a>
-						<a class="btn btn-danger" href="#">
-							<i class="icon-trash icon-white"></i> 
-							Eliminar
-						</a>
-					</td>
-				</tr>
-				<tr>
-					<td>Ahemd Saruar</td>
-					<td class="center">2012/03/01</td>
-					<td class="center">Member</td>
-					<td class="center">
-						<span class="label label-warning">Pending</span>
-					</td>
-					<td class="center">
-						<a class="btn btn-info" href="#">
-							<i class="icon-edit icon-white"></i>  
-							Editar                                            
-						</a>
-						<a class="btn btn-danger" href="#">
-							<i class="icon-trash icon-white"></i> 
-							Eliminar
-						</a>
-					</td>
-				</tr>
-				<tr>
-					<td>Habib Rizwan</td>
-					<td class="center">2012/01/21</td>
-					<td class="center">Staff</td>
-					<td class="center">
-						<span class="label label-success">Active</span>
-					</td>
-					<td class="center">
-						<a class="btn btn-info" href="#">
-							<i class="icon-edit icon-white"></i>  
-							Editar                                            
-						</a>
-						<a class="btn btn-danger" href="#">
-							<i class="icon-trash icon-white"></i> 
-							Eliminar
-						</a>
-					</td>
-				</tr>
-				<tr>
-					<td>Rizwan Habib</td>
-					<td class="center">2012/01/21</td>
-					<td class="center">Staff</td>
-					<td class="center">
-						<span class="label label-success">Active</span>
-					</td>
-					<td class="center">
-						<a class="btn btn-info" href="#">
-							<i class="icon-edit icon-white"></i>  
-							Editar                                            
-						</a>
-						<a class="btn btn-danger" href="#">
-							<i class="icon-trash icon-white"></i> 
-							Eliminar
-						</a>
-					</td>
-				</tr>
-			  </tbody>
-		  </table>  
-		  <div class="modal hide fade" id="modalBuscarCliente">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">x</button>
-				<h3>Clientes</h3>
-			</div>
-			<div class="modal-body">
-				<table class="table table-striped table-bordered bootstrap-datatable datatable">
-				  <thead>
-					  <tr>
-						  <th>Nombres</th>
-						  <th>Apellidos</th>
-						  <th>DNI</th>
-						  <th>Línea de Crédito</th>
-					  </tr>
-				  </thead>   
-				  <tbody>
+				<thead>
+					<tr>
+						<th>Cantidad</th>
+					  	<th>Nombre de Producto</th>
+					  	<th>Código</th>
+					  	<th>Precio</th>
+					  	<th>Acciones</th>
+				  	</tr>
+			  	</thead>   
+			  	<tbody>
 					<tr>
 						<td>David R</td>
 						<td class="center">2012/01/01</td>
 						<td class="center">Member</td>
 						<td class="center">
 							<span class="label label-success">Active</span>
+						</td>
+						<td class="center">
+							<a class="btn btn-info btn-editar" href="#">
+								<i class="icon-edit icon-white"></i>  
+								Editar
+							</a>
+							<a class="btn btn-danger" href="#">
+								<i class="icon-trash icon-white"></i> 
+								Eliminar
+							</a>
 						</td>
 					</tr>
 					<tr>
@@ -270,109 +83,15 @@
 						<td class="center">
 							<span class="label label-success">Active</span>
 						</td>
-					</tr>
-					<tr>
-						<td>Jack Chris</td>
-						<td class="center">2012/01/01</td>
-						<td class="center">Member</td>
 						<td class="center">
-							<span class="label label-success">Active</span>
-						</td>
-					</tr>
-					<tr>
-						<td>Muhammad Usman</td>
-						<td class="center">2012/01/01</td>
-						<td class="center">Member</td>
-						<td class="center">
-							<span class="label label-success">Active</span>
-						</td>
-					</tr>
-					<tr>
-						<td>Sheikh Heera</td>
-						<td class="center">2012/02/01</td>
-						<td class="center">Staff</td>
-						<td class="center">
-							<span class="label label-important">Banned</span>
-						</td>
-					</tr>
-					<tr>
-						<td>Helen Garner</td>
-						<td class="center">2012/02/01</td>
-						<td class="center">Staff</td>
-						<td class="center">
-							<span class="label label-important">Banned</span>
-						</td>
-					</tr>
-					<tr>
-						<td>Saruar Ahmed</td>
-						<td class="center">2012/03/01</td>
-						<td class="center">Member</td>
-						<td class="center">
-							<span class="label label-warning">Pending</span>
-						</td>
-					</tr>
-					<tr>
-						<td>Ahemd Saruar</td>
-						<td class="center">2012/03/01</td>
-						<td class="center">Member</td>
-						<td class="center">
-							<span class="label label-warning">Pending</span>
-						</td>
-					</tr>
-					<tr>
-						<td>Habib Rizwan</td>
-						<td class="center">2012/01/21</td>
-						<td class="center">Staff</td>
-						<td class="center">
-							<span class="label label-success">Active</span>
-						</td>
-					</tr>
-					<tr>
-						<td>Rizwan Habib</td>
-						<td class="center">2012/01/21</td>
-						<td class="center">Staff</td>
-						<td class="center">
-							<span class="label label-success">Active</span>
-						</td>
-					</tr>
-				  </tbody>
-			  </table> 
-			</div>
-			<!-- div class="modal-footer">
-				<a href="#" class="btn" data-dismiss="modal">Cancelar</a>
-				<a href="#" class="btn btn-primary">Guardar</a>
-			</div -->
-		</div> 
-		<div class="modal hide fade" id="modalBuscarProductos">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">x</button>
-				<h3>Productos</h3>
-			</div>
-			<div class="modal-body">
-				<table class="table table-striped table-bordered bootstrap-datatable datatable">
-				  <thead>
-					  <tr>
-						  <th>Código</th>
-						  <th>Nombre del Producto</th>
-						  <th>Stock</th>
-						  <th>Precio</th>
-					  </tr>
-				  </thead>   
-				  <tbody>
-					<tr>
-						<td>David R</td>
-						<td class="center">2012/01/01</td>
-						<td class="center">Member</td>
-						<td class="center">
-							<span class="label label-success">Active</span>
-						</td>
-					</tr>
-					<tr>
-						<td>Chris Jack</td>
-						<td class="center">2012/01/01</td>
-						<td class="center">Member</td>
-						<td class="center">
-							<span class="label label-success">Active</span>
+							<a class="btn btn-info" href="#">
+								<i class="icon-edit icon-white"></i>  
+								Editar                                            
+							</a>
+							<a class="btn btn-danger" href="#">
+								<i class="icon-trash icon-white"></i> 
+								Eliminar
+							</a>
 						</td>
 					</tr>
 					<tr>
@@ -382,6 +101,16 @@
 						<td class="center">
 							<span class="label label-success">Active</span>
 						</td>
+						<td class="center">
+							<a class="btn btn-info" href="#">
+								<i class="icon-edit icon-white"></i>  
+								Editar                                            
+							</a>
+							<a class="btn btn-danger" href="#">
+								<i class="icon-trash icon-white"></i> 
+								Eliminar
+							</a>
+						</td>
 					</tr>
 					<tr>
 						<td>Muhammad Usman</td>
@@ -389,6 +118,16 @@
 						<td class="center">Member</td>
 						<td class="center">
 							<span class="label label-success">Active</span>
+						</td>
+						<td class="center">
+							<a class="btn btn-info" href="#">
+								<i class="icon-edit icon-white"></i>  
+								Editar                                            
+							</a>
+							<a class="btn btn-danger" href="#">
+								<i class="icon-trash icon-white"></i> 
+								Eliminar
+							</a>
 						</td>
 					</tr>
 					<tr>
@@ -398,6 +137,16 @@
 						<td class="center">
 							<span class="label label-important">Banned</span>
 						</td>
+						<td class="center">
+							<a class="btn btn-info" href="#">
+								<i class="icon-edit icon-white"></i>  
+								Editar                                            
+							</a>
+							<a class="btn btn-danger" href="#">
+								<i class="icon-trash icon-white"></i> 
+								Eliminar
+							</a>
+						</td>
 					</tr>
 					<tr>
 						<td>Helen Garner</td>
@@ -405,6 +154,16 @@
 						<td class="center">Staff</td>
 						<td class="center">
 							<span class="label label-important">Banned</span>
+						</td>
+						<td class="center">
+							<a class="btn btn-info" href="#">
+								<i class="icon-edit icon-white"></i>  
+								Editar                                            
+							</a>
+							<a class="btn btn-danger" href="#">
+								<i class="icon-trash icon-white"></i> 
+								Eliminar
+							</a>
 						</td>
 					</tr>
 					<tr>
@@ -414,6 +173,16 @@
 						<td class="center">
 							<span class="label label-warning">Pending</span>
 						</td>
+						<td class="center">
+							<a class="btn btn-info" href="#">
+								<i class="icon-edit icon-white"></i>  
+								Editar                                            
+							</a>
+							<a class="btn btn-danger" href="#">
+								<i class="icon-trash icon-white"></i> 
+								Eliminar
+							</a>
+						</td>
 					</tr>
 					<tr>
 						<td>Ahemd Saruar</td>
@@ -421,6 +190,16 @@
 						<td class="center">Member</td>
 						<td class="center">
 							<span class="label label-warning">Pending</span>
+						</td>
+						<td class="center">
+							<a class="btn btn-info" href="#">
+								<i class="icon-edit icon-white"></i>  
+								Editar                                            
+							</a>
+							<a class="btn btn-danger" href="#">
+								<i class="icon-trash icon-white"></i> 
+								Eliminar
+							</a>
 						</td>
 					</tr>
 					<tr>
@@ -430,6 +209,16 @@
 						<td class="center">
 							<span class="label label-success">Active</span>
 						</td>
+						<td class="center">
+							<a class="btn btn-info" href="#">
+								<i class="icon-edit icon-white"></i>  
+								Editar                                            
+							</a>
+							<a class="btn btn-danger" href="#">
+								<i class="icon-trash icon-white"></i> 
+								Eliminar
+							</a>
+						</td>
 					</tr>
 					<tr>
 						<td>Rizwan Habib</td>
@@ -438,15 +227,38 @@
 						<td class="center">
 							<span class="label label-success">Active</span>
 						</td>
+						<td class="center">
+							<a class="btn btn-info" href="#">
+								<i class="icon-edit icon-white"></i>  
+								Editar                                            
+							</a>
+							<a class="btn btn-danger" href="#">
+								<i class="icon-trash icon-white"></i> 
+								Eliminar
+							</a>
+						</td>
 					</tr>
-				  </tbody>
-			  </table>
+				</tbody>
+			</table>
+			<div class="form-horizontal">
+				<fieldset>
+					<div class="control-group">
+						<label class="control-label" for="cantidadtotal">Cantidad Total de Productos</label>
+						<div class="controls">
+				  			<input id="cantidad" name="cantidadtotal" type="number" style="margin: 0 18px 0 0;">
+							<label style="display:inline;" for="subtotal">SubTotal</label>
+				  			<input id="cantidad" name="subtotal" type="number" style="margin: 0 18px;">
+							<label style="display:inline;" for="montodeja">Monto a Dejar</label>
+				  			<input id="montodeja" name="montodeja" type="number" style="margin: 0 18px;">
+				  			<label style="display:inline;">Total a Pagar</label>
+				  			<input id="totalpagar" name="totalpagar" type="number" style="margin: 0 18px;">
+				  			<button type="submit" class="btn btn-primary">Separar</button>
+						</div>
+			  		</div>
+				</fieldset>
 			</div>
-			<!-- div class="modal-footer">
-				<a href="#" class="btn" data-dismiss="modal">Cancelar</a>
-				<a href="#" class="btn btn-primary">Guardar</a>
-			</div -->
-		</div>       
+			{% include 'DicarsVentasBundle:Default:buscarcliente.html.twig' %}
+			{% include 'DicarsVentasBundle:Default:buscarproducto.html.twig' %}   
 		</div>
 	</div><!--/span-->
 </div><!--/row-->

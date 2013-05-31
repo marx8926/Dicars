@@ -13,3 +13,6 @@ dicars_ventas_trabajadores:
 dicars_ventas_separar_productos:
     pattern: /separar_productos
     defaults: { _controller: DicarsVentasBundle:Default:separar_productos }
+dicars_ventas_regimp_tarjetacredito:
+    pattern: /regimp_tarjetacredito
+    defaults: { _controller: DicarsVentasBundle:Default:regimp_tarjetacredito }

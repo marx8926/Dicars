@@ -658,6 +658,9 @@ input[type="color"],
   line-height: 18px;
   color: #555555;
 }
+input[type="number"]{
+	width: 65px;
+}
 input,
 textarea {
   width: 210px;
