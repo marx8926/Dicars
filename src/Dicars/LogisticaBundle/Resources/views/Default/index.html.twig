@@ -1,1 +1,10 @@
-Hello {{ name }}!
+{% extends "::baseCharisma.html.twig" %}
+{% block title %}Logística -{% endblock %}
+{% block breadcrumb %}
+<li>
+	<a href="{{path('dicars_logistica_homepage')}}">Logística</a>
+</li>
+{% endblock %}
+{% block content %}
+ Vista Principal de Logística
+{% endblock %}

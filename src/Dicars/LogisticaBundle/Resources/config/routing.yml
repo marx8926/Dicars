@@ -1,3 +1,6 @@
 dicars_logistica_homepage:
-    pattern:  /hello/{name}
+    pattern:  /index
     defaults: { _controller: DicarsLogisticaBundle:Default:index }
+dicars_logistica_productos:
+    pattern:  /productos
+    defaults: { _controller: DicarsLogisticaBundle:Default:productos }

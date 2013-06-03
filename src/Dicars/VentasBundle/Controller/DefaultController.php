@@ -30,4 +30,20 @@ class DefaultController extends Controller
     {
     	return $this->render('DicarsVentasBundle:Default:regimp_tarjetacredito.html.twig');
     }
+    public function cronogramaAction()
+    {
+    	return $this->render('DicarsVentasBundle:Default:cronogramapago.html.twig');
+    }
+    public function ingregr_diaAction()
+    {
+    	return $this->render('DicarsVentasBundle:Default:reporte_ing_egr_dia.html.twig');
+    }
+    public function reporte_zonasAction()
+    {
+    	return $this->render('DicarsVentasBundle:Default:reporte_zonas.html.twig');
+    }
+    public function control_salidasAction()
+    {
+    	return $this->render('DicarsVentasBundle:Default:control_salidas_crecon.html.twig');
+    }
 }

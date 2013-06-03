@@ -16,3 +16,15 @@ dicars_ventas_separar_productos:
 dicars_ventas_regimp_tarjetacredito:
     pattern: /regimp_tarjetacredito
     defaults: { _controller: DicarsVentasBundle:Default:regimp_tarjetacredito }
+dicars_ventas_cronograma:
+    pattern: /cronograma
+    defaults: { _controller: DicarsVentasBundle:Default:cronograma }
+dicars_ventas_ingregr_dia:
+    pattern: /ingregr_dia
+    defaults: { _controller: DicarsVentasBundle:Default:ingregr_dia }
+dicars_ventas_reporte_zonas:
+    pattern: /reporte_zonas
+    defaults: { _controller: DicarsVentasBundle:Default:reporte_zonas }
+dicars_ventas_control_salidas:
+    pattern: /control_salidas
+    defaults: { _controller: DicarsVentasBundle:Default:control_salidas }

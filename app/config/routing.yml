@@ -8,7 +8,7 @@ dicars_contabilidad:
 
 dicars_logistica:
     resource: "@DicarsLogisticaBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /logistica/
 
 dicars_ventas:
     resource: "@DicarsVentasBundle/Resources/config/routing.yml"
