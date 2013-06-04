@@ -1,0 +1,239 @@
+{% extends "::baseCharisma.html.twig" %}
+{% block title %}Salida de Productos: Consultar - Logística -{% endblock %}
+{% block breadcrumb %}
+<li>
+	<a href="{{path('dicars_logistica_homepage')}}">Logística</a><span class="divider">/</span>
+</li>
+<li>
+	<a href="{{path('dicars_logistica_cons_salidaproductos')}}">Salida de Productos: Consultar</a>
+</li>
+</li>
+{% endblock %}
+{% block content %}
+<div class="row-fluid sortable">		
+	<div class="box span12">
+		<div class="box-header well" data-original-title>
+			<h2>Salida de Productos</h2>
+		</div>
+		<div class="box-content">
+			<div class="form-horizontal">
+				<fieldset>
+					<div class="control-group">
+						<label class="control-label">Del</label>
+						<div class="controls">
+							<input type="text" class="input-xlarge datepicker" id="date01" value="02/06/2013" style="margin: 0 18px 0 0;">
+							<label style="display:inline;">Al</label>
+					  		<input type="text" class="input-xlarge datepicker" id="date02" value="02/06/2013" style="margin: 0 18px;">
+						</div>
+					</div>
+					<div class="control-group">
+						<div class="controls">
+							<label class="checkbox inline">
+								<input type="checkbox" id="inlineCheckbox1" value="option1"> Por Solicitante
+							</label>
+							<input id="solicitante" name="solicitante" type="text" style="margin: 0 18px;">
+						</div>
+					</div>
+				</fieldset>
+			</div>
+			<hr style="align:center; background:#ddd; border:0px; height:1px;">
+			<table class="table table-striped table-bordered bootstrap-datatable datatable">
+				<thead>
+					<tr>
+						<th>Cantidad</th>
+					  	<th>Nombre de Producto</th>
+					  	<th>Código</th>
+					  	<th>Precio</th>
+					  	<th>Acciones</th>
+				  	</tr>
+			  	</thead>   
+			  	<tbody>
+					<tr>
+						<td>David R</td>
+						<td class="center">2012/01/01</td>
+						<td class="center">Member</td>
+						<td class="center">
+							<span class="label label-success">Active</span>
+						</td>
+						<td class="center">
+							<a class="btn btn-info btn-editar" href="#">
+								<i class="icon-edit icon-white"></i>  
+								Editar
+							</a>
+							<a class="btn btn-danger" href="#">
+								<i class="icon-trash icon-white"></i> 
+								Eliminar
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Chris Jack</td>
+						<td class="center">2012/01/01</td>
+						<td class="center">Member</td>
+						<td class="center">
+							<span class="label label-success">Active</span>
+						</td>
+						<td class="center">
+							<a class="btn btn-info" href="#">
+								<i class="icon-edit icon-white"></i>  
+								Editar                                            
+							</a>
+							<a class="btn btn-danger" href="#">
+								<i class="icon-trash icon-white"></i> 
+								Eliminar
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Jack Chris</td>
+						<td class="center">2012/01/01</td>
+						<td class="center">Member</td>
+						<td class="center">
+							<span class="label label-success">Active</span>
+						</td>
+						<td class="center">
+							<a class="btn btn-info" href="#">
+								<i class="icon-edit icon-white"></i>  
+								Editar                                            
+							</a>
+							<a class="btn btn-danger" href="#">
+								<i class="icon-trash icon-white"></i> 
+								Eliminar
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Muhammad Usman</td>
+						<td class="center">2012/01/01</td>
+						<td class="center">Member</td>
+						<td class="center">
+							<span class="label label-success">Active</span>
+						</td>
+						<td class="center">
+							<a class="btn btn-info" href="#">
+								<i class="icon-edit icon-white"></i>  
+								Editar                                            
+							</a>
+							<a class="btn btn-danger" href="#">
+								<i class="icon-trash icon-white"></i> 
+								Eliminar
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Sheikh Heera</td>
+						<td class="center">2012/02/01</td>
+						<td class="center">Staff</td>
+						<td class="center">
+							<span class="label label-important">Banned</span>
+						</td>
+						<td class="center">
+							<a class="btn btn-info" href="#">
+								<i class="icon-edit icon-white"></i>  
+								Editar                                            
+							</a>
+							<a class="btn btn-danger" href="#">
+								<i class="icon-trash icon-white"></i> 
+								Eliminar
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Helen Garner</td>
+						<td class="center">2012/02/01</td>
+						<td class="center">Staff</td>
+						<td class="center">
+							<span class="label label-important">Banned</span>
+						</td>
+						<td class="center">
+							<a class="btn btn-info" href="#">
+								<i class="icon-edit icon-white"></i>  
+								Editar                                            
+							</a>
+							<a class="btn btn-danger" href="#">
+								<i class="icon-trash icon-white"></i> 
+								Eliminar
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Saruar Ahmed</td>
+						<td class="center">2012/03/01</td>
+						<td class="center">Member</td>
+						<td class="center">
+							<span class="label label-warning">Pending</span>
+						</td>
+						<td class="center">
+							<a class="btn btn-info" href="#">
+								<i class="icon-edit icon-white"></i>  
+								Editar                                            
+							</a>
+							<a class="btn btn-danger" href="#">
+								<i class="icon-trash icon-white"></i> 
+								Eliminar
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Ahemd Saruar</td>
+						<td class="center">2012/03/01</td>
+						<td class="center">Member</td>
+						<td class="center">
+							<span class="label label-warning">Pending</span>
+						</td>
+						<td class="center">
+							<a class="btn btn-info" href="#">
+								<i class="icon-edit icon-white"></i>  
+								Editar                                            
+							</a>
+							<a class="btn btn-danger" href="#">
+								<i class="icon-trash icon-white"></i> 
+								Eliminar
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Habib Rizwan</td>
+						<td class="center">2012/01/21</td>
+						<td class="center">Staff</td>
+						<td class="center">
+							<span class="label label-success">Active</span>
+						</td>
+						<td class="center">
+							<a class="btn btn-info" href="#">
+								<i class="icon-edit icon-white"></i>  
+								Editar                                            
+							</a>
+							<a class="btn btn-danger" href="#">
+								<i class="icon-trash icon-white"></i> 
+								Eliminar
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Rizwan Habib</td>
+						<td class="center">2012/01/21</td>
+						<td class="center">Staff</td>
+						<td class="center">
+							<span class="label label-success">Active</span>
+						</td>
+						<td class="center">
+							<a class="btn btn-info" href="#">
+								<i class="icon-edit icon-white"></i>  
+								Editar                                            
+							</a>
+							<a class="btn btn-danger" href="#">
+								<i class="icon-trash icon-white"></i> 
+								Eliminar
+							</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<hr style="align:center; background:#ddd; border:0px; height:1px;">
+			<button class="btn btn-success">PDF</button>
+			<button class="btn btn-success">Excel</button>
+		</div>
+	</div>
+</div>
+{% endblock %}

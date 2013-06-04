@@ -1,0 +1,51 @@
+{% extends "::baseCharisma.html.twig" %}
+{% block title %}Salida Productos: Registrar - Logística -{% endblock %}
+{% block breadcrumb %}
+<li>
+	<a href="{{path('dicars_logistica_homepage')}}">Logística</a><span class="divider">/</span>
+</li>
+<li>
+	<a href="{{path('dicars_logistica_reg_salidaproductos')}}">Salida Productos: Registrar</a>
+</li>
+</li>
+{% endblock %}
+{% block content %}
+<div class="row-fluid sortable">		
+	<div class="box span12">
+		<div class="box-header well" data-original-title>
+			<h2>Salida Productos: Registrar</h2>
+		</div>
+		<div class="box-content">
+			<form class="form-horizontal">
+				<fieldset>
+					<div class="control-group">
+						<label class="control-label" for="codigotar">Código de Tarjeta</label>
+						<div class="controls">
+							<input class="input-xlarge focused" id="codigotar" type="text">
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="cliente">Cliente</label>
+						<div class="controls">
+							<input class="input-xlarge focused" id="cliente" type="text">
+							<button type="button" class="btn btn-info" style="margin-left: 15px;">Buscar</button>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="cliente">Vista Previa</label>
+						<div class="controls">
+							<figure>
+								<img src="tarjeta.jpg" alt="Tarjeta">
+							</figure>
+						</div>
+					</div>
+					<div class="form-actions">
+						<button type="submit" class="btn btn-primary">Registrar</button>
+						<button class="btn" >Imprimir</button>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+</div>
+{% endblock %}

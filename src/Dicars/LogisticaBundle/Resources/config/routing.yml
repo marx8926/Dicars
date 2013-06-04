@@ -4,3 +4,18 @@ dicars_logistica_homepage:
 dicars_logistica_productos:
     pattern:  /productos
     defaults: { _controller: DicarsLogisticaBundle:Default:productos }
+dicars_logistica_proveedores:
+    pattern:  /proveedores
+    defaults: { _controller: DicarsLogisticaBundle:Default:proveedores }
+dicars_logistica_almacenes:
+    pattern:  /almacenes
+    defaults: { _controller: DicarsLogisticaBundle:Default:almacenes }
+dicars_logistica_cons_salidaproductos:
+    pattern:  /cons_salidaproductos
+    defaults: { _controller: DicarsLogisticaBundle:Default:cons_salidaproductos }
+dicars_logistica_reg_salidaproductos:
+    pattern:  /reg_salidaproductos
+    defaults: { _controller: DicarsLogisticaBundle:Default:reg_salidaproductos }
+dicars_logistica_ingre_salidaproductos:
+    pattern:  /cons_ingresoproductos
+    defaults: { _controller: DicarsLogisticaBundle:Default:cons_ingresoproductos }
