@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="LogKardex" table="log_kardex">
+    <id name="nkardexId" type="integer" column="nKardex_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="ckardexserie" type="string" column="cKardexSerie" length="4" nullable="true"/>
+    <field name="ckardexnro" type="string" column="cKardexNro" length="8" nullable="true"/>
+    <field name="ckardextipoing" type="string" column="cKardexTipoIng" length="1" nullable="false"/>
+    <field name="nkardexprecunt" type="decimal" column="nKardexPrecUnt" nullable="true"/>
+    <field name="nkardexcant" type="integer" column="nKardexCant" nullable="true"/>
+    <field name="nkardextot" type="decimal" column="nKardexTot" nullable="true"/>
+    <field name="nkardexsaldocant" type="integer" column="nKardexSaldoCant" nullable="false"/>
+    <field name="nkardexsaldoprecunt" type="decimal" column="nKardexSaldoPrecUnt" nullable="false"/>
+    <field name="nkardexsaldotot" type="decimal" column="nKardexSaldoTot" nullable="false"/>
+    <many-to-one field="nlocal" target-entity="Local">
+      <join-columns>
+        <join-column name="nLocal_id" referenced-column-name="nLocal_id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="nproducto" target-entity="Producto">
+      <join-columns>
+        <join-column name="nProducto_id" referenced-column-name="nProducto_id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

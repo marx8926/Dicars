@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Producto" table="producto">
+    <id name="nproductoId" type="integer" column="nProducto_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="cproductoserie" type="string" column="cProductoSerie" length="15" nullable="false"/>
+    <field name="cproductotalla" type="string" column="cProductoTalla" length="15" nullable="false"/>
+    <field name="nproductotipo" type="integer" column="nProductoTipo" nullable="false"/>
+    <field name="cproductodesc" type="text" column="cProductoDesc" nullable="false"/>
+    <field name="nproductopcontado" type="decimal" column="nProductoPContado" nullable="false"/>
+    <field name="nproductopcredito" type="decimal" column="nProductoPCredito" nullable="false"/>
+    <field name="nproductopcosto" type="decimal" column="nProductoPCosto" nullable="false"/>
+    <field name="cproductocodbarra" type="text" column="cProductoCodBarra" nullable="false"/>
+    <field name="cproductoarchivo" type="text" column="cProductoArchivo" nullable="false"/>
+    <field name="nproductostockmin" type="integer" column="nProductoStockMin" nullable="false"/>
+    <field name="nproductostockmax" type="integer" column="nProductoStockMax" nullable="false"/>
+    <field name="nproductosotck" type="integer" column="nProductoSotck" nullable="false"/>
+    <field name="cproductoest" type="string" column="cProductoEst" length="1" nullable="false"/>
+    <field name="nproductoporcuti" type="decimal" column="nProductoPorcUti" nullable="false"/>
+    <field name="nproductoutibruta" type="decimal" column="nProductoUtiBruta" nullable="false"/>
+    <many-to-one field="ncategoria" target-entity="VenCategoria">
+      <join-columns>
+        <join-column name="nCategoria_id" referenced-column-name="nCategoria_id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="nproductomarca" target-entity="VenMarca">
+      <join-columns>
+        <join-column name="nProductoMarca" referenced-column-name="nMarca_id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

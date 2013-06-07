@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="LogDetingprod" table="log_detingprod">
+    <id name="ndetingprodId" type="integer" column="nDetIngProd_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="ndetingprodcant" type="integer" column="nDetIngProdCant" nullable="false"/>
+    <field name="ndetingprodprecunt" type="decimal" column="nDetIngProdPrecUnt" nullable="false"/>
+    <field name="ndetingprodtot" type="decimal" column="nDetIngProdTot" nullable="false"/>
+    <many-to-one field="nproducto" target-entity="Producto">
+      <join-columns>
+        <join-column name="nProducto_id" referenced-column-name="nProducto_id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="ningprod" target-entity="LogIngprod">
+      <join-columns>
+        <join-column name="nIngProd_id" referenced-column-name="nIngProd_id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

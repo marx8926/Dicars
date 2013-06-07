@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="VenVenta" table="ven_venta">
+    <id name="nventaId" type="integer" column="nVenta_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="cventafecreg" type="datetime" column="cVentaFecReg" nullable="false"/>
+    <field name="nventasubtotal" type="decimal" column="nVentaSubTotal" nullable="false"/>
+    <field name="cventaest" type="string" column="cVentaEst" length="1" nullable="false"/>
+    <field name="nventadscto" type="decimal" column="nVentaDscto" nullable="false"/>
+    <field name="nventatippag" type="integer" column="nVentaTipPag" nullable="false"/>
+    <field name="cventaobsv" type="string" column="cVentaObsv" length="500" nullable="false"/>
+    <field name="nventatotapag" type="decimal" column="nVentaTotApag" nullable="false"/>
+    <field name="nventatotamt" type="decimal" column="nVentaTotAmt" nullable="false"/>
+    <field name="nventasaldo" type="decimal" column="nVentaSaldo" nullable="false"/>
+    <many-to-one field="ntipoigv" target-entity="VenTipoigv">
+      <join-columns>
+        <join-column name="nTipoIGV" referenced-column-name="nTipoIGV"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="nlocal" target-entity="Local">
+      <join-columns>
+        <join-column name="nLocal_id" referenced-column-name="nLocal_id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="ntipomoneda" target-entity="VenTipomoneda">
+      <join-columns>
+        <join-column name="nTipoMoneda" referenced-column-name="nTipoMoneda"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="ncliente" target-entity="VenCliente">
+      <join-columns>
+        <join-column name="nCliente_id" referenced-column-name="nCliente_id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="VenTipoigv" table="ven_tipoigv">
+    <id name="ntipoigv" type="integer" column="nTipoIGV">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="ctipoigv" type="string" column="cTipoIGV" length="100" nullable="false"/>
+    <field name="ntipoigvproc" type="decimal" column="nTipoIGVProc" nullable="false"/>
+    <field name="dtipoigvfecreg" type="datetime" column="dTipoIGVFecReg" nullable="false"/>
+    <field name="ctipoigvest" type="string" column="cTipoIGVEst" length="1" nullable="false"/>
+  </entity>
+</doctrine-mapping>

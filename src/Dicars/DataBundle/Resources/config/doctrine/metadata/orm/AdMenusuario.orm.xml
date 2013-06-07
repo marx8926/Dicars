@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="AdMenusuario" table="ad_menusuario">
+    <id name="nmenusuarioId" type="integer" column="nMenUsuario_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="cmenusuarioest" type="string" column="cMenUsuarioEst" length="1" nullable="false"/>
+    <many-to-one field="nusuario" target-entity="Usuario">
+      <join-columns>
+        <join-column name="nUsuario_id" referenced-column-name="nUsuario_id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="nmenu" target-entity="Menu">
+      <join-columns>
+        <join-column name="nMenu_id" referenced-column-name="nMenu_id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

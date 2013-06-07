@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="LogIngprod" table="log_ingprod">
+    <id name="ningprodId" type="integer" column="nIngProd_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="cingprodserie" type="string" column="cIngProdSerie" length="4" nullable="false"/>
+    <field name="cingprodnro" type="string" column="cIngProdNro" length="8" nullable="false"/>
+    <field name="ningprodmotivo" type="integer" column="nIngProdMotivo" nullable="false"/>
+    <field name="cingproddocserie" type="string" column="cIngProdDocSerie" length="4" nullable="false"/>
+    <field name="dingprodfecreg" type="datetime" column="dIngProdFecReg" nullable="false"/>
+    <field name="cingproddocnro" type="string" column="cIngProdDocNro" length="8" nullable="false"/>
+    <field name="cingprodobsv" type="string" column="cIngProdObsv" length="500" nullable="false"/>
+    <many-to-one field="nlocal" target-entity="Local">
+      <join-columns>
+        <join-column name="nLocal_id" referenced-column-name="nLocal_id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="npersonal" target-entity="VenPersonal">
+      <join-columns>
+        <join-column name="nPersonal_id" referenced-column-name="nPersonal_id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

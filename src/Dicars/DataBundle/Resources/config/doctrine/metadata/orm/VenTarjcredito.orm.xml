@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="VenTarjcredito" table="ven_tarjcredito">
+    <id name="ntarjcreditoId" type="integer" column="nTarjCredito_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="ntarjcreditolinea" type="decimal" column="nTarjCreditoLinea" nullable="false"/>
+    <field name="ntarjcreditonroint" type="string" column="nTarjCreditoNroInt" length="500" nullable="false"/>
+    <field name="ntarjcreditoconsumo" type="decimal" column="nTarjCreditoConsumo" nullable="false"/>
+    <field name="ctarjcreditoest" type="string" column="cTarjCreditoEst" length="1" nullable="false"/>
+    <field name="ntarjcreditotipo" type="integer" column="nTarjCreditoTipo" nullable="false"/>
+    <field name="ctarjcreditodesc" type="string" column="cTarjCreditoDesc" length="500" nullable="false"/>
+    <field name="dtarjcreditofecreg" type="datetime" column="dTarjCreditoFecReg" nullable="false"/>
+    <field name="dtarjcreditofecvenc" type="datetime" column="dTarjCreditoFecVenc" nullable="false"/>
+    <field name="ntarjcreditonroext" type="string" column="nTarjCreditoNroExt" length="500" nullable="false"/>
+    <many-to-one field="ncliente" target-entity="VenCliente">
+      <join-columns>
+        <join-column name="nCliente_id" referenced-column-name="nCliente_id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

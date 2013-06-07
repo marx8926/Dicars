@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="LogCierredia" table="log_cierredia">
+    <id name="ncierrediaId" type="integer" column="nCierreDia_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="ncierrefecha" type="date" column="nCierreFecha" nullable="false"/>
+    <field name="ccierredia" type="string" column="cCierreDia" length="12" nullable="false"/>
+    <many-to-one field="nlocal" target-entity="Local">
+      <join-columns>
+        <join-column name="nLocal_id" referenced-column-name="nLocal_id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

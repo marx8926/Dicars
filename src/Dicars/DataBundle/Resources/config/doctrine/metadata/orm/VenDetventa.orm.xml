@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="VenDetventa" table="ven_detventa">
+    <id name="ndetventaId" type="integer" column="nDetVenta_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="ndetventacant" type="decimal" column="nDetVentaCant" nullable="false"/>
+    <field name="ndetventaprecunt" type="decimal" column="nDetVentaPrecUnt" nullable="false"/>
+    <field name="ndetventadscto" type="decimal" column="nDetVentaDscto" nullable="false"/>
+    <field name="ndetventatot" type="decimal" column="nDetVentaTot" nullable="false"/>
+    <many-to-one field="nproducto" target-entity="Producto">
+      <join-columns>
+        <join-column name="nProducto_id" referenced-column-name="nProducto_id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="nventa" target-entity="VenVenta">
+      <join-columns>
+        <join-column name="nVenta_id" referenced-column-name="nVenta_id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

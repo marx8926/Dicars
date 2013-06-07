@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="LogDocordcom" table="log_docordcom">
+    <id name="ndocordcomId" type="integer" column="nDocOrdCom_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="ndocordcomformpag" type="integer" column="nDocOrdComFormPag" nullable="false"/>
+    <field name="ndocordcomserie" type="string" column="nDocOrdComSerie" length="4" nullable="false"/>
+    <field name="ndocordcomnro" type="string" column="nDocOrdComNro" length="8" nullable="false"/>
+    <field name="cdocordcomest" type="string" column="cDocOrdComEst" length="1" nullable="false"/>
+    <field name="ndocordcommodpag" type="integer" column="nDocOrdComModPag" nullable="false"/>
+    <field name="ndocordcomfecreg" type="datetime" column="nDocOrdComFecReg" nullable="false"/>
+    <field name="ddocordcomfecpag" type="datetime" column="dDocOrdComFecPag" nullable="false"/>
+    <many-to-one field="nordencompra" target-entity="LogOrdcom">
+      <join-columns>
+        <join-column name="nOrdenCompra_id" referenced-column-name="nOrdenCom_id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

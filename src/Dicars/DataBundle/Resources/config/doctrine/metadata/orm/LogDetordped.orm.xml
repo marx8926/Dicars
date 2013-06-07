@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="LogDetordped" table="log_detordped">
+    <id name="ndetordpedId" type="integer" column="nDetOrdPed_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="ndetordpedcant" type="decimal" column="nDetOrdPedCant" nullable="false"/>
+    <field name="ndetordpedest" type="string" column="nDetOrdPedEst" length="1" nullable="false"/>
+    <many-to-one field="nproducto" target-entity="Producto">
+      <join-columns>
+        <join-column name="nProducto_id" referenced-column-name="nProducto_id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="nordped" target-entity="LogOrdped">
+      <join-columns>
+        <join-column name="nOrdPed_id" referenced-column-name="nOrdPed_id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

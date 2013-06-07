@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="VenZona" table="ven_zona">
+    <id name="nzonaId" type="integer" column="nZona_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="czonadesc" type="string" column="cZonaDesc" length="100" nullable="false"/>
+    <field name="nzonaest" type="integer" column="nZonaEst" nullable="false"/>
+    <many-to-one field="nubigeo" target-entity="Ubigeo">
+      <join-columns>
+        <join-column name="nUbigeo_id" referenced-column-name="nUbigeo_id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

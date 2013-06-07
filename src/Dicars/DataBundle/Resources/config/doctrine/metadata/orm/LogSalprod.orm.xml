@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="LogSalprod" table="log_salprod">
+    <id name="nsalprodId" type="integer" column="nSalProd_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="csalprodserie" type="string" column="cSalProdSerie" length="4" nullable="false"/>
+    <field name="csalprodnro" type="string" column="cSalProdNro" length="8" nullable="false"/>
+    <field name="dsalprodfecreg" type="datetime" column="dSalProdFecReg" nullable="false"/>
+    <field name="nsalprodmotivo" type="integer" column="nSalProdMotivo" nullable="false"/>
+    <field name="nsolicitanteId" type="integer" column="nSolicitante_id" nullable="false"/>
+    <field name="csalprodobsv" type="string" column="cSalProdObsv" length="500" nullable="false"/>
+    <many-to-one field="nlocal" target-entity="Local">
+      <join-columns>
+        <join-column name="nLocal_id" referenced-column-name="nLocal_id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="npersonal" target-entity="VenPersonal">
+      <join-columns>
+        <join-column name="nPersonal_id" referenced-column-name="nPersonal_id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

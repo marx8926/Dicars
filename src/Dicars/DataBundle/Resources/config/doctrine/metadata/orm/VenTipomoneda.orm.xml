@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="VenTipomoneda" table="ven_tipomoneda">
+    <id name="ntipomoneda" type="integer" column="nTipoMoneda">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="ctipomonedadesc" type="string" column="cTipoMonedaDesc" length="30" nullable="false"/>
+    <field name="ntipomonedacambio" type="decimal" column="nTipoMonedaCambio" nullable="false"/>
+    <field name="ntipomonedaactivo" type="integer" column="nTipoMonedaActivo" nullable="false"/>
+  </entity>
+</doctrine-mapping>

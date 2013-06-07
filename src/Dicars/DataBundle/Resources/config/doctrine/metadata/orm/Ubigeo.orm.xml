@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Ubigeo" table="ubigeo">
+    <id name="nubigeoId" type="integer" column="nUbigeo_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="nubigeodpt" type="integer" column="nUbigeoDpt" nullable="false"/>
+    <field name="nubigeoprov" type="integer" column="nUbigeoProv" nullable="false"/>
+    <field name="nubigeodist" type="integer" column="nUbigeoDist" nullable="false"/>
+    <field name="cubigeodesc" type="string" column="cUbigeoDesc" length="150" nullable="false"/>
+    <field name="nubigeodep" type="integer" column="nUbigeoDep" nullable="false"/>
+  </entity>
+</doctrine-mapping>

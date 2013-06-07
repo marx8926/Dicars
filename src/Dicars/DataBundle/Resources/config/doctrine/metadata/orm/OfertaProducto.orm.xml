@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="OfertaProducto" table="oferta_producto">
+    <id name="nofertaproductoId" type="integer" column="nOfertaProducto_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="nofertaproductoproc" type="decimal" column="nOfertaProductoProc" nullable="false"/>
+    <field name="dofertaproductofec" type="datetime" column="dOfertaProductoFec" nullable="false"/>
+    <many-to-one field="nproducto" target-entity="Producto">
+      <join-columns>
+        <join-column name="nProducto_id" referenced-column-name="nProducto_id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="noferta" target-entity="Oferta">
+      <join-columns>
+        <join-column name="nOferta_id" referenced-column-name="nOferta_id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

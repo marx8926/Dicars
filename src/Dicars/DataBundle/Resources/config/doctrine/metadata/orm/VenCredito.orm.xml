@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="VenCredito" table="ven_credito">
+    <id name="nvencreditoId" type="integer" column="nVenCredito_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="ncreditoformapag" type="integer" column="nCreditoFormaPag" nullable="false"/>
+    <field name="nvencreditoncuota" type="integer" column="nVenCreditoNCuota" nullable="false"/>
+    <field name="nvencreditomontinicial" type="decimal" column="nVenCreditoMontInicial" nullable="false"/>
+    <field name="nvencreditoppag" type="integer" column="nVenCreditoPPag" nullable="false"/>
+    <field name="ccreditoest" type="string" column="cCreditoEst" length="1" nullable="false"/>
+    <many-to-one field="nventa" target-entity="VenVenta">
+      <join-columns>
+        <join-column name="nVenta_id" referenced-column-name="nVenta_id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

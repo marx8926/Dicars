@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="VenTransaccion" table="ven_transaccion">
+    <id name="ntransaccionId" type="integer" column="nTransaccion_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="ctransacciondesc" type="string" column="cTransaccionDesc" length="200" nullable="false"/>
+    <field name="ntransaccionmont" type="decimal" column="nTransaccionMont" nullable="false"/>
+    <field name="dtransaccionfecreg" type="datetime" column="dTransaccionFecReg" nullable="false"/>
+    <field name="ntransacciontippag" type="integer" column="nTransaccionTipPag" nullable="false"/>
+    <many-to-one field="nventa" target-entity="VenVenta">
+      <join-columns>
+        <join-column name="nVenta_id" referenced-column-name="nVenta_id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="npersonal" target-entity="VenPersonal">
+      <join-columns>
+        <join-column name="nPersonal_id" referenced-column-name="nPersonal_id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

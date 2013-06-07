@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="VenCronpago" table="ven_cronpago">
+    <id name="ncronogramaId" type="integer" column="nCronograma_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="ncronpagonrocuota" type="integer" column="nCronPagoNroCuota" nullable="false"/>
+    <field name="ncronpagofecreg" type="datetime" column="nCronPagoFecReg" nullable="false"/>
+    <field name="ncronpagofecpago" type="datetime" column="nCronPagoFecPago" nullable="false"/>
+    <field name="ncronpagomoncouapg" type="decimal" column="nCronPagoMonCouApg" nullable="false"/>
+    <field name="ncronpagomoncouapl" type="decimal" column="nCronPagoMonCouApl" nullable="false"/>
+    <many-to-one field="nvencredito" target-entity="VenCredito">
+      <join-columns>
+        <join-column name="nVenCredito_id" referenced-column-name="nVenCredito_id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

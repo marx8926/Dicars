@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="LogDetcompra" table="log_detcompra">
+    <id name="ndetcompraId" type="integer" column="nDetCompra_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="ndetcompracant" type="integer" column="nDetCompraCant" nullable="false"/>
+    <field name="ndetcompraprecunt" type="decimal" column="nDetCompraPrecUnt" nullable="false"/>
+    <field name="ndetcompraimporte" type="decimal" column="nDetCompraImporte" nullable="false"/>
+    <field name="ndetordordped" type="integer" column="nDetOrdOrdPed" nullable="false"/>
+    <field name="cdetcompraest" type="string" column="cDetCompraEst" length="1" nullable="false"/>
+    <many-to-one field="nproducto" target-entity="Producto">
+      <join-columns>
+        <join-column name="nProducto_id" referenced-column-name="nProducto_id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="nordencompra" target-entity="LogOrdcom">
+      <join-columns>
+        <join-column name="nOrdenCompra_id" referenced-column-name="nOrdenCom_id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

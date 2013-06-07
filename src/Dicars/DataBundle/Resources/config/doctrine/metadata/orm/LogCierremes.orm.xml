@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="LogCierremes" table="log_cierremes">
+    <id name="ncierremesId" type="integer" column="nCierreMes_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="dcierremesfecinicio" type="datetime" column="dCierreMesFecInicio" nullable="false"/>
+    <field name="dcierremesfecfin" type="datetime" column="dCierreMesFecFin" nullable="false"/>
+    <field name="ncierremesnro" type="integer" column="nCierreMesNro" nullable="false"/>
+    <many-to-one field="nlocal" target-entity="Local">
+      <join-columns>
+        <join-column name="nLocal_id" referenced-column-name="nLocal_id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

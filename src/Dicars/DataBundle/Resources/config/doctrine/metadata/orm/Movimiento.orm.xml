@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Movimiento" table="movimiento">
+    <id name="nmovimientoId" type="integer" column="nMovimiento_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="nmovimientomonto" type="decimal" column="nMovimientoMonto" nullable="false"/>
+    <field name="cmovimientoconcepto" type="string" column="cMovimientoConcepto" length="500" nullable="false"/>
+    <field name="dmovimientofecreg" type="datetime" column="dMovimientoFecReg" nullable="false"/>
+    <field name="nmovimientotip" type="integer" column="nMovimientoTip" nullable="false"/>
+    <field name="nmovimientotiping" type="integer" column="nMovimientoTipIng" nullable="false"/>
+    <many-to-one field="npersonal" target-entity="VenPersonal">
+      <join-columns>
+        <join-column name="nPersonal_id" referenced-column-name="nPersonal_id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Constante" table="constante">
+    <id name="nconstanteId" type="integer" column="nConstante_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="nconstanteclase" type="integer" column="nConstanteClase" nullable="false"/>
+    <field name="cconstantedesc" type="string" column="cConstanteDesc" length="100" nullable="false"/>
+    <field name="cconstantevalor" type="integer" column="cConstanteValor" nullable="false"/>
+  </entity>
+</doctrine-mapping>

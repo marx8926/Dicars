@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="VenListareq" table="ven_listareq">
+    <id name="nlistareqId" type="integer" column="nListaReq_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="nlistareqtipo" type="integer" column="nListaReqTipo" nullable="false"/>
+    <field name="clistareqobs" type="string" column="cListaReqObs" length="500" nullable="false"/>
+    <field name="clistareqest" type="string" column="cListaReqEst" length="1" nullable="false"/>
+    <many-to-one field="ncliente" target-entity="VenCliente">
+      <join-columns>
+        <join-column name="nCliente_id" referenced-column-name="nCliente_id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

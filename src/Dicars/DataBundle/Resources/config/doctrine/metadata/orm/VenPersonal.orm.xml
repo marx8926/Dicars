@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="VenPersonal" table="ven_personal">
+    <id name="npersonalId" type="integer" column="nPersonal_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="cpersonaldni" type="string" column="cPersonalDNI" length="8" nullable="false"/>
+    <field name="cpersonalnom" type="string" column="cPersonalNom" length="50" nullable="false"/>
+    <field name="cpersonalape" type="string" column="cPersonalApe" length="50" nullable="false"/>
+    <field name="cpersonaltelf" type="string" column="cPersonalTelf" length="12" nullable="false"/>
+    <field name="cpersonalemail" type="string" column="cPersonalEmail" length="100" nullable="false"/>
+    <field name="dpersonalfec" type="datetime" column="dPersonalFec" nullable="false"/>
+    <field name="cpersonalsexo" type="string" column="cPersonalSexo" length="1" nullable="false"/>
+    <field name="cpersonalest" type="string" column="cPersonalEst" length="1" nullable="false"/>
+    <field name="cpersonaledad" type="string" column="cPersonalEdad" length="3" nullable="false"/>
+    <many-to-one field="ncargo" target-entity="VenCargo">
+      <join-columns>
+        <join-column name="nCargo_id" referenced-column-name="nCargo_id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

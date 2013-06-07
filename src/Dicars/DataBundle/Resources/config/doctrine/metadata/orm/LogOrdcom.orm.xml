@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="LogOrdcom" table="log_ordcom">
+    <id name="nordencomId" type="integer" column="nOrdenCom_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="ordcomfecreg" type="datetime" column="OrdComFecReg" nullable="false"/>
+    <field name="cordcomserie" type="string" column="cOrdComSerie" length="4" nullable="false"/>
+    <field name="cordcomnro" type="string" column="cOrdComNro" length="8" nullable="false"/>
+    <field name="nordcomsubtotal" type="decimal" column="nOrdComSubTotal" nullable="false"/>
+    <field name="nordcomigv" type="decimal" column="nOrdComIGV" nullable="false"/>
+    <field name="nordcomtotal" type="decimal" column="nOrdComTotal" nullable="false"/>
+    <field name="cordcomobsv" type="string" column="cOrdComObsv" length="500" nullable="false"/>
+    <field name="cordcomest" type="string" column="cOrdComEst" length="1" nullable="false"/>
+    <field name="nordcomdesct" type="decimal" column="nOrdComDesct" nullable="false"/>
+    <field name="nordcomreceqv" type="decimal" column="nOrdComRecEqv" nullable="false"/>
+    <field name="nordcomretencion" type="decimal" column="nOrdComRetencion" nullable="false"/>
+    <many-to-one field="nproveedor" target-entity="LogProveedor">
+      <join-columns>
+        <join-column name="nProveedor_id" referenced-column-name="nProveedor_id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="npersonal" target-entity="VenPersonal">
+      <join-columns>
+        <join-column name="nPersonal_id" referenced-column-name="nPersonal_id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

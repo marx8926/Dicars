@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="LogProveedor" table="log_proveedor">
+    <id name="nproveedorId" type="integer" column="nProveedor_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="cproveedorruc" type="string" column="cProveedorRuc" length="11" nullable="false"/>
+    <field name="cproveedorrazsocial" type="string" column="cProveedorRazSocial" length="200" nullable="false"/>
+    <field name="cproveedortel" type="string" column="cProveedorTel" length="25" nullable="false"/>
+    <field name="cproveedoremail" type="string" column="cProveedorEmail" length="100" nullable="false"/>
+    <field name="cproveedorsitioweb" type="string" column="cProveedorSitioWeb" length="150" nullable="true"/>
+    <field name="cproveedordirec" type="string" column="cProveedorDirec" length="200" nullable="false"/>
+    <field name="cproveedorccorriente" type="string" column="cProveedorCCorriente" length="20" nullable="true"/>
+  </entity>
+</doctrine-mapping>

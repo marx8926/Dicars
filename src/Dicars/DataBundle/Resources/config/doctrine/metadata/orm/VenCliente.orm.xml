@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="VenCliente" table="ven_cliente">
+    <id name="nclienteId" type="integer" column="nCliente_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="bclientenom" type="string" column="bClienteNom" length="50" nullable="false"/>
+    <field name="cclienteape" type="string" column="cClienteApe" length="50" nullable="false"/>
+    <field name="cclientedni" type="string" column="cClienteDNI" length="8" nullable="false"/>
+    <field name="cclienteref" type="string" column="cClienteRef" length="200" nullable="false"/>
+    <field name="cclientecdir" type="string" column="cClientecDir" length="200" nullable="false"/>
+    <field name="nclientelineaop" type="decimal" column="nClienteLineaOp" nullable="false"/>
+    <field name="cclientearccredito" type="text" column="cClienteArcCredito" nullable="false"/>
+    <field name="cclienteocup" type="string" column="cClienteOcup" length="40" nullable="false"/>
+    <many-to-one field="nzona" target-entity="VenZona">
+      <join-columns>
+        <join-column name="nZona_id" referenced-column-name="nZona_id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

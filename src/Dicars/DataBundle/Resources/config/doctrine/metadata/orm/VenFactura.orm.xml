@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="VenFactura" table="ven_factura">
+    <id name="nfacturaId" type="integer" column="nFactura_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="cfacturanro" type="string" column="cFacturaNro" length="8" nullable="false"/>
+    <field name="cfacturaserie" type="string" column="cFacturaSerie" length="4" nullable="false"/>
+    <many-to-one field="ndocumento" target-entity="VenDocventa">
+      <join-columns>
+        <join-column name="nDocumento_id" referenced-column-name="nDocumento_id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

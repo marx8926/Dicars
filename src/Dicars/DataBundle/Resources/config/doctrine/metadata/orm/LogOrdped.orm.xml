@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="LogOrdped" table="log_ordped">
+    <id name="nordpedId" type="integer" column="nOrdPed_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="cordpedserie" type="string" column="cOrdPedSerie" length="4" nullable="false"/>
+    <field name="cordpednro" type="string" column="cOrdPedNro" length="8" nullable="false"/>
+    <field name="cordpedenvemail" type="string" column="cOrdPedEnvEmail" length="1" nullable="false"/>
+    <field name="dordpedfecreg" type="datetime" column="dOrdPedFecReg" nullable="false"/>
+    <field name="dordepedfecent" type="datetime" column="dOrdePedFecEnt" nullable="false"/>
+    <field name="cordpedobsv" type="string" column="cOrdPedObsv" length="500" nullable="false"/>
+    <field name="cordpedest" type="string" column="cOrdPedEst" length="1" nullable="false"/>
+    <many-to-one field="nlocal" target-entity="Local">
+      <join-columns>
+        <join-column name="nLocal_id" referenced-column-name="nLocal_id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="npersonal" target-entity="VenPersonal">
+      <join-columns>
+        <join-column name="nPersonal_id" referenced-column-name="nPersonal_id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

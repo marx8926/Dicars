@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Local" table="local">
+    <id name="nlocalId" type="integer" column="nLocal_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="clocaldesc" type="string" column="cLocalDesc" length="100" nullable="false"/>
+    <field name="nlocalest" type="integer" column="nLocalEst" nullable="false"/>
+    <field name="clocaltelf" type="string" column="cLocalTelf" length="12" nullable="false"/>
+    <field name="clocaldirec" type="string" column="cLocalDirec" length="150" nullable="false"/>
+    <field name="nlocaltiprub" type="integer" column="nLocalTipRub" nullable="false"/>
+    <many-to-one field="ubigeoNubigeo" target-entity="Ubigeo">
+      <join-columns>
+        <join-column name="Ubigeo_nUbigeo_id" referenced-column-name="nUbigeo_id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
