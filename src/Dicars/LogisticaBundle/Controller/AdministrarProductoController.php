@@ -38,16 +38,14 @@ class AdministrarProductoController extends Controller{
 		$Producto_porc_uti = null;
 		$Producto_porc_uti_bruta = null;			
 		
-		$em = $this->getDoctrine()->getEntityManager();
-		
 		if ($form!=null){
 			$Producto_id = $datos["codigo"];
 			$Producto_talla = $datos["talla"];
 			$Producto_serie = $datos["serie"];
 			
 			$Producto_marca = $this->getDoctrine()
-			->getRepository('DicarsDataBundle:VenMarca')
-			->findOneById(1);
+    		->getRepository('DicarsDataBundle:VenMarca')
+			->findOneBy(array('nmarcaId'  => 1));
 			
 		$Producto_tipo = $datos["tipo"];
 		$Producto_desc = $datos["caracteristica"];
@@ -57,9 +55,9 @@ class AdministrarProductoController extends Controller{
 		$Producto_cod_barra = "AER1234";
 		$Producto_archivo = "Hola soy el archivo";
 		
-		$Producto_categoria = $this->getDoctrine()
-		->getRepository('DicarsDataBundle:VenCategoria')
-		->findOneById(1);
+		$Producto_categoria =  $this->getDoctrine()
+    	->getRepository('DicarsDataBundle:VenCategoria')
+		->findOneBy(array('ncategoriaId' => 1));
 		
 		$Producto_stock_min = 10;
 		$Producto_stock_max = 40;
@@ -87,7 +85,7 @@ class AdministrarProductoController extends Controller{
 		$Producto->setNproductoporcuti($Producto_porc_uti);
 		$Producto->setNproductoutibruta($Producto_porc_uti_bruta);
 		
-		/*$em = $this->getDoctrine()->getEntityManager();
+		$em = $this->getDoctrine()->getEntityManager();
 		$this->getDoctrine()->getEntityManager()->beginTransaction();
 		try {
 			$em->persist($Producto);
@@ -96,10 +94,10 @@ class AdministrarProductoController extends Controller{
 			$this->getDoctrine()->getEntityManager()->rollback();
 			$this->getDoctrine()->getEntityManager()->close();
 			$return = array("responseCode"=>400, "greeting"=>"Bad");
-			
+						
 			throw $e;			
 		}
-			$this->getDoctrine()->getEntityManager()->commit();*/
+			$this->getDoctrine()->getEntityManager()->commit();
 			$return = array("responseCode"=>200, "datos"=>$datos);
 					
 		}
