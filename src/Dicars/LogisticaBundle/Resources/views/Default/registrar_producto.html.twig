@@ -4,7 +4,7 @@
 		<h3>Registrar Producto</h3>
 	</div>
 	<div class="modal-body">
-		<form id="RegistrarProductoForm" class="form-horizontal" method="post" action="dicars_logistica_registrar_producto">
+		<form id="RegistrarProductoForm" class="form-horizontal" method="post" action="{{ path('dicars_logistica_registrar_producto') }}">
 			<fieldset>
 			  <div class="control-group">
 				<label class="control-label" for="focusedInput">Código</label>
@@ -33,7 +33,7 @@
 			  <div class="control-group">
 				<label class="control-label" for="tipo">Tipo</label>
 				<div class="controls">
-				  <select id="tipo" data-rel="chosen">
+				  <select id="tipo" name="tipo" data-rel="chosen">
 					<option value='1'>Option 1</option>
 					<option value='2'>Option 2</option>
 					<option value='3'>Option 3</option>
@@ -43,13 +43,13 @@
 				</div>
 			  </div>
 			  <div class="control-group">
-				<label class="control-label" for="focusedInput">Característica</label>
+				<label class="control-label" for="caracteristica">Característica</label>
 				<div class="controls">
 				  <textarea class="input-xlarge" name="caracteristica" rows="2" cols=""></textarea>
 				</div>
 			  </div>
 			  <div class="control-group">
-				<label class="control-label" for="provincia">Subir Imágen</label>
+				<label class="control-label" for="imagen">Subir Imágen</label>
 				<div class="controls">
 					<input type="file" class="input-xlarge" name="imagen">
 				</div>
@@ -62,47 +62,47 @@
 				</div>
 			  </div>
 			  <div class="control-group">
-				<label class="control-label" for="precio costo">Precio Costo</label>
+				<label class="control-label" for="preciocosto">Precio Costo</label>
 				<div class="controls">
-				  <input class="input-xlarge focused" name="precio costo" id="focusedInput" type="text">
+				  <input class="input-xlarge focused" name="preciocosto" id="focusedInput" type="text">
 				</div>
 			  </div>
 			  <h3>Precio de venta al Contado</h3>
 			  <div class="control-group">
-				<label class="control-label" for="minimo contado">Mínimo</label>
+				<label class="control-label" for="minimocontado">Mínimo</label>
 				<div class="controls">
-				  <input class="input-xlarge focused" name="minimo contado" id="focusedInput" type="text">
+				  <input class="input-xlarge focused" name="minimocontado" id="focusedInput" type="text">
 				</div>
 			  </div>
 			  <div class="control-group">
-				<label class="control-label" for="regular contado">Regular</label>
+				<label class="control-label" for="regularcontado">Regular</label>
 				<div class="controls">
-				  <input class="input-xlarge focused" name="regular contado" id="focusedInput" type="text">
+				  <input class="input-xlarge focused" name="regularcontado" id="focusedInput" type="text">
 				</div>
 			  </div>
 			  <div class="control-group">
-				<label class="control-label" for="maximo contado">Máximo</label>
+				<label class="control-label" for="maximocontado">Máximo</label>
 				<div class="controls">
-				  <input class="input-xlarge focused" name="maximo contado" id="focusedInput" type="text">
+				  <input class="input-xlarge focused" name="maximocontado" id="focusedInput" type="text">
 				</div>
 			  </div>
 			  <h3>Precio de venta al Crédito</h3>
 			  <div class="control-group">
-				<label class="control-label" for="minimo credito">Mínimo</label>
+				<label class="control-label" for="minimocredito">Mínimo</label>
 				<div class="controls">
-				  <input class="input-xlarge focused" name="minimo credito" id="focusedInput" type="text">
+				  <input class="input-xlarge focused" name="minimocredito" id="focusedInput" type="text">
 				</div>
 			  </div>
 			  <div class="control-group">
-				<label class="control-label" for="regular credito">Regular</label>
+				<label class="control-label" for="regularcredito">Regular</label>
 				<div class="controls">
-				  <input class="input-xlarge focused" name="regular credito" id="focusedInput" type="text">
+				  <input class="input-xlarge focused" name="regularcredito" id="focusedInput" type="text">
 				</div>
 			  </div>
 			  <div class="control-group">
-				<label class="control-label" for="maximo credito">Máximo</label>
+				<label class="control-label" for="maximocredito">Máximo</label>
 				<div class="controls">
-				  <input class="input-xlarge focused" name="maximo credito" id="focusedInput" type="text">
+				  <input class="input-xlarge focused" name="maximocredito" id="focusedInput" type="text">
 				</div>
 			  </div>
 			  <div class="control-group">

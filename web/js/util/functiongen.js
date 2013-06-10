@@ -3,7 +3,7 @@ function enviar(IdForm,responsefunction,otherdata){
 		otherdata = null;
 	$("#"+IdForm).submit(function(event){
 		event.preventDefault();
-        var url=$("#"+IdForm).attr("action");
+        var url=$("#"+IdForm).attr("action");        
         $.post(
     		url,
     		{formulario:$("#"+IdForm).serialize(),data:otherdata},
