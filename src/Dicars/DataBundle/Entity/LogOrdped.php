@@ -71,16 +71,6 @@ class LogOrdped
     private $cordpedest;
 
     /**
-     * @var VenPersonal
-     *
-     * @ORM\ManyToOne(targetEntity="VenPersonal")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="nPersonal_id", referencedColumnName="nPersonal_id")
-     * })
-     */
-    private $npersonal;
-
-    /**
      * @var Local
      *
      * @ORM\ManyToOne(targetEntity="Local")
@@ -89,6 +79,16 @@ class LogOrdped
      * })
      */
     private $nlocal;
+
+    /**
+     * @var VenPersonal
+     *
+     * @ORM\ManyToOne(targetEntity="VenPersonal")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="nPersonal_id", referencedColumnName="nPersonal_id")
+     * })
+     */
+    private $npersonal;
 
 
 
@@ -264,29 +264,6 @@ class LogOrdped
     }
 
     /**
-     * Set npersonal
-     *
-     * @param Dicars\DataBundle\Entity\VenPersonal $npersonal
-     * @return LogOrdped
-     */
-    public function setNpersonal(\Dicars\DataBundle\Entity\VenPersonal $npersonal = null)
-    {
-        $this->npersonal = $npersonal;
-    
-        return $this;
-    }
-
-    /**
-     * Get npersonal
-     *
-     * @return Dicars\DataBundle\Entity\VenPersonal 
-     */
-    public function getNpersonal()
-    {
-        return $this->npersonal;
-    }
-
-    /**
      * Set nlocal
      *
      * @param Dicars\DataBundle\Entity\Local $nlocal
@@ -307,5 +284,28 @@ class LogOrdped
     public function getNlocal()
     {
         return $this->nlocal;
+    }
+
+    /**
+     * Set npersonal
+     *
+     * @param Dicars\DataBundle\Entity\VenPersonal $npersonal
+     * @return LogOrdped
+     */
+    public function setNpersonal(\Dicars\DataBundle\Entity\VenPersonal $npersonal = null)
+    {
+        $this->npersonal = $npersonal;
+    
+        return $this;
+    }
+
+    /**
+     * Get npersonal
+     *
+     * @return Dicars\DataBundle\Entity\VenPersonal 
+     */
+    public function getNpersonal()
+    {
+        return $this->npersonal;
     }
 }

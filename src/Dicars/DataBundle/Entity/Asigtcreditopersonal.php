@@ -22,16 +22,6 @@ class Asigtcreditopersonal
     private $nasigtcreditopersonalId;
 
     /**
-     * @var VenTarjcredito
-     *
-     * @ORM\ManyToOne(targetEntity="VenTarjcredito")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="nTarjCredito_id", referencedColumnName="nTarjCredito_id")
-     * })
-     */
-    private $ntarjcredito;
-
-    /**
      * @var VenPersonal
      *
      * @ORM\ManyToOne(targetEntity="VenPersonal")
@@ -40,6 +30,16 @@ class Asigtcreditopersonal
      * })
      */
     private $npersonal;
+
+    /**
+     * @var VenTarjcredito
+     *
+     * @ORM\ManyToOne(targetEntity="VenTarjcredito")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="nTarjCredito_id", referencedColumnName="nTarjCredito_id")
+     * })
+     */
+    private $ntarjcredito;
 
 
 
@@ -51,29 +51,6 @@ class Asigtcreditopersonal
     public function getNasigtcreditopersonalId()
     {
         return $this->nasigtcreditopersonalId;
-    }
-
-    /**
-     * Set ntarjcredito
-     *
-     * @param Dicars\DataBundle\Entity\VenTarjcredito $ntarjcredito
-     * @return Asigtcreditopersonal
-     */
-    public function setNtarjcredito(\Dicars\DataBundle\Entity\VenTarjcredito $ntarjcredito = null)
-    {
-        $this->ntarjcredito = $ntarjcredito;
-    
-        return $this;
-    }
-
-    /**
-     * Get ntarjcredito
-     *
-     * @return Dicars\DataBundle\Entity\VenTarjcredito 
-     */
-    public function getNtarjcredito()
-    {
-        return $this->ntarjcredito;
     }
 
     /**
@@ -97,5 +74,28 @@ class Asigtcreditopersonal
     public function getNpersonal()
     {
         return $this->npersonal;
+    }
+
+    /**
+     * Set ntarjcredito
+     *
+     * @param Dicars\DataBundle\Entity\VenTarjcredito $ntarjcredito
+     * @return Asigtcreditopersonal
+     */
+    public function setNtarjcredito(\Dicars\DataBundle\Entity\VenTarjcredito $ntarjcredito = null)
+    {
+        $this->ntarjcredito = $ntarjcredito;
+    
+        return $this;
+    }
+
+    /**
+     * Get ntarjcredito
+     *
+     * @return Dicars\DataBundle\Entity\VenTarjcredito 
+     */
+    public function getNtarjcredito()
+    {
+        return $this->ntarjcredito;
     }
 }

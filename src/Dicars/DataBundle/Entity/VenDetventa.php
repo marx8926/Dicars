@@ -50,16 +50,6 @@ class VenDetventa
     private $ndetventatot;
 
     /**
-     * @var VenVenta
-     *
-     * @ORM\ManyToOne(targetEntity="VenVenta")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="nVenta_id", referencedColumnName="nVenta_id")
-     * })
-     */
-    private $nventa;
-
-    /**
      * @var Producto
      *
      * @ORM\ManyToOne(targetEntity="Producto")
@@ -68,6 +58,16 @@ class VenDetventa
      * })
      */
     private $nproducto;
+
+    /**
+     * @var VenVenta
+     *
+     * @ORM\ManyToOne(targetEntity="VenVenta")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="nVenta_id", referencedColumnName="nVenta_id")
+     * })
+     */
+    private $nventa;
 
 
 
@@ -174,29 +174,6 @@ class VenDetventa
     }
 
     /**
-     * Set nventa
-     *
-     * @param Dicars\DataBundle\Entity\VenVenta $nventa
-     * @return VenDetventa
-     */
-    public function setNventa(\Dicars\DataBundle\Entity\VenVenta $nventa = null)
-    {
-        $this->nventa = $nventa;
-    
-        return $this;
-    }
-
-    /**
-     * Get nventa
-     *
-     * @return Dicars\DataBundle\Entity\VenVenta 
-     */
-    public function getNventa()
-    {
-        return $this->nventa;
-    }
-
-    /**
      * Set nproducto
      *
      * @param Dicars\DataBundle\Entity\Producto $nproducto
@@ -217,5 +194,28 @@ class VenDetventa
     public function getNproducto()
     {
         return $this->nproducto;
+    }
+
+    /**
+     * Set nventa
+     *
+     * @param Dicars\DataBundle\Entity\VenVenta $nventa
+     * @return VenDetventa
+     */
+    public function setNventa(\Dicars\DataBundle\Entity\VenVenta $nventa = null)
+    {
+        $this->nventa = $nventa;
+    
+        return $this;
+    }
+
+    /**
+     * Get nventa
+     *
+     * @return Dicars\DataBundle\Entity\VenVenta 
+     */
+    public function getNventa()
+    {
+        return $this->nventa;
     }
 }
