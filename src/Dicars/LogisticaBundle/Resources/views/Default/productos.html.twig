@@ -378,6 +378,7 @@
 
 {% endblock %}
 {% block javascript %}
+<script src="{{ asset('js/util/functiongen.js') }}"></script>
 <script type="text/javascript">
 //mostrar Registrar Cliente------------------------------------>
 $('.btn-registrar').click(function(e){
@@ -394,5 +395,10 @@ $('.btn-datos').click(function(e){
 	e.preventDefault();
 	$('#modalVerDatos').modal('show');
 });
+$(document).ready(init());
+function init(){
+	enviar('RegistrarProductoForm', logdata);
+}
+
 </script>
 {% endblock %}

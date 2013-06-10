@@ -1,12 +1,12 @@
-function enviar(formname,responsefunction,otherdata){
+function enviar(IdForm,responsefunction,otherdata){
 	if(typeof(otherdata)=== 'undefined')
 		otherdata = null;
-	$("#"+formname).submit(function(event){
+	$("#"+IdForm).submit(function(event){
 		event.preventDefault();
-        var url=$("#"+formname).attr("action");
+        var url=$("#"+IdForm).attr("action");
         $.post(
     		url,
-    		{formName:$("#"+formname).serialize(),data:otherdata},
+    		{formulario:$("#"+IdForm).serialize(),data:otherdata},
     		function(data){
     			if(data.responseCode==200 ){
     				console.log("ok");
