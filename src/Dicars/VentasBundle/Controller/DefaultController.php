@@ -46,4 +46,8 @@ class DefaultController extends Controller
     {
     	return $this->render('DicarsVentasBundle:Default:control_salidas_crecon.html.twig');
     }
+    public function venta_productosAction()
+    {
+    	return $this->render('DicarsVentasBundle:Default:venta.html.twig');
+    }
 }

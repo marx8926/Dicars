@@ -7,7 +7,12 @@
  *
  * Designed and built with all the love in the world @twitter by @mdo and @fat.
  */
-
+hr{
+	align:center; 
+	background:#ddd; 
+	border:0px; 
+	height:1px;
+}
 .clearfix {
   *zoom: 1;
 }

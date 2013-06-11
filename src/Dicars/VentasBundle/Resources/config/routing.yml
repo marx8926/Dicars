@@ -28,3 +28,6 @@ dicars_ventas_reporte_zonas:
 dicars_ventas_control_salidas:
     pattern: /control_salidas
     defaults: { _controller: DicarsVentasBundle:Default:control_salidas }
+dicars_ventas_venta_productos:
+    pattern: /venta_productos
+    defaults: { _controller: DicarsVentasBundle:Default:venta_productos }
