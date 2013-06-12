@@ -12,7 +12,7 @@ use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 
 class LogisticaServiciosController extends Controller{
 	
-	public function getTablaProductoAction(){
+	public function getTablaProductosAction(){
 		$em = $this->getDoctrine()->getEntityManager();
 		 
 		$productos = $this->getDoctrine()

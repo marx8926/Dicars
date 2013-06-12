@@ -1,7 +1,7 @@
 logistica_servicio_routing:
     resource: "@DicarsLogisticaBundle/Resources/config/servicios_routing.yml"
 
-logistica_servicio_routing:
+logistica_administrar_producto_routing:
     resource: "@DicarsLogisticaBundle/Resources/config/administrar_producto_routing.yml"
 
 dicars_logistica_homepage:
