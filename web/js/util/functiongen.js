@@ -113,3 +113,7 @@ function init_consolidadores(path)
   
             });   
 }
+
+function JasonData(id){
+	
+}

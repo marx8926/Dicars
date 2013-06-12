@@ -214,11 +214,20 @@ function CargarBotones(){
 	$('.btn-registrar').click(function(e){
 		e.preventDefault();
 		$('#modalRegistro').modal('show');
+		
 	});
 	//mostrar Editar Cliente------------------------------------>
 	$('.btn-editar').click(function(e){
 		e.preventDefault();
 		$('#modalRegistro').modal('show');
+		var btn=$(this);
+		id=btn.attr("id-data");
+		var jsonData = $.ajax({
+			url: "{{ path('dicars_logistica_servicio_getproductobyid', {'id': ''}) }}"+id,
+			dataType: "json",
+			async: false
+			}).responseText;
+		console.log(jsonData);
 	});
 	//mostrar Ver Datos Cliente------------------------------------>
 	$('.btn-datos').click(function(e){
