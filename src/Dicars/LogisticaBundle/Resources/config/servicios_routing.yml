@@ -1,0 +1,3 @@
+dicars_logistica_servicio_gettablaroductos:
+    pattern:  /servicio_gettablaproducos
+    defaults: { _controller: DicarsLogisticaBundle:LogisticaServicios:getTablaProducto }

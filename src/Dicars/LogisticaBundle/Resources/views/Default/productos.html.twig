@@ -20,7 +20,7 @@
 			</div>
 		</div>
 		<div class="box-content">
-			<table class="table table-striped table-bordered bootstrap-datatable datatable">
+			<table class="table table-striped table-bordered bootstrap-datatable datatable" id="productos_table">
 			  <thead>
 				  <tr>
 					  <th>Código</th>
@@ -251,6 +251,28 @@
 						</a>
 					</td>
 				</tr>
+				<tr>
+					<td>Rizwan Habib</td>
+					<td class="center">2012/01/21</td>
+					<td class="center">Staff</td>
+					<td class="center">
+						<span class="label label-success">Active</span>
+					</td>
+					<td class="center">
+						<a class="btn btn-success" href="#">
+							<i class="icon-zoom-in icon-white"></i>  
+							Ver Datos                                            
+						</a>
+						<a class="btn btn-info" href="#">
+							<i class="icon-edit icon-white"></i>  
+							Editar                                            
+						</a>
+						<a class="btn btn-danger" href="#">
+							<i class="icon-trash icon-white"></i> 
+							Eliminar
+						</a>
+					</td>
+				</tr>
 			  </tbody>
 		  </table>
 		<div class="modal hide fade" id="modalVerDatos">
@@ -379,6 +401,7 @@
 {% endblock %}
 {% block javascript %}
 <script src="{{ asset('js/util/functiongen.js') }}"></script>
+<script src="{{ asset('js/util/datatable_plugins.js') }}"></script>
 <script type="text/javascript">
 //mostrar Registrar Cliente------------------------------------>
 $('.btn-registrar').click(function(e){
@@ -398,6 +421,13 @@ $('.btn-datos').click(function(e){
 $(document).ready(init());
 function init(){
 	enviar('RegistrarProductoForm', logdata);
+	oTable = $('#productos_table').dataTable({
+		"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span12'i><'span12 center'p>>",
+		"sPaginationType": "bootstrap",
+		"oLanguage": {
+		"sLengthMenu": "_MENU_ records per page"
+		}
+	});
 }
 
 </script>

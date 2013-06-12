@@ -1,3 +1,6 @@
+logistica_servicio_routing:
+    resource: "@DicarsLogisticaBundle/Resources/config/servicios_routing.yml"
+
 dicars_logistica_homepage:
     pattern:  /index
     defaults: { _controller: DicarsLogisticaBundle:Default:index }
