@@ -1,6 +1,9 @@
 logistica_servicio_routing:
     resource: "@DicarsLogisticaBundle/Resources/config/servicios_routing.yml"
 
+logistica_servicio_routing:
+    resource: "@DicarsLogisticaBundle/Resources/config/administrar_producto_routing.yml"
+
 dicars_logistica_homepage:
     pattern:  /index
     defaults: { _controller: DicarsLogisticaBundle:Default:index }
@@ -22,8 +25,3 @@ dicars_logistica_reg_salidaproductos:
 dicars_logistica_ingre_salidaproductos:
     pattern:  /cons_ingresoproductos
     defaults: { _controller: DicarsLogisticaBundle:Default:cons_ingresoproductos }  
-dicars_logistica_registrar_producto:
-    pattern:  /registrar_producto
-    defaults: { _controller: DicarsLogisticaBundle:AdministrarProducto:RegistrarProducto }
-    requirements:
-          _method: POST
