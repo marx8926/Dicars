@@ -19,10 +19,17 @@ class LogisticaServiciosController extends Controller{
     		->getRepository('DicarsDataBundle:Producto')
 			->findAll();
 		 
-		$todo = count($productos);
+		$cantidad = count($productos);
 		
-		
-		return new JsonResponse(array('aaData'=>$todo));
+		$todo = array();
+		foreach ($productos as $key => $producto){
+			$todo[] = array('id' => $producto -> getNproductoId(), 'nombre' => $producto -> getCproductodesc(),
+					'stock' => $producto -> getNproductosotck(), 'precio_contado' => $producto -> getNproductopcontado(),
+					'precio_credito' => $producto -> getNproductopcredito(), 'Acciones' => "<a class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>
+					<a class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>
+					<a class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
+		}
+		return new JsonResponse(array('aaData' => $todo));
 	}
 
 }
