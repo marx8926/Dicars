@@ -1,11 +1,11 @@
 {% extends "::baseCharisma.html.twig" %}
-{% block title %}Salida Productos: Registrar - Logística -{% endblock %}
+{% block title %}Ingreso Productos: Registrar - Logística -{% endblock %}
 {% block breadcrumb %}
 <li>
 	<a href="{{path('dicars_logistica_homepage')}}">Logística</a><span class="divider">/</span>
 </li>
 <li>
-	<a href="{{path('dicars_logistica_reg_salidaproductos')}}">Salida Productos: Registrar</a>
+	<a href="{{path('dicars_logistica_reg_ingresoproductos')}}">Ingreso de Productos: Registrar</a>
 </li>
 </li>
 {% endblock %}
@@ -13,7 +13,7 @@
 <div class="row-fluid sortable">		
 	<div class="box span12">
 		<div class="box-header well" data-original-title>
-			<h2>Salida Productos: Registrar</h2>
+			<h2>Ingreso de Productos: Registrar</h2>
 		</div>
 		<div class="box-content">
 			<form class="form-horizontal">
@@ -33,9 +33,15 @@
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="motivo">Motivo</label>
+							<label class="control-label" for="motivo">Tipo</label>
 							<div class="controls">
-								<input class="input-xlarge focused" id="motivo" type="text">
+								<select id="tipo" data-rel="chosen">
+									<option>Option 1</option>
+									<option>Option 2</option>
+									<option>Option 3</option>
+									<option>Option 4</option>
+									<option>Option 5</option>
+								</select>
 							</div>
 						</div>
 						<div class="control-group">
@@ -59,10 +65,10 @@
 							</div>
 						</div>
 						<div class="control-group">
-							<label class="control-label" for="solicitante">Solicitante</label>
+							<label class="control-label" for="proveedor">Proveedor</label>
 							<div class="controls">
-								<input class="input-xlarge focused" id="solicitante" type="text">
-								<button class="btn btn-info btn-solicitante" style="margin-left: 15px;"><i class="icon-user icon-white"></i></button>
+								<input class="input-xlarge focused" id="proveedor" type="text">
+								<button class="btn btn-info btn-proveedor" style="margin-left: 15px;"><i class="icon-user icon-white"></i></button>
 							</div>
 						</div>
 					</div>
@@ -86,7 +92,7 @@
 					</div>
 				</div>
 				<hr>
-				<h3>Productos a Salir</h3>
+				<h3>Productos a Ingresar</h3>
 				<hr>
 				<table class="table table-striped table-bordered bootstrap-datatable datatable">
 					<thead>
@@ -107,10 +113,6 @@
 								<span class="label label-success">Active</span>
 							</td>
 							<td class="center">
-								<a class="btn btn-success btn-datos" href="#">
-									<i class="icon-zoom-in icon-white"></i>  
-									Ver Datos                                            
-								</a>
 								<a class="btn btn-info btn-editar" href="#">
 									<i class="icon-edit icon-white"></i>  
 									Editar                                            
@@ -129,10 +131,6 @@
 								<span class="label label-success">Active</span>
 							</td>
 							<td class="center">
-								<a class="btn btn-success" href="#">
-									<i class="icon-zoom-in icon-white"></i>  
-									Ver Datos                                            
-								</a>
 								<a class="btn btn-info" href="#">
 									<i class="icon-edit icon-white"></i>  
 									Editar                                            
@@ -151,10 +149,6 @@
 								<span class="label label-success">Active</span>
 							</td>
 							<td class="center">
-								<a class="btn btn-success" href="#">
-									<i class="icon-zoom-in icon-white"></i>  
-									Ver Datos                                            
-								</a>
 								<a class="btn btn-info" href="#">
 									<i class="icon-edit icon-white"></i>  
 									Editar                                            
@@ -173,10 +167,6 @@
 								<span class="label label-success">Active</span>
 							</td>
 							<td class="center">
-								<a class="btn btn-success" href="#">
-									<i class="icon-zoom-in icon-white"></i>  
-									Ver Datos                                            
-								</a>
 								<a class="btn btn-info" href="#">
 									<i class="icon-edit icon-white"></i>  
 									Editar                                            
@@ -195,10 +185,6 @@
 								<span class="label label-important">Banned</span>
 							</td>
 							<td class="center">
-								<a class="btn btn-success" href="#">
-									<i class="icon-zoom-in icon-white"></i>  
-									Ver Datos                                            
-								</a>
 								<a class="btn btn-info" href="#">
 									<i class="icon-edit icon-white"></i>  
 									Editar                                            
@@ -217,10 +203,6 @@
 								<span class="label label-important">Banned</span>
 							</td>
 							<td class="center">
-								<a class="btn btn-success" href="#">
-									<i class="icon-zoom-in icon-white"></i>  
-									Ver Datos                                            
-								</a>
 								<a class="btn btn-info" href="#">
 									<i class="icon-edit icon-white"></i>  
 									Editar                                            
@@ -239,10 +221,6 @@
 								<span class="label label-warning">Pending</span>
 							</td>
 							<td class="center">
-								<a class="btn btn-success" href="#">
-									<i class="icon-zoom-in icon-white"></i>  
-									Ver Datos                                            
-								</a>
 								<a class="btn btn-info" href="#">
 									<i class="icon-edit icon-white"></i>  
 									Editar                                            
@@ -261,10 +239,6 @@
 								<span class="label label-warning">Pending</span>
 							</td>
 							<td class="center">
-								<a class="btn btn-success" href="#">
-									<i class="icon-zoom-in icon-white"></i>  
-									Ver Datos                                            
-								</a>
 								<a class="btn btn-info" href="#">
 									<i class="icon-edit icon-white"></i>  
 									Editar                                            
@@ -283,10 +257,6 @@
 								<span class="label label-success">Active</span>
 							</td>
 							<td class="center">
-								<a class="btn btn-success" href="#">
-									<i class="icon-zoom-in icon-white"></i>  
-									Ver Datos                                            
-								</a>
 								<a class="btn btn-info" href="#">
 									<i class="icon-edit icon-white"></i>  
 									Editar                                            
@@ -305,10 +275,6 @@
 								<span class="label label-success">Active</span>
 							</td>
 							<td class="center">
-								<a class="btn btn-success" href="#">
-									<i class="icon-zoom-in icon-white"></i>  
-									Ver Datos                                            
-								</a>
 								<a class="btn btn-info" href="#">
 									<i class="icon-edit icon-white"></i>  
 									Editar                                            
@@ -329,18 +295,17 @@
 				</fieldset>
 			</form>
 			{% include 'DicarsVentasBundle:Default:buscarproducto.html.twig' %}
-			{% include 'DicarsVentasBundle:Default:buscartrabajador.html.twig' %}
+			{% include 'DicarsLogisticaBundle:Default:buscarproveedor.html.twig' %}
 		</div>
 	</div>
 </div>
 {% endblock %}
-
 {% block javascript %}
 <script type="text/javascript">
 //mostrar Buscar Cliente------------------------------------>
-$('.btn-solicitante').click(function(e){
+$('.btn-proveedor').click(function(e){
 	e.preventDefault();
-	$('#modalBuscarTrabajador').modal('show');
+	$('#modalBuscarProveedor').modal('show');
 });
 //mostrar Buscar Producto------------------------------------>
 $('.btn-buscarp').click(function(e){

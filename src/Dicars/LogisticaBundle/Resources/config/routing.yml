@@ -22,6 +22,12 @@ dicars_logistica_cons_salidaproductos:
 dicars_logistica_reg_salidaproductos:
     pattern:  /reg_salidaproductos
     defaults: { _controller: DicarsLogisticaBundle:Default:reg_salidaproductos }
-dicars_logistica_ingre_salidaproductos:
+dicars_logistica_cons_ingresoproductos:
     pattern:  /cons_ingresoproductos
     defaults: { _controller: DicarsLogisticaBundle:Default:cons_ingresoproductos }  
+dicars_logistica_reg_ingresoproductos:
+    pattern:  /reg_ingresoproductos
+    defaults: { _controller: DicarsLogisticaBundle:Default:reg_ingresoproductos }  
+dicars_logistica_registrar_producto:
+    pattern:  /registrar_producto
+    defaults: { _controller: DicarsLogisticaBundle:AdministrarProducto:RegistrarProducto }

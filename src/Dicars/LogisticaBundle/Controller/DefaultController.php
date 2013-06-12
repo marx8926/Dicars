@@ -34,4 +34,8 @@ class DefaultController extends Controller
     {
     	return $this->render('DicarsLogisticaBundle:Default:ingreso_productos_consultar.html.twig');
     }
+    public function reg_ingresoproductosAction()
+    {
+    	return $this->render('DicarsLogisticaBundle:Default:ingreso_productos_registrar.html.twig');
+    }
 }
