@@ -259,6 +259,7 @@
 			</div>
 			{% include 'DicarsVentasBundle:Default:buscarcliente.html.twig' %}
 			{% include 'DicarsVentasBundle:Default:buscarproducto.html.twig' %}   
+			{% include 'DicarsLogisticaBundle:Default:registrar_producto.html.twig' %}
 		</div>
 	</div><!--/span-->
 </div><!--/row-->
@@ -275,6 +276,11 @@ $('.btn-buscarc').click(function(e){
 $('.btn-buscarp').click(function(e){
 	e.preventDefault();
 	$('#modalBuscarProducto').modal('show');
+});
+//motrar Registro de Producto ------------------------------->
+$('.btn-nuevo').click(function(e){
+	e.preventDefault();
+	$('#modalRegistro').modal('show');
 });
 </script>
 {% endblock %}
