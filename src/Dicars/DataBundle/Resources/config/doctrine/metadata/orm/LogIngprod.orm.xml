@@ -11,6 +11,7 @@
     <field name="dingprodfecreg" type="datetime" column="dIngProdFecReg" nullable="false"/>
     <field name="cingproddocnro" type="string" column="cIngProdDocNro" length="8" nullable="false"/>
     <field name="cingprodobsv" type="string" column="cIngProdObsv" length="500" nullable="false"/>
+    <field name="cingprodest" type="string" column="cIngProdEst" length="1" nullable="false"/>
     <many-to-one field="npersonal" target-entity="VenPersonal">
       <join-columns>
         <join-column name="nPersonal_id" referenced-column-name="nPersonal_id"/>

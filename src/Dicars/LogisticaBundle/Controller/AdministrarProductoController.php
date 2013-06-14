@@ -76,7 +76,7 @@ class AdministrarProductoController extends Controller{
 			$Producto->setNproductopcredito($Producto_prec_credito);
 			$Producto->setNproductopcosto($Producto_prec_costo);
 			$Producto->setCproductocodbarra($Producto_cod_barra);
-			$Producto->setCproductoarchivo($Producto_archivo);
+			$Producto->setCproductoimage($Producto_archivo);
 			$Producto->setNcategoria($Producto_categoria);
 			$Producto->setNproductostockmin($Producto_stock_min);
 			$Producto->setNproductostockmax($Producto_stock_max);

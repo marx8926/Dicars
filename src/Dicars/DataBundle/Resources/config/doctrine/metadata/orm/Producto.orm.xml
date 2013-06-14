@@ -7,12 +7,12 @@
     <field name="cproductoserie" type="string" column="cProductoSerie" length="15" nullable="false"/>
     <field name="cproductotalla" type="string" column="cProductoTalla" length="15" nullable="false"/>
     <field name="nproductotipo" type="integer" column="nProductoTipo" nullable="false"/>
-    <field name="cproductodesc" type="text" column="cProductoDesc" nullable="false"/>
+    <field name="cproductodesc" type="string" column="cProductoDesc" length="200" nullable="false"/>
     <field name="nproductopcontado" type="decimal" column="nProductoPContado" nullable="false"/>
     <field name="nproductopcredito" type="decimal" column="nProductoPCredito" nullable="false"/>
     <field name="nproductopcosto" type="decimal" column="nProductoPCosto" nullable="false"/>
     <field name="cproductocodbarra" type="text" column="cProductoCodBarra" nullable="false"/>
-    <field name="cproductoarchivo" type="text" column="cProductoArchivo" nullable="false"/>
+    <field name="cproductoimage" type="text" column="cProductoImage" nullable="false"/>
     <field name="nproductostockmin" type="integer" column="nProductoStockMin" nullable="false"/>
     <field name="nproductostockmax" type="integer" column="nProductoStockMax" nullable="false"/>
     <field name="nproductosotck" type="integer" column="nProductoSotck" nullable="false"/>

@@ -5,7 +5,7 @@
       <generator strategy="IDENTITY"/>
     </id>
     <field name="ctipomonedadesc" type="string" column="cTipoMonedaDesc" length="30" nullable="false"/>
-    <field name="ntipomonedacambio" type="decimal" column="nTipoMonedaCambio" nullable="false"/>
-    <field name="ntipomonedaactivo" type="integer" column="nTipoMonedaActivo" nullable="false"/>
+    <field name="ntipomonedamont" type="decimal" column="nTipoMonedaMont" nullable="false"/>
+    <field name="ntipomonedaest" type="integer" column="nTipoMonedaEst" nullable="false"/>
   </entity>
 </doctrine-mapping>
