@@ -165,48 +165,20 @@
 <script type="text/javascript">
 
 $(document).ready(init());
+
+//init------------------------------------>
 function init(){
 	enviar('RegistrarProductoForm', logdata);
-	oTable = $('#productos_table').dataTable({
-			"bProcessing": true,
-			"bServerSide": false,
-			"bDestroy": true,
-			"sAjaxSource": '{{ path("dicars_logistica_servicio_gettablaproductos") }}',
-			/*
-			"aoColumns": [ 
-			              {"sWidth": "15%"},
-			              {"sWidth": "15%"},
-			              {"sWidth": "15%"},
-			              {"sWidth": "15%"},
-			              {"sWidth": "15%"},
-			              {"sWidth": "25%"}
-			  			  ],
-			 */ 			  
-			"aoColumns": [
-		              { "sWidth": "12%", "mDataProp": "id"},
+	UrlaDTable = '{{ path("dicars_logistica_servicio_gettablaproductos") }}';
+	FormatoDTable = [
+		              { "sWidth": "12%","mDataProp": "id"},
 		              { "sWidth": "12%","mDataProp": "nombre"},
 		              { "sWidth": "12%","mDataProp": "stock"},
 		              { "sWidth": "12%","mDataProp": "precio_contado"},
 		              { "sWidth": "12%","mDataProp": "precio_credito"},
 		              { "sWidth": "40%","mDataProp": "Acciones"}
-		              ],				             
-		 	"aaSorting": [ [0, 'asc'], [1, 'asc'] ],
-		 	"fnDrawCallback": function(){
-			 	$('td').addClass('center');
-			 	CargarBotones();
-			 	},
-			 	
-		 	"aoColumnDefs": [
-		                  {"sType": 'string-case', "aTargets": [2]}],
-		 	
-		 	
-			 	"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span12'i><'span12 center'p>>",
-			 	"sPaginationType": "bootstrap",
-			 	"oLanguage": {
-				"sLengthMenu": "_MENU_ records per page"
-			}			 		            
-		
-	});
+		              ];
+	oTable = createDataTable(UrlaDTable,FormatoDTable);
 }
 
 function CargarBotones(){
@@ -224,7 +196,10 @@ function CargarBotones(){
 		id=btn.attr("id-data");		
 		url = "{{ path('dicars_logistica_servicio_getproductobyid', {'id': ''}) }}/"+id;
 		producto = getAjaxObject(url);
-		console.log(producto.producto.id);
+		console.log(producto.id);
+
+		ArrayDatos = []
+		ArrayLabels
 
 	});
 	//mostrar Ver Datos Cliente------------------------------------>

@@ -45,7 +45,7 @@ class LogisticaServiciosController extends Controller{
 				'stock' => $producto -> getNproductosotck(), 'precio_contado' => $producto -> getNproductopcontado(),
 				'precio_credito' => $producto -> getNproductopcredito());
 								
-		return new JsonResponse(array('producto' => $data));
+		return new JsonResponse($data);
 	}
 
 }

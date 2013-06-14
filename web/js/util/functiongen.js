@@ -23,6 +23,34 @@ function enviar(IdForm,responsefunction,otherdata){
 		});
 }
 
+function createDataTable(UrlaDTable,FormatoDTable){
+	
+	oTable = $('#productos_table').dataTable({
+		"bProcessing": true,
+		"bServerSide": false,
+		"bDestroy": true,
+		"sAjaxSource": UrlaDTable,	  
+		"aoColumns": FormatoDTable,				             
+	 	"aaSorting": [ [0, 'asc'], [1, 'asc'] ],
+	 	"fnDrawCallback": function(){
+		 	$('td').addClass('center');
+		 	CargarBotones();
+		 	},
+		 	
+	 	"aoColumnDefs": [
+	                  {"sType": 'string-case', "aTargets": [2]}],
+	 	
+	 	
+		 	"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span12'i><'span12 center'p>>",
+		 	"sPaginationType": "bootstrap",
+		 	"oLanguage": {
+			"sLengthMenu": "_MENU_ records per page"
+				} 		            
+	
+		});
+	return oTable;
+}
+
 function getAjaxObject(url){
 	var data = $.ajax({
 		url: url,
@@ -82,45 +110,3 @@ var logdata = function(data){
 var reloadpage = function(data){
 	location.reload();
 	};
-
-function leche_espiritual(dato)
-{
-           $('#select_leche').empty();
-           
-           $('<option value=-1> ------ </option>').appendTo('#select_leche');
-
-           for(var i=0;i<dato.length; i++)
-           {
-                    $('<option value='+dato[i].id+'>'+dato[i].nombre+' </option>').appendTo('#select_leche');
-           }
-}
-
-function init_leche_espiritual(path)
-{
-    //lista de leche espiritual
-            $.ajax(
-                        {url : path,
-                         dataType:"json",
-                        type: "POST",
-                        async: false,
-                        }
-                  ).done(leche_espiritual); 
-}
-
-function init_consolidadores(path)
-{
-     //lista de consolidadores
-     $.ajax(
-           {url : path,
-            type: "POST",
-            async: false
-                        }
-            ).done(function(dato){
-                             $('#select_consolidador').html(dato);
-  
-            });   
-}
-
-function JasonData(id){
-	
-}
