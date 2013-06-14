@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\Notacredito
+ * Notacredito
  *
  * @ORM\Table(name="notacredito")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Notacredito
 {
     /**
-     * @var integer $nnotacreditoId
+     * @var integer
      *
      * @ORM\Column(name="nNotaCredito_id", type="integer", nullable=false)
      * @ORM\Id
@@ -22,21 +22,21 @@ class Notacredito
     private $nnotacreditoId;
 
     /**
-     * @var string $cnotacreditoserie
+     * @var string
      *
      * @ORM\Column(name="cNotaCreditoSerie", type="string", length=4, nullable=false)
      */
     private $cnotacreditoserie;
 
     /**
-     * @var string $cnotacreditonum
+     * @var string
      *
      * @ORM\Column(name="cNotaCreditoNum", type="string", length=8, nullable=false)
      */
     private $cnotacreditonum;
 
     /**
-     * @var VenDocventa
+     * @var \VenDocventa
      *
      * @ORM\ManyToOne(targetEntity="VenDocventa")
      * @ORM\JoinColumns({
@@ -106,7 +106,7 @@ class Notacredito
     /**
      * Set ndocumento
      *
-     * @param Dicars\DataBundle\Entity\VenDocventa $ndocumento
+     * @param \Dicars\DataBundle\Entity\VenDocventa $ndocumento
      * @return Notacredito
      */
     public function setNdocumento(\Dicars\DataBundle\Entity\VenDocventa $ndocumento = null)
@@ -119,7 +119,7 @@ class Notacredito
     /**
      * Get ndocumento
      *
-     * @return Dicars\DataBundle\Entity\VenDocventa 
+     * @return \Dicars\DataBundle\Entity\VenDocventa 
      */
     public function getNdocumento()
     {

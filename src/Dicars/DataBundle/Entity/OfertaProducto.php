@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\OfertaProducto
+ * OfertaProducto
  *
  * @ORM\Table(name="oferta_producto")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class OfertaProducto
 {
     /**
-     * @var integer $nofertaproductoId
+     * @var integer
      *
      * @ORM\Column(name="nOfertaProducto_id", type="integer", nullable=false)
      * @ORM\Id
@@ -22,21 +22,21 @@ class OfertaProducto
     private $nofertaproductoId;
 
     /**
-     * @var float $nofertaproductoproc
+     * @var float
      *
      * @ORM\Column(name="nOfertaProductoProc", type="decimal", nullable=false)
      */
     private $nofertaproductoproc;
 
     /**
-     * @var \DateTime $dofertaproductofec
+     * @var \DateTime
      *
      * @ORM\Column(name="dOfertaProductoFec", type="datetime", nullable=false)
      */
     private $dofertaproductofec;
 
     /**
-     * @var Oferta
+     * @var \Oferta
      *
      * @ORM\ManyToOne(targetEntity="Oferta")
      * @ORM\JoinColumns({
@@ -46,7 +46,7 @@ class OfertaProducto
     private $noferta;
 
     /**
-     * @var Producto
+     * @var \Producto
      *
      * @ORM\ManyToOne(targetEntity="Producto")
      * @ORM\JoinColumns({
@@ -116,7 +116,7 @@ class OfertaProducto
     /**
      * Set noferta
      *
-     * @param Dicars\DataBundle\Entity\Oferta $noferta
+     * @param \Dicars\DataBundle\Entity\Oferta $noferta
      * @return OfertaProducto
      */
     public function setNoferta(\Dicars\DataBundle\Entity\Oferta $noferta = null)
@@ -129,7 +129,7 @@ class OfertaProducto
     /**
      * Get noferta
      *
-     * @return Dicars\DataBundle\Entity\Oferta 
+     * @return \Dicars\DataBundle\Entity\Oferta 
      */
     public function getNoferta()
     {
@@ -139,7 +139,7 @@ class OfertaProducto
     /**
      * Set nproducto
      *
-     * @param Dicars\DataBundle\Entity\Producto $nproducto
+     * @param \Dicars\DataBundle\Entity\Producto $nproducto
      * @return OfertaProducto
      */
     public function setNproducto(\Dicars\DataBundle\Entity\Producto $nproducto = null)
@@ -152,7 +152,7 @@ class OfertaProducto
     /**
      * Get nproducto
      *
-     * @return Dicars\DataBundle\Entity\Producto 
+     * @return \Dicars\DataBundle\Entity\Producto 
      */
     public function getNproducto()
     {

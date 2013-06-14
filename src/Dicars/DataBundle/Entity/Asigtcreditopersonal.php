@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\Asigtcreditopersonal
+ * Asigtcreditopersonal
  *
  * @ORM\Table(name="asigtcreditopersonal")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Asigtcreditopersonal
 {
     /**
-     * @var integer $nasigtcreditopersonalId
+     * @var integer
      *
      * @ORM\Column(name="nAsigTCreditoPersonal_id", type="integer", nullable=false)
      * @ORM\Id
@@ -22,7 +22,7 @@ class Asigtcreditopersonal
     private $nasigtcreditopersonalId;
 
     /**
-     * @var VenPersonal
+     * @var \VenPersonal
      *
      * @ORM\ManyToOne(targetEntity="VenPersonal")
      * @ORM\JoinColumns({
@@ -32,7 +32,7 @@ class Asigtcreditopersonal
     private $npersonal;
 
     /**
-     * @var VenTarjcredito
+     * @var \VenTarjcredito
      *
      * @ORM\ManyToOne(targetEntity="VenTarjcredito")
      * @ORM\JoinColumns({
@@ -56,7 +56,7 @@ class Asigtcreditopersonal
     /**
      * Set npersonal
      *
-     * @param Dicars\DataBundle\Entity\VenPersonal $npersonal
+     * @param \Dicars\DataBundle\Entity\VenPersonal $npersonal
      * @return Asigtcreditopersonal
      */
     public function setNpersonal(\Dicars\DataBundle\Entity\VenPersonal $npersonal = null)
@@ -69,7 +69,7 @@ class Asigtcreditopersonal
     /**
      * Get npersonal
      *
-     * @return Dicars\DataBundle\Entity\VenPersonal 
+     * @return \Dicars\DataBundle\Entity\VenPersonal 
      */
     public function getNpersonal()
     {
@@ -79,7 +79,7 @@ class Asigtcreditopersonal
     /**
      * Set ntarjcredito
      *
-     * @param Dicars\DataBundle\Entity\VenTarjcredito $ntarjcredito
+     * @param \Dicars\DataBundle\Entity\VenTarjcredito $ntarjcredito
      * @return Asigtcreditopersonal
      */
     public function setNtarjcredito(\Dicars\DataBundle\Entity\VenTarjcredito $ntarjcredito = null)
@@ -92,7 +92,7 @@ class Asigtcreditopersonal
     /**
      * Get ntarjcredito
      *
-     * @return Dicars\DataBundle\Entity\VenTarjcredito 
+     * @return \Dicars\DataBundle\Entity\VenTarjcredito 
      */
     public function getNtarjcredito()
     {

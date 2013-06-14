@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\Local
+ * Local
  *
  * @ORM\Table(name="local")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Local
 {
     /**
-     * @var integer $nlocalId
+     * @var integer
      *
      * @ORM\Column(name="nLocal_id", type="integer", nullable=false)
      * @ORM\Id
@@ -22,42 +22,42 @@ class Local
     private $nlocalId;
 
     /**
-     * @var string $clocaldesc
+     * @var string
      *
      * @ORM\Column(name="cLocalDesc", type="string", length=100, nullable=false)
      */
     private $clocaldesc;
 
     /**
-     * @var integer $nlocalest
+     * @var integer
      *
      * @ORM\Column(name="nLocalEst", type="integer", nullable=false)
      */
     private $nlocalest;
 
     /**
-     * @var string $clocaltelf
+     * @var string
      *
      * @ORM\Column(name="cLocalTelf", type="string", length=12, nullable=false)
      */
     private $clocaltelf;
 
     /**
-     * @var string $clocaldirec
+     * @var string
      *
      * @ORM\Column(name="cLocalDirec", type="string", length=150, nullable=false)
      */
     private $clocaldirec;
 
     /**
-     * @var integer $nlocaltiprub
+     * @var integer
      *
      * @ORM\Column(name="nLocalTipRub", type="integer", nullable=false)
      */
     private $nlocaltiprub;
 
     /**
-     * @var Ubigeo
+     * @var \Ubigeo
      *
      * @ORM\ManyToOne(targetEntity="Ubigeo")
      * @ORM\JoinColumns({
@@ -196,7 +196,7 @@ class Local
     /**
      * Set ubigeoNubigeo
      *
-     * @param Dicars\DataBundle\Entity\Ubigeo $ubigeoNubigeo
+     * @param \Dicars\DataBundle\Entity\Ubigeo $ubigeoNubigeo
      * @return Local
      */
     public function setUbigeoNubigeo(\Dicars\DataBundle\Entity\Ubigeo $ubigeoNubigeo = null)
@@ -209,7 +209,7 @@ class Local
     /**
      * Get ubigeoNubigeo
      *
-     * @return Dicars\DataBundle\Entity\Ubigeo 
+     * @return \Dicars\DataBundle\Entity\Ubigeo 
      */
     public function getUbigeoNubigeo()
     {

@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\Menu
+ * Menu
  *
  * @ORM\Table(name="menu")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Menu
 {
     /**
-     * @var integer $nmenuId
+     * @var integer
      *
      * @ORM\Column(name="nMenu_id", type="integer", nullable=false)
      * @ORM\Id
@@ -22,28 +22,28 @@ class Menu
     private $nmenuId;
 
     /**
-     * @var integer $nmenuclase
+     * @var integer
      *
      * @ORM\Column(name="nMenuClase", type="integer", nullable=false)
      */
     private $nmenuclase;
 
     /**
-     * @var string $cmenunom
+     * @var string
      *
      * @ORM\Column(name="cMenuNom", type="string", length=150, nullable=false)
      */
     private $cmenunom;
 
     /**
-     * @var string $cmenudesc
+     * @var string
      *
      * @ORM\Column(name="cMenuDesc", type="string", length=150, nullable=false)
      */
     private $cmenudesc;
 
     /**
-     * @var integer $nmenuvalor
+     * @var integer
      *
      * @ORM\Column(name="nMenuValor", type="integer", nullable=false)
      */

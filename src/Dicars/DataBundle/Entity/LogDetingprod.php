@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\LogDetingprod
+ * LogDetingprod
  *
  * @ORM\Table(name="log_detingprod")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class LogDetingprod
 {
     /**
-     * @var integer $ndetingprodId
+     * @var integer
      *
      * @ORM\Column(name="nDetIngProd_id", type="integer", nullable=false)
      * @ORM\Id
@@ -22,28 +22,28 @@ class LogDetingprod
     private $ndetingprodId;
 
     /**
-     * @var integer $ndetingprodcant
+     * @var integer
      *
      * @ORM\Column(name="nDetIngProdCant", type="integer", nullable=false)
      */
     private $ndetingprodcant;
 
     /**
-     * @var float $ndetingprodprecunt
+     * @var float
      *
      * @ORM\Column(name="nDetIngProdPrecUnt", type="decimal", nullable=false)
      */
     private $ndetingprodprecunt;
 
     /**
-     * @var float $ndetingprodtot
+     * @var float
      *
      * @ORM\Column(name="nDetIngProdTot", type="decimal", nullable=false)
      */
     private $ndetingprodtot;
 
     /**
-     * @var LogIngprod
+     * @var \LogIngprod
      *
      * @ORM\ManyToOne(targetEntity="LogIngprod")
      * @ORM\JoinColumns({
@@ -53,7 +53,7 @@ class LogDetingprod
     private $ningprod;
 
     /**
-     * @var Producto
+     * @var \Producto
      *
      * @ORM\ManyToOne(targetEntity="Producto")
      * @ORM\JoinColumns({
@@ -146,7 +146,7 @@ class LogDetingprod
     /**
      * Set ningprod
      *
-     * @param Dicars\DataBundle\Entity\LogIngprod $ningprod
+     * @param \Dicars\DataBundle\Entity\LogIngprod $ningprod
      * @return LogDetingprod
      */
     public function setNingprod(\Dicars\DataBundle\Entity\LogIngprod $ningprod = null)
@@ -159,7 +159,7 @@ class LogDetingprod
     /**
      * Get ningprod
      *
-     * @return Dicars\DataBundle\Entity\LogIngprod 
+     * @return \Dicars\DataBundle\Entity\LogIngprod 
      */
     public function getNingprod()
     {
@@ -169,7 +169,7 @@ class LogDetingprod
     /**
      * Set nproducto
      *
-     * @param Dicars\DataBundle\Entity\Producto $nproducto
+     * @param \Dicars\DataBundle\Entity\Producto $nproducto
      * @return LogDetingprod
      */
     public function setNproducto(\Dicars\DataBundle\Entity\Producto $nproducto = null)
@@ -182,7 +182,7 @@ class LogDetingprod
     /**
      * Get nproducto
      *
-     * @return Dicars\DataBundle\Entity\Producto 
+     * @return \Dicars\DataBundle\Entity\Producto 
      */
     public function getNproducto()
     {

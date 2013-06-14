@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\VenFactura
+ * VenFactura
  *
  * @ORM\Table(name="ven_factura")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class VenFactura
 {
     /**
-     * @var integer $nfacturaId
+     * @var integer
      *
      * @ORM\Column(name="nFactura_id", type="integer", nullable=false)
      * @ORM\Id
@@ -22,21 +22,21 @@ class VenFactura
     private $nfacturaId;
 
     /**
-     * @var string $cfacturanro
+     * @var string
      *
      * @ORM\Column(name="cFacturaNro", type="string", length=8, nullable=false)
      */
     private $cfacturanro;
 
     /**
-     * @var string $cfacturaserie
+     * @var string
      *
      * @ORM\Column(name="cFacturaSerie", type="string", length=4, nullable=false)
      */
     private $cfacturaserie;
 
     /**
-     * @var VenDocventa
+     * @var \VenDocventa
      *
      * @ORM\ManyToOne(targetEntity="VenDocventa")
      * @ORM\JoinColumns({
@@ -106,7 +106,7 @@ class VenFactura
     /**
      * Set ndocumento
      *
-     * @param Dicars\DataBundle\Entity\VenDocventa $ndocumento
+     * @param \Dicars\DataBundle\Entity\VenDocventa $ndocumento
      * @return VenFactura
      */
     public function setNdocumento(\Dicars\DataBundle\Entity\VenDocventa $ndocumento = null)
@@ -119,7 +119,7 @@ class VenFactura
     /**
      * Get ndocumento
      *
-     * @return Dicars\DataBundle\Entity\VenDocventa 
+     * @return \Dicars\DataBundle\Entity\VenDocventa 
      */
     public function getNdocumento()
     {

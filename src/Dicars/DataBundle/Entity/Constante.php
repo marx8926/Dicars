@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\Constante
+ * Constante
  *
  * @ORM\Table(name="constante")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Constante
 {
     /**
-     * @var integer $nconstanteId
+     * @var integer
      *
      * @ORM\Column(name="nConstante_id", type="integer", nullable=false)
      * @ORM\Id
@@ -22,21 +22,21 @@ class Constante
     private $nconstanteId;
 
     /**
-     * @var integer $nconstanteclase
+     * @var integer
      *
      * @ORM\Column(name="nConstanteClase", type="integer", nullable=false)
      */
     private $nconstanteclase;
 
     /**
-     * @var string $cconstantedesc
+     * @var string
      *
      * @ORM\Column(name="cConstanteDesc", type="string", length=100, nullable=false)
      */
     private $cconstantedesc;
 
     /**
-     * @var integer $cconstantevalor
+     * @var integer
      *
      * @ORM\Column(name="cConstanteValor", type="integer", nullable=false)
      */

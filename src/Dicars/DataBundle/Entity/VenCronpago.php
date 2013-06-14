@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\VenCronpago
+ * VenCronpago
  *
  * @ORM\Table(name="ven_cronpago")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class VenCronpago
 {
     /**
-     * @var integer $ncronogramaId
+     * @var integer
      *
      * @ORM\Column(name="nCronograma_id", type="integer", nullable=false)
      * @ORM\Id
@@ -22,42 +22,42 @@ class VenCronpago
     private $ncronogramaId;
 
     /**
-     * @var integer $ncronpagonrocuota
+     * @var integer
      *
      * @ORM\Column(name="nCronPagoNroCuota", type="integer", nullable=false)
      */
     private $ncronpagonrocuota;
 
     /**
-     * @var \DateTime $ncronpagofecreg
+     * @var \DateTime
      *
      * @ORM\Column(name="nCronPagoFecReg", type="datetime", nullable=false)
      */
     private $ncronpagofecreg;
 
     /**
-     * @var \DateTime $ncronpagofecpago
+     * @var \DateTime
      *
      * @ORM\Column(name="nCronPagoFecPago", type="datetime", nullable=false)
      */
     private $ncronpagofecpago;
 
     /**
-     * @var float $ncronpagomoncouapg
+     * @var float
      *
      * @ORM\Column(name="nCronPagoMonCouApg", type="decimal", nullable=false)
      */
     private $ncronpagomoncouapg;
 
     /**
-     * @var float $ncronpagomoncouapl
+     * @var float
      *
      * @ORM\Column(name="nCronPagoMonCouApl", type="decimal", nullable=false)
      */
     private $ncronpagomoncouapl;
 
     /**
-     * @var VenCredito
+     * @var \VenCredito
      *
      * @ORM\ManyToOne(targetEntity="VenCredito")
      * @ORM\JoinColumns({
@@ -196,7 +196,7 @@ class VenCronpago
     /**
      * Set nvencredito
      *
-     * @param Dicars\DataBundle\Entity\VenCredito $nvencredito
+     * @param \Dicars\DataBundle\Entity\VenCredito $nvencredito
      * @return VenCronpago
      */
     public function setNvencredito(\Dicars\DataBundle\Entity\VenCredito $nvencredito = null)
@@ -209,7 +209,7 @@ class VenCronpago
     /**
      * Get nvencredito
      *
-     * @return Dicars\DataBundle\Entity\VenCredito 
+     * @return \Dicars\DataBundle\Entity\VenCredito 
      */
     public function getNvencredito()
     {

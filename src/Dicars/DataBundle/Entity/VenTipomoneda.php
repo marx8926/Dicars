@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\VenTipomoneda
+ * VenTipomoneda
  *
  * @ORM\Table(name="ven_tipomoneda")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class VenTipomoneda
 {
     /**
-     * @var integer $ntipomoneda
+     * @var integer
      *
      * @ORM\Column(name="nTipoMoneda", type="integer", nullable=false)
      * @ORM\Id
@@ -22,25 +22,25 @@ class VenTipomoneda
     private $ntipomoneda;
 
     /**
-     * @var string $ctipomonedadesc
+     * @var string
      *
      * @ORM\Column(name="cTipoMonedaDesc", type="string", length=30, nullable=false)
      */
     private $ctipomonedadesc;
 
     /**
-     * @var float $ntipomonedacambio
+     * @var float
      *
-     * @ORM\Column(name="nTipoMonedaCambio", type="decimal", nullable=false)
+     * @ORM\Column(name="nTipoMonedaMont", type="decimal", nullable=false)
      */
-    private $ntipomonedacambio;
+    private $ntipomonedamont;
 
     /**
-     * @var integer $ntipomonedaactivo
+     * @var integer
      *
-     * @ORM\Column(name="nTipoMonedaActivo", type="integer", nullable=false)
+     * @ORM\Column(name="nTipoMonedaEst", type="integer", nullable=false)
      */
-    private $ntipomonedaactivo;
+    private $ntipomonedaest;
 
 
 
@@ -78,48 +78,48 @@ class VenTipomoneda
     }
 
     /**
-     * Set ntipomonedacambio
+     * Set ntipomonedamont
      *
-     * @param float $ntipomonedacambio
+     * @param float $ntipomonedamont
      * @return VenTipomoneda
      */
-    public function setNtipomonedacambio($ntipomonedacambio)
+    public function setNtipomonedamont($ntipomonedamont)
     {
-        $this->ntipomonedacambio = $ntipomonedacambio;
+        $this->ntipomonedamont = $ntipomonedamont;
     
         return $this;
     }
 
     /**
-     * Get ntipomonedacambio
+     * Get ntipomonedamont
      *
      * @return float 
      */
-    public function getNtipomonedacambio()
+    public function getNtipomonedamont()
     {
-        return $this->ntipomonedacambio;
+        return $this->ntipomonedamont;
     }
 
     /**
-     * Set ntipomonedaactivo
+     * Set ntipomonedaest
      *
-     * @param integer $ntipomonedaactivo
+     * @param integer $ntipomonedaest
      * @return VenTipomoneda
      */
-    public function setNtipomonedaactivo($ntipomonedaactivo)
+    public function setNtipomonedaest($ntipomonedaest)
     {
-        $this->ntipomonedaactivo = $ntipomonedaactivo;
+        $this->ntipomonedaest = $ntipomonedaest;
     
         return $this;
     }
 
     /**
-     * Get ntipomonedaactivo
+     * Get ntipomonedaest
      *
      * @return integer 
      */
-    public function getNtipomonedaactivo()
+    public function getNtipomonedaest()
     {
-        return $this->ntipomonedaactivo;
+        return $this->ntipomonedaest;
     }
 }

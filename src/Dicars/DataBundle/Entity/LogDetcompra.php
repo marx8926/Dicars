@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\LogDetcompra
+ * LogDetcompra
  *
  * @ORM\Table(name="log_detcompra")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class LogDetcompra
 {
     /**
-     * @var integer $ndetcompraId
+     * @var integer
      *
      * @ORM\Column(name="nDetCompra_id", type="integer", nullable=false)
      * @ORM\Id
@@ -22,42 +22,42 @@ class LogDetcompra
     private $ndetcompraId;
 
     /**
-     * @var integer $ndetcompracant
+     * @var integer
      *
      * @ORM\Column(name="nDetCompraCant", type="integer", nullable=false)
      */
     private $ndetcompracant;
 
     /**
-     * @var float $ndetcompraprecunt
+     * @var float
      *
      * @ORM\Column(name="nDetCompraPrecUnt", type="decimal", nullable=false)
      */
     private $ndetcompraprecunt;
 
     /**
-     * @var float $ndetcompraimporte
+     * @var float
      *
      * @ORM\Column(name="nDetCompraImporte", type="decimal", nullable=false)
      */
     private $ndetcompraimporte;
 
     /**
-     * @var integer $ndetordordped
+     * @var integer
      *
      * @ORM\Column(name="nDetOrdOrdPed", type="integer", nullable=false)
      */
     private $ndetordordped;
 
     /**
-     * @var string $cdetcompraest
+     * @var string
      *
      * @ORM\Column(name="cDetCompraEst", type="string", length=1, nullable=false)
      */
     private $cdetcompraest;
 
     /**
-     * @var LogOrdcom
+     * @var \LogOrdcom
      *
      * @ORM\ManyToOne(targetEntity="LogOrdcom")
      * @ORM\JoinColumns({
@@ -67,7 +67,7 @@ class LogDetcompra
     private $nordencompra;
 
     /**
-     * @var Producto
+     * @var \Producto
      *
      * @ORM\ManyToOne(targetEntity="Producto")
      * @ORM\JoinColumns({
@@ -206,7 +206,7 @@ class LogDetcompra
     /**
      * Set nordencompra
      *
-     * @param Dicars\DataBundle\Entity\LogOrdcom $nordencompra
+     * @param \Dicars\DataBundle\Entity\LogOrdcom $nordencompra
      * @return LogDetcompra
      */
     public function setNordencompra(\Dicars\DataBundle\Entity\LogOrdcom $nordencompra = null)
@@ -219,7 +219,7 @@ class LogDetcompra
     /**
      * Get nordencompra
      *
-     * @return Dicars\DataBundle\Entity\LogOrdcom 
+     * @return \Dicars\DataBundle\Entity\LogOrdcom 
      */
     public function getNordencompra()
     {
@@ -229,7 +229,7 @@ class LogDetcompra
     /**
      * Set nproducto
      *
-     * @param Dicars\DataBundle\Entity\Producto $nproducto
+     * @param \Dicars\DataBundle\Entity\Producto $nproducto
      * @return LogDetcompra
      */
     public function setNproducto(\Dicars\DataBundle\Entity\Producto $nproducto = null)
@@ -242,7 +242,7 @@ class LogDetcompra
     /**
      * Get nproducto
      *
-     * @return Dicars\DataBundle\Entity\Producto 
+     * @return \Dicars\DataBundle\Entity\Producto 
      */
     public function getNproducto()
     {

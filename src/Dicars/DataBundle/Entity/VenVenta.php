@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\VenVenta
+ * VenVenta
  *
  * @ORM\Table(name="ven_venta")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class VenVenta
 {
     /**
-     * @var integer $nventaId
+     * @var integer
      *
      * @ORM\Column(name="nVenta_id", type="integer", nullable=false)
      * @ORM\Id
@@ -22,70 +22,70 @@ class VenVenta
     private $nventaId;
 
     /**
-     * @var \DateTime $cventafecreg
+     * @var \DateTime
      *
      * @ORM\Column(name="cVentaFecReg", type="datetime", nullable=false)
      */
     private $cventafecreg;
 
     /**
-     * @var float $nventasubtotal
+     * @var float
      *
      * @ORM\Column(name="nVentaSubTotal", type="decimal", nullable=false)
      */
     private $nventasubtotal;
 
     /**
-     * @var string $cventaest
+     * @var string
      *
      * @ORM\Column(name="cVentaEst", type="string", length=1, nullable=false)
      */
     private $cventaest;
 
     /**
-     * @var float $nventadscto
+     * @var float
      *
      * @ORM\Column(name="nVentaDscto", type="decimal", nullable=false)
      */
     private $nventadscto;
 
     /**
-     * @var integer $nventatippag
+     * @var integer
      *
      * @ORM\Column(name="nVentaTipPag", type="integer", nullable=false)
      */
     private $nventatippag;
 
     /**
-     * @var string $cventaobsv
+     * @var string
      *
      * @ORM\Column(name="cVentaObsv", type="string", length=500, nullable=false)
      */
     private $cventaobsv;
 
     /**
-     * @var float $nventatotapag
+     * @var float
      *
      * @ORM\Column(name="nVentaTotApag", type="decimal", nullable=false)
      */
     private $nventatotapag;
 
     /**
-     * @var float $nventatotamt
+     * @var float
      *
      * @ORM\Column(name="nVentaTotAmt", type="decimal", nullable=false)
      */
     private $nventatotamt;
 
     /**
-     * @var float $nventasaldo
+     * @var float
      *
      * @ORM\Column(name="nVentaSaldo", type="decimal", nullable=false)
      */
     private $nventasaldo;
 
     /**
-     * @var VenCliente
+     * @var \VenCliente
      *
      * @ORM\ManyToOne(targetEntity="VenCliente")
      * @ORM\JoinColumns({
@@ -95,7 +95,7 @@ class VenVenta
     private $ncliente;
 
     /**
-     * @var Local
+     * @var \Local
      *
      * @ORM\ManyToOne(targetEntity="Local")
      * @ORM\JoinColumns({
@@ -105,7 +105,7 @@ class VenVenta
     private $nlocal;
 
     /**
-     * @var VenTipoigv
+     * @var \VenTipoigv
      *
      * @ORM\ManyToOne(targetEntity="VenTipoigv")
      * @ORM\JoinColumns({
@@ -115,7 +115,7 @@ class VenVenta
     private $ntipoigv;
 
     /**
-     * @var VenTipomoneda
+     * @var \VenTipomoneda
      *
      * @ORM\ManyToOne(targetEntity="VenTipomoneda")
      * @ORM\JoinColumns({
@@ -346,7 +346,7 @@ class VenVenta
     /**
      * Set ncliente
      *
-     * @param Dicars\DataBundle\Entity\VenCliente $ncliente
+     * @param \Dicars\DataBundle\Entity\VenCliente $ncliente
      * @return VenVenta
      */
     public function setNcliente(\Dicars\DataBundle\Entity\VenCliente $ncliente = null)
@@ -359,7 +359,7 @@ class VenVenta
     /**
      * Get ncliente
      *
-     * @return Dicars\DataBundle\Entity\VenCliente 
+     * @return \Dicars\DataBundle\Entity\VenCliente 
      */
     public function getNcliente()
     {
@@ -369,7 +369,7 @@ class VenVenta
     /**
      * Set nlocal
      *
-     * @param Dicars\DataBundle\Entity\Local $nlocal
+     * @param \Dicars\DataBundle\Entity\Local $nlocal
      * @return VenVenta
      */
     public function setNlocal(\Dicars\DataBundle\Entity\Local $nlocal = null)
@@ -382,7 +382,7 @@ class VenVenta
     /**
      * Get nlocal
      *
-     * @return Dicars\DataBundle\Entity\Local 
+     * @return \Dicars\DataBundle\Entity\Local 
      */
     public function getNlocal()
     {
@@ -392,7 +392,7 @@ class VenVenta
     /**
      * Set ntipoigv
      *
-     * @param Dicars\DataBundle\Entity\VenTipoigv $ntipoigv
+     * @param \Dicars\DataBundle\Entity\VenTipoigv $ntipoigv
      * @return VenVenta
      */
     public function setNtipoigv(\Dicars\DataBundle\Entity\VenTipoigv $ntipoigv = null)
@@ -405,7 +405,7 @@ class VenVenta
     /**
      * Get ntipoigv
      *
-     * @return Dicars\DataBundle\Entity\VenTipoigv 
+     * @return \Dicars\DataBundle\Entity\VenTipoigv 
      */
     public function getNtipoigv()
     {
@@ -415,7 +415,7 @@ class VenVenta
     /**
      * Set ntipomoneda
      *
-     * @param Dicars\DataBundle\Entity\VenTipomoneda $ntipomoneda
+     * @param \Dicars\DataBundle\Entity\VenTipomoneda $ntipomoneda
      * @return VenVenta
      */
     public function setNtipomoneda(\Dicars\DataBundle\Entity\VenTipomoneda $ntipomoneda = null)
@@ -428,7 +428,7 @@ class VenVenta
     /**
      * Get ntipomoneda
      *
-     * @return Dicars\DataBundle\Entity\VenTipomoneda 
+     * @return \Dicars\DataBundle\Entity\VenTipomoneda 
      */
     public function getNtipomoneda()
     {

@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\LogCierredia
+ * LogCierredia
  *
  * @ORM\Table(name="log_cierredia")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class LogCierredia
 {
     /**
-     * @var integer $ncierrediaId
+     * @var integer
      *
      * @ORM\Column(name="nCierreDia_id", type="integer", nullable=false)
      * @ORM\Id
@@ -22,21 +22,21 @@ class LogCierredia
     private $ncierrediaId;
 
     /**
-     * @var \DateTime $ncierrefecha
+     * @var \DateTime
      *
      * @ORM\Column(name="nCierreFecha", type="date", nullable=false)
      */
     private $ncierrefecha;
 
     /**
-     * @var string $ccierredia
+     * @var string
      *
      * @ORM\Column(name="cCierreDia", type="string", length=12, nullable=false)
      */
     private $ccierredia;
 
     /**
-     * @var Local
+     * @var \Local
      *
      * @ORM\ManyToOne(targetEntity="Local")
      * @ORM\JoinColumns({
@@ -106,7 +106,7 @@ class LogCierredia
     /**
      * Set nlocal
      *
-     * @param Dicars\DataBundle\Entity\Local $nlocal
+     * @param \Dicars\DataBundle\Entity\Local $nlocal
      * @return LogCierredia
      */
     public function setNlocal(\Dicars\DataBundle\Entity\Local $nlocal = null)
@@ -119,7 +119,7 @@ class LogCierredia
     /**
      * Get nlocal
      *
-     * @return Dicars\DataBundle\Entity\Local 
+     * @return \Dicars\DataBundle\Entity\Local 
      */
     public function getNlocal()
     {

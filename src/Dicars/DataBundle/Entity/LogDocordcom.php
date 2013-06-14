@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\LogDocordcom
+ * LogDocordcom
  *
  * @ORM\Table(name="log_docordcom")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class LogDocordcom
 {
     /**
-     * @var integer $ndocordcomId
+     * @var integer
      *
      * @ORM\Column(name="nDocOrdCom_id", type="integer", nullable=false)
      * @ORM\Id
@@ -22,56 +22,56 @@ class LogDocordcom
     private $ndocordcomId;
 
     /**
-     * @var integer $ndocordcomformpag
+     * @var integer
      *
      * @ORM\Column(name="nDocOrdComFormPag", type="integer", nullable=false)
      */
     private $ndocordcomformpag;
 
     /**
-     * @var string $ndocordcomserie
+     * @var string
      *
      * @ORM\Column(name="nDocOrdComSerie", type="string", length=4, nullable=false)
      */
     private $ndocordcomserie;
 
     /**
-     * @var string $ndocordcomnro
+     * @var string
      *
      * @ORM\Column(name="nDocOrdComNro", type="string", length=8, nullable=false)
      */
     private $ndocordcomnro;
 
     /**
-     * @var string $cdocordcomest
+     * @var string
      *
      * @ORM\Column(name="cDocOrdComEst", type="string", length=1, nullable=false)
      */
     private $cdocordcomest;
 
     /**
-     * @var integer $ndocordcommodpag
+     * @var integer
      *
      * @ORM\Column(name="nDocOrdComModPag", type="integer", nullable=false)
      */
     private $ndocordcommodpag;
 
     /**
-     * @var \DateTime $ndocordcomfecreg
+     * @var \DateTime
      *
      * @ORM\Column(name="nDocOrdComFecReg", type="datetime", nullable=false)
      */
     private $ndocordcomfecreg;
 
     /**
-     * @var \DateTime $ddocordcomfecpag
+     * @var \DateTime
      *
      * @ORM\Column(name="dDocOrdComFecPag", type="datetime", nullable=false)
      */
     private $ddocordcomfecpag;
 
     /**
-     * @var LogOrdcom
+     * @var \LogOrdcom
      *
      * @ORM\ManyToOne(targetEntity="LogOrdcom")
      * @ORM\JoinColumns({
@@ -256,7 +256,7 @@ class LogDocordcom
     /**
      * Set nordencompra
      *
-     * @param Dicars\DataBundle\Entity\LogOrdcom $nordencompra
+     * @param \Dicars\DataBundle\Entity\LogOrdcom $nordencompra
      * @return LogDocordcom
      */
     public function setNordencompra(\Dicars\DataBundle\Entity\LogOrdcom $nordencompra = null)
@@ -269,7 +269,7 @@ class LogDocordcom
     /**
      * Get nordencompra
      *
-     * @return Dicars\DataBundle\Entity\LogOrdcom 
+     * @return \Dicars\DataBundle\Entity\LogOrdcom 
      */
     public function getNordencompra()
     {

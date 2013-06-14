@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\Producto
+ * Producto
  *
  * @ORM\Table(name="producto")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Producto
 {
     /**
-     * @var integer $nproductoId
+     * @var integer
      *
      * @ORM\Column(name="nProducto_id", type="integer", nullable=false)
      * @ORM\Id
@@ -22,112 +22,112 @@ class Producto
     private $nproductoId;
 
     /**
-     * @var string $cproductoserie
+     * @var string
      *
      * @ORM\Column(name="cProductoSerie", type="string", length=15, nullable=false)
      */
     private $cproductoserie;
 
     /**
-     * @var string $cproductotalla
+     * @var string
      *
      * @ORM\Column(name="cProductoTalla", type="string", length=15, nullable=false)
      */
     private $cproductotalla;
 
     /**
-     * @var integer $nproductotipo
+     * @var integer
      *
      * @ORM\Column(name="nProductoTipo", type="integer", nullable=false)
      */
     private $nproductotipo;
 
     /**
-     * @var string $cproductodesc
+     * @var string
      *
-     * @ORM\Column(name="cProductoDesc", type="text", nullable=false)
+     * @ORM\Column(name="cProductoDesc", type="string", length=200, nullable=false)
      */
     private $cproductodesc;
 
     /**
-     * @var float $nproductopcontado
+     * @var float
      *
      * @ORM\Column(name="nProductoPContado", type="decimal", nullable=false)
      */
     private $nproductopcontado;
 
     /**
-     * @var float $nproductopcredito
+     * @var float
      *
      * @ORM\Column(name="nProductoPCredito", type="decimal", nullable=false)
      */
     private $nproductopcredito;
 
     /**
-     * @var float $nproductopcosto
+     * @var float
      *
      * @ORM\Column(name="nProductoPCosto", type="decimal", nullable=false)
      */
     private $nproductopcosto;
 
     /**
-     * @var string $cproductocodbarra
+     * @var string
      *
      * @ORM\Column(name="cProductoCodBarra", type="text", nullable=false)
      */
     private $cproductocodbarra;
 
     /**
-     * @var string $cproductoarchivo
+     * @var string
      *
-     * @ORM\Column(name="cProductoArchivo", type="text", nullable=false)
+     * @ORM\Column(name="cProductoImage", type="text", nullable=false)
      */
-    private $cproductoarchivo;
+    private $cproductoimage;
 
     /**
-     * @var integer $nproductostockmin
+     * @var integer
      *
      * @ORM\Column(name="nProductoStockMin", type="integer", nullable=false)
      */
     private $nproductostockmin;
 
     /**
-     * @var integer $nproductostockmax
+     * @var integer
      *
      * @ORM\Column(name="nProductoStockMax", type="integer", nullable=false)
      */
     private $nproductostockmax;
 
     /**
-     * @var integer $nproductosotck
+     * @var integer
      *
      * @ORM\Column(name="nProductoSotck", type="integer", nullable=false)
      */
     private $nproductosotck;
 
     /**
-     * @var string $cproductoest
+     * @var string
      *
      * @ORM\Column(name="cProductoEst", type="string", length=1, nullable=false)
      */
     private $cproductoest;
 
     /**
-     * @var float $nproductoporcuti
+     * @var float
      *
      * @ORM\Column(name="nProductoPorcUti", type="decimal", nullable=false)
      */
     private $nproductoporcuti;
 
     /**
-     * @var float $nproductoutibruta
+     * @var float
      *
      * @ORM\Column(name="nProductoUtiBruta", type="decimal", nullable=false)
      */
     private $nproductoutibruta;
 
     /**
-     * @var VenCategoria
+     * @var \VenCategoria
      *
      * @ORM\ManyToOne(targetEntity="VenCategoria")
      * @ORM\JoinColumns({
@@ -137,7 +137,7 @@ class Producto
     private $ncategoria;
 
     /**
-     * @var VenMarca
+     * @var \VenMarca
      *
      * @ORM\ManyToOne(targetEntity="VenMarca")
      * @ORM\JoinColumns({
@@ -343,26 +343,26 @@ class Producto
     }
 
     /**
-     * Set cproductoarchivo
+     * Set cproductoimage
      *
-     * @param string $cproductoarchivo
+     * @param string $cproductoimage
      * @return Producto
      */
-    public function setCproductoarchivo($cproductoarchivo)
+    public function setCproductoimage($cproductoimage)
     {
-        $this->cproductoarchivo = $cproductoarchivo;
+        $this->cproductoimage = $cproductoimage;
     
         return $this;
     }
 
     /**
-     * Get cproductoarchivo
+     * Get cproductoimage
      *
      * @return string 
      */
-    public function getCproductoarchivo()
+    public function getCproductoimage()
     {
-        return $this->cproductoarchivo;
+        return $this->cproductoimage;
     }
 
     /**
@@ -506,7 +506,7 @@ class Producto
     /**
      * Set ncategoria
      *
-     * @param Dicars\DataBundle\Entity\VenCategoria $ncategoria
+     * @param \Dicars\DataBundle\Entity\VenCategoria $ncategoria
      * @return Producto
      */
     public function setNcategoria(\Dicars\DataBundle\Entity\VenCategoria $ncategoria = null)
@@ -519,7 +519,7 @@ class Producto
     /**
      * Get ncategoria
      *
-     * @return Dicars\DataBundle\Entity\VenCategoria 
+     * @return \Dicars\DataBundle\Entity\VenCategoria 
      */
     public function getNcategoria()
     {
@@ -529,7 +529,7 @@ class Producto
     /**
      * Set nproductomarca
      *
-     * @param Dicars\DataBundle\Entity\VenMarca $nproductomarca
+     * @param \Dicars\DataBundle\Entity\VenMarca $nproductomarca
      * @return Producto
      */
     public function setNproductomarca(\Dicars\DataBundle\Entity\VenMarca $nproductomarca = null)
@@ -542,7 +542,7 @@ class Producto
     /**
      * Get nproductomarca
      *
-     * @return Dicars\DataBundle\Entity\VenMarca 
+     * @return \Dicars\DataBundle\Entity\VenMarca 
      */
     public function getNproductomarca()
     {

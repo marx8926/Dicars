@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\LogDetordped
+ * LogDetordped
  *
  * @ORM\Table(name="log_detordped")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class LogDetordped
 {
     /**
-     * @var integer $ndetordpedId
+     * @var integer
      *
      * @ORM\Column(name="nDetOrdPed_id", type="integer", nullable=false)
      * @ORM\Id
@@ -22,21 +22,21 @@ class LogDetordped
     private $ndetordpedId;
 
     /**
-     * @var float $ndetordpedcant
+     * @var float
      *
      * @ORM\Column(name="nDetOrdPedCant", type="decimal", nullable=false)
      */
     private $ndetordpedcant;
 
     /**
-     * @var string $ndetordpedest
+     * @var string
      *
      * @ORM\Column(name="nDetOrdPedEst", type="string", length=1, nullable=false)
      */
     private $ndetordpedest;
 
     /**
-     * @var LogOrdped
+     * @var \LogOrdped
      *
      * @ORM\ManyToOne(targetEntity="LogOrdped")
      * @ORM\JoinColumns({
@@ -46,7 +46,7 @@ class LogDetordped
     private $nordped;
 
     /**
-     * @var Producto
+     * @var \Producto
      *
      * @ORM\ManyToOne(targetEntity="Producto")
      * @ORM\JoinColumns({
@@ -116,7 +116,7 @@ class LogDetordped
     /**
      * Set nordped
      *
-     * @param Dicars\DataBundle\Entity\LogOrdped $nordped
+     * @param \Dicars\DataBundle\Entity\LogOrdped $nordped
      * @return LogDetordped
      */
     public function setNordped(\Dicars\DataBundle\Entity\LogOrdped $nordped = null)
@@ -129,7 +129,7 @@ class LogDetordped
     /**
      * Get nordped
      *
-     * @return Dicars\DataBundle\Entity\LogOrdped 
+     * @return \Dicars\DataBundle\Entity\LogOrdped 
      */
     public function getNordped()
     {
@@ -139,7 +139,7 @@ class LogDetordped
     /**
      * Set nproducto
      *
-     * @param Dicars\DataBundle\Entity\Producto $nproducto
+     * @param \Dicars\DataBundle\Entity\Producto $nproducto
      * @return LogDetordped
      */
     public function setNproducto(\Dicars\DataBundle\Entity\Producto $nproducto = null)
@@ -152,7 +152,7 @@ class LogDetordped
     /**
      * Get nproducto
      *
-     * @return Dicars\DataBundle\Entity\Producto 
+     * @return \Dicars\DataBundle\Entity\Producto 
      */
     public function getNproducto()
     {

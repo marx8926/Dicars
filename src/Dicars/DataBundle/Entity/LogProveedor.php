@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\LogProveedor
+ * LogProveedor
  *
  * @ORM\Table(name="log_proveedor")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class LogProveedor
 {
     /**
-     * @var integer $nproveedorId
+     * @var integer
      *
      * @ORM\Column(name="nProveedor_id", type="integer", nullable=false)
      * @ORM\Id
@@ -22,49 +22,49 @@ class LogProveedor
     private $nproveedorId;
 
     /**
-     * @var string $cproveedorruc
+     * @var string
      *
      * @ORM\Column(name="cProveedorRuc", type="string", length=11, nullable=false)
      */
     private $cproveedorruc;
 
     /**
-     * @var string $cproveedorrazsocial
+     * @var string
      *
      * @ORM\Column(name="cProveedorRazSocial", type="string", length=200, nullable=false)
      */
     private $cproveedorrazsocial;
 
     /**
-     * @var string $cproveedortel
+     * @var string
      *
      * @ORM\Column(name="cProveedorTel", type="string", length=25, nullable=false)
      */
     private $cproveedortel;
 
     /**
-     * @var string $cproveedoremail
+     * @var string
      *
      * @ORM\Column(name="cProveedorEmail", type="string", length=100, nullable=false)
      */
     private $cproveedoremail;
 
     /**
-     * @var string $cproveedorsitioweb
+     * @var string
      *
      * @ORM\Column(name="cProveedorSitioWeb", type="string", length=150, nullable=true)
      */
     private $cproveedorsitioweb;
 
     /**
-     * @var string $cproveedordirec
+     * @var string
      *
      * @ORM\Column(name="cProveedorDirec", type="string", length=200, nullable=false)
      */
     private $cproveedordirec;
 
     /**
-     * @var string $cproveedorccorriente
+     * @var string
      *
      * @ORM\Column(name="cProveedorCCorriente", type="string", length=20, nullable=true)
      */

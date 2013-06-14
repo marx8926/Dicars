@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\VenDocventa
+ * VenDocventa
  *
  * @ORM\Table(name="ven_docventa")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class VenDocventa
 {
     /**
-     * @var integer $ndocumentoId
+     * @var integer
      *
      * @ORM\Column(name="nDocumento_id", type="integer", nullable=false)
      * @ORM\Id
@@ -22,28 +22,28 @@ class VenDocventa
     private $ndocumentoId;
 
     /**
-     * @var \DateTime $ddocventafecems
+     * @var \DateTime
      *
      * @ORM\Column(name="dDocVentaFecEms", type="datetime", nullable=false)
      */
     private $ddocventafecems;
 
     /**
-     * @var integer $ndocventatipdoc
+     * @var integer
      *
      * @ORM\Column(name="nDocVentaTipDoc", type="integer", nullable=false)
      */
     private $ndocventatipdoc;
 
     /**
-     * @var \DateTime $ddocventafecvenc
+     * @var \DateTime
      *
      * @ORM\Column(name="dDocVentaFecVenc", type="datetime", nullable=false)
      */
     private $ddocventafecvenc;
 
     /**
-     * @var VenVenta
+     * @var \VenVenta
      *
      * @ORM\ManyToOne(targetEntity="VenVenta")
      * @ORM\JoinColumns({
@@ -136,7 +136,7 @@ class VenDocventa
     /**
      * Set nventa
      *
-     * @param Dicars\DataBundle\Entity\VenVenta $nventa
+     * @param \Dicars\DataBundle\Entity\VenVenta $nventa
      * @return VenDocventa
      */
     public function setNventa(\Dicars\DataBundle\Entity\VenVenta $nventa = null)
@@ -149,7 +149,7 @@ class VenDocventa
     /**
      * Get nventa
      *
-     * @return Dicars\DataBundle\Entity\VenVenta 
+     * @return \Dicars\DataBundle\Entity\VenVenta 
      */
     public function getNventa()
     {

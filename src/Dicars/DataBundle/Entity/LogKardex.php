@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\LogKardex
+ * LogKardex
  *
  * @ORM\Table(name="log_kardex")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class LogKardex
 {
     /**
-     * @var integer $nkardexId
+     * @var integer
      *
      * @ORM\Column(name="nKardex_id", type="integer", nullable=false)
      * @ORM\Id
@@ -22,70 +22,70 @@ class LogKardex
     private $nkardexId;
 
     /**
-     * @var string $ckardexserie
+     * @var string
      *
      * @ORM\Column(name="cKardexSerie", type="string", length=4, nullable=true)
      */
     private $ckardexserie;
 
     /**
-     * @var string $ckardexnro
+     * @var string
      *
      * @ORM\Column(name="cKardexNro", type="string", length=8, nullable=true)
      */
     private $ckardexnro;
 
     /**
-     * @var string $ckardextipoing
+     * @var string
      *
      * @ORM\Column(name="cKardexTipoIng", type="string", length=1, nullable=false)
      */
     private $ckardextipoing;
 
     /**
-     * @var float $nkardexprecunt
+     * @var float
      *
      * @ORM\Column(name="nKardexPrecUnt", type="decimal", nullable=true)
      */
     private $nkardexprecunt;
 
     /**
-     * @var integer $nkardexcant
+     * @var integer
      *
      * @ORM\Column(name="nKardexCant", type="integer", nullable=true)
      */
     private $nkardexcant;
 
     /**
-     * @var float $nkardextot
+     * @var float
      *
      * @ORM\Column(name="nKardexTot", type="decimal", nullable=true)
      */
     private $nkardextot;
 
     /**
-     * @var integer $nkardexsaldocant
+     * @var integer
      *
      * @ORM\Column(name="nKardexSaldoCant", type="integer", nullable=false)
      */
     private $nkardexsaldocant;
 
     /**
-     * @var float $nkardexsaldoprecunt
+     * @var float
      *
      * @ORM\Column(name="nKardexSaldoPrecUnt", type="decimal", nullable=false)
      */
     private $nkardexsaldoprecunt;
 
     /**
-     * @var float $nkardexsaldotot
+     * @var float
      *
      * @ORM\Column(name="nKardexSaldoTot", type="decimal", nullable=false)
      */
     private $nkardexsaldotot;
 
     /**
-     * @var Local
+     * @var \Local
      *
      * @ORM\ManyToOne(targetEntity="Local")
      * @ORM\JoinColumns({
@@ -95,7 +95,7 @@ class LogKardex
     private $nlocal;
 
     /**
-     * @var Producto
+     * @var \Producto
      *
      * @ORM\ManyToOne(targetEntity="Producto")
      * @ORM\JoinColumns({
@@ -326,7 +326,7 @@ class LogKardex
     /**
      * Set nlocal
      *
-     * @param Dicars\DataBundle\Entity\Local $nlocal
+     * @param \Dicars\DataBundle\Entity\Local $nlocal
      * @return LogKardex
      */
     public function setNlocal(\Dicars\DataBundle\Entity\Local $nlocal = null)
@@ -339,7 +339,7 @@ class LogKardex
     /**
      * Get nlocal
      *
-     * @return Dicars\DataBundle\Entity\Local 
+     * @return \Dicars\DataBundle\Entity\Local 
      */
     public function getNlocal()
     {
@@ -349,7 +349,7 @@ class LogKardex
     /**
      * Set nproducto
      *
-     * @param Dicars\DataBundle\Entity\Producto $nproducto
+     * @param \Dicars\DataBundle\Entity\Producto $nproducto
      * @return LogKardex
      */
     public function setNproducto(\Dicars\DataBundle\Entity\Producto $nproducto = null)
@@ -362,7 +362,7 @@ class LogKardex
     /**
      * Get nproducto
      *
-     * @return Dicars\DataBundle\Entity\Producto 
+     * @return \Dicars\DataBundle\Entity\Producto 
      */
     public function getNproducto()
     {

@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\VenBoleta
+ * VenBoleta
  *
  * @ORM\Table(name="ven_boleta")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class VenBoleta
 {
     /**
-     * @var integer $nboletaId
+     * @var integer
      *
      * @ORM\Column(name="nBoleta_id", type="integer", nullable=false)
      * @ORM\Id
@@ -22,21 +22,21 @@ class VenBoleta
     private $nboletaId;
 
     /**
-     * @var string $cboletaserie
+     * @var string
      *
      * @ORM\Column(name="cBoletaSerie", type="string", length=4, nullable=false)
      */
     private $cboletaserie;
 
     /**
-     * @var string $cboletanro
+     * @var string
      *
      * @ORM\Column(name="cBoletaNro", type="string", length=8, nullable=false)
      */
     private $cboletanro;
 
     /**
-     * @var VenDocventa
+     * @var \VenDocventa
      *
      * @ORM\ManyToOne(targetEntity="VenDocventa")
      * @ORM\JoinColumns({
@@ -106,7 +106,7 @@ class VenBoleta
     /**
      * Set ndocumento
      *
-     * @param Dicars\DataBundle\Entity\VenDocventa $ndocumento
+     * @param \Dicars\DataBundle\Entity\VenDocventa $ndocumento
      * @return VenBoleta
      */
     public function setNdocumento(\Dicars\DataBundle\Entity\VenDocventa $ndocumento = null)
@@ -119,7 +119,7 @@ class VenBoleta
     /**
      * Get ndocumento
      *
-     * @return Dicars\DataBundle\Entity\VenDocventa 
+     * @return \Dicars\DataBundle\Entity\VenDocventa 
      */
     public function getNdocumento()
     {

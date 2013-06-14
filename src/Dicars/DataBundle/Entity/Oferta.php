@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\Oferta
+ * Oferta
  *
  * @ORM\Table(name="oferta")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Oferta
 {
     /**
-     * @var integer $nofertaId
+     * @var integer
      *
      * @ORM\Column(name="nOferta_id", type="integer", nullable=false)
      * @ORM\Id
@@ -22,7 +22,7 @@ class Oferta
     private $nofertaId;
 
     /**
-     * @var string $cofertadesc
+     * @var string
      *
      * @ORM\Column(name="cOfertaDesc", type="string", length=100, nullable=false)
      */

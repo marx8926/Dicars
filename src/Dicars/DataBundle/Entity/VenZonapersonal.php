@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\VenZonapersonal
+ * VenZonapersonal
  *
  * @ORM\Table(name="ven_zonapersonal")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class VenZonapersonal
 {
     /**
-     * @var integer $nzonapersonalId
+     * @var integer
      *
      * @ORM\Column(name="nZonaPersonal_id", type="integer", nullable=false)
      * @ORM\Id
@@ -22,7 +22,7 @@ class VenZonapersonal
     private $nzonapersonalId;
 
     /**
-     * @var VenPersonal
+     * @var \VenPersonal
      *
      * @ORM\ManyToOne(targetEntity="VenPersonal")
      * @ORM\JoinColumns({
@@ -32,7 +32,7 @@ class VenZonapersonal
     private $npersonal;
 
     /**
-     * @var VenZona
+     * @var \VenZona
      *
      * @ORM\ManyToOne(targetEntity="VenZona")
      * @ORM\JoinColumns({
@@ -56,7 +56,7 @@ class VenZonapersonal
     /**
      * Set npersonal
      *
-     * @param Dicars\DataBundle\Entity\VenPersonal $npersonal
+     * @param \Dicars\DataBundle\Entity\VenPersonal $npersonal
      * @return VenZonapersonal
      */
     public function setNpersonal(\Dicars\DataBundle\Entity\VenPersonal $npersonal = null)
@@ -69,7 +69,7 @@ class VenZonapersonal
     /**
      * Get npersonal
      *
-     * @return Dicars\DataBundle\Entity\VenPersonal 
+     * @return \Dicars\DataBundle\Entity\VenPersonal 
      */
     public function getNpersonal()
     {
@@ -79,7 +79,7 @@ class VenZonapersonal
     /**
      * Set nzona
      *
-     * @param Dicars\DataBundle\Entity\VenZona $nzona
+     * @param \Dicars\DataBundle\Entity\VenZona $nzona
      * @return VenZonapersonal
      */
     public function setNzona(\Dicars\DataBundle\Entity\VenZona $nzona = null)
@@ -92,7 +92,7 @@ class VenZonapersonal
     /**
      * Get nzona
      *
-     * @return Dicars\DataBundle\Entity\VenZona 
+     * @return \Dicars\DataBundle\Entity\VenZona 
      */
     public function getNzona()
     {

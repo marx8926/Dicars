@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\AdMenusuario
+ * AdMenusuario
  *
  * @ORM\Table(name="ad_menusuario")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class AdMenusuario
 {
     /**
-     * @var integer $nmenusuarioId
+     * @var integer
      *
      * @ORM\Column(name="nMenUsuario_id", type="integer", nullable=false)
      * @ORM\Id
@@ -22,14 +22,14 @@ class AdMenusuario
     private $nmenusuarioId;
 
     /**
-     * @var string $cmenusuarioest
+     * @var string
      *
      * @ORM\Column(name="cMenUsuarioEst", type="string", length=1, nullable=false)
      */
     private $cmenusuarioest;
 
     /**
-     * @var Menu
+     * @var \Menu
      *
      * @ORM\ManyToOne(targetEntity="Menu")
      * @ORM\JoinColumns({
@@ -39,7 +39,7 @@ class AdMenusuario
     private $nmenu;
 
     /**
-     * @var Usuario
+     * @var \Usuario
      *
      * @ORM\ManyToOne(targetEntity="Usuario")
      * @ORM\JoinColumns({
@@ -86,7 +86,7 @@ class AdMenusuario
     /**
      * Set nmenu
      *
-     * @param Dicars\DataBundle\Entity\Menu $nmenu
+     * @param \Dicars\DataBundle\Entity\Menu $nmenu
      * @return AdMenusuario
      */
     public function setNmenu(\Dicars\DataBundle\Entity\Menu $nmenu = null)
@@ -99,7 +99,7 @@ class AdMenusuario
     /**
      * Get nmenu
      *
-     * @return Dicars\DataBundle\Entity\Menu 
+     * @return \Dicars\DataBundle\Entity\Menu 
      */
     public function getNmenu()
     {
@@ -109,7 +109,7 @@ class AdMenusuario
     /**
      * Set nusuario
      *
-     * @param Dicars\DataBundle\Entity\Usuario $nusuario
+     * @param \Dicars\DataBundle\Entity\Usuario $nusuario
      * @return AdMenusuario
      */
     public function setNusuario(\Dicars\DataBundle\Entity\Usuario $nusuario = null)
@@ -122,7 +122,7 @@ class AdMenusuario
     /**
      * Get nusuario
      *
-     * @return Dicars\DataBundle\Entity\Usuario 
+     * @return \Dicars\DataBundle\Entity\Usuario 
      */
     public function getNusuario()
     {

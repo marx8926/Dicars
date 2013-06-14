@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\Parametro
+ * Parametro
  *
  * @ORM\Table(name="parametro")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Parametro
 {
     /**
-     * @var integer $nparametroId
+     * @var integer
      *
      * @ORM\Column(name="nParametro_id", type="integer", nullable=false)
      * @ORM\Id

@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\Ubigeo
+ * Ubigeo
  *
  * @ORM\Table(name="ubigeo")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Ubigeo
 {
     /**
-     * @var integer $nubigeoId
+     * @var integer
      *
      * @ORM\Column(name="nUbigeo_id", type="integer", nullable=false)
      * @ORM\Id
@@ -22,35 +22,35 @@ class Ubigeo
     private $nubigeoId;
 
     /**
-     * @var integer $nubigeodpt
+     * @var integer
      *
      * @ORM\Column(name="nUbigeoDpt", type="integer", nullable=false)
      */
     private $nubigeodpt;
 
     /**
-     * @var integer $nubigeoprov
+     * @var integer
      *
      * @ORM\Column(name="nUbigeoProv", type="integer", nullable=false)
      */
     private $nubigeoprov;
 
     /**
-     * @var integer $nubigeodist
+     * @var integer
      *
      * @ORM\Column(name="nUbigeoDist", type="integer", nullable=false)
      */
     private $nubigeodist;
 
     /**
-     * @var string $cubigeodesc
+     * @var string
      *
      * @ORM\Column(name="cUbigeoDesc", type="string", length=150, nullable=false)
      */
     private $cubigeodesc;
 
     /**
-     * @var integer $nubigeodep
+     * @var integer
      *
      * @ORM\Column(name="nUbigeoDep", type="integer", nullable=false)
      */

@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\LogCierremes
+ * LogCierremes
  *
  * @ORM\Table(name="log_cierremes")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class LogCierremes
 {
     /**
-     * @var integer $ncierremesId
+     * @var integer
      *
      * @ORM\Column(name="nCierreMes_id", type="integer", nullable=false)
      * @ORM\Id
@@ -22,28 +22,28 @@ class LogCierremes
     private $ncierremesId;
 
     /**
-     * @var \DateTime $dcierremesfecinicio
+     * @var \DateTime
      *
      * @ORM\Column(name="dCierreMesFecInicio", type="datetime", nullable=false)
      */
     private $dcierremesfecinicio;
 
     /**
-     * @var \DateTime $dcierremesfecfin
+     * @var \DateTime
      *
      * @ORM\Column(name="dCierreMesFecFin", type="datetime", nullable=false)
      */
     private $dcierremesfecfin;
 
     /**
-     * @var integer $ncierremesnro
+     * @var integer
      *
      * @ORM\Column(name="nCierreMesNro", type="integer", nullable=false)
      */
     private $ncierremesnro;
 
     /**
-     * @var Local
+     * @var \Local
      *
      * @ORM\ManyToOne(targetEntity="Local")
      * @ORM\JoinColumns({
@@ -136,7 +136,7 @@ class LogCierremes
     /**
      * Set nlocal
      *
-     * @param Dicars\DataBundle\Entity\Local $nlocal
+     * @param \Dicars\DataBundle\Entity\Local $nlocal
      * @return LogCierremes
      */
     public function setNlocal(\Dicars\DataBundle\Entity\Local $nlocal = null)
@@ -149,7 +149,7 @@ class LogCierremes
     /**
      * Get nlocal
      *
-     * @return Dicars\DataBundle\Entity\Local 
+     * @return \Dicars\DataBundle\Entity\Local 
      */
     public function getNlocal()
     {

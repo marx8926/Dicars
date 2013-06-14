@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\LogIngprod
+ * LogIngprod
  *
  * @ORM\Table(name="log_ingprod")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class LogIngprod
 {
     /**
-     * @var integer $ningprodId
+     * @var integer
      *
      * @ORM\Column(name="nIngProd_id", type="integer", nullable=false)
      * @ORM\Id
@@ -22,56 +22,63 @@ class LogIngprod
     private $ningprodId;
 
     /**
-     * @var string $cingprodserie
+     * @var string
      *
      * @ORM\Column(name="cIngProdSerie", type="string", length=4, nullable=false)
      */
     private $cingprodserie;
 
     /**
-     * @var string $cingprodnro
+     * @var string
      *
      * @ORM\Column(name="cIngProdNro", type="string", length=8, nullable=false)
      */
     private $cingprodnro;
 
     /**
-     * @var integer $ningprodmotivo
+     * @var integer
      *
      * @ORM\Column(name="nIngProdMotivo", type="integer", nullable=false)
      */
     private $ningprodmotivo;
 
     /**
-     * @var string $cingproddocserie
+     * @var string
      *
      * @ORM\Column(name="cIngProdDocSerie", type="string", length=4, nullable=false)
      */
     private $cingproddocserie;
 
     /**
-     * @var \DateTime $dingprodfecreg
+     * @var \DateTime
      *
      * @ORM\Column(name="dIngProdFecReg", type="datetime", nullable=false)
      */
     private $dingprodfecreg;
 
     /**
-     * @var string $cingproddocnro
+     * @var string
      *
      * @ORM\Column(name="cIngProdDocNro", type="string", length=8, nullable=false)
      */
     private $cingproddocnro;
 
     /**
-     * @var string $cingprodobsv
+     * @var string
      *
      * @ORM\Column(name="cIngProdObsv", type="string", length=500, nullable=false)
      */
     private $cingprodobsv;
 
     /**
-     * @var Local
+     * @var string
+     *
+     * @ORM\Column(name="cIngProdEst", type="string", length=1, nullable=false)
+     */
+    private $cingprodest;
+
+    /**
+     * @var \Local
      *
      * @ORM\ManyToOne(targetEntity="Local")
      * @ORM\JoinColumns({
@@ -81,7 +88,7 @@ class LogIngprod
     private $nlocal;
 
     /**
-     * @var VenPersonal
+     * @var \VenPersonal
      *
      * @ORM\ManyToOne(targetEntity="VenPersonal")
      * @ORM\JoinColumns({
@@ -264,9 +271,32 @@ class LogIngprod
     }
 
     /**
+     * Set cingprodest
+     *
+     * @param string $cingprodest
+     * @return LogIngprod
+     */
+    public function setCingprodest($cingprodest)
+    {
+        $this->cingprodest = $cingprodest;
+    
+        return $this;
+    }
+
+    /**
+     * Get cingprodest
+     *
+     * @return string 
+     */
+    public function getCingprodest()
+    {
+        return $this->cingprodest;
+    }
+
+    /**
      * Set nlocal
      *
-     * @param Dicars\DataBundle\Entity\Local $nlocal
+     * @param \Dicars\DataBundle\Entity\Local $nlocal
      * @return LogIngprod
      */
     public function setNlocal(\Dicars\DataBundle\Entity\Local $nlocal = null)
@@ -279,7 +309,7 @@ class LogIngprod
     /**
      * Get nlocal
      *
-     * @return Dicars\DataBundle\Entity\Local 
+     * @return \Dicars\DataBundle\Entity\Local 
      */
     public function getNlocal()
     {
@@ -289,7 +319,7 @@ class LogIngprod
     /**
      * Set npersonal
      *
-     * @param Dicars\DataBundle\Entity\VenPersonal $npersonal
+     * @param \Dicars\DataBundle\Entity\VenPersonal $npersonal
      * @return LogIngprod
      */
     public function setNpersonal(\Dicars\DataBundle\Entity\VenPersonal $npersonal = null)
@@ -302,7 +332,7 @@ class LogIngprod
     /**
      * Get npersonal
      *
-     * @return Dicars\DataBundle\Entity\VenPersonal 
+     * @return \Dicars\DataBundle\Entity\VenPersonal 
      */
     public function getNpersonal()
     {

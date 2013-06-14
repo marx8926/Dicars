@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\VenTransaccion
+ * VenTransaccion
  *
  * @ORM\Table(name="ven_transaccion")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class VenTransaccion
 {
     /**
-     * @var integer $ntransaccionId
+     * @var integer
      *
      * @ORM\Column(name="nTransaccion_id", type="integer", nullable=false)
      * @ORM\Id
@@ -22,35 +22,35 @@ class VenTransaccion
     private $ntransaccionId;
 
     /**
-     * @var string $ctransacciondesc
+     * @var string
      *
      * @ORM\Column(name="cTransaccionDesc", type="string", length=200, nullable=false)
      */
     private $ctransacciondesc;
 
     /**
-     * @var float $ntransaccionmont
+     * @var float
      *
      * @ORM\Column(name="nTransaccionMont", type="decimal", nullable=false)
      */
     private $ntransaccionmont;
 
     /**
-     * @var \DateTime $dtransaccionfecreg
+     * @var \DateTime
      *
      * @ORM\Column(name="dTransaccionFecReg", type="datetime", nullable=false)
      */
     private $dtransaccionfecreg;
 
     /**
-     * @var integer $ntransacciontippag
+     * @var integer
      *
      * @ORM\Column(name="nTransaccionTipPag", type="integer", nullable=false)
      */
     private $ntransacciontippag;
 
     /**
-     * @var VenPersonal
+     * @var \VenPersonal
      *
      * @ORM\ManyToOne(targetEntity="VenPersonal")
      * @ORM\JoinColumns({
@@ -60,7 +60,7 @@ class VenTransaccion
     private $npersonal;
 
     /**
-     * @var VenVenta
+     * @var \VenVenta
      *
      * @ORM\ManyToOne(targetEntity="VenVenta")
      * @ORM\JoinColumns({
@@ -176,7 +176,7 @@ class VenTransaccion
     /**
      * Set npersonal
      *
-     * @param Dicars\DataBundle\Entity\VenPersonal $npersonal
+     * @param \Dicars\DataBundle\Entity\VenPersonal $npersonal
      * @return VenTransaccion
      */
     public function setNpersonal(\Dicars\DataBundle\Entity\VenPersonal $npersonal = null)
@@ -189,7 +189,7 @@ class VenTransaccion
     /**
      * Get npersonal
      *
-     * @return Dicars\DataBundle\Entity\VenPersonal 
+     * @return \Dicars\DataBundle\Entity\VenPersonal 
      */
     public function getNpersonal()
     {
@@ -199,7 +199,7 @@ class VenTransaccion
     /**
      * Set nventa
      *
-     * @param Dicars\DataBundle\Entity\VenVenta $nventa
+     * @param \Dicars\DataBundle\Entity\VenVenta $nventa
      * @return VenTransaccion
      */
     public function setNventa(\Dicars\DataBundle\Entity\VenVenta $nventa = null)
@@ -212,7 +212,7 @@ class VenTransaccion
     /**
      * Get nventa
      *
-     * @return Dicars\DataBundle\Entity\VenVenta 
+     * @return \Dicars\DataBundle\Entity\VenVenta 
      */
     public function getNventa()
     {

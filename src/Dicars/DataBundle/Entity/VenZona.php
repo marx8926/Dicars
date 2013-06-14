@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\VenZona
+ * VenZona
  *
  * @ORM\Table(name="ven_zona")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class VenZona
 {
     /**
-     * @var integer $nzonaId
+     * @var integer
      *
      * @ORM\Column(name="nZona_id", type="integer", nullable=false)
      * @ORM\Id
@@ -22,21 +22,21 @@ class VenZona
     private $nzonaId;
 
     /**
-     * @var string $czonadesc
+     * @var string
      *
      * @ORM\Column(name="cZonaDesc", type="string", length=100, nullable=false)
      */
     private $czonadesc;
 
     /**
-     * @var integer $nzonaest
+     * @var integer
      *
      * @ORM\Column(name="nZonaEst", type="integer", nullable=false)
      */
     private $nzonaest;
 
     /**
-     * @var Ubigeo
+     * @var \Ubigeo
      *
      * @ORM\ManyToOne(targetEntity="Ubigeo")
      * @ORM\JoinColumns({
@@ -106,7 +106,7 @@ class VenZona
     /**
      * Set nubigeo
      *
-     * @param Dicars\DataBundle\Entity\Ubigeo $nubigeo
+     * @param \Dicars\DataBundle\Entity\Ubigeo $nubigeo
      * @return VenZona
      */
     public function setNubigeo(\Dicars\DataBundle\Entity\Ubigeo $nubigeo = null)
@@ -119,7 +119,7 @@ class VenZona
     /**
      * Get nubigeo
      *
-     * @return Dicars\DataBundle\Entity\Ubigeo 
+     * @return \Dicars\DataBundle\Entity\Ubigeo 
      */
     public function getNubigeo()
     {

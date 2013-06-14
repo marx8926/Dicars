@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\LogOrdcom
+ * LogOrdcom
  *
  * @ORM\Table(name="log_ordcom")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class LogOrdcom
 {
     /**
-     * @var integer $nordencomId
+     * @var integer
      *
      * @ORM\Column(name="nOrdenCom_id", type="integer", nullable=false)
      * @ORM\Id
@@ -22,84 +22,84 @@ class LogOrdcom
     private $nordencomId;
 
     /**
-     * @var \DateTime $ordcomfecreg
+     * @var \DateTime
      *
      * @ORM\Column(name="OrdComFecReg", type="datetime", nullable=false)
      */
     private $ordcomfecreg;
 
     /**
-     * @var string $cordcomserie
+     * @var string
      *
      * @ORM\Column(name="cOrdComSerie", type="string", length=4, nullable=false)
      */
     private $cordcomserie;
 
     /**
-     * @var string $cordcomnro
+     * @var string
      *
      * @ORM\Column(name="cOrdComNro", type="string", length=8, nullable=false)
      */
     private $cordcomnro;
 
     /**
-     * @var float $nordcomsubtotal
+     * @var float
      *
      * @ORM\Column(name="nOrdComSubTotal", type="decimal", nullable=false)
      */
     private $nordcomsubtotal;
 
     /**
-     * @var float $nordcomigv
+     * @var float
      *
      * @ORM\Column(name="nOrdComIGV", type="decimal", nullable=false)
      */
     private $nordcomigv;
 
     /**
-     * @var float $nordcomtotal
+     * @var float
      *
      * @ORM\Column(name="nOrdComTotal", type="decimal", nullable=false)
      */
     private $nordcomtotal;
 
     /**
-     * @var string $cordcomobsv
+     * @var string
      *
      * @ORM\Column(name="cOrdComObsv", type="string", length=500, nullable=false)
      */
     private $cordcomobsv;
 
     /**
-     * @var string $cordcomest
+     * @var string
      *
      * @ORM\Column(name="cOrdComEst", type="string", length=1, nullable=false)
      */
     private $cordcomest;
 
     /**
-     * @var float $nordcomdesct
+     * @var float
      *
      * @ORM\Column(name="nOrdComDesct", type="decimal", nullable=false)
      */
     private $nordcomdesct;
 
     /**
-     * @var float $nordcomreceqv
+     * @var float
      *
      * @ORM\Column(name="nOrdComRecEqv", type="decimal", nullable=false)
      */
     private $nordcomreceqv;
 
     /**
-     * @var float $nordcomretencion
+     * @var float
      *
      * @ORM\Column(name="nOrdComRetencion", type="decimal", nullable=false)
      */
     private $nordcomretencion;
 
     /**
-     * @var LogProveedor
+     * @var \LogProveedor
      *
      * @ORM\ManyToOne(targetEntity="LogProveedor")
      * @ORM\JoinColumns({
@@ -109,7 +109,7 @@ class LogOrdcom
     private $nproveedor;
 
     /**
-     * @var VenPersonal
+     * @var \VenPersonal
      *
      * @ORM\ManyToOne(targetEntity="VenPersonal")
      * @ORM\JoinColumns({
@@ -386,7 +386,7 @@ class LogOrdcom
     /**
      * Set nproveedor
      *
-     * @param Dicars\DataBundle\Entity\LogProveedor $nproveedor
+     * @param \Dicars\DataBundle\Entity\LogProveedor $nproveedor
      * @return LogOrdcom
      */
     public function setNproveedor(\Dicars\DataBundle\Entity\LogProveedor $nproveedor = null)
@@ -399,7 +399,7 @@ class LogOrdcom
     /**
      * Get nproveedor
      *
-     * @return Dicars\DataBundle\Entity\LogProveedor 
+     * @return \Dicars\DataBundle\Entity\LogProveedor 
      */
     public function getNproveedor()
     {
@@ -409,7 +409,7 @@ class LogOrdcom
     /**
      * Set npersonal
      *
-     * @param Dicars\DataBundle\Entity\VenPersonal $npersonal
+     * @param \Dicars\DataBundle\Entity\VenPersonal $npersonal
      * @return LogOrdcom
      */
     public function setNpersonal(\Dicars\DataBundle\Entity\VenPersonal $npersonal = null)
@@ -422,7 +422,7 @@ class LogOrdcom
     /**
      * Get npersonal
      *
-     * @return Dicars\DataBundle\Entity\VenPersonal 
+     * @return \Dicars\DataBundle\Entity\VenPersonal 
      */
     public function getNpersonal()
     {

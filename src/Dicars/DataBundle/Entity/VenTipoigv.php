@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\VenTipoigv
+ * VenTipoigv
  *
  * @ORM\Table(name="ven_tipoigv")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class VenTipoigv
 {
     /**
-     * @var integer $ntipoigv
+     * @var integer
      *
      * @ORM\Column(name="nTipoIGV", type="integer", nullable=false)
      * @ORM\Id
@@ -22,28 +22,28 @@ class VenTipoigv
     private $ntipoigv;
 
     /**
-     * @var string $ctipoigv
+     * @var string
      *
      * @ORM\Column(name="cTipoIGV", type="string", length=100, nullable=false)
      */
     private $ctipoigv;
 
     /**
-     * @var float $ntipoigvproc
+     * @var float
      *
      * @ORM\Column(name="nTipoIGVProc", type="decimal", nullable=false)
      */
     private $ntipoigvproc;
 
     /**
-     * @var \DateTime $dtipoigvfecreg
+     * @var \DateTime
      *
      * @ORM\Column(name="dTipoIGVFecReg", type="datetime", nullable=false)
      */
     private $dtipoigvfecreg;
 
     /**
-     * @var string $ctipoigvest
+     * @var string
      *
      * @ORM\Column(name="cTipoIGVEst", type="string", length=1, nullable=false)
      */

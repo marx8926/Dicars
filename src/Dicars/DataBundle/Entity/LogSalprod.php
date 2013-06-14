@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\LogSalprod
+ * LogSalprod
  *
  * @ORM\Table(name="log_salprod")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class LogSalprod
 {
     /**
-     * @var integer $nsalprodId
+     * @var integer
      *
      * @ORM\Column(name="nSalProd_id", type="integer", nullable=false)
      * @ORM\Id
@@ -22,49 +22,49 @@ class LogSalprod
     private $nsalprodId;
 
     /**
-     * @var string $csalprodserie
+     * @var string
      *
      * @ORM\Column(name="cSalProdSerie", type="string", length=4, nullable=false)
      */
     private $csalprodserie;
 
     /**
-     * @var string $csalprodnro
+     * @var string
      *
      * @ORM\Column(name="cSalProdNro", type="string", length=8, nullable=false)
      */
     private $csalprodnro;
 
     /**
-     * @var \DateTime $dsalprodfecreg
+     * @var \DateTime
      *
      * @ORM\Column(name="dSalProdFecReg", type="datetime", nullable=false)
      */
     private $dsalprodfecreg;
 
     /**
-     * @var integer $nsalprodmotivo
+     * @var integer
      *
      * @ORM\Column(name="nSalProdMotivo", type="integer", nullable=false)
      */
     private $nsalprodmotivo;
 
     /**
-     * @var integer $nsolicitanteId
+     * @var integer
      *
      * @ORM\Column(name="nSolicitante_id", type="integer", nullable=false)
      */
     private $nsolicitanteId;
 
     /**
-     * @var string $csalprodobsv
+     * @var string
      *
      * @ORM\Column(name="cSalProdObsv", type="string", length=500, nullable=false)
      */
     private $csalprodobsv;
 
     /**
-     * @var Local
+     * @var \Local
      *
      * @ORM\ManyToOne(targetEntity="Local")
      * @ORM\JoinColumns({
@@ -74,7 +74,7 @@ class LogSalprod
     private $nlocal;
 
     /**
-     * @var VenPersonal
+     * @var \VenPersonal
      *
      * @ORM\ManyToOne(targetEntity="VenPersonal")
      * @ORM\JoinColumns({
@@ -236,7 +236,7 @@ class LogSalprod
     /**
      * Set nlocal
      *
-     * @param Dicars\DataBundle\Entity\Local $nlocal
+     * @param \Dicars\DataBundle\Entity\Local $nlocal
      * @return LogSalprod
      */
     public function setNlocal(\Dicars\DataBundle\Entity\Local $nlocal = null)
@@ -249,7 +249,7 @@ class LogSalprod
     /**
      * Get nlocal
      *
-     * @return Dicars\DataBundle\Entity\Local 
+     * @return \Dicars\DataBundle\Entity\Local 
      */
     public function getNlocal()
     {
@@ -259,7 +259,7 @@ class LogSalprod
     /**
      * Set npersonal
      *
-     * @param Dicars\DataBundle\Entity\VenPersonal $npersonal
+     * @param \Dicars\DataBundle\Entity\VenPersonal $npersonal
      * @return LogSalprod
      */
     public function setNpersonal(\Dicars\DataBundle\Entity\VenPersonal $npersonal = null)
@@ -272,7 +272,7 @@ class LogSalprod
     /**
      * Get npersonal
      *
-     * @return Dicars\DataBundle\Entity\VenPersonal 
+     * @return \Dicars\DataBundle\Entity\VenPersonal 
      */
     public function getNpersonal()
     {

@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\VenCategoria
+ * VenCategoria
  *
  * @ORM\Table(name="ven_categoria")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class VenCategoria
 {
     /**
-     * @var integer $ncategoriaId
+     * @var integer
      *
      * @ORM\Column(name="nCategoria_id", type="integer", nullable=false)
      * @ORM\Id
@@ -22,21 +22,21 @@ class VenCategoria
     private $ncategoriaId;
 
     /**
-     * @var string $ccategorianom
+     * @var string
      *
      * @ORM\Column(name="cCategoriaNom", type="string", length=100, nullable=false)
      */
     private $ccategorianom;
 
     /**
-     * @var string $ccategoriadesc
+     * @var string
      *
      * @ORM\Column(name="cCategoriaDesc", type="string", length=150, nullable=false)
      */
     private $ccategoriadesc;
 
     /**
-     * @var string $ccategoriaest
+     * @var string
      *
      * @ORM\Column(name="cCategoriaEst", type="string", length=1, nullable=false)
      */

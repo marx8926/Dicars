@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\LogOrdped
+ * LogOrdped
  *
  * @ORM\Table(name="log_ordped")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class LogOrdped
 {
     /**
-     * @var integer $nordpedId
+     * @var integer
      *
      * @ORM\Column(name="nOrdPed_id", type="integer", nullable=false)
      * @ORM\Id
@@ -22,56 +22,56 @@ class LogOrdped
     private $nordpedId;
 
     /**
-     * @var string $cordpedserie
+     * @var string
      *
      * @ORM\Column(name="cOrdPedSerie", type="string", length=4, nullable=false)
      */
     private $cordpedserie;
 
     /**
-     * @var string $cordpednro
+     * @var string
      *
      * @ORM\Column(name="cOrdPedNro", type="string", length=8, nullable=false)
      */
     private $cordpednro;
 
     /**
-     * @var string $cordpedenvemail
+     * @var string
      *
      * @ORM\Column(name="cOrdPedEnvEmail", type="string", length=1, nullable=false)
      */
     private $cordpedenvemail;
 
     /**
-     * @var \DateTime $dordpedfecreg
+     * @var \DateTime
      *
      * @ORM\Column(name="dOrdPedFecReg", type="datetime", nullable=false)
      */
     private $dordpedfecreg;
 
     /**
-     * @var \DateTime $dordepedfecent
+     * @var \DateTime
      *
      * @ORM\Column(name="dOrdePedFecEnt", type="datetime", nullable=false)
      */
     private $dordepedfecent;
 
     /**
-     * @var string $cordpedobsv
+     * @var string
      *
      * @ORM\Column(name="cOrdPedObsv", type="string", length=500, nullable=false)
      */
     private $cordpedobsv;
 
     /**
-     * @var string $cordpedest
+     * @var string
      *
      * @ORM\Column(name="cOrdPedEst", type="string", length=1, nullable=false)
      */
     private $cordpedest;
 
     /**
-     * @var Local
+     * @var \Local
      *
      * @ORM\ManyToOne(targetEntity="Local")
      * @ORM\JoinColumns({
@@ -81,7 +81,7 @@ class LogOrdped
     private $nlocal;
 
     /**
-     * @var VenPersonal
+     * @var \VenPersonal
      *
      * @ORM\ManyToOne(targetEntity="VenPersonal")
      * @ORM\JoinColumns({
@@ -266,7 +266,7 @@ class LogOrdped
     /**
      * Set nlocal
      *
-     * @param Dicars\DataBundle\Entity\Local $nlocal
+     * @param \Dicars\DataBundle\Entity\Local $nlocal
      * @return LogOrdped
      */
     public function setNlocal(\Dicars\DataBundle\Entity\Local $nlocal = null)
@@ -279,7 +279,7 @@ class LogOrdped
     /**
      * Get nlocal
      *
-     * @return Dicars\DataBundle\Entity\Local 
+     * @return \Dicars\DataBundle\Entity\Local 
      */
     public function getNlocal()
     {
@@ -289,7 +289,7 @@ class LogOrdped
     /**
      * Set npersonal
      *
-     * @param Dicars\DataBundle\Entity\VenPersonal $npersonal
+     * @param \Dicars\DataBundle\Entity\VenPersonal $npersonal
      * @return LogOrdped
      */
     public function setNpersonal(\Dicars\DataBundle\Entity\VenPersonal $npersonal = null)
@@ -302,7 +302,7 @@ class LogOrdped
     /**
      * Get npersonal
      *
-     * @return Dicars\DataBundle\Entity\VenPersonal 
+     * @return \Dicars\DataBundle\Entity\VenPersonal 
      */
     public function getNpersonal()
     {

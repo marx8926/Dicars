@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\LogDetsalprod
+ * LogDetsalprod
  *
  * @ORM\Table(name="log_detsalprod")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class LogDetsalprod
 {
     /**
-     * @var integer $ndetsalprodId
+     * @var integer
      *
      * @ORM\Column(name="nDetSalProd_id", type="integer", nullable=false)
      * @ORM\Id
@@ -22,21 +22,21 @@ class LogDetsalprod
     private $ndetsalprodId;
 
     /**
-     * @var integer $detsalprodcant
+     * @var integer
      *
      * @ORM\Column(name="DetSalProdCant", type="integer", nullable=false)
      */
     private $detsalprodcant;
 
     /**
-     * @var string $cdetsalprodest
+     * @var string
      *
      * @ORM\Column(name="cDetSalProdEst", type="string", length=1, nullable=false)
      */
     private $cdetsalprodest;
 
     /**
-     * @var LogSalprod
+     * @var \LogSalprod
      *
      * @ORM\ManyToOne(targetEntity="LogSalprod")
      * @ORM\JoinColumns({
@@ -46,7 +46,7 @@ class LogDetsalprod
     private $nsalprod;
 
     /**
-     * @var Producto
+     * @var \Producto
      *
      * @ORM\ManyToOne(targetEntity="Producto")
      * @ORM\JoinColumns({
@@ -116,7 +116,7 @@ class LogDetsalprod
     /**
      * Set nsalprod
      *
-     * @param Dicars\DataBundle\Entity\LogSalprod $nsalprod
+     * @param \Dicars\DataBundle\Entity\LogSalprod $nsalprod
      * @return LogDetsalprod
      */
     public function setNsalprod(\Dicars\DataBundle\Entity\LogSalprod $nsalprod = null)
@@ -129,7 +129,7 @@ class LogDetsalprod
     /**
      * Get nsalprod
      *
-     * @return Dicars\DataBundle\Entity\LogSalprod 
+     * @return \Dicars\DataBundle\Entity\LogSalprod 
      */
     public function getNsalprod()
     {
@@ -139,7 +139,7 @@ class LogDetsalprod
     /**
      * Set nproducto
      *
-     * @param Dicars\DataBundle\Entity\Producto $nproducto
+     * @param \Dicars\DataBundle\Entity\Producto $nproducto
      * @return LogDetsalprod
      */
     public function setNproducto(\Dicars\DataBundle\Entity\Producto $nproducto = null)
@@ -152,7 +152,7 @@ class LogDetsalprod
     /**
      * Get nproducto
      *
-     * @return Dicars\DataBundle\Entity\Producto 
+     * @return \Dicars\DataBundle\Entity\Producto 
      */
     public function getNproducto()
     {

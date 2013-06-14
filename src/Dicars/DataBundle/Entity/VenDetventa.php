@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\VenDetventa
+ * VenDetventa
  *
  * @ORM\Table(name="ven_detventa")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class VenDetventa
 {
     /**
-     * @var integer $ndetventaId
+     * @var integer
      *
      * @ORM\Column(name="nDetVenta_id", type="integer", nullable=false)
      * @ORM\Id
@@ -22,35 +22,35 @@ class VenDetventa
     private $ndetventaId;
 
     /**
-     * @var float $ndetventacant
+     * @var float
      *
      * @ORM\Column(name="nDetVentaCant", type="decimal", nullable=false)
      */
     private $ndetventacant;
 
     /**
-     * @var float $ndetventaprecunt
+     * @var float
      *
      * @ORM\Column(name="nDetVentaPrecUnt", type="decimal", nullable=false)
      */
     private $ndetventaprecunt;
 
     /**
-     * @var float $ndetventadscto
+     * @var float
      *
      * @ORM\Column(name="nDetVentaDscto", type="decimal", nullable=false)
      */
     private $ndetventadscto;
 
     /**
-     * @var float $ndetventatot
+     * @var float
      *
      * @ORM\Column(name="nDetVentaTot", type="decimal", nullable=false)
      */
     private $ndetventatot;
 
     /**
-     * @var Producto
+     * @var \Producto
      *
      * @ORM\ManyToOne(targetEntity="Producto")
      * @ORM\JoinColumns({
@@ -60,7 +60,7 @@ class VenDetventa
     private $nproducto;
 
     /**
-     * @var VenVenta
+     * @var \VenVenta
      *
      * @ORM\ManyToOne(targetEntity="VenVenta")
      * @ORM\JoinColumns({
@@ -176,7 +176,7 @@ class VenDetventa
     /**
      * Set nproducto
      *
-     * @param Dicars\DataBundle\Entity\Producto $nproducto
+     * @param \Dicars\DataBundle\Entity\Producto $nproducto
      * @return VenDetventa
      */
     public function setNproducto(\Dicars\DataBundle\Entity\Producto $nproducto = null)
@@ -189,7 +189,7 @@ class VenDetventa
     /**
      * Get nproducto
      *
-     * @return Dicars\DataBundle\Entity\Producto 
+     * @return \Dicars\DataBundle\Entity\Producto 
      */
     public function getNproducto()
     {
@@ -199,7 +199,7 @@ class VenDetventa
     /**
      * Set nventa
      *
-     * @param Dicars\DataBundle\Entity\VenVenta $nventa
+     * @param \Dicars\DataBundle\Entity\VenVenta $nventa
      * @return VenDetventa
      */
     public function setNventa(\Dicars\DataBundle\Entity\VenVenta $nventa = null)
@@ -212,7 +212,7 @@ class VenDetventa
     /**
      * Get nventa
      *
-     * @return Dicars\DataBundle\Entity\VenVenta 
+     * @return \Dicars\DataBundle\Entity\VenVenta 
      */
     public function getNventa()
     {

@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\VenCliente
+ * VenCliente
  *
  * @ORM\Table(name="ven_cliente")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class VenCliente
 {
     /**
-     * @var integer $nclienteId
+     * @var integer
      *
      * @ORM\Column(name="nCliente_id", type="integer", nullable=false)
      * @ORM\Id
@@ -22,63 +22,63 @@ class VenCliente
     private $nclienteId;
 
     /**
-     * @var string $bclientenom
+     * @var string
      *
      * @ORM\Column(name="bClienteNom", type="string", length=50, nullable=false)
      */
     private $bclientenom;
 
     /**
-     * @var string $cclienteape
+     * @var string
      *
      * @ORM\Column(name="cClienteApe", type="string", length=50, nullable=false)
      */
     private $cclienteape;
 
     /**
-     * @var string $cclientedni
+     * @var string
      *
      * @ORM\Column(name="cClienteDNI", type="string", length=8, nullable=false)
      */
     private $cclientedni;
 
     /**
-     * @var string $cclienteref
+     * @var string
      *
      * @ORM\Column(name="cClienteRef", type="string", length=200, nullable=false)
      */
     private $cclienteref;
 
     /**
-     * @var string $cclientecdir
+     * @var string
      *
      * @ORM\Column(name="cClientecDir", type="string", length=200, nullable=false)
      */
     private $cclientecdir;
 
     /**
-     * @var float $nclientelineaop
+     * @var float
      *
      * @ORM\Column(name="nClienteLineaOp", type="decimal", nullable=false)
      */
     private $nclientelineaop;
 
     /**
-     * @var string $cclientearccredito
+     * @var string
      *
      * @ORM\Column(name="cClienteArcCredito", type="text", nullable=false)
      */
     private $cclientearccredito;
 
     /**
-     * @var string $cclienteocup
+     * @var string
      *
      * @ORM\Column(name="cClienteOcup", type="string", length=40, nullable=false)
      */
     private $cclienteocup;
 
     /**
-     * @var VenZona
+     * @var \VenZona
      *
      * @ORM\ManyToOne(targetEntity="VenZona")
      * @ORM\JoinColumns({
@@ -286,7 +286,7 @@ class VenCliente
     /**
      * Set nzona
      *
-     * @param Dicars\DataBundle\Entity\VenZona $nzona
+     * @param \Dicars\DataBundle\Entity\VenZona $nzona
      * @return VenCliente
      */
     public function setNzona(\Dicars\DataBundle\Entity\VenZona $nzona = null)
@@ -299,7 +299,7 @@ class VenCliente
     /**
      * Get nzona
      *
-     * @return Dicars\DataBundle\Entity\VenZona 
+     * @return \Dicars\DataBundle\Entity\VenZona 
      */
     public function getNzona()
     {

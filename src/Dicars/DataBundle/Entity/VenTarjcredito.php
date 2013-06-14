@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\VenTarjcredito
+ * VenTarjcredito
  *
  * @ORM\Table(name="ven_tarjcredito")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class VenTarjcredito
 {
     /**
-     * @var integer $ntarjcreditoId
+     * @var integer
      *
      * @ORM\Column(name="nTarjCredito_id", type="integer", nullable=false)
      * @ORM\Id
@@ -22,70 +22,70 @@ class VenTarjcredito
     private $ntarjcreditoId;
 
     /**
-     * @var float $ntarjcreditolinea
+     * @var float
      *
      * @ORM\Column(name="nTarjCreditoLinea", type="decimal", nullable=false)
      */
     private $ntarjcreditolinea;
 
     /**
-     * @var string $ntarjcreditonroint
+     * @var string
      *
      * @ORM\Column(name="nTarjCreditoNroInt", type="string", length=500, nullable=false)
      */
     private $ntarjcreditonroint;
 
     /**
-     * @var float $ntarjcreditoconsumo
+     * @var float
      *
      * @ORM\Column(name="nTarjCreditoConsumo", type="decimal", nullable=false)
      */
     private $ntarjcreditoconsumo;
 
     /**
-     * @var string $ctarjcreditoest
+     * @var string
      *
      * @ORM\Column(name="cTarjCreditoEst", type="string", length=1, nullable=false)
      */
     private $ctarjcreditoest;
 
     /**
-     * @var integer $ntarjcreditotipo
+     * @var integer
      *
      * @ORM\Column(name="nTarjCreditoTipo", type="integer", nullable=false)
      */
     private $ntarjcreditotipo;
 
     /**
-     * @var string $ctarjcreditodesc
+     * @var string
      *
      * @ORM\Column(name="cTarjCreditoDesc", type="string", length=500, nullable=false)
      */
     private $ctarjcreditodesc;
 
     /**
-     * @var \DateTime $dtarjcreditofecreg
+     * @var \DateTime
      *
      * @ORM\Column(name="dTarjCreditoFecReg", type="datetime", nullable=false)
      */
     private $dtarjcreditofecreg;
 
     /**
-     * @var \DateTime $dtarjcreditofecvenc
+     * @var \DateTime
      *
      * @ORM\Column(name="dTarjCreditoFecVenc", type="datetime", nullable=false)
      */
     private $dtarjcreditofecvenc;
 
     /**
-     * @var string $ntarjcreditonroext
+     * @var string
      *
      * @ORM\Column(name="nTarjCreditoNroExt", type="string", length=500, nullable=false)
      */
     private $ntarjcreditonroext;
 
     /**
-     * @var VenCliente
+     * @var \VenCliente
      *
      * @ORM\ManyToOne(targetEntity="VenCliente")
      * @ORM\JoinColumns({
@@ -316,7 +316,7 @@ class VenTarjcredito
     /**
      * Set ncliente
      *
-     * @param Dicars\DataBundle\Entity\VenCliente $ncliente
+     * @param \Dicars\DataBundle\Entity\VenCliente $ncliente
      * @return VenTarjcredito
      */
     public function setNcliente(\Dicars\DataBundle\Entity\VenCliente $ncliente = null)
@@ -329,7 +329,7 @@ class VenTarjcredito
     /**
      * Get ncliente
      *
-     * @return Dicars\DataBundle\Entity\VenCliente 
+     * @return \Dicars\DataBundle\Entity\VenCliente 
      */
     public function getNcliente()
     {

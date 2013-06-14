@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\Movimiento
+ * Movimiento
  *
  * @ORM\Table(name="movimiento")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Movimiento
 {
     /**
-     * @var integer $nmovimientoId
+     * @var integer
      *
      * @ORM\Column(name="nMovimiento_id", type="integer", nullable=false)
      * @ORM\Id
@@ -22,42 +22,42 @@ class Movimiento
     private $nmovimientoId;
 
     /**
-     * @var float $nmovimientomonto
+     * @var float
      *
      * @ORM\Column(name="nMovimientoMonto", type="decimal", nullable=false)
      */
     private $nmovimientomonto;
 
     /**
-     * @var string $cmovimientoconcepto
+     * @var string
      *
      * @ORM\Column(name="cMovimientoConcepto", type="string", length=500, nullable=false)
      */
     private $cmovimientoconcepto;
 
     /**
-     * @var \DateTime $dmovimientofecreg
+     * @var \DateTime
      *
      * @ORM\Column(name="dMovimientoFecReg", type="datetime", nullable=false)
      */
     private $dmovimientofecreg;
 
     /**
-     * @var integer $nmovimientotip
+     * @var integer
      *
      * @ORM\Column(name="nMovimientoTip", type="integer", nullable=false)
      */
     private $nmovimientotip;
 
     /**
-     * @var integer $nmovimientotiping
+     * @var integer
      *
      * @ORM\Column(name="nMovimientoTipIng", type="integer", nullable=false)
      */
     private $nmovimientotiping;
 
     /**
-     * @var VenPersonal
+     * @var \VenPersonal
      *
      * @ORM\ManyToOne(targetEntity="VenPersonal")
      * @ORM\JoinColumns({
@@ -196,7 +196,7 @@ class Movimiento
     /**
      * Set npersonal
      *
-     * @param Dicars\DataBundle\Entity\VenPersonal $npersonal
+     * @param \Dicars\DataBundle\Entity\VenPersonal $npersonal
      * @return Movimiento
      */
     public function setNpersonal(\Dicars\DataBundle\Entity\VenPersonal $npersonal = null)
@@ -209,7 +209,7 @@ class Movimiento
     /**
      * Get npersonal
      *
-     * @return Dicars\DataBundle\Entity\VenPersonal 
+     * @return \Dicars\DataBundle\Entity\VenPersonal 
      */
     public function getNpersonal()
     {

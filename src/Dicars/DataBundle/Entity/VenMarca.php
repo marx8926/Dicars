@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\VenMarca
+ * VenMarca
  *
  * @ORM\Table(name="ven_marca")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class VenMarca
 {
     /**
-     * @var integer $nmarcaId
+     * @var integer
      *
      * @ORM\Column(name="nMarca_id", type="integer", nullable=false)
      * @ORM\Id
@@ -22,14 +22,14 @@ class VenMarca
     private $nmarcaId;
 
     /**
-     * @var string $cmarcadesc
+     * @var string
      *
      * @ORM\Column(name="cMarcaDesc", type="string", length=100, nullable=false)
      */
     private $cmarcadesc;
 
     /**
-     * @var string $cmarcaest
+     * @var string
      *
      * @ORM\Column(name="cMarcaEst", type="string", length=1, nullable=false)
      */

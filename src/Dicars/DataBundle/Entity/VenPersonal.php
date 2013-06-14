@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\VenPersonal
+ * VenPersonal
  *
  * @ORM\Table(name="ven_personal")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class VenPersonal
 {
     /**
-     * @var integer $npersonalId
+     * @var integer
      *
      * @ORM\Column(name="nPersonal_id", type="integer", nullable=false)
      * @ORM\Id
@@ -22,70 +22,70 @@ class VenPersonal
     private $npersonalId;
 
     /**
-     * @var string $cpersonaldni
+     * @var string
      *
      * @ORM\Column(name="cPersonalDNI", type="string", length=8, nullable=false)
      */
     private $cpersonaldni;
 
     /**
-     * @var string $cpersonalnom
+     * @var string
      *
      * @ORM\Column(name="cPersonalNom", type="string", length=50, nullable=false)
      */
     private $cpersonalnom;
 
     /**
-     * @var string $cpersonalape
+     * @var string
      *
      * @ORM\Column(name="cPersonalApe", type="string", length=50, nullable=false)
      */
     private $cpersonalape;
 
     /**
-     * @var string $cpersonaltelf
+     * @var string
      *
      * @ORM\Column(name="cPersonalTelf", type="string", length=12, nullable=false)
      */
     private $cpersonaltelf;
 
     /**
-     * @var string $cpersonalemail
+     * @var string
      *
      * @ORM\Column(name="cPersonalEmail", type="string", length=100, nullable=false)
      */
     private $cpersonalemail;
 
     /**
-     * @var \DateTime $dpersonalfec
+     * @var \DateTime
      *
      * @ORM\Column(name="dPersonalFec", type="datetime", nullable=false)
      */
     private $dpersonalfec;
 
     /**
-     * @var string $cpersonalsexo
+     * @var string
      *
      * @ORM\Column(name="cPersonalSexo", type="string", length=1, nullable=false)
      */
     private $cpersonalsexo;
 
     /**
-     * @var string $cpersonalest
+     * @var string
      *
      * @ORM\Column(name="cPersonalEst", type="string", length=1, nullable=false)
      */
     private $cpersonalest;
 
     /**
-     * @var string $cpersonaledad
+     * @var string
      *
      * @ORM\Column(name="cPersonalEdad", type="string", length=3, nullable=false)
      */
     private $cpersonaledad;
 
     /**
-     * @var VenCargo
+     * @var \VenCargo
      *
      * @ORM\ManyToOne(targetEntity="VenCargo")
      * @ORM\JoinColumns({
@@ -316,7 +316,7 @@ class VenPersonal
     /**
      * Set ncargo
      *
-     * @param Dicars\DataBundle\Entity\VenCargo $ncargo
+     * @param \Dicars\DataBundle\Entity\VenCargo $ncargo
      * @return VenPersonal
      */
     public function setNcargo(\Dicars\DataBundle\Entity\VenCargo $ncargo = null)
@@ -329,7 +329,7 @@ class VenPersonal
     /**
      * Get ncargo
      *
-     * @return Dicars\DataBundle\Entity\VenCargo 
+     * @return \Dicars\DataBundle\Entity\VenCargo 
      */
     public function getNcargo()
     {

@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\VenCredito
+ * VenCredito
  *
  * @ORM\Table(name="ven_credito")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class VenCredito
 {
     /**
-     * @var integer $nvencreditoId
+     * @var integer
      *
      * @ORM\Column(name="nVenCredito_id", type="integer", nullable=false)
      * @ORM\Id
@@ -22,42 +22,42 @@ class VenCredito
     private $nvencreditoId;
 
     /**
-     * @var integer $ncreditoformapag
+     * @var integer
      *
      * @ORM\Column(name="nCreditoFormaPag", type="integer", nullable=false)
      */
     private $ncreditoformapag;
 
     /**
-     * @var integer $nvencreditoncuota
+     * @var integer
      *
      * @ORM\Column(name="nVenCreditoNCuota", type="integer", nullable=false)
      */
     private $nvencreditoncuota;
 
     /**
-     * @var float $nvencreditomontinicial
+     * @var float
      *
      * @ORM\Column(name="nVenCreditoMontInicial", type="decimal", nullable=false)
      */
     private $nvencreditomontinicial;
 
     /**
-     * @var integer $nvencreditoppag
+     * @var integer
      *
      * @ORM\Column(name="nVenCreditoPPag", type="integer", nullable=false)
      */
     private $nvencreditoppag;
 
     /**
-     * @var string $ccreditoest
+     * @var string
      *
      * @ORM\Column(name="cCreditoEst", type="string", length=1, nullable=false)
      */
     private $ccreditoest;
 
     /**
-     * @var VenVenta
+     * @var \VenVenta
      *
      * @ORM\ManyToOne(targetEntity="VenVenta")
      * @ORM\JoinColumns({
@@ -196,7 +196,7 @@ class VenCredito
     /**
      * Set nventa
      *
-     * @param Dicars\DataBundle\Entity\VenVenta $nventa
+     * @param \Dicars\DataBundle\Entity\VenVenta $nventa
      * @return VenCredito
      */
     public function setNventa(\Dicars\DataBundle\Entity\VenVenta $nventa = null)
@@ -209,7 +209,7 @@ class VenCredito
     /**
      * Get nventa
      *
-     * @return Dicars\DataBundle\Entity\VenVenta 
+     * @return \Dicars\DataBundle\Entity\VenVenta 
      */
     public function getNventa()
     {

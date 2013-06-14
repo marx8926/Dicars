@@ -5,7 +5,7 @@ namespace Dicars\DataBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Dicars\DataBundle\Entity\VenListareq
+ * VenListareq
  *
  * @ORM\Table(name="ven_listareq")
  * @ORM\Entity
@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class VenListareq
 {
     /**
-     * @var integer $nlistareqId
+     * @var integer
      *
      * @ORM\Column(name="nListaReq_id", type="integer", nullable=false)
      * @ORM\Id
@@ -22,28 +22,28 @@ class VenListareq
     private $nlistareqId;
 
     /**
-     * @var integer $nlistareqtipo
+     * @var integer
      *
      * @ORM\Column(name="nListaReqTipo", type="integer", nullable=false)
      */
     private $nlistareqtipo;
 
     /**
-     * @var string $clistareqobs
+     * @var string
      *
      * @ORM\Column(name="cListaReqObs", type="string", length=500, nullable=false)
      */
     private $clistareqobs;
 
     /**
-     * @var string $clistareqest
+     * @var string
      *
      * @ORM\Column(name="cListaReqEst", type="string", length=1, nullable=false)
      */
     private $clistareqest;
 
     /**
-     * @var VenCliente
+     * @var \VenCliente
      *
      * @ORM\ManyToOne(targetEntity="VenCliente")
      * @ORM\JoinColumns({
@@ -136,7 +136,7 @@ class VenListareq
     /**
      * Set ncliente
      *
-     * @param Dicars\DataBundle\Entity\VenCliente $ncliente
+     * @param \Dicars\DataBundle\Entity\VenCliente $ncliente
      * @return VenListareq
      */
     public function setNcliente(\Dicars\DataBundle\Entity\VenCliente $ncliente = null)
@@ -149,7 +149,7 @@ class VenListareq
     /**
      * Get ncliente
      *
-     * @return Dicars\DataBundle\Entity\VenCliente 
+     * @return \Dicars\DataBundle\Entity\VenCliente 
      */
     public function getNcliente()
     {
