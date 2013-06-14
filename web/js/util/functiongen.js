@@ -23,7 +23,14 @@ function enviar(IdForm,responsefunction,otherdata){
 		});
 }
 
-
+function getAjaxObject(url){
+	var data = $.ajax({
+		url: url,
+		dataType: "json",
+		async: false
+		}).responseText;
+	return jQuery.parseJSON(data);
+}
 function ajaxResposeData(namediv,path){
 	var data = $.ajax({
         url: path,

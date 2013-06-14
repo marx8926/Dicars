@@ -221,13 +221,11 @@ function CargarBotones(){
 		e.preventDefault();
 		$('#modalRegistro').modal('show');
 		var btn=$(this);
-		id=btn.attr("id-data");
-		var jsonData = $.ajax({
-			url: "{{ path('dicars_logistica_servicio_getproductobyid', {'id': ''}) }}"+id,
-			dataType: "json",
-			async: false
-			}).responseText;
-		console.log(jsonData);
+		id=btn.attr("id-data");		
+		url = "{{ path('dicars_logistica_servicio_getproductobyid', {'id': ''}) }}/"+id;
+		producto = getAjaxObject(url);
+		console.log(producto.producto.id);
+
 	});
 	//mostrar Ver Datos Cliente------------------------------------>
 	$('.btn-datos').click(function(e){

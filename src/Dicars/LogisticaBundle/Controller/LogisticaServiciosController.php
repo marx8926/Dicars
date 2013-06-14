@@ -37,10 +37,15 @@ class LogisticaServiciosController extends Controller{
 		$em = $this->getDoctrine()->getEntityManager();
 			
 		$producto = $this->getDoctrine()
+		
 		->getRepository('DicarsDataBundle:Producto')
-		->findOneBy(array('nproductoId' => $id));					
-							
-		return new JsonResponse(array('producto' => $producto));
+		->findOneBy(array('nproductoId' => $id));
+		
+		$data = array('id' => $producto -> getNproductoId(), 'nombre' => $producto -> getCproductodesc(),
+				'stock' => $producto -> getNproductosotck(), 'precio_contado' => $producto -> getNproductopcontado(),
+				'precio_credito' => $producto -> getNproductopcredito());
+								
+		return new JsonResponse(array('producto' => $data));
 	}
 
 }
