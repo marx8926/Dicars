@@ -8,7 +8,7 @@ app/logs/*
 vendor/*
 
 # -- Composer -----------------------------------------
-composer.phar
+# -- composer.phar
 
 # -- PHPUnit ------------------------------------------
 app/phpunit.xml  
