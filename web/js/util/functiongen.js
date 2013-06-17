@@ -54,6 +54,28 @@ function createDataTable(idTable,UrlaDTable,FormatoDTable, CallBackFunction){
 	return oTable;
 }
 
+function crearElementosForm(Array){
+	jQuery.each(Array, function() {
+	      $("#" + this).text("Mine is " + this + ".");
+	       return (this != "three"); // will stop running after "three"
+	   });
+}
+
+function addElemento(obj){
+	switch (obj.type) {
+    case 'input': 
+    		elem = $('input').addClass('input-xlarge focused');
+    		elem.val(obj.value);
+    		break;
+    case 'textarea': 
+    		break;
+    case 'select': 
+    		break;
+    case 'span': 
+    		break;
+}	
+}
+
 function getAjaxObject(url){
 	var data = $.ajax({
 		url: url,
