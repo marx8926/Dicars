@@ -1,3 +1,6 @@
+ventas_servicio_routing:
+    resource: "@DicarsVentasBundle/Resources/config/servicios_routing.yml"
+
 ventas_administrar_cliente_routing:
     resource: "@DicarsVentasBundle/Resources/config/administrar_cliente_routing.yml"
 

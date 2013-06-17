@@ -29,88 +29,7 @@
 					  <th>Línea de Crédito</th>
 					  <th>Acciones</th>
 				  </tr>
-			  </thead>   
-			  <tbody>
-				<tr>
-					<td>David R</td>
-					<td class="center">2012/01/01</td>
-					<td class="center">Member</td>
-					<td class="center">
-						<span class="label label-success">Active</span>
-					</td>
-					<td class="center">
-						<a class="btn btn-success btn-datos" href="#">
-							<i class="icon-zoom-in icon-white"></i>  
-							Ver Datos                                            
-						</a>
-						<a class="btn btn-info btn-editar" href="#">
-							<i class="icon-edit icon-white"></i>  
-							Editar                                            
-						</a>
-						<a class="btn btn-danger" href="#">
-							<i class="icon icon-cancel icon-white"></i> 
-							Desactivar
-						</a>
-						<a class="btn btn-danger" href="#">
-							<i class="icon-trash icon-white"></i> 
-							Eliminar
-						</a>
-					</td>
-				</tr>
-				<tr>
-					<td>Chris Jack</td>
-					<td class="center">2012/01/01</td>
-					<td class="center">Member</td>
-					<td class="center">
-						<span class="label label-success">Active</span>
-					</td>
-					<td class="center">
-						<a class="btn btn-success" href="#">
-							<i class="icon-zoom-in icon-white"></i>  
-							Ver Datos                                            
-						</a>
-						<a class="btn btn-info" href="#">
-							<i class="icon-edit icon-white"></i>  
-							Editar                                            
-						</a>
-						<a class="btn btn-danger" href="#">
-							<i class="icon-remove icon-white"></i> 
-							Desactivar
-						</a>
-						<a class="btn btn-danger" href="#">
-							<i class="icon-trash icon-white"></i> 
-							Eliminar
-						</a>
-					</td>
-				</tr>
-				<tr>
-					<td>Jack Chris</td>
-					<td class="center">2012/01/01</td>
-					<td class="center">Member</td>
-					<td class="center">
-						<span class="label label-success">Active</span>
-					</td>
-					<td class="center">
-						<a class="btn btn-success" href="#">
-							<i class="icon-zoom-in icon-white"></i>  
-							Ver Datos                                            
-						</a>
-						<a class="btn btn-info" href="#">
-							<i class="icon-edit icon-white"></i>  
-							Editar                                            
-						</a>
-						<a class="btn btn-danger" href="#">
-							<i class="icon-remove icon-white"></i> 
-							Desactivar
-						</a>
-						<a class="btn btn-danger" href="#">
-							<i class="icon-trash icon-white"></i> 
-							Eliminar
-						</a>
-					</td>
-				</tr>
-				
-			  </tbody>
+			  </thead>
 		  </table>  
 		  
 		<div class="modal hide fade" id="modalVerDatos">
@@ -207,22 +126,37 @@ $(document).ready(init());
 
 //init------------------------------------>
 function init(){
-	enviar('RegistrarClienteForm', logdata);
-}
-//mostrar Registrar Cliente------------------------------------>
-$('.btn-registrar').click(function(e){
+	//Funcion para cargar las funciones de los botones
+	var CargarBotones = function(){	
+
+	//mostrar Registrar Cliente------------------------------------>
+	$('.btn-registrar').click(function(e){
 	e.preventDefault();
 	$('#modalRegistro').modal('show');
-});
-//mostrar Editar Cliente------------------------------------>
-$('.btn-editar').click(function(e){
+	});
+	//mostrar Editar Cliente------------------------------------>
+	$('.btn-editar').click(function(e){
 	e.preventDefault();
 	$('#modalRegistro').modal('show');
-});
-//mostrar Ver Datos Cliente------------------------------------>
-$('.btn-datos').click(function(e){
+	});
+	//mostrar Ver Datos Cliente------------------------------------>
+	$('.btn-datos').click(function(e){
 	e.preventDefault();
 	$('#modalVerDatos').modal('show');
-});
+	});
+
+	};
+	
+	enviar('RegistrarClienteForm', logdata);
+	UrlaDTable = '{{ path("dicars_ventas_servicio_gettablaclientes") }}';
+	FormatoDTable = [
+	              { "sWidth": "15%","mDataProp": "nombre"},
+	              { "sWidth": "15%","mDataProp": "apellido"},
+	              { "sWidth": "15%","mDataProp": "dni"},
+	              { "sWidth": "15%","mDataProp": "linea_credito"},	              
+	              { "sWidth": "40%","mDataProp": "Acciones"}
+	              ];
+oTable = createDataTable('clientes_table',UrlaDTable,FormatoDTable,CargarBotones);
+}
 </script>
 {% endblock %}
