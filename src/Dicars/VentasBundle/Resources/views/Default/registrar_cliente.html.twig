@@ -1,0 +1,106 @@
+<div class="modal hide fade" id="modalRegistro">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal">x</button>
+		<h3>Registrar Producto</h3>
+	</div>
+	<div class="modal-body">
+		<form id="RegistrarClienteForm" class="form-horizontal" method="post" action="{{ path('dicars_ventas_registrar_cliente') }}">
+		<fieldset>
+			<div class="control-group">
+				<label class="control-label" for="nombres">Nombres</label>
+				<div class="controls">
+			 		<input class="input-xlarge focused" name="nombres" id="focusedInput" type="text">
+				</div>
+			</div>
+			 <div class="control-group">
+				<label class="control-label" for="apellidos">Apellidos</label>
+				<div class="controls">
+			  		<input class="input-xlarge focused" name="apellidos" id="focusedInput" type="text">
+				</div>
+			</div>
+			 <div class="control-group">
+				<label class="control-label" for="linea_credito">Línea de Crédito</label>
+				<div class="controls">
+ 			  		<input class="input-xlarge focused" name="linea_credito" id="focusedInput" type="text">
+				</div>
+			 </div>
+			 <div class="control-group">
+				<label class="control-label" for="dni">DNI</label>
+				<div class="controls">
+				  	<input class="input-xlarge focused" name="dni" id="focusedInput" type="text">
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="direccion">Dirección</label>
+				<div class="controls">
+					 <input class="input-xlarge focused" name="direccion" id="focusedInput" type="text">
+				</div>
+			</div>
+			<div class="control-group">
+				<label class="control-label" for="referencia">Referencia</label>
+				<div class="controls">
+				  <input class="input-xlarge focused" name="referencia" id="focusedInput" type="text">
+				</div>
+			</div>
+			<div class="control-group">
+			<label class="control-label" for="region">Región</label>
+			<div class="controls">
+			 <select id="region" name="region" data-rel="chosen">
+					<option>Option 1</option>
+					<option>Option 2</option>
+					<option>Option 3</option>
+					<option>Option 4</option>
+					<option>Option 5</option>
+			  </select>
+			</div>
+			</div>
+			<div class="control-group">
+			<label class="control-label" for="provincia">Provincia</label>
+			<div class="controls">
+			  <select id="provincia" name="provincia" data-rel="chosen">
+				<option>Option 1</option>
+				<option>Option 2</option>
+				<option>Option 3</option>
+				<option>Option 4</option>
+				<option>Option 5</option>
+			  </select>
+			</div>
+			</div>
+			
+			<div class="control-group">
+			<label class="control-label" for="distrito">Distrito</label>
+			<div class="controls">
+			  <select id="distrito" name="distrito" data-rel="chosen">
+				<option>Option 1</option>
+				<option>Option 2</option>
+				<option>Option 3</option>
+				<option>Option 4</option>
+				<option>Option 5</option>
+			  </select>
+			</div>
+			</div>
+			
+			<div class="control-group">
+			<label class="control-label" for="zona">Zona</label>
+			<div class="controls">
+			  <select id="zona" name="zona" data-rel="chosen">
+				<option>Option 1</option>
+				<option>Option 2</option>
+				<option>Option 3</option>
+				<option>Option 4</option>
+				<option>Option 5</option>
+			  </select>
+			</div>
+			</div>
+			<div class="form-actions">
+				<button type="submit" class="btn btn-primary">Guardar</button>
+				<button type="reset" class="btn" data-dismiss="modal">Cancelar</button>
+			</div>
+		</fieldset>
+		</form>
+	</div>
+	<!-- div class="modal-footer">
+		<a href="#" class="btn" data-dismiss="modal">Cancelar</a>
+		<a href="#" class="btn btn-primary">Guardar</a>
+	</div -->
+</div>

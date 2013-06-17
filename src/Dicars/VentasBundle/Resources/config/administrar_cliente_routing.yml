@@ -1,0 +1,5 @@
+dicars_ventas_registrar_cliente:
+    pattern:  /registrar_cliente
+    defaults: { _controller: DicarsVentasBundle:AdministrarClientes:RegistrarCliente }
+    requirements:
+          _method: POST

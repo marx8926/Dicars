@@ -1,3 +1,6 @@
+ventas_administrar_cliente_routing:
+    resource: "@DicarsVentasBundle/Resources/config/administrar_cliente_routing.yml"
+
 dicars_ventas_homepage:
     pattern:  /index
     defaults: { _controller: DicarsVentasBundle:Default:index }
