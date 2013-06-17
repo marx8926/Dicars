@@ -35,6 +35,7 @@
 				
 			  </tbody>
 		  </table>
+		  
 		<div class="modal hide fade" id="modalVerDatos">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">x</button>
@@ -153,6 +154,16 @@
 				<a href="#" class="btn btn-primary">Guardar</a>
 			</div -->
 		</div>
+		<div class="modal hide fade" id="modalEditarDatos">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">x</button>
+				<h3>Datos del Producto</h3>
+			</div>
+			<div class="modal-body">
+				<form id="EditarProductoForm" class="form-horizontal" method="post" action="{{ path('dicars_logistica_registrar_producto') }}">
+				</form>
+			</div>
+		</div>
 		{% include 'DicarsLogisticaBundle:Default:registrar_producto.html.twig' %}       
 		</div>
 	</div><!--/span-->
@@ -170,7 +181,6 @@ $(document).ready(init());
 function init(){
 //Funcion para cargar las funciones de los botones
 	var CargarBotones = function(){
-		console.log("hola");
 		//mostrar Registrar Cliente------------------------------------>
 		$('.btn-registrar').click(function(e){
 			e.preventDefault();
@@ -180,18 +190,20 @@ function init(){
 		//mostrar Editar Cliente------------------------------------>
 		$('.btn-editar').click(function(e){
 			e.preventDefault();
-			$('#modalRegistro').modal('show');
+			$('#modalEditarDatos').modal('show');
 			var btn=$(this);
 			id=btn.attr("id-data");		
 			url = "{{ path('dicars_logistica_servicio_getproductobyid', {'id': ''}) }}/"+id;
 			producto = getAjaxObject(url);			
 	
-			ArrayDatos = [	{'label':'Nombre','value':producto.nombre,'type':'text','name':'nombre'},
-			  				{'label':'Nombre','stock':producto.stock,'type':'text','name':'stock'}];
-			console.log(ArrayDatos);
+			ArrayDatos = [	{'label':'Nombre','value':producto.nombre,'type':'input','name':'nombre'},
+			  				{'label':'Stock','value':producto.stock,'type':'input','name':'stock'},
+							{'label':'Precio de venta al Contado','type':'h3'}];
+				
+			$("#EditarProductoForm").html(crearElementosForm(ArrayDatos));
 	
 		});
-		//mostrar Ver Datos Producto------------------------------------>
+		//mostrar Ver Datos Cliente------------------------------------>
 		$('.btn-datos').click(function(e){
 			e.preventDefault();
 			$('#modalVerDatos').modal('show');

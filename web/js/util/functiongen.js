@@ -54,27 +54,7 @@ function createDataTable(idTable,UrlaDTable,FormatoDTable, CallBackFunction){
 	return oTable;
 }
 
-function crearElementosForm(Array){
-	jQuery.each(Array, function() {
-	      $("#" + this).text("Mine is " + this + ".");
-	       return (this != "three"); // will stop running after "three"
-	   });
-}
 
-function addElemento(obj){
-	switch (obj.type) {
-    case 'input': 
-    		elem = $('input').addClass('input-xlarge focused');
-    		elem.val(obj.value);
-    		break;
-    case 'textarea': 
-    		break;
-    case 'select': 
-    		break;
-    case 'span': 
-    		break;
-}	
-}
 
 function getAjaxObject(url){
 	var data = $.ajax({
@@ -135,3 +115,42 @@ var logdata = function(data){
 var reloadpage = function(data){
 	location.reload();
 	};
+
+/*Funcion para crear los formularios de forma dinamica*/
+function crearElementosForm(Array){
+	var $fielset = $("<fieldset>");
+	jQuery.each(Array, function() {		
+		if(this.type=='h3'){
+			$fielset.append('<h3>'+this.label+'</h3>');
+		}
+		else{
+			$div_control_group = $('<div class="control-group">');
+			$div_control_group.append('<label class="control-label" for="zona">'+this.label+'</label>');
+			$div_control = $('<div class="controls">');
+			$div_control.append(addElemento(this));
+			$div_control_group.append($div_control);
+			$fielset.append($div_control_group);
+		}
+	   });
+	
+	return $fielset;
+}
+
+function addElemento(obj){
+	switch (obj.type) {
+	    case 'input': 
+	    		$elem = $('<input class="input-xlarge focused" id="focusedInput" name="talla" type="text">');
+	    		$elem.val(obj.value);
+	    		break;
+	    case 'textarea':
+	    		$elem = $('<textarea class="input-xlarge" name="caracteristica" rows="2" cols=""></textarea>');
+	    		$elem.val(obj.value);
+	    		break;
+	    case 'select': 
+	    		$elem = $();
+	    		break;
+	    case 'span': 
+	    		break;
+	}	
+	return $elem;
+}	
