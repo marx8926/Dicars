@@ -39,12 +39,12 @@ class AdministrarClientesController extends Controller{
 			$Cliente_zona =  $this->getDoctrine()
 			->getRepository('DicarsDataBundle:VenZona')
 			->findOneBy(array('nzonaId' => 1));
-			/*
+			
 			$Cliente_linea_op = 1200;
 			$Cliente_arc_credito = "ARC CREDITO";
 			$Cliente_ocup = "Hola soy la ocupacion";										
 				
-			$Cliente = new Cliente();
+			$Cliente = new VenCliente();
 			$Cliente->setBclientenom($Cliente_nombre);
 			$Cliente->setCclienteape($Cliente_apellido);
 			$Cliente->setCclientedni($Cliente_dni);
@@ -67,7 +67,7 @@ class AdministrarClientesController extends Controller{
 				$return = array("responseCode"=>400, "greeting"=>"Bad");					
 				throw $e;
 			}
-			$this->getDoctrine()->getEntityManager()->commit();*/
+			$this->getDoctrine()->getEntityManager()->commit();
 			$return = array("responseCode"=>200, "datos"=>$datos);				
 		}
 		else {
