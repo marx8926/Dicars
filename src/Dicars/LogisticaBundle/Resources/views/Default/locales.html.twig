@@ -1,20 +1,20 @@
 {% extends "::baseCharisma.html.twig" %}
-{% block title %}Almacenes - Logística -{% endblock %}
+{% block title %}Locales - Logística -{% endblock %}
 {% block breadcrumb %}
 <li>
 	<a href="{{path('dicars_ventas_homepage')}}">Logística</a> <span class="divider">/</span>
 </li>
 <li>
-	<a href="{{path('dicars_logistica_almacenes')}}">Almacenes</a>
+	<a href="{{path('dicars_logistica_locales')}}">Locales</a>
 </li>
 {% endblock %}
 {% block content %}
 <div class="row-fluid sortable">		
 	<div class="box span12">
 		<div class="box-header well" data-original-title>
-			<h2>Productos</h2>
+			<h2>Locales</h2>
 			<div class="box-icon">
-				<a href="#" class="btn btn-registrar btn-round" alt="Registrar Almacen"><i class="icon-plus"></i></a>
+				<a href="#" class="btn btn-registrar btn-round" alt="Registrar Local"><i class="icon-plus"></i></a>
 				<!-- a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
 				<a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a -->
 			</div>
@@ -23,9 +23,10 @@
 			<table class="table table-striped table-bordered bootstrap-datatable datatable">
 			  <thead>
 				  <tr>
-					  <th>Tienda</th>
-					  <th>Almacen</th>
-					  <th>Nro de Estantes</th>
+					  <th>Nombre</th>
+					  <th>Estado</th>
+					  <th>Teléfono</th>
+					  <th>Dirección</th>
 					  <th>Acciones</th>
 				  </tr>
 			  </thead>   
@@ -41,7 +42,7 @@
 						</a>
 						<a class="btn btn-danger" href="#">
 							<i class="icon-trash icon-white"></i> 
-							Eliminar
+							Inhabilitar
 						</a>
 					</td>
 				</tr>
@@ -185,7 +186,63 @@
 		<div class="modal hide fade" id="modalRegistro">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">x</button>
-				<h3>Registrar Almacen</h3>
+				<h3>Registrar Local</h3>
+			</div>
+			<div class="modal-body">
+				<form id="RegistrarLocalForm" class="form-horizontal" method="post" action="{{ path('dicars_logistica_registrar_local') }}">
+					<fieldset>
+					  <div class="control-group">
+						<label class="control-label" for="nombre_tienda">Nombre de la Tienda</label>
+						<div class="controls">
+						  <input class="input-xlarge focused" id="nombre_tienda" name="nombre_tienda" type="text">
+						</div>
+					  </div>
+					  <div class="control-group">
+						<label class="control-label" for="estado">Estado</label>
+						<div class="controls">
+						  <input class="input-xlarge focused" id="estado" name="estado" type="text">
+						</div>
+					  </div>
+					  <div class="control-group">
+						<label class="control-label" for="direccion">Dirección</label>
+						<div class="controls">
+						  <input class="input-xlarge focused" id="direccion" name="direccion" type="text">
+						</div>
+					  </div>
+					  <div class="control-group">
+						<label class="control-label" for="telefono">Teléfono</label>
+						<div class="controls">
+						  <input class="input-xlarge focused" id="telefono" name="telefono" type="text">
+						</div>
+					  </div>
+					  <div class="control-group">
+						<label class="control-label" for="ubigeo">Ubigeo</label>
+						<div class="controls">
+						  <input class="input-xlarge focused" id="ubigeo" name="ubigeo" type="text">
+						</div>
+					  </div>
+					  <div class="control-group">
+						<label class="control-label" for="tiprub">Tipo de Rubro</label>
+						<div class="controls">
+						  <input class="input-xlarge focused" id="tiprub" name="tiprub" type="text">
+						</div>
+					  </div>
+					  <div class="form-actions">
+						<button type="submit" class="btn btn-primary">Guardar</button>
+						<button type="reset" class="btn" data-dismiss="modal">Cancelar</button>
+					  </div>
+					</fieldset>
+				  </form>
+			</div>
+			<!-- div class="modal-footer">
+				<a href="#" class="btn" data-dismiss="modal">Cancelar</a>
+				<a href="#" class="btn btn-primary">Guardar</a>
+			</div -->
+		</div>
+		<div class="modal hide fade" id="modalVerDatos>
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">x</button>
+				<h3>Datos de Tienda</h3>
 			</div>
 			<div class="modal-body">
 				<form class="form-horizontal">
@@ -226,7 +283,18 @@
 
 {% endblock %}
 {% block javascript %}
+<script type="text/javascript" src="{{ asset('js/util/functiongen.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/util/datatable_plugins.js') }}"></script>
+
 <script type="text/javascript">
+$(document).ready(init());
+
+//Init------------------------------------>
+function init(){
+	enviar('RegistrarLocalForm', logdata);
+}
+
+
 //mostrar Registrar Cliente------------------------------------>
 $('.btn-registrar').click(function(e){
 	e.preventDefault();

@@ -18,9 +18,9 @@ class DefaultController extends Controller
     {
     	return $this->render('DicarsLogisticaBundle:Default:proveedores.html.twig');
     }
-    public function almacenesAction()
+    public function localesAction()
     {
-    	return $this->render('DicarsLogisticaBundle:Default:almacenes.html.twig');
+    	return $this->render('DicarsLogisticaBundle:Default:locales.html.twig');
     }
     public function cons_salidaproductosAction()
     {

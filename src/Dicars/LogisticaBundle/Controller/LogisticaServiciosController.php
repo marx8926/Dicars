@@ -45,7 +45,26 @@ class LogisticaServiciosController extends Controller{
 				'stock' => $producto -> getNproductosotck(), 'precio_contado' => $producto -> getNproductopcontado(),
 				'precio_credito' => $producto -> getNproductopcredito());
 								
-		return new JsonResponse($data);
+		return new JsonResponse(array('producto' => $data));
+	}
+	
+	public function getTablaProveedoresAction(){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$proveedores = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:LogProveedor')
+		->findAll();
+	
+		$todo = array();
+		foreach ($proveedores as $key => $proveedor){
+			$todo[] = array('id' => $proveedor -> getNproveedorId(), 'ruc' => $proveedor -> getCproveedorruc(),
+					'razonsocial' => $proveedor -> getCproveedorrazsocial(), 'telefono' => $proveedor -> getCproveedortel(),
+					'email' => $proveedor -> getCproveedoremail(), 'sitioweb' => $proveedor -> getCproveedorsitioweb(), 'Acciones' => "<a id-data='".$proveedor -> getNproveedorId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>
+					<a id-data='".$proveedor -> getNproveedorId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>
+					<a id-data='".$proveedor -> getNproveedorId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>"
+					);
+		}
+		return new JsonResponse(array('aaData' => $todo));
 	}
 
 }

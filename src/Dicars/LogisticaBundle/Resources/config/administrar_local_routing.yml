@@ -1,0 +1,5 @@
+dicars_logistica_registrar_local:
+    pattern:  /registrar_local
+    defaults: { _controller: DicarsLogisticaBundle:AdministrarLocal:RegistrarLocal }
+    requirements:
+          _method: POST

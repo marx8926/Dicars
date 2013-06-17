@@ -1,8 +1,14 @@
 logistica_servicio_routing:
     resource: "@DicarsLogisticaBundle/Resources/config/servicios_routing.yml"
+    
+logistica_administrar_proveedor_routing:
+    resource: "@DicarsLogisticaBundle/Resources/config/administrar_proveedor_routing.yml"
 
 logistica_administrar_producto_routing:
     resource: "@DicarsLogisticaBundle/Resources/config/administrar_producto_routing.yml"
+    
+logistica_administrar_local_routing:
+    resource: "@DicarsLogisticaBundle/Resources/config/administrar_local_routing.yml"
 
 dicars_logistica_homepage:
     pattern:  /index
@@ -13,9 +19,9 @@ dicars_logistica_productos:
 dicars_logistica_proveedores:
     pattern:  /proveedores
     defaults: { _controller: DicarsLogisticaBundle:Default:proveedores }
-dicars_logistica_almacenes:
-    pattern:  /almacenes
-    defaults: { _controller: DicarsLogisticaBundle:Default:almacenes }
+dicars_logistica_locales:
+    pattern:  /locales
+    defaults: { _controller: DicarsLogisticaBundle:Default:locales }
 dicars_logistica_cons_salidaproductos:
     pattern:  /cons_salidaproductos
     defaults: { _controller: DicarsLogisticaBundle:Default:cons_salidaproductos }
