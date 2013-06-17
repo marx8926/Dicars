@@ -45,7 +45,7 @@ class LogisticaServiciosController extends Controller{
 				'stock' => $producto -> getNproductosotck(), 'precio_contado' => $producto -> getNproductopcontado(),
 				'precio_credito' => $producto -> getNproductopcredito());
 								
-		return new JsonResponse(array('producto' => $data));
+		return new JsonResponse($data);
 	}
 	
 	public function getTablaProveedoresAction(){
@@ -63,6 +63,25 @@ class LogisticaServiciosController extends Controller{
 					<a id-data='".$proveedor -> getNproveedorId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>
 					<a id-data='".$proveedor -> getNproveedorId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>"
 					);
+		}
+		return new JsonResponse(array('aaData' => $todo));
+	}
+	
+	public function getTablaLocalesAction(){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$locales = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:Local')
+		->findAll();
+	
+		$todo = array();
+		foreach ($locales as $key => $local){
+			$todo[] = array('id' => $local -> getNlocalId(), 'nombre_tienda' => $local -> getClocaldesc(),
+					'razonsocial' => $proveedor -> getCproveedorrazsocial(), 'telefono' => $proveedor -> getCproveedortel(),
+					'email' => $proveedor -> getCproveedoremail(), 'sitioweb' => $proveedor -> getCproveedorsitioweb(), 'Acciones' => "<a id-data='".$proveedor -> getNproveedorId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>
+					<a id-data='".$proveedor -> getNproveedorId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>
+					<a id-data='".$proveedor -> getNproveedorId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>"
+			);
 		}
 		return new JsonResponse(array('aaData' => $todo));
 	}

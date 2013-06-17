@@ -58,7 +58,7 @@ class AdministrarLocalController extends Controller{
 			$this->getDoctrine()->getEntityManager()->commit();
 			$return = array("responseCode"=>200, "datos"=>$datos);
 		}
-		else {
+		else { 
 			$return = array("responseCode"=>400, "greeting"=>"Bad");
 		}
 	
