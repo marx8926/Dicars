@@ -5,5 +5,6 @@
       <generator strategy="IDENTITY"/>
     </id>
     <field name="ncargodesc" type="string" column="nCargoDesc" length="100" nullable="false"/>
+    <field name="ccargocoest" type="string" column="cCargocoEst" length="1" nullable="false"/>
   </entity>
 </doctrine-mapping>

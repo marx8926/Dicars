@@ -31,9 +31,23 @@ class OfertaProducto
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="dOfertaProductoFec", type="datetime", nullable=false)
+     * @ORM\Column(name="dOfertaProductoFecVigente", type="datetime", nullable=false)
      */
-    private $dofertaproductofec;
+    private $dofertaproductofecvigente;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dOfertaProductoFecVencto", type="datetime", nullable=false)
+     */
+    private $dofertaproductofecvencto;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cOfertaProductoEst", type="string", length=1, nullable=false)
+     */
+    private $cofertaproductoest;
 
     /**
      * @var \Oferta
@@ -91,26 +105,72 @@ class OfertaProducto
     }
 
     /**
-     * Set dofertaproductofec
+     * Set dofertaproductofecvigente
      *
-     * @param \DateTime $dofertaproductofec
+     * @param \DateTime $dofertaproductofecvigente
      * @return OfertaProducto
      */
-    public function setDofertaproductofec($dofertaproductofec)
+    public function setDofertaproductofecvigente($dofertaproductofecvigente)
     {
-        $this->dofertaproductofec = $dofertaproductofec;
+        $this->dofertaproductofecvigente = $dofertaproductofecvigente;
     
         return $this;
     }
 
     /**
-     * Get dofertaproductofec
+     * Get dofertaproductofecvigente
      *
      * @return \DateTime 
      */
-    public function getDofertaproductofec()
+    public function getDofertaproductofecvigente()
     {
-        return $this->dofertaproductofec;
+        return $this->dofertaproductofecvigente;
+    }
+
+    /**
+     * Set dofertaproductofecvencto
+     *
+     * @param \DateTime $dofertaproductofecvencto
+     * @return OfertaProducto
+     */
+    public function setDofertaproductofecvencto($dofertaproductofecvencto)
+    {
+        $this->dofertaproductofecvencto = $dofertaproductofecvencto;
+    
+        return $this;
+    }
+
+    /**
+     * Get dofertaproductofecvencto
+     *
+     * @return \DateTime 
+     */
+    public function getDofertaproductofecvencto()
+    {
+        return $this->dofertaproductofecvencto;
+    }
+
+    /**
+     * Set cofertaproductoest
+     *
+     * @param string $cofertaproductoest
+     * @return OfertaProducto
+     */
+    public function setCofertaproductoest($cofertaproductoest)
+    {
+        $this->cofertaproductoest = $cofertaproductoest;
+    
+        return $this;
+    }
+
+    /**
+     * Get cofertaproductoest
+     *
+     * @return string 
+     */
+    public function getCofertaproductoest()
+    {
+        return $this->cofertaproductoest;
     }
 
     /**

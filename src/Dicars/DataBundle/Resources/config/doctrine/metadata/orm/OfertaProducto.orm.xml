@@ -5,7 +5,9 @@
       <generator strategy="IDENTITY"/>
     </id>
     <field name="nofertaproductoproc" type="decimal" column="nOfertaProductoProc" nullable="false"/>
-    <field name="dofertaproductofec" type="datetime" column="dOfertaProductoFec" nullable="false"/>
+    <field name="dofertaproductofecvigente" type="datetime" column="dOfertaProductoFecVigente" nullable="false"/>
+    <field name="dofertaproductofecvencto" type="datetime" column="dOfertaProductoFecVencto" nullable="false"/>
+    <field name="cofertaproductoest" type="string" column="cOfertaProductoEst" length="1" nullable="false"/>
     <many-to-one field="nproducto" target-entity="Producto">
       <join-columns>
         <join-column name="nProducto_id" referenced-column-name="nProducto_id"/>

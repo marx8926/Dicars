@@ -184,11 +184,11 @@ function init(){
 			var btn=$(this);
 			id=btn.attr("id-data");		
 			url = "{{ path('dicars_logistica_servicio_getproductobyid', {'id': ''}) }}/"+id;
-			producto = getAjaxObject(url);
-			
+			producto = getAjaxObject(url);			
 	
-			ArrayDatos = [{'nombre':producto.nombre},{}];
-			console.log(producto.id);
+			ArrayDatos = [	{'label':'Nombre','value':producto.nombre,'type':'text','name':'nombre'},
+			  				{'label':'Nombre','stock':producto.stock,'type':'text','name':'stock'}];
+			console.log(ArrayDatos);
 	
 		});
 		//mostrar Ver Datos Cliente------------------------------------>

@@ -28,6 +28,13 @@ class VenCargo
      */
     private $ncargodesc;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cCargocoEst", type="string", length=1, nullable=false)
+     */
+    private $ccargocoest;
+
 
 
     /**
@@ -61,5 +68,28 @@ class VenCargo
     public function getNcargodesc()
     {
         return $this->ncargodesc;
+    }
+
+    /**
+     * Set ccargocoest
+     *
+     * @param string $ccargocoest
+     * @return VenCargo
+     */
+    public function setCcargocoest($ccargocoest)
+    {
+        $this->ccargocoest = $ccargocoest;
+    
+        return $this;
+    }
+
+    /**
+     * Get ccargocoest
+     *
+     * @return string 
+     */
+    public function getCcargocoest()
+    {
+        return $this->ccargocoest;
     }
 }

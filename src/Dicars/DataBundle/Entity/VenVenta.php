@@ -95,6 +95,16 @@ class VenVenta
     private $ncliente;
 
     /**
+     * @var \VenTipomoneda
+     *
+     * @ORM\ManyToOne(targetEntity="VenTipomoneda")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="nTipoMoneda", referencedColumnName="nTipoMoneda")
+     * })
+     */
+    private $ntipomoneda;
+
+    /**
      * @var \Local
      *
      * @ORM\ManyToOne(targetEntity="Local")
@@ -113,16 +123,6 @@ class VenVenta
      * })
      */
     private $ntipoigv;
-
-    /**
-     * @var \VenTipomoneda
-     *
-     * @ORM\ManyToOne(targetEntity="VenTipomoneda")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="nTipoMoneda", referencedColumnName="nTipoMoneda")
-     * })
-     */
-    private $ntipomoneda;
 
 
 
@@ -367,6 +367,29 @@ class VenVenta
     }
 
     /**
+     * Set ntipomoneda
+     *
+     * @param \Dicars\DataBundle\Entity\VenTipomoneda $ntipomoneda
+     * @return VenVenta
+     */
+    public function setNtipomoneda(\Dicars\DataBundle\Entity\VenTipomoneda $ntipomoneda = null)
+    {
+        $this->ntipomoneda = $ntipomoneda;
+    
+        return $this;
+    }
+
+    /**
+     * Get ntipomoneda
+     *
+     * @return \Dicars\DataBundle\Entity\VenTipomoneda 
+     */
+    public function getNtipomoneda()
+    {
+        return $this->ntipomoneda;
+    }
+
+    /**
      * Set nlocal
      *
      * @param \Dicars\DataBundle\Entity\Local $nlocal
@@ -410,28 +433,5 @@ class VenVenta
     public function getNtipoigv()
     {
         return $this->ntipoigv;
-    }
-
-    /**
-     * Set ntipomoneda
-     *
-     * @param \Dicars\DataBundle\Entity\VenTipomoneda $ntipomoneda
-     * @return VenVenta
-     */
-    public function setNtipomoneda(\Dicars\DataBundle\Entity\VenTipomoneda $ntipomoneda = null)
-    {
-        $this->ntipomoneda = $ntipomoneda;
-    
-        return $this;
-    }
-
-    /**
-     * Get ntipomoneda
-     *
-     * @return \Dicars\DataBundle\Entity\VenTipomoneda 
-     */
-    public function getNtipomoneda()
-    {
-        return $this->ntipomoneda;
     }
 }

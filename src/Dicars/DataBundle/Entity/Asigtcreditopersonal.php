@@ -22,16 +22,6 @@ class Asigtcreditopersonal
     private $nasigtcreditopersonalId;
 
     /**
-     * @var \VenPersonal
-     *
-     * @ORM\ManyToOne(targetEntity="VenPersonal")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="nPersonal_id", referencedColumnName="nPersonal_id")
-     * })
-     */
-    private $npersonal;
-
-    /**
      * @var \VenTarjcredito
      *
      * @ORM\ManyToOne(targetEntity="VenTarjcredito")
@@ -40,6 +30,16 @@ class Asigtcreditopersonal
      * })
      */
     private $ntarjcredito;
+
+    /**
+     * @var \VenPersonal
+     *
+     * @ORM\ManyToOne(targetEntity="VenPersonal")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="nPersonal_id", referencedColumnName="nPersonal_id")
+     * })
+     */
+    private $npersonal;
 
 
 
@@ -51,29 +51,6 @@ class Asigtcreditopersonal
     public function getNasigtcreditopersonalId()
     {
         return $this->nasigtcreditopersonalId;
-    }
-
-    /**
-     * Set npersonal
-     *
-     * @param \Dicars\DataBundle\Entity\VenPersonal $npersonal
-     * @return Asigtcreditopersonal
-     */
-    public function setNpersonal(\Dicars\DataBundle\Entity\VenPersonal $npersonal = null)
-    {
-        $this->npersonal = $npersonal;
-    
-        return $this;
-    }
-
-    /**
-     * Get npersonal
-     *
-     * @return \Dicars\DataBundle\Entity\VenPersonal 
-     */
-    public function getNpersonal()
-    {
-        return $this->npersonal;
     }
 
     /**
@@ -97,5 +74,28 @@ class Asigtcreditopersonal
     public function getNtarjcredito()
     {
         return $this->ntarjcredito;
+    }
+
+    /**
+     * Set npersonal
+     *
+     * @param \Dicars\DataBundle\Entity\VenPersonal $npersonal
+     * @return Asigtcreditopersonal
+     */
+    public function setNpersonal(\Dicars\DataBundle\Entity\VenPersonal $npersonal = null)
+    {
+        $this->npersonal = $npersonal;
+    
+        return $this;
+    }
+
+    /**
+     * Get npersonal
+     *
+     * @return \Dicars\DataBundle\Entity\VenPersonal 
+     */
+    public function getNpersonal()
+    {
+        return $this->npersonal;
     }
 }

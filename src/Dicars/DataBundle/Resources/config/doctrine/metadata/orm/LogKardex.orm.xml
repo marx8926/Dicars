@@ -13,14 +13,14 @@
     <field name="nkardexsaldocant" type="integer" column="nKardexSaldoCant" nullable="false"/>
     <field name="nkardexsaldoprecunt" type="decimal" column="nKardexSaldoPrecUnt" nullable="false"/>
     <field name="nkardexsaldotot" type="decimal" column="nKardexSaldoTot" nullable="false"/>
-    <many-to-one field="nproducto" target-entity="Producto">
-      <join-columns>
-        <join-column name="nProducto_id" referenced-column-name="nProducto_id"/>
-      </join-columns>
-    </many-to-one>
     <many-to-one field="nlocal" target-entity="Local">
       <join-columns>
         <join-column name="nLocal_id" referenced-column-name="nLocal_id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="nproducto" target-entity="Producto">
+      <join-columns>
+        <join-column name="nProducto_id" referenced-column-name="nProducto_id"/>
       </join-columns>
     </many-to-one>
   </entity>

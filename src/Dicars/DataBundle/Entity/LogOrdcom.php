@@ -99,16 +99,6 @@ class LogOrdcom
     private $nordcomretencion;
 
     /**
-     * @var \LogProveedor
-     *
-     * @ORM\ManyToOne(targetEntity="LogProveedor")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="nProveedor_id", referencedColumnName="nProveedor_id")
-     * })
-     */
-    private $nproveedor;
-
-    /**
      * @var \VenPersonal
      *
      * @ORM\ManyToOne(targetEntity="VenPersonal")
@@ -117,6 +107,16 @@ class LogOrdcom
      * })
      */
     private $npersonal;
+
+    /**
+     * @var \LogProveedor
+     *
+     * @ORM\ManyToOne(targetEntity="LogProveedor")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="nProveedor_id", referencedColumnName="nProveedor_id")
+     * })
+     */
+    private $nproveedor;
 
 
 
@@ -384,29 +384,6 @@ class LogOrdcom
     }
 
     /**
-     * Set nproveedor
-     *
-     * @param \Dicars\DataBundle\Entity\LogProveedor $nproveedor
-     * @return LogOrdcom
-     */
-    public function setNproveedor(\Dicars\DataBundle\Entity\LogProveedor $nproveedor = null)
-    {
-        $this->nproveedor = $nproveedor;
-    
-        return $this;
-    }
-
-    /**
-     * Get nproveedor
-     *
-     * @return \Dicars\DataBundle\Entity\LogProveedor 
-     */
-    public function getNproveedor()
-    {
-        return $this->nproveedor;
-    }
-
-    /**
      * Set npersonal
      *
      * @param \Dicars\DataBundle\Entity\VenPersonal $npersonal
@@ -427,5 +404,28 @@ class LogOrdcom
     public function getNpersonal()
     {
         return $this->npersonal;
+    }
+
+    /**
+     * Set nproveedor
+     *
+     * @param \Dicars\DataBundle\Entity\LogProveedor $nproveedor
+     * @return LogOrdcom
+     */
+    public function setNproveedor(\Dicars\DataBundle\Entity\LogProveedor $nproveedor = null)
+    {
+        $this->nproveedor = $nproveedor;
+    
+        return $this;
+    }
+
+    /**
+     * Get nproveedor
+     *
+     * @return \Dicars\DataBundle\Entity\LogProveedor 
+     */
+    public function getNproveedor()
+    {
+        return $this->nproveedor;
     }
 }
