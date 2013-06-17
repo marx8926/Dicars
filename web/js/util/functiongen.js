@@ -23,7 +23,7 @@ function enviar(IdForm,responsefunction,otherdata){
 		});
 }
 
-function createDataTable(idTable,UrlaDTable,FormatoDTable){
+function createDataTable(idTable,UrlaDTable,FormatoDTable, CallBackFunction){
 	
 	oTable = $('#'+idTable).dataTable({
 		"bProcessing": true,
@@ -34,7 +34,10 @@ function createDataTable(idTable,UrlaDTable,FormatoDTable){
 	 	"aaSorting": [ [0, 'asc'], [1, 'asc'] ],
 	 	"fnDrawCallback": function(){
 		 	$('td').addClass('center');
-		 	CargarBotones();
+		 	if(typeof(CallBackFunction)=== 'undefined')
+				console.log("no function");
+			else 
+				CallBackFunction();
 		 	},
 		 	
 	 	"aoColumnDefs": [
@@ -44,7 +47,7 @@ function createDataTable(idTable,UrlaDTable,FormatoDTable){
 		 	"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span12'i><'span12 center'p>>",
 		 	"sPaginationType": "bootstrap",
 		 	"oLanguage": {
-			"sLengthMenu": "_MENU_ records per page"
+			"sLengthMenu": "_MENU_ registros por página"
 				} 		            
 	
 		});

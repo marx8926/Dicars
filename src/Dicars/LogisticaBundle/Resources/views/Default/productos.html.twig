@@ -168,6 +168,36 @@ $(document).ready(init());
 
 //init------------------------------------>
 function init(){
+//Funcion para cargar las funciones de los botones
+	var CargarBotones = function(){
+		console.log("hola");
+		//mostrar Registrar Cliente------------------------------------>
+		$('.btn-registrar').click(function(e){
+			e.preventDefault();
+			$('#modalRegistro').modal('show');
+			
+		});
+		//mostrar Editar Cliente------------------------------------>
+		$('.btn-editar').click(function(e){
+			e.preventDefault();
+			$('#modalRegistro').modal('show');
+			var btn=$(this);
+			id=btn.attr("id-data");		
+			url = "{{ path('dicars_logistica_servicio_getproductobyid', {'id': ''}) }}/"+id;
+			producto = getAjaxObject(url);
+			
+	
+			ArrayDatos = [{'nombre':producto.nombre},{}];
+			console.log(producto.id);
+	
+		});
+		//mostrar Ver Datos Cliente------------------------------------>
+		$('.btn-datos').click(function(e){
+			e.preventDefault();
+			$('#modalVerDatos').modal('show');
+		});
+	};
+	
 	enviar('RegistrarProductoForm', logdata);
 	UrlaDTable = '{{ path("dicars_logistica_servicio_gettablaproductos") }}';
 	FormatoDTable = [
@@ -178,34 +208,7 @@ function init(){
 		              { "sWidth": "12%","mDataProp": "precio_credito"},
 		              { "sWidth": "40%","mDataProp": "Acciones"}
 		              ];
-	oTable = createDataTable('productos_table',UrlaDTable,FormatoDTable);
-}
-
-function CargarBotones(){
-	//mostrar Registrar Cliente------------------------------------>
-	$('.btn-registrar').click(function(e){
-		e.preventDefault();
-		$('#modalRegistro').modal('show');
-		
-	});
-	//mostrar Editar Cliente------------------------------------>
-	$('.btn-editar').click(function(e){
-		e.preventDefault();
-		$('#modalRegistro').modal('show');
-		var btn=$(this);
-		id=btn.attr("id-data");		
-		url = "{{ path('dicars_logistica_servicio_getproductobyid', {'id': ''}) }}/"+id;
-		producto = getAjaxObject(url);
-		console.log(producto.id);
-
-		ArrayDatos = [{'nombre':producto.nombre},{}];
-
-	});
-	//mostrar Ver Datos Cliente------------------------------------>
-	$('.btn-datos').click(function(e){
-		e.preventDefault();
-		$('#modalVerDatos').modal('show');
-	});
+	oTable = createDataTable('productos_table',UrlaDTable,FormatoDTable,CargarBotones);
 }
 </script>
 {% endblock %}
