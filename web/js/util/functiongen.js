@@ -23,9 +23,9 @@ function enviar(IdForm,responsefunction,otherdata){
 		});
 }
 
-function createDataTable(UrlaDTable,FormatoDTable){
+function createDataTable(idTable,UrlaDTable,FormatoDTable){
 	
-	oTable = $('#productos_table').dataTable({
+	oTable = $('#'+idTable).dataTable({
 		"bProcessing": true,
 		"bServerSide": false,
 		"bDestroy": true,

@@ -178,7 +178,7 @@ function init(){
 		              { "sWidth": "12%","mDataProp": "precio_credito"},
 		              { "sWidth": "40%","mDataProp": "Acciones"}
 		              ];
-	oTable = createDataTable(UrlaDTable,FormatoDTable);
+	oTable = createDataTable('productos_table',UrlaDTable,FormatoDTable);
 }
 
 function CargarBotones(){
@@ -198,8 +198,7 @@ function CargarBotones(){
 		producto = getAjaxObject(url);
 		console.log(producto.id);
 
-		ArrayDatos = [];
-		ArrayLabels = [];
+		ArrayDatos = [{'nombre':producto.nombre},{}];
 
 	});
 	//mostrar Ver Datos Cliente------------------------------------>
