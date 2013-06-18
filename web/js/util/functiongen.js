@@ -160,6 +160,9 @@ function addElemento(obj){
 	    		$elem = $('<textarea class="input-xlarge" name="'+obj.name+'" rows="2" cols=""></textarea>');
 	    		$elem.val(obj.value);
 	    		break;
+	    case 'date':
+	    		$elem = $('<input type="text" class="input-xlarge datepicker name="'+obj.name+'" value="'+obj.value+'">');
+	    		break;
 	    case 'select':
 	    		$elem  = $('<select id="'+obj.name+'" name="tipo" data-rel="chosen">');
 	    		break;
