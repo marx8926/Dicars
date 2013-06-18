@@ -76,7 +76,7 @@
 								<label class="control-label" for="proveedor">Proveedor</label>
 								<div class="controls">
 									<input class="input-xlarge focused" id="proveedor" type="text">
-									<button class="btn btn-info btn-proveedor" style="margin-left: 15px;"><i class="icon-user icon-white"></i></button>
+									<button type="button" class="btn btn-info btn-proveedor" style="margin-left: 15px;"><i class="icon-user icon-white"></i></button>
 								</div>
 							</div>
 							<div class="control-group">
@@ -304,6 +304,7 @@
 					</table>
 					<hr>
 					<div class="form-actions">
+						<a href="{{ path('dicars_logistica_pedidos') }}" type="reset" class="btn btn-cancelar" >Cancelar</a>
 						<button class="btn" ><i class="icon-print"></i>Imprimir</button>
 						<button type="submit" class="btn btn-primary"><i class="icon icon-white icon-save"></i>Guardar</button>
 					</div>
@@ -312,19 +313,15 @@
 			{% include 'DicarsVentasBundle:Default:buscarproducto.html.twig' %}
 			{% include 'DicarsLogisticaBundle:Default:buscarproveedor.html.twig' %}
 		</div>
-		<!-- div class="modal-footer">
-			<a href="#" class="btn" data-dismiss="modal">Cancelar</a>
-			<a href="#" class="btn btn-primary">Guardar</a>
-		</div -->
 	</div>
 </div>
 {% endblock %}
 {% block javascript %}
 <script type="text/javascript">
 //mostrar Buscar Cliente------------------------------------>
-$('.btn-solicitante').click(function(e){
+$('.btn-proveedor').click(function(e){
 	e.preventDefault();
-	$('#modalBuscarTrabajador').modal('show');
+	$('#modalBuscarProveedor').modal('show');
 });
 //mostrar Buscar Producto------------------------------------>
 $('.btn-buscarp').click(function(e){

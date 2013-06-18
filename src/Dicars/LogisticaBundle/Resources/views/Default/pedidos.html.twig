@@ -1,11 +1,11 @@
 {% extends "::baseCharisma.html.twig" %}
-{% block title %}Lista de Pedidos - Logística -{% endblock %}
+{% block title %}Pedidos - Logística -{% endblock %}
 {% block breadcrumb %}
 <li>
 	<a href="{{path('dicars_logistica_homepage')}}">Logística</a> <span class="divider">/</span>
 </li>
 <li>
-	<a href="{{path('dicars_logistica_pedidos')}}">Lista de Pedidos</a>
+	<a href="{{path('dicars_logistica_pedidos')}}">Pedidos</a>
 </li>
 {% endblock %}
 {% block content %}
@@ -14,7 +14,7 @@
 		<div class="box-header well" data-original-title>
 			<h2>Lista de Pedidos</h2>
 			<div class="box-icon">
-				<a href="#" class="btn btn-registrar btn-round" alt="Registrar Pedido"><i class="icon-plus"></i></a>
+				<a href="{{path('dicars_logistica_pedidos_registrar')}}" class="btn btn-round" alt="Registrar Pedido"><i class="icon-plus"></i></a>
 				<!-- a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
 				<a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a -->
 			</div>
@@ -541,11 +541,6 @@
 {% endblock %}
 {% block javascript %}
 <script type="text/javascript">
-//mostrar Registrar------------------------------------>
-$('.btn-registrar').click(function(e){
-	e.preventDefault();
-	$('#modalRegistrar').modal('show');
-});
 //mostrar Editar------------------------------------>
 $('.btn-editar').click(function(e){
 	e.preventDefault();
