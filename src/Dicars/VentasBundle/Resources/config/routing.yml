@@ -3,6 +3,9 @@ ventas_servicio_routing:
 
 ventas_administrar_cliente_routing:
     resource: "@DicarsVentasBundle/Resources/config/administrar_cliente_routing.yml"
+    
+ventas_administrar_trabajador_routing:
+    resource: "@DicarsVentasBundle/Resources/config/administrar_trabajador_routing.yml"    
 
 dicars_ventas_homepage:
     pattern:  /index

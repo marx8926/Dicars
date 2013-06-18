@@ -31,4 +31,24 @@ class VentaServiciosController extends Controller{
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
+	public function getTablaEmpleadosAction(){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$empleados = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:VenPersonal')
+		->findAll();
+			
+		$cantidad = count($empleados);
+	
+		$todo = array();
+		foreach ($empleados as $key => $empleados){
+			$todo[] = array('nombre' => $empleados -> getCpersonalnom() , 'apellido' => $empleados -> getCpersonalape(),
+					'dni' => $empleados -> getCpersonaldni(), 'telefono' => $empleados -> getCpersonaltelf(),
+					'Acciones' => "<a id-data='".$empleados -> getNpersonalId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>
+					<a id-data='".$empleados -> getNpersonalId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>
+					<a id-data='".$empleados -> getNpersonalId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
+		}
+		return new JsonResponse(array('aaData' => $todo));
+	}
+	
 }

@@ -1,0 +1,110 @@
+<div class="modal hide fade" id="modalRegistro">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">x</button>
+				<h3>Registrar Trabajador</h3>
+			</div>
+			<div class="modal-body">
+				<form id="RegistrarTrabajadorForm" class="form-horizontal" method="post" action="{{ path('dicars_ventas_registrar_trabajador') }}">
+					<fieldset>
+					  <div class="control-group">
+						<label class="control-label" for="nombres">Nombres</label>
+						<div class="controls">
+						  <input class="input-xlarge focused" id="nombres" type="text">
+						</div>
+					  </div>
+					  <div class="control-group">
+						<label class="control-label" for="apellidos">Apellidos</label>
+						<div class="controls">
+						  <input class="input-xlarge focused" id="apellidos" type="text">
+						</div>
+					  </div>
+					  <div class="control-group">
+						<label class="control-label" for="fechanacimiento">Fecha de Nacimiento</label>
+						<div class="controls">
+						  <input type="text" class="input-xlarge datepicker" id="fechanacimiento" value="03/05/2013">
+						</div>
+					  </div>
+					  <div class="control-group">
+						<label class="control-label" for="dni">DNI</label>
+						<div class="controls">
+						  <input class="input-xlarge focused" id="dni" type="text">
+						</div>
+					  </div>
+					  <div class="control-group">
+						<label class="control-label" for="telefono">Teléfono</label>
+						<div class="controls">
+						  <input class="input-xlarge focused" id="telefono" type="text">
+						</div>
+					  </div>
+					  <div class="control-group">
+						<label class="control-label" for="email">Email</label>
+						<div class="controls">
+						  <input class="input-xlarge focused" id="email" type="text">
+						</div>
+					  </div>
+					  <div class="control-group">
+						<label class="control-label" for="sexo">Sexo</label>
+						<div class="controls">
+						  <input class="input-xlarge focused" id="sexo" type="text" placeholder="M/F">
+						</div>
+					  </div>					  
+					  <div class="control-group">
+						<label class="control-label" for="edad">Edad</label>
+						<div class="controls">
+						  <input class="input-xlarge focused" id="edad" type="text" >
+						</div>
+					  </div>					  					 
+					  <div class="control-group">
+						<label class="control-label" for="estado">Estado</label>
+						<div class="controls">
+						  <input class="input-xlarge focused" id="estado" type="text" value="A">
+						</div>
+					  </div>
+					  <div class="control-group">
+						<label class="control-label" for="region">Región</label>
+						<div class="controls">
+						  <select id="region" data-rel="chosen">
+							<option>Option 1</option>
+							<option>Option 2</option>
+							<option>Option 3</option>
+							<option>Option 4</option>
+							<option>Option 5</option>
+						  </select>
+						</div>
+					  </div>
+					  <div class="control-group">
+						<label class="control-label" for="provincia">Provincia</label>
+						<div class="controls">
+						  <select id="provincia" data-rel="chosen">
+							<option>Option 1</option>
+							<option>Option 2</option>
+							<option>Option 3</option>
+							<option>Option 4</option>
+							<option>Option 5</option>
+						  </select>
+						</div>
+					  </div>
+					  <div class="control-group">
+						<label class="control-label" for="distrito">Distrito</label>
+						<div class="controls">
+						  <select id="distrito" data-rel="chosen">
+							<option>Option 1</option>
+							<option>Option 2</option>
+							<option>Option 3</option>
+							<option>Option 4</option>
+							<option>Option 5</option>
+						  </select>
+						</div>
+					  </div>
+					  <div class="form-actions">
+						<button type="submit" class="btn btn-primary">Guardar</button>
+						<button type="reset" class="btn" data-dismiss="modal">Cancelar</button>
+					  </div>
+					</fieldset>
+			  </form>
+		</div>
+			<!-- div class="modal-footer">
+				<a href="#" class="btn" data-dismiss="modal">Cancelar</a>
+				<a href="#" class="btn btn-primary">Guardar</a>
+		</div -->
+</div>

@@ -1,3 +1,7 @@
 dicars_ventas_servicio_gettablaclientes:
     pattern:  /servicio_gettablaclientes
     defaults: { _controller: DicarsVentasBundle:VentaServicios:getTablaClientes }
+    
+dicars_ventas_servicio_gettablaempleados:
+    pattern:  /servicio_gettablaempleados
+    defaults: { _controller: DicarsVentasBundle:VentaServicios:getTablaEmpleados }    
