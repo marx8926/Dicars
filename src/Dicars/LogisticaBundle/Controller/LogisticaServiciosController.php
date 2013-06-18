@@ -41,7 +41,9 @@ class LogisticaServiciosController extends Controller{
 		->getRepository('DicarsDataBundle:Producto')
 		->findOneBy(array('nproductoId' => $id));
 		
-		$data = array('id' => $producto -> getNproductoId(), 'nombre' => $producto -> getCproductodesc(),
+		$data = array('id' => $producto -> getNproductoId(),'serie' => $producto -> getCproductoserie(),'talla' => $producto -> getCproductotalla(),
+				'nombre' => $producto -> getCproductodesc(),'pcosto' => $producto -> getNproductopcosto(),'pcontado' => $producto -> getNproductopcontado(),
+				'pcredito' => $producto -> getNproductopcredito(),'tipo' => $producto -> getNproductotipo(),'codigobarras' => $producto -> getCproductocodbarra(),
 				'stock' => $producto -> getNproductosotck(), 'precio_contado' => $producto -> getNproductopcontado(),
 				'precio_credito' => $producto -> getNproductopcredito());
 								

@@ -119,17 +119,25 @@ var reloadpage = function(data){
 /*Funcion para crear los formularios de forma dinamica*/
 function crearElementosForm(Array){
 	var $fielset = $("<fieldset>");
-	jQuery.each(Array, function() {		
-		if(this.type=='h3'){
+	jQuery.each(Array, function() {
+		switch (this.type){
+		case 'h3':
 			$fielset.append('<h3>'+this.label+'</h3>');
-		}
-		else{
+			break;
+		case 'actions':
+			$fielset.append('<div class="form-actions"><button type="submit" class="btn btn-primary">Guardar</button><button type="reset" class="btn" data-dismiss="modal">Cancelar</button></div>');
+			break;
+		case 'close':
+			$fielset.append('<button type="reset" class="btn" data-dismiss="modal">Cerrar</button>');
+			break;
+		default:
 			$div_control_group = $('<div class="control-group">');
 			$div_control_group.append('<label class="control-label" for="zona">'+this.label+'</label>');
 			$div_control = $('<div class="controls">');
 			$div_control.append(addElemento(this));
 			$div_control_group.append($div_control);
 			$fielset.append($div_control_group);
+			break;
 		}
 	   });
 	
@@ -139,17 +147,24 @@ function crearElementosForm(Array){
 function addElemento(obj){
 	switch (obj.type) {
 	    case 'input': 
-	    		$elem = $('<input class="input-xlarge focused" id="focusedInput" name="talla" type="text">');
+	    		$elem = $('<input class="input-xlarge focused" id="focusedInput" name="'+obj.name+'" type="'+obj.typeinput+'">');
 	    		$elem.val(obj.value);
+	    		break;
+	    case 'file':
+	    		$elem = $('<input type="file" class="input-xlarge" name="'+obj.name+'">');
 	    		break;
 	    case 'textarea':
-	    		$elem = $('<textarea class="input-xlarge" name="caracteristica" rows="2" cols=""></textarea>');
+	    		$elem = $('<textarea class="input-xlarge" name="'+obj.name+'" rows="2" cols=""></textarea>');
 	    		$elem.val(obj.value);
 	    		break;
-	    case 'select': 
-	    		$elem = $();
+	    case 'select':
+	    		$elem  = $('<select id="'+obj.name+'" name="tipo" data-rel="chosen">');
+	    		break;
+	    case 'img':
+	    		$elem = $('<figure><img src="'+obj.value+'" alt="Tarjeta"></figure>');
 	    		break;
 	    case 'span': 
+	    		$elem = $('<span class="help-inline" style="margin-top:5px;">'+obj.value+'</span>');
 	    		break;
 	}	
 	return $elem;

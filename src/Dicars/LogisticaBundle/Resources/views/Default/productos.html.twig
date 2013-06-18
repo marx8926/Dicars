@@ -42,117 +42,10 @@
 				<h3>Datos del Producto</h3>
 			</div>
 			<div class="modal-body">
-				<div class="form-horizontal">
-					<fieldset>
-					  <div class="control-group">
-						<label class="control-label" for="focusedInput">Código</label>
-						<div class="controls">
-						  <span class="help-inline" style="margin-top:5px;">3284728374</span>
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="focusedInput">Talla</label>
-						<div class="controls">
-						  <span class="help-inline" style="margin-top:5px;">28</span>
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="focusedInput">Serie</label>
-						<div class="controls">
-						  <span class="help-inline" style="margin-top:5px;">ERNF345543</span>
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="focusedInput">Marca</label>
-						<div class="controls">
-						  <span class="help-inline" style="margin-top:5px;">Lolo</span>
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="region">Tipo</label>
-						<div class="controls">
-						  <span class="help-inline" style="margin-top:5px;">Lolo</span>
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="focusedInput">Característica</label>
-						<div class="controls">
-						  <span class="help-inline" style="margin-top:5px;">Lorem Ipsum</span>
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="provincia">Imágen</label>
-					  </div>
-					  <div class="control-group">
-					  	<div class="controls">
-							<figure>
-								<img src="tarjeta.jpg" alt="Tarjeta">
-							</figure>
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="distrito">Precio Costo</label>
-						<div class="controls">
-						  <span class="help-inline" style="margin-top:5px;">345</span>
-						</div>
-					  </div>
-					  <h3>Precio de venta al Contado</h3>
-					  <div class="control-group">
-						<label class="control-label" for="zona">Mínimo</label>
-						<div class="controls">
-						  <span class="help-inline" style="margin-top:5px;">324</span>
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="zona">Regular</label>
-						<div class="controls">
-						  <span class="help-inline" style="margin-top:5px;">344</span>
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="zona">Máximo</label>
-						<div class="controls">
-						  <span class="help-inline" style="margin-top:5px;">434</span>
-						</div>
-					  </div>
-					  <h3>Precio de venta al Crédito</h3>
-					  <div class="control-group">
-						<label class="control-label" for="zona">Mínimo</label>
-						<div class="controls">
-						  <span class="help-inline" style="margin-top:5px;">45</span>
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="zona">Regular</label>
-						<div class="controls">
-						  <span class="help-inline" style="margin-top:5px;">234</span>
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="zona">Máximo</label>
-						<div class="controls">
-						  <span class="help-inline" style="margin-top:5px;">764</span>
-						</div>
-					  </div>
-					  <div class="control-group">
-					  	<label class="control-label">Código de Barras</label>
-					  	<div class="controls">
-							<figure>
-								<img src="tarjeta.jpg" alt="Tarjeta">
-							</figure>
-						</div>
-					  </div>
-					  <div class="form-actions">
-						<!-- button type="submit" class="btn btn-primary">Guardar</button -->
-						<button type="reset" class="btn" data-dismiss="modal">Cerrar</button>
-					  </div>
+				<div id="VerProducto" class="form-horizontal">
 					</fieldset>
 				  </div>
 			</div>
-			<!-- div class="modal-footer">
-				<a href="#" class="btn" data-dismiss="modal">Cancelar</a>
-				<a href="#" class="btn btn-primary">Guardar</a>
-			</div -->
 		</div>
 		<div class="modal hide fade" id="modalEditarDatos">
 			<div class="modal-header">
@@ -160,7 +53,7 @@
 				<h3>Datos del Producto</h3>
 			</div>
 			<div class="modal-body">
-				<form id="EditarProductoForm" class="form-horizontal" method="post" action="{{ path('dicars_logistica_registrar_producto') }}">
+				<form id="EditarProductoForm" class="form-horizontal" method="post" action="#">
 				</form>
 			</div>
 		</div>
@@ -184,31 +77,24 @@ function init(){
 		//mostrar Registrar Cliente------------------------------------>
 		$('.btn-registrar').click(function(e){
 			e.preventDefault();
-			$('#modalRegistro').modal('show');
-			
+			$('#modalRegistro').modal('show');			
 		});
 		//mostrar Editar Cliente------------------------------------>
 		$('.btn-editar').click(function(e){
 			e.preventDefault();
 			$('#modalEditarDatos').modal('show');
-			var btn=$(this);
-			id=btn.attr("id-data");		
-			url = "{{ path('dicars_logistica_servicio_getproductobyid', {'id': ''}) }}/"+id;
-			producto = getAjaxObject(url);			
-	
-			ArrayDatos = [	{'label':'Nombre','value':producto.nombre,'type':'input','name':'nombre'},
-			  				{'label':'Stock','value':producto.stock,'type':'input','name':'stock'},
-							{'label':'Precio de venta al Contado','type':'h3'}];
-				
-			$("#EditarProductoForm").html(crearElementosForm(ArrayDatos));
+			id=$(this).attr("id-data");		
+			cargarEditar(id);
 	
 		});
 		//mostrar Ver Datos Cliente------------------------------------>
 		$('.btn-datos').click(function(e){
 			e.preventDefault();
 			$('#modalVerDatos').modal('show');
+			id=$(this).attr("id-data");		
+			cargarVer(id);			
 		});
-	};
+	};	
 	
 	enviar('RegistrarProductoForm', logdata);
 	UrlaDTable = '{{ path("dicars_logistica_servicio_gettablaproductos") }}';
@@ -221,6 +107,64 @@ function init(){
 		              { "sWidth": "40%","mDataProp": "Acciones"}
 		              ];
 	oTable = createDataTable('productos_table',UrlaDTable,FormatoDTable,CargarBotones);
+}
+
+function cargarEditar(id){
+	url = "{{ path('dicars_logistica_servicio_getproductobyid', {'id': ''}) }}/"+id;
+	producto = getAjaxObject(url);			
+
+	ArrayDatos = [	{'label':'Codigo','type':'span','value':producto.id},
+	              	{'label':'Nombre','type':'input','typeinput':'text','value':producto.nombre,'name':'nombre'},
+	              	{'label':'Talla','type':'input','typeinput':'text','value':producto.talla,'name':'talla'},
+	              	{'label':'Serie','type':'input','typeinput':'text','value':producto.serie,'name':'serie'},
+	              	{'label':'Marca','type':'input','typeinput':'text','value':'','name':'marca'},
+	              	{'label':'Tipo','type':'select','name':'tipo'},
+	              	{'label':'Imagen','type':'file','name':'imagen'},
+	              	{'label':'','type':'img','value':'#'},
+	  				{'label':'Stock','type':'input','typeinput':'text','value':producto.stock,'name':'stock'},
+	  				{'label':'Precio Costo','type':'input','typeinput':'text','value':producto.pcosto,'name':'pcosto'},
+					{'label':'Precio de venta al Contado','type':'h3'},
+					{'label':'Minimo','type':'input','typeinput':'text','value':'','name':'pcontadominimo'},
+					{'label':'Regular','type':'input','typeinput':'text','value':'','name':'pcontadoregular'},
+					{'label':'Maximo','type':'input','typeinput':'text','value':'','name':'pcontadomaximo'},
+					{'label':'Precio de venta al Credito','type':'h3'},
+					{'label':'Minimo','type':'input','typeinput':'text','value':'','name':'pcreditodominimo'},
+					{'label':'Regular','type':'input','typeinput':'text','value':'','name':'pcreditoregular'},
+					{'label':'Maximo','type':'input','typeinput':'text','value':'','name':'pcreditomaximo'},
+					{'type':'actions'}];
+		
+	$("#EditarProductoForm").html(crearElementosForm(ArrayDatos));
+	$('#tipo').append('<option value="1">Option 1</option>');
+	$('#tipo').append('<option value="2">Option 2</option>');
+	$('#tipo').val(producto.tipo);
+	$("input:checkbox, input:radio, input:file").not('[data-no-uniform="true"],#uniform-is-ajax').uniform();
+	$('[data-rel="chosen"],[rel="chosen"]').chosen();
+}
+
+function cargarVer(id){
+	url = "{{ path('dicars_logistica_servicio_getproductobyid', {'id': ''}) }}/"+id;
+	producto = getAjaxObject(url);			
+
+	ArrayDatos = [	{'label':'Codigo','type':'span','value':producto.id},
+	              	{'label':'Nombre','type':'span','value':producto.nombre},
+	              	{'label':'Talla','type':'span','value':producto.talla},
+	              	{'label':'Serie','type':'span','value':producto.serie},
+	              	{'label':'Marca','type':'span','value':''},
+	              	{'label':'Tipo','type':'span','value':producto.tipo},
+	              	{'label':'Imagen','type':'img','value':'#'},
+	  				{'label':'Stock','type':'span','value':producto.stock},
+	  				{'label':'Precio Costo','type':'span','value':producto.pcosto},
+					{'label':'Precio de venta al Contado','type':'h3'},
+					{'label':'Minimo','type':'span','value':''},
+					{'label':'Regular','type':'span','value':''},
+					{'label':'Maximo','type':'span','value':''},
+					{'label':'Precio de venta al Credito','type':'h3'},
+					{'label':'Minimo','type':'span','value':''},
+					{'label':'Regular','type':'span','value':''},
+					{'label':'Maximo','type':'span','value':''},
+					{'type':'close'}];
+		
+	$("#VerProducto").html(crearElementosForm(ArrayDatos));
 }
 </script>
 {% endblock %}
