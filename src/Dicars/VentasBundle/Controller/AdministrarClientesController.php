@@ -54,8 +54,7 @@ class AdministrarClientesController extends Controller{
 			$Cliente->setNclientelineaop($Cliente_linea_op);
 			$Cliente->setCclientearccredito($Cliente_arc_credito);
 			$Cliente->setCclienteocup($Cliente_ocup);
-						
-			
+									
 			$em = $this->getDoctrine()->getEntityManager();
 			$this->getDoctrine()->getEntityManager()->beginTransaction();
 			try {

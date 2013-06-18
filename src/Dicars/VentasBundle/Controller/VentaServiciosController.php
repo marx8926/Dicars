@@ -42,7 +42,7 @@ class VentaServiciosController extends Controller{
 	
 		$todo = array();
 		foreach ($empleados as $key => $empleados){
-			$todo[] = array('nombre' => $empleados -> getCpersonalnom() , 'apellido' => $empleados -> getCpersonalape(),
+			$todo[] = array('nombres' => $empleados -> getCpersonalnom() , 'apellidos' => $empleados -> getCpersonalape(),
 					'dni' => $empleados -> getCpersonaldni(), 'telefono' => $empleados -> getCpersonaltelf(),
 					'Acciones' => "<a id-data='".$empleados -> getNpersonalId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>
 					<a id-data='".$empleados -> getNpersonalId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>

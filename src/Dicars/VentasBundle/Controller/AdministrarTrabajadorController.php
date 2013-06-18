@@ -1,6 +1,8 @@
 <?php
 namespace Dicars\VentasBundle\Controller;
 
+use Symfony\Component\Validator\Constraints\Date;
+
 use Dicars\DataBundle\Entity\VenPersonal;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -30,7 +32,7 @@ class AdministrarTrabajadorController extends Controller{
 		$Empleado_edad = null;
 
 		if ($form!=null){
-			/*
+			
 			$Empleado_cargo =  $this->getDoctrine()
 			->getRepository('DicarsDataBundle:VenCargo')
 			->findOneBy(array('ncargoId' => 1));
@@ -40,11 +42,11 @@ class AdministrarTrabajadorController extends Controller{
 			$Empleado_apellido = $datos["apellidos"];
 			$Empleado_telefono = $datos["telefono"];
 			$Empleado_email = $datos["email"];
-			$Empleado_fechanacimiento = $datos["fechanacimiento"];
+			$Empleado_fechanacimiento = new \DateTime($datos["fechanacimiento"]);
 			$Empleado_sexo = $datos["sexo"];
 			$Empleado_estado = $datos["estado"];
 			$Empleado_edad = $datos["edad"];
-
+			
 			$Empleado = new VenPersonal();
 			$Empleado->setNcargo($Empleado_cargo);
 			$Empleado->setCpersonaldni($Empleado_dni);
@@ -56,11 +58,11 @@ class AdministrarTrabajadorController extends Controller{
 			$Empleado->setCpersonalsexo($Empleado_sexo);
 			$Empleado->setCpersonalest($Empleado_estado);
 			$Empleado->setCpersonaledad($Empleado_edad);
-				
+			
 			$em = $this->getDoctrine()->getEntityManager();
 			$this->getDoctrine()->getEntityManager()->beginTransaction();
 			try {
-				$em->persist($Cliente);
+				$em->persist($Empleado);
 				$em->flush();
 			} catch (Exception $e) {
 				$this->getDoctrine()->getEntityManager()->rollback();
@@ -68,8 +70,8 @@ class AdministrarTrabajadorController extends Controller{
 				$return = array("responseCode"=>400, "greeting"=>"Bad");
 				throw $e;
 			}
-			$this->getDoctrine()->getEntityManager()->commit();*/
-			$return = array("responseCode"=>200, "datos"=>"HOLA");
+			$this->getDoctrine()->getEntityManager()->commit();
+			$return = array("responseCode"=>200, "datos"=>$datos);
 		}
 		else {
 			$return = array("responseCode"=>400, "greeting"=>"Bad");
