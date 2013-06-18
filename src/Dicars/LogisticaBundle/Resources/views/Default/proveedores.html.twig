@@ -34,68 +34,7 @@
 			<tbody>
 			</tbody>
 		</table>
-		<div class="modal hide fade" id="modalRegistro">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">x</button>
-				<h3>Registrar Proveedor</h3>
-			</div>
-			<div class="modal-body">
-				<form id="RegistrarProveedorForm" class="form-horizontal" method="post" action="{{ path('dicars_logistica_registrar_proveedor') }}">
-					<fieldset>
-					  <div class="control-group">
-						<label class="control-label" for="ruc">RUC</label>
-						<div class="controls">
-						  <input class="input-xlarge focused" id="ruc" name="ruc" type="text">
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="razonsocial">Razón Social</label>
-						<div class="controls">
-						  <input class="input-xlarge focused" id="razonsocial" name="razonsocial" type="text">
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="ccorriente">Cuenta Corriente</label>
-						<div class="controls">
-						  <input class="input-xlarge focused" id="ccorriente" name="ccorriente" type="text">
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="direccion">Dirección</label>
-						<div class="controls">
-						  <input class="input-xlarge focused" id="direccion" name="direccion" type="text">
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="telefono">Teléfono</label>
-						<div class="controls">
-						  <input class="input-xlarge focused" id="telefono" name="telefono" type="text">
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="email">Email</label>
-						<div class="controls">
-						  <input class="input-xlarge focused" id="email" name="email" type="text">
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="paginaweb">Página Web</label>
-						<div class="controls">
-						  <input class="input-xlarge focused" id="paginaweb" name="paginaweb" type="text">
-						</div>
-					  </div>
-					  <div class="form-actions">
-						<button type="submit" class="btn btn-primary">Guardar</button>
-						<button type="reset" class="btn" data-dismiss="modal">Cancelar</button>
-					  </div>
-					</fieldset>
-				  </form>
-			</div>
-			<!-- div class="modal-footer">
-				<a href="#" class="btn" data-dismiss="modal">Cancelar</a>
-				<a href="#" class="btn btn-primary">Guardar</a>
-			</div -->
-		</div> 
+		{% include 'DicarsLogisticaBundle:Default:registrar_proveedor.html.twig' %}
 		<div class="modal hide fade" id="modalVerDatos">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">x</button>
@@ -165,12 +104,12 @@ function init(){
 		//mostrar Registrar Cliente------------------------------------>
 		$('.btn-registrar').click(function(e){
 			e.preventDefault();
-			$('#modalRegistro').modal('show');
+			$('#modalRegistroProveedores').modal('show');
 		});
 		//mostrar Editar Cliente------------------------------------>
 		$('.btn-editar').click(function(e){
 			e.preventDefault();
-			$('#modalRegistro').modal('show');
+			$('#modalRegistroProveedores').modal('show');
 		});
 		//mostrar Ver Datos Cliente------------------------------------>
 		$('.btn-datos').click(function(e){

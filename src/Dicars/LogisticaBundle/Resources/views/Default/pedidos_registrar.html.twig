@@ -312,6 +312,8 @@
 			</form>
 			{% include 'DicarsVentasBundle:Default:buscarproducto.html.twig' %}
 			{% include 'DicarsLogisticaBundle:Default:buscarproveedor.html.twig' %}
+			{% include 'DicarsLogisticaBundle:Default:registrar_producto.html.twig' %}
+			{% include 'DicarsLogisticaBundle:Default:registrar_proveedor.html.twig' %}
 		</div>
 	</div>
 </div>
@@ -327,6 +329,21 @@ $('.btn-proveedor').click(function(e){
 $('.btn-buscarp').click(function(e){
 	e.preventDefault();
 	$('#modalBuscarProducto').modal('show');
+});
+//mostrar Registrar Producto------------------------------------>
+$('.btn-nuevoprod').click(function(e){
+	e.preventDefault();
+	$('#modalRegistro').modal('show');
+});
+//mostrar Registrar Proveedor------------------------------------>
+$('.btn-nuevoproveed').click(function(e){
+	e.preventDefault();
+	$('#modalRegistroProveedores').modal('show');
+});
+//mostrar Cancelar Registro Proveedor------------------------------------>
+$('.btn-cancelarprov').click(function(e){
+	e.preventDefault();
+	$('#modalBuscarProveedor').modal('show');
 });
 </script>
 {% endblock %}
