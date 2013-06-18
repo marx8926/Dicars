@@ -76,11 +76,15 @@ class LogisticaServiciosController extends Controller{
 	
 		$todo = array();
 		foreach ($locales as $key => $local){
-			$todo[] = array('id' => $local -> getNlocalId(), 'nombre_tienda' => $local -> getClocaldesc(),
-					'razonsocial' => $proveedor -> getCproveedorrazsocial(), 'telefono' => $proveedor -> getCproveedortel(),
-					'email' => $proveedor -> getCproveedoremail(), 'sitioweb' => $proveedor -> getCproveedorsitioweb(), 'Acciones' => "<a id-data='".$proveedor -> getNproveedorId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>
-					<a id-data='".$proveedor -> getNproveedorId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>
-					<a id-data='".$proveedor -> getNproveedorId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>"
+			$todo[] = array('id' => $local -> getNlocalId(), 
+							'nombre_tienda' => $local -> getClocaldesc(),
+							'estado' => $local -> getNlocalest(),
+							'telefono' => $local -> getClocaltelf(), 
+							'direccion' => $local -> getClocaldirec(), 
+							'tiprub' => $local -> getNlocaltiprub(), 
+							'Acciones' => "<a id-data='".$local -> getNlocalId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>
+					<a id-data='".$local -> getNlocalId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>
+					<a id-data='".$local -> getNlocalId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>"
 			);
 		}
 		return new JsonResponse(array('aaData' => $todo));

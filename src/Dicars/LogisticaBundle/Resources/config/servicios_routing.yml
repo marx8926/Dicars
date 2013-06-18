@@ -9,3 +9,7 @@ dicars_logistica_servicio_getproductobyid:
 dicars_logistica_servicio_gettablaproveedores:
     pattern:  /servicio_gettablaproveedores
     defaults: { _controller: DicarsLogisticaBundle:LogisticaServicios:getTablaProveedores }
+    
+dicars_logistica_servicio_gettablalocales:
+    pattern:  /servicio_gettablalocales
+    defaults: { _controller: DicarsLogisticaBundle:LogisticaServicios:getTablaLocales }
