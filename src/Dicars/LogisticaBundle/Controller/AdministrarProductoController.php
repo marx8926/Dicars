@@ -109,5 +109,12 @@ class AdministrarProductoController extends Controller{
 		return new Response($return,200,array('Content-Type'=>'application/json'));
 	}
 	
+	public function RegistrarProductoAction(){
+		$request = $this->get('request');
+		$form = $request->request->get('formulario');
+		
+		$datos = array();
+		parse_str($form,$datos);
+	}
 	
 }

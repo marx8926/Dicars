@@ -2,7 +2,6 @@ function enviar(IdForm,responsefunction,otherdata){
 	if(typeof(otherdata)=== 'undefined')
 		otherdata = null;
 	$("#"+IdForm).submit(function(event){
-		console.log($("#"+IdForm).serialize());
 		event.preventDefault();
         var url=$("#"+IdForm).attr("action");        
         $.post(
@@ -130,6 +129,9 @@ function crearElementosForm(Array){
 			break;
 		case 'close':
 			$fielset.append('<button type="reset" class="btn" data-dismiss="modal">Cerrar</button>');
+			break;
+		case 'hidden':
+			$fielset.append('<input type="hidden" name="'+obj.name+'" value="'+obj.value+'">');
 			break;
 		default:
 			$div_control_group = $('<div class="control-group">');
