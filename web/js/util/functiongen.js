@@ -2,6 +2,7 @@ function enviar(IdForm,responsefunction,otherdata){
 	if(typeof(otherdata)=== 'undefined')
 		otherdata = null;
 	$("#"+IdForm).submit(function(event){
+		console.log($("#"+IdForm).serialize());
 		event.preventDefault();
         var url=$("#"+IdForm).attr("action");        
         $.post(

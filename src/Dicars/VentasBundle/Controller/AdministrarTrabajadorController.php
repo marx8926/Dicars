@@ -14,9 +14,9 @@ class AdministrarTrabajadorController extends Controller{
 
 		$request = $this->get('request');
 		$form = $request->request->get('formulario');
-
-		$datos = array();
-		parse_str($form, $datos);
+		
+		$datos = array();		
+		parse_str($form,$datos);
 		
 		$Empleado_cargo = null;
 		$Empleado_dni = null;

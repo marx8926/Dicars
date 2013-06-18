@@ -108,10 +108,6 @@
 					</fieldset>
 				  </div>
 			</div>
-			<!-- div class="modal-footer">
-				<a href="#" class="btn" data-dismiss="modal">Cancelar</a>
-				<a href="#" class="btn btn-primary">Guardar</a>
-			</div -->
 		</div>
 		{% include 'DicarsVentasBundle:Default:registrar_trabajador.html.twig' %}       
 		</div>
@@ -123,32 +119,30 @@
 <script src="{{ asset('js/util/functiongen.js') }}"></script>
 <script src="{{ asset('js/util/datatable_plugins.js') }}"></script>
 <script type="text/javascript">
+
 $(document).ready(init());
 
 //init------------------------------------>
-function init(){
+function init(){	
+//	mostrar Registrar Trabajador------------------------------------>
+	$('.btn-registrar').click(function(e){
+		e.preventDefault();
+		$('#modalRegistro').modal('show');
+	});
 	//Funcion para cargar las funciones de los botones
-	var CargarBotones = function(){	
-				
-	//	mostrar Registrar Trabajador------------------------------------>
-		$('.btn-registrar').click(function(e){
-			e.preventDefault();
-			$('#modalRegistro').modal('show');
-		});
-		
+	var CargarBotones = function(){						
 	//	mostrar Editar Trabajador------------------------------------>
 		$('.btn-editar').click(function(e){
 			e.preventDefault();
 			$('#modalRegistro').modal('show');
-		});
-		
+		});		
 	//mostrar Ver Datos Trabajador------------------------------------>
 		$('.btn-datos').click(function(e){
 			e.preventDefault();
 			$('#modalVerDatos').modal('show');
 		});
 	};
-
+	
 	enviar('RegistrarTrabajadorForm', logdata);
 	
 	UrlaDTable = '{{ path("dicars_ventas_servicio_gettablaempleados") }}';
@@ -159,8 +153,7 @@ function init(){
 	              { "sWidth": "15%","mDataProp": "telefono"},	              
 	              { "sWidth": "40%","mDataProp": "Acciones"}
 	              ];
-oTable = createDataTable('empleados_table',UrlaDTable,FormatoDTable,CargarBotones);
- 	
+	oTable = createDataTable('empleados_table',UrlaDTable,FormatoDTable,CargarBotones); 	
 }
 
 </script>

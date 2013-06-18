@@ -36,9 +36,9 @@ class AdministrarProductoController extends Controller{
 		$Producto_stock = null;
 		$Producto_est = null;
 		$Producto_porc_uti = null;
-		$Producto_porc_uti_bruta = null;			
+		$Producto_porc_uti_bruta = null;		
 		
-		if ($form!=null){
+		if ($form != null){
 			$Producto_id = $datos["codigo"];
 			$Producto_talla = $datos["talla"];
 			$Producto_serie = $datos["serie"];
