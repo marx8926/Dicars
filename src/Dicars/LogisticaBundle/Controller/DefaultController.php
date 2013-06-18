@@ -42,4 +42,8 @@ class DefaultController extends Controller
     {
     	return $this->render('DicarsLogisticaBundle:Default:pedidos.html.twig');
     }
+    public function pedidos_registrarAction()
+    {
+    	return $this->render('DicarsLogisticaBundle:Default:pedidos_registrar.html.twig');
+    }
 }

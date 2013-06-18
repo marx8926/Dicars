@@ -40,3 +40,6 @@ dicars_logistica_registrar_producto:
 dicars_logistica_pedidos:
     pattern:  /pedidos
     defaults: { _controller: DicarsLogisticaBundle:Default:pedidos }
+dicars_logistica_pedidos_registrar:
+    pattern:  /pedidos_registrar
+    defaults: { _controller: DicarsLogisticaBundle:Default:pedidos_registrar }
