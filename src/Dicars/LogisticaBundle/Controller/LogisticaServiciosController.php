@@ -69,6 +69,26 @@ class LogisticaServiciosController extends Controller{
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
+	public function getProveedorByIdAction($id){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$proveedor = $this->getDoctrine()
+	
+		->getRepository('DicarsDataBundle:LogProveedor')
+		->findOneBy(array('nproveedorId' => $id));
+	
+		$data = array('id' => $proveedor -> getNproveedorId(),
+					'ruc' => $proveedor -> getCproveedorruc(),
+					'razonsocial' => $proveedor -> getCproveedorrazsocial(),
+					'telefono' => $proveedor -> getCproveedortel(),
+					'email' => $proveedor -> getCproveedoremail(),
+					'sitioweb' => $proveedor -> getCproveedorsitioweb(),
+					'direccion' => $proveedor -> getCproveedordirec(),
+					'ccorriente' => $proveedor -> getCproveedorccorriente());
+	
+		return new JsonResponse($data);
+	}
+	
 	public function getTablaLocalesAction(){
 		$em = $this->getDoctrine()->getEntityManager();
 			

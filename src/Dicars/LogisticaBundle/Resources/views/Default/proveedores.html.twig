@@ -35,55 +35,25 @@
 			</tbody>
 		</table>
 		{% include 'DicarsLogisticaBundle:Default:registrar_proveedor.html.twig' %}
+		<div class="modal hide fade" id="modalEditarDatos">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">x</button>
+				<h3>Editar Proveedor</h3>
+			</div>
+			<div class="modal-body">
+				<form id="EditarProveedorForm" class="form-horizontal" method="post" action="#">
+				</form>
+			</div>
+		</div>
 		<div class="modal hide fade" id="modalVerDatos">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">x</button>
 				<h3>Datos del Proveedor</h3>
 			</div>
 			<div class="modal-body">
-				<div class="form-horizontal">
-					<fieldset>
-					  <div class="control-group">
-						<label class="control-label" for="rucvd">RUC</label>
-						<div class="controls">
-						  <span class="help-inline" style="margin-top:5px;">32847283709</span>
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="razonsocialvd">Razón Social</label>
-						<div class="controls">
-						  <span class="help-inline" style="margin-top:5px;">Lolo SRL</span>
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="telefonovd">Teléfono</label>
-						<div class="controls">
-						  <span class="help-inline" style="margin-top:5px;">999999999</span>
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="emailvd">Email</label>
-						<div class="controls">
-						  <span class="help-inline" style="margin-top:5px;">lolo@lolo.com</span>
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="paginawebvd">Página Web</label>
-						<div class="controls">
-						  <span class="help-inline" style="margin-top:5px;">lolo.com</span>
-						</div>
-					  </div>
-					  <div class="form-actions">
-						<!-- button type="submit" class="btn btn-primary">Guardar</button -->
-						<button type="reset" class="btn" data-dismiss="modal">Cerrar</button>
-					  </div>
-					</fieldset>
-				  </div>
+				<div id="VerProveedor" class="form-horizontal">
+				</div>
 			</div>
-			<!-- div class="modal-footer">
-				<a href="#" class="btn" data-dismiss="modal">Cancelar</a>
-				<a href="#" class="btn btn-primary">Guardar</a>
-			</div -->
 		</div>      
 		</div>
 	</div><!--/span-->
@@ -109,7 +79,9 @@ function init(){
 		//mostrar Editar Cliente------------------------------------>
 		$('.btn-editar').click(function(e){
 			e.preventDefault();
-			$('#modalRegistroProveedores').modal('show');
+			$('#modalEditarDatos').modal('show');
+			id=$(this).attr("id-data");		
+			cargarEditar(id);
 		});
 		//mostrar Ver Datos Cliente------------------------------------>
 		$('.btn-datos').click(function(e){
@@ -131,5 +103,22 @@ function init(){
 		              ];
 	oTable = createDataTable('proveedores_table',UrlaDTable,FormatoDTable,CargarBotones);
 }
+
+function cargarEditar(id){
+	url = "{{ path('dicars_logistica_servicio_getproveedorbyid', {'id': ''}) }}/"+id;
+	proveedor = getAjaxObject(url);			
+
+	ArrayDatos = [	{'label':'RUC','type':'input', 'typeinput':'text','value':proveedor.ruc,'name':'ruc'},
+	              	{'label':'Razón Social','type':'input','typeinput':'text','value':proveedor.razonsocial,'name':'razonsocial'},
+	              	{'label':'Cuenta Corriente','type':'input','typeinput':'text','value':proveedor.ccorriente,'name':'ccorriente'},
+	              	{'label':'Dirección','type':'input','typeinput':'text','value':proveedor.direccion,'name':'direccion'},
+	              	{'label':'Teléfono','type':'input','typeinput':'text','value':proveedor.telefono,'name':'telefono'},
+	              	{'label':'Email','type':'input','typeinput':'text','value':proveedor.email,'name':'email'},
+	              	{'label':'Página Web','type':'input','typeinput':'text','value':proveedor.sitioweb,'name':'paginaweb'},
+					{'type':'actions'}];
+		
+	$("#EditarProveedorForm").html(crearElementosForm(ArrayDatos));
+}
+
 </script>
 {% endblock %}
