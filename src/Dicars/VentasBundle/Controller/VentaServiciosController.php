@@ -31,6 +31,28 @@ class VentaServiciosController extends Controller{
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
+	public function getClienteByIdAction($id){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$cliente = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:VenCliente')
+		->findOneBy(array('nclienteId' => $id));
+	
+		$em->clear();
+	
+		$data = array('id' => $cliente -> getNclienteId(),
+				'nombres' => $cliente -> getBclientenom(),
+				'apellidos' => $cliente -> getCclienteape(),
+				'referencia' => $cliente -> getCclienteref(),
+				'direccion' => $cliente -> getCclientedir(),
+				'zona' => $cliente -> getNzona(),
+				'lineaop' => $cliente -> getNclientelineaop(),
+				'arccredito' => $cliente -> getCclientearccredito(),
+				'ocupacion' => $cliente -> getCclienteocup());
+	
+		return new JsonResponse($data);
+	}
+	
 	public function getTablaEmpleadosAction(){
 		$em = $this->getDoctrine()->getEntityManager();
 			
@@ -50,5 +72,7 @@ class VentaServiciosController extends Controller{
 		}
 		return new JsonResponse(array('aaData' => $todo));
 	}
+	
+	
 	
 }
