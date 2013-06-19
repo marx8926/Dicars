@@ -68,48 +68,29 @@
 <script src="{{ asset('js/util/datatable_plugins.js') }}"></script>
 <script type="text/javascript">
 
-$(document).ready(init());
+var oTable;
 
-//init------------------------------------>
-function init(){
+var ReloadTableEditar = reloadclosemodal('modalEditarDatos');
+var ReloadTableRegistrar = reloadclosemodal('modalRegistro');
+
 //Funcion para cargar las funciones de los botones
-	var CargarBotones = function(){
-		//mostrar Registrar Cliente------------------------------------>
-		$('.btn-registrar').click(function(e){
-			e.preventDefault();
-			$('#modalRegistro').modal('show');			
-		});
-		//mostrar Editar Cliente------------------------------------>
-		$('.btn-editar').click(function(e){
-			e.preventDefault();
-			$('#modalEditarDatos').modal('show');
-			id=$(this).attr("id-data");		
-			cargarEditar(id);
-	
-		});
-		//mostrar Ver Datos Cliente------------------------------------>
-		$('.btn-datos').click(function(e){
-			e.preventDefault();
-			$('#modalVerDatos').modal('show');
-			id=$(this).attr("id-data");		
-			cargarVer(id);			
-		});
-	};	
-	
-	enviar('RegistrarProductoForm', logdata);
-	enviar('EditarProductoForm',logdata);
-	
-	UrlaDTable = '{{ path("dicars_logistica_servicio_gettablaproductos") }}';
-	FormatoDTable = [
-		              { "sWidth": "12%","mDataProp": "id"},
-		              { "sWidth": "12%","mDataProp": "nombre"},
-		              { "sWidth": "12%","mDataProp": "stock"},
-		              { "sWidth": "12%","mDataProp": "precio_contado"},
-		              { "sWidth": "12%","mDataProp": "precio_credito"},
-		              { "sWidth": "40%","mDataProp": "Acciones"}
-		              ];
-	oTable = createDataTable('productos_table',UrlaDTable,FormatoDTable,CargarBotones);
-}
+var CargarBotones = function(){
+	//mostrar Editar Cliente------------------------------------>
+	$('.btn-editar').click(function(e){
+		e.preventDefault();
+		$('#modalEditarDatos').modal('show');
+		id=$(this).attr("id-data");		
+		cargarEditar(id);
+
+	});
+	//mostrar Ver Datos Cliente------------------------------------>
+	$('.btn-datos').click(function(e){
+		e.preventDefault();
+		$('#modalVerDatos').modal('show');
+		id=$(this).attr("id-data");		
+		cargarVer(id);			
+	});
+};
 
 function cargarEditar(id){
 	url = "{{ path('dicars_logistica_servicio_getproductobyid', {'id': ''}) }}/"+id;
@@ -169,5 +150,88 @@ function cargarVer(id){
 		
 	$("#VerProducto").html(crearElementosForm(ArrayDatos));
 }
+
+//init------------------------------------>
+$(document).ready(function(){	
+	//mostrar Registrar Cliente------------------------------------>
+	$('.btn-registrar').click(function(e){
+		e.preventDefault();
+		$('#modalRegistro').modal('show');			
+	});
+	
+	enviar('RegistrarProductoForm', ReloadTableRegistrar);
+	enviar('EditarProductoForm',ReloadTableEditar);
+	
+	UrlaDTable = '{{ path("dicars_logistica_servicio_gettablaproductos") }}';
+	FormatoDTable = [
+		              { "sWidth": "12%","mDataProp": "id"},
+		              { "sWidth": "12%","mDataProp": "nombre"},
+		              { "sWidth": "12%","mDataProp": "stock"},
+		              { "sWidth": "12%","mDataProp": "precio_contado"},
+		              { "sWidth": "12%","mDataProp": "precio_credito"},
+		              { "sWidth": "40%","mDataProp": "Acciones"}
+		              ];
+	oTable = createDataTable('productos_table',UrlaDTable,FormatoDTable,CargarBotones);
+});
+
+function cargarEditar(id){
+	url = "{{ path('dicars_logistica_servicio_getproductobyid', {'id': ''}) }}/"+id;
+	producto = getAjaxObject(url);			
+
+	ArrayDatos = [	{'type':'hidden','value':producto.id,'name':'id'},
+	          		{'label':'Codigo','type':'span','value':producto.id},
+	              	{'label':'Talla','type':'input','typeinput':'text','value':producto.talla,'name':'talla'},
+	              	{'label':'Serie','type':'input','typeinput':'text','value':producto.serie,'name':'serie'},
+	              	{'label':'Marca','type':'input','typeinput':'text','value':'','name':'marca'},
+	              	{'label':'Tipo','type':'select','name':'tipo'},
+	              	{'label':'Descripcion','type':'input','typeinput':'text','value':producto.nombre,'name':'descripcion'},
+	              	{'label':'Imagen','type':'file','name':'imagen'},
+	              	{'label':'','type':'img','value':'#'},
+	  				{'label':'Stock','type':'input','typeinput':'text','value':producto.stock,'name':'stock'},
+	  				{'label':'Precio Costo','type':'input','typeinput':'text','value':producto.pcosto,'name':'preciocosto'},
+					{'label':'Precio de venta al Contado','type':'h3'},
+					{'label':'Minimo','type':'input','typeinput':'text','value':producto.precio_contado,'name':'minimocontado'},
+					{'label':'Regular','type':'input','typeinput':'text','value':'','name':'regularcontado'},
+					{'label':'Maximo','type':'input','typeinput':'text','value':'','name':'maximocontado'},
+					{'label':'Precio de venta al Credito','type':'h3'},
+					{'label':'Minimo','type':'input','typeinput':'text','value':producto.precio_credito,'name':'minimocredito'},
+					{'label':'Regular','type':'input','typeinput':'text','value':'','name':'regularcredito'},
+					{'label':'Maximo','type':'input','typeinput':'text','value':'','name':'maximocredito'},
+					{'type':'actions'}];
+		
+	$("#EditarProductoForm").html(crearElementosForm(ArrayDatos));
+	$('#tipo').append('<option value="1">Option 1</option>');
+	$('#tipo').append('<option value="2">Option 2</option>');
+	$('#tipo').val(producto.tipo);
+	$("input:checkbox, input:radio, input:file").not('[data-no-uniform="true"],#uniform-is-ajax').uniform();
+	$('[data-rel="chosen"],[rel="chosen"]').chosen();
+}
+
+function cargarVer(id){
+	url = "{{ path('dicars_logistica_servicio_getproductobyid', {'id': ''}) }}/"+id;
+	producto = getAjaxObject(url);			
+
+	ArrayDatos = [	{'label':'Codigo','type':'span','value':producto.id},
+	              	{'label':'Nombre','type':'span','value':producto.nombre},
+	              	{'label':'Talla','type':'span','value':producto.talla},
+	              	{'label':'Serie','type':'span','value':producto.serie},
+	              	{'label':'Marca','type':'span','value':''},
+	              	{'label':'Tipo','type':'span','value':producto.tipo},
+	              	{'label':'Imagen','type':'img','value':'#'},
+	  				{'label':'Stock','type':'span','value':producto.stock},
+	  				{'label':'Precio Costo','type':'span','value':producto.pcosto},
+					{'label':'Precio de venta al Contado','type':'h3'},
+					{'label':'Minimo','type':'span','value':''},
+					{'label':'Regular','type':'span','value':''},
+					{'label':'Maximo','type':'span','value':''},
+					{'label':'Precio de venta al Credito','type':'h3'},
+					{'label':'Minimo','type':'span','value':''},
+					{'label':'Regular','type':'span','value':''},
+					{'label':'Maximo','type':'span','value':''},
+					{'type':'close'}];
+		
+	$("#VerProducto").html(crearElementosForm(ArrayDatos));
+}
+
 </script>
 {% endblock %}

@@ -280,10 +280,10 @@ function docReady(){
 		else 					   $('i',$(this)).removeClass('icon-chevron-down').addClass('icon-chevron-up');
 		$target.slideToggle();
 	});
-	$('.btn-setting').click(function(e){
+	/*$('.btn-setting').click(function(e){
 		e.preventDefault();
 		$('#myModal').modal('show');
-	});
+	});*/
 
 
 

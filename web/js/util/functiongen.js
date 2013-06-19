@@ -1,3 +1,25 @@
+/*
+ * logdata : muestra la data que se devuelve como response al enviar un formulario
+ * con la funcion enviar
+ */
+var logdata = function(data){
+	console.log(data);
+	};
+
+/*
+ * reloadpage : recarga la pagina actual
+ */
+var reloadpage = function(data){
+	location.reload();
+	};
+	
+/*
+ * enviar : envia un formulario con los datos serializado a un controlador, los formularios deben estar presentes
+ * y se debe utiliza en la funcion ready del documento
+ * IdForm : es el id del formulario a enviar
+ * responsefunction : es la funcion que se ejecuta cuando responde el controlador
+ * otherdata: son datos adicionales que se pueden enviar al controlador
+ */
 function enviar(IdForm,responsefunction,otherdata){
 	if(typeof(otherdata)=== 'undefined')
 		otherdata = null;
@@ -24,6 +46,9 @@ function enviar(IdForm,responsefunction,otherdata){
 		});
 }
 
+/*
+ * Crea un datatable y lo devuelve como variable
+ */
 function createDataTable(idTable,UrlaDTable,FormatoDTable, CallBackFunction){
 	
 	oTable = $('#'+idTable).dataTable({
@@ -109,14 +134,15 @@ jQuery.fn.reset = function () {
 	  $(this).each (function() { this.reset(); });
 	};
 
-var logdata = function(data){
-	console.log(data);
-	};
-
-var reloadpage = function(data){
-	location.reload();
-	};
-
+function reloadclosemodal(idmodal){
+	var returnfunction = function(data){
+		oTable.fnReloadAjax();
+		console.log(data);
+		$('#'+idmodal).modal('hide');
+		};
+	return returnfunction;
+}
+	
 /*Funcion para crear los formularios de forma dinamica*/
 function crearElementosForm(Array){
 	var $fielset = $("<fieldset>");
@@ -126,10 +152,10 @@ function crearElementosForm(Array){
 			$fielset.append('<h3>'+this.label+'</h3>');
 			break;
 		case 'actions':
-			$fielset.append('<div class="form-actions"><button type="submit" class="btn btn-primary">Guardar</button><button type="reset" class="btn" data-dismiss="modal">Cancelar</button></div>');
+			$fielset.append('<div class="form-actions"><button type="submit" class="btn btn-primary">Guardar</button>  <button type="reset" class="btn" data-dismiss="modal">Cancelar</button></div>');
 			break;
 		case 'close':
-			$fielset.append('<button type="reset" class="btn" data-dismiss="modal">Cerrar</button>');
+			$fielset.append('<div class="form-actions"><button type="reset" class="btn" data-dismiss="modal">Cerrar</button></div>');
 			break;
 		case 'hidden':
 			$fielset.append('<input type="hidden" name="'+this.name+'" value="'+this.value+'">');
