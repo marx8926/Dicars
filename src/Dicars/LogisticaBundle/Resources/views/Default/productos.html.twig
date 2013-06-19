@@ -73,6 +73,8 @@ var oTable;
 var ReloadTableEditar = reloadclosemodal('modalEditarDatos');
 var ReloadTableRegistrar = reloadclosemodal('modalRegistro');
 
+var idselect;
+
 //Funcion para cargar las funciones de los botones
 var CargarBotones = function(){
 	//mostrar Editar Cliente------------------------------------>
@@ -151,6 +153,11 @@ function cargarVer(id){
 	$("#VerProducto").html(crearElementosForm(ArrayDatos));
 }
 
+function getSelect(getIdSelect){
+	idSelect = getIdSelect;
+	console.log(getIdSelect);
+}
+
 //init------------------------------------>
 $(document).ready(function(){	
 	//mostrar Registrar Cliente------------------------------------>
@@ -172,6 +179,8 @@ $(document).ready(function(){
 		              { "sWidth": "40%","mDataProp": "Acciones"}
 		              ];
 	oTable = createDataTable('productos_table',UrlaDTable,FormatoDTable,CargarBotones);
+
+	toSelectTable('productos_table',oTable,getSelect);
 });
 </script>
 {% endblock %}
