@@ -43,9 +43,10 @@ class VentaServiciosController extends Controller{
 		$data = array('id' => $cliente -> getNclienteId(),
 				'nombres' => $cliente -> getBclientenom(),
 				'apellidos' => $cliente -> getCclienteape(),
+				'dni' => $cliente -> getCclientedni(),
 				'referencia' => $cliente -> getCclienteref(),
-				'direccion' => $cliente -> getCclientedir(),
-				'zona' => $cliente -> getNzona(),
+				'direccion' => $cliente -> getCclientecdir(),
+				'zona' => $cliente -> getNzona()-> getNzonaId(),
 				'lineaop' => $cliente -> getNclientelineaop(),
 				'arccredito' => $cliente -> getCclientearccredito(),
 				'ocupacion' => $cliente -> getCclienteocup());

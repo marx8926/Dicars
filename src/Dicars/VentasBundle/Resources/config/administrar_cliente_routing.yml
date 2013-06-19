@@ -4,8 +4,8 @@ dicars_ventas_registrar_cliente:
     requirements:
           _method: POST
           
-dicars_logistica_editar_cliente:
+dicars_ventas_editar_cliente:
     pattern:  /editar_cliente
-    defaults: { _controller: DicarsLogisticaBundle:AdministrarClientes:EditarCliente }
+    defaults: { _controller: DicarsVentasBundle:AdministrarClientes:EditarCliente }
     requirements:
           _method: POST          

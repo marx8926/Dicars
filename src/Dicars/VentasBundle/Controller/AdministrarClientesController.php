@@ -114,8 +114,7 @@ class AdministrarClientesController extends Controller{
 			$Cliente = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:VenCliente')
 			->findOneBy(array('nclienteId' => $Cliente_Id));
-				
-			$Cliente->setNclienteId($Cliente_Id);
+			
 			$Cliente->setBclientenom($Cliente_nombre);
 			$Cliente->setCclienteape($Cliente_apellido);
 			$Cliente->setCclientedni($Cliente_dni);
@@ -139,7 +138,7 @@ class AdministrarClientesController extends Controller{
 			}
 			
 			$this->getDoctrine()->getEntityManager()->commit();
-			$em->commit();
+			$em->clear();
 			$return = array("responseCode"=>200, "datos"=>$datos);
 		}
 		else {

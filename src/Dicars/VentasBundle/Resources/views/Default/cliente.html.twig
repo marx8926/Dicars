@@ -31,89 +31,31 @@
 				  </tr>
 			  </thead>
 		  </table>  
-		  
+  
+		     {% include 'DicarsVentasBundle:Default:registrar_cliente.html.twig' %}
+		     
+		<div class="modal hide fade" id="modalEditarDatos">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">x</button>
+				<h3>Editar Proveedor</h3>
+			</div>
+			<div class="modal-body">
+				<form id="EditarClienteForm" class="form-horizontal" method="post" action="{{ path('dicars_ventas_editar_cliente') }}">
+				</form>
+			</div>
+		</div>		
+		
 		<div class="modal hide fade" id="modalVerDatos">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">x</button>
-				<h3>Datos del Cliente</h3>
+				<h3>Datos del Proveedor</h3>
 			</div>
 			<div class="modal-body">
-				<div class="form-horizontal">
-					<fieldset>
-					  <div class="control-group">
-						<label class="control-label" for="focusedInput">Nombres</label>
-						<div class="controls">
-						  <span class="help-inline" style="margin-top:5px;">Claudia María</span>
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="focusedInput">Apellidos</label>
-						<div class="controls">
-						  <span class="help-inline" style="margin-top:5px;">Valdivieso Catillo</span>
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="focusedInput">Línea de Crédito</label>
-						<div class="controls">
-						  <span class="help-inline" style="margin-top:5px;">1000000</span>
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="focusedInput">DNI</label>
-						<div class="controls">
-						  <span class="help-inline" style="margin-top:5px;">12345678</span>
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="focusedInput">Dirección</label>
-						<div class="controls">
-						  <span class="help-inline" style="margin-top:5px;">Hola mundo 123</span>
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="focusedInput">Referencia</label>
-						<div class="controls">
-						  <span class="help-inline" style="margin-top:5px;">Por mi casa</span>
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="region">Región</label>
-						<div class="controls">
-						  <span class="help-inline" style="margin-top:5px;">La Libertad</span>
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="provincia">Provincia</label>
-						<div class="controls">
-						  <span class="help-inline" style="margin-top:5px;">Trujillo</span>
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="distrito">Distrito</label>
-						<div class="controls">
-						  <span class="help-inline" style="margin-top:5px;">Victor Larco</span>
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="zona">Zona</label>
-						<div class="controls">
-						  <span class="help-inline" style="margin-top:5px;">Zona 9</span>
-						</div>
-					  </div>
-					  <div class="form-actions">
-						<!-- button type="submit" class="btn btn-primary">Guardar</button -->
-						<button class="btn" data-dismiss="modal">Cerrar</button>
-					  </div>
-					</fieldset>
-				  </div>
+				<div id="VerClienteForm" class="form-horizontal">
+				</div>
 			</div>
-			<!-- div class="modal-footer">
-				<a href="#" class="btn" data-dismiss="modal">Cancelar</a>
-				<a href="#" class="btn btn-primary">Guardar</a>
-			</div -->
-			
-		</div>  
-		     {% include 'DicarsVentasBundle:Default:registrar_cliente.html.twig' %}
+		</div>
+				     
 		</div>
 				
 	</div><!--/span-->
@@ -124,32 +66,81 @@
 <script src="{{ asset('js/util/functiongen.js') }}"></script>
 <script src="{{ asset('js/util/datatable_plugins.js') }}"></script>
 <script type="text/javascript">
-$(document).ready(init());
 
-//init------------------------------------>
-function init(){
-	//Funcion para cargar las funciones de los botones
-	var CargarBotones = function(){	
+
+var oTable;
+
+var ReloadTableEditar = reloadclosemodal('modalEditarDatos');
+var ReloadTableRegistrar = reloadclosemodal('modalRegistro');
+
+var CargarBotones = function(){	
+	//mostrar Editar Cliente------------------------------------>
+	$('.btn-editar').click(function(e){
+	e.preventDefault();
+	$('#modalEditarDatos').modal('show');
+	id=$(this).attr("id-data");		
+	cargarEditar(id);	
+	});
+	//mostrar Ver Datos Cliente------------------------------------>
+	$('.btn-datos').click(function(e){
+	e.preventDefault();
+	$('#modalVerDatos').modal('show');
+	id=$(this).attr("id-data");		
+	cargarVer(id);
+	});
+	};	
+
+
+function cargarEditar(id){
+	url = "{{ path('dicars_ventas_servicio_getclientebyid', {'id': ''}) }}/"+id;	
+	cliente = getAjaxObject(url);
+			
+	ArrayDatos = [	{'type':'hidden','value':cliente.id,'name':'id'},
+	          		{'label':'Nombres','type':'input', 'typeinput':'text','value':cliente.nombres,'name':'nombres'},
+	              	{'label':'Apellidos','type':'input','typeinput':'text','value':cliente.apellidos,'name':'apellidos'},
+	              	{'label':'Dni','type':'input','typeinput':'text','value':cliente.dni,'name':'dni'},
+	              	{'label':'Referencia','type':'input','typeinput':'text','value':cliente.referencia,'name':'referencia'},
+	              	{'label':'Dirección','type':'input','typeinput':'text','value':cliente.direccion,'name':'direccion'},
+	              	{'label':'Zona','type':'input','typeinput':'text','value':cliente.zona,'name':'zona'},
+	              	{'label':'Línea Op','type':'input','typeinput':'text','value':cliente.lineaop,'name':'lineaop'},
+	              	{'label':'Arc Crédito','type':'input','typeinput':'text','value':cliente.arccredito,'name':'arccredito'},
+	              	{'label':'Ocupación','type':'input','typeinput':'text','value':cliente.ocupacion,'name':'ocupacion'},
+					{'type':'actions'}];
+		
+	$("#EditarClienteForm").html(crearElementosForm(ArrayDatos));
+}
+
+function cargarVer(id){
+	url = "{{ path('dicars_ventas_servicio_getclientebyid', {'id': ''}) }}/"+id;
+	console.log("HOLA");	
+	cliente = getAjaxObject(url);
+			
+
+	ArrayDatos = [	{'label':'Nombres','type':'span', 'typeinput':'text','value':cliente.nombres,'name':'nombres'},
+	              	{'label':'Apellidos','type':'span','typeinput':'text','value':cliente.apellidos,'name':'apellidos'},
+	              	{'label':'Dni','type':'span','typeinput':'text','value':cliente.dni,'name':'dni'},
+	              	{'label':'Referencia','type':'span','typeinput':'text','value':cliente.referencia,'name':'referencia'},
+	              	{'label':'Dirección','type':'span','typeinput':'text','value':cliente.direccion,'name':'direccion'},
+	              	{'label':'Zona','type':'span','typeinput':'text','value':cliente.zona,'name':'zona'},
+	              	{'label':'Línea Op','type':'span','typeinput':'text','value':cliente.lineaop,'name':'lineaop'},
+	              	{'label':'Arc Crédito','type':'span','typeinput':'text','value':cliente.arccredito,'name':'arccredito'},
+	              	{'label':'Ocupación','type':'span','typeinput':'text','value':cliente.ocupacion,'name':'ocupacion'},
+					{'type':'close'}];
+		
+	$("#VerClienteForm").html(crearElementosForm(ArrayDatos));
+}
+
+$(document).ready(function(){
 
 	//mostrar Registrar Cliente------------------------------------>
 	$('.btn-registrar').click(function(e){
 	e.preventDefault();
 	$('#modalRegistro').modal('show');
 	});
-	//mostrar Editar Cliente------------------------------------>
-	$('.btn-editar').click(function(e){
-	e.preventDefault();
-	$('#modalRegistro').modal('show');
-	});
-	//mostrar Ver Datos Cliente------------------------------------>
-	$('.btn-datos').click(function(e){
-	e.preventDefault();
-	$('#modalVerDatos').modal('show');
-	});
 
-	};
+	enviar('RegistrarClienteForm', ReloadTableRegistrar);
+	enviar('EditarClienteForm', ReloadTableEditar);
 	
-	enviar('RegistrarClienteForm', logdata);
 	UrlaDTable = '{{ path("dicars_ventas_servicio_gettablaclientes") }}';
 	FormatoDTable = [
 	              { "sWidth": "15%","mDataProp": "nombre"},
@@ -159,23 +150,8 @@ function init(){
 	              { "sWidth": "40%","mDataProp": "Acciones"}
 	              ];
 oTable = createDataTable('clientes_table',UrlaDTable,FormatoDTable,CargarBotones);
-}
+	
+});
 
-function cargarEditar(id){
-	url = "{{ path('dicars_ventas_servicio_getclientebyid', {'id': ''}) }}/"+id;
-	cliente = getAjaxObject(url);			
-
-	ArrayDatos = [	{'type':'hidden','value':cliente.id,'name':'id'},
-	          		{'label':'RUC','type':'input', 'typeinput':'text','value':proveedor.ruc,'name':'ruc'},
-	              	{'label':'Razón Social','type':'input','typeinput':'text','value':proveedor.razonsocial,'name':'razonsocial'},
-	              	{'label':'Cuenta Corriente','type':'input','typeinput':'text','value':proveedor.ccorriente,'name':'ccorriente'},
-	              	{'label':'Dirección','type':'input','typeinput':'text','value':proveedor.direccion,'name':'direccion'},
-	              	{'label':'Teléfono','type':'input','typeinput':'text','value':proveedor.telefono,'name':'telefono'},
-	              	{'label':'Email','type':'input','typeinput':'text','value':proveedor.email,'name':'email'},
-	              	{'label':'Página Web','type':'input','typeinput':'text','value':proveedor.sitioweb,'name':'paginaweb'},
-					{'type':'actions'}];
-		
-	$("#EditarProveedorForm").html(crearElementosForm(ArrayDatos));
-}
 </script>
 {% endblock %}
