@@ -73,7 +73,6 @@ class LogisticaServiciosController extends Controller{
 		$em = $this->getDoctrine()->getEntityManager();
 			
 		$proveedor = $this->getDoctrine()
-	
 		->getRepository('DicarsDataBundle:LogProveedor')
 		->findOneBy(array('nproveedorId' => $id));
 	

@@ -64,4 +64,63 @@ class AdministrarProveedorController extends Controller {
 		$return = json_encode($return);
 		return new Response($return,200,array('Content-Type'=>'application/json'));
 	}
+	
+	public function EditarProveedorAction(){
+		$request = $this->get('request');
+		$form = $request->request->get('formulario');
+	
+		$datos = array();
+		parse_str($form,$datos);
+	
+		$ProveedorRuc = null;
+		$ProveedorRazonSocial = null;
+		$ProveedorTel = null;
+		$ProveedorEmail = null;
+		$ProveedorSitioWeb = null;
+		$ProveedorDirec = null;
+		$ProveedorCCorriente = null;
+	
+		if ($form!=null){
+			$ProveedorId = $datos["id"];
+			$ProveedorRuc = $datos["ruc"];
+			$ProveedorRazonSocial = $datos["razonsocial"];
+			$ProveedorTel = $datos["telefono"];
+			$ProveedorEmail = $datos["email"];
+			$ProveedorSitioWeb = $datos["paginaweb"];
+			$ProveedorDirec = $datos["direccion"];
+			$ProveedorCCorriente = $datos["ccorriente"];
+				
+			$Proveedor = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:LogProveedor')
+			->findOneBy(array('nproveedorId' => $ProveedorId));
+			
+			$Proveedor->setCproveedorruc($ProveedorRuc);
+			$Proveedor->setCproveedorrazsocial($ProveedorRazonSocial);
+			$Proveedor->setCproveedortel($ProveedorTel);
+			$Proveedor->setCproveedoremail($ProveedorEmail);
+			$Proveedor->setCproveedorsitioweb($ProveedorSitioWeb);
+			$Proveedor->setCproveedordirec($ProveedorDirec);
+			$Proveedor->setCproveedorccorriente($ProveedorCCorriente);
+				
+			$em = $this->getDoctrine()->getEntityManager();
+			$this->getDoctrine()->getEntityManager()->beginTransaction();
+			try {
+				$em->flush();
+			} catch (Exception $e) {
+				$this->getDoctrine()->getEntityManager()->rollback();
+				$this->getDoctrine()->getEntityManager()->close();
+				$return = array("responseCode"=>400, "greeting"=>"Bad");
+					
+				throw $e;
+			}
+			$this->getDoctrine()->getEntityManager()->commit();
+			$return = array("responseCode"=>200, "datos"=>$datos);
+		}
+		else {
+			$return = array("responseCode"=>400, "greeting"=>"Bad");
+		}
+	
+		$return = json_encode($return);
+		return new Response($return,200,array('Content-Type'=>'application/json'));
+	}
 }

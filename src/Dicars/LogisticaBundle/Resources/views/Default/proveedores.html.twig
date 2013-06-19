@@ -41,7 +41,7 @@
 				<h3>Editar Proveedor</h3>
 			</div>
 			<div class="modal-body">
-				<form id="EditarProveedorForm" class="form-horizontal" method="post" action="#">
+				<form id="EditarProveedorForm" class="form-horizontal" method="post" action="{{ path('dicars_logistica_registrar_proveedor') }}">
 				</form>
 			</div>
 		</div>
@@ -108,7 +108,8 @@ function cargarEditar(id){
 	url = "{{ path('dicars_logistica_servicio_getproveedorbyid', {'id': ''}) }}/"+id;
 	proveedor = getAjaxObject(url);			
 
-	ArrayDatos = [	{'label':'RUC','type':'input', 'typeinput':'text','value':proveedor.ruc,'name':'ruc'},
+	ArrayDatos = [	{'type':'hidden','value':proveedor.id,'name':'id'},
+	          		{'label':'RUC','type':'input', 'typeinput':'text','value':proveedor.ruc,'name':'ruc'},
 	              	{'label':'Razón Social','type':'input','typeinput':'text','value':proveedor.razonsocial,'name':'razonsocial'},
 	              	{'label':'Cuenta Corriente','type':'input','typeinput':'text','value':proveedor.ccorriente,'name':'ccorriente'},
 	              	{'label':'Dirección','type':'input','typeinput':'text','value':proveedor.direccion,'name':'direccion'},
