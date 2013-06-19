@@ -47,7 +47,7 @@
 				  </div>
 			</div>
 		</div>
-		<div class="modal hide fade" id="modalEditarDatos">
+		<div class="modal hide fade" id="modalEditarDatos" method="post" action="{{ path ('dicars_logistica_editar_producto') }}">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">x</button>
 				<h3>Datos del Producto</h3>
@@ -97,6 +97,8 @@ function init(){
 	};	
 	
 	enviar('RegistrarProductoForm', logdata);
+	enviar('modalEditarDatos',logdata);
+	
 	UrlaDTable = '{{ path("dicars_logistica_servicio_gettablaproductos") }}';
 	FormatoDTable = [
 		              { "sWidth": "12%","mDataProp": "id"},
@@ -115,23 +117,23 @@ function cargarEditar(id){
 
 	ArrayDatos = [	{'type':'hidden','value':producto.id,'name':'id'},
 	          		{'label':'Codigo','type':'span','value':producto.id},
-	              	{'label':'Nombre','type':'input','typeinput':'text','value':producto.nombre,'name':'nombre'},
 	              	{'label':'Talla','type':'input','typeinput':'text','value':producto.talla,'name':'talla'},
 	              	{'label':'Serie','type':'input','typeinput':'text','value':producto.serie,'name':'serie'},
 	              	{'label':'Marca','type':'input','typeinput':'text','value':'','name':'marca'},
 	              	{'label':'Tipo','type':'select','name':'tipo'},
+	              	{'label':'Descripcion','type':'input','typeinput':'text','value':producto.nombre,'name':'descripcion'},
 	              	{'label':'Imagen','type':'file','name':'imagen'},
 	              	{'label':'','type':'img','value':'#'},
 	  				{'label':'Stock','type':'input','typeinput':'text','value':producto.stock,'name':'stock'},
-	  				{'label':'Precio Costo','type':'input','typeinput':'text','value':producto.pcosto,'name':'pcosto'},
+	  				{'label':'Precio Costo','type':'input','typeinput':'text','value':producto.pcosto,'name':'preciocosto'},
 					{'label':'Precio de venta al Contado','type':'h3'},
-					{'label':'Minimo','type':'input','typeinput':'text','value':'','name':'pcontadominimo'},
-					{'label':'Regular','type':'input','typeinput':'text','value':'','name':'pcontadoregular'},
-					{'label':'Maximo','type':'input','typeinput':'text','value':'','name':'pcontadomaximo'},
+					{'label':'Minimo','type':'input','typeinput':'text','value':producto.precio_contado,'name':'minimocontado'},
+					{'label':'Regular','type':'input','typeinput':'text','value':'','name':'regularcontado'},
+					{'label':'Maximo','type':'input','typeinput':'text','value':'','name':'maximocontado'},
 					{'label':'Precio de venta al Credito','type':'h3'},
-					{'label':'Minimo','type':'input','typeinput':'text','value':'','name':'pcreditodominimo'},
-					{'label':'Regular','type':'input','typeinput':'text','value':'','name':'pcreditoregular'},
-					{'label':'Maximo','type':'input','typeinput':'text','value':'','name':'pcreditomaximo'},
+					{'label':'Minimo','type':'input','typeinput':'text','value':producto.precio_credito,'name':'minimocredito'},
+					{'label':'Regular','type':'input','typeinput':'text','value':'','name':'regularcredito'},
+					{'label':'Maximo','type':'input','typeinput':'text','value':'','name':'maximocredito'},
 					{'type':'actions'}];
 		
 	$("#EditarProductoForm").html(crearElementosForm(ArrayDatos));

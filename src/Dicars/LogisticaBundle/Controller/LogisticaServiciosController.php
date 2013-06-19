@@ -36,8 +36,7 @@ class LogisticaServiciosController extends Controller{
 	public function getProductoByIdAction($id){
 		$em = $this->getDoctrine()->getEntityManager();
 			
-		$producto = $this->getDoctrine()
-		
+		$producto = $this->getDoctrine()		
 		->getRepository('DicarsDataBundle:Producto')
 		->findOneBy(array('nproductoId' => $id));
 		

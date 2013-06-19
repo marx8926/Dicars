@@ -48,7 +48,7 @@ class AdministrarProductoController extends Controller{
 			->findOneBy(array('nmarcaId'  => 1));
 			
 			$Producto_tipo = $datos["tipo"];
-			$Producto_desc = $datos["caracteristica"];
+			$Producto_desc = $datos["descripcion"];
 			$Producto_prec_contado = $datos["minimocontado"];
 			$Producto_prec_credito = $datos["minimocredito"];
 			$Producto_prec_costo = $datos["preciocosto"];
@@ -138,6 +138,58 @@ class AdministrarProductoController extends Controller{
 		
 		if ($form != null){
 			
+			$Producto_id = $datos["id"];
+			$Producto_talla = $datos["talla"];
+			$Producto_serie = $datos["serie"];
+				
+			$Producto_marca = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:VenMarca')
+			->findOneBy(array('nmarcaId'  => 1));
+				
+			$Producto_tipo = $datos["tipo"];
+			$Producto_desc = $datos["descripcion"];
+			$Producto_prec_contado = $datos["minimocontado"];
+			$Producto_prec_credito = $datos["minimocredito"];
+			$Producto_prec_costo = $datos["preciocosto"];
+			$Producto_cod_barra = "AER1234";
+			$Producto_archivo = "Hola soy el archivo";
+				
+			$Producto_categoria =  $this->getDoctrine()
+			->getRepository('DicarsDataBundle:VenCategoria')
+			->findOneBy(array('ncategoriaId' => 1));
+				
+			$Producto_stock_min = 10;
+			$Producto_stock_max = 40;
+			$Producto_stock = 25;
+			$Producto_est = 1;
+			$Producto_porc_uti = 18;
+			$Producto_porc_uti_bruta = 20;
+			
+			/*$Producto = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:Producto')
+			->findOneBy(array('nproductoId' => $Producto_id));
+			
+			$Producto->setCproductotalla($Producto_talla);
+			$Producto->setCproductoserie($Producto_serie);
+			$Producto->setNproductomarca($Producto_marca);
+			$Producto->setNproductotipo($Producto_tipo);
+			$Producto->setCproductodesc($Producto_desc);
+			$Producto->setNproductopcontado($Producto_prec_contado);
+			$Producto->setNproductopcredito($Producto_prec_credito);
+			$Producto->setNproductopcosto($Producto_prec_costo);
+			$Producto->setCproductocodbarra($Producto_cod_barra);
+			$Producto->setCproductoimage($Producto_archivo);
+			$Producto->setNcategoria($Producto_categoria);
+			$Producto->setNproductostockmin($Producto_stock_min);
+			$Producto->setNproductostockmax($Producto_stock_max);
+			$Producto->setNproductosotck($Producto_stock);
+			$Producto->setCproductoest($Producto_est);
+			$Producto->setNproductoporcuti($Producto_porc_uti);
+			$Producto->setNproductoutibruta($Producto_porc_uti_bruta);
+				
+			$em = $this->getDoctrine()->getEntityManager();
+			$this->getDoctrine()->getEntityManager()->beginTransaction();
+			
 		try {
 			$em->persist($Producto);
 			$em->flush();
@@ -148,7 +200,7 @@ class AdministrarProductoController extends Controller{
 				
 			throw $e;
 		}
-		$this->getDoctrine()->getEntityManager()->commit();
+		$this->getDoctrine()->getEntityManager()->commit();*/
 		$return = array("responseCode"=>200, "datos"=>$datos);
 			
 		}
