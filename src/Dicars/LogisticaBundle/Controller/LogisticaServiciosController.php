@@ -119,21 +119,23 @@ class LogisticaServiciosController extends Controller{
 	
 	public function getLocalByIdAction($id){
 		$em = $this->getDoctrine()->getEntityManager();
-			
+
 		$local = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:Local')
 		->findOneBy(array('nlocalId' => $id));
-		
+
 		$em->clear();
 		
+		$ubigeo = $local -> getUbigeoNubigeo();
+		
 		$data = array('id' => $local -> getNlocalId(),
-				'tienda' => $local -> getClocaldesc(),
+				'nombre_tienda' => $local -> getClocaldesc(),
 				'estado' => $local -> getNlocalest(),
 				'direccion' => $local -> getClocaldirec(),
 				'telefono' => $local -> getClocaltelf(),
-				'ubigeo' => $local -> getCproveedorsitioweb(),
-				'tiprub' => $local -> getCproveedordirec());
-	
+				'ubigeo' => $ubigeo -> getNubigeoId(),
+				'tiprub' => $local -> getNlocaltiprub());
+
 		return new JsonResponse($data);
 	}
 

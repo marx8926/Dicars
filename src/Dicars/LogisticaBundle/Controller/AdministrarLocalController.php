@@ -66,4 +66,64 @@ class AdministrarLocalController extends Controller{
 		return new Response($return,200,array('Content-Type'=>'application/json'));
 	}
 	
+	public function EditarLocalAction(){
+		$request = $this->get('request');
+		$form = $request->request->get('formulario');
+	
+		$datos = array();
+		parse_str($form,$datos);
+	
+		$LocalNombre = null;
+		$LocalEstado = null;
+		$LocalTel = null;
+		$LocalDirec = null;
+		$LocalUbigeo = null;
+		$LocalTipRub = null;
+	
+		if ($form!=null){
+			$LocalId = $datos["id"];
+			$LocalNombre = $datos["nombre_tienda"];
+			$LocalEstado = $datos["estado"];
+			$LocalTel = $datos["telefono"];
+			$LocalDirec = $datos["direccion"];
+				
+			$LocalUbigeo = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:Ubigeo')
+			->findOneBy(array('nubigeoId'  => 1));
+				
+			$LocalTipRub = $datos["tiprub"];
+	
+			$Local = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:Local')
+			->findOneBy(array('nlocalId' => $LocalId));
+			
+			$Local->setClocaldesc($LocalNombre);
+			$Local->setNlocalest($LocalEstado);
+			$Local->setClocaltelf($LocalTel);
+			$Local->setClocaldirec($LocalDirec);
+			$Local->setUbigeoNubigeo($LocalUbigeo);
+			$Local->setNlocaltiprub($LocalTipRub);
+	
+			$em = $this->getDoctrine()->getEntityManager();
+			$this->getDoctrine()->getEntityManager()->beginTransaction();
+			try {
+				$em->flush();
+			} catch (Exception $e) {
+				$this->getDoctrine()->getEntityManager()->rollback();
+				$this->getDoctrine()->getEntityManager()->close();
+				$return = array("responseCode"=>400, "greeting"=>"Bad");
+					
+				throw $e;
+			}
+			$this->getDoctrine()->getEntityManager()->commit();
+			$return = array("responseCode"=>200, "datos"=>$datos);
+		}
+		else {
+			$return = array("responseCode"=>400, "greeting"=>"Bad");
+		}
+	
+		$return = json_encode($return);
+		return new Response($return,200,array('Content-Type'=>'application/json'));
+	}
+	
 }

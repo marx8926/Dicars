@@ -2,7 +2,7 @@
 {% block title %}Locales - Logística -{% endblock %}
 {% block breadcrumb %}
 <li>
-	<a href="{{path('dicars_ventas_homepage')}}">Logística</a> <span class="divider">/</span>
+	<a href="{{path('dicars_ventas_homepage')}}">Logística</a><span class="divider">/</span>
 </li>
 <li>
 	<a href="{{path('dicars_logistica_locales')}}">Locales</a>
@@ -85,49 +85,27 @@
 					</fieldset>
 				  </form>
 			</div>
-			<!-- div class="modal-footer">
-				<a href="#" class="btn" data-dismiss="modal">Cancelar</a>
-				<a href="#" class="btn btn-primary">Guardar</a>
-			</div -->
+		</div>
+		<div class="modal hide fade" id="modalEditarLocal">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">x</button>
+				<h3>Editar Local</h3>
+			</div>
+			<div class="modal-body">
+				<form id="EditarLocalForm" class="form-horizontal" method="post" action="{{ path('dicars_logistica_editar_local') }}">
+				</form>
+			</div>
 		</div>
 		<div class="modal hide fade" id="modalVerDatos">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">x</button>
-				<h3>Datos de Tienda</h3>
+				<h3>Datos del Local</h3>
 			</div>
 			<div class="modal-body">
-				<form class="form-horizontal">
-					<fieldset>
-					  <div class="control-group">
-						<label class="control-label" for="tienda">Tienda</label>
-						<div class="controls">
-						  <span class="help-inline" style="margin-top:5px;">Nombre de la Tienda</span>
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="nomalmacen">Nombre de Almacén</label>
-						<div class="controls">
-						  <input class="input-xlarge focused" id="nomalmacen" type="text">
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="nroestates">Nro de Estantes</label>
-						<div class="controls">
-						  <input type="number" class="input-xlarge focused" id="nroestantes">
-						</div>
-					  </div>
-					  <div class="form-actions">
-						<button type="submit" class="btn btn-primary">Guardar</button>
-						<button type="reset" class="btn" data-dismiss="modal">Cancelar</button>
-					  </div>
-					</fieldset>
-				  </form>
+				<div id="VerLocal" class="form-horizontal">
+				</div>
 			</div>
-			<!-- div class="modal-footer">
-				<a href="#" class="btn" data-dismiss="modal">Cancelar</a>
-				<a href="#" class="btn btn-primary">Guardar</a>
-			</div -->
-		</div>     
+		</div>   
 		</div>
 	</div><!--/span-->
 </div><!--/row-->
@@ -151,7 +129,9 @@ function init(){
 		//mostrar Editar Cliente------------------------------------>
 		$('.btn-editar').click(function(e){
 			e.preventDefault();
-			$('#modalRegistro').modal('show');
+			$('#modalEditarLocal').modal('show');
+			id=$(this).attr("id-data");		
+			cargarEditar(id);
 		});
 		//mostrar Ver Datos------------------------------------>
 		$('.btn-datos').click(function(e){
@@ -161,6 +141,7 @@ function init(){
 	};
 	
 	enviar('RegistrarLocalForm', logdata);
+	enviar('EditarLocalForm', logdata);
 
 	UrlaDTable = '{{ path("dicars_logistica_servicio_gettablalocales") }}';
 	FormatoDTable = [
@@ -175,20 +156,21 @@ function init(){
 }
 
 function cargarEditar(id){
-	url = "{{ path('dicars_logistica_servicio_getproveedorbyid', {'id': ''}) }}/"+id;
-	proveedor = getAjaxObject(url);			
+	url = "{{ path('dicars_logistica_servicio_getlocalbyid', {'id': ''}) }}/"+id;
+	console.log(url);
+	local = getAjaxObject(url);			
 
-	ArrayDatos = [	{'type':'hidden','value':proveedor.id,'name':'id'},
-	          		{'label':'RUC','type':'input', 'typeinput':'text','value':proveedor.ruc,'name':'ruc'},
-	              	{'label':'Razón Social','type':'input','typeinput':'text','value':proveedor.razonsocial,'name':'razonsocial'},
-	              	{'label':'Cuenta Corriente','type':'input','typeinput':'text','value':proveedor.ccorriente,'name':'ccorriente'},
-	              	{'label':'Dirección','type':'input','typeinput':'text','value':proveedor.direccion,'name':'direccion'},
-	              	{'label':'Teléfono','type':'input','typeinput':'text','value':proveedor.telefono,'name':'telefono'},
-	              	{'label':'Email','type':'input','typeinput':'text','value':proveedor.email,'name':'email'},
-	              	{'label':'Página Web','type':'input','typeinput':'text','value':proveedor.sitioweb,'name':'paginaweb'},
-					{'type':'actions'}];
+	ArrayDatos = [	{'type':'hidden','value':local.id,'name':'id'},
+	          		{'label':'Nombre de Tienda','type':'input', 'typeinput':'text','value':local.nombre_tienda,'name':'nombre_tienda'},
+	              	{'label':'Estado','type':'input','typeinput':'text','value':local.estado,'name':'estado'},
+	              	{'label':'Dirección','type':'input','typeinput':'text','value':local.direccion,'name':'direccion'},
+	              	{'label':'Teléfono','type':'input','typeinput':'text','value':local.telefono,'name':'telefono'},
+	              	{'label':'Ubigeo','type':'input','typeinput':'text','value':local.ubigeo,'name':'ubigeo'},
+	              	{'label':'Tipo de Rubro','type':'input','typeinput':'text','value':local.tiprub,'name':'tiprub'},
+					{'type':'actions'}
+					];
 		
-	$("#EditarProveedorForm").html(crearElementosForm(ArrayDatos));
+	$("#EditarLocalForm").html(crearElementosForm(ArrayDatos));
 }
 </script>
 {% endblock %}

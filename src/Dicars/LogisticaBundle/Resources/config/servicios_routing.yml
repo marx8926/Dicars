@@ -17,3 +17,7 @@ dicars_logistica_servicio_getproveedorbyid:
 dicars_logistica_servicio_gettablalocales:
     pattern:  /servicio_gettablalocales
     defaults: { _controller: DicarsLogisticaBundle:LogisticaServicios:getTablaLocales }
+    
+dicars_logistica_servicio_getlocalbyid:
+    pattern:  /servicio_getlocalbyid/{id}
+    defaults: { _controller: DicarsLogisticaBundle:LogisticaServicios:getLocalById }

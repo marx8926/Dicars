@@ -3,3 +3,8 @@ dicars_logistica_registrar_local:
     defaults: { _controller: DicarsLogisticaBundle:AdministrarLocal:RegistrarLocal }
     requirements:
           _method: POST
+dicars_logistica_editar_local:
+    pattern:  /editar_local
+    defaults: { _controller: DicarsLogisticaBundle:AdministrarLocal:EditarLocal }
+    requirements:
+          _method: POST
