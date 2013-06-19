@@ -74,6 +74,27 @@ class VentaServiciosController extends Controller{
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
+	public function getTrabajadorByIdAction($id){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$empleado = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:VenPersonal')
+		->findOneBy(array('npersonalId' => $id));
 	
+		$em->clear();
+	
+		$data = array('id' => $cliente -> getNclienteId(),
+				'nombres' => $cliente -> getBclientenom(),
+				'apellidos' => $cliente -> getCclienteape(),
+				'dni' => $cliente -> getCclientedni(),
+				'referencia' => $cliente -> getCclienteref(),
+				'direccion' => $cliente -> getCclientecdir(),
+				'zona' => $cliente -> getNzona()-> getNzonaId(),
+				'lineaop' => $cliente -> getNclientelineaop(),
+				'arccredito' => $cliente -> getCclientearccredito(),
+				'ocupacion' => $cliente -> getCclienteocup());
+	
+		return new JsonResponse($data);
+	}
 	
 }

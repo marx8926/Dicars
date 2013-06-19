@@ -108,8 +108,7 @@ class AdministrarClientesController extends Controller{
 			
 			$Cliente_linea_op = $datos["lineaop"];
 			$Cliente_arc_credito = $datos["arccredito"];
-			$Cliente_ocup = $datos["ocupacion"];
-			
+			$Cliente_ocup = $datos["ocupacion"];			
 			
 			$Cliente = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:VenCliente')

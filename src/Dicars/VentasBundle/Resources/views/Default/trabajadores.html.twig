@@ -32,84 +32,30 @@
 				  </tr>
 			  </thead>
 		  	</table> 
-			
+
+		{% include 'DicarsVentasBundle:Default:registrar_trabajador.html.twig' %} 
+		
+		<div class="modal hide fade" id="modalEditarDatos">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">x</button>
+				<h3>Editar Trabajador</h3>
+			</div>
+			<div class="modal-body">
+				<form id="EditarEmpleadoForm" class="form-horizontal" method="post" action="{{ path('dicars_ventas_editar_trabajador') }}">
+				</form>
+			</div>
+		</div>		
+		
 		<div class="modal hide fade" id="modalVerDatos">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">x</button>
 				<h3>Datos del Trabajador</h3>
 			</div>
 			<div class="modal-body">
-				<div class="form-horizontal">
-					<fieldset>
-					  <div class="control-group">
-						<label class="control-label" for="focusedInput">Nombres</label>
-						<div class="controls">
-						  <span class="help-inline" style="margin-top:5px;">Claudia María</span>
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="focusedInput">Apellidos</label>
-						<div class="controls">
-						  <span class="help-inline" style="margin-top:5px;">Valdivieso Catillo</span>
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="focusedInput">Fecha de Nacimiento</label>
-						<div class="controls">
-						  <span class="help-inline" style="margin-top:5px;">26-04-1990</span>
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="focusedInput">DNI</label>
-						<div class="controls">
-						  <span class="help-inline" style="margin-top:5px;">12345678</span>
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="focusedInput">Teléfono</label>
-						<div class="controls">
-						  <span class="help-inline" style="margin-top:5px;">123456789</span>
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="focusedInput">Dirección</label>
-						<div class="controls">
-						  <span class="help-inline" style="margin-top:5px;">Hola mundo 123</span>
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="focusedInput">Referencia</label>
-						<div class="controls">
-						  <span class="help-inline" style="margin-top:5px;">Por mi casa</span>
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="region">Región</label>
-						<div class="controls">
-						  <span class="help-inline" style="margin-top:5px;">La Libertad</span>
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="provincia">Provincia</label>
-						<div class="controls">
-						  <span class="help-inline" style="margin-top:5px;">Trujillo</span>
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="distrito">Distrito</label>
-						<div class="controls">
-						  <span class="help-inline" style="margin-top:5px;">Victor Larco</span>
-						</div>
-					  </div>
-					  <div class="form-actions">
-						<!-- button type="submit" class="btn btn-primary">Guardar</button -->
-						<button class="btn" data-dismiss="modal">Cerrar</button>
-					  </div>
-					</fieldset>
-				  </div>
+				<div id="VerEmpleadoForm" class="form-horizontal">
+				</div>
 			</div>
-		</div>
-		{% include 'DicarsVentasBundle:Default:registrar_trabajador.html.twig' %}       
+		</div>      
 		</div>
 	</div><!--/span-->
 </div><!--/row-->

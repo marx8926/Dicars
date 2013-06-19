@@ -3,3 +3,9 @@ dicars_ventas_registrar_trabajador:
     defaults: { _controller: DicarsVentasBundle:AdministrarTrabajador:RegistrarTrabajador }
     requirements:
           _method: POST
+          
+dicars_ventas_editar_trabajador:
+    pattern:  /editar_trabajador
+    defaults: { _controller: DicarsVentasBundle:AdministrarTrabajador:EditarTrabajador }
+    requirements:
+          _method: POST           
