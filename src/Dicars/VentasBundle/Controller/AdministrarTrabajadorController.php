@@ -71,6 +71,7 @@ class AdministrarTrabajadorController extends Controller{
 				throw $e;
 			}
 			$this->getDoctrine()->getEntityManager()->commit();
+			$em->clear();
 			$return = array("responseCode"=>200, "datos"=>$datos);
 		}
 		else {

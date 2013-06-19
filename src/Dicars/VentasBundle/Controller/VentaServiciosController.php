@@ -18,7 +18,7 @@ class VentaServiciosController extends Controller{
 		->getRepository('DicarsDataBundle:VenCliente')
 		->findAll();
 			
-		$cantidad = count($clientes);
+		$em->clear();
 	
 		$todo = array();
 		foreach ($clientes as $key => $clientes){
@@ -38,7 +38,7 @@ class VentaServiciosController extends Controller{
 		->getRepository('DicarsDataBundle:VenPersonal')
 		->findAll();
 			
-		$cantidad = count($empleados);
+		$em->clear();
 	
 		$todo = array();
 		foreach ($empleados as $key => $empleados){
