@@ -98,6 +98,7 @@ class AdministrarProductoController extends Controller{
 				throw $e;			
 			}
 				$this->getDoctrine()->getEntityManager()->commit();
+				$em->clear();
 				$return = array("responseCode"=>200, "datos"=>$datos);
 					
 		}
@@ -165,7 +166,7 @@ class AdministrarProductoController extends Controller{
 			$Producto_porc_uti = 18;
 			$Producto_porc_uti_bruta = 20;
 			
-			/*$Producto = $this->getDoctrine()
+			$Producto = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:Producto')
 			->findOneBy(array('nproductoId' => $Producto_id));
 			
@@ -191,7 +192,6 @@ class AdministrarProductoController extends Controller{
 			$this->getDoctrine()->getEntityManager()->beginTransaction();
 			
 		try {
-			$em->persist($Producto);
 			$em->flush();
 		} catch (Exception $e) {
 			$this->getDoctrine()->getEntityManager()->rollback();
@@ -200,7 +200,8 @@ class AdministrarProductoController extends Controller{
 				
 			throw $e;
 		}
-		$this->getDoctrine()->getEntityManager()->commit();*/
+		$this->getDoctrine()->getEntityManager()->commit();
+		$em->clear();
 		$return = array("responseCode"=>200, "datos"=>$datos);
 			
 		}

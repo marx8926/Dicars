@@ -47,13 +47,13 @@
 				  </div>
 			</div>
 		</div>
-		<div class="modal hide fade" id="modalEditarDatos" method="post" action="{{ path ('dicars_logistica_editar_producto') }}">
+		<div class="modal hide fade" id="modalEditarDatos" >
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">x</button>
 				<h3>Datos del Producto</h3>
 			</div>
 			<div class="modal-body">
-				<form id="EditarProductoForm" class="form-horizontal" method="post" action="#">
+				<form id="EditarProductoForm" class="form-horizontal" method="post" action="{{ path ('dicars_logistica_editar_producto') }}">
 				</form>
 			</div>
 		</div>
@@ -97,7 +97,7 @@ function init(){
 	};	
 	
 	enviar('RegistrarProductoForm', logdata);
-	enviar('modalEditarDatos',logdata);
+	enviar('EditarProductoForm',logdata);
 	
 	UrlaDTable = '{{ path("dicars_logistica_servicio_gettablaproductos") }}';
 	FormatoDTable = [

@@ -18,8 +18,7 @@ class LogisticaServiciosController extends Controller{
 		$productos = $this->getDoctrine()
     		->getRepository('DicarsDataBundle:Producto')
 			->findAll();
-		 
-		$cantidad = count($productos);
+		$em->clear();
 		
 		$todo = array();
 		foreach ($productos as $key => $producto){
@@ -40,6 +39,8 @@ class LogisticaServiciosController extends Controller{
 		->getRepository('DicarsDataBundle:Producto')
 		->findOneBy(array('nproductoId' => $id));
 		
+		$em->clear();
+		
 		$data = array('id' => $producto -> getNproductoId(),'serie' => $producto -> getCproductoserie(),'talla' => $producto -> getCproductotalla(),
 				'nombre' => $producto -> getCproductodesc(),'pcosto' => $producto -> getNproductopcosto(),'pcontado' => $producto -> getNproductopcontado(),
 				'pcredito' => $producto -> getNproductopcredito(),'tipo' => $producto -> getNproductotipo(),'codigobarras' => $producto -> getCproductocodbarra(),
@@ -55,7 +56,9 @@ class LogisticaServiciosController extends Controller{
 		$proveedores = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:LogProveedor')
 		->findAll();
-	
+		
+		$em->clear();
+		
 		$todo = array();
 		foreach ($proveedores as $key => $proveedor){
 			$todo[] = array('id' => $proveedor -> getNproveedorId(), 'ruc' => $proveedor -> getCproveedorruc(),
@@ -74,7 +77,9 @@ class LogisticaServiciosController extends Controller{
 		$proveedor = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:LogProveedor')
 		->findOneBy(array('nproveedorId' => $id));
-	
+		
+		$em->clear();
+		
 		$data = array('id' => $proveedor -> getNproveedorId(),
 					'ruc' => $proveedor -> getCproveedorruc(),
 					'razonsocial' => $proveedor -> getCproveedorrazsocial(),
@@ -93,7 +98,9 @@ class LogisticaServiciosController extends Controller{
 		$locales = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:Local')
 		->findAll();
-	
+		
+		$em->clear();
+		
 		$todo = array();
 		foreach ($locales as $key => $local){
 			$todo[] = array('id' => $local -> getNlocalId(), 
@@ -116,7 +123,9 @@ class LogisticaServiciosController extends Controller{
 		$local = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:Local')
 		->findOneBy(array('nlocalId' => $id));
-	
+		
+		$em->clear();
+		
 		$data = array('id' => $local -> getNlocalId(),
 				'tienda' => $local -> getClocaldesc(),
 				'estado' => $local -> getNlocalest(),
