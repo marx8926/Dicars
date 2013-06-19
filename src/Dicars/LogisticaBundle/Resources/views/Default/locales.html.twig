@@ -116,44 +116,28 @@
 <script type="text/javascript" src="{{ asset('js/util/datatable_plugins.js') }}"></script>
 
 <script type="text/javascript">
-$(document).ready(init());
 
-//Init------------------------------------>
-function init(){
-	var CargarBotones = function(){
-		//mostrar Registrar Cliente------------------------------------>
-		$('.btn-registrar').click(function(e){
-			e.preventDefault();
-			$('#modalRegistro').modal('show');
-		});
-		//mostrar Editar Cliente------------------------------------>
-		$('.btn-editar').click(function(e){
-			e.preventDefault();
-			$('#modalEditarLocal').modal('show');
-			id=$(this).attr("id-data");		
-			cargarEditar(id);
-		});
-		//mostrar Ver Datos------------------------------------>
-		$('.btn-datos').click(function(e){
-			e.preventDefault();
-			$('#modalVerDatos').modal('show');
-		});
-	};
-	
-	enviar('RegistrarLocalForm', logdata);
-	enviar('EditarLocalForm', logdata);
+var oTable;
 
-	UrlaDTable = '{{ path("dicars_logistica_servicio_gettablalocales") }}';
-	FormatoDTable = [
-		              { "sWidth": "12%","mDataProp": "nombre_tienda"},
-		              { "sWidth": "12%","mDataProp": "estado"},
-		              { "sWidth": "12%","mDataProp": "telefono"},
-		              { "sWidth": "12%","mDataProp": "direccion"},
-		              { "sWidth": "12%","mDataProp": "tiprub"},
-		              { "sWidth": "40%","mDataProp": "Acciones"}
-		              ];
-	oTable = createDataTable('locales_table',UrlaDTable,FormatoDTable,CargarBotones);
-}
+var ReloadTableEditar = reloadclosemodal('modalEditarLocal');
+var ReloadTableRegistrar = reloadclosemodal('modalRegistro');
+
+var CargarBotones = function(){
+	//mostrar Editar Cliente------------------------------------>
+	$('.btn-editar').click(function(e){
+		e.preventDefault();
+		$('#modalEditarLocal').modal('show');
+		id=$(this).attr("id-data");		
+		cargarEditar(id);
+	});
+	//mostrar Ver Datos------------------------------------>
+	$('.btn-datos').click(function(e){
+		e.preventDefault();
+		$('#modalVerDatos').modal('show');
+		id=$(this).attr("id-data");		
+		cargarVer(id);	
+	});
+};
 
 function cargarEditar(id){
 	url = "{{ path('dicars_logistica_servicio_getlocalbyid', {'id': ''}) }}/"+id;
@@ -172,5 +156,43 @@ function cargarEditar(id){
 		
 	$("#EditarLocalForm").html(crearElementosForm(ArrayDatos));
 }
+
+function cargarVer(id){
+	url = "{{ path('dicars_logistica_servicio_getlocalbyid', {'id': ''}) }}/"+id;
+	local = getAjaxObject(url);			
+
+	ArrayDatos = [	{'label':'Nombre de Tienda','type':'span','value':local.nombre_tienda},
+	              	{'label':'Estado','type':'span','value':local.estado},
+	              	{'label':'Dirección','type':'span','value':local.direccion},
+	              	{'label':'Teléfono','type':'span','value':local.telefono},
+	              	{'label':'Ubigeo','type':'span','value':local.ubigeo},
+	              	{'label':'Tipo de Rubro','type':'span','value':local.tiprub},
+					{'type':'close'}];
+		
+	$("#VerLocal").html(crearElementosForm(ArrayDatos));
+}
+
+//init------------------------------------>
+$(document).ready(function(){	
+	//mostrar Registrar Cliente------------------------------------>
+	$('.btn-registrar').click(function(e){
+		e.preventDefault();
+		$('#modalRegistro').modal('show');
+	});
+	
+	enviar('RegistrarLocalForm', ReloadTableRegistrar);
+	enviar('EditarLocalForm', ReloadTableEditar);
+
+	UrlaDTable = '{{ path("dicars_logistica_servicio_gettablalocales") }}';
+	FormatoDTable = [
+		              { "sWidth": "12%","mDataProp": "nombre_tienda"},
+		              { "sWidth": "12%","mDataProp": "estado"},
+		              { "sWidth": "12%","mDataProp": "telefono"},
+		              { "sWidth": "12%","mDataProp": "direccion"},
+		              { "sWidth": "12%","mDataProp": "tiprub"},
+		              { "sWidth": "40%","mDataProp": "Acciones"}
+		              ];
+	oTable = createDataTable('locales_table',UrlaDTable,FormatoDTable,CargarBotones);
+});
 </script>
 {% endblock %}

@@ -65,47 +65,28 @@
 <script type="text/javascript" src="{{ asset('js/util/datatable_plugins.js') }}"></script>
 
 <script type="text/javascript">
-$(document).ready(init());
 
-//Init------------------------------------>
-function init(){
+var oTable;
 
-	var CargarBotones = function(){
-		//mostrar Registrar Cliente------------------------------------>
-		$('.btn-registrar').click(function(e){
-			e.preventDefault();
-			$('#modalRegistroProveedores').modal('show');
-		});
-		//mostrar Editar Cliente------------------------------------>
-		$('.btn-editar').click(function(e){
-			e.preventDefault();
-			$('#modalEditarDatos').modal('show');
-			id=$(this).attr("id-data");		
-			cargarEditar(id);
-		});
-		//mostrar Ver Datos Cliente------------------------------------>
-		$('.btn-datos').click(function(e){
-			e.preventDefault();
-			$('#modalVerDatos').modal('show');
-			id=$(this).attr("id-data");		
-			cargarVer(id);	
-		});
-	};
-	
-	enviar('RegistrarProveedorForm', logdata);
-	enviar('EditarProveedorForm', logdata);
+var ReloadTableEditar = reloadclosemodal('modalEditarDatos');
+var ReloadTableRegistrar = reloadclosemodal('modalRegistroProveedores');
 
-	UrlaDTable = '{{ path("dicars_logistica_servicio_gettablaproveedores") }}';
-	FormatoDTable = [
-		              { "sWidth": "12%","mDataProp": "ruc"},
-		              { "sWidth": "12%","mDataProp": "razonsocial"},
-		              { "sWidth": "12%","mDataProp": "telefono"},
-		              { "sWidth": "12%","mDataProp": "email"},
-		              { "sWidth": "12%","mDataProp": "sitioweb"},
-		              { "sWidth": "40%","mDataProp": "Acciones"}
-		              ];
-	oTable = createDataTable('proveedores_table',UrlaDTable,FormatoDTable,CargarBotones);
-}
+var CargarBotones = function(){
+	//mostrar Editar Cliente------------------------------------>
+	$('.btn-editar').click(function(e){
+		e.preventDefault();
+		$('#modalEditarDatos').modal('show');
+		id=$(this).attr("id-data");		
+		cargarEditar(id);
+	});
+	//mostrar Ver Datos Cliente------------------------------------>
+	$('.btn-datos').click(function(e){
+		e.preventDefault();
+		$('#modalVerDatos').modal('show');
+		id=$(this).attr("id-data");		
+		cargarVer(id);	
+	});
+};
 
 function cargarEditar(id){
 	url = "{{ path('dicars_logistica_servicio_getproveedorbyid', {'id': ''}) }}/"+id;
@@ -139,6 +120,30 @@ function cargarVer(id){
 		
 	$("#VerProveedor").html(crearElementosForm(ArrayDatos));
 }
+
+//Init------------------------------------>
+$(document).ready(function(){
+
+	//mostrar Registrar Cliente------------------------------------>
+	$('.btn-registrar').click(function(e){
+		e.preventDefault();
+		$('#modalRegistroProveedores').modal('show');
+	});
+	
+	enviar('RegistrarProveedorForm', ReloadTableRegistrar);
+	enviar('EditarProveedorForm', ReloadTableEditar);
+
+	UrlaDTable = '{{ path("dicars_logistica_servicio_gettablaproveedores") }}';
+	FormatoDTable = [
+		              { "sWidth": "12%","mDataProp": "ruc"},
+		              { "sWidth": "12%","mDataProp": "razonsocial"},
+		              { "sWidth": "12%","mDataProp": "telefono"},
+		              { "sWidth": "12%","mDataProp": "email"},
+		              { "sWidth": "12%","mDataProp": "sitioweb"},
+		              { "sWidth": "40%","mDataProp": "Acciones"}
+		              ];
+	oTable = createDataTable('proveedores_table',UrlaDTable,FormatoDTable,CargarBotones);
+});
 
 </script>
 {% endblock %}
