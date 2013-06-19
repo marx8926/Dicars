@@ -113,7 +113,7 @@ function cargarEditar(id){
 	url = "{{ path('dicars_logistica_servicio_getproductobyid', {'id': ''}) }}/"+id;
 	producto = getAjaxObject(url);			
 
-	ArrayDatos = [	{'label':'Codigo','type':'hidden','value':producto.id,'name':'id'},
+	ArrayDatos = [	{'type':'hidden','value':producto.id,'name':'id'},
 	          		{'label':'Codigo','type':'span','value':producto.id},
 	              	{'label':'Nombre','type':'input','typeinput':'text','value':producto.nombre,'name':'nombre'},
 	              	{'label':'Talla','type':'input','typeinput':'text','value':producto.talla,'name':'talla'},

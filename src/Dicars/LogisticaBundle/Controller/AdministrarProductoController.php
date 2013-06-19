@@ -109,4 +109,55 @@ class AdministrarProductoController extends Controller{
 		return new Response($return,200,array('Content-Type'=>'application/json'));
 	}
 	
+	
+	public function EditarProductoAction(){
+	
+		$request = $this->get('request');
+		$form = $request->request->get('formulario');
+	
+		$datos = array();
+		parse_str($form,$datos);
+		
+		$Producto_serie = null;
+		$Producto_talla = null;
+		$Producto_marca = null;
+		$Producto_tipo = null;
+		$Producto_desc = null;
+		$Producto_prec_contado = null;
+		$Producto_prec_credito = null;
+		$Producto_prec_costo = null;
+		$Producto_cod_barra = null;
+		$Producto_archivo = null;
+		$Producto_categoria=null;
+		$Producto_stock_min = null;
+		$Producto_stock_max = null;
+		$Producto_stock = null;
+		$Producto_est = null;
+		$Producto_porc_uti = null;
+		$Producto_porc_uti_bruta = null;
+		
+		if ($form != null){
+			
+		try {
+			$em->persist($Producto);
+			$em->flush();
+		} catch (Exception $e) {
+			$this->getDoctrine()->getEntityManager()->rollback();
+			$this->getDoctrine()->getEntityManager()->close();
+			$return = array("responseCode"=>400, "greeting"=>"Bad");
+				
+			throw $e;
+		}
+		$this->getDoctrine()->getEntityManager()->commit();
+		$return = array("responseCode"=>200, "datos"=>$datos);
+			
+		}
+		else {
+			$return = array("responseCode"=>400, "greeting"=>"Bad");
+		}
+		
+		$return = json_encode($return);
+		return new Response($return,200,array('Content-Type'=>'application/json'));
+	}
+	
 }

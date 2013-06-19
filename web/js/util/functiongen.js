@@ -131,7 +131,7 @@ function crearElementosForm(Array){
 			$fielset.append('<button type="reset" class="btn" data-dismiss="modal">Cerrar</button>');
 			break;
 		case 'hidden':
-			$fielset.append('<input type="hidden" name="'+obj.name+'" value="'+obj.value+'">');
+			$fielset.append('<input type="hidden" name="'+this.name+'" value="'+this.value+'">');
 			break;
 		default:
 			$div_control_group = $('<div class="control-group">');
