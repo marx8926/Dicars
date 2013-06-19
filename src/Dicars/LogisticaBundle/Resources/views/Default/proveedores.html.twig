@@ -41,7 +41,7 @@
 				<h3>Editar Proveedor</h3>
 			</div>
 			<div class="modal-body">
-				<form id="EditarProveedorForm" class="form-horizontal" method="post" action="{{ path('dicars_logistica_registrar_proveedor') }}">
+				<form id="EditarProveedorForm" class="form-horizontal" method="post" action="{{ path('dicars_logistica_editar_proveedor') }}">
 				</form>
 			</div>
 		</div>
@@ -87,10 +87,13 @@ function init(){
 		$('.btn-datos').click(function(e){
 			e.preventDefault();
 			$('#modalVerDatos').modal('show');
+			id=$(this).attr("id-data");		
+			cargarVer(id);	
 		});
 	};
 	
 	enviar('RegistrarProveedorForm', logdata);
+	enviar('EditarProveedorForm', logdata);
 
 	UrlaDTable = '{{ path("dicars_logistica_servicio_gettablaproveedores") }}';
 	FormatoDTable = [
@@ -119,6 +122,22 @@ function cargarEditar(id){
 					{'type':'actions'}];
 		
 	$("#EditarProveedorForm").html(crearElementosForm(ArrayDatos));
+}
+
+function cargarVer(id){
+	url = "{{ path('dicars_logistica_servicio_getproveedorbyid', {'id': ''}) }}/"+id;
+	proveedor = getAjaxObject(url);			
+
+	ArrayDatos = [	{'label':'RUC','type':'span','value':proveedor.ruc},
+	              	{'label':'Razón Social','type':'span','value':proveedor.razonsocial},
+	              	{'label':'Cuenta Corriente','type':'span','value':proveedor.ccorriente},
+	              	{'label':'Dirección','type':'span','value':proveedor.direccion},
+	              	{'label':'Teléfono','type':'span','value':proveedor.telefono},
+	              	{'label':'Email','type':'span','value':proveedor.email},
+	              	{'label':'Página Web','type':'span','value':proveedor.sitioweb},
+					{'type':'close'}];
+		
+	$("#VerProveedor").html(crearElementosForm(ArrayDatos));
 }
 
 </script>

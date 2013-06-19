@@ -173,5 +173,22 @@ function init(){
 		              ];
 	oTable = createDataTable('locales_table',UrlaDTable,FormatoDTable,CargarBotones);
 }
+
+function cargarEditar(id){
+	url = "{{ path('dicars_logistica_servicio_getproveedorbyid', {'id': ''}) }}/"+id;
+	proveedor = getAjaxObject(url);			
+
+	ArrayDatos = [	{'type':'hidden','value':proveedor.id,'name':'id'},
+	          		{'label':'RUC','type':'input', 'typeinput':'text','value':proveedor.ruc,'name':'ruc'},
+	              	{'label':'Razón Social','type':'input','typeinput':'text','value':proveedor.razonsocial,'name':'razonsocial'},
+	              	{'label':'Cuenta Corriente','type':'input','typeinput':'text','value':proveedor.ccorriente,'name':'ccorriente'},
+	              	{'label':'Dirección','type':'input','typeinput':'text','value':proveedor.direccion,'name':'direccion'},
+	              	{'label':'Teléfono','type':'input','typeinput':'text','value':proveedor.telefono,'name':'telefono'},
+	              	{'label':'Email','type':'input','typeinput':'text','value':proveedor.email,'name':'email'},
+	              	{'label':'Página Web','type':'input','typeinput':'text','value':proveedor.sitioweb,'name':'paginaweb'},
+					{'type':'actions'}];
+		
+	$("#EditarProveedorForm").html(crearElementosForm(ArrayDatos));
+}
 </script>
 {% endblock %}

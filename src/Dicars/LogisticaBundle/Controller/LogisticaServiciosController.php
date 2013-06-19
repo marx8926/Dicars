@@ -109,5 +109,23 @@ class LogisticaServiciosController extends Controller{
 		}
 		return new JsonResponse(array('aaData' => $todo));
 	}
+	
+	public function getLocalByIdAction($id){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$local = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:Local')
+		->findOneBy(array('nlocalId' => $id));
+	
+		$data = array('id' => $local -> getNlocalId(),
+				'tienda' => $local -> getClocaldesc(),
+				'estado' => $local -> getNlocalest(),
+				'direccion' => $local -> getClocaldirec(),
+				'telefono' => $local -> getClocaltelf(),
+				'ubigeo' => $local -> getCproveedorsitioweb(),
+				'tiprub' => $local -> getCproveedordirec());
+	
+		return new JsonResponse($data);
+	}
 
 }

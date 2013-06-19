@@ -55,6 +55,7 @@ class AdministrarProveedorController extends Controller {
 				throw $e;
 			}
 			$this->getDoctrine()->getEntityManager()->commit();
+			$em->commit();
 			$return = array("responseCode"=>200, "datos"=>$datos);
 		}
 		else {
@@ -114,6 +115,7 @@ class AdministrarProveedorController extends Controller {
 				throw $e;
 			}
 			$this->getDoctrine()->getEntityManager()->commit();
+			$em->commit();
 			$return = array("responseCode"=>200, "datos"=>$datos);
 		}
 		else {

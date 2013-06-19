@@ -3,3 +3,8 @@ dicars_logistica_registrar_proveedor:
     defaults: { _controller: DicarsLogisticaBundle:AdministrarProveedor:RegistrarProveedor }
     requirements:
           _method: POST
+dicars_logistica_editar_proveedor:
+    pattern:  /editar_proveedor
+    defaults: { _controller: DicarsLogisticaBundle:AdministrarProveedor:EditarProveedor }
+    requirements:
+          _method: POST
