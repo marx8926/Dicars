@@ -36,11 +36,11 @@ class LogKardex
     private $ckardexnro;
 
     /**
-     * @var string
+     * @var integer
      *
-     * @ORM\Column(name="cKardexTipoIng", type="string", length=1, nullable=false)
+     * @ORM\Column(name="nKardexTipoIng", type="integer", nullable=false)
      */
-    private $ckardextipoing;
+    private $nkardextipoing;
 
     /**
      * @var float
@@ -163,26 +163,26 @@ class LogKardex
     }
 
     /**
-     * Set ckardextipoing
+     * Set nkardextipoing
      *
-     * @param string $ckardextipoing
+     * @param integer $nkardextipoing
      * @return LogKardex
      */
-    public function setCkardextipoing($ckardextipoing)
+    public function setNkardextipoing($nkardextipoing)
     {
-        $this->ckardextipoing = $ckardextipoing;
+        $this->nkardextipoing = $nkardextipoing;
     
         return $this;
     }
 
     /**
-     * Get ckardextipoing
+     * Get nkardextipoing
      *
-     * @return string 
+     * @return integer 
      */
-    public function getCkardextipoing()
+    public function getNkardextipoing()
     {
-        return $this->ckardextipoing;
+        return $this->nkardextipoing;
     }
 
     /**

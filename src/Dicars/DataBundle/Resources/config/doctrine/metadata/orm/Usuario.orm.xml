@@ -4,6 +4,10 @@
     <id name="nusuarioId" type="integer" column="nUsuario_id">
       <generator strategy="IDENTITY"/>
     </id>
+    <field name="cusuarioid" type="string" column="cUsuarioID" length="20" nullable="false"/>
+    <field name="cusuarioclave" type="text" column="cUsuarioClave" nullable="false"/>
+    <field name="cusuarioest" type="string" column="cUsuarioEst" length="1" nullable="false"/>
+    <field name="cusuariofecreg" type="datetime" column="cUsuarioFecReg" nullable="false"/>
     <many-to-one field="npersonal" target-entity="VenPersonal">
       <join-columns>
         <join-column name="nPersonal_id" referenced-column-name="nPersonal_id"/>

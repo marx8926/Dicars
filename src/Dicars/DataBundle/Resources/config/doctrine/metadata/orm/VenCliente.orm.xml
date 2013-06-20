@@ -4,7 +4,7 @@
     <id name="nclienteId" type="integer" column="nCliente_id">
       <generator strategy="IDENTITY"/>
     </id>
-    <field name="bclientenom" type="string" column="bClienteNom" length="50" nullable="false"/>
+    <field name="cclientenom" type="string" column="cClienteNom" length="50" nullable="false"/>
     <field name="cclienteape" type="string" column="cClienteApe" length="50" nullable="false"/>
     <field name="cclientedni" type="string" column="cClienteDNI" length="8" nullable="false"/>
     <field name="cclienteref" type="string" column="cClienteRef" length="200" nullable="false"/>

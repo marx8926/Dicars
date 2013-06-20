@@ -9,9 +9,9 @@
     <field name="clocaltelf" type="string" column="cLocalTelf" length="12" nullable="false"/>
     <field name="clocaldirec" type="string" column="cLocalDirec" length="150" nullable="false"/>
     <field name="nlocaltiprub" type="integer" column="nLocalTipRub" nullable="false"/>
-    <many-to-one field="ubigeoNubigeo" target-entity="Ubigeo">
+    <many-to-one field="nubigeo" target-entity="Ubigeo">
       <join-columns>
-        <join-column name="Ubigeo_nUbigeo_id" referenced-column-name="nUbigeo_id"/>
+        <join-column name="nUbigeo_id" referenced-column-name="nUbigeo_id"/>
       </join-columns>
     </many-to-one>
   </entity>

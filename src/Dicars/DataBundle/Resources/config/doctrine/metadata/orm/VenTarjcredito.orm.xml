@@ -4,7 +4,7 @@
     <id name="ntarjcreditoId" type="integer" column="nTarjCredito_id">
       <generator strategy="IDENTITY"/>
     </id>
-    <field name="ntarjcreditolinea" type="decimal" column="nTarjCreditoLinea" nullable="false"/>
+    <field name="ntarjcreditomontlinea" type="decimal" column="nTarjCreditoMontLinea" nullable="false"/>
     <field name="ntarjcreditonroint" type="string" column="nTarjCreditoNroInt" length="500" nullable="false"/>
     <field name="ntarjcreditoconsumo" type="decimal" column="nTarjCreditoConsumo" nullable="false"/>
     <field name="ctarjcreditoest" type="string" column="cTarjCreditoEst" length="1" nullable="false"/>

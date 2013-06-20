@@ -22,18 +22,25 @@ class LogDetordped
     private $ndetordpedId;
 
     /**
-     * @var float
+     * @var integer
      *
-     * @ORM\Column(name="nDetOrdPedCant", type="decimal", nullable=false)
+     * @ORM\Column(name="nDetOrdPedCant", type="integer", nullable=false)
      */
     private $ndetordpedcant;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="nDetOrdPedEst", type="string", length=1, nullable=false)
+     * @ORM\Column(name="cDetOrdPedEst", type="string", length=1, nullable=false)
      */
-    private $ndetordpedest;
+    private $cdetordpedest;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="nDetOrdPedCantAcept", type="integer", nullable=false)
+     */
+    private $ndetordpedcantacept;
 
     /**
      * @var \LogOrdped
@@ -70,7 +77,7 @@ class LogDetordped
     /**
      * Set ndetordpedcant
      *
-     * @param float $ndetordpedcant
+     * @param integer $ndetordpedcant
      * @return LogDetordped
      */
     public function setNdetordpedcant($ndetordpedcant)
@@ -83,7 +90,7 @@ class LogDetordped
     /**
      * Get ndetordpedcant
      *
-     * @return float 
+     * @return integer 
      */
     public function getNdetordpedcant()
     {
@@ -91,26 +98,49 @@ class LogDetordped
     }
 
     /**
-     * Set ndetordpedest
+     * Set cdetordpedest
      *
-     * @param string $ndetordpedest
+     * @param string $cdetordpedest
      * @return LogDetordped
      */
-    public function setNdetordpedest($ndetordpedest)
+    public function setCdetordpedest($cdetordpedest)
     {
-        $this->ndetordpedest = $ndetordpedest;
+        $this->cdetordpedest = $cdetordpedest;
     
         return $this;
     }
 
     /**
-     * Get ndetordpedest
+     * Get cdetordpedest
      *
      * @return string 
      */
-    public function getNdetordpedest()
+    public function getCdetordpedest()
     {
-        return $this->ndetordpedest;
+        return $this->cdetordpedest;
+    }
+
+    /**
+     * Set ndetordpedcantacept
+     *
+     * @param integer $ndetordpedcantacept
+     * @return LogDetordped
+     */
+    public function setNdetordpedcantacept($ndetordpedcantacept)
+    {
+        $this->ndetordpedcantacept = $ndetordpedcantacept;
+    
+        return $this;
+    }
+
+    /**
+     * Get ndetordpedcantacept
+     *
+     * @return integer 
+     */
+    public function getNdetordpedcantacept()
+    {
+        return $this->ndetordpedcantacept;
     }
 
     /**

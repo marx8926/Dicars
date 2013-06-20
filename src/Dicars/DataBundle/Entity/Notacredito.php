@@ -31,9 +31,9 @@ class Notacredito
     /**
      * @var string
      *
-     * @ORM\Column(name="cNotaCreditoNum", type="string", length=8, nullable=false)
+     * @ORM\Column(name="cNotaCreditoNro", type="string", length=8, nullable=false)
      */
-    private $cnotacreditonum;
+    private $cnotacreditonro;
 
     /**
      * @var \VenDocventa
@@ -81,26 +81,26 @@ class Notacredito
     }
 
     /**
-     * Set cnotacreditonum
+     * Set cnotacreditonro
      *
-     * @param string $cnotacreditonum
+     * @param string $cnotacreditonro
      * @return Notacredito
      */
-    public function setCnotacreditonum($cnotacreditonum)
+    public function setCnotacreditonro($cnotacreditonro)
     {
-        $this->cnotacreditonum = $cnotacreditonum;
+        $this->cnotacreditonro = $cnotacreditonro;
     
         return $this;
     }
 
     /**
-     * Get cnotacreditonum
+     * Get cnotacreditonro
      *
      * @return string 
      */
-    public function getCnotacreditonum()
+    public function getCnotacreditonro()
     {
-        return $this->cnotacreditonum;
+        return $this->cnotacreditonro;
     }
 
     /**

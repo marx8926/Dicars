@@ -6,7 +6,7 @@
     </id>
     <field name="ckardexserie" type="string" column="cKardexSerie" length="4" nullable="true"/>
     <field name="ckardexnro" type="string" column="cKardexNro" length="8" nullable="true"/>
-    <field name="ckardextipoing" type="string" column="cKardexTipoIng" length="1" nullable="false"/>
+    <field name="nkardextipoing" type="integer" column="nKardexTipoIng" nullable="false"/>
     <field name="nkardexprecunt" type="decimal" column="nKardexPrecUnt" nullable="true"/>
     <field name="nkardexcant" type="integer" column="nKardexCant" nullable="true"/>
     <field name="nkardextot" type="decimal" column="nKardexTot" nullable="true"/>

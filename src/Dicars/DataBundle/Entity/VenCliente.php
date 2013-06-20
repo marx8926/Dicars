@@ -24,9 +24,9 @@ class VenCliente
     /**
      * @var string
      *
-     * @ORM\Column(name="bClienteNom", type="string", length=50, nullable=false)
+     * @ORM\Column(name="cClienteNom", type="string", length=50, nullable=false)
      */
-    private $bclientenom;
+    private $cclientenom;
 
     /**
      * @var string
@@ -100,26 +100,26 @@ class VenCliente
     }
 
     /**
-     * Set bclientenom
+     * Set cclientenom
      *
-     * @param string $bclientenom
+     * @param string $cclientenom
      * @return VenCliente
      */
-    public function setBclientenom($bclientenom)
+    public function setCclientenom($cclientenom)
     {
-        $this->bclientenom = $bclientenom;
+        $this->cclientenom = $cclientenom;
     
         return $this;
     }
 
     /**
-     * Get bclientenom
+     * Get cclientenom
      *
      * @return string 
      */
-    public function getBclientenom()
+    public function getCclientenom()
     {
-        return $this->bclientenom;
+        return $this->cclientenom;
     }
 
     /**

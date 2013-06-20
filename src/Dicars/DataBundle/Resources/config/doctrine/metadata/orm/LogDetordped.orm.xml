@@ -4,8 +4,9 @@
     <id name="ndetordpedId" type="integer" column="nDetOrdPed_id">
       <generator strategy="IDENTITY"/>
     </id>
-    <field name="ndetordpedcant" type="decimal" column="nDetOrdPedCant" nullable="false"/>
-    <field name="ndetordpedest" type="string" column="nDetOrdPedEst" length="1" nullable="false"/>
+    <field name="ndetordpedcant" type="integer" column="nDetOrdPedCant" nullable="false"/>
+    <field name="cdetordpedest" type="string" column="cDetOrdPedEst" length="1" nullable="false"/>
+    <field name="ndetordpedcantacept" type="integer" column="nDetOrdPedCantAcept" nullable="false"/>
     <many-to-one field="nproducto" target-entity="Producto">
       <join-columns>
         <join-column name="nProducto_id" referenced-column-name="nProducto_id"/>

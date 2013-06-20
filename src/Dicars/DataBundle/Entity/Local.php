@@ -61,10 +61,10 @@ class Local
      *
      * @ORM\ManyToOne(targetEntity="Ubigeo")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="Ubigeo_nUbigeo_id", referencedColumnName="nUbigeo_id")
+     *   @ORM\JoinColumn(name="nUbigeo_id", referencedColumnName="nUbigeo_id")
      * })
      */
-    private $ubigeoNubigeo;
+    private $nubigeo;
 
 
 
@@ -194,25 +194,25 @@ class Local
     }
 
     /**
-     * Set ubigeoNubigeo
+     * Set nubigeo
      *
-     * @param \Dicars\DataBundle\Entity\Ubigeo $ubigeoNubigeo
+     * @param \Dicars\DataBundle\Entity\Ubigeo $nubigeo
      * @return Local
      */
-    public function setUbigeoNubigeo(\Dicars\DataBundle\Entity\Ubigeo $ubigeoNubigeo = null)
+    public function setNubigeo(\Dicars\DataBundle\Entity\Ubigeo $nubigeo = null)
     {
-        $this->ubigeoNubigeo = $ubigeoNubigeo;
+        $this->nubigeo = $nubigeo;
     
         return $this;
     }
 
     /**
-     * Get ubigeoNubigeo
+     * Get nubigeo
      *
      * @return \Dicars\DataBundle\Entity\Ubigeo 
      */
-    public function getUbigeoNubigeo()
+    public function getNubigeo()
     {
-        return $this->ubigeoNubigeo;
+        return $this->nubigeo;
     }
 }

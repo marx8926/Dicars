@@ -24,9 +24,9 @@ class VenTarjcredito
     /**
      * @var float
      *
-     * @ORM\Column(name="nTarjCreditoLinea", type="decimal", nullable=false)
+     * @ORM\Column(name="nTarjCreditoMontLinea", type="decimal", nullable=false)
      */
-    private $ntarjcreditolinea;
+    private $ntarjcreditomontlinea;
 
     /**
      * @var string
@@ -107,26 +107,26 @@ class VenTarjcredito
     }
 
     /**
-     * Set ntarjcreditolinea
+     * Set ntarjcreditomontlinea
      *
-     * @param float $ntarjcreditolinea
+     * @param float $ntarjcreditomontlinea
      * @return VenTarjcredito
      */
-    public function setNtarjcreditolinea($ntarjcreditolinea)
+    public function setNtarjcreditomontlinea($ntarjcreditomontlinea)
     {
-        $this->ntarjcreditolinea = $ntarjcreditolinea;
+        $this->ntarjcreditomontlinea = $ntarjcreditomontlinea;
     
         return $this;
     }
 
     /**
-     * Get ntarjcreditolinea
+     * Get ntarjcreditomontlinea
      *
      * @return float 
      */
-    public function getNtarjcreditolinea()
+    public function getNtarjcreditomontlinea()
     {
-        return $this->ntarjcreditolinea;
+        return $this->ntarjcreditomontlinea;
     }
 
     /**

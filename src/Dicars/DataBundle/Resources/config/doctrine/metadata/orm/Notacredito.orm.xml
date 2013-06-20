@@ -5,7 +5,7 @@
       <generator strategy="IDENTITY"/>
     </id>
     <field name="cnotacreditoserie" type="string" column="cNotaCreditoSerie" length="4" nullable="false"/>
-    <field name="cnotacreditonum" type="string" column="cNotaCreditoNum" length="8" nullable="false"/>
+    <field name="cnotacreditonro" type="string" column="cNotaCreditoNro" length="8" nullable="false"/>
     <many-to-one field="ndocumento" target-entity="VenDocventa">
       <join-columns>
         <join-column name="nDocumento_id" referenced-column-name="nDocumento_id"/>
