@@ -55,7 +55,8 @@
 				<div id="VerEmpleadoForm" class="form-horizontal">
 				</div>
 			</div>
-		</div>      
+		</div>  
+		    
 		</div>
 	</div><!--/span-->
 </div><!--/row-->
@@ -66,30 +67,77 @@
 <script src="{{ asset('js/util/datatable_plugins.js') }}"></script>
 <script type="text/javascript">
 
-$(document).ready(init());
+var oTable;
 
-//init------------------------------------>
-function init(){	
-//	mostrar Registrar Trabajador------------------------------------>
-	$('.btn-registrar').click(function(e){
-		e.preventDefault();
-		$('#modalRegistro').modal('show');
-	});
-	//Funcion para cargar las funciones de los botones
-	var CargarBotones = function(){						
+var ReloadTableEditar = reloadclosemodal('modalEditarDatos');
+var ReloadTableRegistrar = reloadclosemodal('modalRegistro');
+
+var CargarBotones = function(){
 	//	mostrar Editar Trabajador------------------------------------>
 		$('.btn-editar').click(function(e){
 			e.preventDefault();
-			$('#modalRegistro').modal('show');
+			$('#modalEditarDatos').modal('show');
+			id=$(this).attr("id-data");		
+			cargarEditar(id);
 		});		
 	//mostrar Ver Datos Trabajador------------------------------------>
 		$('.btn-datos').click(function(e){
 			e.preventDefault();
 			$('#modalVerDatos').modal('show');
+			id=$(this).attr("id-data");		
+			cargarVer(id);
 		});
 	};
+
+function cargarEditar(id){
+		url = "{{ path('dicars_ventas_servicio_gettrabajadorbyid', {'id': ''}) }}/"+id;	
+		empleado = getAjaxObject(url);
+				
+		ArrayDatos = [	{'type':'hidden','value':empleado.id,'name':'id'},
+		      			{'label':'Cargo','type':'input', 'typeinput':'text','value':empleado.cargo,'name':'cargo'},
+						{'label':'Nombres','type':'input', 'typeinput':'text','value':empleado.nombres,'name':'nombres'},
+		              	{'label':'Apellidos','type':'input','typeinput':'text','value':empleado.apellidos,'name':'apellidos'},
+		              	{'label':'Dni','type':'input','typeinput':'text','value':empleado.dni,'name':'dni'},
+		              	{'label':'Telefono','type':'input','typeinput':'text','value':empleado.telefono,'name':'telefono'},
+		              	{'label':'Email','type':'input','typeinput':'text','value':empleado.email,'name':'email'},
+		              	{'label':'Fecha Nacimiento','type':'input','typeinput':'text','value':empleado.fechanacimiento,'name':'fechanacimiento'},
+		              	{'label':'Sexo','type':'input','typeinput':'text','value':empleado.sexo,'name':'sexo'},
+		              	{'label':'Estado','type':'input','typeinput':'text','value':empleado.estado,'name':'estado'},
+		              	{'label':'Edad','type':'input','typeinput':'text','value':empleado.edad,'name':'edad'},
+						{'type':'actions'}];
+			
+		$("#EditarEmpleadoForm").html(crearElementosForm(ArrayDatos));
+	}
 	
-	enviar('RegistrarTrabajadorForm', logdata);
+function cargarVer(id){
+		url = "{{ path('dicars_ventas_servicio_gettrabajadorbyid', {'id': ''}) }}/"+id;			
+		empleado = getAjaxObject(url);
+				
+
+		ArrayDatos = [	{'label':'Cargo','type':'span', 'typeinput':'text','value':empleado.cargo,'name':'nombres'},
+						{'label':'Nombres','type':'span', 'typeinput':'text','value':empleado.nombres,'name':'nombres'},
+		              	{'label':'Apellidos','type':'span','typeinput':'text','value':empleado.apellidos,'name':'apellidos'},
+		              	{'label':'Dni','type':'span','typeinput':'text','value':empleado.dni,'name':'dni'},
+		              	{'label':'Telefono','type':'span','typeinput':'text','value':empleado.telefono,'name':'telefono'},
+		              	{'label':'Email','type':'span','typeinput':'text','value':empleado.email,'name':'email'},
+		              	{'label':'Fecha Nacimiento','type':'span','typeinput':'text','value':empleado.fechanacimiento,'name':'fechanacimiento'},
+		              	{'label':'Sexo','type':'span','typeinput':'text','value':empleado.sexo,'name':'sexo'},
+		              	{'label':'Estado','type':'span','typeinput':'text','value':empleado.estado,'name':'estado'},
+		              	{'label':'Edad','type':'span','typeinput':'text','value':empleado.edad,'name':'edad'},
+						{'type':'close'}];
+			
+		$("#VerEmpleadoForm").html(crearElementosForm(ArrayDatos));
+	}
+	
+$(document).ready(function(){
+//	mostrar Registrar Trabajador------------------------------------>
+	$('.btn-registrar').click(function(e){
+		e.preventDefault();
+		$('#modalRegistro').modal('show');
+	});
+	
+	enviar('RegistrarTrabajadorForm', ReloadTableRegistrar);
+	enviar('EditarEmpleadoForm', ReloadTableEditar);
 	
 	UrlaDTable = '{{ path("dicars_ventas_servicio_gettablaempleados") }}';
 	FormatoDTable = [
@@ -99,8 +147,8 @@ function init(){
 	              { "sWidth": "15%","mDataProp": "telefono"},	              
 	              { "sWidth": "40%","mDataProp": "Acciones"}
 	              ];
-	oTable = createDataTable('empleados_table',UrlaDTable,FormatoDTable,CargarBotones); 	
-}
+	oTable = createDataTable('empleados_table',UrlaDTable,FormatoDTable,CargarBotones);		
+		});
 
 </script>
 {% endblock %}

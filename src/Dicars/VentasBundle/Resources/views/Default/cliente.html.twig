@@ -111,8 +111,7 @@ function cargarEditar(id){
 }
 
 function cargarVer(id){
-	url = "{{ path('dicars_ventas_servicio_getclientebyid', {'id': ''}) }}/"+id;
-	console.log("HOLA");	
+	url = "{{ path('dicars_ventas_servicio_getclientebyid', {'id': ''}) }}/"+id;	
 	cliente = getAjaxObject(url);
 			
 

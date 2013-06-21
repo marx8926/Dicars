@@ -83,16 +83,17 @@ class VentaServiciosController extends Controller{
 	
 		$em->clear();
 	
-		$data = array('id' => $cliente -> getNclienteId(),
-				'nombres' => $cliente -> getBclientenom(),
-				'apellidos' => $cliente -> getCclienteape(),
-				'dni' => $cliente -> getCclientedni(),
-				'referencia' => $cliente -> getCclienteref(),
-				'direccion' => $cliente -> getCclientecdir(),
-				'zona' => $cliente -> getNzona()-> getNzonaId(),
-				'lineaop' => $cliente -> getNclientelineaop(),
-				'arccredito' => $cliente -> getCclientearccredito(),
-				'ocupacion' => $cliente -> getCclienteocup());
+		$data = array('id' => $empleado -> getNpersonalId(),
+				'cargo' => $empleado -> getNcargo()-> getNcargoId(),
+				'dni' => $empleado -> getCpersonaldni(),
+				'nombres' => $empleado -> getCpersonalnom(),
+				'apellidos' => $empleado -> getCpersonalape(),				
+				'telefono' => $empleado -> getCpersonaltelf(),
+				'email' => $empleado -> getCpersonalemail(),
+				'fechanacimiento' => $empleado -> getDpersonalfec() -> format('Y-m-d'),
+				'sexo' => $empleado -> getCpersonalsexo(),
+				'estado' => $empleado -> getCpersonalest(),
+				'edad' => $empleado -> getCpersonaledad());
 	
 		return new JsonResponse($data);
 	}

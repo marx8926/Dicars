@@ -121,7 +121,7 @@ class AdministrarTrabajadorController extends Controller{
 			
 			$Empleado = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:VenPersonal')
-			->findOneBy(array('npersonalId' => $Cliente_Id));
+			->findOneBy(array('npersonalId' => $Empleado_Id));
 				
 			$Empleado->setNcargo($Empleado_cargo);
 			$Empleado->setCpersonaldni($Empleado_dni);
