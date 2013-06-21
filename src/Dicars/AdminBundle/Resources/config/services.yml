@@ -1,0 +1,7 @@
+parameters:
+#    dicars_admin.example.class: Dicars\AdminBundle\Example
+
+services:
+#    dicars_admin.example:
+#        class: %dicars_admin.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

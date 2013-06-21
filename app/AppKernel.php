@@ -24,6 +24,7 @@ class AppKernel extends Kernel
             new Dicars\LogisticaBundle\DicarsLogisticaBundle(),
             new Dicars\ContabilidadBundle\DicarsContabilidadBundle(),
             new Dicars\LoginBundle\DicarsLoginBundle(),
+            new Dicars\AdminBundle\DicarsAdminBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

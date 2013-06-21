@@ -69,6 +69,10 @@
 <script type="text/javascript">
 
 var oTable;
+var gaiSelected =  [];
+
+var oTable;
+var DSelected = new Array;
 
 var ReloadTableEditar = reloadclosemodal('modalEditarDatos');
 var ReloadTableRegistrar = reloadclosemodal('modalRegistro');
@@ -78,6 +82,7 @@ var idselect;
 //Funcion para cargar las funciones de los botones
 var CargarBotones = function(){
 	//mostrar Editar Cliente------------------------------------>
+	$('.btn-editar').unbind();
 	$('.btn-editar').click(function(e){
 		e.preventDefault();
 		$('#modalEditarDatos').modal('show');
@@ -86,11 +91,25 @@ var CargarBotones = function(){
 
 	});
 	//mostrar Ver Datos Cliente------------------------------------>
+	$('.btn-datos').unbind();
 	$('.btn-datos').click(function(e){
 		e.preventDefault();
 		$('#modalVerDatos').modal('show');
 		id=$(this).attr("id-data");		
 		cargarVer(id);			
+	});
+};
+
+var RowCallBackFunction = function(nRow,aData,iDisplayIndex){
+	$(nRow).unbind();
+	$(nRow).click( function() {
+		$(this).toggleClass('row_selected');
+		if($(this).hasClass('row_selected'))
+			DSelected.push(aData);
+		else{
+			var removeindex = $(DSelected).getIndexObj(aData,'id');
+			delete DSelected[removeindex];
+		}
 	});
 };
 
@@ -153,11 +172,6 @@ function cargarVer(id){
 	$("#VerProducto").html(crearElementosForm(ArrayDatos));
 }
 
-function getSelect(getIdSelect){
-	idSelect = getIdSelect;
-	console.log(getIdSelect);
-}
-
 //init------------------------------------>
 $(document).ready(function(){	
 	//mostrar Registrar Cliente------------------------------------>
@@ -178,9 +192,8 @@ $(document).ready(function(){
 		              { "sWidth": "12%","mDataProp": "precio_credito"},
 		              { "sWidth": "40%","mDataProp": "Acciones"}
 		              ];
-	oTable = createDataTable('productos_table',UrlaDTable,FormatoDTable,CargarBotones);
+	oTable = createDataTable('productos_table',UrlaDTable,FormatoDTable,CargarBotones,RowCallBackFunction);
 
-	toSelectTable('productos_table',oTable,getSelect);
 });
 </script>
 {% endblock %}

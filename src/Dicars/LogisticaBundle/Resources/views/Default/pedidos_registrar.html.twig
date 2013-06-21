@@ -109,7 +109,7 @@
 					<hr>
 					<h3>Productos de Pedido</h3>
 					<hr>
-					<table class="table table-striped table-bordered bootstrap-datatable datatable">
+					<table id="productos_table" class="table table-striped table-bordered bootstrap-datatable datatable">
 						<thead>
 							  <tr>
 								  <th>Código</th>
@@ -319,6 +319,8 @@
 </div>
 {% endblock %}
 {% block javascript %}
+<script src="{{ asset('js/util/functiongen.js') }}"></script>
+<script src="{{ asset('js/util/datatable_plugins.js') }}"></script>
 <script type="text/javascript">
 //mostrar Buscar Cliente------------------------------------>
 $('.btn-proveedor').click(function(e){
@@ -345,5 +347,67 @@ $('.btn-cancelarprov').click(function(e){
 	e.preventDefault();
 	$('#modalBuscarProveedor').modal('show');
 });
+
+var RowCallBackFunction = function(nRow,aData,iDisplayIndex){
+	$(nRow).unbind();
+	$(nRow).click( function() {
+		$(this).toggleClass('row_selected');
+		if($(this).hasClass('row_selected'))
+			DSelected.push(aData);
+		else{
+			var removeindex = $(DSelected).getIndexObj(aData,'id');
+			delete DSelected[removeindex];
+		}
+	});
+};
+
+
+var DrawCallBackFunction = function(){
+	console.log('ready');
+};
+
+
+var RowCallBackFunction = function(nRow,aData,iDisplayIndex){
+	$(nRow).unbind();
+	$(nRow).click( function() {
+		$(this).toggleClass('row_selected');
+		if($(this).hasClass('row_selected'))
+			DSelected.push(aData);
+		else{
+			var removeindex = $(DSelected).getIndexObj(aData,'id');
+			delete DSelected[removeindex];
+		}
+	});
+};
+
+$(document).ready(function(){
+
+	UrlaDTable = '{{ path("dicars_logistica_servicio_gettablaproductos") }}';
+	FormatoDTable = [
+		              { "sWidth": "12%","mDataProp": "id"},
+		              { "sWidth": "12%","mDataProp": "nombre"},
+		              { "sWidth": "12%","mDataProp": "stock"},
+		              { "sWidth": "12%","mDataProp": "precio_contado"}
+		              ];
+	selectProductos = createDataTable('select_producto_table',UrlaDTable,FormatoDTable,DrawCallBackFunction,RowCallBackFunction);
+
+	$("#productos_table").dataTable({
+		"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span12'i><'span12 center'p>>",
+		"sPaginationType": "bootstrap",
+		"oLanguage": {
+		"sLengthMenu": "_MENU_ records per page"
+		}
+	});
+	
+	$("#select_proveedor_table").dataTable({
+		"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span12'i><'span12 center'p>>",
+		"sPaginationType": "bootstrap",
+		"oLanguage": {
+		"sLengthMenu": "_MENU_ records per page"
+		}
+	});
+});
+
+
 </script>
 {% endblock %}

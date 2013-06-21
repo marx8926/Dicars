@@ -48,7 +48,7 @@ function enviar(IdForm,responsefunction,otherdata){
 /*
  * Crea un datatable y lo devuelve como variable
  */
-function createDataTable(idTable,UrlaDTable,FormatoDTable, CallBackFunction){
+function createDataTable(idTable,UrlaDTable,FormatoDTable, CallBackFunction, RowCallBackFunction){
 	
 	oTable = $('#'+idTable).dataTable({
 		"bProcessing": true,
@@ -57,6 +57,12 @@ function createDataTable(idTable,UrlaDTable,FormatoDTable, CallBackFunction){
 		"sAjaxSource": UrlaDTable,	  
 		"aoColumns": FormatoDTable,				             
 	 	"aaSorting": [ [0, 'asc'], [1, 'asc'] ],
+	 	"fnRowCallback": function( nRow, aData, iDisplayIndex ) {
+	 		if(typeof(RowCallBackFunction)=== 'undefined')
+				console.log("no function");
+			else 
+	 		RowCallBackFunction(nRow,aData,iDisplayIndex);
+		},
 	 	"fnDrawCallback": function(){
 		 	$('td').addClass('center');
 		 	if(typeof(CallBackFunction)=== 'undefined')
@@ -79,42 +85,15 @@ function createDataTable(idTable,UrlaDTable,FormatoDTable, CallBackFunction){
 	return oTable;
 }
 
-function toSelectTable(idTable,CallbackFucntion, DTable){
-	var trselected;
-	var values = [];
-	$('#'+idTable+' tbody').click(function(event){
-		$(DTable.fnSettings().aoData).each(function(){
-			$(this.nTr).removeClass('row_selected');
-		});
-	    $(event.target.parentNode).addClass('row_selected');
-    	trselected = $(event.target.parentNode);
-        var tds = $(trselected).find('td');
-		$.each(tds, function(index, item){
-    	values.push(item.innerHTML); 
-        });
-		var anSelected = fnGetSelected(DTable);
-		if(anSelected.length !=0){
-			var tds = $(anSelected).find('td');
-			var val = [];
-			$.each(tds, function(index, item) {
-				val.push(item.innerHTML); 
-			});
-			CallbackFucntion(val[0]);
-		}
+jQuery.fn.getIndexObj = function (obj,attr){
+	var objindex = null;
+	this.each(function( index ) {
+		  if(this[attr] == obj[attr]){
+			  objindex = index;
+		  }
 	});
-}
-
-function fnGetSelected( oTableLocal )
-{
-	var aReturn = new Array();
-	var aTrs = oTableLocal.fnGetNodes();
-	
-	for ( var i=0 ; i<aTrs.length ; i++ )	            
-		if ( $(aTrs[i]).hasClass('row_selected'))
-			aReturn.push( aTrs[i] );
-	return aReturn;
-}
-
+	return objindex;
+};
 
 function getAjaxObject(url){
 	var data = $.ajax({
