@@ -28,7 +28,9 @@
 					  <th>Stock</th>
 					  <th>Precio-Co</th>
 					  <th>Precio-Cr</th>
-					  <th>Acciones</th>
+					  <th></th>
+					  <th></th>
+					  <th></th>
 				  </tr>
 			  </thead>   
 			  <tbody>
@@ -190,7 +192,9 @@ $(document).ready(function(){
 		              { "sWidth": "12%","mDataProp": "stock"},
 		              { "sWidth": "12%","mDataProp": "precio_contado"},
 		              { "sWidth": "12%","mDataProp": "precio_credito"},
-		              { "sWidth": "40%","mDataProp": "Acciones"}
+		              { "sWidth": "13%","mDataProp": "ver_btn"},
+		              { "sWidth": "13%","mDataProp": "edit_btn"},
+		              { "sWidth": "14%","mDataProp": "elim_btn"}
 		              ];
 	oTable = createDataTable('productos_table',UrlaDTable,FormatoDTable,CargarBotones,RowCallBackFunction);
 
