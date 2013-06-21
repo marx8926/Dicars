@@ -133,7 +133,7 @@ class LogisticaServiciosController extends Controller{
 				'estado' => $local -> getNlocalest(),
 				'direccion' => $local -> getClocaldirec(),
 				'telefono' => $local -> getClocaltelf(),
-				'ubigeo' => $ubigeo -> getNubigeoId(),
+				'ubigeo' => $ubigeo -> getNubigeo(),
 				'tiprub' => $local -> getNlocaltiprub());
 
 		return new JsonResponse($data);

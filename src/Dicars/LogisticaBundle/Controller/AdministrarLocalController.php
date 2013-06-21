@@ -40,7 +40,7 @@ class AdministrarLocalController extends Controller{
 			$Local->setNlocalest($LocalEstado);
 			$Local->setClocaltelf($LocalTel);
 			$Local->setClocaldirec($LocalDirec);			
-			$Local->setUbigeoNubigeo($LocalUbigeo);
+			$Local->setNubigeo($LocalUbigeo);
 			$Local->setNlocaltiprub($LocalTipRub);
 				
 			$em = $this->getDoctrine()->getEntityManager();
@@ -101,7 +101,7 @@ class AdministrarLocalController extends Controller{
 			$Local->setNlocalest($LocalEstado);
 			$Local->setClocaltelf($LocalTel);
 			$Local->setClocaldirec($LocalDirec);
-			$Local->setUbigeoNubigeo($LocalUbigeo);
+			$Local->setNubigeo($LocalUbigeo);
 			$Local->setNlocaltiprub($LocalTipRub);
 	
 			$em = $this->getDoctrine()->getEntityManager();
