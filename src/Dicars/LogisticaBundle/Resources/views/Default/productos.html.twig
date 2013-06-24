@@ -72,8 +72,6 @@
 
 var oTable;
 
-var DSelected = new Array;
-
 var ReloadTableEditar = reloadclosemodal('modalEditarDatos');
 var ReloadTableRegistrar = reloadclosemodal('modalRegistro');
 
@@ -95,19 +93,6 @@ var CargarBotones = function(){
 		$('#modalVerDatos').modal('show');
 		id=$(this).attr("id-data");		
 		cargarVer(id);			
-	});
-};
-
-var RowCallBackFunction = function(nRow,aData,iDisplayIndex){
-	$(nRow).unbind();
-	$(nRow).click( function() {
-		$(this).toggleClass('row_selected');
-		if($(this).hasClass('row_selected'))
-			DSelected.push(aData);
-		else{
-			var removeindex = $(DSelected).getIndexObj(aData,'id');
-			delete DSelected[removeindex];
-		}
 	});
 };
 
@@ -192,8 +177,7 @@ $(document).ready(function(){
 		              { "sWidth": "13%","mDataProp": "edit_btn"},
 		              { "sWidth": "14%","mDataProp": "elim_btn"}
 		              ];
-	oTable = createDataTable('productos_table',UrlaDTable,FormatoDTable,CargarBotones,RowCallBackFunction);
-
+	oTable = createDataTable('productos_table',UrlaDTable,FormatoDTable,CargarBotones);
 });
 </script>
 {% endblock %}

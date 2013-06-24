@@ -13,6 +13,44 @@ var reloadpage = function(data){
 	location.reload();
 	};
 	
+	
+function getMultipleSelectRowCallBack(DSelected){
+	var SelectRowFunction = function(nRow,aData,iDisplayIndex){
+		$(nRow).unbind();
+		$(nRow).click( function() {
+			$(this).toggleClass('row_selected');
+			if($(this).hasClass('row_selected'))
+				DSelected.push(aData);
+			else{
+				var removeindex = $(DSelected).getIndexObj(aData,'id');
+				delete DSelected[removeindex];
+			}
+		});
+	};
+	
+	return SelectRowFunction;
+}
+
+function getSimpleSelectRowCallBack(DSelected, tableid){
+	var SelectRowFunction = function(nRow,aData,iDisplayIndex){
+		$(nRow).unbind();
+		$(nRow).click( function() {
+			if ( $(this).hasClass('row_selected') ) {
+	            $(this).removeClass('row_selected');
+	            DSelected.pop();
+	        }
+			else {
+				$('#'+tableid+' tr.row_selected').removeClass('row_selected');
+	            $(this).addClass('row_selected');
+	            DSelected.pop();
+	            DSelected.push(aData);
+	        }			
+		});
+	};
+	
+	return SelectRowFunction;
+}
+	
 /*
  * enviar : envia un formulario con los datos serializado a un controlador, los formularios deben estar presentes
  * y se debe utiliza en la funcion ready del documento
@@ -58,17 +96,14 @@ function createDataTable(idTable,UrlaDTable,FormatoDTable, CallBackFunction, Row
 		"aoColumns": FormatoDTable,				             
 	 	"aaSorting": [ [0, 'asc'], [1, 'asc'] ],
 	 	"fnRowCallback": function( nRow, aData, iDisplayIndex ) {
-	 		if(typeof(RowCallBackFunction)=== 'undefined')
-				console.log("no function");
-			else 
-	 		RowCallBackFunction(nRow,aData,iDisplayIndex);
+	 		if(typeof(RowCallBackFunction)!= 'undefined' && RowCallBackFunction != null)
+	 			RowCallBackFunction(nRow,aData,iDisplayIndex);
 		},
 	 	"fnDrawCallback": function(){
 		 	$('td').addClass('center');
-		 	if(typeof(CallBackFunction)=== 'undefined')
-				console.log("no function");
-			else 
-				CallBackFunction();
+		 	if(typeof(CallBackFunction)!= 'undefined' && CallBackFunction != null){
+		 		CallBackFunction();
+		 		}
 		 	},
 		 	
 	 	"aoColumnDefs": [
