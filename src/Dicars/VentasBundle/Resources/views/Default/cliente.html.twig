@@ -27,7 +27,9 @@
 					  <th>Apellidos</th>
 					  <th>DNI</th>
 					  <th>Línea de Crédito</th>
-					  <th>Acciones</th>
+					  <th></th>
+					  <th></th>
+					  <th></th>					  
 				  </tr>
 			  </thead>
 		  </table>  
@@ -73,15 +75,18 @@ var oTable;
 var ReloadTableEditar = reloadclosemodal('modalEditarDatos');
 var ReloadTableRegistrar = reloadclosemodal('modalRegistro');
 
-var CargarBotones = function(){	
+var CargarBotones = function(){		
 	//mostrar Editar Cliente------------------------------------>
+	$('.btn-editar').unbind();
 	$('.btn-editar').click(function(e){
-	e.preventDefault();
-	$('#modalEditarDatos').modal('show');
-	id=$(this).attr("id-data");		
-	cargarEditar(id);	
+		e.preventDefault();
+		$('#modalEditarDatos').modal('show');
+		id=$(this).attr("id-data");		
+		cargarEditar(id);	
 	});
+	
 	//mostrar Ver Datos Cliente------------------------------------>
+	$('.btn-datos').unbind();
 	$('.btn-datos').click(function(e){
 	e.preventDefault();
 	$('#modalVerDatos').modal('show');
@@ -146,7 +151,9 @@ $(document).ready(function(){
 	              { "sWidth": "15%","mDataProp": "apellido"},
 	              { "sWidth": "15%","mDataProp": "dni"},
 	              { "sWidth": "15%","mDataProp": "linea_credito"},	              
-	              { "sWidth": "40%","mDataProp": "Acciones"}
+	              { "sWidth": "13%","mDataProp": "ver_btn"},
+	              { "sWidth": "13%","mDataProp": "edit_btn"},
+	              { "sWidth": "14%","mDataProp": "elim_btn"}
 	              ];
 oTable = createDataTable('clientes_table',UrlaDTable,FormatoDTable,CargarBotones);
 	

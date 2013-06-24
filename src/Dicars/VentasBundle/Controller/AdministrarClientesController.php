@@ -44,7 +44,7 @@ class AdministrarClientesController extends Controller{
 			$Cliente_ocup = $datos["ocupacion"];										
 				
 			$Cliente = new VenCliente();
-			$Cliente->setBclientenom($Cliente_nombre);
+			$Cliente->setCclientenom($Cliente_nombre);
 			$Cliente->setCclienteape($Cliente_apellido);
 			$Cliente->setCclientedni($Cliente_dni);
 			$Cliente->setCclienteref($Cliente_referencia);
@@ -114,7 +114,7 @@ class AdministrarClientesController extends Controller{
 			->getRepository('DicarsDataBundle:VenCliente')
 			->findOneBy(array('nclienteId' => $Cliente_Id));
 			
-			$Cliente->setBclientenom($Cliente_nombre);
+			$Cliente->setCclientenom($Cliente_nombre);
 			$Cliente->setCclienteape($Cliente_apellido);
 			$Cliente->setCclientedni($Cliente_dni);
 			$Cliente->setCclienteref($Cliente_referencia);

@@ -28,7 +28,9 @@
 					  <th>Apellidos</th>
 					  <th>DNI</th>
 					  <th>Teléfono</th>
-					  <th>Acciones</th>
+					  <th></th>
+					  <th></th>
+					  <th></th>
 				  </tr>
 			  </thead>
 		  	</table> 
@@ -74,6 +76,7 @@ var ReloadTableRegistrar = reloadclosemodal('modalRegistro');
 
 var CargarBotones = function(){
 	//	mostrar Editar Trabajador------------------------------------>
+		$('.btn-editar').unbind();
 		$('.btn-editar').click(function(e){
 			e.preventDefault();
 			$('#modalEditarDatos').modal('show');
@@ -81,6 +84,7 @@ var CargarBotones = function(){
 			cargarEditar(id);
 		});		
 	//mostrar Ver Datos Trabajador------------------------------------>
+		$('.btn-datos').unbind();
 		$('.btn-datos').click(function(e){
 			e.preventDefault();
 			$('#modalVerDatos').modal('show');
@@ -145,7 +149,9 @@ $(document).ready(function(){
 	              { "sWidth": "15%","mDataProp": "apellidos"},
 	              { "sWidth": "15%","mDataProp": "dni"},
 	              { "sWidth": "15%","mDataProp": "telefono"},	              
-	              { "sWidth": "40%","mDataProp": "Acciones"}
+	              { "sWidth": "13%","mDataProp": "ver_btn"},
+	              { "sWidth": "13%","mDataProp": "edit_btn"},
+	              { "sWidth": "14%","mDataProp": "elim_btn"}
 	              ];
 	oTable = createDataTable('empleados_table',UrlaDTable,FormatoDTable,CargarBotones);		
 		});

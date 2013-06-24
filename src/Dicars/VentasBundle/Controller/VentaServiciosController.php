@@ -22,11 +22,11 @@ class VentaServiciosController extends Controller{
 	
 		$todo = array();
 		foreach ($clientes as $key => $clientes){
-			$todo[] = array('nombre' => $clientes -> getBclientenom() , 'apellido' => $clientes -> getCclienteape(),
+			$todo[] = array('nombre' => $clientes -> getCclientenom() , 'apellido' => $clientes -> getCclienteape(),
 					'dni' => $clientes -> getCclientedni(), 'linea_credito' => $clientes -> getNclientelineaop(),
-					'Acciones' => "<a id-data='".$clientes -> getNclienteId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>
-					<a id-data='".$clientes -> getNclienteId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>
-					<a id-data='".$clientes -> getNclienteId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
+					'ver_btn' => "<a id-data='".$clientes -> getNclienteId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
+					'edit_btn' => "<a id-data='".$clientes -> getNclienteId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
+					'elim_btn' => "<a id-data='".$clientes -> getNclienteId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
 		}
 		return new JsonResponse(array('aaData' => $todo));
 	}
@@ -41,7 +41,7 @@ class VentaServiciosController extends Controller{
 		$em->clear();
 	
 		$data = array('id' => $cliente -> getNclienteId(),
-				'nombres' => $cliente -> getBclientenom(),
+				'nombres' => $cliente -> getCclientenom(),
 				'apellidos' => $cliente -> getCclienteape(),
 				'dni' => $cliente -> getCclientedni(),
 				'referencia' => $cliente -> getCclienteref(),
@@ -67,9 +67,9 @@ class VentaServiciosController extends Controller{
 		foreach ($empleados as $key => $empleados){
 			$todo[] = array('nombres' => $empleados -> getCpersonalnom() , 'apellidos' => $empleados -> getCpersonalape(),
 					'dni' => $empleados -> getCpersonaldni(), 'telefono' => $empleados -> getCpersonaltelf(),
-					'Acciones' => "<a id-data='".$empleados -> getNpersonalId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>
-					<a id-data='".$empleados -> getNpersonalId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>
-					<a id-data='".$empleados -> getNpersonalId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
+					'ver_btn' => "<a id-data='".$empleados -> getNpersonalId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
+					'edit_btn' => "<a id-data='".$empleados -> getNpersonalId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
+					'elim_btn' => "<a id-data='".$empleados -> getNpersonalId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
 		}
 		return new JsonResponse(array('aaData' => $todo));
 	}
