@@ -194,14 +194,18 @@ $("#agregar_producto").click(function(e){
 
 var SelectProductoData = new Array();
 var SelectProveedorData = new Array();
+
 var BuscarProductosTable;
 var BuscarProveedorTable;
 var SelectProductosTable;
 
-var RowCallBackFunctionProducto = getSimpleSelectRowCallBack(SelectProductoData,"select_producto_table");
-var RowCallBackFunctionProveedor = getSimpleSelectRowCallBack(SelectProveedorData,"select_proveedor_table");
+var RowCallBackFunctionProducto;
+var RowCallBackFunctionProveedor;
 
 $(document).ready(function(){
+
+	RowCallBackFunctionProducto = getSimpleSelectRowCallBack(SelectProductoData,"select_producto_table");
+	RowCallBackFunctionProveedor = getSimpleSelectRowCallBack(SelectProveedorData,"select_proveedor_table");
 
 	UrlaDTableProductos = '{{ path("dicars_logistica_servicio_gettablaproductos") }}';
 	FormatoDTableProductos = [

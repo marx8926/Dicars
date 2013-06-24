@@ -239,7 +239,7 @@ function addElemento(obj){
 	    		$elem = $('<input type="text" class="input-xlarge datepicker name="'+obj.name+'" value="'+obj.value+'">');
 	    		break;
 	    case 'select':
-	    		$elem  = $('<select id="'+obj.name+'" name="tipo" data-rel="chosen">');
+	    		$elem  = $('<select id="'+obj.name+'" name="'+obj.name+'" data-rel="chosen">');
 	    		break;
 	    case 'img':
 	    		$elem = $('<figure><img src="'+obj.value+'" alt="Tarjeta"></figure>');
