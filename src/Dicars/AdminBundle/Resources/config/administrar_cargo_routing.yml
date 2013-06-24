@@ -1,0 +1,5 @@
+dicars_admin_registrar_cargo:
+    pattern:  /registrar_cargo
+    defaults: { _controller: DicarsAdminBundle:AdministrarCargo:RegistrarCargo }
+    requirements:
+          _method: POST

@@ -1,6 +1,6 @@
 dicars_admin:
     resource: "@DicarsAdminBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /admin/
 
 dicars_login:
     resource: "@DicarsLoginBundle/Resources/config/routing.yml"

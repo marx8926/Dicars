@@ -1,0 +1,126 @@
+{% extends "::baseCharisma.html.twig" %}
+{% block title %}Cargos - Administración{% endblock %}
+{% block breadcrumb %}
+<li>
+	<a href="{{path('dicars_admin_homepage')}}">Administración</a><span class="divider">/</span>
+</li>
+<li>
+	<a href="{{path('dicars_admin_cargos')}}">Cargos</a>
+</li>
+{% endblock %}
+{% block content %}
+<div class="row-fluid sortable">		
+	<div class="box span12">
+		<div class="box-header well" data-original-title>
+			<h2>Lista de Cargos</h2>
+			<div class="box-icon">
+				<a href="#" class="btn btn-round btn-registrar" alt="Registrar Clase"><i class="icon-plus"></i></a>
+			</div>
+		</div>
+		<div class="box-content">
+			<table id="cargos_table" class="table table-striped table-bordered bootstrap-datatable datatable">
+				<thead>
+					<tr>
+						<th>Nombre del Cargo</th>
+						<th>Estado</th>
+						<th></th>
+					</tr>
+				</thead>   
+				<tbody>
+				</tbody>
+			</table>
+			<div class="modal hide fade" id="modalRegistroCargo">
+				<div class="modal-header">
+					<h3>Registrar Cargo</h3>
+				</div>
+				<div class="modal-body">
+					<form id="RegistrarCargoForm" class="form-horizontal" method="post" action="{{ path('dicars_admin_registrar_cargo') }}">
+						<fieldset>
+						  	<div class="control-group">
+								<label class="control-label" for="nom_cargo">Nombre de Cargo</label>
+								<div class="controls">
+							  		<input class="input-xlarge focused" id="nom_cargo" name="nom_cargo" type="text">
+								</div>
+						  	</div>
+						  	<div class="control-group">
+								<label class="control-label" for="selectEstado">Estado</label>
+								<div class="controls">
+							  		<select id="selectEstado" name="selectEstado">
+										<option value="1">Habilitado</option>
+										<option value="0">Inhabilitado</option>
+									</select>
+								</div>
+						  	</div>
+						  	<div class="form-actions">
+								<button type="submit" class="btn btn-primary ">Guardar</button>
+								<button type="reset" class="btn btn-cancelarprov" data-dismiss="modal">Cancelar</button>
+						  	</div>
+						</fieldset>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+{% block javascript %}
+<script type="text/javascript" src="{{ asset('js/util/functiongen.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/util/datatable_plugins.js') }}"></script>
+
+<script type="text/javascript">
+
+var oTable;
+
+var ReloadTableEditar = reloadclosemodal('modalEditarDatos');
+var ReloadTableRegistrar = reloadclosemodal('modalRegistroCargo');
+
+var CargarBotones = function(){
+	//mostrar Editar Cliente------------------------------------>
+	$('.btn-editar').click(function(e){
+		e.preventDefault();
+		$('#modalEditarDatos').modal('show');
+		id=$(this).attr("id-data");		
+		cargarEditar(id);
+	});
+};
+
+function cargarEditar(id){
+	url = "{{ path('dicars_admin_servicio_getcargobyid', {'id': ''}) }}/"+id;
+	cargo = getAjaxObject(url);			
+
+	ArrayDatos = [	{'type':'hidden','value':cargo.id,'name':'id'},
+	          		{'label':'Nombre de Cargo','type':'span','value':cargo.nom_cargo},
+	              	{'label':'Estado','type':'select','name':'selectEstado'},
+					{'type':'actions'}];
+		
+	$("#EditarProductoForm").html(crearElementosForm(ArrayDatos));
+	$('#selectEstado').append('<option value="1">Habilitado</option>');
+	$('#selectEstado').append('<option value="0">Inhabilitado</option>');
+	$('#selectEstado').val(cargo.selectEstado);
+	$("input:checkbox, input:radio, input:file").not('[data-no-uniform="true"],#uniform-is-ajax').uniform();
+	$('[data-rel="chosen"],[rel="chosen"]').chosen();
+}
+
+//Init------------------------------------>
+$(document).ready(function(){
+
+	//mostrar Registrar Cliente------------------------------------>
+	$('.btn-registrar').click(function(e){
+		e.preventDefault();
+		$('#modalRegistroCargo').modal('show');
+	});
+	
+	enviar('RegistrarCargoForm', ReloadTableRegistrar);
+	//enviar('EditarClaseForm', ReloadTableEditar);
+
+	UrlaDTable = '{{ path("dicars_admin_servicio_gettablacargos") }}';
+	FormatoDTable = [
+		              { "sWidth": "33%","mDataProp": "nom_cargo"},
+		              { "sWidth": "33%","mDataProp": "selectEstado"},
+		              { "sWidth": "34%","mDataProp": "edit_btn"}
+		              ];
+	oTable = createDataTable('cargos_table',UrlaDTable,FormatoDTable,CargarBotones);
+});
+
+</script>
+{% endblock %}

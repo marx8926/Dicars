@@ -1,0 +1,3 @@
+dicars_admin_servicio_gettablacargos:
+    pattern:  /servicio_gettablacargos
+    defaults: { _controller: DicarsAdminBundle:AdministradorServicios:getTablaCargos }

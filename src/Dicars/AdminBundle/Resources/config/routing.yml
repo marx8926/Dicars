@@ -1,3 +1,13 @@
+admin_administrar_cargo_routing:
+    resource: "@DicarsAdminBundle/Resources/config/administrar_cargo_routing.yml"
+admin_administrar_servicios_routing:
+    resource: "@DicarsAdminBundle/Resources/config/servicios_routing.yml"
 dicars_admin_homepage:
-    pattern:  /hello/{name}
+    pattern:  /index
     defaults: { _controller: DicarsAdminBundle:Default:index }
+dicars_admin_constantes:
+    pattern:  /constantes
+    defaults: { _controller: DicarsAdminBundle:Default:constantes }
+dicars_admin_cargos:
+    pattern:  /cargos
+    defaults: { _controller: DicarsAdminBundle:Default:cargos }
