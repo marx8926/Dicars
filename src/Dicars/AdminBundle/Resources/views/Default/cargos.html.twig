@@ -59,6 +59,15 @@
 					</form>
 				</div>
 			</div>
+			<div class="modal hide fade" id="modalEditarDatos" >
+			<div class="modal-header">
+				<h3>Datos del Cargo</h3>
+			</div>
+			<div class="modal-body">
+				<form id="EditarCargoForm" class="form-horizontal" method="post" action="{{ path ('dicars_admin_editar_cargo') }}">
+				</form>
+			</div>
+		</div>
 		</div>
 	</div>
 </div>
@@ -90,14 +99,13 @@ function cargarEditar(id){
 
 	ArrayDatos = [	{'type':'hidden','value':cargo.id,'name':'id'},
 	          		{'label':'Nombre de Cargo','type':'span','value':cargo.nom_cargo},
-	              	{'label':'Estado','type':'select','name':'selectEstado'},
+	              	{'label':'Estado','type':'select','name':'selectEstadoE'},
 					{'type':'actions'}];
 		
-	$("#EditarProductoForm").html(crearElementosForm(ArrayDatos));
-	$('#selectEstado').append('<option value="1">Habilitado</option>');
-	$('#selectEstado').append('<option value="0">Inhabilitado</option>');
-	$('#selectEstado').val(cargo.selectEstado);
-	$("input:checkbox, input:radio, input:file").not('[data-no-uniform="true"],#uniform-is-ajax').uniform();
+	$("#EditarCargoForm").html(crearElementosForm(ArrayDatos));
+	$('#selectEstadoE').append('<option value="1">Habilitado</option>');
+	$('#selectEstadoE').append('<option value="0">Inhabilitado</option>');
+	$('#selectEstadoE').val(cargo.selectEstado);
 	$('[data-rel="chosen"],[rel="chosen"]').chosen();
 }
 
@@ -111,7 +119,7 @@ $(document).ready(function(){
 	});
 	
 	enviar('RegistrarCargoForm', ReloadTableRegistrar);
-	//enviar('EditarClaseForm', ReloadTableEditar);
+	enviar('EditarCargoForm', ReloadTableEditar);
 
 	UrlaDTable = '{{ path("dicars_admin_servicio_gettablacargos") }}';
 	FormatoDTable = [

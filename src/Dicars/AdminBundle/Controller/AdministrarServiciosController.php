@@ -10,7 +10,7 @@ use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 
-class AdministradorServiciosController extends Controller {
+class AdministrarServiciosController extends Controller {
 	
 	public function getTablaCargosAction(){
 		$em = $this->getDoctrine()->getEntityManager();
@@ -36,6 +36,22 @@ class AdministradorServiciosController extends Controller {
 					);
 		}
 		return new JsonResponse(array('aaData' => $todo));
+	}
+	
+	public function getCargoByIdAction($id){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$cargo = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:VenCargo')
+		->findOneBy(array('ncargoId' => $id));
+	
+		$em->clear();
+	
+		$data = array('id' => $cargo -> getNcargoId(),
+					'nom_cargo' => $cargo -> getNcargodesc(),
+					'selectEstado' => $cargo -> getCcargocoest());
+	
+		return new JsonResponse($data);
 	}
 
 }

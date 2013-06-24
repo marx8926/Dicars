@@ -1,3 +1,6 @@
 dicars_admin_servicio_gettablacargos:
     pattern:  /servicio_gettablacargos
-    defaults: { _controller: DicarsAdminBundle:AdministradorServicios:getTablaCargos }
+    defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getTablaCargos }
+dicars_admin_servicio_getcargobyid:
+    pattern:  /servicio_getcargobyid/{id}
+    defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getCargoById }

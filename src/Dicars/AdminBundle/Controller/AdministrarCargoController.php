@@ -50,5 +50,51 @@ class AdministrarCargoController extends Controller {
 		$return = json_encode($return);
 		return new Response($return,200,array('Content-Type'=>'application/json'));
 	}
+	
+	public function EditarCargoAction(){
+	
+		$request = $this->get('request');
+		$form = $request->request->get('formulario');
+	
+		$datos = array();
+		parse_str($form,$datos);
+	
+		$CargoEst = null;
+	
+		if ($form != null){
+				
+			$Cargoid = $datos["id"];
+			$CargoEst = $datos["selectEstadoE"];
+				
+			$Cargo = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:VenCargo')
+			->findOneBy(array('ncargoId' => $Cargoid));
+				
+			$Cargo->setCcargocoest($CargoEst);
+	
+			$em = $this->getDoctrine()->getEntityManager();
+			$this->getDoctrine()->getEntityManager()->beginTransaction();
+				
+			try {
+				$em->flush();
+			} catch (Exception $e) {
+				$this->getDoctrine()->getEntityManager()->rollback();
+				$this->getDoctrine()->getEntityManager()->close();
+				$return = array("responseCode"=>400, "greeting"=>"Bad");
+	
+				throw $e;
+			}
+			$this->getDoctrine()->getEntityManager()->commit();
+			$em->clear();
+			$return = array("responseCode"=>200, "datos"=>$datos);
+				
+		}
+		else {
+			$return = array("responseCode"=>400, "greeting"=>"Bad");
+		}
+	
+		$return = json_encode($return);
+		return new Response($return,200,array('Content-Type'=>'application/json'));
+	}
 
 }
