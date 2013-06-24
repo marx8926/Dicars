@@ -1,0 +1,5 @@
+dicars_logistica_registrar_pedido:
+    pattern:  /registrar_pedido
+    defaults: { _controller: DicarsLogisticaBundle:AdministrarPedido:RegistrarPedido }
+    requirements:
+          _method: POST
