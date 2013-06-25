@@ -63,11 +63,11 @@ function enviar(IdForm,responsefunction,otherdata){
 		otherdata = null;
 	$("#"+IdForm).submit(function(event){
 		event.preventDefault();
-		console.log(otherdata.serialize());
+		console.log(otherdata);
         var url=$("#"+IdForm).attr("action");        
         $.post(
     		url,
-    		{formulario:$("#"+IdForm).serialize(),data:otherdata.serialize()},
+    		{formulario:$("#"+IdForm).serialize(),data:otherdata},
     		function(data){
     			if(data.responseCode==200 ){
     				console.log("ok");
