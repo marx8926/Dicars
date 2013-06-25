@@ -72,14 +72,7 @@
 									<input class="input-xlarge datepicker" id="fechaentrega" name="fechaentrega" type="text">
 								</div>
 							</div>
-							<div class="control-group">
-								<label class="control-label" for="proveedor">Proveedor</label>
-								<div class="controls">
-									<input class="input-xlarge focused" id="proveedor" type="text">
-									<input id="proveedor_id" type="hidden" name="proveedor">
-									<button type="button" class="btn btn-info btn-proveedor" style="margin-left: 15px;"><i class="icon-user icon-white"></i></button>
-								</div>
-							</div>
+							
 							<div class="control-group">
 								<div class="controls">
 									<label class="checkbox inline">
@@ -95,44 +88,45 @@
 							<textarea id="observaciones" class="input-xlarge"></textarea>
 						</div>
 					</div>
-					<div class="control-group">
-						<label class="control-label" for="producto">Producto</label>
-						<div class="controls">
-							<input class="input-xlarge focused" id="producto" type="text">
-						  	<button type="button" class="btn btn-info btn-buscarp" style="margin: 0 18px;"><i class="icon-search icon-white"></i>Buscar</button>
-							<label style="display:inline;" for="cantidad">Cantidad</label>
-							<input id="cantidad" type="number" name="cantidad" style="margin: 0 18px 0 0;">
-							<button id="agregar_producto" type="button" class="btn btn-primary"><i class="icon-plus icon-white"></i>Agregar</button>
-						</div>
-					</div>
-					<hr>
-					<h3>Productos de Pedido</h3>
-					<hr>
-					<table id="productos_table" class="table table-striped table-bordered bootstrap-datatable datatable">
-						<thead>
-							  <tr>
-								  <th>Código</th>
-								  <th>Nombre</th>
-								  <th>Stock</th>
-								  <th>Precio</th>
-								  <th>Acciones</th>
-							  </tr>
-						</thead>   
-						<tbody>
-						</tbody>
-					</table>
-					<hr>
-					<div class="form-actions">
-						<a href="{{ path('dicars_logistica_pedidos') }}" type="reset" class="btn btn-cancelar" >Cancelar</a>
-						<button class="btn" ><i class="icon-print"></i>Imprimir</button>
-						<button type="submit" class="btn btn-primary"><i class="icon icon-white icon-save"></i>Guardar</button>
-					</div>
 				</fieldset>
 			</form>
+			<form id="AgregarProductoForm" class="form-horizontal">
+				<div class="control-group">
+					<label class="control-label" for="producto">Producto</label>
+					<div class="controls">
+						<input class="input-xlarge focused" id="producto" type="text">
+					  	<button type="button" class="btn btn-info btn-buscarp" style="margin: 0 18px;"><i class="icon-search icon-white"></i>Buscar</button>
+						<label style="display:inline;" for="cantidad">Cantidad</label>
+						<input id="cantidad" type="number" style="margin: 0 18px 0 0;" required>
+						<button id="agregar_producto" type="submit" class="btn btn-primary"><i class="icon-plus icon-white"></i>Agregar</button>
+					</div>
+				</div>
+			</form>
+			<hr>
+			<h3>Productos de Pedido</h3>
+			<hr>
+			<table id="productos_table" class="table table-striped table-bordered bootstrap-datatable datatable">
+				<thead>
+					  <tr>
+						  <th>Código</th>
+						  <th>Nombre</th>
+						  <th>Stock</th>
+						  <th>Precio</th>
+						  <th>Acciones</th>
+					  </tr>
+				</thead>   
+				<tbody>
+				</tbody>
+			</table>
+			<hr>
+			<div class="form-horizontal">
+				<div class="form-actions">
+					<a href="{{ path('dicars_logistica_pedidos') }}" type="reset" class="btn btn-cancelar" >Cancelar</a>
+					<button class="btn" ><i class="icon-print"></i>Imprimir</button>
+					<button id="btn_enviar_pedido" type="button" class="btn btn-primary"><i class="icon icon-white icon-save"></i>Guardar</button>
+				</div>
+			</div>
 			{% include 'DicarsVentasBundle:Default:buscarproducto.html.twig' %}
-			{% include 'DicarsLogisticaBundle:Default:buscarproveedor.html.twig' %}
-			{% include 'DicarsLogisticaBundle:Default:registrar_producto.html.twig' %}
-			{% include 'DicarsLogisticaBundle:Default:registrar_proveedor.html.twig' %}
 		</div>
 	</div>
 </div>
@@ -141,59 +135,7 @@
 <script src="{{ asset('js/util/functiongen.js') }}"></script>
 <script src="{{ asset('js/util/datatable_plugins.js') }}"></script>
 <script type="text/javascript">
-//mostrar Buscar Cliente------------------------------------>
-$('.btn-proveedor').click(function(e){
-	e.preventDefault();
-	$('#modalBuscarProveedor').modal('show');
-});
-//mostrar Buscar Producto------------------------------------>
-$('.btn-buscarp').click(function(e){
-	e.preventDefault();
-	$('#modalBuscarProducto').modal('show');
-});
-//mostrar Registrar Producto------------------------------------>
-$('.btn-nuevoprod').click(function(e){
-	e.preventDefault();
-	$('#modalRegistro').modal('show');
-});
-//mostrar Registrar Proveedor------------------------------------>
-$('.btn-nuevoproveed').click(function(e){
-	e.preventDefault();
-	$('#modalRegistroProveedores').modal('show');
-});
-//mostrar Cancelar Registro Proveedor------------------------------------>
-$('.btn-cancelarprov').click(function(e){
-	e.preventDefault();
-	$('#modalBuscarProveedor').modal('show');
-});
 
-$("#select_producto").click(function(e){
-	e.preventDefault();
-	var data = SelectProductoData[0];
-	$('#producto').val(data.id+" - "+data.nombre);
-	$('#modalBuscarProducto').modal('hide');
-});
-
-$("#select_proveedor").click(function(e){
-	e.preventDefault();
-	var data = SelectProveedorData[0];
-	if(SelectProveedorData.length > 0)
-		$("#proveedor").val(data.ruc+" - "+data.razonsocial);
-	else
-		$("#proveedor").val("");
-	$('#modalBuscarProveedor').modal('hide');
-});
-
-$("#agregar_producto").click(function(e){
-	e.preventDefault();
-	SelectProductoData[0].cantidad = 3;
-	SelectProductosTable.fnAddData(SelectProductoData);
-	$('#producto').val("");
-	SelectProductoData.pop();
-	Attr = ['id','cantidad'];
-	Array2 = SelectProductosTable.fnGetData();
-	CopyArray(SelectProductosTableData,Array2,false,Attr);
-});
 // Se almacena el producto seleccionado
 var SelectProductoData = new Array();
 //Se almacena el proovedor seleccionado
@@ -209,9 +151,36 @@ var RowCallBackFunctionProducto;
 var RowCallBackFunctionProveedor;
 
 $(document).ready(function(){
+	
+	//mostrar Buscar Producto------------------------------------>
+	$('.btn-buscarp').click(function(e){
+		e.preventDefault();
+		$('#modalBuscarProducto').modal('show');
+	});
+
+	$("#select_producto").click(function(e){
+		e.preventDefault();
+		var data = SelectProductoData[0];
+		$('#producto').val(data.id+" - "+data.nombre);
+		$('#modalBuscarProducto').modal('hide');
+	});
+
+	$("#AgregarProductoForm").submit(function(e){
+		e.preventDefault();
+		SelectProductoData[0].cantidad = $('#cantidad').val();
+		SelectProductosTable.fnAddData(SelectProductoData);
+		$('#producto').val("");
+		SelectProductoData.pop();
+		Attr = ['id','cantidad'];
+		Array2 = SelectProductosTable.fnGetData();
+		CopyArray(SelectProductosTableData,Array2,false,Attr);
+	});
+
+	$("#btn_enviar_pedido").click(function(e){
+		$("#RegistrarPedidoForm").submit();
+	});
 
 	RowCallBackFunctionProducto = getSimpleSelectRowCallBack(SelectProductoData,"select_producto_table");
-	RowCallBackFunctionProveedor = getSimpleSelectRowCallBack(SelectProveedorData,"select_proveedor_table");
 
 	UrlaDTableProductos = '{{ path("dicars_logistica_servicio_gettablaproductos") }}';
 	FormatoDTableProductos = [
@@ -236,16 +205,6 @@ $(document).ready(function(){
 		"sLengthMenu": "_MENU_ records per page"
 		}
 	});
-
-	UrlaDTableProveedores = '{{ path("dicars_logistica_servicio_gettablaproveedores") }}';
-	FormatoDTableProveedores = [
-		              { "sWidth": "12%","mDataProp": "ruc"},
-		              { "sWidth": "12%","mDataProp": "razonsocial"},
-		              { "sWidth": "12%","mDataProp": "telefono"},
-		              { "sWidth": "12%","mDataProp": "email"}
-		              ];
-	
-	BuscarProveedorTable = createDataTable('select_proveedor_table',UrlaDTableProveedores,FormatoDTableProveedores,null,RowCallBackFunctionProveedor);
 
 	enviar("RegistrarPedidoForm",logdata,SelectProductosTableData);
 	
