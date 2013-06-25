@@ -9,8 +9,8 @@ class AdministrarPedidoController extends Controller{
 	
 	public function RegistrarPedidoAction(){
 		$request = $this->get('request');
-		$form = $request->request->get('data');
-		
+		$form = $request->request->get('formulario');
+		$otherdata = $request->request->get('data');
 		$datos = array();
 		parse_str($form,$datos);
 		
@@ -31,7 +31,7 @@ class AdministrarPedidoController extends Controller{
 			}
 			$this->getDoctrine()->getEntityManager()->commit();
 			$em->clear();*/
-			$return = array("responseCode"=>200, "datos"=>$datos);
+			$return = array("responseCode"=>200, "datos"=>$otherdata);
 				
 		}
 		else {

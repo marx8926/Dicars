@@ -101,9 +101,7 @@
 							<input class="input-xlarge focused" id="producto" type="text">
 						  	<button type="button" class="btn btn-info btn-buscarp" style="margin: 0 18px;"><i class="icon-search icon-white"></i>Buscar</button>
 							<label style="display:inline;" for="cantidad">Cantidad</label>
-							<input id="cantidad" name="cantidad" type="number" style="margin: 0 18px 0 0;">
-							<label style="display:inline;">Precio/Unidad</label>
-							<input id="precio" name="precio" type="number" style="margin: 0 18px;">
+							<input id="cantidad" type="number" name="cantidad" style="margin: 0 18px 0 0;">
 							<button id="agregar_producto" type="button" class="btn btn-primary"><i class="icon-plus icon-white"></i>Agregar</button>
 						</div>
 					</div>
@@ -188,14 +186,20 @@ $("#select_proveedor").click(function(e){
 
 $("#agregar_producto").click(function(e){
 	e.preventDefault();
-	$(SelectProductosTable).dataTable().fnAddData(SelectProductoData);
+	SelectProductoData[0].cantidad = 3;
+	SelectProductosTable.fnAddData(SelectProductoData);
 	$('#producto').val("");
-	ProductoTableData.push(SelectProductoData.pop());
+	SelectProductoData.pop();
+	Attr = ['id','cantidad'];
+	Array2 = SelectProductosTable.fnGetData();
+	CopyArray(SelectProductosTableData,Array2,false,Attr);
 });
-
+// Se almacena el producto seleccionado
 var SelectProductoData = new Array();
+//Se almacena el proovedor seleccionado
 var SelectProveedorData = new Array();
-var ProductoTableData =  new Array();
+//Se almacena la data de la tabla de los productos seleccionados
+var SelectProductosTableData =  new Array();
 
 var BuscarProductosTable;
 var BuscarProveedorTable;
@@ -208,8 +212,6 @@ $(document).ready(function(){
 
 	RowCallBackFunctionProducto = getSimpleSelectRowCallBack(SelectProductoData,"select_producto_table");
 	RowCallBackFunctionProveedor = getSimpleSelectRowCallBack(SelectProveedorData,"select_proveedor_table");
-
-	enviar("RegistrarPedidoForm",logdata,ProductoTableData);
 
 	UrlaDTableProductos = '{{ path("dicars_logistica_servicio_gettablaproductos") }}';
 	FormatoDTableProductos = [
@@ -244,6 +246,9 @@ $(document).ready(function(){
 		              ];
 	
 	BuscarProveedorTable = createDataTable('select_proveedor_table',UrlaDTableProveedores,FormatoDTableProveedores,null,RowCallBackFunctionProveedor);
+
+	enviar("RegistrarPedidoForm",logdata,SelectProductosTableData);
+	
 });
 
 

@@ -87,13 +87,14 @@ function cargarEditar(id){
 		              	{'label':'Dni','type':'input','typeinput':'text','value':empleado.dni,'name':'dni'},
 		              	{'label':'Telefono','type':'input','typeinput':'text','value':empleado.telefono,'name':'telefono'},
 		              	{'label':'Email','type':'input','typeinput':'text','value':empleado.email,'name':'email'},
-		              	{'label':'Fecha Nacimiento','type':'input','typeinput':'text','value':empleado.fechanacimiento,'name':'fechanacimiento'},
+		              	{'label':'Fecha Nacimiento','type':'date','value':empleado.fechanacimiento,'name':'fechanacimiento'},
 		              	{'label':'Sexo','type':'input','typeinput':'text','value':empleado.sexo,'name':'sexo'},
 		              	{'label':'Estado','type':'input','typeinput':'text','value':empleado.estado,'name':'estado'},
 		              	{'label':'Edad','type':'input','typeinput':'text','value':empleado.edad,'name':'edad'},
 						{'type':'actions'}];
 			
 		$("#EditarEmpleadoForm").html(crearElementosForm(ArrayDatos));
+		$('.datepicker').datepicker();
 	}
 	
 function cargarVer(id){

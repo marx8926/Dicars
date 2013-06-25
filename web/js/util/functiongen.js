@@ -63,7 +63,6 @@ function enviar(IdForm,responsefunction,otherdata){
 		otherdata = null;
 	$("#"+IdForm).submit(function(event){
 		event.preventDefault();
-		console.log(otherdata);
         var url=$("#"+IdForm).attr("action");        
         $.post(
     		url,
@@ -131,8 +130,30 @@ jQuery.fn.getIndexObj = function (obj,attr){
 	return objindex;
 };
 
-function CopyArray(Array1,Arra2){
+function CopyArray(Array1,Arra2,all,attrs){
+	while(Array1.length > 0)
+		Array1.pop();
 	
+	if(all){
+		$(Array2).each(function( index ){
+			Array1.push(this);
+		});
+	}
+	else{
+		$(Array2).each(function( index ){
+			var olddata = this;
+			var newdata = [];
+			var jsondata = '{';
+			for(var i=0; i<attrs.length;i++){
+				jsondata +='"'+attrs[i]+'":'+olddata[attrs[i]];
+				if(attrs.length-1>i)
+					jsondata = jsondata + ',';
+			}
+			jsondata += '}';
+			newdata = jQuery.parseJSON(jsondata);
+			Array1.push(newdata);
+		});
+	}
 }
 
 function getAjaxObject(url){
