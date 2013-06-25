@@ -18,26 +18,26 @@
 			<h2>Registrar Pedidos</h2>
 		</div>
 		<div class="box-content">
-			<form class="form-horizontal">
+			<form id="RegistrarPedidoForm" class="form-horizontal" method="post" action="{{ path('dicars_logistica_registrar_pedido') }}">
 				<fieldset>
 					<div class="row-fluid">
 						<div class="span6">
 							<div class="control-group">
 								<label class="control-label" for="codigo">Código</label>
 								<div class="controls">
-									<input class="input-xlarge focused" id="codigo" type="text">
+									<input class="input-xlarge focused" id="codigo" name="codigo" type="text">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="registrador">Registrador</label>
 								<div class="controls">
-									<input class="input-xlarge focused" id="registrador" type="text">
+									<input class="input-xlarge focused" id="registrador" name="registrador" type="text">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="motivo">Tipo</label>
 								<div class="controls">
-									<select id="tipo" data-rel="chosen">
+									<select id="tipo" data-rel="chosen" name="tipo">
 										<option>Option 1</option>
 										<option>Option 2</option>
 										<option>Option 3</option>
@@ -49,7 +49,7 @@
 							<div class="control-group">
 								<label class="control-label" for="tienda">Tienda</label>
 								<div class="controls">
-								  	<select id="tienda" data-rel="chosen">
+								  	<select id="tienda" data-rel="chosen" name="tienda">
 										<option>Option 1</option>
 										<option>Option 2</option>
 										<option>Option 3</option>
@@ -63,19 +63,20 @@
 							<div class="control-group">
 								<label class="control-label" for="fechapedido">Fecha de Pedido</label>
 								<div class="controls">
-									<input class="input-xlarge datepicker" id="fechapedido" type="text">
+									<input class="input-xlarge datepicker" id="fechapedido" name="fechapedido" type="text">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="fechaentrega">Fecha de Entrega</label>
 								<div class="controls">
-									<input class="input-xlarge datepicker" id="fechaentrega" type="text">
+									<input class="input-xlarge datepicker" id="fechaentrega" name="fechaentrega" type="text">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="proveedor">Proveedor</label>
 								<div class="controls">
 									<input class="input-xlarge focused" id="proveedor" type="text">
+									<input id="proveedor_id" type="hidden" name="proveedor">
 									<button type="button" class="btn btn-info btn-proveedor" style="margin-left: 15px;"><i class="icon-user icon-white"></i></button>
 								</div>
 							</div>
@@ -189,11 +190,12 @@ $("#agregar_producto").click(function(e){
 	e.preventDefault();
 	$(SelectProductosTable).dataTable().fnAddData(SelectProductoData);
 	$('#producto').val("");
-	SelectProductoData.pop();
+	ProductoTableData.push(SelectProductoData.pop());
 });
 
 var SelectProductoData = new Array();
 var SelectProveedorData = new Array();
+var ProductoTableData =  new Array();
 
 var BuscarProductosTable;
 var BuscarProveedorTable;
@@ -206,6 +208,8 @@ $(document).ready(function(){
 
 	RowCallBackFunctionProducto = getSimpleSelectRowCallBack(SelectProductoData,"select_producto_table");
 	RowCallBackFunctionProveedor = getSimpleSelectRowCallBack(SelectProveedorData,"select_proveedor_table");
+
+	enviar("RegistrarPedidoForm",logdata,ProductoTableData);
 
 	UrlaDTableProductos = '{{ path("dicars_logistica_servicio_gettablaproductos") }}';
 	FormatoDTableProductos = [

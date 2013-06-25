@@ -62,11 +62,12 @@ function enviar(IdForm,responsefunction,otherdata){
 	if(typeof(otherdata)=== 'undefined')
 		otherdata = null;
 	$("#"+IdForm).submit(function(event){
-		event.preventDefault($("#"+IdForm).serialize());
+		event.preventDefault();
+		console.log(otherdata.serialize());
         var url=$("#"+IdForm).attr("action");        
         $.post(
     		url,
-    		{formulario:$("#"+IdForm).serialize(),data:otherdata},
+    		{formulario:$("#"+IdForm).serialize(),data:otherdata.serialize()},
     		function(data){
     			if(data.responseCode==200 ){
     				console.log("ok");
@@ -129,6 +130,10 @@ jQuery.fn.getIndexObj = function (obj,attr){
 	});
 	return objindex;
 };
+
+function CopyArray(Array1,Arra2){
+	
+}
 
 function getAjaxObject(url){
 	var data = $.ajax({
