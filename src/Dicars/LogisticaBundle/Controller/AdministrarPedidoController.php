@@ -10,9 +10,15 @@ class AdministrarPedidoController extends Controller{
 	public function RegistrarPedidoAction(){
 		$request = $this->get('request');
 		$form = $request->request->get('formulario');
-		$otherdata = $request->request->get('data');
+		$otherdata = $request->request->get('otherdata');
 		$datos = array();
 		parse_str($form,$datos);
+		
+		$Serie = null;
+		$Nro = null;
+		$Local = null;
+		$Fecha_reg = null;
+		$Fecha_ent = null;
 		
 		if ($form != null){
 			/*

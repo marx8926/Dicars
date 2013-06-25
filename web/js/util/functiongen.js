@@ -16,7 +16,6 @@ var reloadpage = function(data){
 	
 function getMultipleSelectRowCallBack(DSelected){
 	var SelectRowFunction = function(nRow,aData,iDisplayIndex){
-		$(nRow).unbind();
 		$(nRow).click( function() {
 			$(this).toggleClass('row_selected');
 			if($(this).hasClass('row_selected'))
@@ -33,7 +32,6 @@ function getMultipleSelectRowCallBack(DSelected){
 
 function getSimpleSelectRowCallBack(DSelected, tableid){
 	var SelectRowFunction = function(nRow,aData,iDisplayIndex){
-		$(nRow).unbind();
 		$(nRow).click( function() {
 			if ( $(this).hasClass('row_selected') ) {
 	            $(this).removeClass('row_selected');
@@ -44,7 +42,7 @@ function getSimpleSelectRowCallBack(DSelected, tableid){
 	            $(this).addClass('row_selected');
 	            DSelected.pop();
 	            DSelected.push(aData);
-	        }			
+	        }
 		});
 	};
 	
@@ -66,7 +64,7 @@ function enviar(IdForm,responsefunction,otherdata){
         var url=$("#"+IdForm).attr("action");        
         $.post(
     		url,
-    		{formulario:$("#"+IdForm).serialize(),data:otherdata},
+    		{formulario:$("#"+IdForm).serialize(),otherdata:otherdata},
     		function(data){
     			if(data.responseCode==200 ){
     				console.log("ok");
@@ -95,7 +93,7 @@ function createDataTable(idTable,UrlaDTable,FormatoDTable, CallBackFunction, Row
 		"sAjaxSource": UrlaDTable,	  
 		"aoColumns": FormatoDTable,				             
 	 	"aaSorting": [ [0, 'asc'], [1, 'asc'] ],
-	 	"fnRowCallback": function( nRow, aData, iDisplayIndex ) {
+	 	"fnCreatedRow": function( nRow, aData, iDisplayIndex ) {
 	 		if(typeof(RowCallBackFunction)!= 'undefined' && RowCallBackFunction != null)
 	 			RowCallBackFunction(nRow,aData,iDisplayIndex);
 		},
@@ -200,6 +198,7 @@ function ajaxListPost(path,select,red)
     });
    
 }
+
 function SelectListPost(list, valor)
 {
     $('#'+list).val(valor);
@@ -207,8 +206,16 @@ function SelectListPost(list, valor)
 jQuery.fn.reset = function () {
 	  $(this).each (function() { this.reset(); });
 	};
+	
+function reloadTable(oTable){
+	var returnfunction = function(data){
+		oTable.fnReloadAjax();
+		console.log(data);
+		};
+	return returnfunction;
+}
 
-function reloadclosemodal(idmodal){
+function reloadclosemodal(idmodal,oTable){
 	var returnfunction = function(data){
 		oTable.fnReloadAjax();
 		console.log(data);

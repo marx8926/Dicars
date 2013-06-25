@@ -110,8 +110,7 @@
 					  <tr>
 						  <th>Código</th>
 						  <th>Nombre</th>
-						  <th>Stock</th>
-						  <th>Precio</th>
+						  <th>Cantidad</th>
 						  <th>Acciones</th>
 					  </tr>
 				</thead>   
@@ -143,6 +142,8 @@ var SelectProveedorData = new Array();
 //Se almacena la data de la tabla de los productos seleccionados
 var SelectProductosTableData =  new Array();
 
+var Attr = ['id','cantidad'];
+
 var BuscarProductosTable;
 var BuscarProveedorTable;
 var SelectProductosTable;
@@ -167,13 +168,15 @@ $(document).ready(function(){
 
 	$("#AgregarProductoForm").submit(function(e){
 		e.preventDefault();
-		SelectProductoData[0].cantidad = $('#cantidad').val();
-		SelectProductosTable.fnAddData(SelectProductoData);
-		$('#producto').val("");
-		SelectProductoData.pop();
-		Attr = ['id','cantidad'];
-		Array2 = SelectProductosTable.fnGetData();
-		CopyArray(SelectProductosTableData,Array2,false,Attr);
+		if(SelectProductoData.length > 0){
+			SelectProductoData[0].cantidad = $('#cantidad').val();
+			SelectProductosTable.fnAddData(SelectProductoData);
+			$('#producto').val("");
+			$('#cantidad').val("");
+			SelectProductoData.pop();
+			Array2 = SelectProductosTable.fnGetData();
+			CopyArray(SelectProductosTableData,Array2,false,Attr);
+		}
 	});
 
 	$("#btn_enviar_pedido").click(function(e){
@@ -195,10 +198,18 @@ $(document).ready(function(){
 		"aoColumns": [
 		              { "sWidth": "12%","mDataProp": "id"},
 		              { "sWidth": "12%","mDataProp": "nombre"},
-		              { "sWidth": "12%","mDataProp": "stock"},
-		              { "sWidth": "12%","mDataProp": "precio_contado"},
+		              { "sWidth": "12%","mDataProp": "cantidad"},
 		              { "sWidth": "12%","mDataProp": "elim_btn"}
 		              ],
+		"fnCreatedRow": function( nRow, aData, iDisplayIndex ) {
+			$(nRow).find('a').click(function(e){
+				e.preventDefault();
+				var index = $(SelectProductosTable.fnGetData()).getIndexObj(aData,'id');
+				SelectProductosTable.fnDeleteRow( index );
+				Array2 = SelectProductosTable.fnGetData();
+				CopyArray(SelectProductosTableData,Array2,false,Attr);
+			});
+		},
 		"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span12'i><'span12 center'p>>",
 		"sPaginationType": "bootstrap",
 		"oLanguage": {
