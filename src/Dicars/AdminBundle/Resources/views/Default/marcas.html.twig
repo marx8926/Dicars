@@ -1,50 +1,43 @@
 {% extends "::baseCharisma.html.twig" %}
-{% block title %}Categorías - Administración - {% endblock %}
+{% block title %}Marcas - Administración - {% endblock %}
 {% block breadcrumb %}
 <li>
 	<a href="{{path('dicars_admin_homepage')}}">Administración</a><span class="divider">/</span>
 </li>
 <li>
-	<a href="{{path('dicars_admin_categorias')}}">Categorías</a>
+	<a href="{{path('dicars_admin_marcas')}}">Marcas</a>
 </li>
 {% endblock %}
 {% block content %}
 <div class="row-fluid sortable">		
 	<div class="box span12">
 		<div class="box-header well" data-original-title>
-			<h2>Categorías</h2>
+			<h2>Marcas</h2>
 			<div class="box-icon">
-				<a href="#" class="btn btn-round btn-registrar" alt="Registrar Categoría"><i class="icon-plus"></i></a>
+				<a href="#" class="btn btn-round btn-registrar" alt="Registrar Marcas"><i class="icon-plus"></i></a>
 			</div>
 		</div>
 		<div class="box-content">
-			<table class="table table-striped table-bordered bootstrap-datatable datatable" id="categorias_table">
+			<table class="table table-striped table-bordered bootstrap-datatable datatable" id="marcas_table">
 				<thead>
 					<tr>
 						<th>Nombre</th>
-					  	<th>Descripción</th>
 					  	<th>Estado</th>
 					  	<th></th>
 				  	</tr>
 				</thead>
 			</table>
-			<div class="modal hide fade" id="modalRegistroCategoria">
+			<div class="modal hide fade" id="modalRegistroMarca">
 				<div class="modal-header">
-					<h3>Registrar Categoría</h3>
+					<h3>Registrar Marca</h3>
 				</div>
 				<div class="modal-body">
-					<form id="RegistrarCategoriaForm" class="form-horizontal" method="post" action="{{ path('dicars_admin_registrar_categoria') }}">
+					<form id="RegistrarMarcaForm" class="form-horizontal" method="post" action="{{ path('dicars_admin_registrar_marca') }}">
 						<fieldset>
 						  	<div class="control-group">
-								<label class="control-label" for="nom_categoria">Nombre de Categoría</label>
+								<label class="control-label" for="desc_marca">Nombre de Marca</label>
 								<div class="controls">
-							  		<input class="input-xlarge focused" id="nom_categoria" name="nom_categoria" type="text">
-								</div>
-						  	</div>
-						  	<div class="control-group">
-								<label class="control-label" for="desc_categoria">Descripción</label>
-								<div class="controls">
-							  		<textarea class="input-xlarge focused" id="desc_categoria" name="desc_categoria"></textarea>
+							  		<input class="input-xlarge focused" id="desc_marca" name="desc_marca" type="text">
 								</div>
 						  	</div>
 						  	<div class="control-group">
@@ -58,22 +51,22 @@
 						  	</div>
 						  	<div class="form-actions">
 								<button type="submit" class="btn btn-primary ">Guardar</button>
-								<button type="reset" class="btn btn-cancelarprov" data-dismiss="modal">Cancelar</button>
+								<button type="reset" class="btn" data-dismiss="modal">Cancelar</button>
 						  	</div>
 						</fieldset>
 					</form>
 				</div>
 			</div>
 			<div class="modal hide fade" id="modalEditarDatos">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">x</button>
-				<h3>Editar Categoria</h3>
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">x</button>
+					<h3>Editar Marca</h3>
+				</div>
+				<div class="modal-body">
+					<form id="EditarMarcaForm" class="form-horizontal" method="post" action="{{ path('dicars_admin_editar_marca') }}">
+					</form>
+				</div>
 			</div>
-			<div class="modal-body">
-				<form id="EditarCategoriaForm" class="form-horizontal" method="post" action="{{ path('dicars_admin_editar_categoria') }}">
-				</form>
-			</div>
-		</div>
 		</div>
 	</div>
 </div>
@@ -87,7 +80,7 @@
 var oTable;
 
 var ReloadTableEditar = reloadclosemodal('modalEditarDatos');
-var ReloadTableRegistrar = reloadclosemodal('modalRegistroCategoria');
+var ReloadTableRegistrar = reloadclosemodal('modalRegistroMarca');
 
 var CargarBotones = function(){
 	//mostrar Editar Cliente------------------------------------>
@@ -100,19 +93,18 @@ var CargarBotones = function(){
 };
 
 function cargarEditar(id){
-	url = "{{ path('dicars_admin_servicio_getcategoriabyid', {'id': ''}) }}/"+id;
-	categoria = getAjaxObject(url);		
+	url = "{{ path('dicars_admin_servicio_getmarcabyid', {'id': ''}) }}/"+id;
+	marca = getAjaxObject(url);		
 	
-	ArrayDatos = [	{'type':'hidden','value':categoria.id,'name':'id'},
-	          		{'label':'Nombre de Categoría','type':'input','typeinput':'text','value':categoria.nom_categoria, 'name':'nom_categoriaE'},
-	          		{'label':'Descripción','type':'input','typeinput':'text','value':categoria.desc_categoria, 'name':'desc_categoriaE'},
+	ArrayDatos = [	{'type':'hidden','value':marca.id,'name':'id'},
+	          		{'label':'Nombre de Marca','type':'input','typeinput':'text','value':marca.desc_marca, 'name':'desc_marcaE'},
 	              	{'label':'Estado','type':'select','name':'selectEstadoE'},
 					{'type':'actions'}];
 		
-	$("#EditarCategoriaForm").html(crearElementosForm(ArrayDatos));
+	$("#EditarMarcaForm").html(crearElementosForm(ArrayDatos));
 	$('#selectEstadoE').append('<option value="1">Habilitado</option>');
 	$('#selectEstadoE').append('<option value="0">Inhabilitado</option>');
-	$('#selectEstadoE').val(categoria.selectEstado);
+	$('#selectEstadoE').val(marca.selectEstado);
 	$('[data-rel="chosen"],[rel="chosen"]').chosen();
 }
 
@@ -121,20 +113,19 @@ $(document).ready(function(){
 	//mostrar Buscar Cliente------------------------------------>
 	$('.btn-registrar').click(function(e){
 		e.preventDefault();
-		$('#modalRegistroCategoria').modal('show');
+		$('#modalRegistroMarca').modal('show');
 	});
 	
-	enviar('RegistrarCategoriaForm', ReloadTableRegistrar);
-	enviar('EditarCategoriaForm', ReloadTableEditar);
+	enviar('RegistrarMarcaForm', ReloadTableRegistrar);
+	enviar('EditarMarcaForm', ReloadTableEditar);
 
-	UrlaDTable = '{{ path("dicars_admin_servicio_gettablacategorias") }}';
+	UrlaDTable = '{{ path("dicars_admin_servicio_gettablamarcas") }}';
 	FormatoDTable = [
-		              { "sWidth": "33%","mDataProp": "nom_categoria"},
-		              { "sWidth": "33%","mDataProp": "desc_categoria"},
+		              { "sWidth": "33%","mDataProp": "desc_marca"},
 		              { "sWidth": "33%","mDataProp": "selectEstado"},
 		              { "sWidth": "34%","mDataProp": "edit_btn"}
 		              ];
-	oTable = createDataTable('categorias_table',UrlaDTable,FormatoDTable,CargarBotones);
+	oTable = createDataTable('marcas_table',UrlaDTable,FormatoDTable,CargarBotones);
 });
 </script>
 {% endblock %}

@@ -22,4 +22,12 @@ class DefaultController extends Controller
     {
     	return $this->render('DicarsAdminBundle:Default:usuarios.html.twig');
     }
+    public function categoriasAction()
+    {
+    	return $this->render('DicarsAdminBundle:Default:categorias.html.twig');
+    }
+    public function marcasAction()
+    {
+    	return $this->render('DicarsAdminBundle:Default:marcas.html.twig');
+    }
 }

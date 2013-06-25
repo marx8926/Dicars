@@ -1,5 +1,9 @@
 admin_administrar_cargo_routing:
     resource: "@DicarsAdminBundle/Resources/config/administrar_cargo_routing.yml"
+admin_administrar_categoria_routing:
+    resource: "@DicarsAdminBundle/Resources/config/administrar_categoria_routing.yml"
+admin_administrar_marca_routing:
+    resource: "@DicarsAdminBundle/Resources/config/administrar_marca_routing.yml"
 admin_administrar_servicios_routing:
     resource: "@DicarsAdminBundle/Resources/config/servicios_routing.yml"
     
@@ -18,3 +22,9 @@ dicars_admin_cargos:
 dicars_admin_usuarios:
     pattern:  /usuarios
     defaults: { _controller: DicarsAdminBundle:Default:usuarios }
+dicars_admin_categorias:
+    pattern:  /categorias
+    defaults: { _controller: DicarsAdminBundle:Default:categorias }
+dicars_admin_marcas:
+    pattern:  /marcas
+    defaults: { _controller: DicarsAdminBundle:Default:marcas }

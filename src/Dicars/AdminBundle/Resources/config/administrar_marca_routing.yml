@@ -1,0 +1,10 @@
+dicars_admin_registrar_marca:
+    pattern:  /registrar_marca
+    defaults: { _controller: DicarsAdminBundle:AdministrarMarcas:RegistrarMarca }
+    requirements:
+          _method: POST
+dicars_admin_editar_marca:
+    pattern:  /editar_marca
+    defaults: { _controller: DicarsAdminBundle:AdministrarMarcas:EditarMarca }
+    requirements:
+          _method: POST

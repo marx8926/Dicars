@@ -53,5 +53,91 @@ class AdministrarServiciosController extends Controller {
 	
 		return new JsonResponse($data);
 	}
+	
+	public function getTablaCategoriasAction(){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$categorias = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:VenCategoria')
+		->findAll();
+		$em->clear();
+	
+		$todo = array();
+		foreach ($categorias as $key => $categoria){
+			$estado = '';
+			$estadochar = $categoria -> getCcategoriaest();
+			if($estadochar=="1")
+				$estado = "<span class='label label-success'>Habilidado</span>";
+			else
+				$estado = "<span class='label label-important'>Inhabilitado</span>";
+				
+			$todo[] = array('id' => $categoria -> getNcategoriaId(),
+					'nom_categoria' => $categoria -> getCcategorianom(),
+					'desc_categoria' => $categoria -> getCcategoriadesc(),
+					'selectEstado' => $estado,
+					'edit_btn' => "<a id-data='".$categoria -> getNcategoriaId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>"
+			);
+		}
+		return new JsonResponse(array('aaData' => $todo));
+	}
+	
+	public function getCategoriaByIdAction($id){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$categoria = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:VenCategoria')
+		->findOneBy(array('ncategoriaId' => $id));
+	
+		$em->clear();
+	
+		$data = array('id' => $categoria -> getNcategoriaId(),
+				'nom_categoria' => $categoria -> getCcategorianom(),
+				'desc_categoria' => $categoria -> getCcategoriadesc(),
+				'selectEstado' => $categoria -> getCcategoriaest());
+	
+		return new JsonResponse($data);
+	}
+	
+	public function getTablaMarcasAction(){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$marcas = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:VenMarca')
+		->findAll();
+		$em->clear();
+	
+		$todo = array();
+		foreach ($marcas as $key => $marca){
+			$estado = '';
+			$estadochar = $marca -> getCmarcaest();
+			if($estadochar=="1")
+				$estado = "<span class='label label-success'>Habilidado</span>";
+			else
+				$estado = "<span class='label label-important'>Inhabilitado</span>";
+	
+			$todo[] = array('id' => $marca -> getNmarcaId(),
+					'desc_marca' => $marca -> getCmarcadesc(),
+					'selectEstado' => $estado,
+					'edit_btn' => "<a id-data='".$marca -> getNmarcaId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>"
+			);
+		}
+		return new JsonResponse(array('aaData' => $todo));
+	}
+	
+	public function getMarcaByIdAction($id){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$marca = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:VenMarca')
+		->findOneBy(array('nmarcaId' => $id));
+	
+		$em->clear();
+	
+		$data = array('id' => $marca -> getNmarcaId(),
+				'desc_marca' => $marca -> getCmarcadesc(),
+				'selectEstado' => $marca -> getCmarcaest());
+	
+		return new JsonResponse($data);
+	}
 
 }

@@ -4,3 +4,15 @@ dicars_admin_servicio_gettablacargos:
 dicars_admin_servicio_getcargobyid:
     pattern:  /servicio_getcargobyid/{id}
     defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getCargoById }
+dicars_admin_servicio_gettablacategorias:
+    pattern:  /servicio_gettablacategorias
+    defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getTablaCategorias }
+dicars_admin_servicio_getcategoriabyid:
+    pattern:  /servicio_getcategoriabyid/{id}
+    defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getCategoriaById }
+dicars_admin_servicio_gettablamarcas:
+    pattern:  /servicio_gettablamarcas
+    defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getTablaMarcas }
+dicars_admin_servicio_getmarcabyid:
+    pattern:  /servicio_getmarcabyid/{id}
+    defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getMarcaById }
