@@ -72,29 +72,10 @@
 
 var oTable;
 
-var ReloadTableEditar = reloadclosemodal('modalEditarDatos');
-var ReloadTableRegistrar = reloadclosemodal('modalRegistro');
+var ReloadTableEditar;
+var ReloadTableRegistrar;
 
-var CargarBotones = function(){		
-	//mostrar Editar Cliente------------------------------------>
-	$('.btn-editar').unbind();
-	$('.btn-editar').click(function(e){
-		e.preventDefault();
-		$('#modalEditarDatos').modal('show');
-		id=$(this).attr("id-data");		
-		cargarEditar(id);	
-	});
-	
-	//mostrar Ver Datos Cliente------------------------------------>
-	$('.btn-datos').unbind();
-	$('.btn-datos').click(function(e){
-	e.preventDefault();
-	$('#modalVerDatos').modal('show');
-	id=$(this).attr("id-data");		
-	cargarVer(id);
-	});
-	};	
-
+var CargarBotones;
 
 function cargarEditar(id){
 	url = "{{ path('dicars_ventas_servicio_getclientebyid', {'id': ''}) }}/"+id;	
@@ -136,6 +117,29 @@ function cargarVer(id){
 
 $(document).ready(function(){
 
+	ReloadTableEditar = reloadclosemodal('modalEditarDatos');
+	ReloadTableRegistrar = reloadclosemodal('modalRegistro');
+
+	CargarBotones = function(){		
+		//mostrar Editar Cliente------------------------------------>
+		$('.btn-editar').unbind();
+		$('.btn-editar').click(function(e){
+			e.preventDefault();
+			$('#modalEditarDatos').modal('show');
+			id=$(this).attr("id-data");		
+			cargarEditar(id);	
+		});
+		
+		//mostrar Ver Datos Cliente------------------------------------>
+		$('.btn-datos').unbind();
+		$('.btn-datos').click(function(e){
+		e.preventDefault();
+		$('#modalVerDatos').modal('show');
+		id=$(this).attr("id-data");		
+		cargarVer(id);
+		});
+		};	
+	
 	//mostrar Registrar Cliente------------------------------------>
 	$('.btn-registrar').click(function(e){
 	e.preventDefault();

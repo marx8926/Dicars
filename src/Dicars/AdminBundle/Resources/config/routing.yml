@@ -2,6 +2,10 @@ admin_administrar_cargo_routing:
     resource: "@DicarsAdminBundle/Resources/config/administrar_cargo_routing.yml"
 admin_administrar_servicios_routing:
     resource: "@DicarsAdminBundle/Resources/config/servicios_routing.yml"
+    
+ventas_administrar_usuario_routing:
+    resource: "@DicarsAdminBundle/Resources/config/administrar_usuario_routing.yml"    
+    
 dicars_admin_homepage:
     pattern:  /index
     defaults: { _controller: DicarsAdminBundle:Default:index }

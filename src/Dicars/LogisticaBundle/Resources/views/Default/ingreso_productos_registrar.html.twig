@@ -88,13 +88,13 @@
 						<input id="cantidad" name="cantidad" type="number" style="margin: 0 18px 0 0;">
 						<label style="display:inline;">Precio/Unidad</label>
 						<input id="precio" name="precio" type="number" style="margin: 0 18px;">
-						<button type="submit" class="btn btn-primary"><i class="icon-plus icon-white"></i>Agregar</button>
+						<button id="agregar_producto" type="button" class="btn btn-primary"><i class="icon-plus icon-white"></i>Agregar</button>
 					</div>
 				</div>
 				<hr>
 				<h3>Productos a Ingresar</h3>
 				<hr>
-				<table class="table table-striped table-bordered bootstrap-datatable datatable">
+				<table id="ingreso_productos_table" class="table table-striped table-bordered bootstrap-datatable datatable">
 					<thead>
 						  <tr>
 							  <th>Código</th>
@@ -104,196 +104,20 @@
 							  <th>Acciones</th>
 						  </tr>
 					</thead>   
-					<tbody>
-						<tr>
-							<td>David R</td>
-							<td class="center">2012/01/01</td>
-							<td class="center">Member</td>
-							<td class="center">
-								<span class="label label-success">Active</span>
-							</td>
-							<td class="center">
-								<a class="btn btn-info btn-editar" href="#">
-									<i class="icon-edit icon-white"></i>  
-									Editar                                            
-								</a>
-								<a class="btn btn-danger" href="#">
-									<i class="icon-trash icon-white"></i> 
-									Eliminar
-								</a>
-							</td>
-						</tr>
-						<tr>
-							<td>Chris Jack</td>
-							<td class="center">2012/01/01</td>
-							<td class="center">Member</td>
-							<td class="center">
-								<span class="label label-success">Active</span>
-							</td>
-							<td class="center">
-								<a class="btn btn-info" href="#">
-									<i class="icon-edit icon-white"></i>  
-									Editar                                            
-								</a>
-								<a class="btn btn-danger" href="#">
-									<i class="icon-trash icon-white"></i> 
-									Eliminar
-								</a>
-							</td>
-						</tr>
-						<tr>
-							<td>Jack Chris</td>
-							<td class="center">2012/01/01</td>
-							<td class="center">Member</td>
-							<td class="center">
-								<span class="label label-success">Active</span>
-							</td>
-							<td class="center">
-								<a class="btn btn-info" href="#">
-									<i class="icon-edit icon-white"></i>  
-									Editar                                            
-								</a>
-								<a class="btn btn-danger" href="#">
-									<i class="icon-trash icon-white"></i> 
-									Eliminar
-								</a>
-							</td>
-						</tr>
-						<tr>
-							<td>Muhammad Usman</td>
-							<td class="center">2012/01/01</td>
-							<td class="center">Member</td>
-							<td class="center">
-								<span class="label label-success">Active</span>
-							</td>
-							<td class="center">
-								<a class="btn btn-info" href="#">
-									<i class="icon-edit icon-white"></i>  
-									Editar                                            
-								</a>
-								<a class="btn btn-danger" href="#">
-									<i class="icon-trash icon-white"></i> 
-									Eliminar
-								</a>
-							</td>
-						</tr>
-						<tr>
-							<td>Sheikh Heera</td>
-							<td class="center">2012/02/01</td>
-							<td class="center">Staff</td>
-							<td class="center">
-								<span class="label label-important">Banned</span>
-							</td>
-							<td class="center">
-								<a class="btn btn-info" href="#">
-									<i class="icon-edit icon-white"></i>  
-									Editar                                            
-								</a>
-								<a class="btn btn-danger" href="#">
-									<i class="icon-trash icon-white"></i> 
-									Eliminar
-								</a>
-							</td>
-						</tr>
-						<tr>
-							<td>Helen Garner</td>
-							<td class="center">2012/02/01</td>
-							<td class="center">Staff</td>
-							<td class="center">
-								<span class="label label-important">Banned</span>
-							</td>
-							<td class="center">
-								<a class="btn btn-info" href="#">
-									<i class="icon-edit icon-white"></i>  
-									Editar                                            
-								</a>
-								<a class="btn btn-danger" href="#">
-									<i class="icon-trash icon-white"></i> 
-									Eliminar
-								</a>
-							</td>
-						</tr>
-						<tr>
-							<td>Saruar Ahmed</td>
-							<td class="center">2012/03/01</td>
-							<td class="center">Member</td>
-							<td class="center">
-								<span class="label label-warning">Pending</span>
-							</td>
-							<td class="center">
-								<a class="btn btn-info" href="#">
-									<i class="icon-edit icon-white"></i>  
-									Editar                                            
-								</a>
-								<a class="btn btn-danger" href="#">
-									<i class="icon-trash icon-white"></i> 
-									Eliminar
-								</a>
-							</td>
-						</tr>
-						<tr>
-							<td>Ahemd Saruar</td>
-							<td class="center">2012/03/01</td>
-							<td class="center">Member</td>
-							<td class="center">
-								<span class="label label-warning">Pending</span>
-							</td>
-							<td class="center">
-								<a class="btn btn-info" href="#">
-									<i class="icon-edit icon-white"></i>  
-									Editar                                            
-								</a>
-								<a class="btn btn-danger" href="#">
-									<i class="icon-trash icon-white"></i> 
-									Eliminar
-								</a>
-							</td>
-						</tr>
-						<tr>
-							<td>Habib Rizwan</td>
-							<td class="center">2012/01/21</td>
-							<td class="center">Staff</td>
-							<td class="center">
-								<span class="label label-success">Active</span>
-							</td>
-							<td class="center">
-								<a class="btn btn-info" href="#">
-									<i class="icon-edit icon-white"></i>  
-									Editar                                            
-								</a>
-								<a class="btn btn-danger" href="#">
-									<i class="icon-trash icon-white"></i> 
-									Eliminar
-								</a>
-							</td>
-						</tr>
-						<tr>
-							<td>Rizwan Habib</td>
-							<td class="center">2012/01/21</td>
-							<td class="center">Staff</td>
-							<td class="center">
-								<span class="label label-success">Active</span>
-							</td>
-							<td class="center">
-								<a class="btn btn-info" href="#">
-									<i class="icon-edit icon-white"></i>  
-									Editar                                            
-								</a>
-								<a class="btn btn-danger" href="#">
-									<i class="icon-trash icon-white"></i> 
-									Eliminar
-								</a>
-							</td>
-						</tr>
+					<tbody>					
 					</tbody>
 				</table>
 				<hr>
 				<div class="form-actions">
+				<a href="{{ path('dicars_logistica_cons_ingresoproductos') }}" type="reset" class="btn btn-cancelar" >Cancelar</a>
 					<button class="btn" ><i class="icon-print"></i>Imprimir</button>
 					<button type="submit" class="btn btn-primary"><i class="icon icon-white icon-save"></i>Guardar</button>
 				</div>
 				</fieldset>
-			</form>
+			</form>						
+			{% include 'DicarsLogisticaBundle:Default:registrar_producto.html.twig' %}
+			{% include 'DicarsLogisticaBundle:Default:registrar_proveedor.html.twig' %}
+			
 			{% include 'DicarsVentasBundle:Default:buscarproducto.html.twig' %}
 			{% include 'DicarsLogisticaBundle:Default:buscarproveedor.html.twig' %}
 		</div>
@@ -301,6 +125,8 @@
 </div>
 {% endblock %}
 {% block javascript %}
+<script src="{{ asset('js/util/functiongen.js') }}"></script>
+<script src="{{ asset('js/util/datatable_plugins.js') }}"></script>
 <script type="text/javascript">
 //mostrar Buscar Cliente------------------------------------>
 $('.btn-proveedor').click(function(e){
@@ -311,6 +137,92 @@ $('.btn-proveedor').click(function(e){
 $('.btn-buscarp').click(function(e){
 	e.preventDefault();
 	$('#modalBuscarProducto').modal('show');
+});
+//mostrar Registrar Producto------------------------------------>
+$('.btn-nuevoprod').click(function(e){
+	e.preventDefault();
+	$('#modalRegistro').modal('show');
+});
+//mostrar Registrar Proveedor------------------------------------>
+$('.btn-nuevoproveed').click(function(e){
+	e.preventDefault();
+	$('#modalRegistroProveedores').modal('show');
+});
+//mostrar Cancelar Registro Proveedor------------------------------------>
+$('.btn-cancelarprov').click(function(e){
+	e.preventDefault();
+	$('#modalBuscarProveedor').modal('show');
+});
+
+$("#select_producto").click(function(e){
+	e.preventDefault();
+	var data = SelectProductoData[0];
+	$('#producto').val(data.id+" - "+data.nombre);
+	$('#modalBuscarProducto').modal('hide');
+});
+
+$("#select_proveedor").click(function(e){
+	e.preventDefault();
+	var data = SelectProveedorData[0];
+	if(SelectProveedorData.length > 0)
+		$("#proveedor").val(data.ruc+" - "+data.razonsocial);
+	else
+		$("#proveedor").val("");
+	$('#modalBuscarProveedor').modal('hide');
+});
+
+
+$("#agregar_producto").click(function(e){
+	e.preventDefault();
+	$(SelectProductosTable).dataTable().fnAddData(SelectProductoData);
+	$('#producto').val("");
+	SelectProductoData.pop();
+});
+
+var SelectProductoData = new Array();
+var SelectProveedorData = new Array();
+var BuscarProductosTable;
+var BuscarProveedorTable;
+var SelectProductosTable;
+
+var RowCallBackFunctionProducto = getSimpleSelectRowCallBack(SelectProductoData,"select_producto_table");
+var RowCallBackFunctionProveedor = getSimpleSelectRowCallBack(SelectProveedorData,"select_proveedor_table");
+
+$(document).ready(function(){
+
+	UrlaDTableProductos = '{{ path("dicars_logistica_servicio_gettablaproductos") }}';
+	FormatoDTableProductos = [
+		              { "sWidth": "12%","mDataProp": "id"},
+		              { "sWidth": "12%","mDataProp": "nombre"},
+		              { "sWidth": "12%","mDataProp": "stock"},
+		              { "sWidth": "12%","mDataProp": "precio_contado"}
+		              ];
+	BuscarProductosTable = createDataTable('select_producto_table',UrlaDTableProductos,FormatoDTableProductos,null,RowCallBackFunctionProducto);
+
+	SelectProductosTable = $("#ingreso_productos_table").dataTable({
+		"aoColumns": [
+		              { "sWidth": "12%","mDataProp": "id"},
+		              { "sWidth": "12%","mDataProp": "nombre"},
+		              { "sWidth": "12%","mDataProp": "stock"},
+		              { "sWidth": "12%","mDataProp": "precio_contado"},
+		              { "sWidth": "12%","mDataProp": "elim_btn"}
+		              ],
+		"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span12'i><'span12 center'p>>",
+		"sPaginationType": "bootstrap",
+		"oLanguage": {
+		"sLengthMenu": "_MENU_ records per page"
+		}
+	});
+
+	UrlaDTableProveedores = '{{ path("dicars_logistica_servicio_gettablaproveedores") }}';
+	FormatoDTableProveedores = [
+		              { "sWidth": "12%","mDataProp": "ruc"},
+		              { "sWidth": "12%","mDataProp": "razonsocial"},
+		              { "sWidth": "12%","mDataProp": "telefono"},
+		              { "sWidth": "12%","mDataProp": "email"}
+		              ];
+	
+	BuscarProveedorTable = createDataTable('select_proveedor_table',UrlaDTableProveedores,FormatoDTableProveedores,null,RowCallBackFunctionProveedor);
 });
 </script>
 {% endblock %}
