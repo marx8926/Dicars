@@ -11,3 +11,6 @@ dicars_admin_constantes:
 dicars_admin_cargos:
     pattern:  /cargos
     defaults: { _controller: DicarsAdminBundle:Default:cargos }
+dicars_admin_usuarios:
+    pattern:  /usuarios
+    defaults: { _controller: DicarsAdminBundle:Default:usuarios }

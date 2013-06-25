@@ -18,4 +18,8 @@ class DefaultController extends Controller
     {
     	return $this->render('DicarsAdminBundle:Default:cargos.html.twig');
     }
+    public function usuariosAction()
+    {
+    	return $this->render('DicarsAdminBundle:Default:usuarios.html.twig');
+    }
 }
