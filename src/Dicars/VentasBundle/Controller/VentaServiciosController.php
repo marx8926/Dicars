@@ -22,8 +22,10 @@ class VentaServiciosController extends Controller{
 	
 		$todo = array();
 		foreach ($clientes as $key => $clientes){
-			$todo[] = array('nombre' => $clientes -> getCclientenom() , 'apellido' => $clientes -> getCclienteape(),
-					'dni' => $clientes -> getCclientedni(), 'linea_credito' => $clientes -> getNclientelineaop(),
+			$todo[] = array('nombre' => $clientes -> getCclientenom() , 
+					'apellido' => $clientes -> getCclienteape(),
+					'dni' => $clientes -> getCclientedni(), 
+					'linea_credito' => $clientes -> getNclientelineaop(),
 					'ver_btn' => "<a id-data='".$clientes -> getNclienteId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
 					'edit_btn' => "<a id-data='".$clientes -> getNclienteId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
 					'elim_btn' => "<a id-data='".$clientes -> getNclienteId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
@@ -65,8 +67,11 @@ class VentaServiciosController extends Controller{
 	
 		$todo = array();
 		foreach ($empleados as $key => $empleados){
-			$todo[] = array('nombres' => $empleados -> getCpersonalnom() , 'apellidos' => $empleados -> getCpersonalape(),
-					'dni' => $empleados -> getCpersonaldni(), 'telefono' => $empleados -> getCpersonaltelf(),
+			$todo[] = array('id' => $empleados -> getNpersonalId() ,
+					'nombres' => $empleados -> getCpersonalnom() , 
+					'apellidos' => $empleados -> getCpersonalape(),
+					'dni' => $empleados -> getCpersonaldni(), 
+					'telefono' => $empleados -> getCpersonaltelf(),
 					'ver_btn' => "<a id-data='".$empleados -> getNpersonalId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
 					'edit_btn' => "<a id-data='".$empleados -> getNpersonalId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
 					'elim_btn' => "<a id-data='".$empleados -> getNpersonalId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");

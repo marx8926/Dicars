@@ -140,4 +140,27 @@ class AdministrarServiciosController extends Controller {
 		return new JsonResponse($data);
 	}
 
-}
+
+	public function getTablaUsuarioAction(){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$usuarios = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:Usuario')
+		->findAll();
+		$em->clear();
+		$todo = array();
+		foreach ($usuarios as $key => $usuario){
+			$todo[] = array('trabajador' => $usuario -> getNpersonal() -> getNpersonalId(),
+						'usuario_id' => $usuario -> getCusuarioid(),
+						'contrasena' => $usuario -> getCusuarioclave(),
+						'estado' => $usuario -> getCusuarioest(),
+						'fecha' => $usuario -> getCusuariofecreg() -> format('Y-m-d'),
+						'ver_btn' => "<a id-data='".$usuario -> getNusuarioId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
+						'edit_btn' => "<a id-data='".$usuario -> getNusuarioId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
+						'elim_btn' => "<a id-data='".$usuario -> getNusuarioId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
+		}
+		return new JsonResponse(array('aaData' => $todo));
+	}
+		
+	}
+	

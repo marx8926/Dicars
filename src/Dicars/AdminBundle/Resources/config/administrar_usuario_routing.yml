@@ -1,10 +1,10 @@
-dicars_ventas_registrar_usuario:
+dicars_admin_registrar_usuario:
     pattern:  /registrar_usuario    
     defaults: { _controller: DicarsAdminBundle:AdministrarUsuario:RegistrarUsuario }
     requirements:
           _method: POST
           
-dicars_ventas_editar_usuario:
+dicars_admin_editar_usuario:
     pattern:  /editar_usuario
     defaults: { _controller: DicarsAdminBundle:AdministrarUsuario:EditarUsuario }
     requirements:

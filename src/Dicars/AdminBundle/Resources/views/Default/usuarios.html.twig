@@ -15,7 +15,7 @@
 			<h2><i class="icon-user"></i>Usuarios</h2>
 		</div>
 		<div class="box-content">
-			<form class="form-horizontal">
+			<form id="RegistrarUsuarioForm" class="form-horizontal" method="post" action="{{ path('dicars_admin_registrar_usuario') }}">
 				<fieldset>
 					<div class="control-group">
 						<label class="control-label" for="trabajador">Trabajador</label>
@@ -54,20 +54,21 @@
 						</div>
 					</div>
 					<div class="form-actions">
-						<button type="submit" class="btn btn-primary">Agregar</button>
+						<button id="agregar_usuario" type="submit" class="btn btn-primary">Agregar</button>
 						<button type="reset" class="btn">Limpiar Campos</button>
 				  	</div>
 				</fieldset>
 			</form>
 			{% include 'DicarsVentasBundle:Default:buscartrabajador.html.twig' %}
-			<hr>
-			<table class="table table-striped table-bordered bootstrap-datatable datatable" id="empleados_table">
+			
+			<table id="usuarios_table" class="table table-striped table-bordered bootstrap-datatable datatable">
 				<thead>
 					<tr>
 						<th>Usuario ID</th>
 					  	<th>Trabajador</th>
 					  	<th>Estado</th>
 					  	<th>Fecha de Registo</th>
+					  	<th></th>
 					  	<th></th>
 					  	<th></th>
 				  	</tr>
@@ -78,11 +79,86 @@
 </div>
 {% endblock %}
 {% block javascript %}
+<script src="{{ asset('js/util/functiongen.js') }}"></script>
+<script src="{{ asset('js/util/datatable_plugins.js') }}"></script>
 <script type="text/javascript">
+
 //mostrar Buscar Cliente------------------------------------>
 $('.btn-trabajador').click(function(e){
 	e.preventDefault();
 	$('#modalBuscarTrabajador').modal('show');
 });
+
+$("#select_trabajador").click(function(e){
+	e.preventDefault();
+	var data = SelectTrabajadorData[0];
+	$('#trabajador').val(data.id);
+	$('#modalBuscarTrabajador').modal('hide');
+});
+
+var UsuariosTable;
+var SelectTrabajadorData = new Array();
+var BuscarTrabajadorTable;
+var CargarBotones;
+var RowCallBackFunctionTrabajador;
+
+var ReloadTableUsuario;
+
+$(document).ready(function(){
+
+CargarBotones = function(){		
+		//mostrar Editar Cliente------------------------------------>
+		$('.btn-editar').unbind();
+		$('.btn-editar').click(function(e){
+			e.preventDefault();
+			$('#modalEditarDatos').modal('show');
+			id=$(this).attr("id-data");		
+			cargarEditar(id);	
+		});
+		
+		//mostrar Ver Datos Cliente------------------------------------>
+		$('.btn-datos').unbind();
+		$('.btn-datos').click(function(e){
+		e.preventDefault();
+		$('#modalVerDatos').modal('show');
+		id=$(this).attr("id-data");		
+		cargarVer(id);
+		});
+};
+
+	ReloadTableUsuario = function(data){
+		UsuariosTable.fnReloadAjax();
+	};
+	
+RowCallBackFunctionTrabajador = getSimpleSelectRowCallBack(SelectTrabajadorData,"select_trabajador_table");
+
+
+
+	UrlaDTable = '{{ path("dicars_ventas_servicio_gettablaempleados") }}';
+	FormatoDUsuarioTable = [
+	              { "sWidth": "25%","mDataProp": "nombres"},
+	              { "sWidth": "25%","mDataProp": "apellidos"},
+	              { "sWidth": "25%","mDataProp": "dni"},
+	              { "sWidth": "25%","mDataProp": "telefono"}
+	              ];
+	BuscarTrabajadorTable = createDataTable('select_trabajador_table',UrlaDTable,FormatoDUsuarioTable,null,RowCallBackFunctionTrabajador);
+
+	
+	
+	UrlaDTableUser = '{{ path("dicars_admin_servicio_gettablausuario") }}';
+	FormatoDTable = [
+	              { "sWidth": "15%","mDataProp": "usuario_id"},
+	              { "sWidth": "15%","mDataProp": "trabajador"},
+	              { "sWidth": "15%","mDataProp": "estado"},
+	              { "sWidth": "15%","mDataProp": "fecha"},	              
+	              { "sWidth": "13%","mDataProp": "ver_btn"},
+	              { "sWidth": "13%","mDataProp": "edit_btn"},
+	              { "sWidth": "14%","mDataProp": "elim_btn"}
+	              ];
+	UsuariosTable = createDataTable('usuarios_table',UrlaDTableUser,FormatoDTable,CargarBotones);
+
+	enviar("RegistrarUsuarioForm",ReloadTableUsuario,CargarBotones);				
+});
+
 </script>
 {% endblock %}
