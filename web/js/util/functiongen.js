@@ -215,9 +215,9 @@ function reloadTable(oTable){
 	return returnfunction;
 }
 
-function reloadclosemodal(idmodal,oTable){
+function reloadclosemodal(idmodal,idaTable){
 	var returnfunction = function(data){
-		oTable.fnReloadAjax();
+		$('#'+idaTable).dataTable().fnReloadAjax();
 		console.log(data);
 		$('#'+idmodal).modal('hide');
 		};

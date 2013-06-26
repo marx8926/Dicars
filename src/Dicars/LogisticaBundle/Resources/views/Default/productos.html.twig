@@ -182,8 +182,8 @@ $(document).ready(function(){
 		              ];
 	oTable = createDataTable('productos_table',UrlaDTable,FormatoDTable,CargarBotones);
 
-	ReloadTableEditar = reloadclosemodal('modalEditarDatos',oTable);
-	ReloadTableRegistrar = reloadclosemodal('modalRegistro',oTable);
+	ReloadTableEditar = reloadclosemodal('modalEditarDatos','productos_table');
+	ReloadTableRegistrar = reloadclosemodal('modalRegistro','productos_table');
 
 	enviar('RegistrarProductoForm', ReloadTableRegistrar);
 	enviar('EditarProductoForm',ReloadTableEditar);
