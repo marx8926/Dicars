@@ -42,46 +42,66 @@
 			<div class="modal-body">
 				<form id="RegistrarLocalForm" class="form-horizontal" method="post" action="{{ path('dicars_logistica_registrar_local') }}">
 					<fieldset>
-					  <div class="control-group">
-						<label class="control-label" for="nombre_tienda">Nombre de la Tienda</label>
-						<div class="controls">
-						  <input class="input-xlarge focused" id="nombre_tienda" name="nombre_tienda" type="text">
+						<div class="control-group">
+							<label class="control-label" for="nombre_tienda">Nombre de la Tienda</label>
+							<div class="controls">
+						  		<input class="input-xlarge focused" id="nombre_tienda" name="nombre_tienda" type="text">
+							</div>
+					  	</div>
+					  	<div class="control-group">
+							<label class="control-label" for="estado">Estado</label>
+							<div class="controls">
+						  		<select id="estado" name="estado">
+									<option value="1">Habilitado</option>
+									<option value="0">Inhabilitado</option>
+								</select>
+							</div>
+					  	</div>
+					  	<div class="control-group">
+							<label class="control-label" for="direccion">Dirección</label>
+							<div class="controls">
+						  		<input class="input-xlarge focused" id="direccion" name="direccion" type="text">
+							</div>
+					  	</div>
+					  	<div class="control-group">
+							<label class="control-label" for="telefono">Teléfono</label>
+							<div class="controls">
+						  		<input class="input-xlarge focused" id="telefono" name="telefono" type="text">
+							</div>
+					  	</div>
+					  	<div class="control-group">
+							<label class="control-label" for="tiprub">Tipo de Rubro</label>
+							<div class="controls">
+						  		<input class="input-xlarge focused" id="tiprub" name="tiprub" type="text">
+							</div>
+					  	</div>
+					  	<h4>Ubigeo</h4>
+					  	<hr>
+					  	<div class="control-group">
+							<label class="control-label" for="dep">Departamento</label>
+							<div class="controls">
+						  		<select id="estado" name="dep">
+								</select>
+							</div>
+					  	</div>
+					  	<div class="control-group">
+							<label class="control-label" for="prov">Provincia</label>
+							<div class="controls">
+						  		<select id="estado" name="prov">
+								</select>
+							</div>
+					  	</div>
+					  	<div class="control-group">
+							<label class="control-label" for="dist">Distrito</label>
+							<div class="controls">
+						  		<select id="estado" name="dist">
+								</select>
+							</div>
+					  	</div>
+					  	<div class="form-actions">
+							<button type="submit" class="btn btn-primary">Guardar</button>
+							<button type="reset" class="btn" data-dismiss="modal">Cancelar</button>
 						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="estado">Estado</label>
-						<div class="controls">
-						  <input class="input-xlarge focused" id="estado" name="estado" type="text">
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="direccion">Dirección</label>
-						<div class="controls">
-						  <input class="input-xlarge focused" id="direccion" name="direccion" type="text">
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="telefono">Teléfono</label>
-						<div class="controls">
-						  <input class="input-xlarge focused" id="telefono" name="telefono" type="text">
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="ubigeo">Ubigeo</label>
-						<div class="controls">
-						  <input class="input-xlarge focused" id="ubigeo" name="ubigeo" type="text">
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="tiprub">Tipo de Rubro</label>
-						<div class="controls">
-						  <input class="input-xlarge focused" id="tiprub" name="tiprub" type="text">
-						</div>
-					  </div>
-					  <div class="form-actions">
-						<button type="submit" class="btn btn-primary">Guardar</button>
-						<button type="reset" class="btn" data-dismiss="modal">Cancelar</button>
-					  </div>
 					</fieldset>
 				  </form>
 			</div>

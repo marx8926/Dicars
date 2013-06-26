@@ -19,5 +19,7 @@ dicars_admin_servicio_getmarcabyid:
     defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getMarcaById }
 dicars_admin_servicio_gettablausuario:
     pattern:  /servicio_gettablausuario
-    defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getTablaUsuario }    
-
+    defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getTablaUsuario }
+dicars_admin_servicio_getoptionmarcas:
+    pattern:  /servicio_getoptionmarcas
+    defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getOptionMarcas } 

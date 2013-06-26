@@ -161,6 +161,21 @@ class AdministrarServiciosController extends Controller {
 		}
 		return new JsonResponse(array('aaData' => $todo));
 	}
+	
+	public function getOptionMarcasAction(){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$marcas = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:VenMarca')
+		->findAll();
+		$em->clear();
 		
+		$result = "";
+		foreach ($marcas as $key => $marca){
+			$result = $result."<option value='".$marca->getNmarcaId()."'>".$marca->getCmarcadesc()."</option>";
+		}	
+		return new Response($result);
 	}
+		
+}
 	

@@ -162,7 +162,7 @@ function getAjaxObject(url){
 		}).responseText;
 	return jQuery.parseJSON(data);
 }
-function ajaxResposeData(namediv,path){
+function ajaxResponseData(namediv,path){
 	var data = $.ajax({
         url: path,
         async: false
@@ -170,7 +170,7 @@ function ajaxResposeData(namediv,path){
 	$('#'+namediv).html(data);
 }
 
-function ajaxResposeDataPost(namediv,path){
+function ajaxResponseDataPost(namediv,path){
 	var data = $.ajax(
             {
                 url: path,

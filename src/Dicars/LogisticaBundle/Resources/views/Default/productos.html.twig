@@ -72,6 +72,8 @@
 
 var oTable;
 
+var urlMarca = "{{ path('dicars_admin_servicio_getoptionmarcas') }}";
+
 var ReloadTableEditar = reloadclosemodal('modalEditarDatos',oTable);
 var ReloadTableRegistrar = reloadclosemodal('modalRegistro',oTable);
 
@@ -104,7 +106,7 @@ function cargarEditar(id){
 	          		{'label':'Codigo','type':'span','value':producto.id},
 	              	{'label':'Talla','type':'input','typeinput':'text','value':producto.talla,'name':'talla'},
 	              	{'label':'Serie','type':'input','typeinput':'text','value':producto.serie,'name':'serie'},
-	              	{'label':'Marca','type':'input','typeinput':'text','value':'','name':'marca'},
+	              	{'label':'Marca','type':'select','name':'marcaE'},
 	              	{'label':'Tipo','type':'select','name':'tipo'},
 	              	{'label':'Descripcion','type':'input','typeinput':'text','value':producto.nombre,'name':'descripcion'},
 	              	{'label':'Imagen','type':'file','name':'imagen'},
@@ -122,6 +124,7 @@ function cargarEditar(id){
 					{'type':'actions'}];
 		
 	$("#EditarProductoForm").html(crearElementosForm(ArrayDatos));
+	ajaxResponseData('marcaE',urlMarca);
 	$('#tipo').append('<option value="1">Option 1</option>');
 	$('#tipo').append('<option value="2">Option 2</option>');
 	$('#tipo').val(producto.tipo);
@@ -156,7 +159,10 @@ function cargarVer(id){
 }
 
 //init------------------------------------>
-$(document).ready(function(){	
+$(document).ready(function(){
+
+	ajaxResponseData('marca',urlMarca);
+	
 	//mostrar Registrar Cliente------------------------------------>
 	$('.btn-registrar').click(function(e){
 		e.preventDefault();
