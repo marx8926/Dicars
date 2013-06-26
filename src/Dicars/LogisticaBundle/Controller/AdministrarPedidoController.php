@@ -28,7 +28,12 @@ class AdministrarPedidoController extends Controller{
 			
 			$Codigo = $datos['codigo'];
 			
-			$Local = 
+			$Local = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:Local')
+			->findOneBy(array('nlocalId' => 1));
+			
+			$Fecha_reg = new DateTime($datos[]);
+			$Fecha_ent = null;
 			
 			
 			$Pedido = new  LogOrdped();

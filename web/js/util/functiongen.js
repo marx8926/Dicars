@@ -269,7 +269,7 @@ function addElemento(obj){
 	    		$elem.val(obj.value);
 	    		break;
 	    case 'date':
-	    		$elem = $('<input type="text" class="input-xlarge datepicker name="'+obj.name+'" value="'+obj.value+'">');
+	    		$elem = $('<input type="text" class="input-xlarge datepicker" id="'+obj.name+'" name="'+obj.name+'" value="'+obj.value+'">');
 	    		break;
 	    case 'select':
 	    		$elem  = $('<select id="'+obj.name+'" name="'+obj.name+'" data-rel="chosen">');
