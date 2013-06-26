@@ -86,7 +86,7 @@ class AdministrarTrabajadorController extends Controller{
 	public function EditarTrabajadorAction(){
 		$request = $this->get('request');
 		$form = $request->request->get('formulario');
-	
+		
 		$datos = array();
 		parse_str($form,$datos);
 	
@@ -100,7 +100,7 @@ class AdministrarTrabajadorController extends Controller{
 		$Empleado_sexo = null;
 		$Empleado_estado = null;
 		$Empleado_edad = null;
-	
+		
 		if ($form!=null){
 			
 			$Empleado_Id = $datos["id"];
@@ -118,11 +118,11 @@ class AdministrarTrabajadorController extends Controller{
 			$Empleado_sexo = $datos["sexo"];
 			$Empleado_estado = $datos["estado"];
 			$Empleado_edad = $datos["edad"];				
-			
+			/**/
 			$Empleado = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:VenPersonal')
 			->findOneBy(array('npersonalId' => $Empleado_Id));
-				
+			
 			$Empleado->setNcargo($Empleado_cargo);
 			$Empleado->setCpersonaldni($Empleado_dni);
 			$Empleado->setCpersonalnom($Empleado_nombre);
@@ -145,18 +145,17 @@ class AdministrarTrabajadorController extends Controller{
 					
 				throw $e;
 			}
-				
+			
 			$this->getDoctrine()->getEntityManager()->commit();
 			$em->clear();
+			
 			$return = array("responseCode"=>200, "datos"=>$datos);
-		}
-		else {
-			$return = array("responseCode"=>400, "greeting"=>"Bad");
-		}
-	
-		$return = json_encode($return);
-		return new Response($return,200,array('Content-Type'=>'application/json'));
-	}
-	
-	
+			}
+			else {
+				$return = array("responseCode"=>400, "greeting"=>"Bad");
+			}
+		
+			$return = json_encode($return);
+			return new Response($return,200,array('Content-Type'=>'application/json'));
+	}		
 }

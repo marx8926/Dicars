@@ -95,7 +95,7 @@ class VentaServiciosController extends Controller{
 				'apellidos' => $empleado -> getCpersonalape(),				
 				'telefono' => $empleado -> getCpersonaltelf(),
 				'email' => $empleado -> getCpersonalemail(),
-				'fechanacimiento' => $empleado -> getDpersonalfec() -> format('Y-m-d'),
+				'fechanacimiento' => $empleado -> getDpersonalfec() -> format('d/m/Y'),
 				'sexo' => $empleado -> getCpersonalsexo(),
 				'estado' => $empleado -> getCpersonalest(),
 				'edad' => $empleado -> getCpersonaledad());
