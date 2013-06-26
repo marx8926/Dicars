@@ -119,8 +119,8 @@
 
 var oTable;
 
-var ReloadTableEditar = reloadclosemodal('modalEditarLocal');
-var ReloadTableRegistrar = reloadclosemodal('modalRegistro');
+var ReloadTableEditar = reloadclosemodal('modalEditarLocal', oTable);
+var ReloadTableRegistrar = reloadclosemodal('modalRegistro', oTable);
 
 var CargarBotones = function(){
 	//mostrar Editar Cliente------------------------------------>
@@ -141,7 +141,6 @@ var CargarBotones = function(){
 
 function cargarEditar(id){
 	url = "{{ path('dicars_logistica_servicio_getlocalbyid', {'id': ''}) }}/"+id;
-	console.log(url);
 	local = getAjaxObject(url);			
 
 	ArrayDatos = [	{'type':'hidden','value':local.id,'name':'id'},
