@@ -176,6 +176,21 @@ class AdministrarServiciosController extends Controller {
 		}	
 		return new Response($result);
 	}
+	
+	public function getOptionCategoriasAction(){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$categorias = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:VenCategoria')
+		->findAll();
+		$em->clear();
+	
+		$result = "";
+		foreach ($categorias as $key => $categoria){
+			$result = $result."<option value='".$categoria->getNcategoriaId()."'>".$categoria->getCcategorianom()."</option>";
+		}
+		return new Response($result);
+	}
 		
 }
 	

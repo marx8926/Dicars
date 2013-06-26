@@ -22,4 +22,7 @@ dicars_admin_servicio_gettablausuario:
     defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getTablaUsuario }
 dicars_admin_servicio_getoptionmarcas:
     pattern:  /servicio_getoptionmarcas
-    defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getOptionMarcas } 
+    defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getOptionMarcas }
+dicars_admin_servicio_getoptioncategorias:
+    pattern:  /servicio_getoptioncategorias
+    defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getOptionCategorias } 
