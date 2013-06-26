@@ -1,6 +1,8 @@
 <?php
 namespace Dicars\LogisticaBundle\Controller;
 
+use Dicars\DataBundle\Entity\LogDetordped;
+
 use Dicars\DataBundle\Entity\LogOrdped;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -13,12 +15,11 @@ class AdministrarPedidoController extends Controller{
 		$request = $this->get('request');
 		$form = $request->request->get('formulario');
 		$otherdata = $request->request->get('otherdata');
+		
 		$datos = array();
 		parse_str($form,$datos);
 		
 		$Serie = null;
-		$Codigo = null;
-		$Nro = null;
 		$Local = null;
 		$Fecha_reg = null;
 		$Fecha_ent = null;
@@ -26,25 +27,45 @@ class AdministrarPedidoController extends Controller{
 		
 		if ($form != null){
 			
-			$Codigo = $datos['codigo'];
+			$Fecha_reg = date_create_from_format('d/m/Y', $datos["fechapedido"]);
+				
+			$Fecha_ent = date_create_from_format('d/m/Y', $datos["fechaentrega"]);
+			
+			$Observacion = $datos['observaciones'];
 			
 			$Local = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:Local')
-			->findOneBy(array('nlocalId' => 1));
+			->findOneBy(array('nlocalId' => 1));			
 			
-			$Fecha_reg = new DateTime($datos[]);
-			$Fecha_ent = null;
-			
+			$Empleado = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:VenPersonal')
+			->findOneBy(array('npersonalId' => 1));
 			
 			$Pedido = new  LogOrdped();
 			$Pedido -> setCordpedobsv($Observacion);
-			/*
-				
+			$Pedido -> setDordpedfecreg($Fecha_reg);
+			$Pedido -> setDordepedfecent($Fecha_ent);
+			$Pedido -> setNlocal($Local);
+			$Pedido -> setNpersonal($Empleado);
+			
 			$em = $this->getDoctrine()->getEntityManager();
 			$this->getDoctrine()->getEntityManager()->beginTransaction();
 			try {
-				$em->persist($Producto);
-				$em->flush();
+				/*$em->persist($Pedido);
+				$em->flush();*/			
+				
+				foreach($otherdata as $key => $data){
+					$Producto = $this->getDoctrine()
+					->getRepository('DicarsDataBundle:Producto')
+					->findOneBy(array('nproductoId' => $data['id']));
+					
+					$DetallePedido = new LogDetordped();
+					$DetallePedido -> setNdetordpedcant($data['cantidad']);
+					$DetallePedido -> setNordped($Pedido);
+					$DetallePedido -> setNproducto($Producto);
+					$DetallePedido -> setNdetordpedcantacept(10);
+				}
+				
 			} catch (Exception $e) {
 				$this->getDoctrine()->getEntityManager()->rollback();
 				$this->getDoctrine()->getEntityManager()->close();
@@ -53,8 +74,8 @@ class AdministrarPedidoController extends Controller{
 				throw $e;
 			}
 			$this->getDoctrine()->getEntityManager()->commit();
-			$em->clear();*/
-			$return = array("responseCode"=>200, "datos"=>$otherdata);
+			$em->clear();
+			$return = array("responseCode"=>200, "datos"=>$datos);
 				
 		}
 		else {
