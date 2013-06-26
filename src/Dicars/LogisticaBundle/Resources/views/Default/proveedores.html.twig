@@ -28,7 +28,9 @@
 					<th>Teléfono</th>
 					<th>Email</th>
 					<th>Página Web</th>
-					<th>Acciones</th>
+					<th></th>
+					<th></th>
+					<th></th>
 				</tr>
 			</thead>   
 			<tbody>
@@ -140,7 +142,9 @@ $(document).ready(function(){
 		              { "sWidth": "12%","mDataProp": "telefono"},
 		              { "sWidth": "12%","mDataProp": "email"},
 		              { "sWidth": "12%","mDataProp": "sitioweb"},
-		              { "sWidth": "40%","mDataProp": "Acciones"}
+		              { "sWidth": "13%","mDataProp": "ver_btn"},
+		              { "sWidth": "13%","mDataProp": "edit_btn"},
+		              { "sWidth": "14%","mDataProp": "elim_btn"}
 		              ];
 	oTable = createDataTable('proveedores_table',UrlaDTable,FormatoDTable,CargarBotones);
 });

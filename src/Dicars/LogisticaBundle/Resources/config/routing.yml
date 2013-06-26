@@ -8,6 +8,9 @@ logistica_administrar_producto_routing:
     resource: "@DicarsLogisticaBundle/Resources/config/administrar_producto_routing.yml"
     
 logistica_administrar_local_routing:
+    resource: "@DicarsLogisticaBundle/Resources/config/administrar_local_routing.yml"
+    
+logistica_administrar_pedido_routing:
     resource: "@DicarsLogisticaBundle/Resources/config/administrar_pedido_routing.yml"
 
 dicars_logistica_homepage:
