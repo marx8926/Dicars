@@ -1,6 +1,8 @@
 <?php
 namespace Dicars\LogisticaBundle\Controller;
 
+use Dicars\DataBundle\Entity\LogOrdped;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\TransactionRequiredException;
@@ -15,12 +17,22 @@ class AdministrarPedidoController extends Controller{
 		parse_str($form,$datos);
 		
 		$Serie = null;
+		$Codigo = null;
 		$Nro = null;
 		$Local = null;
 		$Fecha_reg = null;
 		$Fecha_ent = null;
+		$Observacion = null;
 		
 		if ($form != null){
+			
+			$Codigo = $datos['codigo'];
+			
+			$Local = 
+			
+			
+			$Pedido = new  LogOrdped();
+			$Pedido -> setCordpedobsv($Observacion);
 			/*
 				
 			$em = $this->getDoctrine()->getEntityManager();

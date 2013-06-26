@@ -71,32 +71,12 @@
 <script type="text/javascript">
 
 var oTable;
-
 var urlMarca = "{{ path('dicars_admin_servicio_getoptionmarcas') }}";
-
-var ReloadTableEditar = reloadclosemodal('modalEditarDatos',oTable);
-var ReloadTableRegistrar = reloadclosemodal('modalRegistro',oTable);
+var ReloadTableEditar;
+var ReloadTableRegistrar;
 
 //Funcion para cargar las funciones de los botones
-var CargarBotones = function(){
-	//mostrar Editar Cliente------------------------------------>
-	$('.btn-editar').unbind();
-	$('.btn-editar').click(function(e){
-		e.preventDefault();
-		$('#modalEditarDatos').modal('show');
-		id=$(this).attr("id-data");		
-		cargarEditar(id);
-
-	});
-	//mostrar Ver Datos Cliente------------------------------------>
-	$('.btn-datos').unbind();
-	$('.btn-datos').click(function(e){
-		e.preventDefault();
-		$('#modalVerDatos').modal('show');
-		id=$(this).attr("id-data");		
-		cargarVer(id);			
-	});
-};
+var CargarBotones;
 
 function cargarEditar(id){
 	url = "{{ path('dicars_logistica_servicio_getproductobyid', {'id': ''}) }}/"+id;
@@ -168,9 +148,26 @@ $(document).ready(function(){
 		e.preventDefault();
 		$('#modalRegistro').modal('show');			
 	});
-	
-	enviar('RegistrarProductoForm', ReloadTableRegistrar);
-	enviar('EditarProductoForm',ReloadTableEditar);
+
+	CargarBotones = function(){
+		//mostrar Editar Cliente------------------------------------>
+		$('.btn-editar').unbind();
+		$('.btn-editar').click(function(e){
+			e.preventDefault();
+			$('#modalEditarDatos').modal('show');
+			id=$(this).attr("id-data");		
+			cargarEditar(id);
+
+		});
+		//mostrar Ver Datos Cliente------------------------------------>
+		$('.btn-datos').unbind();
+		$('.btn-datos').click(function(e){
+			e.preventDefault();
+			$('#modalVerDatos').modal('show');
+			id=$(this).attr("id-data");		
+			cargarVer(id);			
+		});
+	};
 	
 	UrlaDTable = '{{ path("dicars_logistica_servicio_gettablaproductos") }}';
 	FormatoDTable = [
@@ -184,6 +181,12 @@ $(document).ready(function(){
 		              { "sWidth": "14%","mDataProp": "elim_btn"}
 		              ];
 	oTable = createDataTable('productos_table',UrlaDTable,FormatoDTable,CargarBotones);
+
+	ReloadTableEditar = reloadclosemodal('modalEditarDatos',oTable);
+	ReloadTableRegistrar = reloadclosemodal('modalRegistro',oTable);
+
+	enviar('RegistrarProductoForm', ReloadTableRegistrar);
+	enviar('EditarProductoForm',ReloadTableEditar);
 });
 </script>
 {% endblock %}
