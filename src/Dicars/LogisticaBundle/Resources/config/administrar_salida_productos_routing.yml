@@ -1,0 +1,5 @@
+dicars_logistica_registrar_salida_producto:
+    pattern:  /registrar_salida_producto
+    defaults: { _controller: DicarsLogisticaBundle:AdministrarSalidaProd:RegistrarSalidaProd }
+    requirements:
+          _method: POST

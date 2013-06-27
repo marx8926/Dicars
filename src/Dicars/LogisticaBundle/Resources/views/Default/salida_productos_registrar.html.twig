@@ -16,32 +16,32 @@
 			<h2>Salida Productos: Registrar</h2>
 		</div>
 		<div class="box-content">
-			<form id="RegistrarSalidaForm" class="form-horizontal">
+			<form id="RegistrarSalidaForm" class="form-horizontal" method="post" action="{{ path('dicars_logistica_registrar_salida_producto') }}">
 				<fieldset>
 					<div class="row-fluid">
 						<div class="span6">
 							<div class="control-group">
 								<label class="control-label" for="codigo">Código</label>
 								<div class="controls">
-									<input class="input-xlarge focused" id="codigo" type="text">
+									<input class="input-xlarge focused" id="codigo" name="codigo" type="text">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="registrador">Registrador</label>
 								<div class="controls">
-									<input class="input-xlarge focused" id="registrador" type="text">
+									<input class="input-xlarge focused" id="registrador" name="registrador" type="text">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="motivo">Motivo</label>
 								<div class="controls">
-									<input class="input-xlarge focused" id="motivo" type="text">
+									<input class="input-xlarge focused" id="motivo" name="motivo" type="text">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="tienda">Tienda</label>
 								<div class="controls">
-								  	<select id="tienda" data-rel="chosen">
+								  	<select id="tienda" name="tienda" data-rel="chosen">
 										<option>Option 1</option>
 										<option>Option 2</option>
 										<option>Option 3</option>
@@ -55,13 +55,14 @@
 							<div class="control-group">
 								<label class="control-label" for="fecha">Fecha</label>
 								<div class="controls">
-									<input class="input-xlarge datepicker" id="fecha" type="text">
+									<input class="input-xlarge datepicker" id="fecha" name="fecha" type="text">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="solicitante">Solicitante</label>
 								<div class="controls">
-									<input class="input-xlarge focused" id="solicitante" type="text">
+									<input class="input-xlarge focused" id="solicitante" name="solicitante" type="text">
+									<input class="input-xlarge focused" id="solicitante_id" name="solicitante_id" type="hidden">
 									<button class="btn btn-info btn-solicitante" style="margin-left: 15px;"><i class="icon-user icon-white"></i></button>
 								</div>
 							</div>
@@ -70,7 +71,7 @@
 					<div class="control-group">
 						<label class="control-label" for="observaciones">Observaciones</label>
 						<div class="controls">
-							<textarea id="observaciones" class="input-xlarge"></textarea>
+							<textarea id="observaciones" name="observaciones" class="input-xlarge"></textarea>
 						</div>
 					</div>
 				</fieldset>
@@ -79,7 +80,7 @@
 				<div class="control-group">
 					<label class="control-label" for="producto">Producto</label>
 					<div class="controls">
-						<input class="input-xlarge focused" id="producto" type="text">
+						<input class="input-xlarge focused" id="producto" name="producto" type="text">
 					  	<button type="button" class="btn btn-info btn-buscarp" style="margin: 0 18px;"><i class="icon-search icon-white"></i>Buscar</button>
 						<label style="display:inline;" for="cantidad">Cantidad</label>
 						<input id="cantidad" name="cantidad" type="number" style="margin: 0 18px 0 0;">
@@ -107,7 +108,7 @@
 			<div class="form-horizontal">
 				<div class="form-actions">
 					<button class="btn" ><i class="icon-print"></i>Imprimir</button>
-					<button type="submit" class="btn btn-primary"><i class="icon icon-white icon-save"></i>Guardar</button>
+					<button id="enviar_salida_producto" type="button" class="btn btn-primary"><i class="icon icon-white icon-save"></i>Guardar</button>
 				</div>
 			</div>
 			{% include 'DicarsVentasBundle:Default:buscarproducto.html.twig' %}
@@ -154,7 +155,8 @@ $(document).ready(function(){
 	$("#select_trabajador").click(function(e){
 		e.preventDefault();
 		var data = SelectTrabajadorData[0];
-		$('#solicitante').val(data.id+" - "+ data.nombres + " " + data.apellidos);
+		$('#solicitante').val(data.nombres + " " + data.apellidos);
+		$('#solicitante_id').val(data.id);
 		$('#modalBuscarTrabajador').modal('hide');
 	});
 	$("#select_producto").click(function(e){
@@ -183,7 +185,7 @@ $(document).ready(function(){
 		}
 	});
 
-	$("#btn_enviar_pedido").click(function(e){
+	$("#enviar_salida_producto").click(function(e){
 		$("#RegistrarSalidaForm").submit();
 	});
 	
@@ -229,6 +231,7 @@ $(document).ready(function(){
 		              ];
 	
 	BuscarTrabajadorTable = createDataTable('select_trabajador_table',UrlaDTableTrabajadores,FormatoDTableTrabajadores,null,RowCallBackFunctionTrabajador);
+	enviar("RegistrarSalidaForm",logdata,SelectProductosTableData);
 });
 </script>
 {% endblock %}
