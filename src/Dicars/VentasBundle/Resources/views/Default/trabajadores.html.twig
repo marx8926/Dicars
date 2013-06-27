@@ -102,7 +102,6 @@ function cargarVer(id){
 		url = "{{ path('dicars_ventas_servicio_gettrabajadorbyid', {'id': ''}) }}/"+id;			
 		empleado = getAjaxObject(url);
 				
-
 		ArrayDatos = [	{'label':'Cargo','type':'span','value':empleado.cargo},
 						{'label':'Nombres','type':'span', 'value':empleado.nombres},
 		              	{'label':'Apellidos','type':'span','value':empleado.apellidos},

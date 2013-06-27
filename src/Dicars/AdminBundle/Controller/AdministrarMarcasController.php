@@ -10,6 +10,7 @@ use Doctrine\ORM\TransactionRequiredException;
 class AdministrarMarcasController extends Controller{
 	
 	public function RegistrarMarcaAction(){
+		
 		$request = $this->get('request');
 		$form = $request->request->get('formulario');
 	

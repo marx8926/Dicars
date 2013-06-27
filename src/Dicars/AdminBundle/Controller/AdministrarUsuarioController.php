@@ -1,6 +1,8 @@
 <?php
 namespace Dicars\AdminBundle\Controller;
 
+use Dicars\DataBundle\Entity\Usuario;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\TransactionRequiredException;
@@ -21,19 +23,24 @@ class AdministrarUsuarioController  extends Controller{
 		$Usuario_fechareg = null;
 	
 		if ($form!=null){
-			$Usuario_trabajador = $datos["trabajador"];
+			
+			$Usuario_trabajador = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:VenPersonal')
+			->findOneBy(array('npersonalId'  => $datos["trabajador"]));
+			
 			$Usuario_id = $datos["usuario_id"];
 			$Usuario_clave = $datos["contrasena"];
 			$Usuario_estado = "A";
-			$Usuario_fechareg = new \DateTime($datos["fecha"]);	
-	
+			
+			$Usuario_fechareg = date_create_from_format('d/m/Y',$datos["fecharegistro"]);	
+			
 			$Usuario = new Usuario();
 			$Usuario->setNpersonal($Usuario_trabajador);
 			$Usuario->setCusuarioid($Usuario_id);
 			$Usuario->setCusuarioclave($Usuario_clave);
 			$Usuario->setCusuarioest($Usuario_estado);
 			$Usuario->setCusuariofecreg($Usuario_fechareg);
-	
+			
 			$em = $this->getDoctrine()->getEntityManager();
 			$this->getDoctrine()->getEntityManager()->beginTransaction();
 			try {
@@ -48,12 +55,77 @@ class AdministrarUsuarioController  extends Controller{
 			}
 			$this->getDoctrine()->getEntityManager()->commit();
 			$em->clear();
+			
 			$return = array("responseCode"=>200, "datos"=>$datos);
 		}
 		else {
 			$return = array("responseCode"=>400, "greeting"=>"Bad");
 		}
 	
+		$return = json_encode($return);
+		return new Response($return,200,array('Content-Type'=>'application/json'));
+	}
+	
+	public function EditarUsuarioAction(){
+	
+		$request = $this->get('request');
+		$form = $request->request->get('formulario');
+	
+		$datos = array();
+		parse_str($form,$datos);
+		
+		$Usuario_cod = null;
+		$Usuario_trabajador = null;
+		//$Usuario_id : NOMBRE DE USUARIO DEL TRABAJADOR
+		$Usuario_id = null;
+		$Usuario_clave = null;
+		$Usuario_estado = null;
+		$Usuario_fechareg = null;
+	
+		if ($form != null){
+			
+			$Usuario_cod = $datos["idE"];
+			
+			$Usuario_trabajador = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:VenPersonal')
+			->findOneBy(array('npersonalId'  => $datos["trabajadorE"]));
+			
+			$Usuario_id = $datos["usuario_idE"];
+			$Usuario_clave = $datos["contrasenaE"];
+			$Usuario_estado = "A";
+			
+			$Usuario_fechareg = date_create_from_format('d/m/Y',$datos["fecharegistroE"]);
+			
+			$Usuario = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:Usuario')
+			->findOneBy(array('nusuarioId' => $Usuario_cod));
+				
+			$Usuario->setNpersonal($Usuario_trabajador);
+			$Usuario->setCusuarioid($Usuario_id);
+			$Usuario->setCusuarioclave($Usuario_clave);
+			$Usuario->setCusuarioest($Usuario_estado);
+			$Usuario->setCusuariofecreg($Usuario_fechareg);	
+			
+			$em = $this->getDoctrine()->getEntityManager();
+			$this->getDoctrine()->getEntityManager()->beginTransaction();
+	
+			try {
+				$em->flush();
+			} catch (Exception $e) {
+				$this->getDoctrine()->getEntityManager()->rollback();
+				$this->getDoctrine()->getEntityManager()->close();
+				$return = array("responseCode"=>400, "greeting"=>"Bad");
+	
+				throw $e;
+			}
+			$this->getDoctrine()->getEntityManager()->commit();
+			$em->clear();
+			
+			$return = array("responseCode"=>200, "datos"=>$datos);	
+		}
+		else {
+			$return = array("responseCode"=>400, "greeting"=>"Bad");
+		}	
 		$return = json_encode($return);
 		return new Response($return,200,array('Content-Type'=>'application/json'));
 	}

@@ -152,14 +152,34 @@ class AdministrarServiciosController extends Controller {
 		foreach ($usuarios as $key => $usuario){
 			$todo[] = array('trabajador' => $usuario -> getNpersonal() -> getNpersonalId(),
 						'usuario_id' => $usuario -> getCusuarioid(),
-						'contrasena' => $usuario -> getCusuarioclave(),
+						'clave' => $usuario -> getCusuarioclave(),
 						'estado' => $usuario -> getCusuarioest(),
-						'fecha' => $usuario -> getCusuariofecreg() -> format('Y-m-d'),
+						'fecharegistro' => $usuario -> getCusuariofecreg() -> format('d/m/Y'),
 						'ver_btn' => "<a id-data='".$usuario -> getNusuarioId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
 						'edit_btn' => "<a id-data='".$usuario -> getNusuarioId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
 						'elim_btn' => "<a id-data='".$usuario -> getNusuarioId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
 		}
 		return new JsonResponse(array('aaData' => $todo));
+	}
+	
+	public function getUsuarioByIdAction($id){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$usuario = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:Usuario')
+		->findOneBy(array('nusuarioId' => $id));
+	
+		$em->clear();
+	
+		$data = array('id' => $usuario -> getNusuarioId(),
+				'trabajador' => $usuario -> getNpersonal()->getNpersonalId(),
+				'usuario_id' => $usuario -> getCusuarioId(),
+				'clave' => $usuario -> getCusuarioclave(),
+				'estado' => $usuario -> getCusuarioest(),
+				'fecharegistro' => $usuario -> getCusuariofecreg()-> format('d/m/Y')
+				);
+	
+		return new JsonResponse($data);
 	}
 	
 	public function getOptionMarcasAction(){
