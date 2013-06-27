@@ -2,7 +2,6 @@
 namespace Dicars\LogisticaBundle\Controller;
 
 use Dicars\DataBundle\Entity\LogDetordped;
-
 use Dicars\DataBundle\Entity\LogOrdped;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -42,6 +41,10 @@ class AdministrarPedidoController extends Controller{
 			->findOneBy(array('npersonalId' => 1));
 			
 			$Pedido = new  LogOrdped();
+			$Pedido -> setCordpedserie('qwer');
+			$Pedido -> setCordpednro('12345678');
+			$Pedido -> setCordpedenvemail('1');
+			$Pedido -> setCordpedest('1');
 			$Pedido -> setCordpedobsv($Observacion);
 			$Pedido -> setDordpedfecreg($Fecha_reg);
 			$Pedido -> setDordepedfecent($Fecha_ent);
@@ -51,8 +54,8 @@ class AdministrarPedidoController extends Controller{
 			$em = $this->getDoctrine()->getEntityManager();
 			$this->getDoctrine()->getEntityManager()->beginTransaction();
 			try {
-				/*$em->persist($Pedido);
-				$em->flush();*/			
+				$em->persist($Pedido);
+				$em->flush();	
 				
 				foreach($otherdata as $key => $data){
 					$Producto = $this->getDoctrine()
@@ -64,6 +67,10 @@ class AdministrarPedidoController extends Controller{
 					$DetallePedido -> setNordped($Pedido);
 					$DetallePedido -> setNproducto($Producto);
 					$DetallePedido -> setNdetordpedcantacept(10);
+					$DetallePedido -> setCdetordpedest('1');
+					$em->persist($DetallePedido);
+					$em->flush();
+					
 				}
 				
 			} catch (Exception $e) {
