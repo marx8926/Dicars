@@ -103,21 +103,21 @@ class AdministrarTrabajadorController extends Controller{
 		
 		if ($form!=null){
 			
-			$Empleado_Id = $datos["id"];
+			$Empleado_Id = $datos["idE"];
 			
 			$Empleado_cargo =  $this->getDoctrine()
 			->getRepository('DicarsDataBundle:VenCargo')
 			->findOneBy(array('ncargoId' => 1));
 			
-			$Empleado_dni = $datos["dni"];
-			$Empleado_nombre = $datos["nombres"];
-			$Empleado_apellido = $datos["apellidos"];
-			$Empleado_telefono = $datos["telefono"];
-			$Empleado_email = $datos["email"];
-			$Empleado_fechanacimiento = new \DateTime($datos["fechanacimiento"]);
-			$Empleado_sexo = $datos["sexo"];
-			$Empleado_estado = $datos["estado"];
-			$Empleado_edad = $datos["edad"];				
+			$Empleado_dni = $datos["dniE"];
+			$Empleado_nombre = $datos["nombresE"];
+			$Empleado_apellido = $datos["apellidosE"];
+			$Empleado_telefono = $datos["telefonoE"];
+			$Empleado_email = $datos["emailE"];
+			$Empleado_fechanacimiento = new \DateTime($datos["fechanacimientoE"]);
+			$Empleado_sexo = $datos["sexoE"];
+			$Empleado_estado = $datos["estadoE"];
+			$Empleado_edad = $datos["edadE"];				
 			/**/
 			$Empleado = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:VenPersonal')
