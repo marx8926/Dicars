@@ -81,17 +81,17 @@ function cargarEditar(id){
 		url = "{{ path('dicars_ventas_servicio_gettrabajadorbyid', {'id': ''}) }}/"+id;	
 		empleado = getAjaxObject(url);
 				
-		ArrayDatos = [	{'type':'hidden','value':empleado.id,'name':'id'},
-		      			{'label':'Cargo','type':'input', 'typeinput':'text','value':empleado.cargo,'name':'cargo'},
-						{'label':'Nombres','type':'input', 'typeinput':'text','value':empleado.nombres,'name':'nombres'},
-		              	{'label':'Apellidos','type':'input','typeinput':'text','value':empleado.apellidos,'name':'apellidos'},
-		              	{'label':'Dni','type':'input','typeinput':'text','value':empleado.dni,'name':'dni'},
-		              	{'label':'Telefono','type':'input','typeinput':'text','value':empleado.telefono,'name':'telefono'},
-		              	{'label':'Email','type':'input','typeinput':'text','value':empleado.email,'name':'email'},
-		              	{'label':'Fecha Nacimiento','type':'date','value':empleado.fechanacimiento,'name':'fechanacimiento'},
-		              	{'label':'Sexo','type':'input','typeinput':'text','value':empleado.sexo,'name':'sexo'},
-		              	{'label':'Estado','type':'input','typeinput':'text','value':empleado.estado,'name':'estado'},
-		              	{'label':'Edad','type':'input','typeinput':'text','value':empleado.edad,'name':'edad'},
+		ArrayDatos = [	{'type':'hidden','value':empleado.id,'name':'idE'},
+		      			{'label':'Cargo','type':'input', 'typeinput':'text','value':empleado.cargo,'name':'cargoE'},
+						{'label':'Nombres','type':'input', 'typeinput':'text','value':empleado.nombres,'name':'nombresE'},
+		              	{'label':'Apellidos','type':'input','typeinput':'text','value':empleado.apellidos,'name':'apellidosE'},
+		              	{'label':'Dni','type':'input','typeinput':'text','value':empleado.dni,'name':'dniE'},
+		              	{'label':'Telefono','type':'input','typeinput':'text','value':empleado.telefono,'name':'telefonoE'},
+		              	{'label':'Email','type':'input','typeinput':'text','value':empleado.email,'name':'emailE'},
+		              	{'label':'Fecha Nacimiento','type':'date','value':empleado.fechanacimiento,'name':'fechanacimientoE'},
+		              	{'label':'Sexo','type':'input','typeinput':'text','value':empleado.sexo,'name':'sexoE'},
+		              	{'label':'Estado','type':'input','typeinput':'text','value':empleado.estado,'name':'estadoE'},
+		              	{'label':'Edad','type':'input','typeinput':'text','value':empleado.edad,'name':'edadE'},
 						{'type':'actions'}];
 			
 		$("#EditarEmpleadoForm").html(crearElementosForm(ArrayDatos));
@@ -103,16 +103,16 @@ function cargarVer(id){
 		empleado = getAjaxObject(url);
 				
 
-		ArrayDatos = [	{'label':'Cargo','type':'span', 'typeinput':'text','value':empleado.cargo,'name':'nombres'},
-						{'label':'Nombres','type':'span', 'typeinput':'text','value':empleado.nombres,'name':'nombres'},
-		              	{'label':'Apellidos','type':'span','typeinput':'text','value':empleado.apellidos,'name':'apellidos'},
-		              	{'label':'Dni','type':'span','typeinput':'text','value':empleado.dni,'name':'dni'},
-		              	{'label':'Telefono','type':'span','typeinput':'text','value':empleado.telefono,'name':'telefono'},
-		              	{'label':'Email','type':'span','typeinput':'text','value':empleado.email,'name':'email'},
-		              	{'label':'Fecha Nacimiento','type':'span','typeinput':'text','value':empleado.fechanacimiento,'name':'fechanacimiento'},
-		              	{'label':'Sexo','type':'span','typeinput':'text','value':empleado.sexo,'name':'sexo'},
-		              	{'label':'Estado','type':'span','typeinput':'text','value':empleado.estado,'name':'estado'},
-		              	{'label':'Edad','type':'span','typeinput':'text','value':empleado.edad,'name':'edad'},
+		ArrayDatos = [	{'label':'Cargo','type':'span','value':empleado.cargo},
+						{'label':'Nombres','type':'span', 'value':empleado.nombres},
+		              	{'label':'Apellidos','type':'span','value':empleado.apellidos},
+		              	{'label':'Dni','type':'span','value':empleado.dni},
+		              	{'label':'Telefono','type':'span','value':empleado.telefono},
+		              	{'label':'Email','type':'span','value':empleado.email},
+		              	{'label':'Fecha Nacimiento','type':'span','value':empleado.fechanacimiento},
+		              	{'label':'Sexo','type':'span','value':empleado.sexo},
+		              	{'label':'Estado','type':'span','value':empleado.estado},
+		              	{'label':'Edad','type':'span','value':empleado.edad},
 						{'type':'close'}];
 			
 		$("#VerEmpleadoForm").html(crearElementosForm(ArrayDatos));

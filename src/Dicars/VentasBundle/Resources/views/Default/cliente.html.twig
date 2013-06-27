@@ -81,16 +81,16 @@ function cargarEditar(id){
 	url = "{{ path('dicars_ventas_servicio_getclientebyid', {'id': ''}) }}/"+id;	
 	cliente = getAjaxObject(url);
 			
-	ArrayDatos = [	{'type':'hidden','value':cliente.id,'name':'id'},
-	          		{'label':'Nombres','type':'input', 'typeinput':'text','value':cliente.nombres,'name':'nombres'},
-	              	{'label':'Apellidos','type':'input','typeinput':'text','value':cliente.apellidos,'name':'apellidos'},
-	              	{'label':'Dni','type':'input','typeinput':'text','value':cliente.dni,'name':'dni'},
-	              	{'label':'Referencia','type':'input','typeinput':'text','value':cliente.referencia,'name':'referencia'},
-	              	{'label':'Dirección','type':'input','typeinput':'text','value':cliente.direccion,'name':'direccion'},
-	              	{'label':'Zona','type':'input','typeinput':'text','value':cliente.zona,'name':'zona'},
-	              	{'label':'Línea Op','type':'input','typeinput':'text','value':cliente.lineaop,'name':'lineaop'},
-	              	{'label':'Arc Crédito','type':'input','typeinput':'text','value':cliente.arccredito,'name':'arccredito'},
-	              	{'label':'Ocupación','type':'input','typeinput':'text','value':cliente.ocupacion,'name':'ocupacion'},
+	ArrayDatos = [	{'type':'hidden','value':cliente.id,'name':'idE'},
+	          		{'label':'Nombres','type':'input', 'typeinput':'text','value':cliente.nombres,'name':'nombresE'},
+	              	{'label':'Apellidos','type':'input','typeinput':'text','value':cliente.apellidos,'name':'apellidosE'},
+	              	{'label':'Dni','type':'input','typeinput':'text','value':cliente.dni,'name':'dniE'},
+	              	{'label':'Referencia','type':'input','typeinput':'text','value':cliente.referencia,'name':'referenciaE'},
+	              	{'label':'Dirección','type':'input','typeinput':'text','value':cliente.direccion,'name':'direccionE'},
+	              	{'label':'Zona','type':'input','typeinput':'text','value':cliente.zona,'name':'zonaE'},
+	              	{'label':'Línea Op','type':'input','typeinput':'text','value':cliente.lineaop,'name':'lineaopE'},
+	              	{'label':'Arc Crédito','type':'input','typeinput':'text','value':cliente.arccredito,'name':'arccreditoE'},
+	              	{'label':'Ocupación','type':'input','typeinput':'text','value':cliente.ocupacion,'name':'ocupacionE'},
 					{'type':'actions'}];
 		
 	$("#EditarClienteForm").html(crearElementosForm(ArrayDatos));
@@ -101,15 +101,15 @@ function cargarVer(id){
 	cliente = getAjaxObject(url);
 			
 
-	ArrayDatos = [	{'label':'Nombres','type':'span', 'typeinput':'text','value':cliente.nombres,'name':'nombres'},
-	              	{'label':'Apellidos','type':'span','typeinput':'text','value':cliente.apellidos,'name':'apellidos'},
-	              	{'label':'Dni','type':'span','typeinput':'text','value':cliente.dni,'name':'dni'},
-	              	{'label':'Referencia','type':'span','typeinput':'text','value':cliente.referencia,'name':'referencia'},
-	              	{'label':'Dirección','type':'span','typeinput':'text','value':cliente.direccion,'name':'direccion'},
-	              	{'label':'Zona','type':'span','typeinput':'text','value':cliente.zona,'name':'zona'},
-	              	{'label':'Línea Op','type':'span','typeinput':'text','value':cliente.lineaop,'name':'lineaop'},
-	              	{'label':'Arc Crédito','type':'span','typeinput':'text','value':cliente.arccredito,'name':'arccredito'},
-	              	{'label':'Ocupación','type':'span','typeinput':'text','value':cliente.ocupacion,'name':'ocupacion'},
+	ArrayDatos = [	{'label':'Nombres','type':'span','value':cliente.nombres},
+	              	{'label':'Apellidos','type':'span','value':cliente.apellidos},
+	              	{'label':'Dni','type':'span','value':cliente.dni},
+	              	{'label':'Referencia','type':'span','value':cliente.referencia},
+	              	{'label':'Dirección','type':'span','value':cliente.direccion},
+	              	{'label':'Zona','type':'span','value':cliente.zona},
+	              	{'label':'Línea Op','type':'span','value':cliente.lineaop},
+	              	{'label':'Arc Crédito','type':'span','value':cliente.arccredito},
+	              	{'label':'Ocupación','type':'span','value':cliente.ocupacion},
 					{'type':'close'}];
 		
 	$("#VerClienteForm").html(crearElementosForm(ArrayDatos));
@@ -117,8 +117,8 @@ function cargarVer(id){
 
 $(document).ready(function(){
 
-	ReloadTableEditar = reloadclosemodal('modalEditarDatos');
-	ReloadTableRegistrar = reloadclosemodal('modalRegistro');
+	ReloadTableEditar = reloadclosemodal('modalEditarDatos', 'clientes_table');
+	ReloadTableRegistrar = reloadclosemodal('modalRegistro', 'clientes_table');
 
 	CargarBotones = function(){		
 		//mostrar Editar Cliente------------------------------------>

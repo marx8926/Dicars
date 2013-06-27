@@ -95,20 +95,21 @@ class AdministrarClientesController extends Controller{
 		$Cliente_ocup = null;
 	
 		if ($form!=null){
-			$Cliente_Id = $datos["id"];
-			$Cliente_nombre = $datos["nombres"];
-			$Cliente_apellido = $datos["apellidos"];
-			$Cliente_dni = $datos["dni"];
-			$Cliente_referencia = $datos["referencia"];
-			$Cliente_direccion = $datos["direccion"];
+			
+			$Cliente_Id = $datos["idE"];
+			$Cliente_nombre = $datos["nombresE"];
+			$Cliente_apellido = $datos["apellidosE"];
+			$Cliente_dni = $datos["dniE"];
+			$Cliente_referencia = $datos["referenciaE"];
+			$Cliente_direccion = $datos["direccionE"];
 			
 			$Cliente_zona =  $this->getDoctrine()
 			->getRepository('DicarsDataBundle:VenZona')
 			->findOneBy(array('nzonaId' => 1));
 			
-			$Cliente_linea_op = $datos["lineaop"];
-			$Cliente_arc_credito = $datos["arccredito"];
-			$Cliente_ocup = $datos["ocupacion"];			
+			$Cliente_linea_op = $datos["lineaopE"];
+			$Cliente_arc_credito = $datos["arccreditoE"];
+			$Cliente_ocup = $datos["ocupacionE"];			
 			
 			$Cliente = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:VenCliente')
@@ -138,6 +139,7 @@ class AdministrarClientesController extends Controller{
 			
 			$this->getDoctrine()->getEntityManager()->commit();
 			$em->clear();
+			
 			$return = array("responseCode"=>200, "datos"=>$datos);
 		}
 		else {
