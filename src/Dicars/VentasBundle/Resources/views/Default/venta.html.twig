@@ -72,8 +72,8 @@
 var SelectProductoData = new Array();
 var SelectProductosTableData = new Array();
 
-var BuscarProductosTable;
 var SelectProductosTable;
+var BuscarProductosTable;
 var Attr = ['id','cantidad','precio_uni'];
 var RowCallBackFunctionProducto;
 
@@ -95,6 +95,7 @@ $(document).ready(function(){
 		e.preventDefault();
 		if(SelectProductoData.length > 0){
 			SelectProductoData[0].cantidad = $('#cantidad').val();
+			console.log(SelectProductoData[0]);
 			SelectProductosTable.fnAddData(SelectProductoData);
 			$('#producto').val("");
 			$('#cantidad').val("");

@@ -13,6 +13,11 @@
     <field name="nventatotapag" type="decimal" column="nVentaTotApag" nullable="false"/>
     <field name="nventatotamt" type="decimal" column="nVentaTotAmt" nullable="false"/>
     <field name="nventasaldo" type="decimal" column="nVentaSaldo" nullable="false"/>
+    <many-to-one field="ntipomoneda" target-entity="VenTipomoneda">
+      <join-columns>
+        <join-column name="nTipoMoneda" referenced-column-name="nTipoMoneda"/>
+      </join-columns>
+    </many-to-one>
     <many-to-one field="ntipoigv" target-entity="VenTipoigv">
       <join-columns>
         <join-column name="nTipoIGV" referenced-column-name="nTipoIGV"/>
@@ -21,11 +26,6 @@
     <many-to-one field="nlocal" target-entity="Local">
       <join-columns>
         <join-column name="nLocal_id" referenced-column-name="nLocal_id"/>
-      </join-columns>
-    </many-to-one>
-    <many-to-one field="ntipomoneda" target-entity="VenTipomoneda">
-      <join-columns>
-        <join-column name="nTipoMoneda" referenced-column-name="nTipoMoneda"/>
       </join-columns>
     </many-to-one>
     <many-to-one field="ncliente" target-entity="VenCliente">

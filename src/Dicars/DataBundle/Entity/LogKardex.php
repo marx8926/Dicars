@@ -85,16 +85,6 @@ class LogKardex
     private $nkardexsaldotot;
 
     /**
-     * @var \Producto
-     *
-     * @ORM\ManyToOne(targetEntity="Producto")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="nProducto_id", referencedColumnName="nProducto_id")
-     * })
-     */
-    private $nproducto;
-
-    /**
      * @var \Local
      *
      * @ORM\ManyToOne(targetEntity="Local")
@@ -103,6 +93,16 @@ class LogKardex
      * })
      */
     private $nlocal;
+
+    /**
+     * @var \Producto
+     *
+     * @ORM\ManyToOne(targetEntity="Producto")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="nProducto_id", referencedColumnName="nProducto_id")
+     * })
+     */
+    private $nproducto;
 
 
 
@@ -324,29 +324,6 @@ class LogKardex
     }
 
     /**
-     * Set nproducto
-     *
-     * @param \Dicars\DataBundle\Entity\Producto $nproducto
-     * @return LogKardex
-     */
-    public function setNproducto(\Dicars\DataBundle\Entity\Producto $nproducto = null)
-    {
-        $this->nproducto = $nproducto;
-    
-        return $this;
-    }
-
-    /**
-     * Get nproducto
-     *
-     * @return \Dicars\DataBundle\Entity\Producto 
-     */
-    public function getNproducto()
-    {
-        return $this->nproducto;
-    }
-
-    /**
      * Set nlocal
      *
      * @param \Dicars\DataBundle\Entity\Local $nlocal
@@ -367,5 +344,28 @@ class LogKardex
     public function getNlocal()
     {
         return $this->nlocal;
+    }
+
+    /**
+     * Set nproducto
+     *
+     * @param \Dicars\DataBundle\Entity\Producto $nproducto
+     * @return LogKardex
+     */
+    public function setNproducto(\Dicars\DataBundle\Entity\Producto $nproducto = null)
+    {
+        $this->nproducto = $nproducto;
+    
+        return $this;
+    }
+
+    /**
+     * Get nproducto
+     *
+     * @return \Dicars\DataBundle\Entity\Producto 
+     */
+    public function getNproducto()
+    {
+        return $this->nproducto;
     }
 }

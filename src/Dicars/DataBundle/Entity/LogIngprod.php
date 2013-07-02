@@ -78,16 +78,6 @@ class LogIngprod
     private $cingprodest;
 
     /**
-     * @var \VenPersonal
-     *
-     * @ORM\ManyToOne(targetEntity="VenPersonal")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="nPersonal_id", referencedColumnName="nPersonal_id")
-     * })
-     */
-    private $npersonal;
-
-    /**
      * @var \Local
      *
      * @ORM\ManyToOne(targetEntity="Local")
@@ -96,6 +86,16 @@ class LogIngprod
      * })
      */
     private $nlocal;
+
+    /**
+     * @var \VenPersonal
+     *
+     * @ORM\ManyToOne(targetEntity="VenPersonal")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="nPersonal_id", referencedColumnName="nPersonal_id")
+     * })
+     */
+    private $npersonal;
 
 
 
@@ -294,29 +294,6 @@ class LogIngprod
     }
 
     /**
-     * Set npersonal
-     *
-     * @param \Dicars\DataBundle\Entity\VenPersonal $npersonal
-     * @return LogIngprod
-     */
-    public function setNpersonal(\Dicars\DataBundle\Entity\VenPersonal $npersonal = null)
-    {
-        $this->npersonal = $npersonal;
-    
-        return $this;
-    }
-
-    /**
-     * Get npersonal
-     *
-     * @return \Dicars\DataBundle\Entity\VenPersonal 
-     */
-    public function getNpersonal()
-    {
-        return $this->npersonal;
-    }
-
-    /**
      * Set nlocal
      *
      * @param \Dicars\DataBundle\Entity\Local $nlocal
@@ -337,5 +314,28 @@ class LogIngprod
     public function getNlocal()
     {
         return $this->nlocal;
+    }
+
+    /**
+     * Set npersonal
+     *
+     * @param \Dicars\DataBundle\Entity\VenPersonal $npersonal
+     * @return LogIngprod
+     */
+    public function setNpersonal(\Dicars\DataBundle\Entity\VenPersonal $npersonal = null)
+    {
+        $this->npersonal = $npersonal;
+    
+        return $this;
+    }
+
+    /**
+     * Get npersonal
+     *
+     * @return \Dicars\DataBundle\Entity\VenPersonal 
+     */
+    public function getNpersonal()
+    {
+        return $this->npersonal;
     }
 }
