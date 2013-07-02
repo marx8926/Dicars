@@ -40,48 +40,50 @@ class AdministrarIngresoProdController extends Controller{
 			->getRepository('DicarsDataBundle:Local')
 			->findOneBy(array('nlocalId' => 1));
 				
-			$Serie ='QRETE';
+			$Serie ='QRE';
 			$Numero ='12345678';
-			$Motivo = $datos['motivo'];
-			$SerieDoc = 'DOCFGTU';
+			$Motivo = 1;
+			$SerieDoc = 'DOC';
 			$Fecha_reg = date_create_from_format('d/m/Y', $datos["fecharegistro"]);						
 			$NumeroDoc = 'DOC001';
-			$Observacion = $datos['observacion'];
+			$Observacion = $datos["observacion"];
 			$Estado = 'A';
-			/*
+			
 			$IngProd = new  LogIngprod();
 			$IngProd -> setNpersonal($Registrante);
 			$IngProd -> setNlocal($Local);
 			$IngProd -> setCingprodserie($Serie);
 			$IngProd -> setCingprodnro($Numero);
 			$IngProd -> setNingprodmotivo($Motivo);
+			$IngProd -> setCingproddocserie($SerieDoc);
 			$IngProd -> setDingprodfecreg($Fecha_reg);
 			$IngProd -> setCingproddocnro($NumeroDoc);
 			$IngProd -> setCingprodobsv($Observacion);
 			$IngProd -> setCingprodest($Estado);
-	
+			
 			$em = $this->getDoctrine()->getEntityManager();
 			$this->getDoctrine()->getEntityManager()->beginTransaction();
+			
 			try {
 				$em->persist($IngProd);
 				$em->flush();
-	
+			
 				foreach($otherdata as $key => $data){
 					$Producto = $this->getDoctrine()
 					->getRepository('DicarsDataBundle:Producto')
-					->findOneBy(array('nproductoId' => $data['id']));
+					->findOneBy(array('nproductoId' => $data["id"]));
 	
 					$DetalleIngProd = new LogDetingprod();
 					$DetalleIngProd -> setNingprod($IngProd);
 					$DetalleIngProd -> setNproducto($Producto);
-					$DetalleIngProd -> setNdetingprodcant($data['cantidad']);
-					$DetalleIngProd -> setNdetingprodprecunt($data['precio_uni']);
-					$DetalleIngProd -> setCdetsalprodest(45);
+					$DetalleIngProd -> setNdetingprodcant($data["cantidad"]);
+					$DetalleIngProd -> setNdetingprodprecunt($data["precio_uni"]);
+					$DetalleIngProd -> setNdetingprodtot(45);
 						
 					$em->persist($DetalleIngProd);
 					$em->flush();
 				}
-	
+			
 			} catch (Exception $e) {
 				$this->getDoctrine()->getEntityManager()->rollback();
 				$this->getDoctrine()->getEntityManager()->close();
@@ -91,7 +93,7 @@ class AdministrarIngresoProdController extends Controller{
 			}
 			$this->getDoctrine()->getEntityManager()->commit();
 			$em->clear();
-			*/
+			
 			$return = array("responseCode"=>200, "datos"=>$datos);
 	
 		}

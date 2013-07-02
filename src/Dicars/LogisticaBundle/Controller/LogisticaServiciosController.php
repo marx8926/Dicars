@@ -141,5 +141,26 @@ class LogisticaServiciosController extends Controller{
 
 		return new JsonResponse($data);
 	}
+	
+	public function getTablaIngresoProductoAction(){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$ingprods = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:LogIngprod')
+		->findAll();
+		$em->clear();
+	
+		$todo = array();
+		foreach ($ingprods as $key => $ingprod){
+			$todo[] = array('id' => $ingprod -> getNingprodId(),
+					'serie' => $ingprod -> getCingprodserie(),
+					'numero' => $ingprod -> getCingprodnro(),
+					'serie_doc' => $ingprod -> getCingproddocserie(),					
+					'ver_btn' => "<a id-data='".$ingprod -> getNingprodId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
+					'edit_btn' => "<a id-data='".$ingprod -> getNingprodId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
+					'elim_btn' => "<a id-data='".$ingprod -> getNingprodId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
+		}
+		return new JsonResponse(array('aaData' => $todo));
+	}
 
 }

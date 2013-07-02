@@ -21,3 +21,7 @@ dicars_logistica_servicio_gettablalocales:
 dicars_logistica_servicio_getlocalbyid:
     pattern:  /servicio_getlocalbyid/{id}
     defaults: { _controller: DicarsLogisticaBundle:LogisticaServicios:getLocalById }
+    
+dicars_logistica_servicio_gettablaingresoproducto:
+    pattern:  /servicio_gettablaingresoproducto
+    defaults: { _controller: DicarsLogisticaBundle:LogisticaServicios:getTablaIngresoProducto }

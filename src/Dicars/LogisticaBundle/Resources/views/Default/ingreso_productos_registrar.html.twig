@@ -151,6 +151,11 @@ $(document).ready(function(){
 			SelectProductosTable.fnAddData(SelectProductoData);
 			$('#producto').val("");
 			$('#cantidad').val("");
+			$('#precio_uni').val("");
+			$('#registrador').val("");
+			$('#fecharegistro').val("");
+			$('#observacion').val("");
+			
 			SelectProductoData.pop();
 			Array2 = SelectProductosTable.fnGetData();
 			CopyArray(SelectProductosTableData,Array2,false,Attr);
