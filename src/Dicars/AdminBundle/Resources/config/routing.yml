@@ -6,9 +6,11 @@ admin_administrar_marca_routing:
     resource: "@DicarsAdminBundle/Resources/config/administrar_marca_routing.yml"
 admin_administrar_servicios_routing:
     resource: "@DicarsAdminBundle/Resources/config/servicios_routing.yml"
+admin_administrar_constante_routing:
+    resource: "@DicarsAdminBundle/Resources/config/administrar_constante_routing.yml"
     
 ventas_administrar_usuario_routing:
-    resource: "@DicarsAdminBundle/Resources/config/administrar_usuario_routing.yml"    
+    resource: "@DicarsAdminBundle/Resources/config/administrar_usuario_routing.yml"
     
 dicars_admin_homepage:
     pattern:  /index

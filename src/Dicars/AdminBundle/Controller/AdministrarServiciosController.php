@@ -211,6 +211,43 @@ class AdministrarServiciosController extends Controller {
 		}
 		return new Response($result);
 	}
+	
+	public function getTablaConstantesAction(){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$constantes = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:Constante')
+		->findAll();
+		$em->clear();
+	
+		$todo = array();
+		foreach ($constantes as $key => $constante){
+			$todo[] = array('id' => $constante -> getNconstanteId(),
+					'clase' => $constante -> getNconstanteclase(),
+					'nom_clase' => $constante -> getCconstantedesc(),
+					'valor' => $constante -> getCconstantevalor(),
+					'edit_btn' => "<a id-data='".$constante -> getNconstanteId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>"
+			);
+		}
+		return new JsonResponse(array('aaData' => $todo));
+	}
+	
+	public function getConstanteByIdAction($id){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$constante = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:Constante')
+		->findOneBy(array('nconstanteId' => $id));
+	
+		$em->clear();
+	
+		$data = array('id' => $constante -> getNconstanteId(),
+				'clase' => $constante -> getNconstanteclase(),
+				'nom_clase' => $constante -> getCconstantedesc(),
+				'valor' => $constante -> getCconstantevalor());
+	
+		return new JsonResponse($data);
+	}
 		
 }
 	

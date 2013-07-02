@@ -29,3 +29,9 @@ dicars_admin_servicio_getoptionmarcas:
 dicars_admin_servicio_getoptioncategorias:
     pattern:  /servicio_getoptioncategorias
     defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getOptionCategorias } 
+dicars_admin_servicio_gettablaconstantes:
+    pattern:  /servicio_gettablaconstantes
+    defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getTablaConstantes }
+dicars_admin_servicio_getconstantebyid:
+    pattern:  /servicio_getconstantebyid/{id}
+    defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getConstanteById }  

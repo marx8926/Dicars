@@ -9,7 +9,7 @@
 </li>
 {% endblock %}
 {% block content %}
-<div class="row-fluid sortable">		
+<div class="row-fluid">		
 	<div class="box span12">
 		<div class="box-header well" data-original-title>
 			<h2>Lista de Constantes</h2>
@@ -18,13 +18,12 @@
 			</div>
 		</div>
 		<div class="box-content">
-			<table id="contantes_table" class="table table-striped table-bordered bootstrap-datatable datatable">
+			<table id="constantes_table" class="table table-striped table-bordered bootstrap-datatable datatable">
 				<thead>
 					<tr>
 						<th>Clase</th>
 						<th>Nombre</th>
 						<th>Valor</th>
-						<th></th>
 						<th></th>
 					</tr>
 				</thead>   
@@ -36,7 +35,7 @@
 					<h3>Registrar Clase</h3>
 				</div>
 				<div class="modal-body">
-					<form id="RegistrarClaseForm" class="form-horizontal" method="post" action="">
+					<form id="RegistrarClaseForm" class="form-horizontal" method="post" action="{{ path('dicars_admin_registrar_constante') }}">
 						<fieldset>
 							<div class="control-group">
 								<label class="control-label" for="clase">Nro de Clase</label>
@@ -65,6 +64,15 @@
 					</form>
 				</div>
 			</div>
+			<div class="modal hide fade" id="modalEditarDatos" >
+				<div class="modal-header">
+					<h3>Datos de la Clase</h3>
+				</div>
+				<div class="modal-body">
+					<form id="EditarClaseForm" class="form-horizontal" method="post" action="{{ path ('dicars_admin_editar_constante') }}">
+					</form>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
@@ -77,8 +85,8 @@
 
 var oTable;
 
-var ReloadTableEditar = reloadclosemodal('modalEditarDatos');
-var ReloadTableRegistrar = reloadclosemodal('modalRegistroConstantes');
+var ReloadTableEditar = reloadclosemodal('modalEditarDatos','constantes_table');
+var ReloadTableRegistrar = reloadclosemodal('modalRegistroConstantes','constantes_table');
 
 var CargarBotones = function(){
 	//mostrar Editar Cliente------------------------------------>
@@ -88,47 +96,20 @@ var CargarBotones = function(){
 		id=$(this).attr("id-data");		
 		cargarEditar(id);
 	});
-	//mostrar Ver Datos Cliente------------------------------------>
-	$('.btn-datos').click(function(e){
-		e.preventDefault();
-		$('#modalVerDatos').modal('show');
-		id=$(this).attr("id-data");		
-		cargarVer(id);	
-	});
 };
-/*
-function cargarEditar(id){
-	url = "{{ path('dicars_logistica_servicio_getproveedorbyid', {'id': ''}) }}/"+id;
-	proveedor = getAjaxObject(url);			
 
-	ArrayDatos = [	{'type':'hidden','value':proveedor.id,'name':'id'},
-	          		{'label':'RUC','type':'input', 'typeinput':'text','value':proveedor.ruc,'name':'ruc'},
-	              	{'label':'Razón Social','type':'input','typeinput':'text','value':proveedor.razonsocial,'name':'razonsocial'},
-	              	{'label':'Cuenta Corriente','type':'input','typeinput':'text','value':proveedor.ccorriente,'name':'ccorriente'},
-	              	{'label':'Dirección','type':'input','typeinput':'text','value':proveedor.direccion,'name':'direccion'},
-	              	{'label':'Teléfono','type':'input','typeinput':'text','value':proveedor.telefono,'name':'telefono'},
-	              	{'label':'Email','type':'input','typeinput':'text','value':proveedor.email,'name':'email'},
-	              	{'label':'Página Web','type':'input','typeinput':'text','value':proveedor.sitioweb,'name':'paginaweb'},
+function cargarEditar(id){
+	url = "{{ path('dicars_admin_servicio_getconstantebyid', {'id': ''}) }}/"+id;
+	constante = getAjaxObject(url);			
+
+	ArrayDatos = [	{'type':'hidden','value':constante.id,'name':'id'},
+	          		{'label':'Nro de Clase','type':'input', 'typeinput':'text','value':constante.clase,'name':'claseE'},
+	              	{'label':'Nombre de Clase','type':'input','typeinput':'text','value':constante.nom_clase,'name':'nom_claseE'},
+	              	{'label':'Valor','type':'input','typeinput':'text','value':constante.valor,'name':'valorE'},
 					{'type':'actions'}];
 		
-	$("#EditarProveedorForm").html(crearElementosForm(ArrayDatos));
+	$("#EditarClaseForm").html(crearElementosForm(ArrayDatos));
 }
-
-function cargarVer(id){
-	url = "{{ path('dicars_logistica_servicio_getproveedorbyid', {'id': ''}) }}/"+id;
-	proveedor = getAjaxObject(url);			
-
-	ArrayDatos = [	{'label':'RUC','type':'span','value':proveedor.ruc},
-	              	{'label':'Razón Social','type':'span','value':proveedor.razonsocial},
-	              	{'label':'Cuenta Corriente','type':'span','value':proveedor.ccorriente},
-	              	{'label':'Dirección','type':'span','value':proveedor.direccion},
-	              	{'label':'Teléfono','type':'span','value':proveedor.telefono},
-	              	{'label':'Email','type':'span','value':proveedor.email},
-	              	{'label':'Página Web','type':'span','value':proveedor.sitioweb},
-					{'type':'close'}];
-		
-	$("#VerProveedor").html(crearElementosForm(ArrayDatos));
-}*/
 
 //Init------------------------------------>
 $(document).ready(function(){
@@ -139,19 +120,17 @@ $(document).ready(function(){
 		$('#modalRegistroConstantes').modal('show');
 	});
 	
-	/*enviar('RegistrarClaseForm', ReloadTableRegistrar);
+	enviar('RegistrarClaseForm', ReloadTableRegistrar);
 	enviar('EditarClaseForm', ReloadTableEditar);
 
-	//UrlaDTable = '{{ path("dicars_logistica_servicio_gettablaproveedores") }}';
+	UrlaDTable = '{{ path("dicars_admin_servicio_gettablaconstantes") }}';
 	FormatoDTable = [
-		              { "sWidth": "12%","mDataProp": "ruc"},
-		              { "sWidth": "12%","mDataProp": "razonsocial"},
-		              { "sWidth": "12%","mDataProp": "telefono"},
-		              { "sWidth": "12%","mDataProp": "email"},
-		              { "sWidth": "12%","mDataProp": "sitioweb"},
-		              { "sWidth": "40%","mDataProp": "Acciones"}
+		              { "sWidth": "25%","mDataProp": "clase"},
+		              { "sWidth": "25%","mDataProp": "nom_clase"},
+		              { "sWidth": "25%","mDataProp": "valor"},
+		              { "sWidth": "25%","mDataProp": "edit_btn"}
 		              ];
-	oTable = createDataTable('proveedores_table',UrlaDTable,FormatoDTable,CargarBotones);*/
+	oTable = createDataTable('constantes_table',UrlaDTable,FormatoDTable,CargarBotones);
 });
 
 </script>
