@@ -187,8 +187,37 @@ class LogisticaServiciosController extends Controller{
 					'numero' => $salprod -> getCsalprodnro(),
 					'fecha_reg' => $salprod -> getDsalprodfecreg() -> format("d/m/Y"),
 					'ver_btn' => "<a id-data='".$salprod -> getNsalprodId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
+					'edit_btn' => "<a id-data='".$salprod -> getNsalprodId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
 					'elim_btn' => "<a id-data='".$salprod -> getNsalprodId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
 
+		}
+		return new JsonResponse(array('aaData' => $todo));
+	}
+	
+	public function getTablaPedidosAction(){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$ordpeds = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:LogOrdped')
+		->findAll();
+			
+		$em->clear();
+		
+		$todo = array();
+		foreach ($ordpeds as $key => $ordped){
+			$registrante = $ordped -> getNpersonal();
+	
+			$todo[] = array('id' => $ordped -> getNordpedId(),
+					'registrante' => $registrante -> getCpersonalnom()." ".$registrante -> getCpersonalape(),
+					'local' => $ordped -> getNlocal() -> getClocaldesc(),
+					'serie' => $ordped -> getCordpedserie(),
+					'numero' => $ordped -> getCordpednro(),
+					'fecha_reg' => $ordped -> getDordpedfecreg() -> format("d/m/Y"),
+					'fecha_ent' => $ordped -> getDordepedfecent() -> format("d/m/Y"),
+					'ver_btn' => "<a id-data='".$ordped -> getNordpedId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
+					'edit_btn' => "<a id-data='".$ordped -> getNordpedId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
+					'elim_btn' => "<a id-data='".$ordped -> getNordpedId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
+	
 		}
 		return new JsonResponse(array('aaData' => $todo));
 	}

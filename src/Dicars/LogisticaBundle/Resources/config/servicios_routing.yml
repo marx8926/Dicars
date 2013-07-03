@@ -29,3 +29,6 @@ dicars_logistica_servicio_gettablaingresoproducto:
 dicars_logistica_servicio_gettablasalprods:
     pattern:  /servicio_gettablasalprods
     defaults: { _controller: DicarsLogisticaBundle:LogisticaServicios:getTablaSalProd }
+dicars_logistica_servicio_gettablaordpeds:
+    pattern:  /servicio_gettablaordpeds
+    defaults: { _controller: DicarsLogisticaBundle:LogisticaServicios:getTablaPedidos }
