@@ -48,7 +48,6 @@
 					  	<th>Fecha de Registro</th>
 					  	<th></th>
 					  	<th></th>
-					  	<th></th>
 				  	</tr>
 			  	</thead>   
 			  	<tbody>
@@ -89,14 +88,13 @@ $(document).ready(function(){
 	UrlaDTable = '{{ path("dicars_logistica_servicio_gettablasalprods") }}';
 	FormatoDTable = [
 	              { "sWidth": "15%","mDataProp": "registrante"},
-	              { "sWidth": "15%","mDataProp": "local"},
+	              { "sWidth": "13%","mDataProp": "local"},
 	              { "sWidth": "15%","mDataProp": "solicitante"},
-	              { "sWidth": "15%","mDataProp": "serie"},
-	              { "sWidth": "15%","mDataProp": "numero"},	  
-	              { "sWidth": "15%","mDataProp": "fecha_reg"},
-	              { "sWidth": "13%","mDataProp": "ver_btn"},
-	              { "sWidth": "13%","mDataProp": "edit_btn"},
-	              { "sWidth": "14%","mDataProp": "elim_btn"}
+	              { "sWidth": "11%","mDataProp": "serie"},
+	              { "sWidth": "11%","mDataProp": "numero"},	  
+	              { "sWidth": "13%","mDataProp": "fecha_reg"},
+	              { "sWidth": "11%","mDataProp": "ver_btn"},
+	              { "sWidth": "11%","mDataProp": "elim_btn"}
 	              ];
 	EmpleadosTable = createDataTable('salida_prod_table',UrlaDTable,FormatoDTable,CargarBotones);		
 	});

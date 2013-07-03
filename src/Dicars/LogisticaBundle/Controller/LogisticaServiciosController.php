@@ -175,15 +175,18 @@ class LogisticaServiciosController extends Controller{
 		foreach ($salprods as $key => $salprod){
 			$personal = $salprod -> getNpersonal();
 			
+			$solicitante = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:VenPersonal')
+			->findOneBy(array('npersonalId' => $salprod -> getNsolicitanteId()));
+			 
 			$todo[] = array('id' => $salprod -> getNsalprodId(),
 					'registrante' => $personal -> getCpersonalnom()." ".$personal -> getCpersonalape(),
 					'local' => $salprod -> getNlocal() -> getClocaldesc(),
-					'solicitante' => $salprod -> getNsolicitanteId(),
+					'solicitante' => $solicitante -> getCpersonalnom()." ".$solicitante -> getCpersonalape(),
 					'serie' => $salprod -> getCsalprodserie(),
 					'numero' => $salprod -> getCsalprodnro(),
-					'fecha_reg' => $salprod -> getDsalprodfecreg(),
+					'fecha_reg' => $salprod -> getDsalprodfecreg() -> format("d/m/Y"),
 					'ver_btn' => "<a id-data='".$salprod -> getNsalprodId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
-					'edit_btn' => "<a id-data='".$salprod -> getNsalprodId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
 					'elim_btn' => "<a id-data='".$salprod -> getNsalprodId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
 
 		}
