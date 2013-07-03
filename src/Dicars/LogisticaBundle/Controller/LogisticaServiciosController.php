@@ -160,6 +160,33 @@ class LogisticaServiciosController extends Controller{
 					'edit_btn' => "<a id-data='".$ingprod -> getNingprodId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
 					'elim_btn' => "<a id-data='".$ingprod -> getNingprodId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
 		}
+	}
+
+	public function getTablaSalProdAction(){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$salprods = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:LogSalProd')
+		->findAll();
+			
+		$em->clear();
+	
+		$todo = array();
+		foreach ($salprods as $key => $salprod){
+			$personal = $salprod -> getNpersonal();
+			
+			$todo[] = array('id' => $salprod -> getNsalprodId(),
+					'registrante' => $personal -> getCpersonalnom()." ".$personal -> getCpersonalape(),
+					'local' => $salprod -> getNlocal() -> getClocaldesc(),
+					'solicitante' => $salprod -> getNsolicitanteId(),
+					'serie' => $salprod -> getCsalprodserie(),
+					'numero' => $salprod -> getCsalprodnro(),
+					'fecha_reg' => $salprod -> getDsalprodfecreg(),
+					'ver_btn' => "<a id-data='".$salprod -> getNsalprodId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
+					'edit_btn' => "<a id-data='".$salprod -> getNsalprodId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
+					'elim_btn' => "<a id-data='".$salprod -> getNsalprodId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
+
+		}
 		return new JsonResponse(array('aaData' => $todo));
 	}
 
