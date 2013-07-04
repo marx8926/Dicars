@@ -30,6 +30,20 @@ function getMultipleSelectRowCallBack(DSelected){
 	return SelectRowFunction;
 }
 
+/*
+ * Nesesita tener definido el atributo cantidad
+ */
+function sumArrayByAttr(Array2,attr){
+	var total = 0;
+	$(Array2).each(function( index ){
+		if(this['cantidad']!='undefined')
+			total +=(this[attr]*this['cantidad']);
+		else
+			total +=this[attr];
+	});
+	return(total);
+}
+
 function getSimpleSelectRowCallBack(DSelected, tableid){
 	var SelectRowFunction = function(nRow,aData,iDisplayIndex){
 		$(nRow).click( function() {

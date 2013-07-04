@@ -1,5 +1,8 @@
 {% extends "::baseCharisma.html.twig" %}
 {% block title %}Venta de Productos - Ventas -{% endblock %}
+{% block estilos %}
+<link rel="stylesheet" href="{{asset('css/ventas_form_style.css')}}">
+{%  endblock %}
 {% block breadcrumb %}
 <li>
 	<a href="{{path('dicars_ventas_homepage')}}">Ventas</a><span class="divider">/</span>
@@ -8,73 +11,195 @@
 	<a href="{{path('dicars_ventas_clientes_dm')}}">Venta de Productos</a>
 </li>
 {% endblock %}
+
 {% block content %}
 <div class="row-fluid">		
-	<div class="box span12">		
-		<hr>
-		<form id="AgregarProductoForm" class="form-horizontal">
-			<div class="control-group">
-				<label class="control-label" for="producto">Producto</label>
-				<div class="controls">
-					<input class="input-xlarge focused" id="producto" type="text">
-				  	<button type="button" class="btn btn-info btn-buscarp" style="margin: 0 18px;"><i class="icon-search icon-white"></i>Buscar</button>
-					<label style="display:inline;" for="cantidad">Cantidad</label>
-					<input id="cantidad" type="number" style="margin: 0 18px 0 0;" required>
-					<button id="agregar_producto" type="submit" class="btn btn-primary"><i class="icon-plus icon-white"></i>Agregar</button>
-				</div>
+	<div class="box span12" id="contenedor">
+		<div id="wrapper">
+            <div id="steps">
+                <fieldset class="step" id="step1">
+                	
+			<div class="box-header well" data-original-title>
+				<h2>Seleccion de Productos</h2>
 			</div>
-		</form>
-		<hr>
-		<div class="box-header well" data-original-title>
-			<h2>Productos Agregados</h2>
-		</div>
-		<div class="box-content">
-			<table class="table table-bordered">
-				<thead>
+			<div class="box-content">
+			<form id="AgregarProductoForm" class="form-horizontal">
+				<div class="control-group">
+					<label class="control-label" for="producto">Producto</label>
+					<div class="controls">
+						<input class="input-xlarge focused" id="producto" type="text">
+					  	<button type="button" class="btn btn-info btn-buscarp" style="margin: 0 18px;"><i class="icon-search icon-white"></i>Buscar</button>
+						<label style="display:inline;" for="cantidad">Cantidad</label>
+						<input id="cantidad" type="number" style="margin: 0 18px 0 0;" required>
+						<button id="agregar_producto" type="submit" class="btn btn-primary"><i class="icon-plus icon-white"></i>Agregar</button>
+					</div>
+				</div>
+			</form>
+			<hr>
+			<h4>Productos Agregados</h4>
+			<hr>
+				<table id="select_productos_venta" class="table table-striped table-bordered bootstrap-datatable datatable">
+					<thead>
+					  	<tr>
+						  	<th>Código</th>
+						  	<th>Nombre</th>
+					  		<th>Cantidad</th>
+					  		<th>P Credito</th>
+					  		<th>P Contado</th>
+						  	<th>Acciones</th>
+						</tr>
+				  	</thead>   
+				  	<tbody>
+						
+					</tbody>
+				</table>
+				<table class="table table-striped table-bordered bootstrap-datatable datatable"> 
+					<thead>
+					  	<tr>
+					  		<th colspan='3'></th>
+					  		<th>P Credito</th>
+						  	<th>P Contado</th>
+						</tr>
+				  	</thead>  
+				  	<tbody>
 				  	<tr>
-				  		<th>Cantidad</th>
-					  	<th>Código</th>
-					  	<th>Nombre</th>
-					  	<th>Precio</th>
-					</tr>
-			  	</thead>   
-			  	<tbody>
-					
-				</tbody>
-			</table>
-			<div class="form-horizontal">
-				<fieldset>
-					<div class="control-group">
-						<label class="control-label" for="totalcon">Total Contado</label>
-						<div class="controls">
-							<input style="margin: 0 18px 0 0;" class="input-xlarge focused" id="totalcon" type="text">
-							<label style="display:inline;">Total Credito</label>
-							<input style="margin: 0 18px;" class="input-xlarge focused" id="totalcred" type="text">
+				  		<td colspan='3'>Total</td>
+				  		<td id='total_credito'>0</td>
+				  		<td id='total_contado'>0</td>
+				  	</tr>					
+					</tbody>
+				</table>
+				<p>
+                	<a to_position='2' id='to_detalle_credito' href="#">Venta Credito</a>
+                </p>
+                <p>
+                	<a to_position='2' id='to_detalle_contado' href="#">Venta Contado</a>
+                </p>
+			</div>
+			</fieldset>
+            <fieldset class="step" id="step2">
+			<div class="box-header well" data-original-title>
+				<h2>Datos de Pago</h2>
+			</div>
+			<div class="box-content">
+			<form id="AgregarProductoForm" class="form-horizontal">
+				<div class="control-group">
+					<label class="control-label" for="producto">Cliente</label>
+					<div class="controls">
+						<input class="input-xlarge focused" id="producto" type="text">
+					  	<button type="button" class="btn btn-info btn-buscarc" style="margin: 0 18px;"><i class="icon-search icon-white"></i>Buscar</button>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="producto">Tipo moneda</label>
+					<div class="controls">
+						<input class="input-xlarge focused" style="margin: 0 18px 0 0;" id="producto" type="text">
+					  	<select >
+					  		<option>Soles</option>
+					  		<option>Dolares</option>
+					  	</select>
+					</div>
+				</div>
+				<div class="control-group" id="forma_pago">
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="producto">Subtotal</label>
+					<div class="controls">
+						<input class="input-xlarge focused" style="margin: 0 18px 0 0;" id="producto" type="text">
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="producto">Venta Descuento</label>
+					<div class="controls">
+						<div class="input-prepend input-append">
+							<input class="input-xlarge focused " type="text"><span class="add-on">%</span>
 						</div>
 					</div>
-				</fieldset>
-			</div>
-			<form action="">
-				<button type="button" class="btn btn-primary btn-ventacred">Venta Crédito</button>
-				<button type="button" class="btn btn-primary btn-ventacont">Venta Contado</button>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="producto">Tipo moneda</label>
+					<div class="controls">
+						<input class="input-xlarge focused" style="margin: 0 18px 0 0;" id="producto" type="text">
+					</div>
+				</div>
 			</form>
+			 <p>
+                        <a to_position='1' id='to_select_productos' href="#">atras</a>
+                    </p>
+                    <p>
+                        <a to_position='3' id='to_select_resume' href="#">Siguiente</a>
+                    </p>
+			</div><!--/span-->
+			</fieldset>
+                <fieldset class="step" id="step3">
+                    <legend>Payment</legend>
+                    <p>
+                        <label for="cardtype">Card</label>
+                        <select id="cardtype" name="cardtype">
+                            <option>Visa</option>
+                            <option>Mastercard</option>
+                            <option>American Express</option>
+                        </select>
+                    </p>
+                    <p>
+                        <label for="cardnumber">Card number</label>
+                        <input id="cardnumber" name="cardnumber" type="number" AUTOCOMPLETE=OFF />
+                    </p>
+                    <p>
+                        <label for="secure">Security code</label>
+                        <input id="secure" name="secure" type="number" AUTOCOMPLETE=OFF />
+                    </p>
+                    <p>
+                        <label for="namecard">Name on Card</label>
+                        <input id="namecard" name="namecard" type="text" AUTOCOMPLETE=OFF />
+                    </p>
+                    <p>
+                        <a to_position='2' id='back_to_detalle' href="#">atras</a>
+                    </p>
+                    <p>
+                        <a to_position='0' id='to_end' href="#">Finalizar</a>
+                    </p>
+                </fieldset>
+            </div>
+        </div>
+		{% include 'DicarsVentasBundle:Default:buscarproducto.html.twig' %}
+		{% include 'DicarsVentasBundle:Default:buscarcliente.html.twig' %}
+		<div class="modal hide fade" id="rquiredproducts">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<h3>Attencion</h3>
+			</div>
+			<div class="modal-body">
+				<div class="alert alert-error">
+				<p><i class="icon icon-alert icon-red"></i> Nesesita agregrar productos</p>
+				</div>
+				
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="btn" data-dismiss="modal">Aceptar</a>
+			</div>
 		</div>
-		{% include 'DicarsVentasBundle:Default:buscarproducto.html.twig' %}	
-	</div><!--/span-->
-</div><!--/row-->
+	</div><!--/row-->
+</div>
 {% endblock %}
 {% block javascript %}
 <script src="{{ asset('js/util/functiongen.js') }}"></script>
 <script src="{{ asset('js/util/datatable_plugins.js') }}"></script>
+<script src="{{ asset('js/util/sliding_ventas_form.js') }}"></script>
 
 <script type="text/javascript">
 
 var SelectProductoData = new Array();
+var SelectClienteData = new Array();
 var SelectProductosTableData = new Array();
 
 var SelectProductosTable;
-var BuscarProductosTable;
-var Attr = ['id','cantidad','precio_uni'];
+var SelectClienteTable;
+
+var totalcredito;
+var totalcontado;
+
+var Attr = ['id','cantidad'];
 var RowCallBackFunctionProducto;
 
 $(document).ready(function(){
@@ -82,6 +207,11 @@ $(document).ready(function(){
 	$('.btn-buscarp').click(function(e){
 		e.preventDefault();
 		$('#modalBuscarProducto').modal('show');
+	});
+
+	$('.btn-buscarc').click(function(e){
+		e.preventDefault();
+		$('#modalBuscarCliente').modal('show');
 	});
 
 	$("#select_producto").click(function(e){
@@ -95,17 +225,20 @@ $(document).ready(function(){
 		e.preventDefault();
 		if(SelectProductoData.length > 0){
 			SelectProductoData[0].cantidad = $('#cantidad').val();
-			console.log(SelectProductoData[0]);
 			SelectProductosTable.fnAddData(SelectProductoData);
 			$('#producto').val("");
 			$('#cantidad').val("");
 			SelectProductoData.pop();
 			Array2 = SelectProductosTable.fnGetData();
-			CopyArray(SelectProductosTableData,Array2,false,Attr);
+			CopyArray(SelectProductosTableData,Array2,false,Attr);			
+			$("#total_credito").text(totalcontado = sumArrayByAttr(Array2,'precio_contado'));
+			$("#total_contado").text(totalcredito = sumArrayByAttr(Array2,'precio_credito'));
+			$('#contenedor').height($('#step1').height());
 		}
 	});
 	
 	RowCallBackFunctionProducto = getSimpleSelectRowCallBack(SelectProductoData,"select_producto_table");
+	RowCallBackFunctionCliente = getSimpleSelectRowCallBack(SelectClienteData,"select_producto_table");
 	
 	UrlaDTableProductos = '{{ path("dicars_logistica_servicio_gettablaproductos") }}';
 	FormatoDTableProductos = [
@@ -115,30 +248,45 @@ $(document).ready(function(){
 		              { "sWidth": "12%","mDataProp": "precio_contado"}
 		              ];
 	BuscarProductosTable = createDataTable('select_producto_table',UrlaDTableProductos,FormatoDTableProductos,null,RowCallBackFunctionProducto);
+
 	
-	SelectProductosTable = $("#ingreso_productos_table").dataTable({
+	UrlaDTableClientes = '{{ path("dicars_ventas_servicio_gettablaclientes") }}';
+	FormatoDTableProductos = [
+		              { "sWidth": "12%","mDataProp": "nombre"},
+		              { "sWidth": "12%","mDataProp": "apellido"},
+		              { "sWidth": "12%","mDataProp": "dni"},
+		              { "sWidth": "12%","mDataProp": "linea_credito"}
+		              ];
+	BuscarProductosTable = createDataTable('select_pedido_table',UrlaDTableClientes,FormatoDTableProductos,null,RowCallBackFunctionProducto);
+
+	SelectProductosTable =$("#select_productos_venta").dataTable({
 		"aoColumns": [
 		              { "sWidth": "12%","mDataProp": "id"},
 		              { "sWidth": "12%","mDataProp": "nombre"},
 		              { "sWidth": "12%","mDataProp": "cantidad"},
-		              { "sWidth": "12%","mDataProp": "precio_uni"},
+		              { "sWidth": "12%","mDataProp": "precio_contado"},
+		              { "sWidth": "12%","mDataProp": "precio_credito"},
 		              { "sWidth": "12%","mDataProp": "elim_btn"}
 		              ],
-		       "fnCreatedRow": function( nRow, aData, iDisplayIndex ) {
-		        		$(nRow).find('a').click(function(e){
-		        		e.preventDefault();
-		        		var index = $(SelectProductosTable.fnGetData()).getIndexObj(aData,'id');
-		        		SelectProductosTable.fnDeleteRow( index );
-		        		Array2 = SelectProductosTable.fnGetData();
-		        		CopyArray(SelectProductosTableData,Array2,false,Attr);
-		        		});       
-		        },
-		  		"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span12'i><'span12 center'p>>",
-		  		"sPaginationType": "bootstrap",
-		  		"oLanguage": {
-		  		"sLengthMenu": "_MENU_ registros por pagina"
-		  		}
+		"fnCreatedRow": function( nRow, aData, iDisplayIndex ) {
+			$(nRow).find('a').click(function(e){
+				e.preventDefault();
+				var index = $(SelectProductosTable.fnGetData()).getIndexObj(aData,'id');
+				SelectProductosTable.fnDeleteRow( index );
+				Array2 = SelectProductosTable.fnGetData();
+				CopyArray(SelectProductosTableData,Array2,false,Attr);
+			});
+		},
+		"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span12'i><'span12 center'p>>",
+		"sPaginationType": "bootstrap",
+		"oLanguage": {
+		"sLengthMenu": "_MENU_ records per page"
+		}
 	});
+	
+	initSlider(SelectProductosTableData);
+	$('#contenedor').height($('#step1').height());
+	
 });
 </script>
 {% endblock %}

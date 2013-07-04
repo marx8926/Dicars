@@ -1,0 +1,13 @@
+
+#wrapper{
+    width:1014px;
+    overflow:hidden;
+}
+#steps{
+    width:1014px;
+    overflow:hidden;
+}
+.step{
+    float:left;
+    width:1014px;
+}
