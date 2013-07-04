@@ -1,22 +1,24 @@
 {% extends "::baseCharisma.html.twig" %}
-{% block title %}Salida Productos: Ver - Logística -{% endblock %}
+{% block title %}Ver Pedido - Logística -{% endblock %}
 {% block breadcrumb %}
 <li>
 	<a href="{{path('dicars_logistica_homepage')}}">Logística</a><span class="divider">/</span>
 </li>
 <li>
-	<a href="{{path('dicars_logistica_reg_salidaproductos')}}">Salida Productos: Ver</a>
+	<a href="{{path('dicars_logistica_pedidos')}}">Pedidos</a><span class="divider">/</span>
 </li>
+<li>
+	<a href="{{path('dicars_logistica_pedidos_registrar')}}">Ver Pedido</a>
 </li>
 {% endblock %}
 {% block content %}
 <div class="row-fluid sortable">		
 	<div class="box span12">
 		<div class="box-header well" data-original-title>
-			<h2>Salida Productos: Ver Datos</h2>
+			<h2>Ver Pedidos</h2>
 		</div>
 		<div class="box-content">
-			<div id="RegistrarSalidaForm" class="form-horizontal" method="post" action="{{ path('dicars_logistica_registrar_salida_producto') }}">
+			<div class="form-horizontal">
 				<fieldset>
 					<div class="row-fluid">
 						<div class="span6">
@@ -33,12 +35,6 @@
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label" for="motivo">Motivo</label>
-								<div class="controls">
-									<span class="help-inline" style="margin-top:5px;">{{ motivo }}</span>
-								</div>
-							</div>
-							<div class="control-group">
 								<label class="control-label" for="tienda">Tienda</label>
 								<div class="controls">
 								  	<span class="help-inline" style="margin-top:5px;">{{ local }}</span>
@@ -47,15 +43,27 @@
 						</div>
 						<div class="span6">
 							<div class="control-group">
-								<label class="control-label" for="fecha">Fecha</label>
+								<label class="control-label" for="fechapedido">Fecha de Pedido</label>
 								<div class="controls">
 									<span class="help-inline" style="margin-top:5px;">{{ fecha_reg }}</span>
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label" for="solicitante">Solicitante</label>
+								<label class="control-label" for="fechaentrega">Fecha de Entrega</label>
 								<div class="controls">
-									<span class="help-inline" style="margin-top:5px;">{{ solicitante }}</span>
+									<span class="help-inline" style="margin-top:5px;">{{ fecha_ent }}</span>
+								</div>
+							</div>
+							
+							<div class="control-group">
+								<div class="controls">
+									<label class="checkbox inline">
+										{% if email == '1' %}
+											<input type="checkbox" id="checkgerencia" value="option1" checked>Enviar Correo a Gerencia
+										{% else %}
+											<input type="checkbox" id="checkgerencia" value="option1">Enviar Correo a Gerencia
+										{% endif %}
+									</label>
 								</div>
 							</div>
 						</div>
@@ -69,14 +77,15 @@
 				</fieldset>
 			</div>
 			<hr>
-			<h3>Productos a Salir</h3>
+			<h3>Productos de Pedido</h3>
 			<hr>
-			<table id="salida_productos_table" name="salida_productos_table" class="table table-striped table-bordered bootstrap-datatable datatable">
+			<table id="productos_table" class="table table-striped table-bordered bootstrap-datatable datatable">
 				<thead>
 					  <tr>
-						  <th>Serie Producto</th>
-						  <th>Cantidad</th>
+						  <th>Código de Producto</th>
+						  <th>Cantidad Total</th>
 						  <th>Estado</th>
+						  <th>Cantidad Aceptada</th>
 					  </tr>
 				</thead>   
 				<tbody>
@@ -84,28 +93,30 @@
 			</table>
 			<div class="form-horizontal">
 				<div class="form-actions">
-					<a href="{{ path('dicars_logistica_cons_salidaproductos') }}" class="btn btn-primary">Volver</a>
+					<a href="{{ path('dicars_logistica_pedidos') }}" class="btn btn-primary">Volver</a>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
 {% endblock %}
-
 {% block javascript %}
 <script src="{{ asset('js/util/functiongen.js') }}"></script>
 <script src="{{ asset('js/util/datatable_plugins.js') }}"></script>
 <script type="text/javascript">
-
 $(document).ready(function(){
-	
-	UrlaDTableSalProd = '{{ path("dicars_logistica_servicio_gettabladetsalprod",{'id':''}) }}/{{ id }}';
-	FormatoDTableSalProd = [
-		              { "sWidth": "33%","mDataProp": "producto_serie"},
-		              { "sWidth": "33%","mDataProp": "cantidad"},
-		              { "sWidth": "33%","mDataProp": "estado"},
+
+	UrlaDTablePedidos = '{{ path("dicars_logistica_servicio_gettabladetordped",{'id':''}) }}/{{ id }}';
+	FormatoDTablePedidos = [
+		              { "sWidth": "25%","mDataProp": "producto_serie"},
+		              { "sWidth": "25%","mDataProp": "cantidad"},
+		              { "sWidth": "25%","mDataProp": "estado"},
+		              { "sWidth": "25%","mDataProp": "cantidad_rec"}
 		              ];
-	BuscarSalProdTable = createDataTable('salida_productos_table',UrlaDTableSalProd,FormatoDTableSalProd);
+	BuscarPedidosTable = createDataTable('productos_table',UrlaDTablePedidos,FormatoDTablePedidos);
+	
 });
+
+
 </script>
 {% endblock %}

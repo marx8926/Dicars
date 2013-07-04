@@ -60,10 +60,8 @@ $(document).ready(function(){
 		//mostrar Ver Datos Trabajador------------------------------------>
 			$('.btn-datos').unbind();
 			$('.btn-datos').click(function(e){
-				e.preventDefault();
-				$('#modalVerDatos').modal('show');
-				id=$(this).attr("id-data");		
-				cargarVer(id);
+				id=$(this).attr("id-data");	
+				$(this).attr('href',"{{ path('dicars_logistica_pedidos_ver',{'idpedido':''}) }}/"+id);
 			});
 	};
 	

@@ -72,4 +72,23 @@ class DefaultController extends Controller
     {
     	return $this->render('DicarsLogisticaBundle:Default:pedidos_registrar.html.twig');
     }
+    public function pedidos_verAction($idpedido)
+    {
+    	$Pedido = $this->getDoctrine()
+    	->getRepository('DicarsDataBundle:LogOrdped')
+    	->findOneBy(array('nordpedId' => $idpedido));
+    	 
+    	return $this->render('DicarsLogisticaBundle:Default:pedidos_ver.html.twig',array(
+    			'id' => $idpedido,
+    			'personal' => $Pedido->getNpersonal()->getCpersonalnom()." ".$Pedido->getNpersonal()->getCpersonalape(),
+    			'serie' => $Pedido->getCordpedserie(),
+    			'nro' => $Pedido->getCordpednro(),
+    			'email' => $Pedido->getCordpedenvemail(),
+    			'local' => $Pedido->getNlocal()->getClocaldesc(),
+    			'fecha_reg' => $Pedido->getDordpedfecreg()->format('d/m/Y'),
+    			'fecha_ent' => $Pedido->getDordepedfecent()->format('d/m/Y'),
+    			'observacion' => $Pedido->getCordpedobsv(),
+    			'estado' => $Pedido->getCordpedest()
+    	));
+    }
 }

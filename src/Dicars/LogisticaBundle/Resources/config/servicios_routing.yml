@@ -37,3 +37,7 @@ dicars_logistica_servicio_gettabladetsalprod:
 dicars_logistica_servicio_gettablaordpeds:
     pattern:  /servicio_gettablaordpeds
     defaults: { _controller: DicarsLogisticaBundle:LogisticaServicios:getTablaPedidos }
+    
+dicars_logistica_servicio_gettabladetordped:
+    pattern:  /servicio_gettabladetordped/{id}
+    defaults: { _controller: DicarsLogisticaBundle:LogisticaServicios:getTablaDetOrdPed }

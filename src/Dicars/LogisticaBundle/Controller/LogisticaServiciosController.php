@@ -246,5 +246,31 @@ class LogisticaServiciosController extends Controller{
 		}
 		return new JsonResponse(array('aaData' => $todo));
 	}
+	
+	public function getTablaDetOrdPedAction($id){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$detordpeds = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:LogDetordped')
+		->findBy(array('nordped'=>$id));
+			
+		$em->clear();
+	
+		$todo = array();
+		foreach ($detordpeds as $key => $detordped){
+			$producto = $detordped -> getNproducto();
+	
+			$todo[] = array('id' => $detordped -> getNdetordpedId(),
+					'producto_serie' => $producto -> getCproductoserie(),
+					'cantidad' => $detordped -> getNdetordpedcant(),
+					'estado' => $detordped -> getCdetordpedest(),
+					'cantidad_rec' => $detordped -> getNdetordpedcantacept(),
+					'ver_btn' => "<a id-data='".$detordped -> getNdetordpedId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
+					'edit_btn' => "<a id-data='".$detordped -> getNdetordpedId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
+					'elim_btn' => "<a id-data='".$detordped -> getNdetordpedId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
+	
+		}
+		return new JsonResponse(array('aaData' => $todo));
+	}
 
 }
