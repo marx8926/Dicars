@@ -37,6 +37,9 @@ dicars_logistica_cons_salidaproductos:
 dicars_logistica_reg_salidaproductos:
     pattern:  /reg_salidaproductos
     defaults: { _controller: DicarsLogisticaBundle:Default:reg_salidaproductos }
+dicars_logistica_ver_salidaproductos:
+    pattern:  /ver_salidaproductos/{idsalprod}
+    defaults: { _controller: DicarsLogisticaBundle:Default:ver_salidaproductos }
 dicars_logistica_cons_ingresoproductos:
     pattern:  /cons_ingresoproductos
     defaults: { _controller: DicarsLogisticaBundle:Default:cons_ingresoproductos }  

@@ -221,5 +221,30 @@ class LogisticaServiciosController extends Controller{
 		}
 		return new JsonResponse(array('aaData' => $todo));
 	}
+	
+	public function getTablaDetSalProdAction($id){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$detsalprods = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:LogDetSalProd')
+		->findBy(array('nsalprod'=>$id));
+			
+		$em->clear();
+	
+		$todo = array();
+		foreach ($detsalprods as $key => $detsalprod){
+			$producto = $detsalprod -> getNproducto();
+	
+			$todo[] = array('id' => $detsalprod -> getNdetsalprodId(),
+					'producto_serie' => $producto -> getCproductoserie(),
+					'cantidad' => $detsalprod -> getDetsalprodcant(),
+					'estado' => $detsalprod -> getCdetsalprodest(),
+					'ver_btn' => "<a id-data='".$detsalprod -> getNdetsalprodId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
+					'edit_btn' => "<a id-data='".$detsalprod -> getNdetsalprodId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
+					'elim_btn' => "<a id-data='".$detsalprod -> getNdetsalprodId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
+	
+		}
+		return new JsonResponse(array('aaData' => $todo));
+	}
 
 }

@@ -14,6 +14,9 @@
 	<div class="box span12">
 		<div class="box-header well" data-original-title>
 			<h2>Salida de Productos</h2>
+			<div class="box-icon">
+				<a href="{{path('dicars_logistica_reg_salidaproductos')}}" class="btn btn-round" alt="Registrar Salida de Productos"><i class="icon-plus"></i></a>
+			</div>
 		</div>
 		<div class="box-content">
 			<div class="form-horizontal">
@@ -78,10 +81,8 @@ $(document).ready(function(){
 		//mostrar Ver Datos Trabajador------------------------------------>
 			$('.btn-datos').unbind();
 			$('.btn-datos').click(function(e){
-				e.preventDefault();
-				$('#modalVerDatos').modal('show');
-				id=$(this).attr("id-data");		
-				cargarVer(id);
+				id=$(this).attr("id-data");	
+				$(this).attr('href',"{{ path('dicars_logistica_ver_salidaproductos',{'idsalprod':''}) }}/"+id);
 			});
 	};
 	
@@ -101,9 +102,7 @@ $(document).ready(function(){
 
 	/*ReloadTableEditar = reloadclosemodal('modalEditarDatos', 'empleados_table');
 	ReloadTableRegistrar = reloadclosemodal('modalRegistro', 'empleados_table');
-	
-	enviar('RegistrarTrabajadorForm', ReloadTableRegistrar);
-	enviar('EditarEmpleadoForm', ReloadTableEditar);*/
+	*/
 	
 </script>
 {% endblock %}
