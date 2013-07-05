@@ -34,4 +34,8 @@ dicars_admin_servicio_gettablaconstantes:
     defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getTablaConstantes }
 dicars_admin_servicio_getconstantebyid:
     pattern:  /servicio_getconstantebyid/{id}
-    defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getConstanteById }  
+    defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getConstanteById }
+    
+dicars_admin_servicio_getoptiontipobyclase:
+    pattern:  /servicio_getoptiontipobyclase/{Clase}
+    defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getOptionTipoByClase }  

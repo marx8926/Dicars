@@ -248,6 +248,21 @@ class AdministrarServiciosController extends Controller {
 	
 		return new JsonResponse($data);
 	}
-		
+	
+	public function getOptionTipoByClaseAction($Clase){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$Tipos = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:Constante')
+		->findBy(array('nconstanteclase' => $Clase));
+		$em->clear();
+	
+		$result = "";
+		foreach ($Tipos as $key => $tipo){
+			if($tipo -> getCconstantevalor() != 0 )
+				$result = $result."<option value='".$tipo -> getCconstantevalor()."'>".$tipo->getCconstantedesc()."</option>";
+		}
+		return new Response($result);
+	}
 }
 	

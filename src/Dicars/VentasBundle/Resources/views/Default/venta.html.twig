@@ -70,10 +70,7 @@
 					</tbody>
 				</table>
 				<p>
-                	<a to_position='2' id='to_detalle_credito' href="#">Venta Credito</a>
-                </p>
-                <p>
-                	<a to_position='2' id='to_detalle_contado' href="#">Venta Contado</a>
+                	<a to_position='2' id='to_detalle' href="#">Detalle</a>
                 </p>
 			</div>
 			</fieldset>
@@ -91,16 +88,21 @@
 					</div>
 				</div>
 				<div class="control-group">
+					<label class="control-label" for="producto">Tipo de Pago</label>
+					<div class="controls">
+						<select name="tipo_pago" id="forma_pago">
+						</select>
+					</div>
+				</div>
+				<div class="control-group">
 					<label class="control-label" for="producto">Tipo moneda</label>
 					<div class="controls">
 						<input class="input-xlarge focused" style="margin: 0 18px 0 0;" id="producto" type="text">
-					  	<select >
-					  		<option>Soles</option>
-					  		<option>Dolares</option>
+					  	<select name="tipo_moneda">
+					  		<option value="1">Soles</option>
+					  		<option value="2">Dolares</option>
 					  	</select>
 					</div>
-				</div>
-				<div class="control-group" id="forma_pago">
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="producto">Subtotal</label>
@@ -117,9 +119,9 @@
 					</div>
 				</div>
 				<div class="control-group">
-					<label class="control-label" for="producto">Tipo moneda</label>
+					<label class="control-label" for="producto">Observacion</label>
 					<div class="controls">
-						<input class="input-xlarge focused" style="margin: 0 18px 0 0;" id="producto" type="text">
+						<textarea class="input-xlarge" name="observacion" rows="2" cols=""></textarea>
 					</div>
 				</div>
 			</form>
@@ -132,33 +134,27 @@
 			</div><!--/span-->
 			</fieldset>
                 <fieldset class="step" id="step3">
-                    <legend>Payment</legend>
-                    <p>
-                        <label for="cardtype">Card</label>
-                        <select id="cardtype" name="cardtype">
-                            <option>Visa</option>
-                            <option>Mastercard</option>
-                            <option>American Express</option>
-                        </select>
-                    </p>
-                    <p>
-                        <label for="cardnumber">Card number</label>
-                        <input id="cardnumber" name="cardnumber" type="number" AUTOCOMPLETE=OFF />
-                    </p>
-                    <p>
-                        <label for="secure">Security code</label>
-                        <input id="secure" name="secure" type="number" AUTOCOMPLETE=OFF />
-                    </p>
-                    <p>
-                        <label for="namecard">Name on Card</label>
-                        <input id="namecard" name="namecard" type="text" AUTOCOMPLETE=OFF />
-                    </p>
-                    <p>
-                        <a to_position='2' id='back_to_detalle' href="#">atras</a>
-                    </p>
-                    <p>
-                        <a to_position='0' id='to_end' href="#">Finalizar</a>
-                    </p>
+                <div class="box-header well" data-original-title>
+					<h2>Datos de Pago</h2>
+				</div>
+				<div class="box-content">
+	                    <div class="form-horizontal">
+	                    	<div class="control-group">
+								<label class="control-label" for="producto">Cliente</label>
+								<div class="controls">
+									<span class="help-inline" style="margin-top:5px;">Cliente</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="producto">Empleado</label>
+								<div class="controls">
+									<span class="help-inline" style="margin-top:5px;">Empleado</span>
+								</div>
+							</div>
+							<div class="control-group" id="detalle_productos">
+							</div>
+	                    </div>
+	            	</div>
                 </fieldset>
             </div>
         </div>
@@ -283,7 +279,7 @@ $(document).ready(function(){
 		"sLengthMenu": "_MENU_ records per page"
 		}
 	});
-	
+	ajaxResponseData("forma_pago","{{ path('dicars_admin_servicio_getoptiontipobyclase',{'Clase':1}) }}");
 	initSlider(SelectProductosTableData);
 	$('#contenedor').height($('#step1').height());
 	
