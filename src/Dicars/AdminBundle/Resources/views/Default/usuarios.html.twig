@@ -20,7 +20,7 @@
 					<div class="control-group">
 						<label class="control-label" for="trabajador">Trabajador</label>
 						<div class="controls">
-							<input class="input-xlarge focused" id="nombre_trabajador" type="text" disabled>
+							<input class="input-xlarge" id="nombre_trabajador" type="text" disabled required>
 							<input class="input-xlarge focused" id="trabajador" name="trabajador" type="hidden">
 							<button class="btn btn-info btn-trabajador" style="margin-left: 15px;"><i class="icon-user icon-white"></i></button>
 						</div>
@@ -28,13 +28,13 @@
 					<div class="control-group">
 						<label class="control-label" for="usuario_id">Usuario ID</label>
 						<div class="controls">
-							<input class="input-xlarge focused" id="usuario_id" name="usuario_id" type="text">
+							<input class="input-xlarge focused" id="usuario_id" name="usuario_id" type="text" required pattern="|^[a-zA-Z0-9]+$|" maxlength="20">
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="contrasena">Contraseña</label>
 						<div class="controls">
-							<input class="input-xlarge focused" id="contrasena" name="contrasena" type="text">
+							<input class="input-xlarge focused" id="contrasena" name="contrasena" type="text" required>
 						</div>
 					</div>
 					
@@ -42,8 +42,8 @@
 					<label class="control-label" for="estado">Estado</label>
 					<div class="controls">
 					 <select id="estado" name="estado" data-rel="chosen">
-							<option>Disabled</option>
-							<option>Enabled</option>
+							<option value="1">Habilitado</option>
+							<option value="0">Inhabilitado</option>
 					  </select>
 					</div>
 					</div>
@@ -51,7 +51,7 @@
 					<div class="control-group">
 						<label class="control-label" for="fecharegistro">Fecha de Registro</label>
 						<div class="controls">
-							<input class="input-xlarge datepicker" id="fecharegistro" name="fecharegistro" type="text">
+							<input class="input-xlarge datepicker" id="fecharegistro" name="fecharegistro" type="text" placeholder="dd/mm/yyyy" pattern="(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d" required>
 						</div>
 					</div>
 					<div class="form-actions">

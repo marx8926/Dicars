@@ -279,7 +279,7 @@ function addElemento(obj){
 	    		$elem = $('<input type="file" class="input-xlarge" name="'+obj.name+'">');
 	    		break;
 	    case 'textarea':
-	    		$elem = $('<textarea class="input-xlarge" name="'+obj.name+'" rows="2" cols="" maxlength="'+obj.max+'"></textarea>');
+	    		$elem = $('<textarea class="input-xlarge" name="'+obj.name+'" rows="2" cols="" required="'+obj.req+'" maxlength="'+obj.max+'"></textarea>');
 	    		$elem.val(obj.value);
 	    		break;
 	    case 'date':

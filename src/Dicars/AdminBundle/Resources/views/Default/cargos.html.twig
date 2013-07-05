@@ -39,13 +39,13 @@
 						  	<div class="control-group">
 								<label class="control-label" for="nom_cargo">Nombre de Cargo</label>
 								<div class="controls">
-							  		<input class="input-xlarge focused" id="nom_cargo" name="nom_cargo" type="text">
+							  		<input class="input-xlarge focused" id="nom_cargo" name="nom_cargo" type="text" pattern="|^[a-zA-Z ñÑáéíóúüç.0-9]*$|" required>
 								</div>
 						  	</div>
 						  	<div class="control-group">
 								<label class="control-label" for="selectEstado">Estado</label>
 								<div class="controls">
-							  		<select id="selectEstado" name="selectEstado">
+							  		<select id="selectEstado" name="selectEstado" required>
 										<option value="1">Habilitado</option>
 										<option value="0">Inhabilitado</option>
 									</select>
