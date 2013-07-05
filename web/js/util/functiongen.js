@@ -272,21 +272,21 @@ function crearElementosForm(Array){
 function addElemento(obj){
 	switch (obj.type) {
 	    case 'input': 
-	    		$elem = $('<input class="input-xlarge focused" id="focusedInput" name="'+obj.name+'" type="'+obj.typeinput+'">');
+	    		$elem = $('<input class="input-xlarge focused" id="focusedInput" name="'+obj.name+'" type="'+obj.typeinput+'" pattern="'+obj.pattern+'" title="'+obj.title+'" required="'+obj.req+'" maxlength="'+obj.max+'">');
 	    		$elem.val(obj.value);
 	    		break;
 	    case 'file':
 	    		$elem = $('<input type="file" class="input-xlarge" name="'+obj.name+'">');
 	    		break;
 	    case 'textarea':
-	    		$elem = $('<textarea class="input-xlarge" name="'+obj.name+'" rows="2" cols=""></textarea>');
+	    		$elem = $('<textarea class="input-xlarge" name="'+obj.name+'" rows="2" cols="" maxlength="'+obj.max+'"></textarea>');
 	    		$elem.val(obj.value);
 	    		break;
 	    case 'date':
-	    		$elem = $('<input type="text" class="input-xlarge datepicker" id="'+obj.name+'" name="'+obj.name+'" value="'+obj.value+'">');
+	    		$elem = $('<input type="text" class="input-xlarge datepicker" id="'+obj.name+'" name="'+obj.name+'" value="'+obj.value+'" pattern="'+obj.pattern+'" title="'+obj.title+'">');
 	    		break;
 	    case 'select':
-	    		$elem  = $('<select id="'+obj.name+'" name="'+obj.name+'" data-rel="chosen">');
+	    		$elem  = $('<select id="'+obj.name+'" name="'+obj.name+'" data-rel="chosen" >');
 	    		break;
 	    case 'img':
 	    		$elem = $('<figure><img src="'+obj.value+'" alt="Tarjeta"></figure>');
