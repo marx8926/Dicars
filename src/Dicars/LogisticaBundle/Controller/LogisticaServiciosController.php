@@ -248,7 +248,6 @@ class LogisticaServiciosController extends Controller{
 		}
 		return new JsonResponse(array('aaData' => $todo));
 	}
-<<<<<<< Updated upstream
 	
 	public function getTablaDetOrdPedAction($id){
 		$em = $this->getDoctrine()->getEntityManager();
@@ -256,20 +255,8 @@ class LogisticaServiciosController extends Controller{
 		$detordpeds = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:LogDetordped')
 		->findBy(array('nordped'=>$id));
-=======
-
-	public function getTablaDetIngProdAction($id){
-		$em = $this->getDoctrine()->getEntityManager();
-			
-		$detingprods = $this->getDoctrine()
-		->getRepository('DicarsDataBundle:LogDetingProd')
-		->findBy(array('ningprod'=>$id));
->>>>>>> Stashed changes
-			
-		$em->clear();
 	
 		$todo = array();
-<<<<<<< Updated upstream
 		foreach ($detordpeds as $key => $detordped){
 			$producto = $detordped -> getNproducto();
 	
@@ -280,8 +267,20 @@ class LogisticaServiciosController extends Controller{
 					'cantidad_rec' => $detordped -> getNdetordpedcantacept(),
 					'ver_btn' => "<a id-data='".$detordped -> getNdetordpedId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
 					'edit_btn' => "<a id-data='".$detordped -> getNdetordpedId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
-					'elim_btn' => "<a id-data='".$detordped -> getNdetordpedId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
-=======
+					'elim_btn' => "<a id-data='".$detordped -> getNdetordpedId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");			
+		}
+		return new JsonResponse(array('aaData' => $todo));
+	}
+	
+		public function getTablaDetIngProdAction($id){
+			$em = $this->getDoctrine()->getEntityManager();
+				
+			$detingprods = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:LogDetingProd')
+			->findBy(array('ningprod'=>$id));
+					
+			$em->clear();
+			
 		foreach ($detingprods as $key => $detingprod){
 			$producto = $detingprod -> getNproducto();
 	
@@ -292,14 +291,9 @@ class LogisticaServiciosController extends Controller{
 					'total' => $detingprod -> getNdetingprodtot(),
 					'ver_btn' => "<a id-data='".$detingprod -> getNdetingprodId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
 					'edit_btn' => "<a id-data='".$detingprod -> getNdetingprodId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
-					'elim_btn' => "<a id-data='".$detingprod -> getNdetingprodId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
->>>>>>> Stashed changes
-	
+					'elim_btn' => "<a id-data='".$detingprod -> getNdetingprodId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");	
 		}
 		return new JsonResponse(array('aaData' => $todo));
 	}
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
 }

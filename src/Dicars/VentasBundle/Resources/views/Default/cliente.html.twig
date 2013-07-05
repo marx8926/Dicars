@@ -117,9 +117,6 @@ function cargarVer(id){
 
 $(document).ready(function(){
 
-	ReloadTableEditar = reloadclosemodal('modalEditarDatos', 'clientes_table');
-	ReloadTableRegistrar = reloadclosemodal('modalRegistro', 'clientes_table');
-
 	CargarBotones = function(){		
 		//mostrar Editar Cliente------------------------------------>
 		$('.btn-editar').unbind();
@@ -146,8 +143,7 @@ $(document).ready(function(){
 	$('#modalRegistro').modal('show');
 	});
 
-	enviar('RegistrarClienteForm', ReloadTableRegistrar);
-	enviar('EditarClienteForm', ReloadTableEditar);
+
 	
 	UrlaDTable = '{{ path("dicars_ventas_servicio_gettablaclientes") }}';
 	FormatoDTable = [
@@ -160,7 +156,12 @@ $(document).ready(function(){
 	              { "sWidth": "14%","mDataProp": "elim_btn"}
 	              ];
 oTable = createDataTable('clientes_table',UrlaDTable,FormatoDTable,CargarBotones);
-	
+
+ReloadTableEditar = reloadclosemodal('modalEditarDatos', 'clientes_table');
+ReloadTableRegistrar = reloadclosemodal('modalRegistro', 'clientes_table');
+
+enviar('RegistrarClienteForm', ReloadTableRegistrar);
+enviar('EditarClienteForm', ReloadTableEditar);
 });
 
 </script>

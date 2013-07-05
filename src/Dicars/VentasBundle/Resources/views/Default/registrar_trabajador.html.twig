@@ -9,13 +9,13 @@
 					  <div class="control-group">
 						<label class="control-label" for="nombres">Nombres</label>
 						<div class="controls">
-						  <input class="input-xlarge focused" id="nombres" name="nombres" type="text">
+						  <input class="input-xlarge focused" maxlength="50" required pattern="|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]*$|" title="Este campo debe ser sólo letras" id="nombres" name="nombres" type="text">
 						</div>
 					  </div>
 					  <div class="control-group">
 						<label class="control-label" for="apellidos">Apellidos</label>
 						<div class="controls">
-						  <input class="input-xlarge focused" id="apellidos" name="apellidos" type="text">
+						  <input class="input-xlarge focused" maxlength="50" required pattern="|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]*$|" title="Este campo debe ser sólo letras" id="apellidos" name="apellidos" type="text">
 						</div>
 					  </div>
 					  <div class="control-group">
@@ -27,19 +27,19 @@
 					  <div class="control-group">
 						<label class="control-label" for="dni">DNI</label>
 						<div class="controls">
-						  <input class="input-xlarge focused" id="dni" name="dni" type="text">
+						  <input class="input-xlarge focused" maxlength="8" required pattern="|^\d{8}$|" title="Este campo debe tener 8 números" id="dni" name="dni" type="text">
 						</div>
 					  </div>
 					  <div class="control-group">
 						<label class="control-label" for="telefono">Teléfono</label>
 						<div class="controls">
-						  <input class="input-xlarge focused" id="telefono" name="telefono" type="text">
+						  <input class="input-xlarge focused" placeholder="999999999" required pattern="|^\d{12}$|" maxlength="12" title="Este campo sólo acepta 9 números obligatorios" id="telefono" name="telefono" type="text">
 						</div>
 					  </div>
 					  <div class="control-group">
 						<label class="control-label" for="email">Email</label>
 						<div class="controls">
-						  <input class="input-xlarge focused" id="email" name="email" type="text">
+						  <input class="input-xlarge focused" maxlength="100" placeholder="example@domain.com" title="Debe ingresar un formato de email correcto" required id="email" name="email" type="email">
 						</div>
 					  </div>
 					  <div class="control-group">

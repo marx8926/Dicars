@@ -9,55 +9,49 @@
 			<div class="control-group">
 				<label class="control-label" for="nombres">Nombres</label>
 				<div class="controls">
-			 		<input class="input-xlarge focused" name="nombres" id="focusedInput" type="text">
+			 		<input class="input-xlarge focused" maxlength="50" required pattern="|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]*$|" title="Este campo debe ser sólo letras" name="nombres" id="focusedInput" type="text">
 				</div>
 			</div>
 			 <div class="control-group">
 				<label class="control-label" for="apellidos">Apellidos</label>
 				<div class="controls">
-			  		<input class="input-xlarge focused" name="apellidos" id="focusedInput" type="text">
+			  		<input class="input-xlarge focused" maxlength="50" required pattern="|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]*$|" title="Este campo debe ser sólo letras" name="apellidos" id="focusedInput" type="text">
 				</div>
-			</div>
-			 <div class="control-group">
-				<label class="control-label" for="linea_credito">Línea de Crédito</label>
-				<div class="controls">
- 			  		<input class="input-xlarge focused" name="linea_credito" id="focusedInput" type="text">
-				</div>
-			 </div>
+			</div>			
 			 <div class="control-group">
 				<label class="control-label" for="dni">DNI</label>
 				<div class="controls">
-				  	<input class="input-xlarge focused" name="dni" id="focusedInput" type="text">
+				  	<input class="input-xlarge focused" maxlength="8" required pattern="|^\d{8}$|" title="Este campo debe tener 8 números" name="dni" id="focusedInput" type="text">
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="direccion">Dirección</label>
 				<div class="controls">
-					 <input class="input-xlarge focused" name="direccion" id="focusedInput" type="text">
+					 <input class="input-xlarge focused" required pattern="|^([a-zA-ñÑáÁéÉíÍóÓúÚüÜç0-9]+\s*)+$" maxlength="200" name="direccion" id="focusedInput" type="text">
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="referencia">Referencia</label>
 				<div class="controls">
-				  <input class="input-xlarge focused" name="referencia" id="focusedInput" type="text">
+				  <input class="input-xlarge focused" required pattern="|^([a-zA-ñÑáÁéÉíÍóÓúÚüÜç0-9]+\s*)+$" maxlength="200" name="referencia" id="focusedInput" type="text">
 				</div>
-			</div>			
+			</div>
 			<div class="control-group">
 				<label class="control-label" for="lineaop">LineaOp</label>
 				<div class="controls">
-				  <input class="input-xlarge focused" name="lineaop" id="focusedInput" type="text" placeholder="decimal">
+				  <input class="input-xlarge focused" maxlength="5" pattern="\d+(\.\d*)?" required name="lineaop" id="focusedInput" type="text" placeholder="decimal">
 				</div>
 			</div>
 			<div class="control-group">
 				<label class="control-label" for="arccredito">ArcCredito</label>
 				<div class="controls">
-				  <input class="input-xlarge focused" name="arccredito" id="focusedInput" type="text" placeholder="text">
+				  <input class="input-xlarge focused" required pattern="|^([a-zA-ñÑáÁéÉíÍóÓúÚüÜç0-9]+\s*)+$" name="arccredito" id="focusedInput" type="text" placeholder="text">
 				</div>
 			</div>			
 			<div class="control-group">
 				<label class="control-label" for="ocupacion">Ocupacion</label>
 				<div class="controls">
-				  <input class="input-xlarge focused" name="ocupacion" id="focusedInput" type="text">
+				  <input class="input-xlarge focused" required pattern="|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]*$|" title="Este campo debe ser sólo letras" maxlength="40" name="ocupacion" id="focusedInput" type="text">
 				</div>
 			</div>
 			
