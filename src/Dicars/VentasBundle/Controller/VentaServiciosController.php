@@ -103,19 +103,4 @@ class VentaServiciosController extends Controller{
 		return new JsonResponse($data);
 	}
 	
-	public function getOptionasAction(){
-		$em = $this->getDoctrine()->getEntityManager();
-			
-		$marcas = $this->getDoctrine()
-		->getRepository('DicarsDataBundle:VenMarca')
-		->findAll();
-		$em->clear();
-	
-		$result = "";
-		foreach ($marcas as $key => $marca){
-			$result = $result."<option value='".$marca->getNmarcaId()."'>".$marca->getCmarcadesc()."</option>";
-		}
-		return new Response($result);
-	}
-	
 }

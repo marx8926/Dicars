@@ -83,7 +83,7 @@
 				<div class="control-group">
 					<label class="control-label" for="producto">Cliente</label>
 					<div class="controls">
-						<input class="input-xlarge focused" id="producto" type="text">
+						<input class="input-xlarge focused" id="cliente" type="text">
 					  	<button type="button" class="btn btn-info btn-buscarc" style="margin: 0 18px;"><i class="icon-search icon-white"></i>Buscar</button>
 					</div>
 				</div>
@@ -217,6 +217,13 @@ $(document).ready(function(){
 		$('#modalBuscarProducto').modal('hide');
 	});
 
+	$("#btn-select-cliente").click(function(e){
+		e.preventDefault();
+		var data = SelectClienteData[0];
+		$('#cliente').val(data.nombre+" - "+data.apellido);
+		$('#modalBuscarCliente').modal('hide');
+	});
+
 	$("#AgregarProductoForm").submit(function(e){
 		e.preventDefault();
 		if(SelectProductoData.length > 0){
@@ -247,13 +254,13 @@ $(document).ready(function(){
 
 	
 	UrlaDTableClientes = '{{ path("dicars_ventas_servicio_gettablaclientes") }}';
-	FormatoDTableProductos = [
+	FormatoDTableClientes = [
 		              { "sWidth": "12%","mDataProp": "nombre"},
 		              { "sWidth": "12%","mDataProp": "apellido"},
 		              { "sWidth": "12%","mDataProp": "dni"},
 		              { "sWidth": "12%","mDataProp": "linea_credito"}
 		              ];
-	BuscarProductosTable = createDataTable('select_pedido_table',UrlaDTableClientes,FormatoDTableProductos,null,RowCallBackFunctionProducto);
+	SelectClienteTable = createDataTable('select_pedido_table',UrlaDTableClientes,FormatoDTableClientes,null,RowCallBackFunctionCliente);
 
 	SelectProductosTable =$("#select_productos_venta").dataTable({
 		"aoColumns": [
