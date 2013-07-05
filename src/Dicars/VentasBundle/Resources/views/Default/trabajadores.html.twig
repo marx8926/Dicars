@@ -73,7 +73,7 @@ var EmpleadosTable;
 
 var ReloadTableEditar;
 var ReloadTableRegistrar;
-
+var urlCargo = "{{ path('dicars_ventas_servicio_getoptioncargos') }}";
 var CargarBotones;
 
 function cargarEditar(id){
@@ -82,7 +82,7 @@ function cargarEditar(id){
 		empleado = getAjaxObject(url);
 				
 		ArrayDatos = [	{'type':'hidden','value':empleado.id,'name':'idE'},
-		      			{'label':'Cargo','type':'input', 'typeinput':'text','value':empleado.cargo,'name':'cargoE'},
+		      			{'label':'Cargo','type':'select','name':'cargoE'},
 						{'label':'Nombres','type':'input', 'typeinput':'text','value':empleado.nombres,'name':'nombresE'},
 		              	{'label':'Apellidos','type':'input','typeinput':'text','value':empleado.apellidos,'name':'apellidosE'},
 		              	{'label':'Dni','type':'input','typeinput':'text','value':empleado.dni,'name':'dniE'},
@@ -90,11 +90,12 @@ function cargarEditar(id){
 		              	{'label':'Email','type':'input','typeinput':'text','value':empleado.email,'name':'emailE'},
 		              	{'label':'Fecha Nacimiento','type':'date','value':empleado.fechanacimiento,'name':'fechanacimientoE'},
 		              	{'label':'Sexo','type':'input','typeinput':'text','value':empleado.sexo,'name':'sexoE'},
-		              	{'label':'Estado','type':'input','typeinput':'text','value':empleado.estado,'name':'estadoE'},
+		              	{'label':'Estado','type':'input','typeinput':'text','value':empleado.estado,'name':'estadoE'},		              
 		              	{'label':'Edad','type':'input','typeinput':'text','value':empleado.edad,'name':'edadE'},
 						{'type':'actions'}];
 			
 		$("#EditarEmpleadoForm").html(crearElementosForm(ArrayDatos));
+		ajaxResponseData('cargoE',urlCargo);
 		docReady();
 	}
 	
@@ -118,6 +119,14 @@ function cargarVer(id){
 	}
 	
 $(document).ready(function(){
+
+	ajaxResponseData('cargo',urlCargo);
+	
+	//mostrar Registrar Trabajador------------------------------------>
+	$('.btn-registrar').click(function(e){
+		e.preventDefault();
+		$('#modalRegistro').modal('show');
+	});
 	
 	CargarBotones = function(){
 		//	mostrar Editar Trabajador------------------------------------>
@@ -136,13 +145,7 @@ $(document).ready(function(){
 				id=$(this).attr("id-data");		
 				cargarVer(id);
 			});
-	};
-	
-	//mostrar Registrar Trabajador------------------------------------>
-	$('.btn-registrar').click(function(e){
-		e.preventDefault();
-		$('#modalRegistro').modal('show');
-	});
+	};	
 	
 	UrlaDTable = '{{ path("dicars_ventas_servicio_gettablaempleados") }}';
 	FormatoDTable = [

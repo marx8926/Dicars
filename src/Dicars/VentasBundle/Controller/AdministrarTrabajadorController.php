@@ -98,7 +98,7 @@ class AdministrarTrabajadorController extends Controller{
 		$Empleado_email = null;
 		$Empleado_fechanacimiento = null;								
 		$Empleado_sexo = null;
-		$Empleado_estado = null;
+		$Empleado_estado = null;		
 		$Empleado_edad = null;
 		
 		if ($form!=null){
@@ -116,7 +116,7 @@ class AdministrarTrabajadorController extends Controller{
 			$Empleado_email = $datos["emailE"];
 			$Empleado_fechanacimiento = new \DateTime($datos["fechanacimientoE"]);
 			$Empleado_sexo = $datos["sexoE"];
-			$Empleado_estado = $datos["estadoE"];
+			$Empleado_estado = $datos["estadoE"];			
 			$Empleado_edad = $datos["edadE"];				
 			/**/
 			$Empleado = $this->getDoctrine()

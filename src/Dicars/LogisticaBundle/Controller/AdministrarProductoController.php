@@ -19,7 +19,7 @@ class AdministrarProductoController extends Controller{
 		$datos = array();		
 		parse_str($form,$datos);
 		
-		$Producto_id = null;
+		//$Producto_id = null;
 		$Producto_serie = null;
 		$Producto_talla = null;
 		$Producto_marca = null;
@@ -39,7 +39,7 @@ class AdministrarProductoController extends Controller{
 		$Producto_porc_uti_bruta = null;		
 		
 		if ($form != null){
-			$Producto_id = $datos["codigo"];
+			//$Producto_id = $datos["codigo"];
 			$Producto_talla = $datos["talla"];
 			$Producto_serie = $datos["serie"];
 			
@@ -52,19 +52,19 @@ class AdministrarProductoController extends Controller{
 			$Producto_prec_contado = $datos["minimocontado"];
 			$Producto_prec_credito = $datos["minimocredito"];
 			$Producto_prec_costo = $datos["preciocosto"];
-			$Producto_cod_barra = "AER1234";
+			$Producto_cod_barra = "AGHJ3456";
 			$Producto_archivo = "Hola soy el archivo";
 			
 			$Producto_categoria =  $this->getDoctrine()
 	    	->getRepository('DicarsDataBundle:VenCategoria')
 			->findOneBy(array('ncategoriaId' => 1));
 			
-			$Producto_stock_min = 10;
-			$Producto_stock_max = 40;
-			$Producto_stock = 25;
-			$Producto_est = 1;
-			$Producto_porc_uti = 18;
-			$Producto_porc_uti_bruta = 20;
+			$Producto_stock_min = $datos["stockmin"];
+			$Producto_stock_max = $datos["stockmax"];
+			$Producto_stock = $datos["stock"];
+			$Producto_est = $datos["estado"];
+			$Producto_porc_uti = $datos["porcuti"];
+			$Producto_porc_uti_bruta = $datos["utibruta"];
 			
 			$Producto = new Producto();
 			$Producto->setCproductotalla($Producto_talla);

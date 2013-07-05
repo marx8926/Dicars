@@ -21,7 +21,7 @@
 					  <div class="control-group">
 						<label class="control-label" for="fechanacimiento">Fecha de Nacimiento</label>
 						<div class="controls">
-						  <input type="text" class="input-xlarge datepicker" id="fechanacimiento" name="fechanacimiento">
+						  <input type="text" placeholder="dd/mm/YYYY" pattern="|^\d{2}/\d{2}/\d{4}$|" maxlength="10" title="Debe ingresar un formato de fecha correcto" class="input-xlarge datepicker" id="fechanacimiento" name="fechanacimiento">
 						</div>
 					  </div>
 					  <div class="control-group">
@@ -33,7 +33,7 @@
 					  <div class="control-group">
 						<label class="control-label" for="telefono">Teléfono</label>
 						<div class="controls">
-						  <input class="input-xlarge focused" placeholder="999999999" required pattern="|^\d{12}$|" maxlength="12" title="Este campo sólo acepta 9 números obligatorios" id="telefono" name="telefono" type="text">
+						  <input class="input-xlarge focused" placeholder="999999999" required pattern="|^([0-9]+\s*)+$|" maxlength="12" title="Este campo sólo acepta 9 números obligatorios" id="telefono" name="telefono" type="text">
 						</div>
 					  </div>
 					  <div class="control-group">
@@ -41,23 +41,36 @@
 						<div class="controls">
 						  <input class="input-xlarge focused" maxlength="100" placeholder="example@domain.com" title="Debe ingresar un formato de email correcto" required id="email" name="email" type="email">
 						</div>
-					  </div>
+					  </div>					  
 					  <div class="control-group">
 						<label class="control-label" for="sexo">Sexo</label>
 						<div class="controls">
-						  <input class="input-xlarge focused" id="sexo" name="sexo" type="text" placeholder="M/F">
+						  <select id="sexo" required name="sexo" data-rel="chosen">
+							<option value="M">M</option>
+							<option value="F">F</option>
+						  </select>
 						</div>
 					  </div>					  
 					  <div class="control-group">
 						<label class="control-label" for="edad">Edad</label>
 						<div class="controls">
-						  <input class="input-xlarge focused" id="edad" name="edad" type="text" >
+						  <input class="input-xlarge focused" maxlength="3" pattern="|^([0-9]+\s*)+$|" title="Este campo sólo admite números" id="edad" name="edad" type="text" >
 						</div>
-					  </div>					  					 
+					  </div>					  
 					  <div class="control-group">
 						<label class="control-label" for="estado">Estado</label>
 						<div class="controls">
-						  <input class="input-xlarge focused" id="estado" name="estado" type="text" value="A">
+						  <select id="estado" required name="estado" data-rel="chosen">
+							<option value="1">Habilitado</option>
+							<option value="0">Inhabilitado</option>
+						  </select>
+						</div>
+					  </div>					  
+					  <div class="control-group">
+						<label class="control-label" for="cargo">Cargo</label>
+						<div class="controls">
+						  <select id="cargo" name="cargo">
+						  </select>
 						</div>
 					  </div>
 					  <div class="control-group">
