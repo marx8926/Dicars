@@ -151,7 +151,8 @@ class LogisticaServiciosController extends Controller{
 		$em->clear();
 	
 		$todo = array();
-		foreach ($ingprods as $key => $ingprod){
+		foreach ($ingprods as $key => $ingprod){			
+			
 			$todo[] = array('id' => $ingprod -> getNingprodId(),
 					'serie' => $ingprod -> getCingprodserie(),
 					'numero' => $ingprod -> getCingprodnro(),
@@ -160,6 +161,7 @@ class LogisticaServiciosController extends Controller{
 					'edit_btn' => "<a id-data='".$ingprod -> getNingprodId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
 					'elim_btn' => "<a id-data='".$ingprod -> getNingprodId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
 		}
+		return new JsonResponse(array('aaData' => $todo));
 	}
 
 	public function getTablaSalProdAction(){
@@ -246,6 +248,7 @@ class LogisticaServiciosController extends Controller{
 		}
 		return new JsonResponse(array('aaData' => $todo));
 	}
+<<<<<<< Updated upstream
 	
 	public function getTablaDetOrdPedAction($id){
 		$em = $this->getDoctrine()->getEntityManager();
@@ -253,10 +256,20 @@ class LogisticaServiciosController extends Controller{
 		$detordpeds = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:LogDetordped')
 		->findBy(array('nordped'=>$id));
+=======
+
+	public function getTablaDetIngProdAction($id){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$detingprods = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:LogDetingProd')
+		->findBy(array('ningprod'=>$id));
+>>>>>>> Stashed changes
 			
 		$em->clear();
 	
 		$todo = array();
+<<<<<<< Updated upstream
 		foreach ($detordpeds as $key => $detordped){
 			$producto = $detordped -> getNproducto();
 	
@@ -268,9 +281,25 @@ class LogisticaServiciosController extends Controller{
 					'ver_btn' => "<a id-data='".$detordped -> getNdetordpedId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
 					'edit_btn' => "<a id-data='".$detordped -> getNdetordpedId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
 					'elim_btn' => "<a id-data='".$detordped -> getNdetordpedId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
+=======
+		foreach ($detingprods as $key => $detingprod){
+			$producto = $detingprod -> getNproducto();
+	
+			$todo[] = array('id' => $detingprod -> getNdetingprodId(),
+					'producto_serie' => $producto -> getCproductoserie(),
+					'cantidad' => $detingprod -> getNdetingprodcant(),
+					'precio_uni' => $detingprod -> getNdetingprodprecunt(),
+					'total' => $detingprod -> getNdetingprodtot(),
+					'ver_btn' => "<a id-data='".$detingprod -> getNdetingprodId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
+					'edit_btn' => "<a id-data='".$detingprod -> getNdetingprodId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
+					'elim_btn' => "<a id-data='".$detingprod -> getNdetingprodId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
+>>>>>>> Stashed changes
 	
 		}
 		return new JsonResponse(array('aaData' => $todo));
 	}
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 }

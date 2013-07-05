@@ -9,43 +9,43 @@
 					  <div class="control-group">
 						<label class="control-label" for="ruc">RUC</label>
 						<div class="controls">
-						  <input class="input-xlarge focused" id="ruc" name="ruc" type="text">
+						  <input class="input-xlarge focused" required pattern="|^\d{11}$|" title="El RUC debe tener 11 dígitos y debe ser sólo números" maxlength="11" id="ruc" name="ruc" type="text">
 						</div>
 					  </div>
 					  <div class="control-group">
 						<label class="control-label" for="razonsocial">Razón Social</label>
 						<div class="controls">
-						  <input class="input-xlarge focused" id="razonsocial" name="razonsocial" type="text">
+						  <input class="input-xlarge focused" type="text" required pattern="|^[a-zA-Z ñÑáéíóúüç.]*$|" title="Este campo debe ser sólo letras" id="razonsocial" name="razonsocial" >
 						</div>
 					  </div>
 					  <div class="control-group">
 						<label class="control-label" for="ccorriente">Cuenta Corriente</label>
 						<div class="controls">
-						  <input class="input-xlarge focused" id="ccorriente" name="ccorriente" type="text">
+						  <input class="input-xlarge focused" pattern="|^([0-9]+\s*)+$|" id="ccorriente" name="ccorriente" type="text" maxlength="20">
 						</div>
 					  </div>
 					  <div class="control-group">
 						<label class="control-label" for="direccion">Dirección</label>
 						<div class="controls">
-						  <input class="input-xlarge focused" id="direccion" name="direccion" type="text">
+						  <input class="input-xlarge focused" required pattern="|^([a-zA-ZñÑáéíóúüç0-9]+\s*)+$" id="direccion" name="direccion" type="text">
 						</div>
 					  </div>
 					  <div class="control-group">
 						<label class="control-label" for="telefono">Teléfono</label>
 						<div class="controls">
-						  <input class="input-xlarge focused" id="telefono" name="telefono" type="text">
+						  <input class="input-xlarge focused" placeholder="999999999" required pattern="|^\d{9}$|" maxlength="9" id="telefono" name="telefono" type="text">
 						</div>
 					  </div>
 					  <div class="control-group">
 						<label class="control-label" for="email">Email</label>
 						<div class="controls">
-						  <input class="input-xlarge focused" id="email" name="email" type="text">
+						  <input class="input-xlarge focused" placeholder="example@domain.com" required id="email" name="email" type="email">
 						</div>
 					  </div>
 					  <div class="control-group">
 						<label class="control-label" for="paginaweb">Página Web</label>
 						<div class="controls">
-						  <input class="input-xlarge focused" id="paginaweb" name="paginaweb" type="text">
+						  <input class="input-xlarge focused" placeholder="mywebsite.com" maxlength="150" id="paginaweb" name="paginaweb" type="text">
 						</div>
 					  </div>
 					  <div class="form-actions">

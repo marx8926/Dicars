@@ -38,6 +38,12 @@ dicars_logistica_servicio_gettablaordpeds:
     pattern:  /servicio_gettablaordpeds
     defaults: { _controller: DicarsLogisticaBundle:LogisticaServicios:getTablaPedidos }
     
+<<<<<<< Updated upstream
 dicars_logistica_servicio_gettabladetordped:
     pattern:  /servicio_gettabladetordped/{id}
     defaults: { _controller: DicarsLogisticaBundle:LogisticaServicios:getTablaDetOrdPed }
+=======
+dicars_logistica_servicio_gettabladetingprod:
+    pattern:  /servicio_gettabladetingprod/{id}
+    defaults: { _controller: DicarsLogisticaBundle:LogisticaServicios:getTablaDetIngProd }    
+>>>>>>> Stashed changes

@@ -70,25 +70,9 @@
 
 var oTable;
 
-var ReloadTableEditar = reloadclosemodal('modalEditarDatos');
-var ReloadTableRegistrar = reloadclosemodal('modalRegistroProveedores');
-
-var CargarBotones = function(){
-	//mostrar Editar Cliente------------------------------------>
-	$('.btn-editar').click(function(e){
-		e.preventDefault();
-		$('#modalEditarDatos').modal('show');
-		id=$(this).attr("id-data");		
-		cargarEditar(id);
-	});
-	//mostrar Ver Datos Cliente------------------------------------>
-	$('.btn-datos').click(function(e){
-		e.preventDefault();
-		$('#modalVerDatos').modal('show');
-		id=$(this).attr("id-data");		
-		cargarVer(id);	
-	});
-};
+var ReloadTableEditar;
+var ReloadTableRegistrar;
+var CargarBotones;
 
 function cargarEditar(id){
 	url = "{{ path('dicars_logistica_servicio_getproveedorbyid', {'id': ''}) }}/"+id;
@@ -105,6 +89,7 @@ function cargarEditar(id){
 					{'type':'actions'}];
 		
 	$("#EditarProveedorForm").html(crearElementosForm(ArrayDatos));
+	docReady();
 }
 
 function cargarVer(id){
@@ -122,18 +107,32 @@ function cargarVer(id){
 		
 	$("#VerProveedor").html(crearElementosForm(ArrayDatos));
 }
-
 //Init------------------------------------>
 $(document).ready(function(){
+
+	CargarBotones = function(){
+		//mostrar Editar Cliente------------------------------------>
+		$('.btn-editar').click(function(e){
+			e.preventDefault();
+			$('#modalEditarDatos').modal('show');
+			id=$(this).attr("id-data");		
+			cargarEditar(id);
+		});
+		
+		//mostrar Ver Datos Cliente------------------------------------>
+		$('.btn-datos').click(function(e){
+			e.preventDefault();
+			$('#modalVerDatos').modal('show');
+			id=$(this).attr("id-data");		
+			cargarVer(id);	
+		});		
+	};
 
 	//mostrar Registrar Cliente------------------------------------>
 	$('.btn-registrar').click(function(e){
 		e.preventDefault();
 		$('#modalRegistroProveedores').modal('show');
-	});
-	
-	enviar('RegistrarProveedorForm', ReloadTableRegistrar);
-	enviar('EditarProveedorForm', ReloadTableEditar);
+	});	
 
 	UrlaDTable = '{{ path("dicars_logistica_servicio_gettablaproveedores") }}';
 	FormatoDTable = [
@@ -147,7 +146,14 @@ $(document).ready(function(){
 		              { "sWidth": "14%","mDataProp": "elim_btn"}
 		              ];
 	oTable = createDataTable('proveedores_table',UrlaDTable,FormatoDTable,CargarBotones);
+
 });
+
+ReloadTableRegistrar = reloadclosemodal('modalRegistroProveedores', 'proveedores_table');
+ReloadTableEditar = reloadclosemodal('modalEditarDatos', 'proveedores_table');
+
+enviar('RegistrarProveedorForm', ReloadTableRegistrar);
+enviar('EditarProveedorForm', ReloadTableEditar);
 
 </script>
 {% endblock %}

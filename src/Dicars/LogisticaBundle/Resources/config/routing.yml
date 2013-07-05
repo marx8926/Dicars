@@ -58,3 +58,6 @@ dicars_logistica_pedidos_ver:
 dicars_logistica_pedidos_registrar:
     pattern:  /pedidos_registrar
     defaults: { _controller: DicarsLogisticaBundle:Default:pedidos_registrar }
+dicars_logistica_ver_ingresoproductos:
+    pattern:  /ver_ingresoproductos/{idingprod}
+    defaults: { _controller: DicarsLogisticaBundle:Default:ver_ingresoproductos }    
