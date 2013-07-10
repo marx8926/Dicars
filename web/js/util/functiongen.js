@@ -22,7 +22,7 @@ function getMultipleSelectRowCallBack(DSelected){
 				DSelected.push(aData);
 			else{
 				var removeindex = $(DSelected).getIndexObj(aData,'id');
-				delete DSelected[removeindex];
+				DSelected.splice(removeindex,1);
 			}
 		});
 	};
@@ -142,7 +142,7 @@ jQuery.fn.getIndexObj = function (obj,attr){
 	return objindex;
 };
 
-function CopyArray(Array1,Arra2,all,attrs){
+function CopyArray(Array1,Array2,all,attrs){
 	while(Array1.length > 0)
 		Array1.pop();
 	
