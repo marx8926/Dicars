@@ -38,8 +38,8 @@ class AdministrarSalidaProdController extends Controller{
 			->getRepository('DicarsDataBundle:Local')
 			->findOneBy(array('nlocalId' => 1));
 			
-			$Serie ='qwer';
-			$Numero ='12345678';
+			$Serie =$datos['serie'];
+			$Numero =$datos['numero'];
 				
 			$Fecha_reg = date_create_from_format('d/m/Y', $datos["fecha"]);
 			

@@ -7,7 +7,7 @@ ventas_administrar_cliente_routing:
 ventas_administrar_trabajador_routing:
     resource: "@DicarsVentasBundle/Resources/config/administrar_trabajador_routing.yml"
     
-ventas_administrar_trabajador_routing:
+ventas_administrar_oferta_routing:
     resource: "@DicarsVentasBundle/Resources/config/administrar_oferta_routing.yml"   
 
 dicars_ventas_homepage:
