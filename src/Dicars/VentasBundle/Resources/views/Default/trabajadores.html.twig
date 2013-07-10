@@ -9,7 +9,7 @@
 </li>
 {% endblock %}
 {% block content %}
-<div class="row-fluid sortable">		
+<div class="row-fluid">		
 	<div class="box span12">
 		<div class="box-header well" data-original-title>
 			<h2><i class="icon-user"></i>Trabajadores</h2>
@@ -73,7 +73,7 @@ var EmpleadosTable;
 
 var ReloadTableEditar;
 var ReloadTableRegistrar;
-var urlCargo = "{{ path('dicars_ventas_servicio_getoptioncargos') }}";
+var urlCargo = "{{ path('dicars_admin_servicio_getoptioncargos') }}";
 var CargarBotones;
 
 function cargarEditar(id){

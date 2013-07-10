@@ -12,8 +12,4 @@ dicars_ventas_servicio_getclientebyid:
     
 dicars_ventas_servicio_gettrabajadorbyid:
     pattern:  /servicio_gettrabajadorbyid/{id}
-    defaults: { _controller: DicarsVentasBundle:VentaServicios:getTrabajadorById }
-    
-dicars_ventas_servicio_getoptioncargos:
-    pattern:  /servicio_getoptioncargos
-    defaults: { _controller: DicarsVentasBundle:VentaServicios:getOptionCargos }    
+    defaults: { _controller: DicarsVentasBundle:VentaServicios:getTrabajadorById } 

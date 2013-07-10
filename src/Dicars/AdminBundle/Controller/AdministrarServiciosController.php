@@ -197,6 +197,21 @@ class AdministrarServiciosController extends Controller {
 		return new Response($result);
 	}
 	
+	public function getOptionCargosAction(){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$cargos = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:VenCargo')
+		->findAll();
+		$em->clear();
+	
+		$result = "";
+		foreach ($cargos as $key => $cargo){
+			$result = $result."<option value='".$cargo->getNcargoId()."'>".$cargo->getNcargodesc()."</option>";
+		}
+		return new Response($result);
+	}
+	
 	public function getOptionCategoriasAction(){
 		$em = $this->getDoctrine()->getEntityManager();
 			
