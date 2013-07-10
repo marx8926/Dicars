@@ -45,8 +45,9 @@ class LogisticaServiciosController extends Controller{
 		$data = array('id' => $producto -> getNproductoId(),'serie' => $producto -> getCproductoserie(),'talla' => $producto -> getCproductotalla(),
 				'nombre' => $producto -> getCproductodesc(),'pcosto' => $producto -> getNproductopcosto(),'pcontado' => $producto -> getNproductopcontado(),
 				'pcredito' => $producto -> getNproductopcredito(),'tipo' => $producto -> getNproductotipo(),'codigobarras' => $producto -> getCproductocodbarra(),
-				'stock' => $producto -> getNproductosotck(), 'precio_contado' => $producto -> getNproductopcontado(),
-				'precio_credito' => $producto -> getNproductopcredito());
+				'stockmin' => $producto -> getNproductostockmin(),'stock' => $producto -> getNproductosotck(),'stockmax' => $producto -> getNproductostockmax(), 
+				'estado' => $producto -> getCproductoest(),'porcuti' => $producto -> getNproductoporcuti(),				
+				'utibruta' => $producto -> getNproductoutibruta(), 'marca' => $producto -> getNproductomarca() -> getNmarcaId());
 								
 		return new JsonResponse($data);
 	}

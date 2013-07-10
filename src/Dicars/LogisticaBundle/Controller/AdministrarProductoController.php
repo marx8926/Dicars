@@ -139,19 +139,19 @@ class AdministrarProductoController extends Controller{
 		
 		if ($form != null){
 			
-			$Producto_id = $datos["id"];
-			$Producto_talla = $datos["talla"];
-			$Producto_serie = $datos["serie"];
+			$Producto_id = $datos["idE"];
+			$Producto_talla = $datos["tallaE"];
+			$Producto_serie = $datos["serieE"];
 				
 			$Producto_marca = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:VenMarca')
 			->findOneBy(array('nmarcaId'  => 1));
 				
-			$Producto_tipo = $datos["tipo"];
-			$Producto_desc = $datos["descripcion"];
-			$Producto_prec_contado = $datos["preciocontado"];
-			$Producto_prec_credito = $datos["preciocredito"];
-			$Producto_prec_costo = $datos["preciocosto"];
+			$Producto_tipo = 1;
+			$Producto_desc = $datos["descripcionE"];
+			$Producto_prec_contado = $datos["preciocontadoE"];
+			$Producto_prec_credito = $datos["preciocreditoE"];
+			$Producto_prec_costo = $datos["preciocostoE"];
 			$Producto_cod_barra = "AER1234";
 			$Producto_archivo = "Hola soy el archivo";
 				
@@ -159,12 +159,12 @@ class AdministrarProductoController extends Controller{
 			->getRepository('DicarsDataBundle:VenCategoria')
 			->findOneBy(array('ncategoriaId' => 1));
 				
-			$Producto_stock_min = $datos["stockmin"];
-			$Producto_stock_max = $datos["stockmax"];
-			$Producto_stock = $datos["stock"];
-			$Producto_est = $datos["estado"];
-			$Producto_porc_uti = $datos["porcuti"];
-			$Producto_porc_uti_bruta = $datos["utibruta"];
+			$Producto_stock_min = $datos["stockminE"];
+			$Producto_stock_max = $datos["stockmaxE"];
+			$Producto_stock = $datos["stockE"];
+			$Producto_est = $datos["estadoE"];
+			$Producto_porc_uti = $datos["porcutiE"];
+			$Producto_porc_uti_bruta = $datos["utibrutaE"];
 
 			$Producto = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:Producto')
@@ -202,6 +202,7 @@ class AdministrarProductoController extends Controller{
 		}
 		$this->getDoctrine()->getEntityManager()->commit();
 		$em->clear();
+		
 		$return = array("responseCode"=>200, "datos"=>$datos);
 			
 		}
