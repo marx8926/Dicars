@@ -275,6 +275,10 @@ function addElemento(obj){
 	    		$elem = $('<input class="input-xlarge focused" id="focusedInput" name="'+obj.name+'" type="'+obj.typeinput+'" pattern="'+obj.pattern+'" title="'+obj.title+'" required="'+obj.req+'" maxlength="'+obj.max+'">');
 	    		$elem.val(obj.value);
 	    		break;
+	    case 'inputnumber':
+		    	$elem = $('<input class="input-xlarge focused" id="focusedInput" name="'+obj.name+'" type="number" required="'+obj.req+'" min="'+obj.min+'" max="'+obj.max+'">');
+	    		$elem.val(obj.value);
+	    		break;
 	    case 'file':
 	    		$elem = $('<input type="file" class="input-xlarge" name="'+obj.name+'">');
 	    		break;
