@@ -49,8 +49,8 @@ class AdministrarProductoController extends Controller{
 			
 			$Producto_tipo = $datos["tipo"];
 			$Producto_desc = $datos["descripcion"];
-			$Producto_prec_contado = $datos["minimocontado"];
-			$Producto_prec_credito = $datos["minimocredito"];
+			$Producto_prec_contado = $datos["preciocontado"];
+			$Producto_prec_credito = $datos["preciocredito"];
 			$Producto_prec_costo = $datos["preciocosto"];
 			$Producto_cod_barra = "AGHJ3456";
 			$Producto_archivo = "Hola soy el archivo";
@@ -149,8 +149,8 @@ class AdministrarProductoController extends Controller{
 				
 			$Producto_tipo = $datos["tipo"];
 			$Producto_desc = $datos["descripcion"];
-			$Producto_prec_contado = $datos["minimocontado"];
-			$Producto_prec_credito = $datos["minimocredito"];
+			$Producto_prec_contado = $datos["preciocontado"];
+			$Producto_prec_credito = $datos["preciocredito"];
 			$Producto_prec_costo = $datos["preciocosto"];
 			$Producto_cod_barra = "AER1234";
 			$Producto_archivo = "Hola soy el archivo";
@@ -159,13 +159,13 @@ class AdministrarProductoController extends Controller{
 			->getRepository('DicarsDataBundle:VenCategoria')
 			->findOneBy(array('ncategoriaId' => 1));
 				
-			$Producto_stock_min = 10;
-			$Producto_stock_max = 40;
-			$Producto_stock = 25;
-			$Producto_est = 1;
-			$Producto_porc_uti = 18;
-			$Producto_porc_uti_bruta = 20;
-			
+			$Producto_stock_min = $datos["stockmin"];
+			$Producto_stock_max = $datos["stockmax"];
+			$Producto_stock = $datos["stock"];
+			$Producto_est = $datos["estado"];
+			$Producto_porc_uti = $datos["porcuti"];
+			$Producto_porc_uti_bruta = $datos["utibruta"];
+
 			$Producto = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:Producto')
 			->findOneBy(array('nproductoId' => $Producto_id));
