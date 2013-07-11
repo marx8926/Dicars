@@ -19,14 +19,14 @@
     <field name="cproductoest" type="string" column="cProductoEst" length="1" nullable="false"/>
     <field name="nproductoporcuti" type="decimal" column="nProductoPorcUti" nullable="false"/>
     <field name="nproductoutibruta" type="decimal" column="nProductoUtiBruta" nullable="false"/>
-    <many-to-one field="nproductomarca" target-entity="VenMarca">
-      <join-columns>
-        <join-column name="nProductoMarca" referenced-column-name="nMarca_id"/>
-      </join-columns>
-    </many-to-one>
     <many-to-one field="ncategoria" target-entity="VenCategoria">
       <join-columns>
         <join-column name="nCategoria_id" referenced-column-name="nCategoria_id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="nproductomarca" target-entity="VenMarca">
+      <join-columns>
+        <join-column name="nProductoMarca" referenced-column-name="nMarca_id"/>
       </join-columns>
     </many-to-one>
   </entity>

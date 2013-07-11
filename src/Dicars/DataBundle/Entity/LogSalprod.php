@@ -64,16 +64,6 @@ class LogSalprod
     private $csalprodobsv;
 
     /**
-     * @var \Local
-     *
-     * @ORM\ManyToOne(targetEntity="Local")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="nLocal_id", referencedColumnName="nLocal_id")
-     * })
-     */
-    private $nlocal;
-
-    /**
      * @var \VenPersonal
      *
      * @ORM\ManyToOne(targetEntity="VenPersonal")
@@ -82,6 +72,16 @@ class LogSalprod
      * })
      */
     private $npersonal;
+
+    /**
+     * @var \Local
+     *
+     * @ORM\ManyToOne(targetEntity="Local")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="nLocal_id", referencedColumnName="nLocal_id")
+     * })
+     */
+    private $nlocal;
 
 
 
@@ -234,29 +234,6 @@ class LogSalprod
     }
 
     /**
-     * Set nlocal
-     *
-     * @param \Dicars\DataBundle\Entity\Local $nlocal
-     * @return LogSalprod
-     */
-    public function setNlocal(\Dicars\DataBundle\Entity\Local $nlocal = null)
-    {
-        $this->nlocal = $nlocal;
-    
-        return $this;
-    }
-
-    /**
-     * Get nlocal
-     *
-     * @return \Dicars\DataBundle\Entity\Local 
-     */
-    public function getNlocal()
-    {
-        return $this->nlocal;
-    }
-
-    /**
      * Set npersonal
      *
      * @param \Dicars\DataBundle\Entity\VenPersonal $npersonal
@@ -277,5 +254,28 @@ class LogSalprod
     public function getNpersonal()
     {
         return $this->npersonal;
+    }
+
+    /**
+     * Set nlocal
+     *
+     * @param \Dicars\DataBundle\Entity\Local $nlocal
+     * @return LogSalprod
+     */
+    public function setNlocal(\Dicars\DataBundle\Entity\Local $nlocal = null)
+    {
+        $this->nlocal = $nlocal;
+    
+        return $this;
+    }
+
+    /**
+     * Get nlocal
+     *
+     * @return \Dicars\DataBundle\Entity\Local 
+     */
+    public function getNlocal()
+    {
+        return $this->nlocal;
     }
 }

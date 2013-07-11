@@ -103,4 +103,27 @@ class VentaServiciosController extends Controller{
 		return new JsonResponse($data);
 	}
 	
+	public function getTablaOfertaAction(){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$ofertas = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:Oferta')
+		->findAll();
+			
+		$em->clear();
+	
+		$todo = array();
+		foreach ($ofertas as $key => $oferta){
+			$todo[] = array(
+					'nombre' => $clientes -> getCclientenom() ,
+					'apellido' => $clientes -> getCclienteape(),
+					'dni' => $clientes -> getCclientedni(),
+					'linea_credito' => $clientes -> getNclientelineaop(),
+					'ver_btn' => "<a id-data='".$clientes -> getNclienteId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
+					'edit_btn' => "<a id-data='".$clientes -> getNclienteId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
+					'elim_btn' => "<a id-data='".$clientes -> getNclienteId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
+		}
+		return new JsonResponse(array('aaData' => $todo));
+	}
+	
 }
