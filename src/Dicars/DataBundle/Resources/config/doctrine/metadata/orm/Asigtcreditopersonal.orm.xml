@@ -4,14 +4,14 @@
     <id name="nasigtcreditopersonalId" type="integer" column="nAsigTCreditoPersonal_id">
       <generator strategy="IDENTITY"/>
     </id>
-    <many-to-one field="ntarjcredito" target-entity="VenTarjcredito">
-      <join-columns>
-        <join-column name="nTarjCredito_id" referenced-column-name="nTarjCredito_id"/>
-      </join-columns>
-    </many-to-one>
     <many-to-one field="npersonal" target-entity="VenPersonal">
       <join-columns>
         <join-column name="nPersonal_id" referenced-column-name="nPersonal_id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="ntarjcredito" target-entity="VenTarjcredito">
+      <join-columns>
+        <join-column name="nTarjCredito_id" referenced-column-name="nTarjCredito_id"/>
       </join-columns>
     </many-to-one>
   </entity>

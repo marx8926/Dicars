@@ -15,14 +15,14 @@
     <field name="nordcomdesct" type="decimal" column="nOrdComDesct" nullable="false"/>
     <field name="nordcomreceqv" type="decimal" column="nOrdComRecEqv" nullable="false"/>
     <field name="nordcomretencion" type="decimal" column="nOrdComRetencion" nullable="false"/>
-    <many-to-one field="npersonal" target-entity="VenPersonal">
-      <join-columns>
-        <join-column name="nPersonal_id" referenced-column-name="nPersonal_id"/>
-      </join-columns>
-    </many-to-one>
     <many-to-one field="nproveedor" target-entity="LogProveedor">
       <join-columns>
         <join-column name="nProveedor_id" referenced-column-name="nProveedor_id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="npersonal" target-entity="VenPersonal">
+      <join-columns>
+        <join-column name="nPersonal_id" referenced-column-name="nPersonal_id"/>
       </join-columns>
     </many-to-one>
   </entity>

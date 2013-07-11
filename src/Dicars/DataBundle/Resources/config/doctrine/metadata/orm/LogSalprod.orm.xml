@@ -10,14 +10,14 @@
     <field name="nsalprodmotivo" type="integer" column="nSalProdMotivo" nullable="false"/>
     <field name="nsolicitanteId" type="integer" column="nSolicitante_id" nullable="false"/>
     <field name="csalprodobsv" type="string" column="cSalProdObsv" length="500" nullable="false"/>
-    <many-to-one field="npersonal" target-entity="VenPersonal">
-      <join-columns>
-        <join-column name="nPersonal_id" referenced-column-name="nPersonal_id"/>
-      </join-columns>
-    </many-to-one>
     <many-to-one field="nlocal" target-entity="Local">
       <join-columns>
         <join-column name="nLocal_id" referenced-column-name="nLocal_id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="npersonal" target-entity="VenPersonal">
+      <join-columns>
+        <join-column name="nPersonal_id" referenced-column-name="nPersonal_id"/>
       </join-columns>
     </many-to-one>
   </entity>

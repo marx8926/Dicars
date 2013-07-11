@@ -127,16 +127,6 @@ class Producto
     private $nproductoutibruta;
 
     /**
-     * @var \VenCategoria
-     *
-     * @ORM\ManyToOne(targetEntity="VenCategoria")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="nCategoria_id", referencedColumnName="nCategoria_id")
-     * })
-     */
-    private $ncategoria;
-
-    /**
      * @var \VenMarca
      *
      * @ORM\ManyToOne(targetEntity="VenMarca")
@@ -145,6 +135,16 @@ class Producto
      * })
      */
     private $nproductomarca;
+
+    /**
+     * @var \VenCategoria
+     *
+     * @ORM\ManyToOne(targetEntity="VenCategoria")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="nCategoria_id", referencedColumnName="nCategoria_id")
+     * })
+     */
+    private $ncategoria;
 
 
 
@@ -504,29 +504,6 @@ class Producto
     }
 
     /**
-     * Set ncategoria
-     *
-     * @param \Dicars\DataBundle\Entity\VenCategoria $ncategoria
-     * @return Producto
-     */
-    public function setNcategoria(\Dicars\DataBundle\Entity\VenCategoria $ncategoria = null)
-    {
-        $this->ncategoria = $ncategoria;
-    
-        return $this;
-    }
-
-    /**
-     * Get ncategoria
-     *
-     * @return \Dicars\DataBundle\Entity\VenCategoria 
-     */
-    public function getNcategoria()
-    {
-        return $this->ncategoria;
-    }
-
-    /**
      * Set nproductomarca
      *
      * @param \Dicars\DataBundle\Entity\VenMarca $nproductomarca
@@ -547,5 +524,28 @@ class Producto
     public function getNproductomarca()
     {
         return $this->nproductomarca;
+    }
+
+    /**
+     * Set ncategoria
+     *
+     * @param \Dicars\DataBundle\Entity\VenCategoria $ncategoria
+     * @return Producto
+     */
+    public function setNcategoria(\Dicars\DataBundle\Entity\VenCategoria $ncategoria = null)
+    {
+        $this->ncategoria = $ncategoria;
+    
+        return $this;
+    }
+
+    /**
+     * Get ncategoria
+     *
+     * @return \Dicars\DataBundle\Entity\VenCategoria 
+     */
+    public function getNcategoria()
+    {
+        return $this->ncategoria;
     }
 }

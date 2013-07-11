@@ -22,16 +22,6 @@ class VenZonapersonal
     private $nzonapersonalId;
 
     /**
-     * @var \VenPersonal
-     *
-     * @ORM\ManyToOne(targetEntity="VenPersonal")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="nPersonal_id", referencedColumnName="nPersonal_id")
-     * })
-     */
-    private $npersonal;
-
-    /**
      * @var \VenZona
      *
      * @ORM\ManyToOne(targetEntity="VenZona")
@@ -40,6 +30,16 @@ class VenZonapersonal
      * })
      */
     private $nzona;
+
+    /**
+     * @var \VenPersonal
+     *
+     * @ORM\ManyToOne(targetEntity="VenPersonal")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="nPersonal_id", referencedColumnName="nPersonal_id")
+     * })
+     */
+    private $npersonal;
 
 
 
@@ -51,29 +51,6 @@ class VenZonapersonal
     public function getNzonapersonalId()
     {
         return $this->nzonapersonalId;
-    }
-
-    /**
-     * Set npersonal
-     *
-     * @param \Dicars\DataBundle\Entity\VenPersonal $npersonal
-     * @return VenZonapersonal
-     */
-    public function setNpersonal(\Dicars\DataBundle\Entity\VenPersonal $npersonal = null)
-    {
-        $this->npersonal = $npersonal;
-    
-        return $this;
-    }
-
-    /**
-     * Get npersonal
-     *
-     * @return \Dicars\DataBundle\Entity\VenPersonal 
-     */
-    public function getNpersonal()
-    {
-        return $this->npersonal;
     }
 
     /**
@@ -97,5 +74,28 @@ class VenZonapersonal
     public function getNzona()
     {
         return $this->nzona;
+    }
+
+    /**
+     * Set npersonal
+     *
+     * @param \Dicars\DataBundle\Entity\VenPersonal $npersonal
+     * @return VenZonapersonal
+     */
+    public function setNpersonal(\Dicars\DataBundle\Entity\VenPersonal $npersonal = null)
+    {
+        $this->npersonal = $npersonal;
+    
+        return $this;
+    }
+
+    /**
+     * Get npersonal
+     *
+     * @return \Dicars\DataBundle\Entity\VenPersonal 
+     */
+    public function getNpersonal()
+    {
+        return $this->npersonal;
     }
 }

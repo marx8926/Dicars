@@ -5,5 +5,9 @@
       <generator strategy="IDENTITY"/>
     </id>
     <field name="cofertadesc" type="string" column="cOfertaDesc" length="100" nullable="false"/>
+    <field name="nofertaproc" type="decimal" column="nOfertaProc" nullable="true"/>
+    <field name="dofertafecvigente" type="datetime" column="dOfertaFecVigente" nullable="false"/>
+    <field name="dofertafecvencto" type="datetime" column="dOfertaFecVencto" nullable="false"/>
+    <field name="cofertaest" type="string" column="cOfertaEst" length="1" nullable="false"/>
   </entity>
 </doctrine-mapping>

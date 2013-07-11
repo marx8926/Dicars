@@ -11,14 +11,14 @@
     <field name="dordepedfecent" type="datetime" column="dOrdePedFecEnt" nullable="false"/>
     <field name="cordpedobsv" type="string" column="cOrdPedObsv" length="500" nullable="false"/>
     <field name="cordpedest" type="string" column="cOrdPedEst" length="1" nullable="false"/>
-    <many-to-one field="npersonal" target-entity="VenPersonal">
-      <join-columns>
-        <join-column name="nPersonal_id" referenced-column-name="nPersonal_id"/>
-      </join-columns>
-    </many-to-one>
     <many-to-one field="nlocal" target-entity="Local">
       <join-columns>
         <join-column name="nLocal_id" referenced-column-name="nLocal_id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="npersonal" target-entity="VenPersonal">
+      <join-columns>
+        <join-column name="nPersonal_id" referenced-column-name="nPersonal_id"/>
       </join-columns>
     </many-to-one>
   </entity>
