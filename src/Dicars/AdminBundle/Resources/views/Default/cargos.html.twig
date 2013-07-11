@@ -80,8 +80,8 @@
 
 var oTable;
 
-var ReloadTableEditar = reloadclosemodal('modalEditarDatos');
-var ReloadTableRegistrar = reloadclosemodal('modalRegistroCargo');
+var ReloadTableEditar = reloadclosemodal('modalEditarDatos', 'cargos_table');
+var ReloadTableRegistrar = reloadclosemodal('modalRegistroCargo', 'cargos_table');
 
 var CargarBotones = function(){
 	//mostrar Editar Cliente------------------------------------>
@@ -106,7 +106,6 @@ function cargarEditar(id){
 	$('#selectEstadoE').append('<option value="1">Habilitado</option>');
 	$('#selectEstadoE').append('<option value="0">Inhabilitado</option>');
 	$('#selectEstadoE').val(cargo.selectEstado);
-	$('[data-rel="chosen"],[rel="chosen"]').chosen();
 }
 
 //Init------------------------------------>

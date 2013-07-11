@@ -107,12 +107,21 @@ class LogisticaServiciosController extends Controller{
 		
 		$todo = array();
 		foreach ($locales as $key => $local){
+			if($local -> getNlocalest() == 1){
+				$estado = "Habilitado";
+			}
+			else{
+				$estado = "Inhabilitado";
+			}
+			$tiporubro = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:Constante')
+			->findOneBy(array('nconstanteId' => $local -> getNlocaltiprub()));
 			$todo[] = array('id' => $local -> getNlocalId(), 
 							'nombre_tienda' => $local -> getClocaldesc(),
-							'estado' => $local -> getNlocalest(),
+							'estado' => $estado,
 							'telefono' => $local -> getClocaltelf(), 
 							'direccion' => $local -> getClocaldirec(), 
-							'tiprub' => $local -> getNlocaltiprub(), 
+							'tiprub' => $tiporubro->getCconstantedesc(), 
 							'Acciones' => "<a id-data='".$local -> getNlocalId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>
 					<a id-data='".$local -> getNlocalId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>
 					<a id-data='".$local -> getNlocalId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>"
@@ -131,14 +140,23 @@ class LogisticaServiciosController extends Controller{
 		$em->clear();
 		
 		$ubigeo = $local -> getNubigeo();
+		$tiporubro = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:Constante')
+		->findOneBy(array('nconstanteId' => $local -> getNlocaltiprub()));
+		if($local -> getNlocalest() == 1){
+			$estado = "Habilitado";
+		} 
+		else{
+			$estado = "Inhabilitado";
+		}
 		
 		$data = array('id' => $local -> getNlocalId(),
 				'nombre_tienda' => $local -> getClocaldesc(),
-				'estado' => $local -> getNlocalest(),
+				'estado' => $estado,
 				'direccion' => $local -> getClocaldirec(),
 				'telefono' => $local -> getClocaltelf(),
-				'ubigeo' => $ubigeo -> getNubigeoId(),
-				'tiprub' => $local -> getNlocaltiprub());
+				'ubigeo' => $ubigeo -> getCubigeodesc(),
+				'tiprub' => $tiporubro->getCconstantedesc());
 
 		return new JsonResponse($data);
 	}

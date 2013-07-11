@@ -279,5 +279,93 @@ class AdministrarServiciosController extends Controller {
 		}
 		return new Response($result);
 	}
+	
+	public function getOptionDepartamentosAction(){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$ubigeos = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:Ubigeo')
+		->findBy(array('nubigeodpt' => 1));
+		$em->clear();
+		
+		$result = "";
+		foreach ($ubigeos as $key => $ubigeo){
+			$result = $result."<option value='".$ubigeo->getNubigeoId()."'>".$ubigeo->getCubigeodesc()."</option>";
+		}
+		return new Response($result);
+	}
+	
+	public function getOptionProvinciasAction($iddep){
+		$em = $this->getDoctrine()->getEntityManager();
+		
+		/*$sql = "SELECT nUbigeo_id,cUbigeoDesc FROM ubigeo where nUbigeoDep=".$iddep." AND nUbigeoProv=1";
+		
+		$smt = $em->getConnection()->prepare($sql);
+		$smt->execute();
+		
+		$ubigeos = $smt->fetchAll();
+		
+		$result = "";
+		foreach ($ubigeos as $key => $ubigeo){
+			$result = $result."<option value='".$ubigeo['nUbigeo_id']."'>".$ubigeo['cUbigeoDesc']."</option>";
+		}
+		return new Response($result);*/
+			
+		$ubigeos = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:Ubigeo')
+		->findBy(array('nubigeoprov' => 1,'nubigeodep' => $iddep));
+		$em->clear();
+	
+		$result = "";
+		foreach ($ubigeos as $key => $ubigeo){
+			$result = $result."<option value='".$ubigeo->getNubigeoId()."'>".$ubigeo->getCubigeodesc()."</option>";
+		}
+		return new Response($result);
+	}
+	
+	public function getOptionDistritosAction($idprov){
+		$em = $this->getDoctrine()->getEntityManager();
+		
+		/*$sql = "SELECT nUbigeo_id,cUbigeoDesc FROM ubigeo where nUbigeoDep=".$idprov." AND nUbigeoDist=1";
+		
+		$smt = $em->getConnection()->prepare($sql);
+		$smt->execute();
+		
+		$ubigeos = $smt->fetchAll();
+		
+		$result = "";
+		foreach ($ubigeos as $key => $ubigeo){
+			$result = $result."<option value='".$ubigeo['nUbigeo_id']."'>".$ubigeo['cUbigeoDesc']."</option>";
+		}
+		return new Response($result);*/
+			
+		$ubigeos = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:Ubigeo')
+		->findBy(array('nubigeodist' => 1,'nubigeodep' => $idprov));
+		$em->clear();
+	
+		$result = "";
+		foreach ($ubigeos as $key => $ubigeo){
+			$result = $result."<option value='".$ubigeo->getNubigeoId()."'>".$ubigeo->getCubigeodesc()."</option>";
+		}
+		return new Response($result);
+	}
+	
+	public function getOptionTipoRubroAction(){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$tiprubs = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:Constante')
+		->findBy(array('nconstanteclase' => 1));
+		$em->clear();
+	
+		$result = "";
+		foreach ($tiprubs as $key => $tiprub){
+			if($tiprub->getCconstantevalor() != 0){
+				$result = $result."<option value='".$tiprub->getNconstanteId()."'>".$tiprub->getCconstantedesc()."</option>";
+			}
+		}
+		return new Response($result);
+	}
 }
 	

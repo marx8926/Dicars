@@ -42,3 +42,17 @@ dicars_admin_servicio_getconstantebyid:
 dicars_admin_servicio_getoptiontipobyclase:
     pattern:  /servicio_getoptiontipobyclase/{Clase}
     defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getOptionTipoByClase }  
+
+dicars_admin_servicio_getoptiondepartamentos:
+    pattern:  /servicio_getoptiondepartamentos
+    defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getOptionDepartamentos }
+dicars_admin_servicio_getoptionprovincias:
+    pattern:  /servicio_getoptionprovincias/{iddep}
+    defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getOptionProvincias }
+dicars_admin_servicio_getoptiondistritos:
+    pattern:  /servicio_getoptiondistritos/{idprov}
+    defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getOptionDistritos }
+    
+dicars_admin_servicio_getoptiontiprubs:
+    pattern:  /servicio_getoptiontiprubs
+    defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getOptionTipoRubro }

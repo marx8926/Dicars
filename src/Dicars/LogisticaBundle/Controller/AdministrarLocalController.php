@@ -31,7 +31,7 @@ class AdministrarLocalController extends Controller{
 			
 			$LocalUbigeo = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:Ubigeo')
-			->findOneBy(array('nubigeoId'  => 1));
+			->findOneBy(array('nubigeoId'  => $datos["dist"]));
 			
 			$LocalTipRub = $datos["tiprub"];
 				

@@ -9,7 +9,7 @@
 </li>
 {% endblock %}
 {% block content %}
-<div class="row-fluid sortable">		
+<div class="row-fluid">		
 	<div class="box span12">
 		<div class="box-header well" data-original-title>
 			<h2>Locales</h2>
@@ -72,7 +72,8 @@
 					  	<div class="control-group">
 							<label class="control-label" for="tiprub">Tipo de Rubro</label>
 							<div class="controls">
-						  		<input class="input-xlarge focused" id="tiprub" name="tiprub" type="text">
+						  		<select id="tiprub" name="tiprub">
+								</select>
 							</div>
 					  	</div>
 					  	<h4>Ubigeo</h4>
@@ -80,21 +81,21 @@
 					  	<div class="control-group">
 							<label class="control-label" for="dep">Departamento</label>
 							<div class="controls">
-						  		<select id="estado" name="dep">
+						  		<select id="dep" name="dep">
 								</select>
 							</div>
 					  	</div>
 					  	<div class="control-group">
 							<label class="control-label" for="prov">Provincia</label>
 							<div class="controls">
-						  		<select id="estado" name="prov">
+						  		<select id="prov" name="prov">
 								</select>
 							</div>
 					  	</div>
 					  	<div class="control-group">
 							<label class="control-label" for="dist">Distrito</label>
 							<div class="controls">
-						  		<select id="estado" name="dist">
+						  		<select id="dist" name="dist">
 								</select>
 							</div>
 					  	</div>
@@ -139,8 +140,13 @@
 
 var oTable;
 
-var ReloadTableEditar = reloadclosemodal('modalEditarLocal', oTable);
-var ReloadTableRegistrar = reloadclosemodal('modalRegistro', oTable);
+var ReloadTableEditar = reloadclosemodal('modalEditarLocal', 'locales_table');
+var ReloadTableRegistrar = reloadclosemodal('modalRegistro', 'locales_table');
+
+var urlDistritos;
+var urlProvincias;
+var urlDepartamentos;
+var urlTipRub;
 
 var CargarBotones = function(){
 	//mostrar Editar Cliente------------------------------------>
@@ -193,6 +199,37 @@ function cargarVer(id){
 
 //init------------------------------------>
 $(document).ready(function(){	
+
+	urlDepartamentos = "{{ path('dicars_admin_servicio_getoptiondepartamentos') }}";
+	ajaxResponseData('dep',urlDepartamentos);
+
+	iddep = $('#dep').val();
+	urlProvincias = "{{ path('dicars_admin_servicio_getoptionprovincias',{'iddep':''}) }}/"+iddep;
+	ajaxResponseData('prov',urlProvincias);
+
+	idprov = $('#prov').val();
+	urlDistritos = "{{ path('dicars_admin_servicio_getoptiondistritos',{'idprov':''}) }}/"+idprov;
+	ajaxResponseData('dist',urlDistritos);
+	
+	$('#dep').change(function(){
+		iddep = $('#dep').val();
+		urlProvincias = "{{ path('dicars_admin_servicio_getoptionprovincias',{'iddep':''}) }}/"+iddep;
+		ajaxResponseData('prov',urlProvincias);
+
+		idprov = $('#prov').val();
+		urlDistritos = "{{ path('dicars_admin_servicio_getoptiondistritos',{'idprov':''}) }}/"+idprov;
+		ajaxResponseData('dist',urlDistritos);
+	});
+
+	$('#prov').change(function(){
+		idprov = $('#prov').val();
+		urlDistritos = "{{ path('dicars_admin_servicio_getoptiondistritos',{'idprov':''}) }}/"+idprov;
+		ajaxResponseData('dist',urlDistritos);
+	});
+
+	urlTipRub = "{{ path('dicars_admin_servicio_getoptiontiprubs') }}";
+	ajaxResponseData('tiprub', urlTipRub);
+	
 	//mostrar Registrar Cliente------------------------------------>
 	$('.btn-registrar').click(function(e){
 		e.preventDefault();
