@@ -4,6 +4,8 @@
     <id name="nofertaproductoId" type="integer" column="nOfertaProducto_id">
       <generator strategy="IDENTITY"/>
     </id>
+    <field name="nofertaproductoporc" type="decimal" column="nOfertaProductoPorc" nullable="true"/>
+    <field name="cofertaproductoest" type="string" column="cOfertaProductoEst" length="1" nullable="true"/>
     <many-to-one field="nproducto" target-entity="Producto">
       <join-columns>
         <join-column name="nProducto_id" referenced-column-name="nProducto_id"/>

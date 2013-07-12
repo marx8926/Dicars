@@ -22,7 +22,7 @@ class AdministrarOfertasController extends Controller{
 		$OfertaPorcentaje = null;
 		$OfertaFechaVigente = null;
 		$OfertaFechaVencimiento = null;
-		$OfertaFechaEstado = null;
+		$OfertaEstado = null;
 		
 		if ($form!=null){
 			
@@ -34,10 +34,8 @@ class AdministrarOfertasController extends Controller{
 			
 			$Oferta = new Oferta();
 			$Oferta -> setCofertadesc($OfertaDescripcion);
-			$Oferta -> setCofertaest($OfertaEstado);
 			$Oferta -> setDofertafecvencto($OfertaFechaVencimiento);
 			$Oferta -> setDofertafecvigente($OfertaFechaVigente);
-			$Oferta -> setNofertaproc($OfertaPorcentaje);
 			
 			$em = $this->getDoctrine()->getEntityManager();
 			$this->getDoctrine()->getEntityManager()->beginTransaction();
@@ -53,6 +51,8 @@ class AdministrarOfertasController extends Controller{
 					$OfertaProducto = new OfertaProducto();
 					$OfertaProducto -> setNoferta($Oferta);
 					$OfertaProducto -> setNproducto($Producto);
+					$OfertaProducto -> setCofertaproductoest($OfertaEstado);
+					$OfertaProducto -> setNofertaproductoporc($OfertaPorcentaje);
 					$em->persist($OfertaProducto);
 					$em->flush();
 						

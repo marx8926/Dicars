@@ -22,6 +22,20 @@ class OfertaProducto
     private $nofertaproductoId;
 
     /**
+     * @var float
+     *
+     * @ORM\Column(name="nOfertaProductoPorc", type="decimal", nullable=true)
+     */
+    private $nofertaproductoporc;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="cOfertaProductoEst", type="string", length=1, nullable=true)
+     */
+    private $cofertaproductoest;
+
+    /**
      * @var \Oferta
      *
      * @ORM\ManyToOne(targetEntity="Oferta")
@@ -51,6 +65,52 @@ class OfertaProducto
     public function getNofertaproductoId()
     {
         return $this->nofertaproductoId;
+    }
+
+    /**
+     * Set nofertaproductoporc
+     *
+     * @param float $nofertaproductoporc
+     * @return OfertaProducto
+     */
+    public function setNofertaproductoporc($nofertaproductoporc)
+    {
+        $this->nofertaproductoporc = $nofertaproductoporc;
+    
+        return $this;
+    }
+
+    /**
+     * Get nofertaproductoporc
+     *
+     * @return float 
+     */
+    public function getNofertaproductoporc()
+    {
+        return $this->nofertaproductoporc;
+    }
+
+    /**
+     * Set cofertaproductoest
+     *
+     * @param string $cofertaproductoest
+     * @return OfertaProducto
+     */
+    public function setCofertaproductoest($cofertaproductoest)
+    {
+        $this->cofertaproductoest = $cofertaproductoest;
+    
+        return $this;
+    }
+
+    /**
+     * Get cofertaproductoest
+     *
+     * @return string 
+     */
+    public function getCofertaproductoest()
+    {
+        return $this->cofertaproductoest;
     }
 
     /**

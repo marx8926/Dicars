@@ -90,32 +90,31 @@
 				<div class="control-group">
 					<label class="control-label" for="producto">Tipo de Pago</label>
 					<div class="controls">
-						<select name="tipo_pago" id="forma_pago">
+						<select style="margin: 0 18px 0 0;" class="input-xlarge focused" name="tipo_pago" id="forma_pago">
 						</select>
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="producto">Tipo moneda</label>
 					<div class="controls">
-						<input class="input-xlarge focused" style="margin: 0 18px 0 0;" id="producto" type="text">
-					  	<select name="tipo_moneda">
+					  	<select style="margin: 0 18px 0 0;" class="input-xlarge focused" name="tipo_moneda">
 					  		<option value="1">Soles</option>
 					  		<option value="2">Dolares</option>
 					  	</select>
 					</div>
-				</div>
-				<div class="control-group">
-					<label class="control-label" for="producto">Subtotal</label>
-					<div class="controls">
-						<input class="input-xlarge focused" style="margin: 0 18px 0 0;" id="producto" type="text">
-					</div>
-				</div>
+				</div>				
 				<div class="control-group">
 					<label class="control-label" for="producto">Venta Descuento</label>
 					<div class="controls">
 						<div class="input-prepend input-append">
 							<input class="input-xlarge focused " type="text"><span class="add-on">%</span>
 						</div>
+					</div>
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="producto">Subtotal</label>
+					<div class="controls">
+						<input class="input-xlarge focused" style="margin: 0 18px 0 0;" id="producto" type="text">
 					</div>
 				</div>
 				<div class="control-group">
@@ -197,6 +196,7 @@ var totalcontado;
 
 var Attr = ['id','cantidad'];
 var RowCallBackFunctionProducto;
+var RowCallBackFunctionCliente;
 
 $(document).ready(function(){
 	//mostrar Buscar Producto------------------------------------>
