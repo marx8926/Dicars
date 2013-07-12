@@ -170,16 +170,28 @@ function cargarEditar(id){
 	local = getAjaxObject(url);			
 
 	ArrayDatos = [	{'type':'hidden','value':local.id,'name':'id'},
-	          		{'label':'Nombre de Tienda','type':'input', 'typeinput':'text','value':local.nombre_tienda,'name':'nombre_tienda'},
-	              	{'label':'Estado','type':'input','typeinput':'text','value':local.estado,'name':'estado'},
-	              	{'label':'Dirección','type':'input','typeinput':'text','value':local.direccion,'name':'direccion'},
-	              	{'label':'Teléfono','type':'input','typeinput':'text','value':local.telefono,'name':'telefono'},
-	              	{'label':'Ubigeo','type':'input','typeinput':'text','value':local.ubigeo,'name':'ubigeo'},
-	              	{'label':'Tipo de Rubro','type':'input','typeinput':'text','value':local.tiprub,'name':'tiprub'},
+	          		{'label':'Nombre de Tienda','type':'input', 'typeinput':'text','value':local.nombre_tienda,'name':'nombre_tiendaE'},
+	              	{'label':'Estado','type':'select','name':'estadoE'},
+	              	{'label':'Dirección','type':'input','typeinput':'text','value':local.direccion,'name':'direccionE'},
+	              	{'label':'Teléfono','type':'input','typeinput':'text','value':local.telefono,'name':'telefonoE'},
+	              	{'label':'Departamento','type':'select','name':'depE'},
+	              	{'label':'Provincia','type':'select','name':'provE'},
+	              	{'label':'Distrito','type':'select','name':'distE'},
+	              	{'label':'Tipo de Rubro','type':'input','typeinput':'text','value':local.tiprub,'name':'tiprubE'},
 					{'type':'actions'}
 					];
 		
 	$("#EditarLocalForm").html(crearElementosForm(ArrayDatos));
+	
+	$('#estadoE').append('<option value="1">Habilitado</option>');
+	$('#estadoE').append('<option value="2">Inhabilitado</option>');
+	$('#estadoE').val(local.estadoE);
+
+	cargarUbigeo('distE', 'provE', 'depE');
+	
+	$('#depE').val(local.depE);
+	$('#provE').val(local.provE);
+	$('#distE').val(local.distE);	
 }
 
 function cargarVer(id){
@@ -197,35 +209,39 @@ function cargarVer(id){
 	$("#VerLocal").html(crearElementosForm(ArrayDatos));
 }
 
+function cargarUbigeo(idtagdist, idtagprov, idtagdep){
+	urlDepartamentos = "{{ path('dicars_admin_servicio_getoptiondepartamentos') }}";
+	ajaxResponseData(idtagdep,urlDepartamentos);
+
+	iddep = $('#'+idtagdep).val();
+	urlProvincias = "{{ path('dicars_admin_servicio_getoptionprovincias',{'iddep':''}) }}/"+iddep;
+	ajaxResponseData(idtagprov,urlProvincias);
+
+	idprov = $('#'+idtagprov).val();
+	urlDistritos = "{{ path('dicars_admin_servicio_getoptiondistritos',{'idprov':''}) }}/"+idprov;
+	ajaxResponseData(idtagdist,urlDistritos);
+	
+	$('#'+idtagdep).change(function(){
+		iddep = $('#'+idtagdep).val();
+		urlProvincias = "{{ path('dicars_admin_servicio_getoptionprovincias',{'iddep':''}) }}/"+iddep;
+		ajaxResponseData(idtagprov,urlProvincias);
+
+		idprov = $('#'+idtagprov).val();
+		urlDistritos = "{{ path('dicars_admin_servicio_getoptiondistritos',{'idprov':''}) }}/"+idprov;
+		ajaxResponseData(idtagdist,urlDistritos);
+	});
+
+	$('#'+idtagprov).change(function(){
+		idprov = $('#'+idtagprov).val();
+		urlDistritos = "{{ path('dicars_admin_servicio_getoptiondistritos',{'idprov':''}) }}/"+idprov;
+		ajaxResponseData(idtagdist,urlDistritos);
+	});
+}
+
 //init------------------------------------>
 $(document).ready(function(){	
 
-	urlDepartamentos = "{{ path('dicars_admin_servicio_getoptiondepartamentos') }}";
-	ajaxResponseData('dep',urlDepartamentos);
-
-	iddep = $('#dep').val();
-	urlProvincias = "{{ path('dicars_admin_servicio_getoptionprovincias',{'iddep':''}) }}/"+iddep;
-	ajaxResponseData('prov',urlProvincias);
-
-	idprov = $('#prov').val();
-	urlDistritos = "{{ path('dicars_admin_servicio_getoptiondistritos',{'idprov':''}) }}/"+idprov;
-	ajaxResponseData('dist',urlDistritos);
-	
-	$('#dep').change(function(){
-		iddep = $('#dep').val();
-		urlProvincias = "{{ path('dicars_admin_servicio_getoptionprovincias',{'iddep':''}) }}/"+iddep;
-		ajaxResponseData('prov',urlProvincias);
-
-		idprov = $('#prov').val();
-		urlDistritos = "{{ path('dicars_admin_servicio_getoptiondistritos',{'idprov':''}) }}/"+idprov;
-		ajaxResponseData('dist',urlDistritos);
-	});
-
-	$('#prov').change(function(){
-		idprov = $('#prov').val();
-		urlDistritos = "{{ path('dicars_admin_servicio_getoptiondistritos',{'idprov':''}) }}/"+idprov;
-		ajaxResponseData('dist',urlDistritos);
-	});
+	cargarUbigeo('dist', 'prov', 'dep');
 
 	urlTipRub = "{{ path('dicars_admin_servicio_getoptiontiprubs') }}";
 	ajaxResponseData('tiprub', urlTipRub);

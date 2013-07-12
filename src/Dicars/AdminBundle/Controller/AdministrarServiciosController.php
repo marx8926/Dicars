@@ -354,9 +354,16 @@ class AdministrarServiciosController extends Controller {
 	public function getOptionTipoRubroAction(){
 		$em = $this->getDoctrine()->getEntityManager();
 			
+		$tiprubclase = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:Constante')
+		->findOneBy(array('cconstantedesc' => 'Tipo de Rubro'));
+		
+		$tiprubId = $tiprubclase->getNconstanteId();
+		
 		$tiprubs = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:Constante')
-		->findBy(array('nconstanteclase' => 1));
+		->findBy(array('nconstanteclase' => $tiprubId));
+		
 		$em->clear();
 	
 		$result = "";

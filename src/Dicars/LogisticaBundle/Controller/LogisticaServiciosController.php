@@ -108,14 +108,15 @@ class LogisticaServiciosController extends Controller{
 		$todo = array();
 		foreach ($locales as $key => $local){
 			if($local -> getNlocalest() == 1){
-				$estado = "Habilitado";
+				$estado = "<span class='label label-success'>Habilitado</span>";
 			}
 			else{
-				$estado = "Inhabilitado";
+				$estado = "<span class='label label-important'>Inhabilitado</span>";
 			}
 			$tiporubro = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:Constante')
 			->findOneBy(array('nconstanteId' => $local -> getNlocaltiprub()));
+			
 			$todo[] = array('id' => $local -> getNlocalId(), 
 							'nombre_tienda' => $local -> getClocaldesc(),
 							'estado' => $estado,
@@ -139,23 +140,28 @@ class LogisticaServiciosController extends Controller{
 
 		$em->clear();
 		
-		$ubigeo = $local -> getNubigeo();
+		$dist = $local -> getNubigeo();
+		
+		$prov = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:Ubigeo')
+		->findOneBy(array('nubigeoId' => $dist -> getNubigeodep()));
+		
+		$dep = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:Ubigeo')
+		->findOneBy(array('nubigeoId' => $prov -> getNubigeodep()));
+		
 		$tiporubro = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:Constante')
 		->findOneBy(array('nconstanteId' => $local -> getNlocaltiprub()));
-		if($local -> getNlocalest() == 1){
-			$estado = "Habilitado";
-		} 
-		else{
-			$estado = "Inhabilitado";
-		}
 		
 		$data = array('id' => $local -> getNlocalId(),
 				'nombre_tienda' => $local -> getClocaldesc(),
-				'estado' => $estado,
+				'estado' => $local -> getNlocalest(),
 				'direccion' => $local -> getClocaldirec(),
 				'telefono' => $local -> getClocaltelf(),
-				'ubigeo' => $ubigeo -> getCubigeodesc(),
+				'dist' => $dist -> getCubigeodesc(),
+				'prov' => $prov -> getCubigeodesc(),
+				'dep' => $dep -> getCubigeodesc(),
 				'tiprub' => $tiporubro->getCconstantedesc());
 
 		return new JsonResponse($data);
