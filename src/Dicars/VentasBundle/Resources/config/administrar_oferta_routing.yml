@@ -1,5 +1,5 @@
 dicars_ventas_registrar_oferta:
-    pattern:  /registrar_cliente
+    pattern:  /registrar_oferta
     defaults: { _controller: DicarsVentasBundle:AdministrarOfertas:RegistrarOferta }
     requirements:
-          _method: POST  
+          _method: POST

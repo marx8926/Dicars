@@ -24,7 +24,7 @@
 			  <thead>
 				  <tr>
 					  <th>Descuento (%)</th>
-					  <th>Producto</th>
+					  <th>Descripcion</th>
 					  <th>Fecha Vigente</th>
 					  <th>Fecha Vencimiento</th>
 					  <th>Acciones</th>
@@ -40,7 +40,7 @@
 				<h3>Registrar Oferta</h3>
 			</div>
 			<div  class="modal-body">
-				<form id="RegistrarOfertasForm" class="form-horizontal" method="post" action="dicars_ventas_registrar_oferta">
+				<form id="RegistrarOfertasForm" class="form-horizontal" method="post" action="{{ path('dicars_ventas_registrar_oferta') }}">
 					<fieldset>
 					  <div class="control-group">
 						<label class="control-label" for="descuento">Descuento</label>
@@ -66,6 +66,15 @@
 						  <textarea class="input-xlarge" name="descripcion" maxlength="200" id="descripcion" rows="2" cols=""></textarea>
 						</div>
 					  </div>
+					  <div class="control-group">
+						<label class="control-label" for="descuento">Descuento</label>
+						<div class="controls">
+							<select class="input-xlarge focused" id="estado" name="estado">
+								<option value="1">Habilitado</option>
+								<option value="2">Desabilitado</option>
+							</select>
+						</div>
+					  </div>
 					  <table id="select_producto_table" class="table table-striped table-bordered bootstrap-datatable datatable">
 						  <thead>
 							  <tr>
@@ -80,7 +89,7 @@
 						</tbody>
 					</table>
 					  <div class="form-actions">
-						<button type="submit" class="btn btn-primary">Guardar</button>
+						<button id="enviar_oferta_btn" type="button" class="btn btn-primary">Guardar</button>
 						<button type="reset" class="btn" data-dismiss="modal">Cancelar</button>
 					  </div>
 					</fieldset>
@@ -168,11 +177,10 @@ $(document).ready(function(){
 		e.preventDefault();
 		$('#modalVerDatos').modal('show');
 	});
-
-	$('#RegistrarOfertasForm').submit(function(e){
+	$('#enviar_oferta_btn').click(function(e){
 		e.preventDefault();
 		CopyArray(SelectProductosOfertaData,SelectProductoData,false,['id']);
-		console.log(SelectProductosOfertaData);
+		$('#RegistrarOfertasForm').submit();
 	});
 	
 	RowCallBackFunctionProducto = getMultipleSelectRowCallBack(SelectProductoData);
@@ -186,6 +194,7 @@ $(document).ready(function(){
 		              ];
 	BuscarProductosTable = createDataTable('select_producto_table',UrlaDTableProductos,FormatoDTableProductos,null,RowCallBackFunctionProducto);
 	
+	enviar("RegistrarOfertasForm",logdata,SelectProductosOfertaData);
 });
 </script>
 {% endblock %}
