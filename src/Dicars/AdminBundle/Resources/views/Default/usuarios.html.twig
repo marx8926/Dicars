@@ -28,13 +28,13 @@
 					<div class="control-group">
 						<label class="control-label" for="usuario_id">Usuario ID</label>
 						<div class="controls">
-							<input class="input-xlarge focused" id="usuario_id" name="usuario_id" type="text" required pattern="|^[a-zA-Z0-9]+$|" maxlength="20">
+							<input class="input-xlarge focused" id="usuario_id" name="usuario_id" type="text" required pattern="|^[a-zA-Z0-9]+$|" title="El formato de usuario debe ser correcto" maxlength="20">
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="contrasena">Contraseña</label>
 						<div class="controls">
-							<input class="input-xlarge focused" id="contrasena" name="contrasena" type="text" required>
+							<input class="input-xlarge focused" id="contrasena" name="contrasena" type="password" required>
 						</div>
 					</div>
 					
@@ -112,11 +112,11 @@ function cargarEditar(id){
 	usuarioE = getAjaxObject(url);
 			
 	ArrayDatos = [	{'type':'hidden','value':usuarioE.id,'name':'idE'},
-	      			{'label':'Trabajador','type':'input', 'typeinput':'text','value':usuarioE.trabajador,'name':'trabajadorE'},
-					{'label':'Usuario','type':'input', 'typeinput':'text','value':usuarioE.usuario_id,'name':'usuario_idE'},
+	      			{'label':'Trabajador','type':'span','value':usuarioE.trabajador,'name':'trabajadorE'},
+					{'label':'Usuario','type':'input', 'typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]*$|','title':'Debe tener el formato correcto', 'req':'', 'max':'50','value':usuarioE.usuario_id,'name':'usuario_idE'},
 	              	{'label':'Clave','type':'input','typeinput':'text','value':usuarioE.clave,'name':'contrasenaE'},
 	              	{'label':'Estado','type':'input','typeinput':'text','value':usuarioE.estado,'name':'estadoE'},
-	              	{'label':'Fecha Registro','type':'input','typeinput':'text','value':usuarioE.fecharegistro,'name':'fecharegistroE'},
+	              	{'label':'Fecha Registro','type':'date','value':usuarioE.fecharegistro,'name':'fecharegistroE'},
 					{'type':'actions'}];		
 	$("#EditarUsuarioForm").html(crearElementosForm(ArrayDatos));
 	docReady();
