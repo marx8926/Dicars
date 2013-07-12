@@ -83,19 +83,28 @@ function cargarEditar(id){
 				
 		ArrayDatos = [	{'type':'hidden','value':empleado.id,'name':'idE'},
 		      			{'label':'Cargo','type':'select','name':'cargoE'},
-						{'label':'Nombres','type':'input', 'typeinput':'text','value':empleado.nombres,'name':'nombresE'},
-		              	{'label':'Apellidos','type':'input','typeinput':'text','value':empleado.apellidos,'name':'apellidosE'},
-		              	{'label':'Dni','type':'input','typeinput':'text','value':empleado.dni,'name':'dniE'},
-		              	{'label':'Telefono','type':'input','typeinput':'text','value':empleado.telefono,'name':'telefonoE'},
-		              	{'label':'Email','type':'input','typeinput':'text','value':empleado.email,'name':'emailE'},
+						{'label':'Nombres','type':'input', 'typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]*$|','title':'Debe tener el formato correcto', 'req':'', 'max':'50','value':empleado.nombres,'name':'nombresE'},
+		              	{'label':'Apellidos','type':'input','typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]*$|','title':'Debe tener el formato correcto', 'req':'', 'max':'50','value':empleado.apellidos,'name':'apellidosE'},
+		              	{'label':'Dni','type':'input','typeinput':'text','pattern':'[0-9]{8,}','title':'Debe tener el formato correcto', 'req':'', 'max':'8','value':empleado.dni,'name':'dniE'},
+		              	{'label':'Telefono','type':'input','typeinput':'text','pattern':'[0-9]{9,}','title':'Debe tener el formato correcto', 'req':'', 'max':'9','value':empleado.telefono,'name':'telefonoE'},
+		              	{'label':'Email','type':'input','typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç@.]*$|','title':'Debe tener el formato correcto', 'req':'', 'max':'100','value':empleado.email,'name':'emailE'},
 		              	{'label':'Fecha Nacimiento','type':'date','value':empleado.fechanacimiento,'name':'fechanacimientoE'},
-		              	{'label':'Sexo','type':'input','typeinput':'text','value':empleado.sexo,'name':'sexoE'},
-		              	{'label':'Estado','type':'input','typeinput':'text','value':empleado.estado,'name':'estadoE'},		              
-		              	{'label':'Edad','type':'input','typeinput':'text','value':empleado.edad,'name':'edadE'},
+		              	{'label':'Sexo','type':'select','name':'sexoE'},
+		              	{'label':'Estado','type':'select','name':'estadoE'},		              
+		              	{'label':'Edad','type':'input','typeinput':'text','pattern':'[0-9]{2,}','title':'Debe tener el formato correcto', 'req':'', 'max':'2','value':empleado.edad,'name':'edadE'},
 						{'type':'actions'}];
 			
 		$("#EditarEmpleadoForm").html(crearElementosForm(ArrayDatos));
 		ajaxResponseData('cargoE',urlCargo);
+		$('#sexoE').append('<option value="F">Femenino</option>');
+		$('#sexoE').append('<option value="M">Masculino</option>');
+		$('#sexoE').val(empleado.sexo);
+
+		$('#estadoE').append('<option value="1">Habilitado</option>');
+		$('#estadoE').append('<option value="0">Deshabilitado</option>');
+		$('#estadoE').val(empleado.sexo);
+		$("input:checkbox, input:radio, input:file").not('[data-no-uniform="true"],#uniform-is-ajax').uniform();
+		$('[data-rel="chosen"],[rel="chosen"]').chosen();
 		docReady();
 	}
 	

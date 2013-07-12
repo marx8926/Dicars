@@ -104,9 +104,9 @@ function cargarEditar(id){
 		
 	$("#EditarProductoForm").html(crearElementosForm(ArrayDatos));
 	ajaxResponseData('marcaE',urlMarca);
-	$('#tipo').append('<option value="1">Option 1</option>');
-	$('#tipo').append('<option value="2">Option 2</option>');
-	$('#tipo').val(producto.tipo);
+	$('#tipoE').append('<option value="1">Option 1</option>');
+	$('#tipoE').append('<option value="2">Option 2</option>');
+	$('#tipoE').val(producto.tipo);
 	$("input:checkbox, input:radio, input:file").not('[data-no-uniform="true"],#uniform-is-ajax').uniform();
 	$('[data-rel="chosen"],[rel="chosen"]').chosen();
 }

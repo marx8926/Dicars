@@ -81,14 +81,14 @@ class AdministrarProveedorController extends Controller {
 		$ProveedorCCorriente = null;
 	
 		if ($form!=null){
-			$ProveedorId = $datos["id"];
-			$ProveedorRuc = $datos["ruc"];
-			$ProveedorRazonSocial = $datos["razonsocial"];
-			$ProveedorTel = $datos["telefono"];
-			$ProveedorEmail = $datos["email"];
-			$ProveedorSitioWeb = $datos["paginaweb"];
-			$ProveedorDirec = $datos["direccion"];
-			$ProveedorCCorriente = $datos["ccorriente"];
+			$ProveedorId = $datos["idE"];
+			$ProveedorRuc = $datos["rucE"];
+			$ProveedorRazonSocial = $datos["razonsocialE"];
+			$ProveedorTel = $datos["telefonoE"];
+			$ProveedorEmail = $datos["emailE"];
+			$ProveedorSitioWeb = $datos["paginawebE"];
+			$ProveedorDirec = $datos["direccionE"];
+			$ProveedorCCorriente = $datos["ccorrienteE"];
 				
 			$Proveedor = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:LogProveedor')

@@ -77,15 +77,15 @@ var CargarBotones;
 function cargarEditar(id){
 	url = "{{ path('dicars_logistica_servicio_getproveedorbyid', {'id': ''}) }}/"+id;
 	proveedor = getAjaxObject(url);			
-
-	ArrayDatos = [	{'type':'hidden','value':proveedor.id,'name':'id'},
-	          		{'label':'RUC','type':'input', 'typeinput':'text','value':proveedor.ruc,'name':'ruc'},
-	              	{'label':'Razón Social','type':'input','typeinput':'text','value':proveedor.razonsocial,'name':'razonsocial'},
-	              	{'label':'Cuenta Corriente','type':'input','typeinput':'text','value':proveedor.ccorriente,'name':'ccorriente'},
-	              	{'label':'Dirección','type':'input','typeinput':'text','value':proveedor.direccion,'name':'direccion'},
-	              	{'label':'Teléfono','type':'input','typeinput':'text','value':proveedor.telefono,'name':'telefono'},
-	              	{'label':'Email','type':'input','typeinput':'text','value':proveedor.email,'name':'email'},
-	              	{'label':'Página Web','type':'input','typeinput':'text','value':proveedor.sitioweb,'name':'paginaweb'},
+	
+	ArrayDatos = [	{'type':'hidden','value':proveedor.id,'name':'idE'},
+	          		{'label':'RUC','type':'input', 'typeinput':'text','pattern':'[0-9]{11,}','title':'Debe tener el formato correcto: 11 digitos numericos', 'req':'', 'max':'11','value':proveedor.ruc,'name':'rucE'},
+	              	{'label':'Razón Social','type':'input','typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]*$|','title':'Debe tener el formato correcto: solo letras', 'req':'', 'max':'200','value':proveedor.razonsocial,'name':'razonsocialE'},
+	              	{'label':'Cuenta Corriente','type':'input','typeinput':'text','pattern':'|^([0-9]+\s*)+$|','title':'Debe tener el formato correcto', 'req':'', 'max':'20','value':proveedor.ccorriente,'name':'ccorrienteE'},
+	              	{'label':'Dirección','type':'input','typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç0-9]*$|','title':'Debe tener el formato correcto', 'req':'', 'max':'200','value':proveedor.direccion,'name':'direccionE'},
+	              	{'label':'Teléfono','type':'input','typeinput':'text','pattern':'[0-9]{9,}','title':'Debe tener el formato correcto', 'req':'', 'max':'9','value':proveedor.telefono,'name':'telefonoE'},
+	              	{'label':'Email','type':'input','typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç@.]*$|','title':'Debe tener el formato correcto', 'req':'', 'max':'100','value':proveedor.email,'name':'emailE'},
+	              	{'label':'Página Web','type':'input','typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç@.0-9]*$|','title':'Debe tener el formato correcto', 'req':'', 'max':'150','value':proveedor.sitioweb,'name':'paginawebE'},
 					{'type':'actions'}];
 		
 	$("#EditarProveedorForm").html(crearElementosForm(ArrayDatos));
@@ -127,6 +127,8 @@ $(document).ready(function(){
 			cargarVer(id);	
 		});		
 	};
+
+	/*$('telefonoE').attr('pattern','|^\d{9}$|');*/
 
 	//mostrar Registrar Cliente------------------------------------>
 	$('.btn-registrar').click(function(e){
