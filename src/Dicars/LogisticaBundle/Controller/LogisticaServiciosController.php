@@ -159,9 +159,9 @@ class LogisticaServiciosController extends Controller{
 				'estado' => $local -> getNlocalest(),
 				'direccion' => $local -> getClocaldirec(),
 				'telefono' => $local -> getClocaltelf(),
-				'dist' => $dist -> getCubigeodesc(),
-				'prov' => $prov -> getCubigeodesc(),
-				'dep' => $dep -> getCubigeodesc(),
+				'dist' => $dist -> getNubigeoId(),
+				'prov' => $prov -> getNubigeoId(),
+				'dep' => $dep -> getNubigeoId(),
 				'tiprub' => $tiporubro->getCconstantedesc());
 
 		return new JsonResponse($data);

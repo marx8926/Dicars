@@ -56,3 +56,7 @@ dicars_admin_servicio_getoptiondistritos:
 dicars_admin_servicio_getoptiontiprubs:
     pattern:  /servicio_getoptiontiprubs
     defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getOptionTipoRubro }
+
+dicars_admin_servicio_getoptionubigeo:
+    pattern:  /servicio_getoptionubigeo
+    defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getOptionUbigeo }

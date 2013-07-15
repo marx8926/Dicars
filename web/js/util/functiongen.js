@@ -301,3 +301,33 @@ function addElemento(obj){
 	}	
 	return $elem;
 }	
+
+function cargarDep(idselect, ubigeo){
+	var $select = $('#'+idselect);
+	var result = '';
+	$(ubigeo).each(function(){
+		if(this.dep == 1)
+			result += '<option value="'+this.id+'">'+this.desc+'</option>';
+	});
+	$select.html(result); 
+}
+
+function cargarProv(idselect, ubigeo, iddepend){
+	var $select = $('#'+idselect);
+	var result = '';
+	$(ubigeo).each(function(){
+		if(this.prov == 1 && this.depend == iddepend)
+			result += '<option value="'+this.id+'">'+this.desc+'</option>';
+	});
+	$select.html(result); 
+}
+
+function cargarDist(idselect, ubigeo, iddepend){
+	var $select = $('#'+idselect);
+	var result = '';
+	$(ubigeo).each(function(){
+		if(this.dist == 1 && this.depend == iddepend)
+			result += '<option value="'+this.id+'">'+this.desc+'</option>';
+	});
+	$select.html(result); 
+}
