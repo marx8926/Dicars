@@ -35,14 +35,14 @@ class AdministrarTrabajadorController extends Controller{
 			
 			$Empleado_cargo =  $this->getDoctrine()
 			->getRepository('DicarsDataBundle:VenCargo')
-			->findOneBy(array('ncargoId' => 1));
+			->findOneBy(array('ncargoId' => $datos["cargo"]));
 			
 			$Empleado_dni = $datos["dni"];
 			$Empleado_nombre = $datos["nombres"];
 			$Empleado_apellido = $datos["apellidos"];
 			$Empleado_telefono = $datos["telefono"];
 			$Empleado_email = $datos["email"];
-			$Empleado_fechanacimiento = new \DateTime($datos["fechanacimiento"]);
+			$Empleado_fechanacimiento = date_create_from_format('d/m/Y', $datos["fechanacimiento"]);
 			$Empleado_sexo = $datos["sexo"];
 			$Empleado_estado = $datos["estado"];
 			$Empleado_edad = $datos["edad"];

@@ -26,9 +26,6 @@ dicars_admin_servicio_getusuariobyid:
 dicars_admin_servicio_getoptionmarcas:
     pattern:  /servicio_getoptionmarcas
     defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getOptionMarcas }
-dicars_admin_servicio_getoptioncargos:
-    pattern:  /servicio_getoptioncargos
-    defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getOptionCargos }
 dicars_admin_servicio_getoptioncategorias:
     pattern:  /servicio_getoptioncategorias
     defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getOptionCategorias } 
@@ -54,3 +51,7 @@ dicars_admin_servicio_getoptionubigeo:
 dicars_admin_servicio_getoptionconstantes:
     pattern:  /servicio_getoptionconstantes
     defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getOptionConstantes }
+    
+dicars_admin_servicio_getoptioncargos:
+    pattern:  /servicio_getoptioncargos
+    defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getOptionCargos }

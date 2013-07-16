@@ -197,7 +197,7 @@ class AdministrarServiciosController extends Controller {
 		return new Response($result);
 	}
 	
-	public function getOptionCargosAction(){
+	/*public function getOptionCargosAction(){
 		$em = $this->getDoctrine()->getEntityManager();
 			
 		$cargos = $this->getDoctrine()
@@ -210,7 +210,7 @@ class AdministrarServiciosController extends Controller {
 			$result = $result."<option value='".$cargo->getNcargoId()."'>".$cargo->getNcargodesc()."</option>";
 		}
 		return new Response($result);
-	}
+	}*/
 	
 	public function getOptionCategoriasAction(){
 		$em = $this->getDoctrine()->getEntityManager();
@@ -317,6 +317,25 @@ class AdministrarServiciosController extends Controller {
 					'clase' => $constante -> getNconstanteclase(),
 					'desc' => $constante -> getCconstantedesc(),
 					'valor' => $constante -> getCconstantevalor()
+			);
+		}
+		return new JsonResponse($todo);
+	}
+	
+	public function getOptionCargosAction(){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$cargos = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:VenCargo')
+		->findAll();
+	
+		$em->clear();
+	
+		$todo = array();
+		foreach ($cargos as $key => $cargo){
+			$todo[] = array('id' => $cargo -> getNcargoId(),
+					'desc' => $cargo -> getNcargodesc(),
+					'estado' => $cargo -> getCcargocoest()
 			);
 		}
 		return new JsonResponse($todo);
