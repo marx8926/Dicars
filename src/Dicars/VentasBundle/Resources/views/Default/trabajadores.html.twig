@@ -100,12 +100,14 @@ function cargarEditar(id){
 		$('#sexoE').append('<option value="M">Masculino</option>');
 		$('#sexoE').val(empleado.sexo);
 
+		cargarSelect(cargos, 'cargoE', 'id', 'desc');
+		$('#cargoE').val(empleado.cargo);
+		
 		$('#estadoE').append('<option value="1">Habilitado</option>');
 		$('#estadoE').append('<option value="0">Deshabilitado</option>');
-		$('#estadoE').val(empleado.sexo);
+		$('#estadoE').val(empleado.estado);
 		$("input:checkbox, input:radio, input:file").not('[data-no-uniform="true"],#uniform-is-ajax').uniform();
 		$('[data-rel="chosen"],[rel="chosen"]').chosen();
-		docReady();
 	}
 	
 function cargarVer(id){
@@ -129,7 +131,11 @@ function cargarVer(id){
 	
 $(document).ready(function(){
 
-	ajaxResponseData('cargo',urlCargo);
+	//ajaxResponseData('cargo',urlCargo);
+	cargos = getAjaxObject("{{ path('dicars_admin_servicio_getoptioncargos') }}");
+	cargarSelect(cargos, 'cargo', 'id', 'desc');
+	$('#cargo').attr('data-rel','chosen');
+	$('[data-rel="chosen"],[rel="chosen"]').chosen();
 	
 	//mostrar Registrar Trabajador------------------------------------>
 	$('.btn-registrar').click(function(e){
