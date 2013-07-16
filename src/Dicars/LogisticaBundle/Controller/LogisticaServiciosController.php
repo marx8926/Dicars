@@ -162,7 +162,7 @@ class LogisticaServiciosController extends Controller{
 				'dist' => $dist -> getNubigeoId(),
 				'prov' => $prov -> getNubigeoId(),
 				'dep' => $dep -> getNubigeoId(),
-				'tiprub' => $tiporubro->getCconstantedesc());
+				'tiprub' => $tiporubro->getNconstanteId());
 
 		return new JsonResponse($data);
 	}

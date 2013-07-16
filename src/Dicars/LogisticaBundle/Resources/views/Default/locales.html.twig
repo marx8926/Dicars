@@ -45,7 +45,7 @@
 						<div class="control-group">
 							<label class="control-label" for="nombre_tienda">Nombre de la Tienda</label>
 							<div class="controls">
-						  		<input class="input-xlarge focused" id="nombre_tienda" name="nombre_tienda" type="text">
+						  		<input class="input-xlarge focused" id="nombre_tienda" name="nombre_tienda" type="text" pattern="|^[a-zA-Z0-9 ñÑáÁéÉíÍóÓúÚüÜç]+$|" maxlength="100" required>
 							</div>
 					  	</div>
 					  	<div class="control-group">
@@ -60,13 +60,13 @@
 					  	<div class="control-group">
 							<label class="control-label" for="direccion">Dirección</label>
 							<div class="controls">
-						  		<input class="input-xlarge focused" id="direccion" name="direccion" type="text">
+						  		<input class="input-xlarge focused" id="direccion" name="direccion" type="text" pattern="|^[a-zA-Z0-9 ñÑáÁéÉíÍóÓúÚüÜç]+$|" maxlength="150" required>
 							</div>
 					  	</div>
 					  	<div class="control-group">
 							<label class="control-label" for="telefono">Teléfono</label>
 							<div class="controls">
-						  		<input class="input-xlarge focused" id="telefono" name="telefono" type="text">
+						  		<input class="input-xlarge focused" id="telefono" name="telefono" type="text" placeholder="999999999" pattern="|^[0-9]{9}$|" title="Sólo números de 9 dígitos" maxlength="9" required>
 							</div>
 					  	</div>
 					  	<div class="control-group">
@@ -143,13 +143,10 @@ var oTable;
 var ReloadTableEditar = reloadclosemodal('modalEditarLocal', 'locales_table');
 var ReloadTableRegistrar = reloadclosemodal('modalRegistro', 'locales_table');
 
-var urlDistritos;
-var urlProvincias;
-var urlDepartamentos;
-var urlTipRub;
-
 var ubigeos;
+var constantes;
 
+//BOTONES------------------------------------>
 var CargarBotones = function(){
 	//mostrar Editar Cliente------------------------------------>
 	$('.btn-editar').click(function(e){
@@ -167,15 +164,16 @@ var CargarBotones = function(){
 	});
 };
 
+//EDITAR DATOS------------------------------------>
 function cargarEditar(id){
 	url = "{{ path('dicars_logistica_servicio_getlocalbyid', {'id': ''}) }}/"+id;
 	local = getAjaxObject(url);			
 	console.log(local);
 	ArrayDatos = [	{'type':'hidden','value':local.id,'name':'id'},
-	          		{'label':'Nombre de Tienda','type':'input', 'typeinput':'text','value':local.nombre_tienda,'name':'nombre_tiendaE'},
+	          		{'label':'Nombre de Tienda','type':'input', 'typeinput':'text','value':local.nombre_tienda,'name':'nombre_tiendaE', pattern:'|^[a-zA-Z0-9 ñÑáÁéÉíÍóÓúÚüÜç]+$|', title:'', req:'required', max:'100'},
 	              	{'label':'Estado','type':'select','name':'estadoE'},
-	              	{'label':'Dirección','type':'input','typeinput':'text','value':local.direccion,'name':'direccionE'},
-	              	{'label':'Teléfono','type':'input','typeinput':'text','value':local.telefono,'name':'telefonoE'},
+	              	{'label':'Dirección','type':'input','typeinput':'text','value':local.direccion,'name':'direccionE', pattern:'|^[a-zA-Z0-9 ñÑáÁéÉíÍóÓúÚüÜç]+$|', title:'', req:'required', max:'150'},
+	              	{'label':'Teléfono','type':'input','typeinput':'text','value':local.telefono,'name':'telefonoE', pattern:'|^[0-9]{9}$|', title:'', req:'required', max:'9'},
 	              	{'label':'Departamento','type':'select','name':'depE'},
 	              	{'label':'Provincia','type':'select','name':'provE'},
 	              	{'label':'Distrito','type':'select','name':'distE'},
@@ -189,16 +187,12 @@ function cargarEditar(id){
 	$('#estadoE').append('<option value="0">Inhabilitado</option>');
 	$('#estadoE').val(local.estado);
 
-	ajaxResponseData('tiprubE', urlTipRub);
-	$('#tiprubE').val(local.tiprub);
-
-	cargarUbigeo('distE', 'provE', 'depE');
+	cargarConstantes('tiprubE', 'Tipo de Rubro', local.tiprub);
 	
-	$('#depE').val(local.dep);
-	$('#provE').val(local.prov);
-	$('#distE').val(local.dist);
+	cargarUbigeo('distE', 'provE', 'depE', local.dist, local.prov, local.dep);
 }
 
+//VER DATOS------------------------------------>
 function cargarVer(id){
 	url = "{{ path('dicars_logistica_servicio_getlocalbyid', {'id': ''}) }}/"+id;
 	local = getAjaxObject(url);			
@@ -214,37 +208,14 @@ function cargarVer(id){
 	$("#VerLocal").html(crearElementosForm(ArrayDatos));
 }
 
-/*pasar a functiongen NO OLVIDAR! */
-function cargarUbigeo(idtagdist, idtagprov, idtagdep, iddist, idprov, iddep){
-	
-	cargarDep(idtagdep, ubigeos);
-
-	cargarProv(idtagprov, ubigeos, $('#'+idtagdep).val());
-
-	cargarDist(idtagdist, ubigeos, $('#'+idtagprov).val());
-	
-	$('#'+idtagdep).change(function(){
-		cargarProv(idtagprov, ubigeos, $('#'+idtagdep).val());
-
-		cargarDist(idtagdist, ubigeos, $('#'+idtagprov).val());
-	});
-
-	$('#'+idtagprov).change(function(){
-		cargarDist(idtagdist, ubigeos, $('#'+idtagprov).val());
-	});
-}
-
 //init------------------------------------>
 $(document).ready(function(){	
 
 	ubigeos = getAjaxObject("{{ path('dicars_admin_servicio_getoptionubigeo') }}");
-
-	console.log(ubigeos);
+	constantes = getAjaxObject("{{ path('dicars_admin_servicio_getoptionconstantes') }}");
 
 	cargarUbigeo('dist', 'prov', 'dep');
-
-	urlTipRub = "{{ path('dicars_admin_servicio_getoptiontiprubs') }}";
-	ajaxResponseData('tiprub', urlTipRub);
+	cargarConstantes('tiprub', 'Tipo de Rubro');
 	
 	//mostrar Registrar Cliente------------------------------------>
 	$('.btn-registrar').click(function(e){

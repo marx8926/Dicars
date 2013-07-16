@@ -82,16 +82,16 @@ class AdministrarLocalController extends Controller{
 	
 		if ($form!=null){
 			$LocalId = $datos["id"];
-			$LocalNombre = $datos["nombre_tienda"];
-			$LocalEstado = $datos["estado"];
-			$LocalTel = $datos["telefono"];
-			$LocalDirec = $datos["direccion"];
+			$LocalNombre = $datos["nombre_tiendaE"];
+			$LocalEstado = $datos["estadoE"];
+			$LocalTel = $datos["telefonoE"];
+			$LocalDirec = $datos["direccionE"];
 				
 			$LocalUbigeo = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:Ubigeo')
-			->findOneBy(array('nubigeoId'  => 1));
+			->findOneBy(array('nubigeoId'  => $datos["distE"]));
 				
-			$LocalTipRub = $datos["tiprub"];
+			$LocalTipRub = $datos["tiprubE"];
 	
 			$Local = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:Local')
