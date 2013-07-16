@@ -302,6 +302,7 @@ function addElemento(obj){
 	return $elem;
 }	
 
+/*--------------------------------UBIGEO------------------------------------*/
 function cargarDep(idselect, ubigeo){
 	var $select = $('#'+idselect);
 	var result = '';
@@ -331,3 +332,59 @@ function cargarDist(idselect, ubigeo, iddepend){
 	});
 	$select.html(result); 
 }
+
+function cargarUbigeo(idtagdist, idtagprov, idtagdep, iddist, idprov, iddep){
+	
+	cargarDep(idtagdep, ubigeos);
+
+	if(typeof(iddep) != 'undefined'){
+		$('#'+idtagdep).val(iddep);
+	}
+
+	cargarProv(idtagprov, ubigeos, $('#'+idtagdep).val());
+
+	if(typeof(idprov) != 'undefined'){
+		$('#'+idtagprov).val(idprov);
+	}
+
+	cargarDist(idtagdist, ubigeos, $('#'+idtagprov).val());
+
+	if(typeof(iddist) != 'undefined'){
+		$('#'+idtagdist).val(iddist);
+	}
+	
+	$('#'+idtagdep).change(function(){
+		cargarProv(idtagprov, ubigeos, $('#'+idtagdep).val());
+
+		cargarDist(idtagdist, ubigeos, $('#'+idtagprov).val());
+	});
+
+	$('#'+idtagprov).change(function(){
+		cargarDist(idtagdist, ubigeos, $('#'+idtagprov).val());
+	});
+}
+/*--------------------------------FIN UBIGEO------------------------------------*/
+
+/*--------------------------------CONTANTES-------------------------------------*/
+function cargarSelect(idselect, descripcion, constantes){
+	var $select = $('#'+idselect);
+	var result = '';
+	var clase;
+	$(constantes).each(function(){
+		if(this.desc == descripcion)
+			clase = this.clase;
+	});
+	$(constantes).each(function(){
+		if(this.clase == clase && this.valor != 0)
+			result += '<option value="'+this.id+'">'+this.desc+'</option>';
+	});
+	$select.html(result); 
+}
+
+function cargarConstantes(idselect, descripcion, valor){
+	cargarSelect(idselect, descripcion, constantes);
+	if(typeof(valor) != 'undefined'){
+		$('#'+idselect).val(valor);
+	}
+}
+/*--------------------------------FIN CONTANTES-------------------------------------*/
