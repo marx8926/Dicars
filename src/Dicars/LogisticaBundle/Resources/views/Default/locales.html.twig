@@ -148,6 +148,8 @@ var urlProvincias;
 var urlDepartamentos;
 var urlTipRub;
 
+var ubigeos;
+
 var CargarBotones = function(){
 	//mostrar Editar Cliente------------------------------------>
 	$('.btn-editar').click(function(e){
@@ -168,7 +170,7 @@ var CargarBotones = function(){
 function cargarEditar(id){
 	url = "{{ path('dicars_logistica_servicio_getlocalbyid', {'id': ''}) }}/"+id;
 	local = getAjaxObject(url);			
-
+	console.log(local);
 	ArrayDatos = [	{'type':'hidden','value':local.id,'name':'id'},
 	          		{'label':'Nombre de Tienda','type':'input', 'typeinput':'text','value':local.nombre_tienda,'name':'nombre_tiendaE'},
 	              	{'label':'Estado','type':'select','name':'estadoE'},
@@ -177,21 +179,24 @@ function cargarEditar(id){
 	              	{'label':'Departamento','type':'select','name':'depE'},
 	              	{'label':'Provincia','type':'select','name':'provE'},
 	              	{'label':'Distrito','type':'select','name':'distE'},
-	              	{'label':'Tipo de Rubro','type':'input','typeinput':'text','value':local.tiprub,'name':'tiprubE'},
+	              	{'label':'Tipo de Rubro','type':'select','name':'tiprubE'},
 					{'type':'actions'}
 					];
 		
 	$("#EditarLocalForm").html(crearElementosForm(ArrayDatos));
 	
 	$('#estadoE').append('<option value="1">Habilitado</option>');
-	$('#estadoE').append('<option value="2">Inhabilitado</option>');
-	$('#estadoE').val(local.estadoE);
+	$('#estadoE').append('<option value="0">Inhabilitado</option>');
+	$('#estadoE').val(local.estado);
+
+	ajaxResponseData('tiprubE', urlTipRub);
+	$('#tiprubE').val(local.tiprub);
 
 	cargarUbigeo('distE', 'provE', 'depE');
 	
-	$('#depE').val(local.depE);
-	$('#provE').val(local.provE);
-	$('#distE').val(local.distE);	
+	$('#depE').val(local.dep);
+	$('#provE').val(local.prov);
+	$('#distE').val(local.dist);
 }
 
 function cargarVer(id){
@@ -209,37 +214,32 @@ function cargarVer(id){
 	$("#VerLocal").html(crearElementosForm(ArrayDatos));
 }
 
-function cargarUbigeo(idtagdist, idtagprov, idtagdep){
-	urlDepartamentos = "{{ path('dicars_admin_servicio_getoptiondepartamentos') }}";
-	ajaxResponseData(idtagdep,urlDepartamentos);
+/*pasar a functiongen NO OLVIDAR! */
+function cargarUbigeo(idtagdist, idtagprov, idtagdep, iddist, idprov, iddep){
+	
+	cargarDep(idtagdep, ubigeos);
 
-	iddep = $('#'+idtagdep).val();
-	urlProvincias = "{{ path('dicars_admin_servicio_getoptionprovincias',{'iddep':''}) }}/"+iddep;
-	ajaxResponseData(idtagprov,urlProvincias);
+	cargarProv(idtagprov, ubigeos, $('#'+idtagdep).val());
 
-	idprov = $('#'+idtagprov).val();
-	urlDistritos = "{{ path('dicars_admin_servicio_getoptiondistritos',{'idprov':''}) }}/"+idprov;
-	ajaxResponseData(idtagdist,urlDistritos);
+	cargarDist(idtagdist, ubigeos, $('#'+idtagprov).val());
 	
 	$('#'+idtagdep).change(function(){
-		iddep = $('#'+idtagdep).val();
-		urlProvincias = "{{ path('dicars_admin_servicio_getoptionprovincias',{'iddep':''}) }}/"+iddep;
-		ajaxResponseData(idtagprov,urlProvincias);
+		cargarProv(idtagprov, ubigeos, $('#'+idtagdep).val());
 
-		idprov = $('#'+idtagprov).val();
-		urlDistritos = "{{ path('dicars_admin_servicio_getoptiondistritos',{'idprov':''}) }}/"+idprov;
-		ajaxResponseData(idtagdist,urlDistritos);
+		cargarDist(idtagdist, ubigeos, $('#'+idtagprov).val());
 	});
 
 	$('#'+idtagprov).change(function(){
-		idprov = $('#'+idtagprov).val();
-		urlDistritos = "{{ path('dicars_admin_servicio_getoptiondistritos',{'idprov':''}) }}/"+idprov;
-		ajaxResponseData(idtagdist,urlDistritos);
+		cargarDist(idtagdist, ubigeos, $('#'+idtagprov).val());
 	});
 }
 
 //init------------------------------------>
 $(document).ready(function(){	
+
+	ubigeos = getAjaxObject("{{ path('dicars_admin_servicio_getoptionubigeo') }}");
+
+	console.log(ubigeos);
 
 	cargarUbigeo('dist', 'prov', 'dep');
 

@@ -374,5 +374,27 @@ class AdministrarServiciosController extends Controller {
 		}
 		return new Response($result);
 	}
+	
+	public function getOptionUbigeoAction(){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$ubigeos = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:Ubigeo')
+		->findAll();
+		
+		$em->clear();
+		
+		$todo = array();
+		foreach ($ubigeos as $key => $ubigeo){
+			$todo[] = array('id' => $ubigeo -> getNubigeoId(),
+					'desc' => $ubigeo -> getCubigeodesc(),
+					'dep' => $ubigeo -> getNubigeodpt(),
+					'prov' => $ubigeo -> getNubigeoprov(),
+					'dist' => $ubigeo -> getNubigeodist(),
+					'depend' => $ubigeo -> getNubigeodep()
+			);
+		}
+		return new JsonResponse($todo);
+	}
 }
 	
