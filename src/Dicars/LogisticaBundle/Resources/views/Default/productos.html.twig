@@ -73,13 +73,9 @@ var oTable;
 var urlMarca = "{{ path('dicars_admin_servicio_getoptionmarcas') }}";
 var ReloadTableEditar;
 var ReloadTableRegistrar;
+var RowCallBackFunction;
 
-//Funcion para cargar las funciones de los botones
-var CargarBotones;
-
-function cargarEditar(id){
-	url = "{{ path('dicars_logistica_servicio_getproductobyid', {'id': ''}) }}/"+id;
-	producto = getAjaxObject(url);			
+function cargarEditar(producto){			
 
 	ArrayDatos = [	{'type':'hidden','value':producto.id,'name':'idE'},
 	              	{'label':'Serie','type':'input','typeinput':'text','pattern':'|^([0-9]+\s*)+$|','title':'Debe tener el formato correcto', 'req':'', 'max':'15','value':producto.serie,'name':'serieE'},
@@ -111,10 +107,7 @@ function cargarEditar(id){
 	$('[data-rel="chosen"],[rel="chosen"]').chosen();
 }
 
-function cargarVer(id){
-	url = "{{ path('dicars_logistica_servicio_getproductobyid', {'id': ''}) }}/"+id;
-	producto = getAjaxObject(url);			
-
+function cargarVer(producto){		
 	ArrayDatos = [	{'label':'Codigo','type':'span','value':producto.id},
 	              	{'label':'Nombre','type':'span','value':producto.nombre},
 	              	{'label':'Talla','type':'span','value':producto.talla},
@@ -149,38 +142,31 @@ $(document).ready(function(){
 		$('#modalRegistro').modal('show');			
 	});
 
-	CargarBotones = function(){
-		//mostrar Editar Cliente------------------------------------>
-		$('.btn-editar').unbind();
-		$('.btn-editar').click(function(e){
+	RowCallBackFunction = function(nRow, aData, iDisplayIndex){
+		$(nRow).find('.btn-datos').click(function(e){
 			e.preventDefault();
-			$('#modalEditarDatos').modal('show');
-			id=$(this).attr("id-data");		
-			cargarEditar(id);
-
-		});
-		//mostrar Ver Datos Cliente------------------------------------>
-		$('.btn-datos').unbind();
-		$('.btn-datos').click(function(e){
-			e.preventDefault();
+			cargarVer(aData);
 			$('#modalVerDatos').modal('show');
-			id=$(this).attr("id-data");		
-			cargarVer(id);			
 		});
-	};
+		$(nRow).find('.btn-editar').click(function(e){
+			e.preventDefault();
+			cargarEditar(aData);
+			$('#modalEditarDatos').modal('show');
+		});
+	}
 	
 	UrlaDTable = '{{ path("dicars_logistica_servicio_gettablaproductos") }}';
 	FormatoDTable = [
 		              { "sWidth": "12%","mDataProp": "id"},
 		              { "sWidth": "12%","mDataProp": "nombre"},
 		              { "sWidth": "12%","mDataProp": "stock"},
-		              { "sWidth": "12%","mDataProp": "precio_contado"},
-		              { "sWidth": "12%","mDataProp": "precio_credito"},
+		              { "sWidth": "12%","mDataProp": "pcontado"},
+		              { "sWidth": "12%","mDataProp": "pcredito"},
 		              { "sWidth": "13%","mDataProp": "ver_btn"},
 		              { "sWidth": "13%","mDataProp": "edit_btn"},
 		              { "sWidth": "14%","mDataProp": "elim_btn"}
 		              ];
-	oTable = createDataTable('productos_table',UrlaDTable,FormatoDTable,CargarBotones);
+	oTable = createDataTable('productos_table',UrlaDTable,FormatoDTable,null,RowCallBackFunction);
 
 	ReloadTableEditar = reloadclosemodal('modalEditarDatos','productos_table');
 	ReloadTableRegistrar = reloadclosemodal('modalRegistro','productos_table');

@@ -12,7 +12,7 @@ use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 
 class LogisticaServiciosController extends Controller{
 	
-	public function getTablaProductosAction(){
+public function getTablaProductosAction(){
 		$em = $this->getDoctrine()->getEntityManager();
 		 
 		$productos = $this->getDoctrine()
@@ -22,9 +22,12 @@ class LogisticaServiciosController extends Controller{
 		
 		$todo = array();
 		foreach ($productos as $key => $producto){
-			$todo[] = array('id' => $producto -> getNproductoId(), 'nombre' => $producto -> getCproductodesc(),
-					'stock' => $producto -> getNproductosotck(), 'precio_contado' => $producto -> getNproductopcontado(),
-					'precio_credito' => $producto -> getNproductopcredito(),
+			$todo[] = array('id' => $producto -> getNproductoId(),'serie' => $producto -> getCproductoserie(),'talla' => $producto -> getCproductotalla(),
+					'nombre' => $producto -> getCproductodesc(),'pcosto' => $producto -> getNproductopcosto(),'pcontado' => $producto -> getNproductopcontado(),
+					'pcredito' => $producto -> getNproductopcredito(),'tipo' => $producto -> getNproductotipo(),'codigobarras' => $producto -> getCproductocodbarra(),
+					'stockmin' => $producto -> getNproductostockmin(),'stock' => $producto -> getNproductosotck(),'stockmax' => $producto -> getNproductostockmax(), 
+					'estado' => $producto -> getCproductoest(),'porcuti' => $producto -> getNproductoporcuti(),				
+					'utibruta' => $producto -> getNproductoutibruta(), 'marca' => $producto -> getNproductomarca() -> getNmarcaId(),
 					'ver_btn' => "<a id-data='".$producto -> getNproductoId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
 					'edit_btn' => "<a id-data='".$producto -> getNproductoId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
 					'elim_btn' => "<a id-data='".$producto -> getNproductoId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
