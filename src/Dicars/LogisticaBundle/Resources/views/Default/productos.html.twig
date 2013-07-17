@@ -75,6 +75,8 @@ var ReloadTableEditar;
 var ReloadTableRegistrar;
 var RowCallBackFunction;
 
+var Marcas;
+
 function cargarEditar(producto){			
 
 	ArrayDatos = [	{'type':'hidden','value':producto.id,'name':'idE'},
@@ -134,6 +136,7 @@ function cargarVer(producto){
 //init------------------------------------>
 $(document).ready(function(){
 
+	Marcas = getAjaxObject("{{ path('dicars_admin_servicio_getoptionubigeo') }}");
 	ajaxResponseData('marca',urlMarca);
 	
 	//mostrar Registrar Cliente------------------------------------>

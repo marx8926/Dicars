@@ -190,11 +190,14 @@ class AdministrarServiciosController extends Controller {
 		->findAll();
 		$em->clear();
 		
-		$result = "";
+		$todo = array();
+		
 		foreach ($marcas as $key => $marca){
-			$result = $result."<option value='".$marca->getNmarcaId()."'>".$marca->getCmarcadesc()."</option>";
+			$todo[] = array('id' => $marca->getNmarcaId(),
+				'desc' => $marca->getCmarcadesc(),
+				);
 		}	
-		return new Response($result);
+		return new JsonResponse($todo);
 	}
 	
 	/*public function getOptionCargosAction(){
