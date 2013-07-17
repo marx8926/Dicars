@@ -116,6 +116,17 @@ public function getTablaProductosAction(){
 			else{
 				$estado = "<span class='label label-important'>Inhabilitado</span>";
 			}
+			
+			$dist = $local -> getNubigeo();
+			
+			$prov = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:Ubigeo')
+			->findOneBy(array('nubigeoId' => $dist -> getNubigeodep()));
+			
+			$dep = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:Ubigeo')
+			->findOneBy(array('nubigeoId' => $prov -> getNubigeodep()));
+			
 			$tiporubro = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:Constante')
 			->findOneBy(array('nconstanteId' => $local -> getNlocaltiprub()));
@@ -125,6 +136,9 @@ public function getTablaProductosAction(){
 							'estado' => $estado,
 							'telefono' => $local -> getClocaltelf(), 
 							'direccion' => $local -> getClocaldirec(), 
+							'dist' => $dist -> getNubigeoId(),
+							'prov' => $prov -> getNubigeoId(),
+							'dep' => $dep -> getNubigeoId(),
 							'tiprub' => $tiporubro->getCconstantedesc(), 
 							'Acciones' => "<a id-data='".$local -> getNlocalId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>
 					<a id-data='".$local -> getNlocalId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>
