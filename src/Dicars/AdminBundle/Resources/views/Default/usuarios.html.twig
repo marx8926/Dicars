@@ -106,10 +106,7 @@
 <script src="{{ asset('js/util/datatable_plugins.js') }}"></script>
 <script type="text/javascript">
 
-function cargarEditar(id){
-	
-	url = "{{ path('dicars_admin_servicio_getusuariobyid', {'id': ''}) }}/"+id;	
-	usuarioE = getAjaxObject(url);
+function cargarEditar(usuarioE){
 			
 	ArrayDatos = [	{'type':'hidden','value':usuarioE.id,'name':'idE'},
 	      			{'label':'Trabajador','type':'span','value':usuarioE.trabajador,'name':'trabajadorE'},
@@ -122,12 +119,9 @@ function cargarEditar(id){
 	docReady();
 }
 
-function cargarVer(id){
-		url = "{{ path('dicars_admin_servicio_getusuariobyid', {'id': ''}) }}/"+id;			
-		usuario = getAjaxObject(url);
+function cargarVer(usuario){
 				
-		ArrayDatos = [	{'label':'Código','type':'span','value':usuario.id},
-						{'label':'Trabajador','type':'span', 'value':usuario.trabajador},
+		ArrayDatos = [	{'label':'Trabajador','type':'span', 'value':usuario.trabajador},
 		              	{'label':'Usuario','type':'span','value':usuario.usuario_id},
 		              	{'label':'Clave','type':'span','value':usuario.clave},
 		              	{'label':'Estado','type':'span','value':usuario.estado},
@@ -135,6 +129,7 @@ function cargarVer(id){
 						{'type':'close'}];
 			
 		$("#VerUsuarioForm").html(crearElementosForm(ArrayDatos));
+		console.log(usuario.id);
 	}
 //mostrar trabajadores------------------------------------>
 $('.btn-trabajador').click(function(e){
@@ -160,26 +155,19 @@ var ReloadTableUsuario;
 var ReloadTableEditar;
 
 $(document).ready(function(){
-
-CargarBotones = function(){		
-		//mostrar Editar Cliente------------------------------------>
-		$('.btn-editar').unbind();
-		$('.btn-editar').click(function(e){
+	
+	RowCallBackFunction = function(nRow, aData, iDisplayIndex){
+		$(nRow).find('.btn-datos').click(function(e){
 			e.preventDefault();
+			cargarVer(aData);
+			$('#modalVerDatos').modal('show');
+		});
+		$(nRow).find('.btn-editar').click(function(e){
+			e.preventDefault();
+			cargarEditar(aData);
 			$('#modalEditarDatos').modal('show');
-			id=$(this).attr("id-data");		
-			cargarEditar(id);	
 		});
-		
-		//mostrar Ver Datos Cliente------------------------------------>
-		$('.btn-datos').unbind();
-		$('.btn-datos').click(function(e){
-		e.preventDefault();
-		$('#modalVerDatos').modal('show');
-		id=$(this).attr("id-data");		
-		cargarVer(id);
-		});
-};
+	};
 	
 	ReloadTableUsuario = function(data){
 	UsuariosTable.fnReloadAjax();
@@ -207,11 +195,11 @@ CargarBotones = function(){
 	              { "sWidth": "13%","mDataProp": "edit_btn"},
 	              { "sWidth": "14%","mDataProp": "elim_btn"}
 	              ];
-	UsuariosTable = createDataTable('usuarios_table',UrlaDTableUser,FormatoDTable,CargarBotones);
+	UsuariosTable = createDataTable('usuarios_table',UrlaDTableUser,FormatoDTable,null,RowCallBackFunction);
 
 	ReloadTableEditar = reloadclosemodal('modalEditarDatos', 'usuarios_table');
-	enviar("RegistrarUsuarioForm",ReloadTableUsuario,CargarBotones);
-	enviar('EditarUsuarioForm', ReloadTableEditar, CargarBotones);				
+	enviar("RegistrarUsuarioForm",ReloadTableUsuario);
+	enviar('EditarUsuarioForm', ReloadTableEditar);				
 });
 
 </script>

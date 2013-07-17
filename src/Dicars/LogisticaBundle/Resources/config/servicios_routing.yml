@@ -46,3 +46,6 @@ dicars_logistica_servicio_gettabladetingprod:
     pattern:  /servicio_gettabladetingprod/{id}
     defaults: { _controller: DicarsLogisticaBundle:LogisticaServicios:getTablaDetIngProd }    
 
+dicars_logistica_servicio_getoptionlocal:
+    pattern:  /servicio_getoptionlocal
+    defaults: { _controller: DicarsLogisticaBundle:LogisticaServicios:getOptionLocales }  

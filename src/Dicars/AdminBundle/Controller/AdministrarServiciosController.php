@@ -32,6 +32,7 @@ class AdministrarServiciosController extends Controller {
 			$todo[] = array('id' => $cargo -> getNcargoId(), 
 							'nom_cargo' => $cargo -> getNcargodesc(),
 							'selectEstado' => $estado, 
+							'estado' => $cargo -> getCcargocoest(),
 							'edit_btn' => "<a id-data='".$cargo -> getNcargoId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>"
 					);
 		}
@@ -75,6 +76,7 @@ class AdministrarServiciosController extends Controller {
 					'nom_categoria' => $categoria -> getCcategorianom(),
 					'desc_categoria' => $categoria -> getCcategoriadesc(),
 					'selectEstado' => $estado,
+					'estado' => $categoria -> getCcategoriaest(),
 					'edit_btn' => "<a id-data='".$categoria -> getNcategoriaId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>"
 			);
 		}
@@ -118,6 +120,7 @@ class AdministrarServiciosController extends Controller {
 			$todo[] = array('id' => $marca -> getNmarcaId(),
 					'desc_marca' => $marca -> getCmarcadesc(),
 					'selectEstado' => $estado,
+					'estado' => $marca -> getCmarcaest(),
 					'edit_btn' => "<a id-data='".$marca -> getNmarcaId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>"
 			);
 		}
@@ -150,7 +153,9 @@ class AdministrarServiciosController extends Controller {
 		$em->clear();
 		$todo = array();
 		foreach ($usuarios as $key => $usuario){
-			$todo[] = array('trabajador' => $usuario -> getNpersonal() -> getNpersonalId(),
+			$personal = $usuario -> getNpersonal();
+			
+			$todo[] = array('trabajador' => $personal -> getCpersonalnom()." ".$personal -> getCpersonalape(),
 						'usuario_id' => $usuario -> getCusuarioid(),
 						'clave' => $usuario -> getCusuarioclave(),
 						'estado' => $usuario -> getCusuarioest(),

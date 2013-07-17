@@ -82,19 +82,7 @@ var oTable;
 var ReloadTableEditar = reloadclosemodal('modalEditarDatos','marcas_table');
 var ReloadTableRegistrar = reloadclosemodal('modalRegistroMarca','marcas_table');
 
-var CargarBotones = function(){
-	//mostrar Editar Cliente------------------------------------>
-	$('.btn-editar').click(function(e){
-		e.preventDefault();
-		$('#modalEditarDatos').modal('show');
-		id=$(this).attr("id-data");		
-		cargarEditar(id);
-	});
-};
-
-function cargarEditar(id){
-	url = "{{ path('dicars_admin_servicio_getmarcabyid', {'id': ''}) }}/"+id;
-	marca = getAjaxObject(url);		
+function cargarEditar(marca){
 	
 	ArrayDatos = [	{'type':'hidden','value':marca.id,'name':'id'},
 	          		{'label':'Nombre de Marca','type':'input','typeinput':'text','value':marca.desc_marca, 'name':'desc_marcaE','pattern':'|^[a-zA-Z ñÑáéíóúüç.0-9]*$|','required':'true'},
@@ -104,12 +92,21 @@ function cargarEditar(id){
 	$("#EditarMarcaForm").html(crearElementosForm(ArrayDatos));
 	$('#selectEstadoE').append('<option value="1">Habilitado</option>');
 	$('#selectEstadoE').append('<option value="0">Inhabilitado</option>');
-	$('#selectEstadoE').val(marca.selectEstado);
+	$('#selectEstadoE').val(marca.estado);
 	$('[data-rel="chosen"],[rel="chosen"]').chosen();
 }
 
 //Init------------------------------------>
 $(document).ready(function(){
+
+	RowCallBackFunction = function(nRow, aData, iDisplayIndex){
+		$(nRow).find('.btn-editar').click(function(e){
+			e.preventDefault();
+			cargarEditar(aData);
+			$('#modalEditarDatos').modal('show');
+		});
+	};
+	
 	//mostrar Buscar Cliente------------------------------------>
 	$('.btn-registrar').click(function(e){
 		e.preventDefault();
@@ -125,7 +122,7 @@ $(document).ready(function(){
 		              { "sWidth": "33%","mDataProp": "selectEstado"},
 		              { "sWidth": "34%","mDataProp": "edit_btn"}
 		              ];
-	oTable = createDataTable('marcas_table',UrlaDTable,FormatoDTable,CargarBotones);
+	oTable = createDataTable('marcas_table',UrlaDTable,FormatoDTable,null, RowCallBackFunction);
 });
 </script>
 {% endblock %}

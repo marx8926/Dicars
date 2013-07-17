@@ -89,19 +89,9 @@ var oTable;
 var ReloadTableEditar = reloadclosemodal('modalEditarDatos', 'categorias_table');
 var ReloadTableRegistrar = reloadclosemodal('modalRegistroCategoria', 'categorias_table');
 
-var CargarBotones = function(){
-	//mostrar Editar Cliente------------------------------------>
-	$('.btn-editar').click(function(e){
-		e.preventDefault();
-		$('#modalEditarDatos').modal('show');
-		id=$(this).attr("id-data");		
-		cargarEditar(id);
-	});
-};
-
-function cargarEditar(id){
-	url = "{{ path('dicars_admin_servicio_getcategoriabyid', {'id': ''}) }}/"+id;
-	categoria = getAjaxObject(url);		
+function cargarEditar(categoria){
+	//url = "{{ path('dicars_admin_servicio_getcategoriabyid', {'id': ''}) }}/"+id;
+	//categoria = getAjaxObject(url);		
 	
 	ArrayDatos = [	{'type':'hidden','value':categoria.id,'name':'id'},
 	          		{'label':'Nombre de Categoría','type':'input','typeinput':'text','value':categoria.nom_categoria, 'name':'nom_categoriaE', 'pattern':'|^[a-zA-Z ñÑáéíóúüç.0-9]*$|', 'required':'true'},
@@ -112,12 +102,21 @@ function cargarEditar(id){
 	$("#EditarCategoriaForm").html(crearElementosForm(ArrayDatos));
 	$('#selectEstadoE').append('<option value="1">Habilitado</option>');
 	$('#selectEstadoE').append('<option value="0">Inhabilitado</option>');
-	$('#selectEstadoE').val(categoria.selectEstado);
+	$('#selectEstadoE').val(categoria.estado);
 	$('[data-rel="chosen"],[rel="chosen"]').chosen();
 }
 
 //Init------------------------------------>
 $(document).ready(function(){
+
+	RowCallBackFunction = function(nRow, aData, iDisplayIndex){
+		$(nRow).find('.btn-editar').click(function(e){
+			e.preventDefault();
+			cargarEditar(aData);
+			$('#modalEditarDatos').modal('show');
+		});
+	};
+	
 	//mostrar Buscar Cliente------------------------------------>
 	$('.btn-registrar').click(function(e){
 		e.preventDefault();
@@ -134,7 +133,7 @@ $(document).ready(function(){
 		              { "sWidth": "33%","mDataProp": "selectEstado"},
 		              { "sWidth": "34%","mDataProp": "edit_btn"}
 		              ];
-	oTable = createDataTable('categorias_table',UrlaDTable,FormatoDTable,CargarBotones);
+	oTable = createDataTable('categorias_table',UrlaDTable,FormatoDTable,null, RowCallBackFunction);
 });
 </script>
 {% endblock %}

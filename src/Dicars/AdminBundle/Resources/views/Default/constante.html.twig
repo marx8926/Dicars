@@ -88,19 +88,7 @@ var oTable;
 var ReloadTableEditar = reloadclosemodal('modalEditarDatos','constantes_table');
 var ReloadTableRegistrar = reloadclosemodal('modalRegistroConstantes','constantes_table');
 
-var CargarBotones = function(){
-	//mostrar Editar Cliente------------------------------------>
-	$('.btn-editar').click(function(e){
-		e.preventDefault();
-		$('#modalEditarDatos').modal('show');
-		id=$(this).attr("id-data");		
-		cargarEditar(id);
-	});
-};
-
-function cargarEditar(id){
-	url = "{{ path('dicars_admin_servicio_getconstantebyid', {'id': ''}) }}/"+id;
-	constante = getAjaxObject(url);			
+function cargarEditar(constante){		
 
 	ArrayDatos = [	{'type':'hidden','value':constante.id,'name':'id'},
 	          		{'label':'Nro de Clase','type':'input', 'typeinput':'text','value':constante.clase,'name':'claseE'},
@@ -113,6 +101,14 @@ function cargarEditar(id){
 
 //Init------------------------------------>
 $(document).ready(function(){
+
+	RowCallBackFunction = function(nRow, aData, iDisplayIndex){
+		$(nRow).find('.btn-editar').click(function(e){
+			e.preventDefault();
+			cargarEditar(aData);
+			$('#modalEditarDatos').modal('show');
+		});
+	};
 
 	//mostrar Registrar Cliente------------------------------------>
 	$('.btn-registrar').click(function(e){
@@ -130,7 +126,7 @@ $(document).ready(function(){
 		              { "sWidth": "25%","mDataProp": "valor"},
 		              { "sWidth": "25%","mDataProp": "edit_btn"}
 		              ];
-	oTable = createDataTable('constantes_table',UrlaDTable,FormatoDTable,CargarBotones);
+	oTable = createDataTable('constantes_table',UrlaDTable,FormatoDTable,null, RowCallBackFunction);
 });
 
 </script>

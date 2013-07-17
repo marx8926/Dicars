@@ -74,9 +74,7 @@ var ReloadTableEditar;
 var ReloadTableRegistrar;
 var CargarBotones;
 
-function cargarEditar(id){
-	url = "{{ path('dicars_logistica_servicio_getproveedorbyid', {'id': ''}) }}/"+id;
-	proveedor = getAjaxObject(url);			
+function cargarEditar(proveedor){	
 	
 	ArrayDatos = [	{'type':'hidden','value':proveedor.id,'name':'idE'},
 	          		{'label':'RUC','type':'input', 'typeinput':'text','pattern':'[0-9]{11,}','title':'Debe tener el formato correcto: 11 digitos numericos', 'req':'', 'max':'11','value':proveedor.ruc,'name':'rucE'},
@@ -92,9 +90,7 @@ function cargarEditar(id){
 	docReady();
 }
 
-function cargarVer(id){
-	url = "{{ path('dicars_logistica_servicio_getproveedorbyid', {'id': ''}) }}/"+id;
-	proveedor = getAjaxObject(url);			
+function cargarVer(proveedor){		
 
 	ArrayDatos = [	{'label':'RUC','type':'span','value':proveedor.ruc},
 	              	{'label':'Razón Social','type':'span','value':proveedor.razonsocial},
@@ -110,22 +106,17 @@ function cargarVer(id){
 //Init------------------------------------>
 $(document).ready(function(){
 
-	CargarBotones = function(){
-		//mostrar Editar Cliente------------------------------------>
-		$('.btn-editar').click(function(e){
+	RowCallBackFunction = function(nRow, aData, iDisplayIndex){
+		$(nRow).find('.btn-datos').click(function(e){
 			e.preventDefault();
-			$('#modalEditarDatos').modal('show');
-			id=$(this).attr("id-data");		
-			cargarEditar(id);
-		});
-		
-		//mostrar Ver Datos Cliente------------------------------------>
-		$('.btn-datos').click(function(e){
-			e.preventDefault();
+			cargarVer(aData);
 			$('#modalVerDatos').modal('show');
-			id=$(this).attr("id-data");		
-			cargarVer(id);	
-		});		
+		});
+		$(nRow).find('.btn-editar').click(function(e){
+			e.preventDefault();
+			cargarEditar(aData);
+			$('#modalEditarDatos').modal('show');
+		});
 	};
 
 	/*$('telefonoE').attr('pattern','|^\d{9}$|');*/
@@ -147,7 +138,7 @@ $(document).ready(function(){
 		              { "sWidth": "13%","mDataProp": "edit_btn"},
 		              { "sWidth": "14%","mDataProp": "elim_btn"}
 		              ];
-	oTable = createDataTable('proveedores_table',UrlaDTable,FormatoDTable,CargarBotones);
+	oTable = createDataTable('proveedores_table',UrlaDTable,FormatoDTable,null, RowCallBackFunction);
 
 });
 

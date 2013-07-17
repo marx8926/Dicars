@@ -380,13 +380,6 @@ function cargarSelectConstante(idselect, descripcion, constantes){
 	});
 	$select.html(result); 
 }
-
-function cargarConstantes(idselect, descripcion, valor){
-	cargarSelectConstante(idselect, descripcion, constantes);
-	if(typeof(valor) != 'undefined'){
-		$('#'+idselect).val(valor);
-	}
-}
 /*--------------------------------FIN CONTANTES-------------------------------------*/
 
 function cargarSelect(arreglo, idselect, attrvalue, attrdescripcion){

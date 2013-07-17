@@ -83,19 +83,7 @@ var oTable;
 var ReloadTableEditar = reloadclosemodal('modalEditarDatos', 'cargos_table');
 var ReloadTableRegistrar = reloadclosemodal('modalRegistroCargo', 'cargos_table');
 
-var CargarBotones = function(){
-	//mostrar Editar Cliente------------------------------------>
-	$('.btn-editar').click(function(e){
-		e.preventDefault();
-		$('#modalEditarDatos').modal('show');
-		id=$(this).attr("id-data");		
-		cargarEditar(id);
-	});
-};
-
-function cargarEditar(id){
-	url = "{{ path('dicars_admin_servicio_getcargobyid', {'id': ''}) }}/"+id;
-	cargo = getAjaxObject(url);			
+function cargarEditar(cargo){		
 
 	ArrayDatos = [	{'type':'hidden','value':cargo.id,'name':'id'},
 	          		{'label':'Nombre de Cargo','type':'span','value':cargo.nom_cargo},
@@ -105,11 +93,19 @@ function cargarEditar(id){
 	$("#EditarCargoForm").html(crearElementosForm(ArrayDatos));
 	$('#selectEstadoE').append('<option value="1">Habilitado</option>');
 	$('#selectEstadoE').append('<option value="0">Inhabilitado</option>');
-	$('#selectEstadoE').val(cargo.selectEstado);
+	$('#selectEstadoE').val(cargo.estado);
 }
 
 //Init------------------------------------>
 $(document).ready(function(){
+
+	RowCallBackFunction = function(nRow, aData, iDisplayIndex){
+		$(nRow).find('.btn-editar').click(function(e){
+			e.preventDefault();
+			cargarEditar(aData);
+			$('#modalEditarDatos').modal('show');
+		});
+	};
 
 	//mostrar Registrar Cliente------------------------------------>
 	$('.btn-registrar').click(function(e){
@@ -126,7 +122,7 @@ $(document).ready(function(){
 		              { "sWidth": "33%","mDataProp": "selectEstado"},
 		              { "sWidth": "34%","mDataProp": "edit_btn"}
 		              ];
-	oTable = createDataTable('cargos_table',UrlaDTable,FormatoDTable,CargarBotones);
+	oTable = createDataTable('cargos_table',UrlaDTable,FormatoDTable,null, RowCallBackFunction);
 });
 
 </script>

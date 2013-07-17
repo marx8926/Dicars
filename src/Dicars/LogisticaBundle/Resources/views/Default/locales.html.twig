@@ -146,28 +146,8 @@ var ReloadTableRegistrar = reloadclosemodal('modalRegistro', 'locales_table');
 var ubigeos;
 var constantes;
 
-//BOTONES------------------------------------>
-var CargarBotones = function(){
-	//mostrar Editar Cliente------------------------------------>
-	$('.btn-editar').click(function(e){
-		e.preventDefault();
-		$('#modalEditarLocal').modal('show');
-		id=$(this).attr("id-data");		
-		cargarEditar(id);
-	});
-	//mostrar Ver Datos------------------------------------>
-	$('.btn-datos').click(function(e){
-		e.preventDefault();
-		$('#modalVerDatos').modal('show');
-		id=$(this).attr("id-data");		
-		cargarVer(id);	
-	});
-};
-
 //EDITAR DATOS------------------------------------>
-function cargarEditar(local){
-	//url = "{{ path('dicars_logistica_servicio_getlocalbyid', {'id': ''}) }}/"+id;
-	//local = getAjaxObject(url);		
+function cargarEditar(local){	
 	ArrayDatos = [	{'type':'hidden','value':local.id,'name':'id'},
 	          		{'label':'Nombre de Tienda','type':'input', 'typeinput':'text','value':local.nombre_tienda,'name':'nombre_tiendaE', pattern:'|^[a-zA-Z0-9 ñÑáÁéÉíÍóÓúÚüÜç]+$|', title:'', req:'required', max:'100'},
 	              	{'label':'Estado','type':'select','name':'estadoE'},
@@ -184,17 +164,16 @@ function cargarEditar(local){
 	
 	$('#estadoE').append('<option value="1">Habilitado</option>');
 	$('#estadoE').append('<option value="0">Inhabilitado</option>');
-	$('#estadoE').val(local.estado);
+	$('#estadoE').val(local.estadoValor);
 
-	cargarConstantes('tiprubE', 'Tipo de Rubro', local.tiprub);
+	cargarSelectConstante('tiprubE', 'Tipo de Rubro', constantes);
+	$('#tiprubE').val(local.tiprubId);
 	
 	cargarUbigeo('distE', 'provE', 'depE', local.dist, local.prov, local.dep);
 }
 
 //VER DATOS------------------------------------>
 function cargarVer(local){
-	//url = "{{ path('dicars_logistica_servicio_getlocalbyid', {'id': ''}) }}/"+id;
-	//local = getAjaxObject(url);
 
 	ArrayDatos = [	{'label':'Nombre de Tienda','type':'span','value':local.nombre_tienda},
 	              	{'label':'Estado','type':'span','value':local.estado},
@@ -215,7 +194,7 @@ $(document).ready(function(){
 
 	cargarUbigeo('dist', 'prov', 'dep');
 	
-	cargarConstantes('tiprub', 'Tipo de Rubro');
+	cargarSelectConstante('tiprub', 'Tipo de Rubro', constantes);
 
 	RowCallBackFunction = function(nRow, aData, iDisplayIndex){
 		$(nRow).find('.btn-datos').click(function(e){

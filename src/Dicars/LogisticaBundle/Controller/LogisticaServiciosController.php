@@ -66,8 +66,11 @@ public function getTablaProductosAction(){
 		
 		$todo = array();
 		foreach ($proveedores as $key => $proveedor){
-			$todo[] = array('id' => $proveedor -> getNproveedorId(), 'ruc' => $proveedor -> getCproveedorruc(),
+			$todo[] = array('id' => $proveedor -> getNproveedorId(), 
+					'ruc' => $proveedor -> getCproveedorruc(),
 					'razonsocial' => $proveedor -> getCproveedorrazsocial(), 'telefono' => $proveedor -> getCproveedortel(),
+					'ccorriente' => $proveedor -> getCproveedorccorriente(),
+					'direccion' => $proveedor -> getCproveedordirec(),
 					'email' => $proveedor -> getCproveedoremail(), 
 					'sitioweb' => $proveedor -> getCproveedorsitioweb(), 
 					'ver_btn' => "<a id-data='".$proveedor -> getNproveedorId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
@@ -134,12 +137,14 @@ public function getTablaProductosAction(){
 			$todo[] = array('id' => $local -> getNlocalId(), 
 							'nombre_tienda' => $local -> getClocaldesc(),
 							'estado' => $estado,
+							'estadoValor' => $local -> getNlocalest(),
 							'telefono' => $local -> getClocaltelf(), 
 							'direccion' => $local -> getClocaldirec(), 
 							'dist' => $dist -> getNubigeoId(),
 							'prov' => $prov -> getNubigeoId(),
 							'dep' => $dep -> getNubigeoId(),
 							'tiprub' => $tiporubro->getCconstantedesc(), 
+							'tiprubId' => $local -> getNlocaltiprub(),
 							'Acciones' => "<a id-data='".$local -> getNlocalId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>
 					<a id-data='".$local -> getNlocalId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>
 					<a id-data='".$local -> getNlocalId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>"
@@ -336,6 +341,24 @@ public function getTablaProductosAction(){
 					'elim_btn' => "<a id-data='".$detingprod -> getNdetingprodId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");	
 		}
 		return new JsonResponse(array('aaData' => $todo));
+	}
+	
+	public function getOptionLocalesAction(){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$locales = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:Local')
+		->findAll();
+	
+		$em->clear();
+	
+		$todo = array();
+		foreach ($locales as $key => $local){
+			$todo[] = array('id' => $local -> getNlocalId(),
+					'desc' => $local -> getClocaldesc()
+			);
+		}
+		return new JsonResponse($todo);
 	}
 
 }
