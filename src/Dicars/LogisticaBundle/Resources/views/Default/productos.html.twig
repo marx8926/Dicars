@@ -101,7 +101,8 @@ function cargarEditar(producto){
 					{'type':'actions'}];
 		
 	$("#EditarProductoForm").html(crearElementosForm(ArrayDatos));
-	ajaxResponseData('marcaE',urlMarca);
+	cargarSelect(Marcas,'marcaE','id','desc');
+	$('#marcaE').val();
 	$('#tipoE').append('<option value="1">Option 1</option>');
 	$('#tipoE').append('<option value="2">Option 2</option>');
 	$('#tipoE').val(producto.tipo);
@@ -136,8 +137,9 @@ function cargarVer(producto){
 //init------------------------------------>
 $(document).ready(function(){
 
-	Marcas = getAjaxObject("{{ path('dicars_admin_servicio_getoptionubigeo') }}");
-	ajaxResponseData('marca',urlMarca);
+	Marcas = getAjaxObject("{{ path('dicars_admin_servicio_getoptionmarcas') }}");
+	cargarSelect(Marcas,'marca','id','desc');
+	//ajaxResponseData('marca',urlMarca);
 	
 	//mostrar Registrar Cliente------------------------------------>
 	$('.btn-registrar').click(function(e){

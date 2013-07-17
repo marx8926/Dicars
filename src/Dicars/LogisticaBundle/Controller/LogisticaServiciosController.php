@@ -27,7 +27,7 @@ public function getTablaProductosAction(){
 					'pcredito' => $producto -> getNproductopcredito(),'tipo' => $producto -> getNproductotipo(),'codigobarras' => $producto -> getCproductocodbarra(),
 					'stockmin' => $producto -> getNproductostockmin(),'stock' => $producto -> getNproductosotck(),'stockmax' => $producto -> getNproductostockmax(), 
 					'estado' => $producto -> getCproductoest(),'porcuti' => $producto -> getNproductoporcuti(),				
-					'utibruta' => $producto -> getNproductoutibruta(), 'marca' => $producto -> getNproductomarca() -> getNmarcaId(),
+					'utibruta' => $producto -> getNproductoutibruta(), 'marcaId' => $producto -> getNproductomarca() -> getNmarcaId(),'marca' => $producto -> getNproductomarca() -> getNmarcaId(),
 					'ver_btn' => "<a id-data='".$producto -> getNproductoId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
 					'edit_btn' => "<a id-data='".$producto -> getNproductoId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
 					'elim_btn' => "<a id-data='".$producto -> getNproductoId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
