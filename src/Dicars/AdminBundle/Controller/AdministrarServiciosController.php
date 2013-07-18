@@ -348,5 +348,23 @@ class AdministrarServiciosController extends Controller {
 		}
 		return new JsonResponse($todo);
 	}
+	
+	public function getOptionTiposIGVAction(){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$tiposigv = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:VenTipoigv')
+		->findAll();
+	
+		$em->clear();
+	
+		$todo = array();
+		foreach ($tiposigv as $key => $tipoigv){
+			$todo[] = array('id' => $tipoigv -> getNtipoigv(),
+					'porc' => $tipoigv -> getNtipoigvproc()
+			);
+		}
+		return new JsonResponse($todo);
+	}
 }
 	

@@ -55,3 +55,7 @@ dicars_admin_servicio_getoptionconstantes:
 dicars_admin_servicio_getoptioncargos:
     pattern:  /servicio_getoptioncargos
     defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getOptionCargos }
+    
+dicars_admin_servicio_getoptiontiposigv:
+    pattern:  /servicio_getoptiontiposigv
+    defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getOptionTiposIGV }

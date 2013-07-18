@@ -78,11 +78,12 @@
 				<h2>Datos de Pago</h2>
 			</div>
 			<div class="box-content">
-			<form id="AgregarProductoForm" class="form-horizontal">
+			<form id="EnviarVenta" class="form-horizontal">
 				<div class="control-group">
 					<label class="control-label" for="cliente">Cliente</label>
 					<div class="controls">
-						<input class="input-xlarge focused" id="cliente" name="cliente" type="text">
+						<input class="input-xlarge focused" id="cliente" name="cliente" type="text" readonly>
+						<input type="hidden" id="cliente_id" name="cliente_id">
 					  	<button type="button" class="btn btn-info btn-buscarc" style="margin: 0 18px;"><i class="icon-search icon-white"></i>Buscar</button>
 					</div>
 				</div>
@@ -92,7 +93,7 @@
 						<select style="margin: 0 18px 0 0;" class="input-xlarge focused" name="forma_pago" id="forma_pago">
 						</select>
 					</div>
-				</div>                 
+				</div>   
 				<div class="control-group">
 					<label class="control-label" for="tipo_moneda">Tipo moneda</label>
 					<div class="controls">
@@ -106,49 +107,52 @@
 					<label class="control-label" for="descuento">Venta Descuento</label>
 					<div class="controls">
 						<div class="input-prepend input-append">
-							<input class="input-xlarge focused " name="descuento" id="descuento" type="text"><span class="add-on">%</span>
+							<input class="input-xlarge focused " name="descuento" id="descuento" type="number" min="0" max="100" value="0" required><span class="add-on">%</span>
 						</div>
 					</div>
 				</div>
 				<div class="control-group">
 					<label class="control-label" for="subtotal">Subtotal</label>
 					<div class="controls">
-						<input class="input-xlarge focused" style="margin: 0 18px 0 0;" name="subtotal" id="subtotal" type="text" disabled>
-					</div>
-				</div>
-				
-				<div class="control-group">
-					<label class="control-label" for="total">Total</label>
-					<div class="controls">
-						<input class="input-xlarge focused" style="margin: 0 18px 0 0;" name="total" id="total" type="text" disabled>
-					</div>
-				</div>
-								
-				<div class="control-group">
-					<label class="control-label" for="amortizacion">A cuenta</label>
-					<div class="controls">
-						<input class="input-xlarge focused" style="margin: 0 18px 0 0;" name="amortizacion" id="amortizacion" type="text">
-					</div>
-				</div>
-											
-				<div class="control-group">
-					<label class="control-label" for="saldo">Saldo restante</label>
-					<div class="controls">
-						<input class="input-xlarge focused" style="margin: 0 18px 0 0;" name="saldo" id="saldo" type="text">
-					</div>
-				</div>
-											
-				<div class="control-group">
-					<label class="control-label" for="local">Local</label>
-					<div class="controls">
-						<input class="input-xlarge focused" style="margin: 0 18px 0 0;" name="local" id="local" type="text">
+						<input class="input-xlarge focused" style="margin: 0 18px 0 0;" name="subtotal" id="subtotal" type="text" readonly>
 					</div>
 				</div>
 				
 				<div class="control-group">
 					<label class="control-label" for="tipo_igv">IGV</label>
 					<div class="controls">
-						<input class="input-xlarge focused" style="margin: 0 18px 0 0;" name="tipo_igv" id="tipo_igv" type="text">
+						<select style="margin: 0 18px 0 0;" class="input-xlarge focused" name="tipo_igv" id="tipo_igv">
+					  	</select>
+					</div>
+				</div>
+				
+				<div class="control-group">
+					<label class="control-label" for="total">Total</label>
+					<div class="controls">
+						<input class="input-xlarge focused" style="margin: 0 18px 0 0;" name="total" id="total" type="text" readonly>
+					</div>
+				</div>		
+				
+				<div class="control-group">
+					<label class="control-label" for="amortizacion">A cuenta</label>
+					<div class="controls">
+						<input class="input-xlarge focused" style="margin: 0 18px 0 0;" name="amortizacion" id="amortizacion" type="text" step="0.1" value="0" min="0">
+					</div>
+				</div>
+											
+				<div class="control-group">
+					<label class="control-label" for="saldo">Saldo restante</label>
+					<div class="controls">
+						<input class="input-xlarge focused" style="margin: 0 18px 0 0;" name="saldo" id="saldo" type="text" readonly>
+					</div>
+				</div>
+				
+				<div class="control-group" style="display:block">
+					<label class="control-label" for="num_cuotas">N° Cuotas</label>
+					<div class="controls">
+						<div class="input-prepend input-append">
+								<input class="input-xlarge focused " name="num_cuotas" id="num_cuotas" type="number" min="0" value="0" required><span class="add-on">x 0.00 S/.</span>
+						</div>
 					</div>
 				</div>
 				
@@ -158,6 +162,8 @@
 						<textarea class="input-xlarge" name="observacion" rows="2" cols=""></textarea>
 					</div>
 				</div>
+				
+				<input type="submit" value="enviar">
 			</form>
 			 <p>
                         <a to_position='1' id='to_select_productos' href="#">atras</a>
@@ -265,14 +271,14 @@ var RowCallBackFunctionCliente;
 
 $(document).ready(function(){
 	//mostrar Buscar Producto------------------------------------>
-	$("#contenedor").resize(function(){
-		$("#wrapper").width($("#contenedor").width());
-		$("#steps").width($("#contenedor").width());
-		$(".step").width($("#contenedor").width());
-		});
 	$("#wrapper").width($("#contenedor").width());
 	$("#steps").width($("#contenedor").width());
 	$(".step").width($("#contenedor").width());
+
+	$("#EnviarVenta").submit(function (e){
+		e.preventDefault();
+		console.log($("#EnviarVenta").serialize());
+		});
 	
 	$('.btn-buscarp').click(function(e){
 		e.preventDefault();
