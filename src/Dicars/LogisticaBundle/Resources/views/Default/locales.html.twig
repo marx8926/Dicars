@@ -175,11 +175,12 @@ function cargarEditar(local){
 //VER DATOS------------------------------------>
 function cargarVer(local){
 
+	ubigeo = local.distdesc + " - " + local.provdesc + " - " + local.depdesc;
 	ArrayDatos = [	{'label':'Nombre de Tienda','type':'span','value':local.nombre_tienda},
 	              	{'label':'Estado','type':'span','value':local.estado},
 	              	{'label':'Dirección','type':'span','value':local.direccion},
 	              	{'label':'Teléfono','type':'span','value':local.telefono},
-	              	{'label':'Ubigeo','type':'span','value':local.ubigeo},
+	              	{'label':'Ubigeo','type':'span','value':ubigeo},
 	              	{'label':'Tipo de Rubro','type':'span','value':local.tiprub},
 					{'type':'close'}];
 		

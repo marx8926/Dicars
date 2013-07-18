@@ -141,8 +141,11 @@ public function getTablaProductosAction(){
 							'telefono' => $local -> getClocaltelf(), 
 							'direccion' => $local -> getClocaldirec(), 
 							'dist' => $dist -> getNubigeoId(),
+							'distdesc' =>  $dist -> getCubigeodesc(),
 							'prov' => $prov -> getNubigeoId(),
+							'provdesc' =>  $prov -> getCubigeodesc(),
 							'dep' => $dep -> getNubigeoId(),
+							'depdesc' =>  $dep -> getCubigeodesc(),
 							'tiprub' => $tiporubro->getCconstantedesc(), 
 							'tiprubId' => $local -> getNlocaltiprub(),
 							'Acciones' => "<a id-data='".$local -> getNlocalId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>
