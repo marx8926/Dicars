@@ -17,62 +17,61 @@
 	<div class="box span12" id="contenedor">
 		<div id="wrapper">
             <div id="steps">
-                <fieldset class="step" id="step1">
-                	
-			<div class="box-header well" data-original-title>
-				<h2>Seleccion de Productos</h2>
-			</div>
-			<div class="box-content">
-			<form id="AgregarProductoForm" class="form-horizontal">
-				<div class="control-group">
-					<label class="control-label" for="producto">Producto</label>
-					<div class="controls">
-						<input class="input-xlarge focused" id="producto" type="text">
-					  	<button type="button" class="btn btn-info btn-buscarp" style="margin: 0 18px;"><i class="icon-search icon-white"></i>Buscar</button>
-						<label style="display:inline;" for="cantidad">Cantidad</label>
-						<input id="cantidad" type="number" style="margin: 0 18px 0 0;" required>
-						<button id="agregar_producto" type="submit" class="btn btn-primary"><i class="icon-plus icon-white"></i>Agregar</button>
+                <fieldset class="step" id="step1">                	
+					<div class="box-header well" data-original-title>
+						<h2>Seleccion de Productos</h2>
 					</div>
-				</div>
-			</form>
-			<hr>
-			<h4>Productos Agregados</h4>
-			<hr>
-				<table id="select_productos_venta" class="table table-striped table-bordered bootstrap-datatable datatable">
-					<thead>
-					  	<tr>
-						  	<th>Código</th>
-						  	<th>Nombre</th>
-					  		<th>Cantidad</th>
-					  		<th>P Credito</th>
-					  		<th>P Contado</th>
-						  	<th>Acciones</th>
-						</tr>
-				  	</thead>   
-				  	<tbody>
-						
-					</tbody>
-				</table>
-				<table class="table table-striped table-bordered bootstrap-datatable datatable"> 
-					<thead>
-					  	<tr>
-					  		<th colspan='3'></th>
-					  		<th>P Credito</th>
-						  	<th>P Contado</th>
-						</tr>
-				  	</thead>  
-				  	<tbody>
-				  	<tr>
-				  		<td colspan='3'>Total</td>
-				  		<td id='total_credito'>0</td>
-				  		<td id='total_contado'>0</td>
-				  	</tr>					
-					</tbody>
-				</table>
-				<p>
-                	<a to_position='2' id='to_detalle' href="#">Detalle</a>
-                </p>
-			</div>
+					<div class="box-content">
+					<form id="AgregarProductoForm" class="form-horizontal">
+						<div class="control-group">
+							<label class="control-label" for="producto">Producto</label>
+							<div class="controls">
+								<input class="input-xlarge focused" id="producto" type="text">
+							  	<button type="button" class="btn btn-info btn-buscarp" style="margin: 0 18px;"><i class="icon-search icon-white"></i>Buscar</button>
+								<label style="display:inline;" for="cantidad">Cantidad</label>
+								<input id="cantidad" type="number" style="margin: 0 18px 0 0;" required>
+								<button id="agregar_producto" type="submit" class="btn btn-primary"><i class="icon-plus icon-white"></i>Agregar</button>
+							</div>
+						</div>
+					</form>
+					<hr>
+					<h4>Productos Agregados</h4>
+					<hr>
+						<table id="select_productos_venta" class="table table-striped table-bordered bootstrap-datatable datatable">
+							<thead>
+							  	<tr>
+								  	<th>Código</th>
+								  	<th>Nombre</th>
+							  		<th>Cantidad</th>
+							  		<th>P Credito</th>
+							  		<th>P Contado</th>
+								  	<th>Acciones</th>
+								</tr>
+						  	</thead>   
+						  	<tbody>
+								
+							</tbody>
+						</table>
+						<table class="table table-striped table-bordered bootstrap-datatable datatable"> 
+							<thead>
+							  	<tr>
+							  		<th colspan='3'></th>
+							  		<th>P Credito</th>
+								  	<th>P Contado</th>
+								</tr>
+						  	</thead>  
+						  	<tbody>
+						  	<tr>
+						  		<td colspan='3'>Total</td>
+						  		<td id='total_credito'>0</td>
+						  		<td id='total_contado'>0</td>
+						  	</tr>					
+							</tbody>
+						</table>
+						<p>
+		                	<a to_position='2' id='to_detalle' href="#">Detalle</a>
+		                </p>
+					</div>
 			</fieldset>
             <fieldset class="step" id="step2">
 			<div class="box-header well" data-original-title>
@@ -81,42 +80,78 @@
 			<div class="box-content">
 			<form id="AgregarProductoForm" class="form-horizontal">
 				<div class="control-group">
-					<label class="control-label" for="producto">Cliente</label>
+					<label class="control-label" for="cliente">Cliente</label>
 					<div class="controls">
-						<input class="input-xlarge focused" id="cliente" type="text">
+						<input class="input-xlarge focused" id="cliente" name="cliente" type="text">
 					  	<button type="button" class="btn btn-info btn-buscarc" style="margin: 0 18px;"><i class="icon-search icon-white"></i>Buscar</button>
 					</div>
 				</div>
 				<div class="control-group">
-					<label class="control-label" for="producto">Tipo de Pago</label>
+					<label class="control-label" for="forma_pago">Tipo de Pago</label>
 					<div class="controls">
-						<select style="margin: 0 18px 0 0;" class="input-xlarge focused" name="tipo_pago" id="forma_pago">
+						<select style="margin: 0 18px 0 0;" class="input-xlarge focused" name="forma_pago" id="forma_pago">
 						</select>
 					</div>
-				</div>
+				</div>                 
 				<div class="control-group">
-					<label class="control-label" for="producto">Tipo moneda</label>
+					<label class="control-label" for="tipo_moneda">Tipo moneda</label>
 					<div class="controls">
-					  	<select style="margin: 0 18px 0 0;" class="input-xlarge focused" name="tipo_moneda">
+					  	<select style="margin: 0 18px 0 0;" class="input-xlarge focused" name="tipo_moneda" id="tipo_moneda">
 					  		<option value="1">Soles</option>
 					  		<option value="2">Dolares</option>
 					  	</select>
 					</div>
 				</div>				
 				<div class="control-group">
-					<label class="control-label" for="producto">Venta Descuento</label>
+					<label class="control-label" for="descuento">Venta Descuento</label>
 					<div class="controls">
 						<div class="input-prepend input-append">
-							<input class="input-xlarge focused " type="text"><span class="add-on">%</span>
+							<input class="input-xlarge focused " name="descuento" id="descuento" type="text"><span class="add-on">%</span>
 						</div>
 					</div>
 				</div>
 				<div class="control-group">
-					<label class="control-label" for="producto">Subtotal</label>
+					<label class="control-label" for="subtotal">Subtotal</label>
 					<div class="controls">
-						<input class="input-xlarge focused" style="margin: 0 18px 0 0;" id="producto" type="text">
+						<input class="input-xlarge focused" style="margin: 0 18px 0 0;" name="subtotal" id="subtotal" type="text" disabled>
 					</div>
 				</div>
+				
+				<div class="control-group">
+					<label class="control-label" for="total">Total</label>
+					<div class="controls">
+						<input class="input-xlarge focused" style="margin: 0 18px 0 0;" name="total" id="total" type="text" disabled>
+					</div>
+				</div>
+								
+				<div class="control-group">
+					<label class="control-label" for="amortizacion">A cuenta</label>
+					<div class="controls">
+						<input class="input-xlarge focused" style="margin: 0 18px 0 0;" name="amortizacion" id="amortizacion" type="text">
+					</div>
+				</div>
+											
+				<div class="control-group">
+					<label class="control-label" for="saldo">Saldo restante</label>
+					<div class="controls">
+						<input class="input-xlarge focused" style="margin: 0 18px 0 0;" name="saldo" id="saldo" type="text">
+					</div>
+				</div>
+											
+				<div class="control-group">
+					<label class="control-label" for="local">Local</label>
+					<div class="controls">
+						<input class="input-xlarge focused" style="margin: 0 18px 0 0;" name="local" id="local" type="text">
+					</div>
+				</div>
+				
+				<div class="control-group">
+					<label class="control-label" for="tipo_igv">IGV</label>
+					<div class="controls">
+						<input class="input-xlarge focused" style="margin: 0 18px 0 0;" name="tipo_igv" id="tipo_igv" type="text">
+					</div>
+				</div>
+				
 				<div class="control-group">
 					<label class="control-label" for="producto">Observacion</label>
 					<div class="controls">
@@ -157,7 +192,37 @@
                 </fieldset>
             </div>
         </div>
-		{% include 'DicarsVentasBundle:Default:buscarproducto.html.twig' %}
+        <!-- Modal para buscar productos -->
+        
+		<div class="modal hide fade" id="modalBuscarProducto" style="width:600px;">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">x</button>
+				<h3>Productos</h3>
+			</div>
+			<div class="modal-body">
+				<table id="select_producto_table" class="table table-striped table-bordered bootstrap-datatable datatable">
+				  <thead>
+					  <tr>
+						  <th>Código</th>
+						  <th>Descripcion</th>
+						  <th>Marca</th>
+						  <th>Talla</th>
+						  <th>Stock</th>
+						  <th>Precio Contado</th>
+						  <th>Precio Credito</th>
+						  <th>Descuento</th>
+					  </tr>
+				  </thead>   
+				  <tbody>
+				  </tbody>
+			  </table>
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="btn" data-dismiss="modal">Cancelar</a>
+				<a  id="select_producto" href="#" class="btn btn-primary">Seleccionar</a>
+			</div>
+		</div>
+		<!-- Fin Modal para buscar productos -->
 		{% include 'DicarsVentasBundle:Default:buscarcliente.html.twig' %}
 		<div class="modal hide fade" id="rquiredproducts">
 			<div class="modal-header">
@@ -200,6 +265,15 @@ var RowCallBackFunctionCliente;
 
 $(document).ready(function(){
 	//mostrar Buscar Producto------------------------------------>
+	$("#contenedor").resize(function(){
+		$("#wrapper").width($("#contenedor").width());
+		$("#steps").width($("#contenedor").width());
+		$(".step").width($("#contenedor").width());
+		});
+	$("#wrapper").width($("#contenedor").width());
+	$("#steps").width($("#contenedor").width());
+	$(".step").width($("#contenedor").width());
+	
 	$('.btn-buscarp').click(function(e){
 		e.preventDefault();
 		$('#modalBuscarProducto').modal('show');
@@ -234,8 +308,8 @@ $(document).ready(function(){
 			SelectProductoData.pop();
 			Array2 = SelectProductosTable.fnGetData();
 			CopyArray(SelectProductosTableData,Array2,false,Attr);			
-			$("#total_credito").text(totalcontado = sumArrayByAttr(Array2,'precio_contado'));
-			$("#total_contado").text(totalcredito = sumArrayByAttr(Array2,'precio_credito'));
+			$("#total_credito").text(totalcontado = sumArrayByAttr(Array2,'pcontado'));
+			$("#total_contado").text(totalcredito = sumArrayByAttr(Array2,'pcredito'));
 			$('#contenedor').height($('#step1').height());
 		}
 	});
@@ -243,12 +317,16 @@ $(document).ready(function(){
 	RowCallBackFunctionProducto = getSimpleSelectRowCallBack(SelectProductoData,"select_producto_table");
 	RowCallBackFunctionCliente = getSimpleSelectRowCallBack(SelectClienteData,"select_producto_table");
 	
-	UrlaDTableProductos = '{{ path("dicars_logistica_servicio_gettablaproductos") }}';
+	UrlaDTableProductos = '{{ path("dicars_ventas_servicio_getventaproductosoferta") }}';
 	FormatoDTableProductos = [
 		              { "sWidth": "12%","mDataProp": "id"},
 		              { "sWidth": "12%","mDataProp": "nombre"},
+		              { "sWidth": "12%","mDataProp": "marca"},
+		              { "sWidth": "12%","mDataProp": "talla"},
 		              { "sWidth": "12%","mDataProp": "stock"},
-		              { "sWidth": "12%","mDataProp": "precio_contado"}
+		              { "sWidth": "12%","mDataProp": "pcontado"},
+		              { "sWidth": "12%","mDataProp": "pcredito"},
+		              { "sWidth": "12%","mDataProp": "descuento"}
 		              ];
 	BuscarProductosTable = createDataTable('select_producto_table',UrlaDTableProductos,FormatoDTableProductos,null,RowCallBackFunctionProducto);
 
@@ -267,8 +345,8 @@ $(document).ready(function(){
 		              { "sWidth": "12%","mDataProp": "id"},
 		              { "sWidth": "12%","mDataProp": "nombre"},
 		              { "sWidth": "12%","mDataProp": "cantidad"},
-		              { "sWidth": "12%","mDataProp": "precio_contado"},
-		              { "sWidth": "12%","mDataProp": "precio_credito"},
+		              { "sWidth": "12%","mDataProp": "pcontado"},
+		              { "sWidth": "12%","mDataProp": "pcredito"},
 		              { "sWidth": "12%","mDataProp": "elim_btn"}
 		              ],
 		"fnCreatedRow": function( nRow, aData, iDisplayIndex ) {
@@ -278,6 +356,8 @@ $(document).ready(function(){
 				SelectProductosTable.fnDeleteRow( index );
 				Array2 = SelectProductosTable.fnGetData();
 				CopyArray(SelectProductosTableData,Array2,false,Attr);
+				$("#total_credito").text(totalcontado = sumArrayByAttr(Array2,'pcontado'));
+				$("#total_contado").text(totalcredito = sumArrayByAttr(Array2,'pcredito'));
 			});
 		},
 		"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span12'i><'span12 center'p>>",

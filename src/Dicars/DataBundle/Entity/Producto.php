@@ -101,9 +101,9 @@ class Producto
     /**
      * @var integer
      *
-     * @ORM\Column(name="nProductoSotck", type="integer", nullable=false)
+     * @ORM\Column(name="nProductoStock", type="integer", nullable=false)
      */
-    private $nproductosotck;
+    private $nproductostock;
 
     /**
      * @var string
@@ -127,16 +127,6 @@ class Producto
     private $nproductoutibruta;
 
     /**
-     * @var \VenMarca
-     *
-     * @ORM\ManyToOne(targetEntity="VenMarca")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="nProductoMarca", referencedColumnName="nMarca_id")
-     * })
-     */
-    private $nproductomarca;
-
-    /**
      * @var \VenCategoria
      *
      * @ORM\ManyToOne(targetEntity="VenCategoria")
@@ -145,6 +135,16 @@ class Producto
      * })
      */
     private $ncategoria;
+
+    /**
+     * @var \VenMarca
+     *
+     * @ORM\ManyToOne(targetEntity="VenMarca")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="nProductoMarca", referencedColumnName="nMarca_id")
+     * })
+     */
+    private $nproductomarca;
 
 
 
@@ -412,26 +412,26 @@ class Producto
     }
 
     /**
-     * Set nproductosotck
+     * Set nproductostock
      *
-     * @param integer $nproductosotck
+     * @param integer $nproductostock
      * @return Producto
      */
-    public function setNproductosotck($nproductosotck)
+    public function setNproductostock($nproductostock)
     {
-        $this->nproductosotck = $nproductosotck;
+        $this->nproductostock = $nproductostock;
     
         return $this;
     }
 
     /**
-     * Get nproductosotck
+     * Get nproductostock
      *
      * @return integer 
      */
-    public function getNproductosotck()
+    public function getNproductostock()
     {
-        return $this->nproductosotck;
+        return $this->nproductostock;
     }
 
     /**
@@ -504,29 +504,6 @@ class Producto
     }
 
     /**
-     * Set nproductomarca
-     *
-     * @param \Dicars\DataBundle\Entity\VenMarca $nproductomarca
-     * @return Producto
-     */
-    public function setNproductomarca(\Dicars\DataBundle\Entity\VenMarca $nproductomarca = null)
-    {
-        $this->nproductomarca = $nproductomarca;
-    
-        return $this;
-    }
-
-    /**
-     * Get nproductomarca
-     *
-     * @return \Dicars\DataBundle\Entity\VenMarca 
-     */
-    public function getNproductomarca()
-    {
-        return $this->nproductomarca;
-    }
-
-    /**
      * Set ncategoria
      *
      * @param \Dicars\DataBundle\Entity\VenCategoria $ncategoria
@@ -547,5 +524,28 @@ class Producto
     public function getNcategoria()
     {
         return $this->ncategoria;
+    }
+
+    /**
+     * Set nproductomarca
+     *
+     * @param \Dicars\DataBundle\Entity\VenMarca $nproductomarca
+     * @return Producto
+     */
+    public function setNproductomarca(\Dicars\DataBundle\Entity\VenMarca $nproductomarca = null)
+    {
+        $this->nproductomarca = $nproductomarca;
+    
+        return $this;
+    }
+
+    /**
+     * Get nproductomarca
+     *
+     * @return \Dicars\DataBundle\Entity\VenMarca 
+     */
+    public function getNproductomarca()
+    {
+        return $this->nproductomarca;
     }
 }

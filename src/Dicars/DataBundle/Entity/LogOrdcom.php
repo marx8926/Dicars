@@ -99,16 +99,6 @@ class LogOrdcom
     private $nordcomretencion;
 
     /**
-     * @var \VenPersonal
-     *
-     * @ORM\ManyToOne(targetEntity="VenPersonal")
-     * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="nPersonal_id", referencedColumnName="nPersonal_id")
-     * })
-     */
-    private $npersonal;
-
-    /**
      * @var \LogProveedor
      *
      * @ORM\ManyToOne(targetEntity="LogProveedor")
@@ -117,6 +107,16 @@ class LogOrdcom
      * })
      */
     private $nproveedor;
+
+    /**
+     * @var \VenPersonal
+     *
+     * @ORM\ManyToOne(targetEntity="VenPersonal")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="nPersonal_id", referencedColumnName="nPersonal_id")
+     * })
+     */
+    private $npersonal;
 
 
 
@@ -384,29 +384,6 @@ class LogOrdcom
     }
 
     /**
-     * Set npersonal
-     *
-     * @param \Dicars\DataBundle\Entity\VenPersonal $npersonal
-     * @return LogOrdcom
-     */
-    public function setNpersonal(\Dicars\DataBundle\Entity\VenPersonal $npersonal = null)
-    {
-        $this->npersonal = $npersonal;
-    
-        return $this;
-    }
-
-    /**
-     * Get npersonal
-     *
-     * @return \Dicars\DataBundle\Entity\VenPersonal 
-     */
-    public function getNpersonal()
-    {
-        return $this->npersonal;
-    }
-
-    /**
      * Set nproveedor
      *
      * @param \Dicars\DataBundle\Entity\LogProveedor $nproveedor
@@ -427,5 +404,28 @@ class LogOrdcom
     public function getNproveedor()
     {
         return $this->nproveedor;
+    }
+
+    /**
+     * Set npersonal
+     *
+     * @param \Dicars\DataBundle\Entity\VenPersonal $npersonal
+     * @return LogOrdcom
+     */
+    public function setNpersonal(\Dicars\DataBundle\Entity\VenPersonal $npersonal = null)
+    {
+        $this->npersonal = $npersonal;
+    
+        return $this;
+    }
+
+    /**
+     * Get npersonal
+     *
+     * @return \Dicars\DataBundle\Entity\VenPersonal 
+     */
+    public function getNpersonal()
+    {
+        return $this->npersonal;
     }
 }

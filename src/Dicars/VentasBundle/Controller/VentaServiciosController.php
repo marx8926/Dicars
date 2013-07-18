@@ -126,4 +126,37 @@ class VentaServiciosController extends Controller{
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
+	public function getTablaVentaProductoOfertaAction(){
+		$em = $this->getDoctrine()->getEntityManager();
+		
+		$sql = "SELECT * from Ven_productosoferta";
+		
+		$smt = $em->getConnection()->prepare($sql);
+		$smt->execute();
+		
+		$productos = $smt->fetchAll();
+		$em->clear();
+	
+		$todo = array();
+		foreach ($productos as $key => $producto){
+			$todo[] = array(
+					'id' => $producto['nProducto_id'] ,
+					'talla' => $producto['cProductoTalla'] ,
+					'nombre' => $producto['cProductoDesc'],
+					'pcontado' => $producto['PrecioContado_Dscto'],
+					'pcredito' => $producto['PrecioCredito_Dscto'],
+					'stock' => $producto['nProductoStock'],
+					'talla' => $producto['cProductoTalla'],
+					'marcaId' => $producto['nProductoMarca'],
+					'marca' => $producto['cMarcaDesc'],
+					'categoriaId' => $producto['nCategoria_id'],
+					'categoria' => $producto['cCategoriaNom'],
+					'descuento' => $producto['nOfertaProductoPorc'] ,
+					'ver_btn' => "<a class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
+					'edit_btn' => "<a class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
+					'elim_btn' => "<a class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
+		}
+		return new JsonResponse(array('aaData' => $todo));
+	}
+	
 }
