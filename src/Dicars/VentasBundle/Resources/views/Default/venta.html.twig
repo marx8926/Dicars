@@ -78,7 +78,7 @@
 				<h2>Datos de Pago</h2>
 			</div>
 			<div class="box-content">
-			<form id="EnviarVenta" class="form-horizontal">
+			<form id="EnviarVenta" class="form-horizontal" method="post" action="{{ path("dicars_ventas_registrar_venta") }}">
 				<div class="control-group">
 					<label class="control-label" for="cliente">Cliente</label>
 					<div class="controls">
@@ -121,8 +121,9 @@
 				<div class="control-group">
 					<label class="control-label" for="tipo_igv">IGV</label>
 					<div class="controls">
-						<select style="margin: 0 18px 0 0;" class="input-xlarge focused" name="tipo_igv" id="tipo_igv">
-					  	</select>
+						<div class="input-prepend input-append">
+							<select style="margin: 0 0px 0 0;" class="input-xlarge focused" name="tipo_igv" id="tipo_igv"></select><span class="add-on">%</span>
+					  	</div>
 					</div>
 				</div>
 				
@@ -136,7 +137,7 @@
 				<div class="control-group">
 					<label class="control-label" for="amortizacion">A cuenta</label>
 					<div class="controls">
-						<input class="input-xlarge focused" style="margin: 0 18px 0 0;" name="amortizacion" id="amortizacion" type="text" step="0.1" value="0" min="0">
+						<input class="input-xlarge focused" style="margin: 0 18px 0 0;" name="amortizacion" id="amortizacion" type="number" step="0.1" value="0" min="0">
 					</div>
 				</div>
 											
@@ -147,11 +148,11 @@
 					</div>
 				</div>
 				
-				<div class="control-group" style="display:block">
+				<div id="cuotas_block" class="control-group" style="display:block">
 					<label class="control-label" for="num_cuotas">N° Cuotas</label>
 					<div class="controls">
 						<div class="input-prepend input-append">
-								<input class="input-xlarge focused " name="num_cuotas" id="num_cuotas" type="number" min="0" value="0" required><span class="add-on">x 0.00 S/.</span>
+								<input class="input-xlarge focused " name="num_cuotas" id="num_cuotas" type="number" min="2" value="0" required><span class="add-on">x 0.00 S/.</span>
 						</div>
 					</div>
 				</div>
@@ -269,12 +270,27 @@ var Attr = ['id','cantidad'];
 var RowCallBackFunctionProducto;
 var RowCallBackFunctionCliente;
 
+var TiposIGV;
+
+function VentaUpdate(){
+	if($("#forma_pago").val() == 1)
+		$("#cuotas_block").show();
+	else
+		$("#cuotas_block").hide();
+}
+
 $(document).ready(function(){
 	//mostrar Buscar Producto------------------------------------>
 	$("#wrapper").width($("#contenedor").width());
 	$("#steps").width($("#contenedor").width());
 	$(".step").width($("#contenedor").width());
 
+	TiposIGV = getAjaxObject("{{ path('dicars_admin_servicio_getoptiontiposigv') }}");
+	cargarSelect(TiposIGV,'tipo_igv','id','porc');
+	
+	$("#EnviarVenta").change(function(e){
+		VentaUpdate();
+		});
 	$("#EnviarVenta").submit(function (e){
 		e.preventDefault();
 		console.log($("#EnviarVenta").serialize());

@@ -389,6 +389,5 @@ function cargarSelect(arreglo, idselect, attrvalue, attrdescripcion){
 	$(arreglo).each(function(){
 		result += '<option value="'+this[attrvalue]+'">'+this[attrdescripcion]+'</option>';		
 	});
-	console.log(result);
 	$select.html(result);
 }

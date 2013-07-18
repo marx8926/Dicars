@@ -10,6 +10,9 @@ ventas_administrar_trabajador_routing:
 ventas_administrar_oferta_routing:
     resource: "@DicarsVentasBundle/Resources/config/administrar_oferta_routing.yml"   
 
+ventas_administrar_venta_routing:
+    resource: "@DicarsVentasBundle/Resources/config/administrar_venta_routing.yml"   
+
 dicars_ventas_homepage:
     pattern:  /index
     defaults: { _controller: DicarsVentasBundle:Default:index }
