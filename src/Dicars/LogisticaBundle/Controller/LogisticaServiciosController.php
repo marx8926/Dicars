@@ -25,7 +25,7 @@ public function getTablaProductosAction(){
 			$todo[] = array('id' => $producto -> getNproductoId(),'serie' => $producto -> getCproductoserie(),'talla' => $producto -> getCproductotalla(),
 					'nombre' => $producto -> getCproductodesc(),'pcosto' => $producto -> getNproductopcosto(),'pcontado' => $producto -> getNproductopcontado(),
 					'pcredito' => $producto -> getNproductopcredito(),'tipo' => $producto -> getNproductotipo(),'codigobarras' => $producto -> getCproductocodbarra(),
-					'stockmin' => $producto -> getNproductostockmin(),'stock' => $producto -> getNproductosotck(),'stockmax' => $producto -> getNproductostockmax(), 
+					'stockmin' => $producto -> getNproductostockmin(),'stock' => $producto -> getNproductostock(),'stockmax' => $producto -> getNproductostockmax(), 
 					'estado' => $producto -> getCproductoest(),'porcuti' => $producto -> getNproductoporcuti(),				
 					'utibruta' => $producto -> getNproductoutibruta(), 'marcaId' => $producto -> getNproductomarca() -> getNmarcaId(),'marca' => $producto -> getNproductomarca() -> getNmarcaId(),
 					'ver_btn' => "<a id-data='".$producto -> getNproductoId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
