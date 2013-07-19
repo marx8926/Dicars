@@ -12,16 +12,6 @@ class AdministrarVentaController extends Controller {
 		$otherdata = $request->request->get('otherdata');
 		$datos = array();
 		parse_str($form, $datos);
-			
-		$Cliente_nombre = null;
-		$Cliente_apellido = null;
-		$Cliente_dni = null;
-		$Cliente_referencia = null;
-		$Cliente_direccion = null;
-		$Cliente_zona = null;
-		$Cliente_linea_op = null;
-		$Cliente_arc_credito = null;
-		$Cliente_ocup = null;
 		
 		if ($form!=null){
 				/*
@@ -38,7 +28,7 @@ class AdministrarVentaController extends Controller {
 			}
 			$this->getDoctrine()->getEntityManager()->commit();
 			$em->clear();*/
-			$return = array("responseCode"=>200, "datos"=>$datos);
+			$return = array("responseCode"=>200, "datos"=>$datos, "otherdata"=>$otherdata);
 		}
 		else {
 			$return = array("responseCode"=>400, "greeting"=>"Bad");

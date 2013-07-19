@@ -8,10 +8,21 @@ function initSlider(productos) {
     });
 	$('#steps').width(stepsWidth);
 
+	$("#EnviarVentaForm").submit(function (e){
+		e.preventDefault();
+		var move_to	= 3;
+        $('#steps').stop().animate({
+            marginLeft: '-' + widths[move_to-1] + 'px'
+        },500);
+        $('#contenedor').stop().animate({
+        	height: $('#step3').height()
+        },500);
+	});
+	
     $('#to_detalle').bind('click',function(e){
+    	VentaUpdate();
 		var move_to	= $(this).attr('to_position');
-		console.log(productos);
-		if(true/*productos.length > 0*/){		
+		if(productos.length > 0){		
 	        $('#steps').stop().animate({
 	            marginLeft: '-' + widths[move_to-1] + 'px'
 	        },500);

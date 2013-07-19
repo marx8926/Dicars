@@ -26,10 +26,10 @@
 						<div class="control-group">
 							<label class="control-label" for="producto">Producto</label>
 							<div class="controls">
-								<input class="input-xlarge focused" id="producto" type="text">
+								<input class="input-xlarge focused" id="producto" type="text" readonly required>
 							  	<button type="button" class="btn btn-info btn-buscarp" style="margin: 0 18px;"><i class="icon-search icon-white"></i>Buscar</button>
 								<label style="display:inline;" for="cantidad">Cantidad</label>
-								<input id="cantidad" type="number" style="margin: 0 18px 0 0;" required>
+								<input id="cantidad" type="number" style="margin: 0 18px 0 0;" min="1" required>
 								<button id="agregar_producto" type="submit" class="btn btn-primary"><i class="icon-plus icon-white"></i>Agregar</button>
 							</div>
 						</div>
@@ -78,7 +78,7 @@
 				<h2>Datos de Pago</h2>
 			</div>
 			<div class="box-content">
-			<form id="EnviarVenta" class="form-horizontal" method="post" action="{{ path("dicars_ventas_registrar_venta") }}">
+			<form id="EnviarVentaForm" class="form-horizontal" method="post" action="{{ path("dicars_ventas_registrar_venta") }}">
 				<div class="control-group">
 					<label class="control-label" for="cliente">Cliente</label>
 					<div class="controls">
@@ -102,7 +102,13 @@
 					  		<option value="2">Dolares</option>
 					  	</select>
 					</div>
-				</div>				
+				</div>
+				<div class="control-group">
+					<label class="control-label" for="subtotal">Monto Productos</label>
+					<div class="controls">
+						<input class="input-xlarge focused" style="margin: 0 18px 0 0;" name="monto_productos" id="monto_productos" type="text" readonly>
+					</div>
+				</div>
 				<div class="control-group">
 					<label class="control-label" for="descuento">Venta Descuento</label>
 					<div class="controls">
@@ -148,11 +154,11 @@
 					</div>
 				</div>
 				
-				<div id="cuotas_block" class="control-group" style="display:block">
+				<div id="cuotas_block" class="control-group" style="display:none">
 					<label class="control-label" for="num_cuotas">N° Cuotas</label>
 					<div class="controls">
 						<div class="input-prepend input-append">
-								<input class="input-xlarge focused " name="num_cuotas" id="num_cuotas" type="number" min="2" value="0" required><span class="add-on">x 0.00 S/.</span>
+								<input class="input-xlarge focused " name="num_cuotas" id="num_cuotas" type="number" min="2" value="2" required><span class="add-on">x 0.00 S/.</span>
 						</div>
 					</div>
 				</div>
@@ -160,18 +166,14 @@
 				<div class="control-group">
 					<label class="control-label" for="producto">Observacion</label>
 					<div class="controls">
-						<textarea class="input-xlarge" name="observacion" rows="2" cols=""></textarea>
+						<textarea class="input-xlarge" name="observacion" rows="2" cols="" required></textarea>
 					</div>
 				</div>
-				
-				<input type="submit" value="enviar">
-			</form>
-			 <p>
+				<p>
                         <a to_position='1' id='to_select_productos' href="#">atras</a>
                     </p>
-                    <p>
-                        <a to_position='3' id='to_select_resume' href="#">Siguiente</a>
-                    </p>
+				<input type="submit" value="enviar">
+			</form>
 			</div><!--/span-->
 			</fieldset>
                 <fieldset class="step" id="step3">
@@ -195,6 +197,10 @@
 							<div class="control-group" id="detalle_productos">
 							</div>
 	                    </div>
+	                    <p>
+                        	<a to_position='2' id='back_to_detalle' href="#">atras</a>
+                        	<a href="#" id="finalizar_venta">Finalizar</a>
+                    	</p>
 	            	</div>
                 </fieldset>
             </div>
@@ -266,17 +272,26 @@ var SelectClienteTable;
 var totalcredito;
 var totalcontado;
 
-var Attr = ['id','cantidad'];
+var Attr = ['id','cantidad','pcontado','pcredito','totalcredito','totalcontado','descuento'];
 var RowCallBackFunctionProducto;
 var RowCallBackFunctionCliente;
 
 var TiposIGV;
 
 function VentaUpdate(){
-	if($("#forma_pago").val() == 1)
+	var igv = $("#tipo_igv").text();
+	var des = $("#descuento").val();
+	if($("#forma_pago").val() == 2){
 		$("#cuotas_block").show();
-	else
+		$("#monto_productos").val(totalcontado);
+		$("#subtotal").val(totalcredito*(100-igv)*(100-des));
+	}	
+	else{
 		$("#cuotas_block").hide();
+		$("#monto_productos").val(totalcredito);
+		$("#subtotal").val(totalcontado*(100-igv)*(100-des));
+	}
+	var montoigv = $("#tipo_igv").text()*totalcredito 
 }
 
 $(document).ready(function(){
@@ -288,13 +303,16 @@ $(document).ready(function(){
 	TiposIGV = getAjaxObject("{{ path('dicars_admin_servicio_getoptiontiposigv') }}");
 	cargarSelect(TiposIGV,'tipo_igv','id','porc');
 	
-	$("#EnviarVenta").change(function(e){
+	$("#EnviarVentaForm").change(function(e){
 		VentaUpdate();
 		});
-	$("#EnviarVenta").submit(function (e){
+
+	$("#finalizar_venta").click(function(e){
 		e.preventDefault();
-		console.log($("#EnviarVenta").serialize());
-		});
+    	$("#EnviarVentaForm").unbind();
+    	enviar('EnviarVentaForm',logdata,SelectProductosTableData);
+		$("#EnviarVentaForm").submit();
+	});
 	
 	$('.btn-buscarp').click(function(e){
 		e.preventDefault();
@@ -310,6 +328,8 @@ $(document).ready(function(){
 		e.preventDefault();
 		var data = SelectProductoData[0];
 		$('#producto').val(data.id+" - "+data.nombre);
+		$('#cantidad').val("1");
+		$('#cliente_id').val(data.id);
 		$('#modalBuscarProducto').modal('hide');
 	});
 
@@ -324,6 +344,8 @@ $(document).ready(function(){
 		e.preventDefault();
 		if(SelectProductoData.length > 0){
 			SelectProductoData[0].cantidad = $('#cantidad').val();
+			SelectProductoData[0].totalcredito = SelectProductoData[0].pcredito*$('#cantidad').val();
+			SelectProductoData[0].totalcontado = SelectProductoData[0].pcontado*$('#cantidad').val();
 			SelectProductosTable.fnAddData(SelectProductoData);
 			$('#producto').val("");
 			$('#cantidad').val("");
