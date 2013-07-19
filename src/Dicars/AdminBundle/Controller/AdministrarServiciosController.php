@@ -227,12 +227,15 @@ class AdministrarServiciosController extends Controller {
 		->getRepository('DicarsDataBundle:VenCategoria')
 		->findAll();
 		$em->clear();
-	
-		$result = "";
+		
+		$todo = array();
+		
 		foreach ($categorias as $key => $categoria){
-			$result = $result."<option value='".$categoria->getNcategoriaId()."'>".$categoria->getCcategorianom()."</option>";
+			$todo[] = array('id' => $categoria->getNcategoriaId(),
+					'desc' => $categoria->getCcategorianom(),
+			);
 		}
-		return new Response($result);
+		return new JsonResponse($todo);
 	}
 	
 	public function getTablaConstantesAction(){

@@ -40,20 +40,19 @@
 							<div class="control-group">
 								<label class="control-label" for="clase">Nro de Clase</label>
 								<div class="controls">
-							  		<input class="input-xlarge focused" id="clase" name="clase" type="text">
+							  		<input class="input-xlarge focused" id="clase" name="clase" type="text" pattern="|^[0-9]{1,11}$|" maxlength="11" required>
 								</div>
 						  	</div>
 						  	<div class="control-group">
 								<label class="control-label" for="nom_clase">Nombre de Clase</label>
 								<div class="controls">
-							  		<input class="input-xlarge focused" id="nom_clase" name="nom_clase" type="text">
+							  		<input class="input-xlarge focused" id="nom_clase" name="nom_clase" type="text" pattern="|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]+$|" maxlength="100" required>
 								</div>
 						  	</div>
 						  	<div class="control-group">
 								<label class="control-label" for="valor">Valor</label>
 								<div class="controls">
-							  		<input class="input-xlarge focused" id="valor" name="valor" type="text">
-							  		<button class="btn" id="subclases" name="subclases">Agregar Subclases</button>
+							  		<input class="input-xlarge focused" id="valor" name="valor" type="text" pattern="|^[0-9]{1,11}$|" maxlength="11" required>
 								</div>
 						  	</div>
 						  	<div class="form-actions">
@@ -91,9 +90,9 @@ var ReloadTableRegistrar = reloadclosemodal('modalRegistroConstantes','constante
 function cargarEditar(constante){		
 
 	ArrayDatos = [	{'type':'hidden','value':constante.id,'name':'id'},
-	          		{'label':'Nro de Clase','type':'input', 'typeinput':'text','value':constante.clase,'name':'claseE'},
-	              	{'label':'Nombre de Clase','type':'input','typeinput':'text','value':constante.nom_clase,'name':'nom_claseE'},
-	              	{'label':'Valor','type':'input','typeinput':'text','value':constante.valor,'name':'valorE'},
+	          		{'label':'Nro de Clase','type':'input', 'typeinput':'text','value':constante.clase,'name':'claseE', 'pattern':'|^[0-9]{1,11}$|', 'req':'required', 'max':'11'},
+	              	{'label':'Nombre de Clase','type':'input','typeinput':'text','value':constante.nom_clase,'name':'nom_claseE', 'pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]+$|', 'req':'required', 'max':'100'},
+	              	{'label':'Valor','type':'input','typeinput':'text','value':constante.valor,'name':'valorE', 'pattern':'|^[0-9]{1,11}$|', 'req':'required', 'max':'11'},
 					{'type':'actions'}];
 		
 	$("#EditarClaseForm").html(crearElementosForm(ArrayDatos));

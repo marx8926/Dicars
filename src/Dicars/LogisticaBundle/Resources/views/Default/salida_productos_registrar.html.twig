@@ -31,7 +31,7 @@
 							<div class="control-group">
 								<label class="control-label" for="registrador">Registrador</label>
 								<div class="controls">
-									<input class="input-xlarge focused" id="registrador" name="registrador" type="text" disabled>
+									<input class="input-xlarge focused" id="registrador" name="registrador" type="text" readonly>
 								</div>
 							</div>
 							<div class="control-group">
@@ -44,7 +44,7 @@
 							<div class="control-group">
 								<label class="control-label" for="tienda">Tienda</label>
 								<div class="controls">
-								  	<input class="input-xlarge focused" id="tienda" name="tienda" type="text" disabled>
+								  	<input class="input-xlarge focused" id="tienda" name="tienda" type="text" readonly>
 								  	<input type="hidden" id="tiendaID" name="tiendaId">
 								</div>
 							</div>
@@ -53,13 +53,13 @@
 							<div class="control-group">
 								<label class="control-label" for="fecha">Fecha</label>
 								<div class="controls">
-									<input class="input-xlarge datepicker" id="fecha" name="fecha" type="text">
+									<input class="input-xlarge datepicker" id="fecha" name="fecha" type="text" required>
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="solicitante">Solicitante</label>
 								<div class="controls">
-									<input class="input-xlarge focused" id="solicitante" name="solicitante" type="text" disabled>
+									<input class="input-xlarge focused" id="solicitante" name="solicitante" type="text" readonly>
 									<input class="input-xlarge focused" id="solicitante_id" name="solicitante_id" type="hidden">
 									<button class="btn btn-info btn-solicitante" style="margin-left: 15px;"><i class="icon-user icon-white"></i></button>
 								</div>
@@ -78,7 +78,7 @@
 				<div class="control-group">
 					<label class="control-label" for="producto">Producto</label>
 					<div class="controls">
-						<input class="input-xlarge focused" id="producto" name="producto" type="text" disabled>
+						<input class="input-xlarge focused" id="producto" name="producto" type="text" readonly>
 					  	<button type="button" class="btn btn-info btn-buscarp" style="margin: 0 18px;"><i class="icon-search icon-white"></i>Buscar</button>
 						<label style="display:inline;" for="cantidad">Cantidad</label>
 						<input id="cantidad" name="cantidad" type="number" style="margin: 0 18px 0 0;">
@@ -195,7 +195,7 @@ $(document).ready(function(){
 		              { "sWidth": "12%","mDataProp": "id"},
 		              { "sWidth": "12%","mDataProp": "nombre"},
 		              { "sWidth": "12%","mDataProp": "stock"},
-		              { "sWidth": "12%","mDataProp": "precio_contado"}
+		              { "sWidth": "12%","mDataProp": "pcontado"}
 		              ];
 	BuscarProductosTable = createDataTable('select_producto_table',UrlaDTableProductos,FormatoDTableProductos,null,RowCallBackFunctionProducto);
 
@@ -204,7 +204,7 @@ $(document).ready(function(){
 		              { "sWidth": "12%","mDataProp": "id"},
 		              { "sWidth": "12%","mDataProp": "nombre"},
 		              { "sWidth": "12%","mDataProp": "stock"},
-		              { "sWidth": "12%","mDataProp": "precio_contado"},
+		              { "sWidth": "12%","mDataProp": "pcontado"},
 		              { "sWidth": "12%","mDataProp": "elim_btn"}
 		              ],
         "fnCreatedRow": function( nRow, aData, iDisplayIndex ) {
