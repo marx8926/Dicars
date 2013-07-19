@@ -80,7 +80,7 @@ class AdministrarProductoController extends Controller{
 			$Producto->setNcategoria($Producto_categoria);
 			$Producto->setNproductostockmin($Producto_stock_min);
 			$Producto->setNproductostockmax($Producto_stock_max);
-			$Producto->setNproductosotck($Producto_stock);
+			$Producto->setNproductostock($Producto_stock);
 			$Producto->setCproductoest($Producto_est);
 			$Producto->setNproductoporcuti($Producto_porc_uti);
 			$Producto->setNproductoutibruta($Producto_porc_uti_bruta);
@@ -183,7 +183,7 @@ class AdministrarProductoController extends Controller{
 			$Producto->setNcategoria($Producto_categoria);
 			$Producto->setNproductostockmin($Producto_stock_min);
 			$Producto->setNproductostockmax($Producto_stock_max);
-			$Producto->setNproductosotck($Producto_stock);
+			$Producto->setNproductostock($Producto_stock);
 			$Producto->setCproductoest($Producto_est);
 			$Producto->setNproductoporcuti($Producto_porc_uti);
 			$Producto->setNproductoutibruta($Producto_porc_uti_bruta);
