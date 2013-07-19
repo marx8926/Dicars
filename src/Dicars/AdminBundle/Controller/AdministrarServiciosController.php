@@ -187,6 +187,49 @@ class AdministrarServiciosController extends Controller {
 		return new JsonResponse($data);
 	}
 	
+	public function getTablaZonasAction(){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$zonas = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:VenZona')
+		->findAll();
+		$em->clear();
+	
+		$todo = array();
+		foreach ($zonas as $key => $zona){
+			$estado = '';
+			$estadochar = $zona -> getNzonaest();
+			if($estadochar=="1")
+				$estado = "<span class='label label-success'>Habilidado</span>";
+			else
+				$estado = "<span class='label label-important'>Inhabilitado</span>";
+			
+			$dist = $zona -> getNubigeo();
+			
+			$prov = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:Ubigeo')
+			->findOneBy(array('nubigeoId' => $dist -> getNubigeodep()));
+			
+			$dep = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:Ubigeo')
+			->findOneBy(array('nubigeoId' => $prov -> getNubigeodep()));
+			
+			$ubigeo =  $dist -> getCubigeodesc()." - ".$prov -> getCubigeodesc()." - ".$dep -> getCubigeodesc();
+			
+			$todo[] = array('id' => $zona -> getNzonaId(),
+					'desc' => $zona -> getCzonadesc(),
+					'selectEstado' => $zona -> getNzonaest(),
+					'estado' => $estado,
+					'dist' => $dist -> getNubigeoId(),
+					'prov' => $prov -> getNubigeoId(),
+					'dep' => $dep -> getNubigeoId(),
+					'ubigeo' =>  $ubigeo,
+					'edit_btn' => "<a id-data='".$zona -> getNzonaId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>"
+			);
+		}
+		return new JsonResponse(array('aaData' => $todo));
+	}
+	
 	public function getOptionMarcasAction(){
 		$em = $this->getDoctrine()->getEntityManager();
 			
@@ -365,6 +408,24 @@ class AdministrarServiciosController extends Controller {
 		foreach ($tiposigv as $key => $tipoigv){
 			$todo[] = array('id' => $tipoigv -> getNtipoigv(),
 					'porc' => $tipoigv -> getNtipoigvproc()
+			);
+		}
+		return new JsonResponse($todo);
+	}
+	
+	public function getOptionZonasAction(){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$zonas = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:VenZona')
+		->findAll();
+		$em->clear();
+	
+		$todo = array();
+	
+		foreach ($zonas as $key => $zona){
+			$todo[] = array('id' => $zona->getNzonaId(),
+					'desc' => $zona->getCzonadesc(),
 			);
 		}
 		return new JsonResponse($todo);

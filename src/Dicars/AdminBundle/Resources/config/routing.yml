@@ -4,6 +4,8 @@ admin_administrar_categoria_routing:
     resource: "@DicarsAdminBundle/Resources/config/administrar_categoria_routing.yml"
 admin_administrar_marca_routing:
     resource: "@DicarsAdminBundle/Resources/config/administrar_marca_routing.yml"
+admin_administrar_zona_routing:
+    resource: "@DicarsAdminBundle/Resources/config/administrar_zona_routing.yml"
 admin_administrar_servicios_routing:
     resource: "@DicarsAdminBundle/Resources/config/servicios_routing.yml"
 admin_administrar_constante_routing:
@@ -30,3 +32,6 @@ dicars_admin_categorias:
 dicars_admin_marcas:
     pattern:  /marcas
     defaults: { _controller: DicarsAdminBundle:Default:marcas }
+dicars_admin_zonas:
+    pattern:  /zonas
+    defaults: { _controller: DicarsAdminBundle:Default:zonas }

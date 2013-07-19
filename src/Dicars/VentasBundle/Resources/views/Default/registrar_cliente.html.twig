@@ -1,7 +1,7 @@
 <div class="modal hide fade" id="modalRegistro">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal">x</button>
-		<h3>Registrar Producto</h3>
+		<h3>Registrar Cliente</h3>
 	</div>
 	<div class="modal-body">
 		<form id="RegistrarClienteForm" class="form-horizontal" method="post" action="{{ path('dicars_ventas_registrar_cliente') }}">
@@ -39,7 +39,7 @@
 			<div class="control-group">
 				<label class="control-label" for="lineaop">LineaOp</label>
 				<div class="controls">
-				  <input class="input-xlarge focused" maxlength="5" pattern="\d+(\.\d*)?" required name="lineaop" id="focusedInput" type="text" placeholder="decimal">
+				  <input class="input-xlarge focused" name="lineaop" id="lineaop" type="number" step="0.10" min="0" max="1000" required>
 				</div>
 			</div>
 			<div class="control-group">
@@ -56,53 +56,9 @@
 			</div>
 			
 			<div class="control-group">
-			<label class="control-label" for="region">Región</label>
-			<div class="controls">
-			 <select id="region" name="region" data-rel="chosen">
-					<option>Option 1</option>
-					<option>Option 2</option>
-					<option>Option 3</option>
-					<option>Option 4</option>
-					<option>Option 5</option>
-			  </select>
-			</div>
-			</div>
-			
-			<div class="control-group">
-			<label class="control-label" for="provincia">Provincia</label>
-			<div class="controls">
-			  <select id="provincia" name="provincia" data-rel="chosen">
-				<option>Option 1</option>
-				<option>Option 2</option>
-				<option>Option 3</option>
-				<option>Option 4</option>
-				<option>Option 5</option>
-			  </select>
-			</div>
-			</div>
-			
-			<div class="control-group">
-			<label class="control-label" for="distrito">Distrito</label>
-			<div class="controls">
-			  <select id="distrito" name="distrito" data-rel="chosen">
-				<option>Option 1</option>
-				<option>Option 2</option>
-				<option>Option 3</option>
-				<option>Option 4</option>
-				<option>Option 5</option>
-			  </select>
-			</div>
-			</div>
-			
-			<div class="control-group">
 			<label class="control-label" for="zona">Zona</label>
 			<div class="controls">
-			  <select id="zona" name="zona" data-rel="chosen">
-				<option>Option 1</option>
-				<option>Option 2</option>
-				<option>Option 3</option>
-				<option>Option 4</option>
-				<option>Option 5</option>
+			  <select id="zona" name="zona">
 			  </select>
 			</div>
 			</div>

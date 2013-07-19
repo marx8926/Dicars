@@ -30,4 +30,8 @@ class DefaultController extends Controller
     {
     	return $this->render('DicarsAdminBundle:Default:marcas.html.twig');
     }
+    public function zonasAction()
+    {
+    	return $this->render('DicarsAdminBundle:Default:zonas.html.twig');
+    }
 }

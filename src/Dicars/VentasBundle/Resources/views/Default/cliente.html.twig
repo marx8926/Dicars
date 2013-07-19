@@ -9,7 +9,7 @@
 </li>
 {% endblock %}
 {% block content %}
-<div class="row-fluid sortable">		
+<div class="row-fluid">		
 	<div class="box span12">
 		<div class="box-header well" data-original-title>
 			<h2><i class="icon-user"></i>Clientes</h2>
@@ -77,37 +77,38 @@ var ReloadTableRegistrar;
 
 var CargarBotones;
 
-function cargarEditar(id){
-	url = "{{ path('dicars_ventas_servicio_getclientebyid', {'id': ''}) }}/"+id;	
-	cliente = getAjaxObject(url);
+function cargarEditar(cliente){
+	//url = "{{ path('dicars_ventas_servicio_getclientebyid', {'id': ''}) }}/"+id;	
+	//cliente = getAjaxObject(url);
 			
 	ArrayDatos = [	{'type':'hidden','value':cliente.id,'name':'idE'},
-	          		{'label':'Nombres','type':'input', 'typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]*$|','title':'Debe tener el formato correcto: solo letras', 'req':'', 'max':'50','value':cliente.nombres,'name':'nombresE'},
-	              	{'label':'Apellidos','type':'input','typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]*$|','title':'Debe tener el formato correcto: solo letras', 'req':'', 'max':'50','value':cliente.apellidos,'name':'apellidosE'},
+	          		{'label':'Nombres','type':'input', 'typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]*$|','title':'Debe tener el formato correcto: solo letras', 'req':'', 'max':'50','value':cliente.nombre,'name':'nombresE'},
+	              	{'label':'Apellidos','type':'input','typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]*$|','title':'Debe tener el formato correcto: solo letras', 'req':'', 'max':'50','value':cliente.apellido,'name':'apellidosE'},
 	              	{'label':'Dni','type':'input','typeinput':'text','pattern':'[0-9]{8,}','title':'Debe tener el formato correcto', 'req':'', 'max':'8','value':cliente.dni,'name':'dniE'},
 	              	{'label':'Dirección','type':'input','typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç0-9]*$|','title':'Debe tener el formato correcto', 'req':'', 'max':'200','value':cliente.direccion,'name':'direccionE'},
 	              	{'label':'Referencia','type':'input','typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç0-9]*$|','title':'Debe tener el formato correcto', 'req':'', 'max':'200','value':cliente.referencia,'name':'referenciaE'},	              	
-	              	{'label':'Zona','type':'input','typeinput':'text','pattern':'[0-9]{1,}','title':'Debe tener el formato correcto', 'req':'', 'max':'1','value':cliente.zona,'name':'zonaE'},
-	              	{'label':'Línea Op','type':'inputnumber', 'req':'', 'step':'0.01', 'min':'0', 'max':'1000','value':cliente.lineaop,'name':'lineaopE'},
+	              	{'label':'Zona','type':'select','name':'zonaE'},
+	              	{'label':'Línea Op','type':'inputnumber', 'req':'', 'step':'0.10', 'min':'0', 'max':'1000','value':cliente.linea_credito,'name':'lineaopE'},
 	              	{'label':'Arc Crédito','type':'input','typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]*$|','title':'Debe tener el formato correcto: solo letras', 'req':'', 'max':'1000','value':cliente.arccredito,'name':'arccreditoE'},
 	              	{'label':'Ocupación','type':'input','typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]*$|','title':'Debe tener el formato correcto: solo letras', 'req':'', 'max':'40','value':cliente.ocupacion,'name':'ocupacionE'},
 					{'type':'actions'}];
 		
 	$("#EditarClienteForm").html(crearElementosForm(ArrayDatos));
+
+	cargarSelect(zonas,'zonaE','id','desc');
+	$('#zonaE').val(cliente.zonaId);
+	
 }
 
-function cargarVer(id){
-	url = "{{ path('dicars_ventas_servicio_getclientebyid', {'id': ''}) }}/"+id;	
-	cliente = getAjaxObject(url);
-			
+function cargarVer(cliente){
 
-	ArrayDatos = [	{'label':'Nombres','type':'span','value':cliente.nombres},
-	              	{'label':'Apellidos','type':'span','value':cliente.apellidos},
+	ArrayDatos = [	{'label':'Nombres','type':'span','value':cliente.nombre},
+	              	{'label':'Apellidos','type':'span','value':cliente.apellido},
 	              	{'label':'Dni','type':'span','value':cliente.dni},
 	              	{'label':'Referencia','type':'span','value':cliente.referencia},
 	              	{'label':'Dirección','type':'span','value':cliente.direccion},
-	              	{'label':'Zona','type':'span','value':cliente.zona},
-	              	{'label':'Línea Op','type':'span','value':cliente.lineaop},
+	              	{'label':'Zona','type':'span','value':cliente.zonadesc},
+	              	{'label':'Línea Op','type':'span','value':cliente.linea_credito},
 	              	{'label':'Arc Crédito','type':'span','value':cliente.arccredito},
 	              	{'label':'Ocupación','type':'span','value':cliente.ocupacion},
 					{'type':'close'}];
@@ -117,25 +118,24 @@ function cargarVer(id){
 
 $(document).ready(function(){
 
-	CargarBotones = function(){		
-		//mostrar Editar Cliente------------------------------------>
-		$('.btn-editar').unbind();
-		$('.btn-editar').click(function(e){
+	ubigeos = getAjaxObject("{{ path('dicars_admin_servicio_getoptionubigeo') }}");
+	cargarUbigeo('dist', 'prov', 'dep');
+
+	zonas = getAjaxObject("{{ path('dicars_admin_servicio_getoptionzonas') }}");
+	cargarSelect(zonas,'zona','id','desc');
+
+	RowCallBackFunction = function(nRow, aData, iDisplayIndex){
+		$(nRow).find('.btn-datos').click(function(e){
 			e.preventDefault();
+			cargarVer(aData);
+			$('#modalVerDatos').modal('show');
+		});
+		$(nRow).find('.btn-editar').click(function(e){
+			e.preventDefault();
+			cargarEditar(aData);
 			$('#modalEditarDatos').modal('show');
-			id=$(this).attr("id-data");		
-			cargarEditar(id);	
 		});
-		
-		//mostrar Ver Datos Cliente------------------------------------>
-		$('.btn-datos').unbind();
-		$('.btn-datos').click(function(e){
-		e.preventDefault();
-		$('#modalVerDatos').modal('show');
-		id=$(this).attr("id-data");		
-		cargarVer(id);
-		});
-		};	
+	};
 	
 	//mostrar Registrar Cliente------------------------------------>
 	$('.btn-registrar').click(function(e){
@@ -155,7 +155,7 @@ $(document).ready(function(){
 	              { "sWidth": "13%","mDataProp": "edit_btn"},
 	              { "sWidth": "14%","mDataProp": "elim_btn"}
 	              ];
-oTable = createDataTable('clientes_table',UrlaDTable,FormatoDTable,CargarBotones);
+oTable = createDataTable('clientes_table',UrlaDTable,FormatoDTable,null,RowCallBackFunction);
 
 ReloadTableEditar = reloadclosemodal('modalEditarDatos', 'clientes_table');
 ReloadTableRegistrar = reloadclosemodal('modalRegistro', 'clientes_table');

@@ -191,10 +191,9 @@ function cargarVer(local){
 $(document).ready(function(){	
 
 	ubigeos = getAjaxObject("{{ path('dicars_admin_servicio_getoptionubigeo') }}");
-	constantes = getAjaxObject("{{ path('dicars_admin_servicio_getoptionconstantes') }}");
-
 	cargarUbigeo('dist', 'prov', 'dep');
 	
+	constantes = getAjaxObject("{{ path('dicars_admin_servicio_getoptionconstantes') }}");
 	cargarSelectConstante('tiprub', 'Tipo de Rubro', constantes);
 
 	RowCallBackFunction = function(nRow, aData, iDisplayIndex){

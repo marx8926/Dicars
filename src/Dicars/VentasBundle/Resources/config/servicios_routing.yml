@@ -17,3 +17,7 @@ dicars_ventas_servicio_gettrabajadorbyid:
 dicars_ventas_servicio_getventaproductosoferta:
     pattern:  /servicio_getventaproductosoferta
     defaults: { _controller: DicarsVentasBundle:VentaServicios:getTablaVentaProductoOferta } 
+
+dicars_ventas_servicio_gettablaofertas:
+    pattern:  /servicio_gettablaofertas
+    defaults: { _controller: DicarsVentasBundle:VentaServicios:getTablaOfertas } 

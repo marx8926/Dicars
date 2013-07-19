@@ -21,14 +21,22 @@ class VentaServiciosController extends Controller{
 		$em->clear();
 	
 		$todo = array();
-		foreach ($clientes as $key => $clientes){
-			$todo[] = array('nombre' => $clientes -> getCclientenom() , 
-					'apellido' => $clientes -> getCclienteape(),
-					'dni' => $clientes -> getCclientedni(), 
-					'linea_credito' => $clientes -> getNclientelineaop(),
-					'ver_btn' => "<a id-data='".$clientes -> getNclienteId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
-					'edit_btn' => "<a id-data='".$clientes -> getNclienteId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
-					'elim_btn' => "<a id-data='".$clientes -> getNclienteId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
+		foreach ($clientes as $key => $cliente){
+			$todo[] = array(
+					'id' => $cliente -> getNclienteId() ,
+					'nombre' => $cliente -> getCclientenom() , 
+					'apellido' => $cliente -> getCclienteape(),
+					'dni' => $cliente -> getCclientedni(), 
+					'referencia' => $cliente -> getCclienteref(),
+					'direccion' => $cliente -> getCclientecdir(),
+					'zonaId' => $cliente -> getNzona() -> getNzonaId(),
+					'zonadesc' => $cliente -> getNzona() -> getCzonadesc(),
+					'linea_credito' => $cliente -> getNclientelineaop(),
+					'arccredito' => $cliente -> getCclientearccredito(),
+					'ocupacion' => $cliente -> getCclienteocup(),
+					'ver_btn' => "<a id-data='".$cliente -> getNclienteId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
+					'edit_btn' => "<a id-data='".$cliente -> getNclienteId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
+					'elim_btn' => "<a id-data='".$cliente -> getNclienteId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
 		}
 		return new JsonResponse(array('aaData' => $todo));
 	}
@@ -103,7 +111,7 @@ class VentaServiciosController extends Controller{
 		return new JsonResponse($data);
 	}
 	
-	public function getTablaOfertaAction(){
+	public function getTablaOfertasAction(){
 		$em = $this->getDoctrine()->getEntityManager();
 			
 		$ofertas = $this->getDoctrine()
@@ -115,13 +123,12 @@ class VentaServiciosController extends Controller{
 		$todo = array();
 		foreach ($ofertas as $key => $oferta){
 			$todo[] = array(
-					'nombre' => $clientes -> getCclientenom() ,
-					'apellido' => $clientes -> getCclienteape(),
-					'dni' => $clientes -> getCclientedni(),
-					'linea_credito' => $clientes -> getNclientelineaop(),
-					'ver_btn' => "<a id-data='".$clientes -> getNclienteId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
-					'edit_btn' => "<a id-data='".$clientes -> getNclienteId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
-					'elim_btn' => "<a id-data='".$clientes -> getNclienteId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
+					'id' => $oferta -> getNofertaId() ,
+					'desc' => $oferta -> getCofertadesc(),
+					'fecvigente' => $oferta -> getDofertafecvigente(),
+					'fecvencimiento' => $oferta -> getDofertafecvencto(),
+					'edit_btn' => "<a id-data='".$oferta -> getNofertaId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
+					'elim_btn' => "<a id-data='".$oferta -> getNofertaId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
 		}
 		return new JsonResponse(array('aaData' => $todo));
 	}
