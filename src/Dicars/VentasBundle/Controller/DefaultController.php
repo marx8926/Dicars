@@ -54,4 +54,9 @@ class DefaultController extends Controller
     {
     	return $this->render('DicarsVentasBundle:Default:ofertas.html.twig');
     }
+
+    public function resumen_ventaAction()
+    {
+    	return $this->render('DicarsVentasBundle:Default:resumen_venta.html.twig');
+    }
 }

@@ -49,3 +49,7 @@ dicars_ventas_venta_productos:
 dicars_ventas_ofertas:
     pattern: /ofertas
     defaults: { _controller: DicarsVentasBundle:Default:ofertas }
+    
+dicars_ventas_resumen_venta:
+    pattern: /resumen_venta
+    defaults: { _controller: DicarsVentasBundle:Default:resumen_venta }    
