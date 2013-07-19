@@ -20,7 +20,6 @@ function initSlider(productos) {
 	});
 	
     $('#to_detalle').bind('click',function(e){
-    	VentaUpdate();
 		var move_to	= $(this).attr('to_position');
 		if(productos.length > 0){		
 	        $('#steps').stop().animate({
@@ -32,7 +31,8 @@ function initSlider(productos) {
 		}
 		else{
 			$("#rquiredproducts").modal('show');
-		}        
+		}
+		VentaUpdate();
         e.preventDefault();
     });
     

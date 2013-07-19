@@ -113,7 +113,7 @@
 					<label class="control-label" for="descuento">Venta Descuento</label>
 					<div class="controls">
 						<div class="input-prepend input-append">
-							<input class="input-xlarge focused " name="descuento" id="descuento" type="number" min="0" max="100" value="0" required><span class="add-on">%</span>
+							<input class="input-xlarge focused " name="descuento" id="descuento" type="number" min="0" max="100" value="0" required><span id="spandesc" class="add-on">%</span>
 						</div>
 					</div>
 				</div>
@@ -128,7 +128,7 @@
 					<label class="control-label" for="tipo_igv">IGV</label>
 					<div class="controls">
 						<div class="input-prepend input-append">
-							<select style="margin: 0 0px 0 0;" class="input-xlarge focused" name="tipo_igv" id="tipo_igv"></select><span class="add-on">%</span>
+							<select style="margin: 0 0px 0 0;" class="input-xlarge focused" name="tipo_igv" id="tipo_igv"></select><span id="spanigv" class="add-on">%</span>
 					  	</div>
 					</div>
 				</div>
@@ -154,11 +154,11 @@
 					</div>
 				</div>
 				
-				<div id="cuotas_block" class="control-group" style="display:none">
+				<div id="cuotas_block" class="control-group">
 					<label class="control-label" for="num_cuotas">N° Cuotas</label>
 					<div class="controls">
 						<div class="input-prepend input-append">
-								<input class="input-xlarge focused " name="num_cuotas" id="num_cuotas" type="number" min="2" value="2" required><span class="add-on">x 0.00 S/.</span>
+								<input class="input-xlarge focused " name="num_cuotas" id="num_cuotas" type="number" min="2" value="2" required><span id="spancouota" class="add-on">x 0.00 S/.</span>
 						</div>
 					</div>
 				</div>
@@ -277,21 +277,39 @@ var RowCallBackFunctionProducto;
 var RowCallBackFunctionCliente;
 
 var TiposIGV;
+var TipoMoneda;
 
 function VentaUpdate(){
-	var igv = $("#tipo_igv").text();
+	var igv = parseInt($("#tipo_igv").text());
 	var des = $("#descuento").val();
+	var montodesc;
+	var montoigv;
+	var mosntocuota;
+	if($("#tipo_moneda").val()==1)
+		TipoMoneda = "S/.";
+	else
+		TipoMoneda = "$";
+			
 	if($("#forma_pago").val() == 2){
 		$("#cuotas_block").show();
 		$("#monto_productos").val(totalcontado);
-		$("#subtotal").val(totalcredito*(100-igv)*(100-des));
 	}	
 	else{
 		$("#cuotas_block").hide();
 		$("#monto_productos").val(totalcredito);
-		$("#subtotal").val(totalcontado*(100-igv)*(100-des));
 	}
-	var montoigv = $("#tipo_igv").text()*totalcredito 
+	montodesc = ($("#monto_productos").val()*des/100).toFixed(2)
+	
+	$("#subtotal").val(($("#monto_productos").val()*(100/(igv+100))*(100-des)/100).toFixed(2));
+	montoigv = ($("#subtotal").val()*igv/100).toFixed(2)
+	$("#total").val(($("#subtotal").val()*(100+igv)/100).toFixed(2));
+	$("#saldo").val(($("#total").val()-$("#amortizacion").val()).toFixed(2))
+	$("#spandesc").text("% - "+montodesc+" "+TipoMoneda);
+	$("#spanigv").text("% - "+montoigv+" "+TipoMoneda);
+
+	mosntocuota = $("#saldo").val()/$("#num_cuotas").val()
+		
+	$("#spancouota").text("x - "+mosntocuota.toFixed(2)+" "+TipoMoneda);
 }
 
 $(document).ready(function(){
@@ -307,6 +325,13 @@ $(document).ready(function(){
 		VentaUpdate();
 		});
 
+	$("#EnviarVentaForm").bind("keypress", function(e) {
+		  if (e.keyCode == 13) {               
+			    e.preventDefault();
+			    return false;
+			  }
+			});
+	
 	$("#finalizar_venta").click(function(e){
 		e.preventDefault();
     	$("#EnviarVentaForm").unbind();
@@ -352,8 +377,8 @@ $(document).ready(function(){
 			SelectProductoData.pop();
 			Array2 = SelectProductosTable.fnGetData();
 			CopyArray(SelectProductosTableData,Array2,false,Attr);			
-			$("#total_credito").text(totalcontado = sumArrayByAttr(Array2,'pcontado'));
-			$("#total_contado").text(totalcredito = sumArrayByAttr(Array2,'pcredito'));
+			$("#total_credito").text(totalcontado = (sumArrayByAttr(Array2,'pcontado')).toFixed(2));
+			$("#total_contado").text(totalcredito = (sumArrayByAttr(Array2,'pcredito')).toFixed(2));
 			$('#contenedor').height($('#step1').height());
 		}
 	});
