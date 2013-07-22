@@ -122,21 +122,36 @@ class VentaServiciosController extends Controller{
 	
 		$todo = array();
 		foreach ($ofertas as $key => $oferta){
+			
+			$ofertaproducto = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:OfertaProducto')
+			->findOneBy(array('nofertaproductoId' => $oferta -> getNofertaId()));
+			
+			$estado = '';
+			$estadochar = $ofertaproducto -> getCofertaproductoest();
+			if($estadochar=="1")
+				$estado = "<span class='label label-success'>Habilidado</span>";
+			else
+				$estado = "<span class='label label-important'>Inhabilitado</span>";
+			
 			$todo[] = array(
 					'id' => $oferta -> getNofertaId() ,
 					'desc' => $oferta -> getCofertadesc(),
-					'fecvigente' => $oferta -> getDofertafecvigente(),
-					'fecvencimiento' => $oferta -> getDofertafecvencto(),
+					'estadochar' => $estadochar,
+					'estado' => $estado,
+					'porc' => $ofertaproducto -> getNofertaproductoporc(),
+					'fecvigente' => $oferta -> getDofertafecvigente() -> format('d/m/Y'),
+					'fecvencimiento' => $oferta -> getDofertafecvencto() -> format('d/m/Y'),
 					'edit_btn' => "<a id-data='".$oferta -> getNofertaId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
 					'elim_btn' => "<a id-data='".$oferta -> getNofertaId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
 		}
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
-	public function getTablaVentaProductoOfertaAction(){
+	public function getTablaVentaProductoSinOfertaAction(){
 		$em = $this->getDoctrine()->getEntityManager();
 		
-		$sql = "SELECT * from Ven_productosoferta";
+		$sql = "SELECT * from Ven_productossinoferta";
 		
 		$smt = $em->getConnection()->prepare($sql);
 		$smt->execute();
@@ -150,15 +165,14 @@ class VentaServiciosController extends Controller{
 					'id' => $producto['nProducto_id'] ,
 					'talla' => $producto['cProductoTalla'] ,
 					'nombre' => $producto['cProductoDesc'],
-					'pcontado' => $producto['PrecioContado_Dscto'],
-					'pcredito' => $producto['PrecioCredito_Dscto'],
+					'pcontado' => $producto['nProductoPContado'],
+					'pcredito' => $producto['nProductoPCredito'],
 					'stock' => $producto['nProductoStock'],
 					'talla' => $producto['cProductoTalla'],
 					'marcaId' => $producto['nProductoMarca'],
 					'marca' => $producto['cMarcaDesc'],
 					'categoriaId' => $producto['nCategoria_id'],
 					'categoria' => $producto['cCategoriaNom'],
-					'descuento' => $producto['nOfertaProductoPorc'] ,
 					'ver_btn' => "<a class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
 					'edit_btn' => "<a class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
 					'elim_btn' => "<a class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
