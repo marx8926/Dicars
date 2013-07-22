@@ -125,7 +125,7 @@ class VentaServiciosController extends Controller{
 			
 			$ofertaproducto = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:OfertaProducto')
-			->findOneBy(array('nofertaproductoId' => $oferta -> getNofertaId()));
+			->findOneBy(array('nofertaproductoId' => $oferta -> getNofertaId() ));
 			
 			$estado = '';
 			$estadochar = $ofertaproducto -> getCofertaproductoest();
@@ -137,9 +137,9 @@ class VentaServiciosController extends Controller{
 			$todo[] = array(
 					'id' => $oferta -> getNofertaId() ,
 					'desc' => $oferta -> getCofertadesc(),
-					'estadochar' => $estadochar,
+					'descuento' => $ofertaproducto -> getNofertaproductoporc(),
 					'estado' => $estado,
-					'porc' => $ofertaproducto -> getNofertaproductoporc(),
+					'estadochart' => $estadochar,
 					'fecvigente' => $oferta -> getDofertafecvigente() -> format('d/m/Y'),
 					'fecvencimiento' => $oferta -> getDofertafecvencto() -> format('d/m/Y'),
 					'edit_btn' => "<a id-data='".$oferta -> getNofertaId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
@@ -148,14 +148,47 @@ class VentaServiciosController extends Controller{
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
-	public function getTablaVentaProductoSinOfertaAction(){
+	public function getTablaVentaProductoOfertaAction(){
 		$em = $this->getDoctrine()->getEntityManager();
 		
-		$sql = "SELECT * from Ven_productossinoferta";
+		$sql = "SELECT * from Ven_productosoferta";
 		
 		$smt = $em->getConnection()->prepare($sql);
 		$smt->execute();
 		
+		$productos = $smt->fetchAll();
+		$em->clear();
+	
+		$todo = array();
+		foreach ($productos as $key => $producto){
+			$todo[] = array(
+					'id' => $producto['nProducto_id'] ,
+					'talla' => $producto['cProductoTalla'] ,
+					'nombre' => $producto['cProductoDesc'],
+					'pcontado' => $producto['PrecioContado_Dscto'],
+					'pcredito' => $producto['PrecioCredito_Dscto'],
+					'stock' => $producto['nProductoStock'],
+					'talla' => $producto['cProductoTalla'],
+					'marcaId' => $producto['nProductoMarca'],
+					'marca' => $producto['cMarcaDesc'],
+					'categoriaId' => $producto['nCategoria_id'],
+					'categoria' => $producto['cCategoriaNom'],
+					'descuento' => $producto['nOfertaProductoPorc'] ,
+					'ver_btn' => "<a class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
+					'edit_btn' => "<a class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
+					'elim_btn' => "<a class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
+		}
+		return new JsonResponse(array('aaData' => $todo));
+	}
+	
+	public function getTablaVentaProductoSinOfertaAction(){
+		$em = $this->getDoctrine()->getEntityManager();
+	
+		$sql = "SELECT * from Ven_productossinoferta";
+	
+		$smt = $em->getConnection()->prepare($sql);
+		$smt->execute();
+	
 		$productos = $smt->fetchAll();
 		$em->clear();
 	
