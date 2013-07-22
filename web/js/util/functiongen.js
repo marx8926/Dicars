@@ -71,7 +71,6 @@ function getSimpleSelectRowCallBack(DSelected, tableid){
  * otherdata: son datos adicionales que se pueden enviar al controlador
  */
 function enviar(IdForm,responsefunction,otherdata){
-	console.log("hola");
 	if(typeof(otherdata)=== 'undefined')
 		otherdata = null;
 	$("#"+IdForm).submit(function(event){

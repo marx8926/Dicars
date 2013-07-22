@@ -82,7 +82,7 @@
 				<div class="control-group">
 					<label class="control-label" for="cliente">Cliente</label>
 					<div class="controls">
-						<input class="input-xlarge focused" id="cliente" name="cliente" type="text" readonly>
+						<input class="input-xlarge focused" id="cliente" name="cliente" type="text" readonly required>
 						<input type="hidden" id="cliente_id" name="cliente_id">
 					  	<button type="button" class="btn btn-info btn-buscarc" style="margin: 0 18px;"><i class="icon-search icon-white"></i>Buscar</button>
 					</div>
@@ -90,7 +90,7 @@
 				<div class="control-group">
 					<label class="control-label" for="forma_pago">Tipo de Pago</label>
 					<div class="controls">
-						<select style="margin: 0 18px 0 0;" class="input-xlarge focused" name="forma_pago" id="forma_pago">
+						<select style="margin: 0 18px 0 0;" class="input-xlarge focused" name="forma_pago" id="forma_pago" >
 						</select>
 					</div>
 				</div>   
@@ -143,7 +143,9 @@
 				<div class="control-group">
 					<label class="control-label" for="amortizacion">A cuenta</label>
 					<div class="controls">
-						<input class="input-xlarge focused" style="margin: 0 18px 0 0;" name="amortizacion" id="amortizacion" type="number" step="0.1" value="0" min="0">
+						<div class="input-prepend input-append">
+							<input class="input-xlarge focused" style="margin: 0 0px 0 0;" name="amortizacion" id="amortizacion" type="number" step="0.1" value="0" min="0"><span id="spanamort" class="add-on"></span>
+						</div>
 					</div>
 				</div>
 											
@@ -286,7 +288,7 @@ function VentaUpdate(){
 	var montoigv;
 	var mosntocuota;
 	if($("#tipo_moneda").val()==1)
-		TipoMoneda = "S/.";
+		TipoMoneda = "s/.";
 	else
 		TipoMoneda = "$";
 			
@@ -304,12 +306,13 @@ function VentaUpdate(){
 	montoigv = ($("#subtotal").val()*igv/100).toFixed(2)
 	$("#total").val(($("#subtotal").val()*(100+igv)/100).toFixed(2));
 	$("#saldo").val(($("#total").val()-$("#amortizacion").val()).toFixed(2))
-	$("#spandesc").text("% - "+montodesc+" "+TipoMoneda);
-	$("#spanigv").text("% - "+montoigv+" "+TipoMoneda);
+	$("#spandesc").text("% "+TipoMoneda+" "+montodesc);
+	$("#spanigv").text("% "+TipoMoneda+" "+montoigv);
 
+	$("#spanamort").text(TipoMoneda);
 	mosntocuota = $("#saldo").val()/$("#num_cuotas").val()
 		
-	$("#spancouota").text("x - "+mosntocuota.toFixed(2)+" "+TipoMoneda);
+	$("#spancouota").text("x "+TipoMoneda+" "+mosntocuota.toFixed(2));
 }
 
 $(document).ready(function(){
@@ -354,7 +357,6 @@ $(document).ready(function(){
 		var data = SelectProductoData[0];
 		$('#producto').val(data.id+" - "+data.nombre);
 		$('#cantidad').val("1");
-		$('#cliente_id').val(data.id);
 		$('#modalBuscarProducto').modal('hide');
 	});
 
@@ -362,6 +364,7 @@ $(document).ready(function(){
 		e.preventDefault();
 		var data = SelectClienteData[0];
 		$('#cliente').val(data.nombre+" - "+data.apellido);
+		$('#cliente_id').val(data.id);
 		$('#modalBuscarCliente').modal('hide');
 	});
 
