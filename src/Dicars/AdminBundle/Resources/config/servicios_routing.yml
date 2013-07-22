@@ -35,6 +35,9 @@ dicars_admin_servicio_gettablaconstantes:
 dicars_admin_servicio_gettablazonas:
     pattern:  /servicio_gettablazonas
     defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getTablaZonas }
+dicars_admin_servicio_gettablatipomoneda:
+    pattern:  /servicio_gettipomoneda
+    defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getTablaTipoMoneda }
 dicars_admin_servicio_getconstantebyid:
     pattern:  /servicio_getconstantebyid/{id}
     defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getConstanteById }
@@ -52,7 +55,7 @@ dicars_admin_servicio_getoptionubigeo:
     defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getOptionUbigeo }
     
 dicars_admin_servicio_getoptionconstantes:
-    pattern:  /servicio_getoptionconstantes
+    pattern:  /servicio_getoptionconstantes/{idclase}
     defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getOptionConstantes }
 
 dicars_admin_servicio_getoptionzonas:

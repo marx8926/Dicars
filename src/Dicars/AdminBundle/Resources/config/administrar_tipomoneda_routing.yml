@@ -1,0 +1,10 @@
+dicars_admin_registrar_tipomoneda:
+    pattern:  /registrar_tipomoneda
+    defaults: { _controller: DicarsAdminBundle:AdministrarTipoMoneda:RegistrarTipoMoneda }
+    requirements:
+          _method: POST
+dicars_admin_editar_tipomoneda:
+    pattern:  /editar_tipomoneda
+    defaults: { _controller: DicarsAdminBundle:AdministrarTipoMoneda:EditarTipoMoneda }
+    requirements:
+          _method: POST

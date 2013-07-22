@@ -1,0 +1,137 @@
+{% extends "::baseCharisma.html.twig" %}
+{% block title %}Tipo de Moneda - Administración - {% endblock %}
+{% block breadcrumb %}
+<li>
+	<a href="{{path('dicars_admin_homepage')}}">Administración</a><span class="divider">/</span>
+</li>
+<li>
+	<a href="{{path('dicars_admin_tipomoneda')}}">Tipo de Moneda</a>
+</li>
+{% endblock %}
+{% block content %}
+<div class="row-fluid sortable">		
+	<div class="box span12">
+		<div class="box-header well" data-original-title>
+			<h2>Tipo de Moneda</h2>
+			<div class="box-icon">
+				<a href="#" class="btn btn-round btn-registrar" alt="Registrar Tipo Moneda"><i class="icon-plus"></i></a>
+			</div>
+		</div>
+		<div class="box-content">
+			<table class="table table-striped table-bordered bootstrap-datatable datatable" id="tipomoneda_table">
+				<thead>
+					<tr>
+						<th>Nombre</th>
+					  	<th>Monto</th>
+						<th>Estado</th>
+					  	<th></th>
+				  	</tr>
+				</thead>
+			</table>
+			<div class="modal hide fade" id="modalRegistroTipoMoneda">
+				<div class="modal-header">
+					<h3>Registrar Tipo de Moneda</h3>
+				</div>
+				<div class="modal-body">
+					<form id="RegistrarTipoMonedaForm" class="form-horizontal" method="post" action="{{ path('dicars_admin_registrar_tipomoneda') }}">
+						<fieldset>
+						  	<div class="control-group">
+								<label class="control-label" for="desc_tipomoneda">Nombre de la Moneda</label>
+								<div class="controls">
+							  		<input class="input-xlarge focused" id="desc_tipomoneda" name="desc_tipomoneda" type="text" pattern="|^[a-zA-Z ñÑáéíóúüç]+$|" required >
+								</div>
+						  	</div>
+						  	<div class="control-group">
+								<label class="control-label" for="monto">Monto</label>
+								<div class="controls">
+							  		<input id="monto" name="monto" type="number" step="0.01" min="1" max="10" required >
+								</div>
+						  	</div>
+						  	<div class="control-group">
+								<label class="control-label" for="selectEstado">Estado</label>
+								<div class="controls">
+							  		<select id="selectEstado" name="selectEstado" required>
+										<option value="1">Habilitado</option>
+										<option value="0">Inhabilitado</option>
+									</select>
+								</div>
+						  	</div>
+						  	<div class="form-actions">
+								<button type="submit" class="btn btn-primary ">Guardar</button>
+								<button type="reset" class="btn" data-dismiss="modal">Cancelar</button>
+						  	</div>
+						</fieldset>
+					</form>
+				</div>
+			</div>
+			<div class="modal hide fade" id="modalEditarDatos">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">x</button>
+					<h3>Editar Tipo de Moneda</h3>
+				</div>
+				<div class="modal-body">
+					<form id="EditarTipoMonedaForm" class="form-horizontal" method="post" action="{{ path('dicars_admin_editar_tipomoneda') }}">
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+{% block javascript %}
+<script type="text/javascript" src="{{ asset('js/util/functiongen.js') }}"></script>
+<script type="text/javascript" src="{{ asset('js/util/datatable_plugins.js') }}"></script>
+
+<script type="text/javascript">
+
+var oTable;
+
+var ReloadTableEditar = reloadclosemodal('modalEditarDatos','tipomoneda_table');
+var ReloadTableRegistrar = reloadclosemodal('modalRegistroTipoMoneda','tipomoneda_table');
+
+function cargarEditar(tipomoneda){
+	
+	ArrayDatos = [	{'type':'hidden','value':tipomoneda.id,'name':'id'},
+	          		{'label':'Nombre de la Moneda','type':'input','typeinput':'text','value':tipomoneda.desc_tipomoneda, 'name':'desc_tipomonedaE','pattern':'|^[a-zA-Z ñÑáéíóúüç]+$|','required':'true','title':'', 'max':'30'},
+	          		{'label':'Monto','type':'inputnumber','value':tipomoneda.monto, 'name':'montoE','required':'true','step':'0.01', 'min':'1', 'max':'10'},
+	              	{'label':'Estado','type':'select','name':'selectEstadoE'},
+					{'type':'actions'}];
+		
+	$("#EditarTipoMonedaForm").html(crearElementosForm(ArrayDatos));
+	$('#selectEstadoE').append('<option value="1">Habilitado</option>');
+	$('#selectEstadoE').append('<option value="0">Inhabilitado</option>');
+	$('#selectEstadoE').val(tipomoneda.estado);
+	$('[data-rel="chosen"],[rel="chosen"]').chosen();
+}
+
+//Init------------------------------------>
+$(document).ready(function(){
+
+	RowCallBackFunction = function(nRow, aData, iDisplayIndex){
+		$(nRow).find('.btn-editar').click(function(e){
+			e.preventDefault();
+			cargarEditar(aData);
+			$('#modalEditarDatos').modal('show');
+		});
+	};
+	
+	//mostrar Buscar Cliente------------------------------------>
+	$('.btn-registrar').click(function(e){
+		e.preventDefault();
+		$('#modalRegistroTipoMoneda').modal('show');
+	});
+	
+	enviar('RegistrarTipoMonedaForm', ReloadTableRegistrar);
+	enviar('EditarTipoMonedaForm', ReloadTableEditar);
+
+	UrlaDTable = '{{ path("dicars_admin_servicio_gettablatipomoneda") }}';
+	FormatoDTable = [
+		              { "sWidth": "25%","mDataProp": "desc_tipomoneda"},
+		              { "sWidth": "25%","mDataProp": "monto"},
+		              { "sWidth": "25%","mDataProp": "selectEstado"},
+		              { "sWidth": "25%","mDataProp": "edit_btn"}
+		              ];
+	oTable = createDataTable('tipomoneda_table',UrlaDTable,FormatoDTable,null, RowCallBackFunction);
+});
+</script>
+{% endblock %}

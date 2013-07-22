@@ -34,4 +34,8 @@ class DefaultController extends Controller
     {
     	return $this->render('DicarsAdminBundle:Default:zonas.html.twig');
     }
+    public function tipomonedaAction()
+    {
+    	return $this->render('DicarsAdminBundle:Default:tipo_moneda.html.twig');
+    }
 }

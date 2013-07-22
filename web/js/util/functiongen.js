@@ -365,23 +365,6 @@ function cargarUbigeo(idtagdist, idtagprov, idtagdep, iddist, idprov, iddep){
 }
 /*--------------------------------FIN UBIGEO------------------------------------*/
 
-/*--------------------------------CONTANTES-------------------------------------*/
-function cargarSelectConstante(idselect, descripcion, constantes){
-	var $select = $('#'+idselect);
-	var result = '';
-	var clase = null;
-	$(constantes).each(function(){
-		if(this.desc == descripcion)
-			clase = this.clase;
-	});
-	$(constantes).each(function(){
-		if(this.clase == clase && this.valor != 0)
-			result += '<option value="'+this.id+'">'+this.desc+'</option>';
-	});
-	$select.html(result); 
-}
-/*--------------------------------FIN CONTANTES-------------------------------------*/
-
 function cargarSelect(arreglo, idselect, attrvalue, attrdescripcion){
 	var $select = $('#'+idselect);
 	var result = '';

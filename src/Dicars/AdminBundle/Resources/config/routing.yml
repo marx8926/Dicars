@@ -10,6 +10,9 @@ admin_administrar_servicios_routing:
     resource: "@DicarsAdminBundle/Resources/config/servicios_routing.yml"
 admin_administrar_constante_routing:
     resource: "@DicarsAdminBundle/Resources/config/administrar_constante_routing.yml"
+
+admin_administrar_tipomoneda_routing:
+    resource: "@DicarsAdminBundle/Resources/config/administrar_tipomoneda_routing.yml"
     
 ventas_administrar_usuario_routing:
     resource: "@DicarsAdminBundle/Resources/config/administrar_usuario_routing.yml"
@@ -35,3 +38,6 @@ dicars_admin_marcas:
 dicars_admin_zonas:
     pattern:  /zonas
     defaults: { _controller: DicarsAdminBundle:Default:zonas }
+dicars_admin_tipomoneda:
+    pattern:  /tipomoneda
+    defaults: { _controller: DicarsAdminBundle:Default:tipomoneda }

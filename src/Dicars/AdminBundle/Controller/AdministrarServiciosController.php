@@ -318,6 +318,33 @@ class AdministrarServiciosController extends Controller {
 		return new JsonResponse($data);
 	}
 	
+	public function getTablaTipoMonedaAction(){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$monedas = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:VenTipomoneda')
+		->findAll();
+		$em->clear();
+	
+		$todo = array();
+		foreach ($monedas as $key => $moneda){
+			if($moneda -> getNtipomonedaest() == 1){
+				$estado = "<span class='label label-success'>Habilidado</span>";
+			}
+			else{
+				$estado = "<span class='label label-important'>Inhabilidado</span>";
+			}
+			$todo[] = array('id' => $moneda -> getNtipomoneda(),
+					'desc_tipomoneda' => $moneda -> getCtipomonedadesc(),
+					'monto' => $moneda -> getNtipomonedamont(),
+					'selectEstado' => $estado,
+					'estado' => $moneda -> getNtipomonedaest(),
+					'edit_btn' => "<a id-data='".$moneda -> getNtipomoneda()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>"
+			);
+		}
+		return new JsonResponse(array('aaData' => $todo));
+	}
+	
 	public function getOptionTipoByClaseAction($Clase){
 		$em = $this->getDoctrine()->getEntityManager();
 			
@@ -356,22 +383,24 @@ class AdministrarServiciosController extends Controller {
 		return new JsonResponse($todo);
 	}
 	
-	public function getOptionConstantesAction(){
+	public function getOptionConstantesAction($idclase){
 		$em = $this->getDoctrine()->getEntityManager();
 			
 		$constantes = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:Constante')
-		->findAll();
+		->findAll(array('nconstanteclase'=>$idclase));
 	
 		$em->clear();
 	
 		$todo = array();
 		foreach ($constantes as $key => $constante){
-			$todo[] = array('id' => $constante -> getNconstanteId(),
-					'clase' => $constante -> getNconstanteclase(),
-					'desc' => $constante -> getCconstantedesc(),
-					'valor' => $constante -> getCconstantevalor()
-			);
+			if($constante -> getCconstantevalor() != 0){
+				$todo[] = array('id' => $constante -> getNconstanteId(),
+						'clase' => $constante -> getNconstanteclase(),
+						'desc' => $constante -> getCconstantedesc(),
+						'valor' => $constante -> getCconstantevalor()
+				);
+			}
 		}
 		return new JsonResponse($todo);
 	}

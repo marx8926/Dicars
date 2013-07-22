@@ -166,7 +166,7 @@ function cargarEditar(local){
 	$('#estadoE').append('<option value="0">Inhabilitado</option>');
 	$('#estadoE').val(local.estadoValor);
 
-	cargarSelectConstante('tiprubE', 'Tipo de Rubro', constantes);
+	cargarSelect(constantes,'tiprubE', 'id', 'desc');
 	$('#tiprubE').val(local.tiprubId);
 	
 	cargarUbigeo('distE', 'provE', 'depE', local.dist, local.prov, local.dep);
@@ -192,9 +192,9 @@ $(document).ready(function(){
 
 	ubigeos = getAjaxObject("{{ path('dicars_admin_servicio_getoptionubigeo') }}");
 	cargarUbigeo('dist', 'prov', 'dep');
-	
-	constantes = getAjaxObject("{{ path('dicars_admin_servicio_getoptionconstantes') }}");
-	cargarSelectConstante('tiprub', 'Tipo de Rubro', constantes);
+
+	constantes = getAjaxObject("{{ path('dicars_admin_servicio_getoptionconstantes',{'idclase':2}) }}");
+	cargarSelect(constantes,'tiprub', 'id', 'desc');
 
 	RowCallBackFunction = function(nRow, aData, iDisplayIndex){
 		$(nRow).find('.btn-datos').click(function(e){
