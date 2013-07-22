@@ -459,5 +459,43 @@ class AdministrarServiciosController extends Controller {
 		}
 		return new JsonResponse($todo);
 	}
+	
+	public function getTablaTipoIGVAction(){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$tipos = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:VenTipoigv')
+		->findAll();
+		$em->clear();
+	
+		$todo = array();
+		foreach ($tipos as $key => $tipo){
+			$todo[] = array('id' => $tipo -> getNtipoigv(),
+					'tipo' => $tipo -> getCtipoigv(),
+					'porcentaje' => $tipo -> getNtipoigvproc(),
+					'fecha' => $tipo -> getDtipoigvfecreg() -> format("d/m/Y"),
+					'estado' => $tipo -> getCtipoigvest(),
+					'edit_btn' => "<a id-data='".$tipo -> getNtipoigv()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>"
+			);
+		}
+		return new JsonResponse(array('aaData' => $todo));
+	}
+	
+	public function getTablaTipoIGVByIdAction($id){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$tipos = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:VenTipoigv')
+		->findOneBy(array('ntipoigv' => $id));
+		$em->clear();
+	
+		$data = array('id' => $tipos -> getNtipoigv(),
+				'tipo' => $tipos -> getCtipoigv(),
+				'porcentaje' => $tipos -> getNtipoigvproc(),
+				'fecha' => $tipos -> getDtipoigvfecreg() -> format("d/m/Y"),
+				'estado' => $tipos -> getCtipoigvest());
+		return new JsonResponse($data);
+	}
+		
 }
 	

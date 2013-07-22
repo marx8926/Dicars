@@ -69,3 +69,10 @@ dicars_admin_servicio_getoptioncargos:
 dicars_admin_servicio_getoptiontiposigv:
     pattern:  /servicio_getoptiontiposigv
     defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getOptionTiposIGV }
+    
+dicars_admin_servicio_gettablatipoigv:
+    pattern:  /servicio_gettablatipoigv
+    defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getTablaTipoIGV } 
+dicars_admin_servicio_gettablatipoigvById:
+    pattern:  /servicio_gettablatipoigvById/{id}
+    defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getTablaTipoIGVById }     

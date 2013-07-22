@@ -17,6 +17,9 @@ admin_administrar_tipomoneda_routing:
 ventas_administrar_usuario_routing:
     resource: "@DicarsAdminBundle/Resources/config/administrar_usuario_routing.yml"
     
+admin_administrar_tipoigv_routing:
+    resource: "@DicarsAdminBundle/Resources/config/administrar_tipoigv_routing.yml"    
+    
 dicars_admin_homepage:
     pattern:  /index
     defaults: { _controller: DicarsAdminBundle:Default:index }
