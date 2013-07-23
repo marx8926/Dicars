@@ -155,16 +155,22 @@
 						<input class="input-xlarge focused" style="margin: 0 18px 0 0;" name="saldo" id="saldo" type="text" readonly>
 					</div>
 				</div>
-				
-				<div id="cuotas_block" class="control-group">
-					<label class="control-label" for="num_cuotas">N° Cuotas</label>
-					<div class="controls">
-						<div class="input-prepend input-append">
-								<input class="input-xlarge focused " name="num_cuotas" id="num_cuotas" type="number" min="2" value="2" required><span id="spancouota" class="add-on">x 0.00 S/.</span>
+				<div id="cuotas_block" >
+					<div class="control-group">
+						<label class="control-label" for="num_cuotas">N° Cuotas</label>
+						<div class="controls">
+							<div class="input-prepend input-append">
+									<input class="input-xlarge focused " name="num_cuotas" id="num_cuotas" type="number" min="2" value="2" required><span id="spancouota" class="add-on">x 0.00 S/.</span>
+							</div>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="prim_cuota">Fecha 1° Cuota</label>
+						<div class="controls">
+						  <input type="text" placeholder="dd/mm/YYYY" pattern="|^\d{2}/\d{2}/\d{4}$|" maxlength="10" title="Debe ingresar un formato de fecha correcto" class="input-xlarge datepicker" id="prim_cuota" name="prim_cuota">
 						</div>
 					</div>
 				</div>
-				
 				<div class="control-group">
 					<label class="control-label" for="producto">Observacion</label>
 					<div class="controls">
