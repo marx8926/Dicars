@@ -122,7 +122,9 @@
 						  <th>Código</th>
 						  <th>Nombre</th>
 						  <th>Cantidad</th>
-						  <th>Acciones</th>
+						  <th>Precio Costo</th>
+						  <th></th>
+						  <th></th>
 					  </tr>
 				</thead>   
 				<tbody>
@@ -139,6 +141,16 @@
 			{% include 'DicarsLogisticaBundle:Default:buscarproveedor.html.twig' %}
 			{% include 'DicarsLogisticaBundle:Default:buscarordped.html.twig' %}
 			{% include 'DicarsVentasBundle:Default:buscarproducto.html.twig' %}
+			
+			<div class="modal hide fade" id="modalEditarCantidad" >
+				<div class="modal-header">
+					<h3>Datos del Producto</h3>
+				</div>
+				<div class="modal-body">
+					<form id="EditarCantidadForm" class="form-horizontal">
+					</form>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
@@ -155,16 +167,48 @@ var SelectOrdPedData = new Array();
 //Se almacena la data de la tabla de los productos seleccionados
 var SelectProductosTableData =  new Array();
 
-var Attr = ['id','cantidad'];
+var Attr = ['id','cantidad','preciounit'];
 
 var BuscarProductosTable;
+var BuscarProveedoresTable;
+var BuscarOrdPedTable;
+var DetOrdPedProductosTable;
+
 var SelectProductosTable;
 
 var RowCallBackFunctionProducto;
 var RowCallBackFunctionProveedor;
 var RowCallBackFunctionOrdPed;
 
+var UrlPedido ='';
+
+function cargarEditar(producto){			
+
+	ArrayDatos = [	{'type':'hidden','value':producto.id,'name':'idE'},	
+	              	{'label':'Producto','type':'span','value':producto.nombre},   
+	              	{'label':'Cantidad a Pedir','type':'inputnumber','req':'true', 'min':'1','max':'1000000','value':producto.cantidad,'name':'cantidadE'},
+					{'type':'actions'}];
+		
+	$("#EditarCantidadForm").html(crearElementosForm(ArrayDatos));
+}
+
 $(document).ready(function(){
+
+	RowCallBackFunction = function(nRow, aData, iDisplayIndex){
+		$(nRow).find('.btn-editar').click(function(e){
+			e.preventDefault();
+			cargarEditar(aData);
+			$('#modalEditarCantidad').modal('show');
+			var index = $(DetOrdPedProductosTable.fnGetData()).getIndexObj(aData,'id');
+			$('#EditarCantidadForm').unbind();
+			$('#EditarCantidadForm').submit(function(e){
+				e.preventDefault();
+				DetOrdPedProductosTable.fnUpdate($('#cantidadE').val(),index,2);
+				console.log(aData.cantidad);
+				$('#modalEditarCantidad').modal('hide');
+			});
+		});
+	}
 
 	$('.btn-proveedor').click(function(e){
 		e.preventDefault();
@@ -203,17 +247,20 @@ $(document).ready(function(){
 		$('#ordped').val(data.numero + " - " + data.serie);
 		$('#ordped_id').val(data.id);
 		$('#modalBuscarOrdPed').modal('hide');
+
+		UrlPedido = '{{ path("dicars_logistica_servicio_gettabladetordped",{'id':''}) }}/'+ data.id;
+		DetOrdPedProductosTable.fnReloadAjax(UrlPedido);
 	});
 	
 	$("#AgregarProductoForm").submit(function(e){
 		e.preventDefault();
 		if(SelectProductoData.length > 0){
 			SelectProductoData[0].cantidad = $('#cantidad').val();
-			SelectProductosTable.fnAddData(SelectProductoData);
+			DetOrdPedProductosTable.fnAddData(SelectProductoData);
 			$('#producto').val("");
 			$('#cantidad').val("");
 			SelectProductoData.pop();
-			Array2 = SelectProductosTable.fnGetData();
+			Array2 = DetOrdPedProductosTable.fnGetData();
 			CopyArray(SelectProductosTableData,Array2,false,Attr);
 		}
 	});
@@ -225,6 +272,17 @@ $(document).ready(function(){
 	RowCallBackFunctionProducto = getSimpleSelectRowCallBack(SelectProductoData,"select_producto_table");
 	RowCallBackFunctionOrdPed = getSimpleSelectRowCallBack(SelectOrdPedData,"select_ordped_table");
 	RowCallBackFunctionProveedor = getSimpleSelectRowCallBack(SelectProveedorData,"select_proveedor_table");
+
+	UrlaDTableOrdPedProductos = '{{ path("dicars_logistica_servicio_gettabladetordped",{'id':0}) }}';
+	FormatoDTableOrdPedProductos = [
+		              { "sWidth": "16%","mDataProp": "id"},
+		              { "sWidth": "16%","mDataProp": "nombre"},
+		              { "sWidth": "16%","mDataProp": "cantidad"},
+		              { "sWidth": "16%","mDataProp": "pcosto"},
+		              { "sWidth": "16%","mDataProp": "edit_btn"},
+		              { "sWidth": "16%","mDataProp": "elim_btn"}
+		              ];
+	DetOrdPedProductosTable = createDataTable('productos_table',UrlaDTableOrdPedProductos,FormatoDTableOrdPedProductos,null,RowCallBackFunction);
 
 	UrlaDTableProductos = '{{ path("dicars_logistica_servicio_gettablaproductos") }}';
 	FormatoDTableProductos = [
@@ -253,29 +311,6 @@ $(document).ready(function(){
 		              { "sWidth": "20%","mDataProp": "fecha_ent"}
 		              ];
 	BuscarOrdPedTable = createDataTable('select_ordped_table',UrlaDTableOrdPed,FormatoDTableOrdPed,null,RowCallBackFunctionOrdPed);
-	
-	SelectProductosTable = $("#productos_table").dataTable({
-		"aoColumns": [
-		              { "sWidth": "12%","mDataProp": "id"},
-		              { "sWidth": "12%","mDataProp": "nombre"},
-		              { "sWidth": "12%","mDataProp": "cantidad"},
-		              { "sWidth": "12%","mDataProp": "elim_btn"}
-		              ],
-		"fnCreatedRow": function( nRow, aData, iDisplayIndex ) {
-			$(nRow).find('a').click(function(e){
-				e.preventDefault();
-				var index = $(SelectProductosTable.fnGetData()).getIndexObj(aData,'id');
-				SelectProductosTable.fnDeleteRow( index );
-				Array2 = SelectProductosTable.fnGetData();
-				CopyArray(SelectProductosTableData,Array2,false,Attr);
-			});
-		},
-		"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span12'i><'span12 center'p>>",
-		"sPaginationType": "bootstrap",
-		"oLanguage": {
-		"sLengthMenu": "_MENU_ records per page"
-		}
-	});
 
 	enviar("RegistrarPedidoForm",logdata,SelectProductosTableData);
 	

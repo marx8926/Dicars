@@ -313,6 +313,9 @@ public function getTablaProductosAction(){
 	
 			$todo[] = array('id' => $detordped -> getNdetordpedId(),
 					'producto_serie' => $producto -> getCproductoserie(),
+					'nombre' => $producto -> getCproductodesc(),
+					'stock' => $producto -> getNproductostock(),
+					'pcosto' => $producto -> getNproductopcosto(),
 					'cantidad' => $detordped -> getNdetordpedcant(),
 					'estado' => $detordped -> getCdetordpedest(),
 					'cantidad_rec' => $detordped -> getNdetordpedcantacept(),

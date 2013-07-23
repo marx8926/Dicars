@@ -272,11 +272,11 @@ function crearElementosForm(Array){
 function addElemento(obj){
 	switch (obj.type) {
 	    case 'input': 
-	    		$elem = $('<input class="input-xlarge focused" id="focusedInput" name="'+obj.name+'" type="'+obj.typeinput+'" pattern="'+obj.pattern+'" title="'+obj.title+'" required="'+obj.req+'" maxlength="'+obj.max+'">');
+	    		$elem = $('<input class="input-xlarge focused" id="'+obj.name+'" name="'+obj.name+'" type="'+obj.typeinput+'" pattern="'+obj.pattern+'" title="'+obj.title+'" required="'+obj.req+'" maxlength="'+obj.max+'">');
 	    		$elem.val(obj.value);
 	    		break;
 	    case 'inputnumber':
-		    	$elem = $('<input class="input-xlarge focused" id="focusedInput" name="'+obj.name+'" type="number" required="'+obj.req+'" step="'+obj.step+'" min="'+obj.min+'" max="'+obj.max+'">');
+		    	$elem = $('<input class="input-xlarge focused" id="'+obj.name+'" name="'+obj.name+'" type="number" required="'+obj.req+'" step="'+obj.step+'" min="'+obj.min+'" max="'+obj.max+'">');
 	    		$elem.val(obj.value);
 	    		break;
 	    case 'file':
