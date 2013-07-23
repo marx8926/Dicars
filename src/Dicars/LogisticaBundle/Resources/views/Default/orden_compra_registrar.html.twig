@@ -5,87 +5,98 @@
 	<a href="{{path('dicars_logistica_homepage')}}">Logística</a><span class="divider">/</span>
 </li>
 <li>
-	<a href="{{path('dicars_logistica_pedidos')}}">Pedidos</a><span class="divider">/</span>
+	<a href="{{path('dicars_logistica_pedidos')}}">Orden Compra</a><span class="divider">/</span>
 </li>
 <li>
-	<a href="{{path('dicars_logistica_pedidos_registrar')}}">Registrar Pedido</a>
+	<a href="{{path('dicars_logistica_orden_compra_registrar')}}">Registrar Orden de Compra</a>
 </li>
 {% endblock %}
 {% block content %}
-<div class="row-fluid sortable">		
+<div class="row-fluid">		
 	<div class="box span12">
 		<div class="box-header well" data-original-title>
-			<h2>Registrar Pedidos</h2>
+			<h2>Registrar Orden de Compra</h2>
 		</div>
 		<div class="box-content">
-			<form id="RegistrarPedidoForm" class="form-horizontal" method="post" action="{{ path('dicars_logistica_registrar_pedido') }}">
+			<form id="RegistrarOrdenCompraForm" class="form-horizontal" method="post" action="{{ path('dicars_logistica_registrar_pedido') }}">
 				<fieldset>
 					<div class="row-fluid">
 						<div class="span6">
 							<div class="control-group">
 								<label class="control-label" for="codigo">Código</label>
 								<div class="controls">
-									<input class="input-xlarge focused" id="codigo" name="codigo" type="text">
+									<input id="serie" name="serie" type="text" style="width:40px;" maxlength="4">
+									-
+									<input id="numero" name="numero" type="text" style="width:60px;" maxlength="8">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="registrador">Registrador</label>
 								<div class="controls">
-									<input class="input-xlarge focused" id="registrador" name="registrador" type="text">
+									<input class="input-xlarge focused" id="registrador" name="registrador" type="text" readonly>
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label" for="motivo">Tipo</label>
+								<label class="control-label" for="ordped">Orden de Pedido</label>
 								<div class="controls">
-									<select id="tipo" data-rel="chosen" name="tipo">
-										<option>Option 1</option>
-										<option>Option 2</option>
-										<option>Option 3</option>
-										<option>Option 4</option>
-										<option>Option 5</option>
-									</select>
+									<input class="input-xlarge focused" id="ordped" name="ordped" type="text" readonly>
+									<input id="ordped_id" name="ordped_id" type="hidden">
+					  				<button type="button" class="btn btn-info btn-ordped" style="margin: 0 18px;"><i class="icon-search icon-white"></i></button>
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label" for="tienda">Tienda</label>
+								<label class="control-label" for="proveedor">Proveedor</label>
 								<div class="controls">
-								  	<select id="tienda" data-rel="chosen" name="tienda">
-										<option>Option 1</option>
-										<option>Option 2</option>
-										<option>Option 3</option>
-										<option>Option 4</option>
-										<option>Option 5</option>
-									</select>
+									<input class="input-xlarge focused" id="proveedor" name="proveedor" type="text" readonly>
+									<input id="proveedor_id" name="proveedor_id" type="hidden">
+					  				<button type="button" class="btn btn-info btn-proveedor" style="margin: 0 18px;"><i class="icon-search icon-white"></i></button>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="observaciones">Observaciones</label>
+								<div class="controls">
+									<textarea id="observaciones" name="observaciones" class="input-xlarge" rows="4"></textarea>
 								</div>
 							</div>
 						</div>
 						<div class="span6">
 							<div class="control-group">
-								<label class="control-label" for="fechapedido">Fecha de Pedido</label>
+								<label class="control-label" for="subtotal">Subtotal</label>
 								<div class="controls">
-									<input class="input-xlarge datepicker" id="fechapedido" name="fechapedido" type="text">
+									<input class="input-xlarge" id="subtotal" name="subtotal" type="number" step="0.10">
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label" for="fechaentrega">Fecha de Entrega</label>
+								<label class="control-label" for="igv">IGV</label>
 								<div class="controls">
-									<input class="input-xlarge datepicker" id="fechaentrega" name="fechaentrega" type="text">
+									<select id="igv" name="igv">
+									</select>
 								</div>
 							</div>
-							
 							<div class="control-group">
+								<label class="control-label" for="total">Total</label>
 								<div class="controls">
-									<label class="checkbox inline">
-										<input type="checkbox" id="checkgerencia" value="option1">Enviar Correo a Gerencia
-									</label>
+									<input class="input-xlarge" id="total" name="total" type="number" step="0.10">
 								</div>
 							</div>
-						</div>
-					</div>
-					<div class="control-group">
-						<label class="control-label" for="observaciones">Observaciones</label>
-						<div class="controls">
-							<textarea id="observaciones" name="observaciones" class="input-xlarge"></textarea>
+							<div class="control-group">
+								<label class="control-label" for="descuento">Descuento</label>
+								<div class="controls">
+									<input class="input-xlarge" id="descuento" name="descuento" type="number" step="0.10">
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="recequiv">Recargo de Equivalencia</label>
+								<div class="controls">
+									<input class="input-xlarge" id="recequiv" name="recequiv" type="number" step="0.10">
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="retencion">Retención</label>
+								<div class="controls">
+									<input class="input-xlarge" id="retencion" name="retencion" type="number" step="0.10">
+								</div>
+							</div>
 						</div>
 					</div>
 				</fieldset>
@@ -103,7 +114,7 @@
 				</div>
 			</form>
 			<hr>
-			<h3>Productos de Pedido</h3>
+			<h3>Productos de Orden de Compra</h3>
 			<hr>
 			<table id="productos_table" class="table table-striped table-bordered bootstrap-datatable datatable">
 				<thead>
@@ -125,6 +136,8 @@
 					<button id="btn_enviar_pedido" type="button" class="btn btn-primary"><i class="icon icon-white icon-save"></i>Guardar</button>
 				</div>
 			</div>
+			{% include 'DicarsLogisticaBundle:Default:buscarproveedor.html.twig' %}
+			{% include 'DicarsLogisticaBundle:Default:buscarordped.html.twig' %}
 			{% include 'DicarsVentasBundle:Default:buscarproducto.html.twig' %}
 		</div>
 	</div>
@@ -137,6 +150,8 @@
 
 // Se almacena el producto seleccionado
 var SelectProductoData = new Array();
+var SelectProveedorData = new Array();
+var SelectOrdPedData = new Array();
 //Se almacena la data de la tabla de los productos seleccionados
 var SelectProductosTableData =  new Array();
 
@@ -146,8 +161,20 @@ var BuscarProductosTable;
 var SelectProductosTable;
 
 var RowCallBackFunctionProducto;
+var RowCallBackFunctionProveedor;
+var RowCallBackFunctionOrdPed;
 
 $(document).ready(function(){
+
+	$('.btn-proveedor').click(function(e){
+		e.preventDefault();
+		$('#modalBuscarProveedor').modal('show');
+	});
+
+	$('.btn-ordped').click(function(e){
+		e.preventDefault();
+		$('#modalBuscarOrdPed').modal('show');
+	});
 	
 	//mostrar Buscar Producto------------------------------------>
 	$('.btn-buscarp').click(function(e){
@@ -162,6 +189,22 @@ $(document).ready(function(){
 		$('#modalBuscarProducto').modal('hide');
 	});
 
+	$("#select_proveedor").click(function(e){
+		e.preventDefault();
+		var data = SelectProveedorData[0];
+		$('#proveedor').val(data.razonsocial);
+		$('#proveedor_id').val(data.id);
+		$('#modalBuscarProveedor').modal('hide');
+	});
+
+	$("#select_ordped").click(function(e){
+		e.preventDefault();
+		var data = SelectOrdPedData[0];
+		$('#ordped').val(data.numero + " - " + data.serie);
+		$('#ordped_id').val(data.id);
+		$('#modalBuscarOrdPed').modal('hide');
+	});
+	
 	$("#AgregarProductoForm").submit(function(e){
 		e.preventDefault();
 		if(SelectProductoData.length > 0){
@@ -180,6 +223,8 @@ $(document).ready(function(){
 	});
 
 	RowCallBackFunctionProducto = getSimpleSelectRowCallBack(SelectProductoData,"select_producto_table");
+	RowCallBackFunctionOrdPed = getSimpleSelectRowCallBack(SelectOrdPedData,"select_ordped_table");
+	RowCallBackFunctionProveedor = getSimpleSelectRowCallBack(SelectProveedorData,"select_proveedor_table");
 
 	UrlaDTableProductos = '{{ path("dicars_logistica_servicio_gettablaproductos") }}';
 	FormatoDTableProductos = [
@@ -190,6 +235,25 @@ $(document).ready(function(){
 		              ];
 	BuscarProductosTable = createDataTable('select_producto_table',UrlaDTableProductos,FormatoDTableProductos,null,RowCallBackFunctionProducto);
 
+	UrlaDTableProveedores = '{{ path("dicars_logistica_servicio_gettablaproveedores") }}';
+	FormatoDTableProveedores = [
+		              { "sWidth": "12%","mDataProp": "id"},
+		              { "sWidth": "12%","mDataProp": "razonsocial"},
+		              { "sWidth": "12%","mDataProp": "ruc"},
+		              { "sWidth": "12%","mDataProp": "telefono"}
+		              ];
+	BuscarProveedoresTable = createDataTable('select_proveedor_table',UrlaDTableProveedores,FormatoDTableProveedores,null,RowCallBackFunctionProveedor);
+
+	UrlaDTableOrdPed = '{{ path("dicars_logistica_servicio_gettablaordpeds") }}';
+	FormatoDTableOrdPed = [
+		              { "sWidth": "20%","mDataProp": "id"},
+		              { "sWidth": "20%","mDataProp": "numero"},
+		              { "sWidth": "20%","mDataProp": "serie"},
+		              { "sWidth": "20%","mDataProp": "fecha_reg"},
+		              { "sWidth": "20%","mDataProp": "fecha_ent"}
+		              ];
+	BuscarOrdPedTable = createDataTable('select_ordped_table',UrlaDTableOrdPed,FormatoDTableOrdPed,null,RowCallBackFunctionOrdPed);
+	
 	SelectProductosTable = $("#productos_table").dataTable({
 		"aoColumns": [
 		              { "sWidth": "12%","mDataProp": "id"},

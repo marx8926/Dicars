@@ -68,7 +68,8 @@ public function getTablaProductosAction(){
 		foreach ($proveedores as $key => $proveedor){
 			$todo[] = array('id' => $proveedor -> getNproveedorId(), 
 					'ruc' => $proveedor -> getCproveedorruc(),
-					'razonsocial' => $proveedor -> getCproveedorrazsocial(), 'telefono' => $proveedor -> getCproveedortel(),
+					'razonsocial' => $proveedor -> getCproveedorrazsocial(), 
+					'telefono' => $proveedor -> getCproveedortel(),
 					'ccorriente' => $proveedor -> getCproveedorccorriente(),
 					'direccion' => $proveedor -> getCproveedordirec(),
 					'email' => $proveedor -> getCproveedoremail(), 

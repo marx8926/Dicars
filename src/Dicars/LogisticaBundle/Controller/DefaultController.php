@@ -111,4 +111,8 @@ class DefaultController extends Controller
     			'estado' => $Pedido->getCordpedest()
     	));
     }
+    public function orden_compra_registrarAction()
+    {
+    	return $this->render('DicarsLogisticaBundle:Default:orden_compra_registrar.html.twig');
+    }
 }
