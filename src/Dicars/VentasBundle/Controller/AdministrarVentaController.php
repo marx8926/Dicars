@@ -1,6 +1,10 @@
 <?php
 namespace Dicars\VentasBundle\Controller;
 
+use Dicars\DataBundle\Entity\VenCronpago;
+
+use Dicars\DataBundle\Entity\VenCredito;
+
 use Dicars\DataBundle\Entity\VenDetventa;
 
 use Dicars\DataBundle\Entity\VenVenta;
@@ -31,6 +35,7 @@ class AdministrarVentaController extends Controller {
 		$Saldo = null;
 		$Total = null;
 		$NumCuotas = null;
+		$FechaDiaPago = null;
 		
 		
 		if ($form!=null){
@@ -63,6 +68,7 @@ class AdministrarVentaController extends Controller {
 			$Total = $datos["total"];
 			
 			$NumCuotas = $datos["num_cuotas"];
+			$FechaDiaPago = date_create_from_format('d/m/Y', $datos["prim_cuota"]);
 			
 			$Venta = new VenVenta();
 			$Venta -> setCventaest($Estado);
@@ -108,6 +114,36 @@ class AdministrarVentaController extends Controller {
 					
 					$em->persist($DetVenta);
 					$em->flush();
+				}
+				
+				if($TipoPago == '2'){
+				
+					$VentaCredito = new VenCredito();
+					$VentaCredito -> setCcreditoest("1");
+					$VentaCredito -> setNcreditoformapag($TipoPago);
+					$VentaCredito -> setNvencreditomontinicial($Amortizacion);
+					$VentaCredito -> setNvencreditoncuota($NumCuotas);
+					$VentaCredito -> setNvencreditoppag(100/$NumCuotas);
+					$VentaCredito -> setNventa($Venta);
+					
+					$em->persist($VentaCredito);
+					$em->flush();
+					
+					for($i = 0 ; $i < $NumCuotas; $i++){
+						
+						$CronoPago = new VenCronpago();
+						$CronoPago -> setNcronpagofecpago($FechaDiaPago);
+						$CronoPago -> setNcronpagofecreg($FechaDiaPago);
+						$CronoPago -> setNcronpagomoncouapg(0);
+						$CronoPago -> setNcronpagomoncouapl(0);
+						$CronoPago -> setNvencredito($VentaCredito);
+						$CronoPago -> setNcronpagonrocuota($i+1);
+						
+						$em->persist($CronoPago);
+						$em->flush();
+						
+						$FechaDiaPago -> modify('+7 day');
+					}
 				}
 				
 			} catch (Exception $e) {
