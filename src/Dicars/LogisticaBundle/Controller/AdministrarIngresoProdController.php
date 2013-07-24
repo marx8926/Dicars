@@ -113,26 +113,45 @@ class AdministrarIngresoProdController extends Controller{
 		$datos = array();
 		parse_str($form,$datos);
 				
-		$Ingreso_cantidad = null;
-		$Ingreso_precio = null;
+		$Ingreso_motivo = null;
 		
 		if($form =! null){
-			$Ingreso_id = $datos["idE"];
-			$Ingreso_cantidad = $datos["cantidadE"];
-			$Ingreso_precio = $datos["precioE"];
+			$Ingreso_id = $datos["idingprod"];
+			$Ingreso_id = $datos["motivo"];
 			
 			$Ingreso = $this->getDoctrine()
-			->getRepository('DicarsDataBundle:LogDetingprod')
-			->findOneBy(array('ndetingprodId' => $Ingreso_id));
+			->getRepository('DicarsDataBundle:LogIngprod')
+			->findOneBy(array('ningprodId' => $Ingreso_id));
 			
-			$Ingreso->setNdetingprodcant($Ingreso_cantidad);
-			$Ingreso->setNdetingprodprecunt($Ingreso_precio);
+			$Ingreso->setNingprodmotivo($Ingreso_motivo);
 			
 			$em = $this->getDoctrine()->getEntityManager();
 			$this->getDoctrine()->getEntityManager()->beginTransaction();
 				
 			try {
 				$em->flush();
+				
+				foreach($otherdata as $key => $data){
+					$bandera = null;
+					if($data["band"]=2){
+						
+						$Producto = $this->getDoctrine()
+						->getRepository('DicarsDataBundle:LogDetingprod')
+						->findOneBy(array('ndetingprodId' => $data["id"]));
+						
+						$DetalleIngProd = new LogDetingprod();
+						$DetalleIngProd -> setNdetingprodcant($data["cantidad"]);
+						$DetalleIngProd -> setNdetingprodprecunt($data["precio_uni"]);
+						$DetalleIngProd -> setNdetingprodtot($data["cantidad"]*$data["precio_uni"]);
+						
+						$em->persist($DetalleIngProd);
+						$em->flush();
+						
+					}else{
+						
+					}										
+					
+				}
 			} catch (Exception $e) {
 				$this->getDoctrine()->getEntityManager()->rollback();
 				$this->getDoctrine()->getEntityManager()->close();

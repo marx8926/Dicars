@@ -16,7 +16,7 @@
 			<h2>Salida Productos: Ver Datos</h2>
 		</div>
 		<div class="box-content">
-			<div id="RegistrarIngresoForm" class="form-horizontal">
+			<form id="RegistrarIngresoForm" class="form-horizontal" method="post" action = "{{ path('dicars_logistica_editar_ingreso_producto') }}">
 				<fieldset>
 					<div class="row-fluid">
 						<div class="span6">
@@ -24,6 +24,7 @@
 								<label class="control-label" for="codigo">Código</label>
 								<div class="controls">
 									<span class="help-inline" style="margin-top:5px;">{{ serie }} - {{ nro }}</span>
+									<input type="hidden" name="idingprod" value="{{ id }}">
 								</div>
 							</div>
 							<div class="control-group">
@@ -75,7 +76,7 @@
 						</div>
 					</div>
 				</fieldset>
-			</div>
+			</form>
 			<hr>
 			<h3>Productos a Salir</h3>
 			<hr>
@@ -95,6 +96,7 @@
 			<div class="form-horizontal">
 				<div class="form-actions">
 					<a href="{{ path('dicars_logistica_cons_ingresoproductos') }}" class="btn btn-primary">Volver</a>
+					<button id="btn_enviar_cambios" type="button" class="btn btn-primary"><i class="icon icon-white icon-save"></i>Guardar</button>
 				</div>
 			</div>
 		</div>			
@@ -103,11 +105,8 @@
 				<button type="button" class="close" data-dismiss="modal">x</button>
 				<h3>Editar Datos del Ingreso</h3>
 			</div>
-			<div class="modal-body">
-				<!--<form id="EditarIngresoForm" class="form-horizontal" method="post" action="{{ path ('dicars_logistica_editar_ingresoproductos',{'idingprode':''}) }}/"+id }}">
-				</form> -->
-				
-				<form id="EditarIngresoForm" class="form-horizontal" method="post" action="{{ path ('dicars_logistica_editar_ingreso_producto') }}">
+			<div class="modal-body">			
+				<form id="EditarIngresoForm" class="form-horizontal">
 				</form>
 			</div>
 			</div>		
@@ -119,7 +118,10 @@
 <script src="{{ asset('js/util/functiongen.js') }}"></script>
 <script src="{{ asset('js/util/datatable_plugins.js') }}"></script>
 <script type="text/javascript">
+var SelectProductosTableData =  new Array();
+var Attr = ['id','cantidad','precio_uni', 'band', 'total'];
 var ReloadTableEditar;
+var DetIngProductosTable;
 
 function cargarEditar(detingprode){
 	ArrayDatos = [	{'type':'hidden','value':detingprode.id,'name':'idE'},
@@ -137,8 +139,25 @@ $(document).ready(function(){
 			e.preventDefault();
 			cargarEditar(aData);
 			$('#modalEditarDatos').modal('show');
+			var index = $(DetIngProductosTable.fnGetData()).getIndexObj(aData,'id');
+			$('#EditarIngresoForm').unbind();
+			$('#EditarIngresoForm').submit(function(e){
+				e.preventDefault();
+				DetIngProductosTable.fnUpdate($('#cantidadE').val(),index,1);
+				DetIngProductosTable.fnUpdate($('#precioE').val(),index,2);
+				DetIngProductosTable.fnUpdate(($('#precioE').val()*$('#cantidadE').val()),index,3);
+				aData.band = 1;
+				Array2 = DetIngProductosTable.fnGetData();
+				CopyArray(SelectProductosTableData,Array2,false,Attr);
+				$('#modalEditarDatos').modal('hide');
+				console.log(DetIngProductosTable.fnGetData());
 		});
+	});
 	};
+
+	$("#btn_enviar_cambios").click(function(e){
+		$("#RegistrarIngresoForm").submit();
+	});
 	
 	UrlaDTableProductos = "{{ path('dicars_logistica_servicio_gettabladetingprod',{'id':''}) }}/{{ id }}";
 	FormatoDTableProductos = [
@@ -148,10 +167,9 @@ $(document).ready(function(){
 		              { "sWidth": "13%","mDataProp": "total"},
 		              { "sWidth": "12%","mDataProp": "edit_btn"}
 		              ];
-	BuscarProductosTable = createDataTable('deting_productos_table',UrlaDTableProductos,FormatoDTableProductos, null, RowCallBackFunction);
+	DetIngProductosTable = createDataTable('deting_productos_table',UrlaDTableProductos,FormatoDTableProductos, null, RowCallBackFunction);
 
-	ReloadTableEditar = reloadclosemodal('modalEditarDatos','deting_productos_table');
-	enviar('EditarIngresoForm',ReloadTableEditar);
+	enviar("RegistrarIngresoForm",logdata,SelectProductosTableData);
 });
 </script>
 {% endblock %}

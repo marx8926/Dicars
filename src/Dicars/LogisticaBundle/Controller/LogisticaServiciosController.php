@@ -344,6 +344,7 @@ public function getTablaProductosAction(){
 					'cantidad' => $detingprod -> getNdetingprodcant(),
 					'precio_uni' => $detingprod -> getNdetingprodprecunt(),
 					'total' => $detingprod -> getNdetingprodtot(),
+					'band' => 0,
 					'ver_btn' => "<a id-data='".$detingprod -> getNdetingprodId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
 					'edit_btn' => "<a id-data='".$detingprod -> getNdetingprodId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
 					'elim_btn' => "<a id-data='".$detingprod -> getNdetingprodId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");	
