@@ -60,6 +60,14 @@
 						  <textarea class="input-xlarge" name="descripcion" maxlength="200" id="descripcion" rows="2" cols=""></textarea>
 						</div>
 					  </div>
+					<div class="control-group">
+						<label class="control-label" for="descuento">Venta Descuento</label>
+						<div class="controls">
+							<div class="input-prepend input-append">
+								<input class="input-xlarge focused " name="descuento" id="descuento" type="number" min="0" max="100" value="0" required><span id="spandesc" class="add-on">%</span>
+							</div>
+						</div>
+					</div>
 					  <table id="select_producto_table" class="table table-striped table-bordered bootstrap-datatable datatable">
 						  <thead>
 							  <tr>
@@ -155,7 +163,7 @@ $(document).ready(function(){
 		              { "sWidth": "12%","mDataProp": "desc"},
 		              { "sWidth": "12%","mDataProp": "fecvigente"},
 		              { "sWidth": "12%","mDataProp": "fecvencimiento"},
-		              { "sWidth": "12%","mDataProp": "desc"},
+		              { "sWidth": "12%","mDataProp": "descuento"},
 		              { "sWidth": "12%","mDataProp": "estado"},
 		              { "sWidth": "12%","mDataProp": "edit_btn"}
 		              ];

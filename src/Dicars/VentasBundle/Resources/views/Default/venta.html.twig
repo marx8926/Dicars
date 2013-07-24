@@ -306,17 +306,17 @@ function VentaUpdate(){
 		$("#cuotas_block").hide();
 		$("#monto_productos").val(totalcredito);
 	}
-	montodesc = ($("#monto_productos").val()*des/100).toFixed(2)
+	montodesc = ($("#monto_productos").val()*des/100).toFixed(2);
 	
 	$("#subtotal").val(($("#monto_productos").val()*(100/(igv+100))*(100-des)/100).toFixed(2));
-	montoigv = ($("#subtotal").val()*igv/100).toFixed(2)
+	montoigv = ($("#subtotal").val()*igv/100).toFixed(2);
 	$("#total").val(($("#subtotal").val()*(100+igv)/100).toFixed(2));
-	$("#saldo").val(($("#total").val()-$("#amortizacion").val()).toFixed(2))
+	$("#saldo").val(($("#total").val()-$("#amortizacion").val()).toFixed(2));
 	$("#spandesc").text("% "+TipoMoneda+" "+montodesc);
 	$("#spanigv").text("% "+TipoMoneda+" "+montoigv);
 
 	$("#spanamort").text(TipoMoneda);
-	mosntocuota = $("#saldo").val()/$("#num_cuotas").val()
+	mosntocuota = $("#saldo").val()/$("#num_cuotas").val();
 		
 	$("#spancouota").text("x "+TipoMoneda+" "+mosntocuota.toFixed(2));
 }

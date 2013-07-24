@@ -127,19 +127,21 @@ class VentaServiciosController extends Controller{
 			->getRepository('DicarsDataBundle:OfertaProducto')
 			->findOneBy(array('nofertaproductoId' => $oferta -> getNofertaId() ));
 			
+			$FechaHoy = new \DateTime();
+			
 			$estado = '';
-			$estadochar = $ofertaproducto -> getCofertaproductoest();
-			if($estadochar=="1")
-				$estado = "<span class='label label-success'>Habilidado</span>";
+			if($FechaHoy<=$oferta -> getDofertafecvigente())
+				$estado = "<span class='label label-warning'>Pendiente</span>";
+			else if ($FechaHoy >= $oferta -> getDofertafecvigente() && $FechaHoy <= $oferta -> getDofertafecvencto())
+				$estado = "<span class='label label-success'>Vigente</span>";
 			else
-				$estado = "<span class='label label-important'>Inhabilitado</span>";
+				$estado = "<span class='label label-important'>No Vigentete</span>";
 			
 			$todo[] = array(
 					'id' => $oferta -> getNofertaId() ,
 					'desc' => $oferta -> getCofertadesc(),
 					'descuento' => $ofertaproducto -> getNofertaproductoporc(),
 					'estado' => $estado,
-					'estadochart' => $estadochar,
 					'fecvigente' => $oferta -> getDofertafecvigente() -> format('d/m/Y'),
 					'fecvencimiento' => $oferta -> getDofertafecvencto() -> format('d/m/Y'),
 					'edit_btn' => "<a id-data='".$oferta -> getNofertaId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
@@ -210,6 +212,41 @@ class VentaServiciosController extends Controller{
 					'edit_btn' => "<a class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
 					'elim_btn' => "<a class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
 		}
+		return new JsonResponse(array('aaData' => $todo));
+	}
+	
+	public function getTablaOfertaProductoByIdAction($idOferta){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$OfertasProductos = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:OfertaProducto')
+		->findBy(array('noferta' => $idOferta ));
+			
+		$em->clear();
+		
+		$todo = array();
+		foreach ($OfertasProductos as $key => $OfertaProducto){
+			$Producto = $OfertaProducto -> getNproducto();
+			
+			if($OfertaProducto -> getCofertaproductoest() == 0)
+				$estado = "<span class='label label-important'>Desactivado</span>";
+			else
+				$estado = "<span class='label label-success'>Activo</span>";
+			
+			$todo[] = array(
+				'idproductopedido' => $OfertaProducto -> getNofertaproductoId(), 
+				'idproducti' => $Producto -> getNproductoId(),
+				'talla' => $Producto -> getCproductotalla() ,
+				'nombre' => $Producto -> getCproductodesc(),
+				'pcontado' => $Producto -> getNproductopcontado(),
+				'pcredito' => $Producto -> getNproductopcredito(),
+				'stock' => $Producto -> getNproductostock(),
+				'marca' => $Producto -> getNproductomarca() -> getCmarcadesc(),
+				'labelestado' => $estado,
+				'estado' => $OfertaProducto -> getCofertaproductoest(),
+				'btn' => "<a class='btn btn-info btn-datos' href='#'><i class='icon-edit icon-white'></i>Estado</a>");
+		}
+		
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	

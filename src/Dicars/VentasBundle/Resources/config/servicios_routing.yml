@@ -25,3 +25,7 @@ dicars_ventas_servicio_gettablaofertas:
 dicars_ventas_servicio_getventaproductossinoferta:
     pattern:  /servicio_getventaproductossinoferta
     defaults: { _controller: DicarsVentasBundle:VentaServicios:getTablaVentaProductoSinOferta } 
+    
+dicars_ventas_servicio_gettablaofertaproductosbyid:
+    pattern:  /servicio_gettablaofertaproductosbyid/{idOferta}
+    defaults: { _controller: DicarsVentasBundle:VentaServicios:getTablaOfertaProductoById } 

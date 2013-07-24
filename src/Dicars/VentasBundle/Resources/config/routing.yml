@@ -52,4 +52,8 @@ dicars_ventas_ofertas:
     
 dicars_ventas_resumen_venta:
     pattern: /resumen_venta
-    defaults: { _controller: DicarsVentasBundle:Default:resumen_venta }    
+    defaults: { _controller: DicarsVentasBundle:Default:resumen_venta }
+    
+dicars_ventas_editar_oferta:
+    pattern: /editar_oferta/{idoferta}
+    defaults: { _controller: DicarsVentasBundle:Default:editar_oferta }  

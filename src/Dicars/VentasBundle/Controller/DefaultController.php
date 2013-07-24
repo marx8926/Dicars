@@ -59,4 +59,32 @@ class DefaultController extends Controller
     {
     	return $this->render('DicarsVentasBundle:Default:resumen_venta.html.twig');
     }
+    
+    public function editar_ofertaAction($idoferta)
+    {
+    	$oferta = $this->getDoctrine()
+    	->getRepository('DicarsDataBundle:Oferta')
+    	->findOneBy(array('nofertaId' => $idoferta));
+    	
+    	$ofertaproducto = $this->getDoctrine()
+    	->getRepository('DicarsDataBundle:OfertaProducto')
+    	->findOneBy(array('nofertaproductoId' => $oferta -> getNofertaId() ));
+    	
+    	$estado = '';
+    	$estadochar = $ofertaproducto -> getCofertaproductoest();
+    	if($estadochar=="1")
+    		$estado = "<span class='label label-success'>Habilidado</span>";
+    	else
+    		$estado = "<span class='label label-important'>Inhabilitado</span>";
+    
+    	return $this->render('DicarsVentasBundle:Default:oferta_editar.html.twig',array(
+    			'id' => $oferta -> getNofertaId() ,
+				'desc' => $oferta -> getCofertadesc(),
+				'descuento' => $ofertaproducto -> getNofertaproductoporc(),
+				'estado' => $estado,
+				'estadochart' => $estadochar,
+				'fecvigente' => $oferta -> getDofertafecvigente() -> format('d/m/Y'),
+				'fecvencimiento' => $oferta -> getDofertafecvencto() -> format('d/m/Y')
+    	));
+    }
 }
