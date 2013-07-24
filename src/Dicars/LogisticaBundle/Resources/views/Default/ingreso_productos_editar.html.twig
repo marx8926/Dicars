@@ -5,12 +5,12 @@
 	<a href="{{path('dicars_logistica_homepage')}}">Logística</a><span class="divider">/</span>
 </li>
 <li>
-	<a href="{{path('dicars_logistica_reg_ingresoproductos')}}">Ingreso Productos: Ver</a>
+	<a href="{{path('dicars_logistica_reg_ingresoproductos')}}">Salida Productos: Ver</a>
 </li>
 </li>
 {% endblock %}
 {% block content %}
-<div class="row-fluid sortable">		
+<div class="row-fluid">		
 	<div class="box span12">
 		<div class="box-header well" data-original-title>
 			<h2>Salida Productos: Ver Datos</h2>
@@ -34,8 +34,8 @@
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="motivo">Motivo</label>
-								<div class="controls">
-									<span class="help-inline" style="margin-top:5px;">{{ motivo }}</span>
+								<div class="controls">									
+									<input class="input-xlarge focused" id="motivo" value="{{ motivo }}" type="text">
 								</div>
 							</div>
 							<div class="control-group">
@@ -50,6 +50,7 @@
 								<label class="control-label" for="fecha">Fecha</label>
 								<div class="controls">
 									<span class="help-inline" style="margin-top:5px;">{{ fecha_reg }}</span>
+									
 								</div>
 							</div>
 							<div class="control-group">
@@ -85,6 +86,7 @@
 						  <th>Cantidad</th>
 						  <th>Precio Unit</th>
 						  <th>Total</th>
+						  <th>Acciones</th>
 					  </tr>
 				</thead>   
 				<tbody>
@@ -95,7 +97,20 @@
 					<a href="{{ path('dicars_logistica_cons_ingresoproductos') }}" class="btn btn-primary">Volver</a>
 				</div>
 			</div>
-		</div>
+		</div>			
+			<div class="modal hide fade" id="modalEditarDatos" >
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">x</button>
+				<h3>Editar Datos del Ingreso</h3>
+			</div>
+			<div class="modal-body">
+				<!--<form id="EditarIngresoForm" class="form-horizontal" method="post" action="{{ path ('dicars_logistica_editar_ingresoproductos',{'idingprode':''}) }}/"+id }}">
+				</form> -->
+				
+				<form id="EditarIngresoForm" class="form-horizontal" method="post" action="{{ path ('dicars_logistica_editar_ingreso_producto') }}">
+				</form>
+			</div>
+			</div>		
 	</div>
 </div>
 {% endblock %}
@@ -104,17 +119,39 @@
 <script src="{{ asset('js/util/functiongen.js') }}"></script>
 <script src="{{ asset('js/util/datatable_plugins.js') }}"></script>
 <script type="text/javascript">
+var ReloadTableEditar;
+
+function cargarEditar(detingprode){
+	ArrayDatos = [	{'type':'hidden','value':detingprode.id,'name':'idE'},
+	              	{'label':'Cantidad','type':'input','typeinput':'text','pattern':'|^([0-9]+\s*)+$|','title':'Debe tener el formato correcto', 'req':'', 'max':'15','value':detingprode.cantidad,'name':'cantidadE'},
+	              	{'label':'Precio','type':'inputnumber', 'req':'', 'step':'0.01', 'min':'0', 'max':'1000','value':detingprode.precio_uni,'name':'precioE'},
+	              	{'type':'actions'}];
+	
+	$("#EditarIngresoForm").html(crearElementosForm(ArrayDatos));
+}
 
 $(document).ready(function(){
 	
-	UrlaDTableProductos = '{{ path("dicars_logistica_servicio_gettabladetingprod",{'id':''}) }}/{{ id }}';
+	RowCallBackFunction = function(nRow, aData, iDisplayIndex){		
+		$(nRow).find('.btn-editar').click(function(e){
+			e.preventDefault();
+			cargarEditar(aData);
+			$('#modalEditarDatos').modal('show');
+		});
+	};
+	
+	UrlaDTableProductos = "{{ path('dicars_logistica_servicio_gettabladetingprod',{'id':''}) }}/{{ id }}";
 	FormatoDTableProductos = [
 		              { "sWidth": "25%","mDataProp": "producto_serie"},
 		              { "sWidth": "25%","mDataProp": "cantidad"},
 		              { "sWidth": "25%","mDataProp": "precio_uni"},
-		              { "sWidth": "25%","mDataProp": "total"},
+		              { "sWidth": "13%","mDataProp": "total"},
+		              { "sWidth": "12%","mDataProp": "edit_btn"}
 		              ];
-	BuscarProductosTable = createDataTable('deting_productos_table',UrlaDTableProductos,FormatoDTableProductos);
+	BuscarProductosTable = createDataTable('deting_productos_table',UrlaDTableProductos,FormatoDTableProductos, null, RowCallBackFunction);
+
+	ReloadTableEditar = reloadclosemodal('modalEditarDatos','deting_productos_table');
+	enviar('EditarIngresoForm',ReloadTableEditar);
 });
 </script>
 {% endblock %}

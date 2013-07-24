@@ -49,6 +49,7 @@
 					  	<th>Serie Documento</th>					  	
 					  	<th></th>
 					  	<th></th>
+					  	<th></th>
 				  	</tr>
 			  	</thead>
 			</table>
@@ -69,11 +70,9 @@ var CargarBotones;
 CargarBotones = function(){
 	//mostrar Editar Cliente------------------------------------>
 	$('.btn-editar').unbind();
-	$('.btn-editar').click(function(e){
-		e.preventDefault();
-		$('#modalEditarDatos').modal('show');
+	$('.btn-editar').click(function(e){			
 		id=$(this).attr("id-data");		
-		cargarEditar(id);
+		$(this).attr('href',"{{ path('dicars_logistica_editar_ingresoproductos',{'idingprode':''}) }}/"+id);
 
 	});
 	//mostrar Ver Datos Trabajador------------------------------------>
@@ -92,7 +91,8 @@ $(document).ready(function(){
 		              { "sWidth": "15%","mDataProp": "serie"},
 		              { "sWidth": "15%","mDataProp": "numero"},
 		              { "sWidth": "15%","mDataProp": "serie_doc"},		              
-		              { "sWidth": "13%","mDataProp": "ver_btn"},		              
+		              { "sWidth": "13%","mDataProp": "ver_btn"},
+		              { "sWidth": "13%","mDataProp": "edit_btn"},		              
 		              { "sWidth": "14%","mDataProp": "elim_btn"}
 		              ];
 	oTable = createDataTable('ingreso_productos_table',UrlaDTable,FormatoDTable,CargarBotones);

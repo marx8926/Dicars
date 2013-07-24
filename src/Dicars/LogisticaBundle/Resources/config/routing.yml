@@ -64,3 +64,6 @@ dicars_logistica_ver_ingresoproductos:
 dicars_logistica_orden_compra_registrar:
     pattern:  /ordencompra_registrar
     defaults: { _controller: DicarsLogisticaBundle:Default:orden_compra_registrar }
+dicars_logistica_editar_ingresoproductos:
+    pattern:  /editar_ingresoproductos/{idingprode}
+    defaults: { _controller: DicarsLogisticaBundle:Default:editar_ingresoproductos }     

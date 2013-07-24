@@ -97,8 +97,8 @@
 							  <th>Código</th>
 							  <th>Nombre</th>
 							  <th>Cantidad</th>
-							  <th>Precio</th>
-							  <th>Acciones</th>
+							  <th>Precio</th>							  
+							  <th>Eliminar</th>
 						  </tr>
 					</thead>   
 					<tbody>					
@@ -108,8 +108,7 @@
 				<div class="form-actions">
 					<button class="btn" ><i class="icon-print"></i>Imprimir</button>
 					<button type="button" id="enviar_ingreso_producto" class="btn btn-primary"><i class="icon icon-white icon-save"></i>Guardar</button>
-				</div>
-				
+				</div>			
 								
 			{% include 'DicarsLogisticaBundle:Default:registrar_producto.html.twig' %}					
 			{% include 'DicarsVentasBundle:Default:buscarproducto.html.twig' %}			
@@ -172,7 +171,7 @@ $(document).ready(function(){
 		              { "sWidth": "12%","mDataProp": "id"},
 		              { "sWidth": "12%","mDataProp": "nombre"},
 		              { "sWidth": "12%","mDataProp": "stock"},
-		              { "sWidth": "12%","mDataProp": "precio_contado"}
+		              { "sWidth": "12%","mDataProp": "pcontado"}
 		              ];
 	BuscarProductosTable = createDataTable('select_producto_table',UrlaDTableProductos,FormatoDTableProductos,null,RowCallBackFunctionProducto);
 
@@ -181,11 +180,11 @@ $(document).ready(function(){
 		              { "sWidth": "12%","mDataProp": "id"},
 		              { "sWidth": "12%","mDataProp": "nombre"},
 		              { "sWidth": "12%","mDataProp": "cantidad"},
-		              { "sWidth": "12%","mDataProp": "precio_uni"},
+		              { "sWidth": "12%","mDataProp": "precio_uni"},		              
 		              { "sWidth": "12%","mDataProp": "elim_btn"}
 		              ],
 		       "fnCreatedRow": function( nRow, aData, iDisplayIndex ) {
-		        		$(nRow).find('a').click(function(e){
+		        		$(nRow).find('.btn-danger').click(function(e){
 		        		e.preventDefault();
 		        		var index = $(SelectProductosTable.fnGetData()).getIndexObj(aData,'id');
 		        		SelectProductosTable.fnDeleteRow( index );

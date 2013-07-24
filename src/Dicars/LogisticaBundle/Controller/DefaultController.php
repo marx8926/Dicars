@@ -76,6 +76,26 @@ class DefaultController extends Controller
     			'estado' => $IngProd->getCingprodest()
     	));
     }
+    public function editar_ingresoproductosAction($idingprode)
+    {
+    	$IngProd = $this->getDoctrine()
+    	->getRepository('DicarsDataBundle:LogIngprod')
+    	->findOneBy(array('ningprodId' => $idingprode));
+    
+    	return $this->render('DicarsLogisticaBundle:Default:ingreso_productos_editar.html.twig',array(
+    			'id' => $idingprode,
+    			'personal' => $IngProd->getNpersonal()->getCpersonalnom()." ".$IngProd->getNpersonal()->getCpersonalape(),
+    			'local' => $IngProd->getNlocal()->getClocaldesc(),
+    			'serie' => $IngProd->getCingprodserie(),
+    			'nro' => $IngProd->getCingprodnro(),
+    			'motivo' => $IngProd->getNingprodmotivo(),
+    			'serie_doc' => $IngProd->getCingproddocserie(),
+    			'fecha_reg' => $IngProd->getDingprodfecreg()->format('d/m/Y'),
+    			'serie_nro' => $IngProd->getCingproddocnro(),
+    			'observacion' => $IngProd->getCingprodobsv(),
+    			'estado' => $IngProd->getCingprodest()
+    	));
+    }
     public function cons_ingresoproductosAction()
     {
     	return $this->render('DicarsLogisticaBundle:Default:ingreso_productos_consultar.html.twig');

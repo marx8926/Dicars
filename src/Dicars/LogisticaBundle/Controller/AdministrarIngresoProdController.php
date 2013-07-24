@@ -105,4 +105,53 @@ class AdministrarIngresoProdController extends Controller{
 		return new Response($return,200,array('Content-Type'=>'application/json'));
 	}
 	
+	
+	public function EditarIngresoProdAction(){
+		$request = $this->get('request');
+		$form = $request->request->get('formulario');
+		
+		$datos = array();
+		parse_str($form,$datos);
+				
+		$Ingreso_cantidad = null;
+		$Ingreso_precio = null;
+		
+		if($form =! null){
+			$Ingreso_id = $datos["idE"];
+			$Ingreso_cantidad = $datos["cantidadE"];
+			$Ingreso_precio = $datos["precioE"];
+			
+			$Ingreso = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:LogDetingprod')
+			->findOneBy(array('ndetingprodId' => $Ingreso_id));
+			
+			$Ingreso->setNdetingprodcant($Ingreso_cantidad);
+			$Ingreso->setNdetingprodprecunt($Ingreso_precio);
+			
+			$em = $this->getDoctrine()->getEntityManager();
+			$this->getDoctrine()->getEntityManager()->beginTransaction();
+				
+			try {
+				$em->flush();
+			} catch (Exception $e) {
+				$this->getDoctrine()->getEntityManager()->rollback();
+				$this->getDoctrine()->getEntityManager()->close();
+				$return = array("responseCode"=>400, "greeting"=>"Bad");
+			
+				throw $e;
+			}
+			$this->getDoctrine()->getEntityManager()->commit();
+			$em->clear();
+			
+			$return = array("responseCode"=>200, "datos"=>$datos);
+				
+			}
+			else {
+				$return = array("responseCode"=>400, "greeting"=>"Bad");
+			}
+			
+			$return = json_encode($return);
+			return new Response($return,200,array('Content-Type'=>'application/json'));		
+	}
+	
 }
