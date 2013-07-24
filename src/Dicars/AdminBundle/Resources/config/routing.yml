@@ -44,3 +44,6 @@ dicars_admin_zonas:
 dicars_admin_tipomoneda:
     pattern:  /tipomoneda
     defaults: { _controller: DicarsAdminBundle:Default:tipomoneda }
+dicars_admin_tipoigv:
+    pattern:  /tipoigv
+    defaults: { _controller: DicarsAdminBundle:Default:tipoigv }

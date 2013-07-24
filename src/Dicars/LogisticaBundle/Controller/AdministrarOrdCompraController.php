@@ -63,7 +63,7 @@ class AdministrarOrdCompraController extends Controller{
 				
 			$OrdCompra = new  LogOrdcom();
 			$OrdCompra -> setNpersonal($Empleado);
-			$OrdCompra -> setNproveedor($Local);
+			$OrdCompra -> setNproveedor($Proveedor);
 			$OrdCompra -> setOrdcomfecreg($Fecha_reg);
 			$OrdCompra -> setCordcomserie($Serie);
 			$OrdCompra -> setCordcomnro($Numero);
@@ -83,20 +83,42 @@ class AdministrarOrdCompraController extends Controller{
 				$em->flush();
 	
 				foreach($otherdata as $key => $data){
+					$cantidad = $data['cantidad'];
+					$preciounit =  $data['pordcom'];
+					$importe = $cantidad * $preciounit;
+					
 					$Producto = $this->getDoctrine()
 					->getRepository('DicarsDataBundle:Producto')
-					->findOneBy(array('nproductoId' => $data['id']));
+					->findOneBy(array('nproductoId' => $data['idproducto']));
 						
 					$DetalleCompra = new LogDetcompra();
-					$DetalleCompra -> setNdetordpedcant($data['cantidad']);
-					$DetalleCompra -> setNordped($Pedido);
+					$DetalleCompra -> setNordencompra($OrdCompra);
+					$DetalleCompra -> setNdetcompracant($data['cantidad']);
+					$DetalleCompra -> setNdetcompraprecunt($data['pordcom']);
+					$DetalleCompra -> setNdetcompraimporte($importe);
 					$DetalleCompra -> setNproducto($Producto);
-					$DetalleCompra -> setNdetordpedcantacept(10);
-					$DetalleCompra -> setCdetordpedest('1');
+					$DetalleCompra -> setNdetordordped($data['iddetordped']);
+					$DetalleCompra -> setCdetcompraest($data['eordcom']);
+					
 					$em->persist($DetalleCompra);
 					$em->flush();
 						
+					if($data['iddetordped'] != 0){
+						$DetallePed = $this->getDoctrine()
+						->getRepository('DicarsDataBundle:LogDetordped')
+						->findOneBy(array('ndetordpedId' => $data['iddetordped']));
+							
+						$DetallePed -> setCdetordpedest($data['eordcom']);
+						
+						$em->flush();
+					}
 				}
+				
+				$OrdPed = $this->getDoctrine()
+					->getRepository('DicarsDataBundle:LogOrdped')
+					->findOneBy(array('nordpedId' => $datos['ordped_id']));
+				
+				$OrdPed -> setCordpedest(1); //atendida completamente
 	
 			} catch (Exception $e) {
 				$this->getDoctrine()->getEntityManager()->rollback();

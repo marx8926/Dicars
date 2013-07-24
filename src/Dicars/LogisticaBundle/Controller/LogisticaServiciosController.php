@@ -311,11 +311,14 @@ public function getTablaProductosAction(){
 		foreach ($detordpeds as $key => $detordped){
 			$producto = $detordped -> getNproducto();
 	
-			$todo[] = array('id' => $detordped -> getNdetordpedId(),
-					'producto_serie' => $producto -> getCproductoserie(),
+			$todo[] = array('iddetordped' => $detordped -> getNdetordpedId(),
+					'idproducto' => $producto -> getNproductoId(),
+					'serie' => $producto -> getCproductoserie(),
 					'nombre' => $producto -> getCproductodesc(),
 					'stock' => $producto -> getNproductostock(),
 					'pordcom' => 0,
+					'labeleordcom' => '<span class="label label-success">Atendido</span>',
+					'eordcom' => 1,
 					'pcosto' => $producto -> getNproductopcosto(),
 					'cantidad' => $detordped -> getNdetordpedcant(),
 					'estado' => $detordped -> getCdetordpedest(),
@@ -327,14 +330,14 @@ public function getTablaProductosAction(){
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
-		public function getTablaDetIngProdAction($id){
-			$em = $this->getDoctrine()->getEntityManager();
+	public function getTablaDetIngProdAction($id){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$detingprods = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:LogDetingProd')
+		->findBy(array('ningprod'=>$id));
 				
-			$detingprods = $this->getDoctrine()
-			->getRepository('DicarsDataBundle:LogDetingProd')
-			->findBy(array('ningprod'=>$id));
-					
-			$em->clear();
+		$em->clear();
 			
 		foreach ($detingprods as $key => $detingprod){
 			$producto = $detingprod -> getNproducto();

@@ -38,4 +38,8 @@ class DefaultController extends Controller
     {
     	return $this->render('DicarsAdminBundle:Default:tipo_moneda.html.twig');
     }
+    public function tipoigvAction()
+    {
+    	return $this->render('DicarsAdminBundle:Default:tipo_igv.html.twig');
+    }
 }
