@@ -18,7 +18,7 @@
 			<h2>Registrar Orden de Compra</h2>
 		</div>
 		<div class="box-content">
-			<form id="RegistrarOrdenCompraForm" class="form-horizontal" method="post" action="{{ path('dicars_logistica_registrar_pedido') }}">
+			<form id="RegistrarOrdenCompraForm" class="form-horizontal" method="post" action="{{ path('dicars_logistica_registrar_ordcompra') }}">
 				<fieldset>
 					<div class="row-fluid">
 						<div class="span6">
@@ -55,7 +55,18 @@
 							<div class="control-group">
 								<label class="control-label" for="observaciones">Observaciones</label>
 								<div class="controls">
-									<textarea id="observaciones" name="observaciones" class="input-xlarge" rows="4"></textarea>
+									<textarea id="observaciones" name="observaciones" class="input-xlarge" ></textarea>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="selectEstado">Estado</label>
+								<div class="controls">
+								  	<select id="selectEstado" name="selectEstado">
+										<option value="1">Atendida</option>
+										<option value="2">Atendida Parcialmente</option>
+										<option value="3">No fue atendida</option>
+										<option value="4">Anulada</option>
+									</select>
 								</div>
 							</div>
 						</div>
@@ -107,6 +118,8 @@
 					<div class="controls">
 						<input class="input-xlarge focused" id="producto" type="text">
 					  	<button type="button" class="btn btn-info btn-buscarp" style="margin: 0 18px;"><i class="icon-search icon-white"></i>Buscar</button>
+					  	<label style="display:inline;" for="precio">Precio</label>
+						<input id="precio" type="number" step="0.01" min="1" style="margin: 0 18px 0 0;" required>
 						<label style="display:inline;" for="cantidad">Cantidad</label>
 						<input id="cantidad" type="number" style="margin: 0 18px 0 0;" required>
 						<button id="agregar_producto" type="submit" class="btn btn-primary"><i class="icon-plus icon-white"></i>Agregar</button>
@@ -122,7 +135,7 @@
 						  <th>Código</th>
 						  <th>Nombre</th>
 						  <th>Cantidad</th>
-						  <th>Precio Costo</th>
+						  <th>Precio</th>
 						  <th></th>
 						  <th></th>
 					  </tr>
@@ -186,6 +199,7 @@ function cargarEditar(producto){
 
 	ArrayDatos = [	{'type':'hidden','value':producto.id,'name':'idE'},	
 	              	{'label':'Producto','type':'span','value':producto.nombre},   
+	              	{'label':'Precio','type':'inputnumber','req':'true', 'step':'0.01','min':'1','max':'1000000','value':producto.pordcom,'name':'pordcomE'},
 	              	{'label':'Cantidad a Pedir','type':'inputnumber','req':'true', 'min':'1','max':'1000000','value':producto.cantidad,'name':'cantidadE'},
 					{'type':'actions'}];
 		
@@ -204,11 +218,21 @@ $(document).ready(function(){
 			$('#EditarCantidadForm').submit(function(e){
 				e.preventDefault();
 				DetOrdPedProductosTable.fnUpdate($('#cantidadE').val(),index,2);
+				DetOrdPedProductosTable.fnUpdate($('#pordcomE').val(),index,3);
 				console.log(aData.cantidad);
+				Array2 = DetOrdPedProductosTable.fnGetData();
+				CopyArray(SelectProductosTableData,Array2,false,Attr);
 				$('#modalEditarCantidad').modal('hide');
 			});
 		});
-	}
+		$(nRow).find('.btn-danger').click(function(e){
+			e.preventDefault();
+			var index = $(DetOrdPedProductosTable.fnGetData()).getIndexObj(aData,'id');
+			DetOrdPedProductosTable.fnDeleteRow( index );
+			Array2 = DetOrdPedProductosTable.fnGetData();
+			CopyArray(SelectProductosTableData,Array2,false,Attr);
+		});
+	};
 
 	$('.btn-proveedor').click(function(e){
 		e.preventDefault();
@@ -256,9 +280,11 @@ $(document).ready(function(){
 		e.preventDefault();
 		if(SelectProductoData.length > 0){
 			SelectProductoData[0].cantidad = $('#cantidad').val();
+			SelectProductoData[0].pordcom = $('#precio').val();
 			DetOrdPedProductosTable.fnAddData(SelectProductoData);
 			$('#producto').val("");
 			$('#cantidad').val("");
+			$('#precio').val("");
 			SelectProductoData.pop();
 			Array2 = DetOrdPedProductosTable.fnGetData();
 			CopyArray(SelectProductosTableData,Array2,false,Attr);
@@ -278,7 +304,7 @@ $(document).ready(function(){
 		              { "sWidth": "16%","mDataProp": "id"},
 		              { "sWidth": "16%","mDataProp": "nombre"},
 		              { "sWidth": "16%","mDataProp": "cantidad"},
-		              { "sWidth": "16%","mDataProp": "pcosto"},
+		              { "sWidth": "16%","mDataProp": "pordcom"},
 		              { "sWidth": "16%","mDataProp": "edit_btn"},
 		              { "sWidth": "16%","mDataProp": "elim_btn"}
 		              ];

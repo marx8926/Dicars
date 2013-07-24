@@ -315,6 +315,7 @@ public function getTablaProductosAction(){
 					'producto_serie' => $producto -> getCproductoserie(),
 					'nombre' => $producto -> getCproductodesc(),
 					'stock' => $producto -> getNproductostock(),
+					'pordcom' => 0,
 					'pcosto' => $producto -> getNproductopcosto(),
 					'cantidad' => $detordped -> getNdetordpedcant(),
 					'estado' => $detordped -> getCdetordpedest(),

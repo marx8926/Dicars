@@ -1,0 +1,5 @@
+dicars_logistica_registrar_ordcompra:
+    pattern:  /registrar_ordcompra
+    defaults: { _controller: DicarsLogisticaBundle:AdministrarPedido:RegistrarOrdCompra }
+    requirements:
+          _method: POST
