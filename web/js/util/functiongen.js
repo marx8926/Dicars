@@ -13,6 +13,11 @@ var reloadpage = function(data){
 	location.reload();
 	};
 	
+function AddAttr(Array, attr, value){
+	$(Array).each(function( index ){
+		this[attr] = value;
+	});
+}	
 	
 function getMultipleSelectRowCallBack(DSelected){
 	var SelectRowFunction = function(nRow,aData,iDisplayIndex){

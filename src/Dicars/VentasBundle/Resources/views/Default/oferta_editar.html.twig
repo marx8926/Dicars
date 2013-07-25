@@ -10,14 +10,15 @@
 </li>
 {% endblock %}
 {% block content %}
-<div class="row-fluid sortable">		
+<div class="row-fluid">		
 	<div class="box span12">
 		<div class="box-header well" data-original-title>
 			<h2>Salida Productos: Ver Datos</h2>
 		</div>
 		<div class="box-content">
+		<fieldset>
 			<form id="RegistrarOfertasForm" class="form-horizontal" method="post" action="{{ path('dicars_ventas_registrar_oferta') }}">
-				<fieldset>
+				
 					<div class="control-group">
 						<label class="control-label" for="fecha_ini">Fecha de Inicio</label>
 						<div class="controls">
@@ -44,8 +45,18 @@
 							</div>
 						</div>
 					</div>
-				</fieldset>
+					
+				
 				</form>
+				<form class="form-horizontal">
+						<div class="control-group">
+							<label class="control-label" for="producto">Bucar Producto</label>
+							<div class="controls">
+							  	<button type="button" id="btn-buscarproducto" class="btn btn-info btn-buscarp" style="margin: 0 0;"><i class="icon-search icon-white"></i>Buscar</button>
+							</div>
+						</div>
+					</form>
+					</fieldset>
 				<hr>
 			<h3>Productos a Salir</h3>
 			<hr>
@@ -68,6 +79,35 @@
 				</div>
 			</div>
 		</div>
+		
+		<div class="modal hide fade" id="modalBuscarProducto">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">x</button>
+				<h3>Agregar Producto</h3>
+			</div>
+			<div  class="modal-body">
+				<div class="form-horizontal" >
+					<fieldset>
+					  <table id="select_producto_table" class="table table-striped table-bordered bootstrap-datatable datatable">
+						  <thead>
+							  <tr>
+								  <th>Producto</th>
+								  <th>Precio</th>
+								  <th>Marca</th>
+								  <th>Categoría</th>
+							  </tr>
+						  </thead>   
+						  <tbody>
+							
+						</tbody>
+					</table>
+					  <div class="form-actions">
+						<input id="enviar_oferta_btn" type="button" value="Agregar" class="btn btn-primary">
+					  </div>
+					</fieldset>
+				</div>
+			</div>
+		</div> 
 			
 	</div>
 </div>
@@ -77,41 +117,76 @@
 <script src="{{ asset('js/util/functiongen.js') }}"></script>
 <script src="{{ asset('js/util/datatable_plugins.js') }}"></script>
 <script type="text/javascript">
-var SelectProductosTableData = new Array();
+var SelectProductosData = new Array();
+var SelectOfertaProductoData = new Array();
+var OtherdataOfertaProducto = new Array();
 
 var OfertaProductoTable;
 var RowCallBackFunction;
 
-var Attr = ['id','estado'];
+var Attr = ['idofertaproducto','idproducto','estado'];
 
 $(document).ready(function(){
+
+	$('#btn-buscarproducto').click(function(e){
+		e.preventDefault();
+		$('#modalBuscarProducto').modal('show');
+	});
+
+	$("#enviar_oferta_btn").click(function(e){
+		e.preventDefault();
+		$('#modalBuscarProducto').modal('hide');
+		AddAttr(SelectProductosData,"labelestado", "<span class='label label-success'>Activo</span>");
+		AddAttr(SelectProductosData,"idofertaproducto", 0);
+		AddAttr(SelectProductosData,"estado", 1);
+		AddAttr(SelectProductosData,"band", 2);
+		console.log(SelectProductosData);
+		OfertaProductoTable.fnAddData(SelectProductosData);
+		CopyArray(OtherdataOfertaProducto,SelectProductosData,false,['Attr']);
+		SelectProductosData.splice(0,SelectProductosData.length);
+	});
 	
-	RowCallBackFunction = function(nRow, aData, iDisplayIndex){
+	RowCallBackFunctionOfertaProducto = function(nRow, aData, iDisplayIndex){
+		aData.band = 0;
 		$(nRow).find('a').click(function(e){
 			e.preventDefault();
-			var index = $(OfertaProductoTable.fnGetData()).getIndexObj(aData,'idproductopedido');
+			var index = $(OfertaProductoTable.fnGetData()).getIndexObj(aData,'idproducto');
 			if(aData.estado == "1"){
-				OfertaProductoTable.fnUpdate("<span class='label label-important'>Desactivado</span>",index,3);
+				OfertaProductoTable.fnUpdate("<span class='label label-important'>Eliminar</span>",index,3);
+				aData.band = "1";
 				aData.estado = "0";
 			}
 			else{
 				OfertaProductoTable.fnUpdate("<span class='label label-success'>Activo</span>",index,3);
+				aData.band = "0";
 				aData.estado = "1";
 			}
 			Array2 = OfertaProductoTable.fnGetData();
-			CopyArray(SelectProductosTableData,Array2,false,Attr);
+			CopyArray(OtherdataOfertaProducto,Array2,false,Attr);
+			console.log(aData);
 		});
 	};
+
+	RowCallBackFunctionProducto = getMultipleSelectRowCallBack(SelectProductosData);
+
+	UrlaDTableProductos = '{{ path("dicars_ventas_servicio_getventaproductossinoferta") }}';
+	FormatoDTableProductos = [
+		              { "sWidth": "12%","mDataProp": "nombre"},
+		              { "sWidth": "12%","mDataProp": "pcontado"},
+		              { "sWidth": "12%","mDataProp": "marca"},
+		              { "sWidth": "12%","mDataProp": "categoria"}
+		              ];
+	BuscarProductosTable = createDataTable('select_producto_table',UrlaDTableProductos,FormatoDTableProductos,null,RowCallBackFunctionProducto);
 	
 	UrlaDTableOfertaProducto = "{{ path('dicars_ventas_servicio_gettablaofertaproductosbyid',{'idOferta':''}) }}/{{ id }}";
 	FormatoDTableOfertaProducto = [
-		              { "sWidth": "20%","mDataProp": "idproductopedido"},
+		              { "sWidth": "20%","mDataProp": "idproducto"},
 		              { "sWidth": "20%","mDataProp": "nombre"},
 		              { "sWidth": "20%","mDataProp": "talla"},
 		              { "sWidth": "20%","mDataProp": "labelestado"},
-		              { "sWidth": "20%","mDataProp": "btn"}
+		              { "sWidth": "20%","mDataProp": "elim_btn"}
 		              ];
-	OfertaProductoTable = createDataTable('oferta_productos_table',UrlaDTableOfertaProducto,FormatoDTableOfertaProducto,null,RowCallBackFunction);
+	OfertaProductoTable = createDataTable('oferta_productos_table',UrlaDTableOfertaProducto,FormatoDTableOfertaProducto,null,RowCallBackFunctionOfertaProducto);
 });
 </script>
 {% endblock %}

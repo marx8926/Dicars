@@ -42,6 +42,13 @@ class Oferta
      */
     private $dofertafecvencto;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="nOfertaPorc", type="integer", nullable=false)
+     */
+    private $nofertaporc;
+
 
 
     /**
@@ -121,5 +128,28 @@ class Oferta
     public function getDofertafecvencto()
     {
         return $this->dofertafecvencto;
+    }
+
+    /**
+     * Set nofertaporc
+     *
+     * @param integer $nofertaporc
+     * @return Oferta
+     */
+    public function setNofertaporc($nofertaporc)
+    {
+        $this->nofertaporc = $nofertaporc;
+    
+        return $this;
+    }
+
+    /**
+     * Get nofertaporc
+     *
+     * @return integer 
+     */
+    public function getNofertaporc()
+    {
+        return $this->nofertaporc;
     }
 }

@@ -50,6 +50,13 @@ class VenDetventa
     private $ndetventatot;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="cDetVentaDesc", type="string", length=45, nullable=false)
+     */
+    private $cdetventadesc;
+
+    /**
      * @var \Producto
      *
      * @ORM\ManyToOne(targetEntity="Producto")
@@ -171,6 +178,29 @@ class VenDetventa
     public function getNdetventatot()
     {
         return $this->ndetventatot;
+    }
+
+    /**
+     * Set cdetventadesc
+     *
+     * @param string $cdetventadesc
+     * @return VenDetventa
+     */
+    public function setCdetventadesc($cdetventadesc)
+    {
+        $this->cdetventadesc = $cdetventadesc;
+    
+        return $this;
+    }
+
+    /**
+     * Get cdetventadesc
+     *
+     * @return string 
+     */
+    public function getCdetventadesc()
+    {
+        return $this->cdetventadesc;
     }
 
     /**

@@ -123,10 +123,6 @@ class VentaServiciosController extends Controller{
 		$todo = array();
 		foreach ($ofertas as $key => $oferta){
 			
-			$ofertaproducto = $this->getDoctrine()
-			->getRepository('DicarsDataBundle:OfertaProducto')
-			->findOneBy(array('nofertaproductoId' => $oferta -> getNofertaId() ));
-			
 			$FechaHoy = new \DateTime();
 			
 			$estado = '';
@@ -140,7 +136,7 @@ class VentaServiciosController extends Controller{
 			$todo[] = array(
 					'id' => $oferta -> getNofertaId() ,
 					'desc' => $oferta -> getCofertadesc(),
-					'descuento' => $ofertaproducto -> getNofertaproductoporc(),
+					'descuento' => $oferta -> getNofertaporc(),
 					'estado' => $estado,
 					'fecvigente' => $oferta -> getDofertafecvigente() -> format('d/m/Y'),
 					'fecvencimiento' => $oferta -> getDofertafecvencto() -> format('d/m/Y'),
@@ -197,7 +193,7 @@ class VentaServiciosController extends Controller{
 		$todo = array();
 		foreach ($productos as $key => $producto){
 			$todo[] = array(
-					'id' => $producto['nProducto_id'] ,
+					'idproducto' => $producto['nProducto_id'] ,
 					'talla' => $producto['cProductoTalla'] ,
 					'nombre' => $producto['cProductoDesc'],
 					'pcontado' => $producto['nProductoPContado'],
@@ -234,8 +230,8 @@ class VentaServiciosController extends Controller{
 				$estado = "<span class='label label-success'>Activo</span>";
 			
 			$todo[] = array(
-				'idproductopedido' => $OfertaProducto -> getNofertaproductoId(), 
-				'idproducti' => $Producto -> getNproductoId(),
+				'idofertaproducto' => $OfertaProducto -> getNofertaproductoId(), 
+				'idproducto' => $Producto -> getNproductoId(),
 				'talla' => $Producto -> getCproductotalla() ,
 				'nombre' => $Producto -> getCproductodesc(),
 				'pcontado' => $Producto -> getNproductopcontado(),
@@ -244,7 +240,7 @@ class VentaServiciosController extends Controller{
 				'marca' => $Producto -> getNproductomarca() -> getCmarcadesc(),
 				'labelestado' => $estado,
 				'estado' => $OfertaProducto -> getCofertaproductoest(),
-				'btn' => "<a class='btn btn-info btn-datos' href='#'><i class='icon-edit icon-white'></i>Estado</a>");
+				'elim_btn' => "<a class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
 		}
 		
 		return new JsonResponse(array('aaData' => $todo));

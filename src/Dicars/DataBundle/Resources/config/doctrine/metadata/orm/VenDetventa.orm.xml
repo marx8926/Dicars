@@ -8,6 +8,7 @@
     <field name="ndetventaprecunt" type="decimal" column="nDetVentaPrecUnt" nullable="false"/>
     <field name="ndetventadscto" type="decimal" column="nDetVentaDscto" nullable="false"/>
     <field name="ndetventatot" type="decimal" column="nDetVentaTot" nullable="false"/>
+    <field name="cdetventadesc" type="string" column="cDetVentaDesc" length="45" nullable="false"/>
     <many-to-one field="nventa" target-entity="VenVenta">
       <join-columns>
         <join-column name="nVenta_id" referenced-column-name="nVenta_id"/>

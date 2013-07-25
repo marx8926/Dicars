@@ -7,5 +7,6 @@
     <field name="cofertadesc" type="string" column="cOfertaDesc" length="100" nullable="false"/>
     <field name="dofertafecvigente" type="datetime" column="dOfertaFecVigente" nullable="false"/>
     <field name="dofertafecvencto" type="datetime" column="dOfertaFecVencto" nullable="false"/>
+    <field name="nofertaporc" type="integer" column="nOfertaPorc" nullable="false"/>
   </entity>
 </doctrine-mapping>
