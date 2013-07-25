@@ -33,13 +33,21 @@ function getMultipleSelectRowCallBack(DSelected){
 /*
  * Nesesita tener definido el atributo cantidad
  */
-function sumArrayByAttr(Array2,attr){
+function sumArrayByAttr(Array2,attr,attrresult,attrcondicion){
 	var total = 0;
 	$(Array2).each(function( index ){
-		if(this['cantidad']!='undefined')
-			total +=(this[attr]*this['cantidad']);
-		else
-			total +=this[attr];
+		var condicion = 1;
+		if(attrcondicion != 'undefined')
+			condicion = this[attrcondicion];
+		if(condicion == 1){
+			if(this['cantidad']!='undefined')
+				total +=(this[attr]*this['cantidad']);
+			else
+				total +=this[attr];
+		}
+		if(attrresult != 'undefined')
+			this[attrresult] = (this[attr]*this['cantidad']);
+		
 	});
 	return(total);
 }

@@ -83,10 +83,10 @@ class AdministrarOrdCompraController extends Controller{
 				$em->flush();
 	
 				foreach($otherdata as $key => $data){
-					$cantidad = $data['cantidad'];
+					/*$cantidad = $data['cantidad'];
 					$preciounit =  $data['pordcom'];
 					$importe = $cantidad * $preciounit;
-					
+					*/
 					$Producto = $this->getDoctrine()
 					->getRepository('DicarsDataBundle:Producto')
 					->findOneBy(array('nproductoId' => $data['idproducto']));
@@ -95,7 +95,7 @@ class AdministrarOrdCompraController extends Controller{
 					$DetalleCompra -> setNordencompra($OrdCompra);
 					$DetalleCompra -> setNdetcompracant($data['cantidad']);
 					$DetalleCompra -> setNdetcompraprecunt($data['pordcom']);
-					$DetalleCompra -> setNdetcompraimporte($importe);
+					$DetalleCompra -> setNdetcompraimporte($data['importe']);
 					$DetalleCompra -> setNproducto($Producto);
 					$DetalleCompra -> setNdetordordped($data['iddetordped']);
 					$DetalleCompra -> setCdetcompraest($data['eordcom']);

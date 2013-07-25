@@ -185,7 +185,7 @@ var SelectOrdPedData = new Array();
 //Se almacena la data de la tabla de los productos seleccionados
 var SelectProductosTableData =  new Array();
 
-var Attr = ['idproducto','cantidad','pordcom', 'eordcom', 'iddetordped'];
+var Attr = ['idproducto','cantidad','pordcom', 'eordcom', 'iddetordped','importe'];
 
 var BuscarProductosTable;
 var BuscarProveedoresTable;
@@ -204,6 +204,18 @@ var UrlPedido ='';
 
 var TiposIGV;
 
+function Suma(){
+	
+	var subtotal = sumArrayByAttr(DetOrdPedProductosTable.fnGetData(),'pordcom','importe','eordcom');
+	var total = 0;
+	var igv = parseInt($("#igv option:selected").text());
+	$('#subtotal').val(subtotal);
+	total = subtotal + (igv * subtotal / 100);
+	//total = subtotal;
+
+	$('#total').val(total);
+}
+
 function cargarEditar(producto){			
 
 	ArrayDatos = [	{'label':'Producto','type':'span','value':producto.nombre},   
@@ -219,14 +231,19 @@ $(document).ready(function(){
 	TiposIGV = getAjaxObject("{{ path('dicars_admin_servicio_getoptiontiposigv') }}");
 	cargarSelect(TiposIGV,'igv','id','porc');
 
+	$('#RegistrarOrdenCompraForm').change(function(){Suma();});
+	
 	DrawCallBack = function(){
 		if($('#ordped').val() != '' ){
 			Array2 = DetOrdPedProductosTable.fnGetData();
 			CopyArray(SelectProductosTableData,Array2,false,Attr);
+
+			Suma();
 		}
 	};
 	
 	RowCallBackFunction = function(nRow, aData, iDisplayIndex){
+		aData.importe = 0;
 		$(nRow).find('.btn-editar').click(function(e){
 			e.preventDefault();
 			cargarEditar(aData);
@@ -242,6 +259,7 @@ $(document).ready(function(){
 				CopyArray(SelectProductosTableData,Array2,false,Attr);
 				$('#modalEditarCantidad').modal('hide');
 			});
+			Suma();
 		});
 		$(nRow).find('.btn-danger').click(function(e){
 			e.preventDefault();
@@ -256,6 +274,7 @@ $(document).ready(function(){
 			}
 			Array2 = DetOrdPedProductosTable.fnGetData();
 			CopyArray(SelectProductosTableData,Array2,false,Attr);
+			Suma();
 		});
 	};
 
