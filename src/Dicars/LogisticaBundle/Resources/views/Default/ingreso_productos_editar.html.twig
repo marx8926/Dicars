@@ -16,7 +16,7 @@
 			<h2>Salida Productos: Ver Datos</h2>
 		</div>
 		<div class="box-content">
-			<form id="RegistrarIngresoForm" class="form-horizontal" method="post" action = "{{ path('dicars_logistica_editar_ingreso_producto') }}">
+			<form id="RegistrarIngresoForm" class="form-horizontal" method="post" action = "{{ path('dicars_logistica_editar_ingresoproducto') }}">
 				<fieldset>
 					<div class="row-fluid">
 						<div class="span6">
@@ -24,7 +24,7 @@
 								<label class="control-label" for="codigo">Código</label>
 								<div class="controls">
 									<span class="help-inline" style="margin-top:5px;">{{ serie }} - {{ nro }}</span>
-									<input type="hidden" name="idingprod" value="{{ id }}">
+									<input type="hidden" id="idingprod" name="idingprod" value="{{ id }}">
 								</div>
 							</div>
 							<div class="control-group">
@@ -36,7 +36,7 @@
 							<div class="control-group">
 								<label class="control-label" for="motivo">Motivo</label>
 								<div class="controls">									
-									<input class="input-xlarge focused" id="motivo" value="{{ motivo }}" type="text">
+									<input class="input-xlarge focused" id="motivo" name="motivo" value="{{ motivo }}" type="text">
 								</div>
 							</div>
 							<div class="control-group">
@@ -76,7 +76,21 @@
 						</div>
 					</div>
 				</fieldset>
-			</form>
+			</form>				
+				<form id="AgregarProductoForm" class="form-horizontal">
+				<div class="control-group">
+					<label class="control-label" for="producto">Producto</label>
+					<div class="controls">
+						<input class="input-xlarge focused" id="producto" type="text">
+					  	<button type="button" class="btn btn-info btn-buscarp" style="margin: 0 18px;"><i class="icon-search icon-white"></i>Buscar</button>
+						<label style="display:inline;" for="cantidad">Cantidad</label>
+						<input id="cantidad" name="cantidad" type="number" style="margin: 0 18px 0 0;">
+						<label style="display:inline;">Precio/Unidad</label>
+						<input id="precio_uni" name="precio_uni" type="number" style="margin: 0 18px;">
+						<button id="agregar_producto" type="submit" class="btn btn-primary"><i class="icon-plus icon-white"></i>Agregar</button>
+					</div>
+				</div>
+				</form>
 			<hr>
 			<h3>Productos a Salir</h3>
 			<hr>
@@ -109,7 +123,8 @@
 				<form id="EditarIngresoForm" class="form-horizontal">
 				</form>
 			</div>
-			</div>		
+			</div>	
+			{% include 'DicarsVentasBundle:Default:buscarproducto.html.twig' %}		
 	</div>
 </div>
 {% endblock %}
@@ -118,21 +133,28 @@
 <script src="{{ asset('js/util/functiongen.js') }}"></script>
 <script src="{{ asset('js/util/datatable_plugins.js') }}"></script>
 <script type="text/javascript">
-var SelectProductosTableData =  new Array();
-var Attr = ['id','cantidad','precio_uni', 'band', 'total'];
+var SelectProductoData = new Array();
+var OtherDataDetIngreso =  new Array();
+var BuscarProductosTable;
+var Attr = ['iddetingreso','idproducto','cantidad','precio_uni', 'band', 'total'];
 var ReloadTableEditar;
 var DetIngProductosTable;
-
+var RowCallBackFunctionProducto;
 function cargarEditar(detingprode){
 	ArrayDatos = [	{'type':'hidden','value':detingprode.id,'name':'idE'},
-	              	{'label':'Cantidad','type':'input','typeinput':'text','pattern':'|^([0-9]+\s*)+$|','title':'Debe tener el formato correcto', 'req':'', 'max':'15','value':detingprode.cantidad,'name':'cantidadE'},
-	              	{'label':'Precio','type':'inputnumber', 'req':'', 'step':'0.01', 'min':'0', 'max':'1000','value':detingprode.precio_uni,'name':'precioE'},
+	              	{'label':'Cantidad','type':'inputnumber','req':'', 'step':'1', 'min':'0', 'max':'15','value':detingprode.cantidad,'name':'cantidadE'},
+	              	{'label':'Precio','type':'inputnumber', 'req':'', 'step':'1', 'min':'0', 'max':'1000','value':detingprode.precio_uni,'name':'precioE'},
 	              	{'type':'actions'}];
 	
 	$("#EditarIngresoForm").html(crearElementosForm(ArrayDatos));
 }
 
 $(document).ready(function(){
+
+	DrawCallBack = function(){		
+			Array2 = DetIngProductosTable.fnGetData();
+			CopyArray(OtherDataDetIngreso,Array2,false,Attr);		
+	};
 	
 	RowCallBackFunction = function(nRow, aData, iDisplayIndex){		
 		$(nRow).find('.btn-editar').click(function(e){
@@ -140,7 +162,7 @@ $(document).ready(function(){
 			cargarEditar(aData);
 			$('#modalEditarDatos').modal('show');
 			var index = $(DetIngProductosTable.fnGetData()).getIndexObj(aData,'id');
-			$('#EditarIngresoForm').unbind();
+			$('#EditarIngresoForm').unbind();			
 			$('#EditarIngresoForm').submit(function(e){
 				e.preventDefault();
 				DetIngProductosTable.fnUpdate($('#cantidadE').val(),index,1);
@@ -148,20 +170,62 @@ $(document).ready(function(){
 				DetIngProductosTable.fnUpdate(($('#precioE').val()*$('#cantidadE').val()),index,3);
 				aData.band = 1;
 				Array2 = DetIngProductosTable.fnGetData();
-				CopyArray(SelectProductosTableData,Array2,false,Attr);
-				$('#modalEditarDatos').modal('hide');
-				console.log(DetIngProductosTable.fnGetData());
+				CopyArray(OtherDataDetIngreso,Array2,false,Attr);
+				$('#modalEditarDatos').modal('hide');								
 		});
 	});
 	};
+	
+	$('.btn-buscarp').click(function(e){
+		e.preventDefault();
+		$('#modalBuscarProducto').modal('show');
+	});
+	$("#select_producto").click(function(e){
+		e.preventDefault();
+		var data = SelectProductoData[0];
+		$('#producto').val(data.id+" - "+data.nombre);
+		$('#modalBuscarProducto').modal('hide');
+	});
 
+	$("#AgregarProductoForm").submit(function(e){
+		e.preventDefault();
+		if(SelectProductoData.length > 0){			
+			SelectProductoData[0].idproducto = SelectProductoData[0].id;
+			SelectProductoData[0].iddetingreso = 0;
+			SelectProductoData[0].cantidad = $('#cantidad').val();
+			SelectProductoData[0].precio_uni = $('#precio_uni').val();
+			SelectProductoData[0].total = $('#precio_uni').val()*$('#cantidad').val();
+			SelectProductoData[0].band=2;
+						
+			DetIngProductosTable.fnAddData(SelectProductoData);
+			$('#producto').val("");
+			$('#cantidad').val("");
+			$('#precio_uni').val("");
+			
+			SelectProductoData.pop();
+			Array2 = DetIngProductosTable.fnGetData();
+			CopyArray(OtherDataDetIngreso,Array2,false,Attr);
+		}
+		
+	});	
+	
 	$("#btn_enviar_cambios").click(function(e){
 		$("#RegistrarIngresoForm").submit();
 	});
+	RowCallBackFunctionProducto = getSimpleSelectRowCallBack(SelectProductoData,"select_producto_table");
+	UrlaDTableProductos = '{{ path("dicars_logistica_servicio_gettablaproductos") }}';
+	FormatoDTableProductos = [
+					  
+	                  { "sWidth": "12%","mDataProp": "id"},
+		              { "sWidth": "12%","mDataProp": "nombre"},
+		              { "sWidth": "12%","mDataProp": "stock"},
+		              { "sWidth": "12%","mDataProp": "pcontado"}
+		              ];
+	BuscarProductosTable = createDataTable('select_producto_table',UrlaDTableProductos,FormatoDTableProductos,null,RowCallBackFunctionProducto);
 	
 	UrlaDTableProductos = "{{ path('dicars_logistica_servicio_gettabladetingprod',{'id':''}) }}/{{ id }}";
 	FormatoDTableProductos = [
-		              { "sWidth": "25%","mDataProp": "producto_serie"},
+		              { "sWidth": "25%","mDataProp": "idproducto"},
 		              { "sWidth": "25%","mDataProp": "cantidad"},
 		              { "sWidth": "25%","mDataProp": "precio_uni"},
 		              { "sWidth": "13%","mDataProp": "total"},
@@ -169,7 +233,7 @@ $(document).ready(function(){
 		              ];
 	DetIngProductosTable = createDataTable('deting_productos_table',UrlaDTableProductos,FormatoDTableProductos, null, RowCallBackFunction);
 
-	enviar("RegistrarIngresoForm",logdata,SelectProductosTableData);
+	enviar("RegistrarIngresoForm",logdata,OtherDataDetIngreso);
 });
 </script>
 {% endblock %}

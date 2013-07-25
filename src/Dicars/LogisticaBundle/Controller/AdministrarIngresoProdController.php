@@ -109,60 +109,63 @@ class AdministrarIngresoProdController extends Controller{
 	public function EditarIngresoProdAction(){
 		$request = $this->get('request');
 		$form = $request->request->get('formulario');
-		
+		$otherdata = $request->request->get('otherdata');
 		$datos = array();
 		parse_str($form,$datos);
 				
 		$Ingreso_motivo = null;
 		
 		if($form =! null){
-			$Ingreso_id = $datos["idingprod"];
-			$Ingreso_id = $datos["motivo"];
 			
+			$Ingreso_id = $datos["idingprod"];
+			$Ingreso_motivo = $datos["motivo"];			
 			$Ingreso = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:LogIngprod')
 			->findOneBy(array('ningprodId' => $Ingreso_id));
 			
 			$Ingreso->setNingprodmotivo($Ingreso_motivo);
-			
+				
 			$em = $this->getDoctrine()->getEntityManager();
 			$this->getDoctrine()->getEntityManager()->beginTransaction();
-				
-			try {
-				$em->flush();
-				
+			
+			try {				
+				$em->flush();				
 				foreach($otherdata as $key => $data){
-					$bandera = null;
-					if($data["band"]=2){
-						
-						$Producto = $this->getDoctrine()
+					
+					if($data["band"]==1){						
+						$DetalleIngProd = $this->getDoctrine()
 						->getRepository('DicarsDataBundle:LogDetingprod')
-						->findOneBy(array('ndetingprodId' => $data["id"]));
-						
-						$DetalleIngProd = new LogDetingprod();
+						->findOneBy(array('ndetingprodId' => $data["iddetingreso"]));
+											
 						$DetalleIngProd -> setNdetingprodcant($data["cantidad"]);
 						$DetalleIngProd -> setNdetingprodprecunt($data["precio_uni"]);
-						$DetalleIngProd -> setNdetingprodtot($data["cantidad"]*$data["precio_uni"]);
-						
+						$DetalleIngProd -> setNdetingprodtot($data["total"]);										
+						$em->flush();						
+					} else if($data["band"]==2){
+						$Producto = $this->getDoctrine()
+						->getRepository('DicarsDataBundle:Producto')
+						->findOneBy(array('nproductoId' => $data["idproducto"]));
+		
+						$DetalleIngProd = new LogDetingprod();
+						$DetalleIngProd -> setNingprod($Ingreso_id);
+						$DetalleIngProd -> setNproducto($Producto);
+						$DetalleIngProd -> setNdetingprodcant($data["cantidad"]);
+						$DetalleIngProd -> setNdetingprodprecunt($data["precio_uni"]);
+						$DetalleIngProd -> setNdetingprodtot($data["total"]);
 						$em->persist($DetalleIngProd);
-						$em->flush();
-						
-					}else{
-						
-					}										
+						$em->flush();						
+					}									
 					
 				}
 			} catch (Exception $e) {
 				$this->getDoctrine()->getEntityManager()->rollback();
 				$this->getDoctrine()->getEntityManager()->close();
-				$return = array("responseCode"=>400, "greeting"=>"Bad");
-			
+				$return = array("responseCode"=>400, "greeting"=>"Bad");			
 				throw $e;
 			}
 			$this->getDoctrine()->getEntityManager()->commit();
-			$em->clear();
-			
-			$return = array("responseCode"=>200, "datos"=>$datos);
+			$em->clear();			
+			$return = array("responseCode"=>200, "datos"=>$datos, "otherdata"=>$otherdata);
 				
 			}
 			else {

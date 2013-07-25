@@ -1,10 +1,10 @@
-dicars_logistica_registrar_ingreso_producto:
-    pattern:  /registrar_ingreso_producto
+dicars_logistica_registrar_ingresoproducto:
+    pattern:  /registrar_ingresoproducto
     defaults: { _controller: DicarsLogisticaBundle:AdministrarIngresoProd:RegistrarIngresoProd }
     requirements:
           _method: POST
-dicars_logistica_editar_ingreso_producto:
-    pattern:  /registrar_editar_producto
+dicars_logistica_editar_ingresoproducto:
+    pattern:  /editar_ingresoproducto
     defaults: { _controller: DicarsLogisticaBundle:AdministrarIngresoProd:EditarIngresoProd }
     requirements:
           _method: POST 
