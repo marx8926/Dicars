@@ -145,15 +145,16 @@ class AdministrarIngresoProdController extends Controller{
 						$Producto = $this->getDoctrine()
 						->getRepository('DicarsDataBundle:Producto')
 						->findOneBy(array('nproductoId' => $data["idproducto"]));
-		
+																	
 						$DetalleIngProd = new LogDetingprod();
-						$DetalleIngProd -> setNingprod($Ingreso_id);
+						$DetalleIngProd -> setNingprod($Ingreso);
 						$DetalleIngProd -> setNproducto($Producto);
 						$DetalleIngProd -> setNdetingprodcant($data["cantidad"]);
 						$DetalleIngProd -> setNdetingprodprecunt($data["precio_uni"]);
 						$DetalleIngProd -> setNdetingprodtot($data["total"]);
 						$em->persist($DetalleIngProd);
-						$em->flush();						
+						$em->flush();				
+						
 					}									
 					
 				}

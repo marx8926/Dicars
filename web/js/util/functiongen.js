@@ -35,6 +35,13 @@ function getMultipleSelectRowCallBack(DSelected){
 	return SelectRowFunction;
 }
 
+function SubTablaArray(Table, Array, attr){
+	$(Array).each(function( index ){
+		var indexarray = $(Table.fnGetData()).getIndexObj(this,attr);
+		Table.fnDeleteRow( indexarray );
+	});
+}
+
 /*
  * Nesesita tener definido el atributo cantidad
  */
@@ -124,10 +131,11 @@ function createDataTable(idTable,UrlaDTable,FormatoDTable, CallBackFunction, Row
 	 		if(typeof(RowCallBackFunction)!= 'undefined' && RowCallBackFunction != null)
 	 			RowCallBackFunction(nRow,aData,iDisplayIndex);
 		},
-	 	"fnDrawCallback": function(){
-		 	$('td').addClass('center');
+	 	"fnDrawCallback": function(oSettings ){
 		 	if(typeof(CallBackFunction)!= 'undefined' && CallBackFunction != null){
-		 		CallBackFunction();
+		 		if ( typeof oTable != 'undefined' ) {
+			 		CallBackFunction();
+			 		}
 		 		}
 		 	},
 		 	
