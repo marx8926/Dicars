@@ -135,4 +135,8 @@ class DefaultController extends Controller
     {
     	return $this->render('DicarsLogisticaBundle:Default:orden_compra_registrar.html.twig');
     }
+    public function orden_compra_consultarAction()
+    {
+    	return $this->render('DicarsLogisticaBundle:Default:orden_compra_consultar.html.twig');
+    }
 }

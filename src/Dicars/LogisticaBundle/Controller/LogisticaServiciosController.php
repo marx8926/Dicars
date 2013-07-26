@@ -373,5 +373,34 @@ public function getTablaProductosAction(){
 		}
 		return new JsonResponse($todo);
 	}
+	
+	public function getTablaOrdComAction(){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$ordcoms = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:LogOrdcom')
+		->findAll();
+			
+		$em->clear();
+	
+		$todo = array();
+		foreach ($ordcoms as $key => $ordcom){
+			$registrante = $ordcom -> getNpersonal();
+			$proveedor = $ordcom -> getNproveedor();
+	
+			$todo[] = array('id' => $ordcom -> getNordencomId(),
+					'serie' => $ordcom -> getCordcomserie(),
+					'numero' => $ordcom -> getCordcomnro(),
+					'registrante' => $registrante -> getCpersonalnom()." ".$registrante -> getCpersonalape(),
+					'proveedor' => $proveedor -> getCproveedorrazsocial(),
+					'fecha_reg' => $ordcom -> getOrdcomfecreg() -> format("d/m/Y"),
+					'total' => $ordcom -> getNordcomtotal(),
+					'ver_btn' => "<a id-data='".$ordcom -> getNordencomId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
+					'edit_btn' => "<a id-data='".$ordcom -> getNordencomId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
+					'elim_btn' => "<a id-data='".$ordcom -> getNordencomId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
+	
+		}
+		return new JsonResponse(array('aaData' => $todo));
+	}
 
 }

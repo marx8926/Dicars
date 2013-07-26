@@ -49,3 +49,7 @@ dicars_logistica_servicio_gettabladetingprod:
 dicars_logistica_servicio_getoptionlocal:
     pattern:  /servicio_getoptionlocal
     defaults: { _controller: DicarsLogisticaBundle:LogisticaServicios:getOptionLocales }  
+    
+dicars_logistica_servicio_gettablaordcom:
+    pattern:  /servicio_gettablaordcom
+    defaults: { _controller: DicarsLogisticaBundle:LogisticaServicios:getTablaOrdCom }
