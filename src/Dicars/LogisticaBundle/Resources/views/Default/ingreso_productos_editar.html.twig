@@ -151,10 +151,10 @@ function cargarEditar(detingprode){
 
 $(document).ready(function(){
 
-	DrawCallBack = function(){		
-			Array2 = DetIngProductosTable.fnGetData();
-			CopyArray(OtherDataDetIngreso,Array2,false,Attr);		
-	};
+	$(DetIngProductosTable).ready(function(){
+		Array2 = DetIngProductosTable.fnGetData();
+		CopyArray(OtherDataDetIngreso,Array2,false,Attr);					
+	});
 	
 	RowCallBackFunction = function(nRow, aData, iDisplayIndex){		
 		$(nRow).find('.btn-editar').click(function(e){
@@ -171,7 +171,8 @@ $(document).ready(function(){
 				aData.band = 1;
 				Array2 = DetIngProductosTable.fnGetData();
 				CopyArray(OtherDataDetIngreso,Array2,false,Attr);
-				$('#modalEditarDatos').modal('hide');								
+				$('#modalEditarDatos').modal('hide');
+												
 		});
 	});
 	};
