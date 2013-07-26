@@ -134,7 +134,7 @@ class VentaServiciosController extends Controller{
 				$estado = "<span class='label label-important'>No Vigentete</span>";
 			
 			$todo[] = array(
-					'id' => $oferta -> getNofertaId() ,
+					'idoferta' => $oferta -> getNofertaId() ,
 					'desc' => $oferta -> getCofertadesc(),
 					'descuento' => $oferta -> getNofertaporc(),
 					'estado' => $estado,
@@ -225,7 +225,7 @@ class VentaServiciosController extends Controller{
 			$Producto = $OfertaProducto -> getNproducto();
 			
 			if($OfertaProducto -> getCofertaproductoest() == 0)
-				$estado = "<span class='label label-important'>Desactivado</span>";
+				$estado = "<span class='label label-important'>Eliminar</span>";
 			else
 				$estado = "<span class='label label-success'>Activo</span>";
 			
@@ -233,6 +233,7 @@ class VentaServiciosController extends Controller{
 				'idofertaproducto' => $OfertaProducto -> getNofertaproductoId(), 
 				'idproducto' => $Producto -> getNproductoId(),
 				'talla' => $Producto -> getCproductotalla() ,
+				'band'=> 0,
 				'nombre' => $Producto -> getCproductodesc(),
 				'pcontado' => $Producto -> getNproductopcontado(),
 				'pcredito' => $Producto -> getNproductopcredito(),

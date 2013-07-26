@@ -143,7 +143,10 @@ $(document).ready(function(){
 	});
 	
 	RowCallBackFunctionProducto = getMultipleSelectRowCallBack(SelectProductoData);
-
+	RowCallBackFunctionOferta = function(nRow, aData, iDisplayIndex){
+		$(nRow).find('.btn-editar').attr('href',"{{ path('dicars_ventas_view_editar_oferta',{'idoferta':''}) }}/"+aData.idoferta);
+	};
+	
 	UrlaDTableProductos = '{{ path("dicars_ventas_servicio_getventaproductossinoferta") }}';
 	FormatoDTableProductos = [
 		              { "sWidth": "12%","mDataProp": "nombre"},
@@ -155,7 +158,7 @@ $(document).ready(function(){
 
 	UrlaDTableOfertas = '{{ path("dicars_ventas_servicio_gettablaofertas") }}';
 	FormatoDTableOfertas = [
-		              { "sWidth": "12%","mDataProp": "id"},
+		              { "sWidth": "12%","mDataProp": "idoferta"},
 		              { "sWidth": "12%","mDataProp": "desc"},
 		              { "sWidth": "12%","mDataProp": "fecvigente"},
 		              { "sWidth": "12%","mDataProp": "fecvencimiento"},
@@ -163,7 +166,7 @@ $(document).ready(function(){
 		              { "sWidth": "12%","mDataProp": "estado"},
 		              { "sWidth": "12%","mDataProp": "edit_btn"}
 		              ];
-	OfertasTable = createDataTable('ofertas_table',UrlaDTableOfertas,FormatoDTableOfertas,null,null);
+	OfertasTable = createDataTable('ofertas_table',UrlaDTableOfertas,FormatoDTableOfertas,null,RowCallBackFunctionOferta);
 	
 	enviar("RegistrarOfertasForm",logdata,SelectProductosOfertaData);
 });

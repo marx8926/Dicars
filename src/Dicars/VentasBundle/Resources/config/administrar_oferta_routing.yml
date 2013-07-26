@@ -3,3 +3,9 @@ dicars_ventas_registrar_oferta:
     defaults: { _controller: DicarsVentasBundle:AdministrarOfertas:RegistrarOferta }
     requirements:
           _method: POST
+          
+dicars_ventas_editar_oferta:
+    pattern:  /editar_oferta
+    defaults: { _controller: DicarsVentasBundle:AdministrarOfertas:EditarOferta }
+    requirements:
+          _method: POST
