@@ -70,6 +70,9 @@ dicars_logistica_orden_compra_registrar:
 dicars_logistica_orden_compra_consultar:
     pattern:  /ordencompra_consultar
     defaults: { _controller: DicarsLogisticaBundle:Default:orden_compra_consultar }
+dicars_logistica_orden_compra_ver:
+    pattern:  /ordencompra_ver/{idordcom}
+    defaults: { _controller: DicarsLogisticaBundle:Default:orden_compra_ver }
 dicars_logistica_editar_ingresoproductos:
     pattern:  /editar_ingresoproductos/{idingprode}
     defaults: { _controller: DicarsLogisticaBundle:Default:editar_ingresoproductos }     

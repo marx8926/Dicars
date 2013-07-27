@@ -1,0 +1,150 @@
+{% extends "::baseCharisma.html.twig" %}
+{% block title %}Ver Pedido - Logística -{% endblock %}
+{% block breadcrumb %}
+<li>
+	<a href="{{path('dicars_logistica_homepage')}}">Logística</a><span class="divider">/</span>
+</li>
+<li>
+	<a href="{{path('dicars_logistica_orden_compra_consultar')}}">Orden de Compra</a><span class="divider">/</span>
+</li>
+<li>
+	<a href="#">Ver Orden de Compra</a>
+</li>
+{% endblock %}
+{% block content %}
+<div class="row-fluid sortable">		
+	<div class="box span12">
+		<div class="box-header well" data-original-title>
+			<h2>Ver Orden de Compra</h2>
+		</div>
+		<div class="box-content">
+			<div class="form-horizontal">
+				<fieldset>
+					<div class="row-fluid">
+						<div class="span6">
+							<div class="control-group">
+								<label class="control-label" for="codigo">Código</label>
+								<div class="controls">
+									<span class="help-inline" style="margin-top:5px;">{{ serie }} - {{ nro }}</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="registrador">Registrador</label>
+								<div class="controls">
+									<span class="help-inline" style="margin-top:5px;">{{ personal }}</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="proveedor">Proveedor</label>
+								<div class="controls">
+								  	<span class="help-inline" style="margin-top:5px;">{{ proveedor }}</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="observaciones">Observaciones</label>
+								<div class="controls">
+									<span class="help-inline" style="margin-top:5px;">{{ observacion }}</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="fec_reg">Fecha de Registro</label>
+								<div class="controls">
+									<span class="help-inline" style="margin-top:5px;">{{ fec_reg }}</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="estado">Estado</label>
+								<div class="controls">
+									<span class="help-inline" style="margin-top:5px;">{{ estado }}</span>
+								</div>
+							</div>
+						</div>
+						<div class="span6">
+							<div class="control-group">
+								<label class="control-label" for="subtotal">Subtotal</label>
+								<div class="controls">
+									<span class="help-inline" style="margin-top:5px;">{{ subtotal }}</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="igv">IGV</label>
+								<div class="controls">
+									<span class="help-inline" style="margin-top:5px;">{{ igv }}</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="total">Total</label>
+								<div class="controls">
+									<span class="help-inline" style="margin-top:5px;">{{ total }}</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="descuento">Descuento</label>
+								<div class="controls">
+									<span class="help-inline" style="margin-top:5px;">{{ descuento }}</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="recequiv">Recargo de Equivalencia</label>
+								<div class="controls">
+									<span class="help-inline" style="margin-top:5px;">{{ recequiv }}</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="retencion">Retención</label>
+								<div class="controls">
+									<span class="help-inline" style="margin-top:5px;">{{ retencion }}</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</fieldset>
+			</div>
+			<hr>
+			<h3>Productos de la Orden de Compra</h3>
+			<hr>
+			<table id="productos_table" class="table table-striped table-bordered bootstrap-datatable datatable">
+				<thead>
+					  <tr>
+						  <th>Código de Producto</th>
+						  <th>Cantidad</th>
+						  <th>Precio por Unidad</th>
+						  <th>Importe</th>
+						  <th>Estado</th>
+						  <th>Código Orden de Pedido</th>
+					  </tr>
+				</thead>   
+				<tbody>
+				</tbody>
+			</table>
+			<div class="form-horizontal">
+				<div class="form-actions">
+					<a href="{{ path('dicars_logistica_pedidos') }}" class="btn btn-primary">Volver</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+{% block javascript %}
+<script src="{{ asset('js/util/functiongen.js') }}"></script>
+<script src="{{ asset('js/util/datatable_plugins.js') }}"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+
+	UrlaDTablePedidos = '{{ path("dicars_logistica_servicio_gettabladetordcom",{'idordcom':''}) }}/{{ id }}';
+	FormatoDTablePedidos = [
+		              { "sWidth": "25%","mDataProp": "producto_codigo"},
+		              { "sWidth": "25%","mDataProp": "cantidad"},
+		              { "sWidth": "25%","mDataProp": "pordcom"},
+		              { "sWidth": "25%","mDataProp": "importe"},
+		              { "sWidth": "25%","mDataProp": "estado"},
+		              { "sWidth": "25%","mDataProp": "ordped_id"}
+		              ];
+	BuscarPedidosTable = createDataTable('productos_table',UrlaDTablePedidos,FormatoDTablePedidos);
+	
+});
+
+
+</script>
+{% endblock %}
