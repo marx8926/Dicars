@@ -415,7 +415,7 @@ public function getTablaProductosAction(){
 		$todo = array();
 		foreach ($detordcoms as $key => $detordcom){
 			$producto = $detordcom -> getNproducto();
-			$proveedor = $detordcom -> getNproveedor();
+			//$proveedor = $detordcom -> getNproveedor();
 	
 			$todo[] = array('id' => $detordcom -> getNdetcompraId(),
 					'producto_codigo' => $producto -> getCproductoserie(),
@@ -424,9 +424,9 @@ public function getTablaProductosAction(){
 					'importe' => $detordcom -> getNdetcompraimporte(),
 					'estado' => $detordcom -> getCdetcompraest(),
 					'ordped_id' => $detordcom -> getNdetordordped(), //detalle orden pedido id
-					'ver_btn' => "<a id-data='".$detordcom -> getNordencomId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
-					'edit_btn' => "<a id-data='".$detordcom -> getNordencomId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
-					'elim_btn' => "<a id-data='".$detordcom -> getNordencomId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
+					'ver_btn' => "<a id-data='".$detordcom -> getNdetcompraId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
+					'edit_btn' => "<a id-data='".$detordcom -> getNdetcompraId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
+					'elim_btn' => "<a id-data='".$detordcom -> getNdetcompraId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
 	
 		}
 		return new JsonResponse(array('aaData' => $todo));

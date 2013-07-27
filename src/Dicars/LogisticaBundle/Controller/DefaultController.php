@@ -144,18 +144,25 @@ class DefaultController extends Controller
     	$OrdCom = $this->getDoctrine()
     	->getRepository('DicarsDataBundle:LogOrdcom')
     	->findOneBy(array('nordencomId' => $idordcom));
+    	
+    	$personal = $OrdCom->getNpersonal();
+    	$proveedor = $OrdCom -> getNproveedor();
     
     	return $this->render('DicarsLogisticaBundle:Default:orden_compra_ver.html.twig',array(
     			'id' => $idordcom,
-    			'personal' => $OrdCom->getNpersonal()->getCpersonalnom()." ".$Pedido->getNpersonal()->getCpersonalape(),
-    			'serie' => $OrdCom->getCordpedserie(),
-    			'nro' => $OrdCom->getCordpednro(),
-    			'email' => $OrdCom->getCordpedenvemail(),
-    			'local' => $OrdCom->getNlocal()->getClocaldesc(),
-    			'fecha_reg' => $OrdCom->getDordpedfecreg()->format('d/m/Y'),
-    			'fecha_ent' => $OrdCom->getDordepedfecent()->format('d/m/Y'),
-    			'observacion' => $OrdCom->getCordpedobsv(),
-    			'estado' => $OrdCom->getCordpedest()
+    			'personal' => $personal->getCpersonalnom()." ".$personal->getCpersonalape(),
+    			'proveedor' => $proveedor->getCproveedorrazsocial(),
+    			'fecha_reg' => $OrdCom->getOrdcomfecreg()->format('d/m/Y'),
+    			'serie' => $OrdCom->getCordcomserie(),
+    			'nro' => $OrdCom->getCordcomnro(),
+    			'subtotal' => $OrdCom->getNordcomsubtotal(),
+    			'igv' => $OrdCom->getNordcomigv(),
+    			'total' => $OrdCom->getNordcomtotal(),
+    			'observacion' => $OrdCom->getCordcomobsv(),
+    			'estado' => $OrdCom->getCordcomest(),
+    			'descuento' => $OrdCom->getNordcomdesct(),
+    			'recequiv' => $OrdCom->getNordcomreceqv(),
+    			'retencion' => $OrdCom->getNordcomretencion()
     	));
     }
 }

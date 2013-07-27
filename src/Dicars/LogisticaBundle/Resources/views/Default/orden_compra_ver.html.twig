@@ -49,7 +49,7 @@
 							<div class="control-group">
 								<label class="control-label" for="fec_reg">Fecha de Registro</label>
 								<div class="controls">
-									<span class="help-inline" style="margin-top:5px;">{{ fec_reg }}</span>
+									<span class="help-inline" style="margin-top:5px;">{{ fecha_reg }}</span>
 								</div>
 							</div>
 							<div class="control-group">
@@ -134,12 +134,12 @@ $(document).ready(function(){
 
 	UrlaDTablePedidos = '{{ path("dicars_logistica_servicio_gettabladetordcom",{'idordcom':''}) }}/{{ id }}';
 	FormatoDTablePedidos = [
-		              { "sWidth": "25%","mDataProp": "producto_codigo"},
-		              { "sWidth": "25%","mDataProp": "cantidad"},
-		              { "sWidth": "25%","mDataProp": "pordcom"},
-		              { "sWidth": "25%","mDataProp": "importe"},
-		              { "sWidth": "25%","mDataProp": "estado"},
-		              { "sWidth": "25%","mDataProp": "ordped_id"}
+		              { "sWidth": "16%","mDataProp": "producto_codigo"},
+		              { "sWidth": "16%","mDataProp": "cantidad"},
+		              { "sWidth": "16%","mDataProp": "pordcom"},
+		              { "sWidth": "16%","mDataProp": "importe"},
+		              { "sWidth": "16%","mDataProp": "estado"},
+		              { "sWidth": "16%","mDataProp": "ordped_id"}
 		              ];
 	BuscarPedidosTable = createDataTable('productos_table',UrlaDTablePedidos,FormatoDTablePedidos);
 	
