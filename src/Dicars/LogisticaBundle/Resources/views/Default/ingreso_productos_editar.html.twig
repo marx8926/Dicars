@@ -97,7 +97,7 @@
 			<table id="deting_productos_table" name="deting_productos_table" class="table table-striped table-bordered bootstrap-datatable datatable">
 				<thead>
 					  <tr>
-						  <th>Código Ingreso</th>
+						  <th>Código Producto</th>						  
 						  <th>Cantidad</th>
 						  <th>Precio Unit</th>
 						  <th>Total</th>
@@ -140,8 +140,9 @@ var Attr = ['iddetingreso','idproducto','cantidad','precio_uni', 'band', 'total'
 var ReloadTableEditar;
 var DetIngProductosTable;
 var RowCallBackFunctionProducto;
+var DrawCallBack;
 function cargarEditar(detingprode){
-	ArrayDatos = [	{'type':'hidden','value':detingprode.id,'name':'idE'},
+	ArrayDatos = [	{'type':'hidden','value':detingprode.idproducto,'name':'idE'},
 	              	{'label':'Cantidad','type':'inputnumber','req':'', 'step':'1', 'min':'0', 'max':'15','value':detingprode.cantidad,'name':'cantidadE'},
 	              	{'label':'Precio','type':'inputnumber', 'req':'', 'step':'1', 'min':'0', 'max':'1000','value':detingprode.precio_uni,'name':'precioE'},
 	              	{'type':'actions'}];
@@ -150,18 +151,19 @@ function cargarEditar(detingprode){
 }
 
 $(document).ready(function(){
-
+	/*
 	$(DetIngProductosTable).ready(function(){
 		Array2 = DetIngProductosTable.fnGetData();
 		CopyArray(OtherDataDetIngreso,Array2,false,Attr);					
 	});
+	*/	
 	
 	RowCallBackFunction = function(nRow, aData, iDisplayIndex){		
 		$(nRow).find('.btn-editar').click(function(e){
 			e.preventDefault();
 			cargarEditar(aData);
 			$('#modalEditarDatos').modal('show');
-			var index = $(DetIngProductosTable.fnGetData()).getIndexObj(aData,'id');
+			var index = $(DetIngProductosTable.fnGetData()).getIndexObj(aData,'idproducto');
 			$('#EditarIngresoForm').unbind();			
 			$('#EditarIngresoForm').submit(function(e){
 				e.preventDefault();
@@ -175,6 +177,20 @@ $(document).ready(function(){
 												
 		});
 	});
+
+		$(nRow).find('.btn-danger').click(function(e){
+			e.preventDefault();			
+			
+			var index = $(DetIngProductosTable.fnGetData()).getIndexObj(aData,'idproducto');
+			BuscarProductosTable.fnAddData(aData);
+			DetIngProductosTable.fnDeleteRow(index);
+	});
+	};
+	
+	DrawCallBack = function(){
+		SubTablaArray(BuscarProductosTable, DetIngProductosTable.fnGetData(), 'idproducto');
+		Array2 = DetIngProductosTable.fnGetData();
+		CopyArray(OtherDataDetIngreso,Array2,false,Attr);
 	};
 	
 	$('.btn-buscarp').click(function(e){
@@ -191,13 +207,14 @@ $(document).ready(function(){
 	$("#AgregarProductoForm").submit(function(e){
 		e.preventDefault();
 		if(SelectProductoData.length > 0){			
-			SelectProductoData[0].idproducto = SelectProductoData[0].id;
+			
 			SelectProductoData[0].iddetingreso = 0;
 			SelectProductoData[0].cantidad = $('#cantidad').val();
 			SelectProductoData[0].precio_uni = $('#precio_uni').val();
 			SelectProductoData[0].total = $('#precio_uni').val()*$('#cantidad').val();
-			SelectProductoData[0].band=2;
-						
+			SelectProductoData[0].band = 2;
+			SelectProductoData[0].edit_btn = SelectProductoData[0].elim_btn;
+			SubTablaArray(BuscarProductosTable, SelectProductoData, 'idproducto');
 			DetIngProductosTable.fnAddData(SelectProductoData);
 			$('#producto').val("");
 			$('#cantidad').val("");
@@ -217,7 +234,7 @@ $(document).ready(function(){
 	UrlaDTableProductos = '{{ path("dicars_logistica_servicio_gettablaproductos") }}';
 	FormatoDTableProductos = [
 					  
-	                  { "sWidth": "12%","mDataProp": "id"},
+	                  { "sWidth": "12%","mDataProp": "idproducto"},
 		              { "sWidth": "12%","mDataProp": "nombre"},
 		              { "sWidth": "12%","mDataProp": "stock"},
 		              { "sWidth": "12%","mDataProp": "pcontado"}
@@ -232,7 +249,7 @@ $(document).ready(function(){
 		              { "sWidth": "13%","mDataProp": "total"},
 		              { "sWidth": "12%","mDataProp": "edit_btn"}
 		              ];
-	DetIngProductosTable = createDataTable('deting_productos_table',UrlaDTableProductos,FormatoDTableProductos, null, RowCallBackFunction);
+	DetIngProductosTable = createDataTable('deting_productos_table',UrlaDTableProductos,FormatoDTableProductos, DrawCallBack, RowCallBackFunction);
 
 	enviar("RegistrarIngresoForm",logdata,OtherDataDetIngreso);
 });

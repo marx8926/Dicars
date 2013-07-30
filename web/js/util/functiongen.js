@@ -133,9 +133,9 @@ function createDataTable(idTable,UrlaDTable,FormatoDTable, CallBackFunction, Row
 		},
 	 	"fnDrawCallback": function(oSettings ){
 		 	if(typeof(CallBackFunction)!= 'undefined' && CallBackFunction != null){
-		 		if ( typeof oTable != 'undefined' ) {
+		 		setTimeout(function() {
 			 		CallBackFunction();
-			 		}
+			 		});
 		 		}
 		 	},
 		 	

@@ -22,7 +22,7 @@ public function getTablaProductosAction(){
 		
 		$todo = array();
 		foreach ($productos as $key => $producto){
-			$todo[] = array('id' => $producto -> getNproductoId(),'serie' => $producto -> getCproductoserie(),'talla' => $producto -> getCproductotalla(),
+			$todo[] = array('idproducto' => $producto -> getNproductoId(),'serie' => $producto -> getCproductoserie(),'talla' => $producto -> getCproductotalla(),
 					'nombre' => $producto -> getCproductodesc(),'pcosto' => $producto -> getNproductopcosto(),'pcontado' => $producto -> getNproductopcontado(),
 					'pcredito' => $producto -> getNproductopcredito(),'tipo' => $producto -> getNproductotipo(),'codigobarras' => $producto -> getCproductocodbarra(),
 					'stockmin' => $producto -> getNproductostockmin(),'stock' => $producto -> getNproductostock(),'stockmax' => $producto -> getNproductostockmax(), 
