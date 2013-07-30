@@ -74,15 +74,15 @@ class VentaServiciosController extends Controller{
 		$em->clear();
 	
 		$todo = array();
-		foreach ($empleados as $key => $empleados){
-			$todo[] = array('id' => $empleados -> getNpersonalId() ,
-					'nombres' => $empleados -> getCpersonalnom() , 
-					'apellidos' => $empleados -> getCpersonalape(),
-					'dni' => $empleados -> getCpersonaldni(), 
-					'telefono' => $empleados -> getCpersonaltelf(),
-					'ver_btn' => "<a id-data='".$empleados -> getNpersonalId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
-					'edit_btn' => "<a id-data='".$empleados -> getNpersonalId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
-					'elim_btn' => "<a id-data='".$empleados -> getNpersonalId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
+		foreach ($empleados as $key => $empleado){
+			$todo[] = array('id' => $empleado -> getNpersonalId() ,
+					'nombres' => $empleado -> getCpersonalnom() , 
+					'apellidos' => $empleado -> getCpersonalape(),
+					'dni' => $empleado -> getCpersonaldni(), 
+					'telefono' => $empleado -> getCpersonaltelf(),
+					'ver_btn' => "<a id-data='".$empleado -> getNpersonalId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
+					'edit_btn' => "<a id-data='".$empleado -> getNpersonalId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
+					'elim_btn' => "<a id-data='".$empleado -> getNpersonalId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
 		}
 		return new JsonResponse(array('aaData' => $todo));
 	}

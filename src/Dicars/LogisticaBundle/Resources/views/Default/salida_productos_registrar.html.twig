@@ -94,7 +94,7 @@
 					  <tr>
 						  <th>Código</th>
 						  <th>Nombre</th>
-						  <th>Stock</th>
+						  <th>Cantidad</th>
 						  <th>Precio</th>
 						  <th>Acciones</th>
 					  </tr>
@@ -134,13 +134,16 @@ var SelectTrabajadorData = new Array();
 
 var Attr = ['id','cantidad'];
 
-var RowCallBackFunctionProducto = getSimpleSelectRowCallBack(SelectProductoData,"select_producto_table");
-var RowCallBackFunctionTrabajador = getSimpleSelectRowCallBack(SelectTrabajadorData,"select_trabajador_table");
+var RowCallBackFunctionProducto;
+var RowCallBackFunctionTrabajador;
 
 $(document).ready(function(){
 
-	constantes = getAjaxObject("{{ path('dicars_admin_servicio_getoptionconstantes') }}");
-	cargarSelectConstante('motivo', 'Motivo de Salida', constantes);
+	RowCallBackFunctionProducto = getSimpleSelectRowCallBack(SelectProductoData,"select_producto_table");
+	RowCallBackFunctionTrabajador = getSimpleSelectRowCallBack(SelectTrabajadorData,"select_trabajador_table");
+
+	constantes = getAjaxObject("{{ path('dicars_admin_servicio_getoptionconstantes',{'idclase':4}) }}");
+	cargarSelect(constantes, 'motivo', 'id', 'desc');
 
 	//mostrar Buscar Cliente------------------------------------>
 	$('.btn-solicitante').click(function(e){
@@ -192,7 +195,7 @@ $(document).ready(function(){
 	
 	UrlaDTableProductos = '{{ path("dicars_logistica_servicio_gettablaproductos") }}';
 	FormatoDTableProductos = [
-		              { "sWidth": "12%","mDataProp": "id"},
+		              { "sWidth": "12%","mDataProp": "idproducto"},
 		              { "sWidth": "12%","mDataProp": "nombre"},
 		              { "sWidth": "12%","mDataProp": "stock"},
 		              { "sWidth": "12%","mDataProp": "pcontado"}
@@ -201,14 +204,13 @@ $(document).ready(function(){
 
 	SelectProductosTable = $("#salida_productos_table").dataTable({
 		"aoColumns": [
-		              { "sWidth": "12%","mDataProp": "id"},
-		              { "sWidth": "12%","mDataProp": "nombre"},
-		              { "sWidth": "12%","mDataProp": "stock"},
-		              { "sWidth": "12%","mDataProp": "pcontado"},
-		              { "sWidth": "12%","mDataProp": "elim_btn"}
+		              { "sWidth": "25%","mDataProp": "idproducto"},
+		              { "sWidth": "25%","mDataProp": "nombre"},
+		              { "sWidth": "25%","mDataProp": "cantidad"},
+		              { "sWidth": "25%","mDataProp": "elim_btn"}
 		              ],
         "fnCreatedRow": function( nRow, aData, iDisplayIndex ) {
-      			$(nRow).find('a').click(function(e){
+      			$(nRow).find('.btn-danger').click(function(e){
       				e.preventDefault();
       				var index = $(SelectProductosTable.fnGetData()).getIndexObj(aData,'id');
       				SelectProductosTable.fnDeleteRow( index );

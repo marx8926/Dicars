@@ -388,7 +388,7 @@ class AdministrarServiciosController extends Controller {
 			
 		$constantes = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:Constante')
-		->findAll(array('nconstanteclase'=>$idclase));
+		->findBy(array('nconstanteclase'=>$idclase));
 	
 		$em->clear();
 	

@@ -76,6 +76,12 @@ class AdministrarSalidaProdController extends Controller{
 					
 					$em->persist($DetalleSalProd);
 					$em->flush();
+					
+					$stock = $Producto -> getNproductostock();
+					$stockn = $stock - $data['cantidad'];
+					
+					$Producto -> setNproductostock($stockn);
+					$em->flush();
 				}
 	
 			} catch (Exception $e) {
