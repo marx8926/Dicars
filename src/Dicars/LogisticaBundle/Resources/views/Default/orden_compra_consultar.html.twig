@@ -43,30 +43,27 @@
 <script src="{{ asset('js/util/functiongen.js') }}"></script>
 <script src="{{ asset('js/util/datatable_plugins.js') }}"></script>
 <script type="text/javascript">
-var CargarBotones;
+
+var RowCallBackFunction;
+
 $(document).ready(function(){
 
 	RowCallBackFunction = function(nRow, aData, iDisplayIndex){
-		$('.btn-datos').unbind();
-		$(nRow).find('.btn-datos').click(function(e){
-			e.preventDefault();
-			id=$(this).attr("id-data");	
-			$(this).attr('href',"{{ path('dicars_logistica_pedidos_ver',{'idpedido':''}) }}/"+id);
-		});
+		$(nRow).find('.btn-datos').attr('href',"{{ path('dicars_logistica_orden_compra_ver',{'idordcom':''}) }}/"+aData.id);
 	};
 	
 	UrlaDTable = '{{ path("dicars_logistica_servicio_gettablaordcom") }}';
 	FormatoDTable = [
-	              { "sWidth": "15%","mDataProp": "serie"},
-	              { "sWidth": "15%","mDataProp": "numero"},
-	              { "sWidth": "11%","mDataProp": "registrante"},
+	              { "sWidth": "10%","mDataProp": "serie"},
+	              { "sWidth": "10%","mDataProp": "numero"},
+	              { "sWidth": "20%","mDataProp": "registrante"},
 	              { "sWidth": "11%","mDataProp": "proveedor"},	  
 	              { "sWidth": "13%","mDataProp": "fecha_reg"},
 	              { "sWidth": "13%","mDataProp": "total"},
 	              { "sWidth": "11%","mDataProp": "ver_btn"},
 	              { "sWidth": "11%","mDataProp": "elim_btn"}
 	              ];
-	OrdComTable = createDataTable('ordcom_table',UrlaDTable,FormatoDTable,RowCallBackFunction);		
+	OrdComTable = createDataTable('ordcom_table',UrlaDTable,FormatoDTable,null,RowCallBackFunction);		
 	});
 	
 </script>
