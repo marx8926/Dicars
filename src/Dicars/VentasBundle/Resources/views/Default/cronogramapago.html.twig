@@ -65,11 +65,6 @@
 
 var ClientesTable;
 
-var ReloadTableEditar;
-var ReloadTableRegistrar;
-
-var CargarBotones;
-
 $(document).ready(function(){
 
 	ubigeos = getAjaxObject("{{ path('dicars_admin_servicio_getoptionubigeo') }}");
@@ -90,12 +85,6 @@ $(document).ready(function(){
 	              { "sWidth": "13%","mDataProp": "ver_pagar"}
 	              ];
 	ClientesTable = createDataTable('clientes_table',UrlaDTable,FormatoDTable,null,RowCallBackFunction);
-	
-	ReloadTableEditar = reloadclosemodal('modalEditarDatos', 'clientes_table');
-	ReloadTableRegistrar = reloadclosemodal('modalRegistro', 'clientes_table');
-	
-	enviar('RegistrarClienteForm', ReloadTableRegistrar);
-	enviar('EditarClienteForm', ReloadTableEditar);
 });
 
 </script>
