@@ -22,13 +22,13 @@
 					<div class="control-group">
 						<label class="control-label" for="fecha_ini">Fecha de Inicio</label>
 						<div class="controls">
-						  <input type="text" class="input-xlarge datepicker" id="fecha_ini" name="fecha_ini" value="{{ fecvigente }}">
+						  <input type="text" class="input-xlarge datepicker" id="fecha_ini" pattern="|^\d{2}/\d{2}/\d{4}$|" maxlength="10" name="fecha_ini" value="{{ fecvigente }}">
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="fecha_fin">Fecha de Vencimiento</label>
 						<div class="controls">
-						<input type="text" class="input-xlarge datepicker" id="fecha_fin" name="fecha_fin" value="{{ fecvencimiento }}">
+						<input type="text" class="input-xlarge datepicker" id="fecha_fin" name="fecha_fin" pattern="|^\d{2}/\d{2}/\d{4}$|" maxlength="10" value="{{ fecvencimiento }}">
 						</div>
 					</div>
 						<div class="control-group">
