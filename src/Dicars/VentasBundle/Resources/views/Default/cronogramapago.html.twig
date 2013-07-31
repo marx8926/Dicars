@@ -1,242 +1,102 @@
 {% extends "::baseCharisma.html.twig" %}
-{% block title %}Cronograma de Pagos - Ventas -{% endblock %}
+{% block title %}Clientes - Ventas -{% endblock %}
 {% block breadcrumb %}
 <li>
 	<a href="{{path('dicars_ventas_homepage')}}">Ventas</a> <span class="divider">/</span>
 </li>
 <li>
-	<a href="{{path('dicars_ventas_cronograma')}}">Cronograma de Pago</a>
+	<a href="{{path('dicars_ventas_clientes')}}">Clientes</a>
 </li>
 {% endblock %}
 {% block content %}
-<div class="row-fluid sortable">		
+<div class="row-fluid">		
 	<div class="box span12">
 		<div class="box-header well" data-original-title>
-			<h2><i class="icon-user"></i>Cronograma de Pagos</h2>
-			<div class="box-icon">
-				<!--a href="#" class="btn btn-registrar btn-round" alt="Registrar Cliente"><i class="icon-plus"></i></a>
-				<a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
-				<a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a -->
-			</div>
+			<h2><i class="icon-user"></i>Clientes</h2>
 		</div>
 		<div class="box-content">
-			<div class="form-horizontal">
-				<fieldset>
-				  <div class="control-group">
-					<label class="control-label" for="cliente">Cliente</label>
-					<div class="controls">
-					  <input class="input-xlarge focused" id="cliente" type="text">
-					  <button type="button" class="btn btn-info btn-buscarc" style="margin-left: 15px;"><i class="icon-search icon-white"></i>Buscar</button>
-					</div>
-				  </div>
-				</fieldset>
+			<table class="table table-striped table-bordered bootstrap-datatable datatable" id="clientes_table">
+			  <thead>
+				  <tr>
+					  <th>Nombres</th>
+					  <th>Apellidos</th>
+					  <th>DNI</th>
+					  <th>Línea de Crédito</th>
+					  <th></th>			  
+				  </tr>
+			  </thead>
+		  </table>  
+  
+		     {% include 'DicarsVentasBundle:Default:registrar_cliente.html.twig' %}
+		     
+		<div class="modal hide fade" id="modalEditarDatos">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">x</button>
+				<h3>Editar Cliente</h3>
 			</div>
-			<table class="table table-striped table-bordered bootstrap-datatable datatable">
-				<thead>
-					<tr>
-						<th>Cantidad</th>
-					  	<th>Nombre de Producto</th>
-					  	<th>Código</th>
-					  	<th>Precio</th>
-					  	<th>Acciones</th>
-				  	</tr>
-			  	</thead>   
-			  	<tbody>
-					<tr>
-						<td>David R</td>
-						<td class="center">2012/01/01</td>
-						<td class="center">Member</td>
-						<td class="center">
-							<span class="label label-success">Active</span>
-						</td>
-						<td class="center">
-							<a class="btn btn-info btn-editar" href="#">
-								<i class="icon-edit icon-white"></i>  
-								Editar
-							</a>
-							<a class="btn btn-danger" href="#">
-								<i class="icon-trash icon-white"></i> 
-								Eliminar
-							</a>
-						</td>
-					</tr>
-					<tr>
-						<td>Chris Jack</td>
-						<td class="center">2012/01/01</td>
-						<td class="center">Member</td>
-						<td class="center">
-							<span class="label label-success">Active</span>
-						</td>
-						<td class="center">
-							<a class="btn btn-info" href="#">
-								<i class="icon-edit icon-white"></i>  
-								Editar                                            
-							</a>
-							<a class="btn btn-danger" href="#">
-								<i class="icon-trash icon-white"></i> 
-								Eliminar
-							</a>
-						</td>
-					</tr>
-					<tr>
-						<td>Jack Chris</td>
-						<td class="center">2012/01/01</td>
-						<td class="center">Member</td>
-						<td class="center">
-							<span class="label label-success">Active</span>
-						</td>
-						<td class="center">
-							<a class="btn btn-info" href="#">
-								<i class="icon-edit icon-white"></i>  
-								Editar                                            
-							</a>
-							<a class="btn btn-danger" href="#">
-								<i class="icon-trash icon-white"></i> 
-								Eliminar
-							</a>
-						</td>
-					</tr>
-					<tr>
-						<td>Muhammad Usman</td>
-						<td class="center">2012/01/01</td>
-						<td class="center">Member</td>
-						<td class="center">
-							<span class="label label-success">Active</span>
-						</td>
-						<td class="center">
-							<a class="btn btn-info" href="#">
-								<i class="icon-edit icon-white"></i>  
-								Editar                                            
-							</a>
-							<a class="btn btn-danger" href="#">
-								<i class="icon-trash icon-white"></i> 
-								Eliminar
-							</a>
-						</td>
-					</tr>
-					<tr>
-						<td>Sheikh Heera</td>
-						<td class="center">2012/02/01</td>
-						<td class="center">Staff</td>
-						<td class="center">
-							<span class="label label-important">Banned</span>
-						</td>
-						<td class="center">
-							<a class="btn btn-info" href="#">
-								<i class="icon-edit icon-white"></i>  
-								Editar                                            
-							</a>
-							<a class="btn btn-danger" href="#">
-								<i class="icon-trash icon-white"></i> 
-								Eliminar
-							</a>
-						</td>
-					</tr>
-					<tr>
-						<td>Helen Garner</td>
-						<td class="center">2012/02/01</td>
-						<td class="center">Staff</td>
-						<td class="center">
-							<span class="label label-important">Banned</span>
-						</td>
-						<td class="center">
-							<a class="btn btn-info" href="#">
-								<i class="icon-edit icon-white"></i>  
-								Editar                                            
-							</a>
-							<a class="btn btn-danger" href="#">
-								<i class="icon-trash icon-white"></i> 
-								Eliminar
-							</a>
-						</td>
-					</tr>
-					<tr>
-						<td>Saruar Ahmed</td>
-						<td class="center">2012/03/01</td>
-						<td class="center">Member</td>
-						<td class="center">
-							<span class="label label-warning">Pending</span>
-						</td>
-						<td class="center">
-							<a class="btn btn-info" href="#">
-								<i class="icon-edit icon-white"></i>  
-								Editar                                            
-							</a>
-							<a class="btn btn-danger" href="#">
-								<i class="icon-trash icon-white"></i> 
-								Eliminar
-							</a>
-						</td>
-					</tr>
-					<tr>
-						<td>Ahemd Saruar</td>
-						<td class="center">2012/03/01</td>
-						<td class="center">Member</td>
-						<td class="center">
-							<span class="label label-warning">Pending</span>
-						</td>
-						<td class="center">
-							<a class="btn btn-info" href="#">
-								<i class="icon-edit icon-white"></i>  
-								Editar                                            
-							</a>
-							<a class="btn btn-danger" href="#">
-								<i class="icon-trash icon-white"></i> 
-								Eliminar
-							</a>
-						</td>
-					</tr>
-					<tr>
-						<td>Habib Rizwan</td>
-						<td class="center">2012/01/21</td>
-						<td class="center">Staff</td>
-						<td class="center">
-							<span class="label label-success">Active</span>
-						</td>
-						<td class="center">
-							<a class="btn btn-info" href="#">
-								<i class="icon-edit icon-white"></i>  
-								Editar                                            
-							</a>
-							<a class="btn btn-danger" href="#">
-								<i class="icon-trash icon-white"></i> 
-								Eliminar
-							</a>
-						</td>
-					</tr>
-					<tr>
-						<td>Rizwan Habib</td>
-						<td class="center">2012/01/21</td>
-						<td class="center">Staff</td>
-						<td class="center">
-							<span class="label label-success">Active</span>
-						</td>
-						<td class="center">
-							<a class="btn btn-info" href="#">
-								<i class="icon-edit icon-white"></i>  
-								Editar                                            
-							</a>
-							<a class="btn btn-danger" href="#">
-								<i class="icon-trash icon-white"></i> 
-								Eliminar
-							</a>
-						</td>
-					</tr>
-				</tbody>
-			</table>
-			<button type="button" class="btn btn-info"><i class="icon-print icon-white"></i>Imprimir</button>
-			{% include 'DicarsVentasBundle:Default:buscarcliente.html.twig' %}
+			<div class="modal-body">
+				<form id="EditarClienteForm" class="form-horizontal" method="post" action="{{ path('dicars_ventas_editar_cliente') }}">
+				</form>
+			</div>
+		</div>		
+		
+		<div class="modal hide fade" id="modalVerDatos">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">x</button>
+				<h3>Datos del Cliente</h3>
+			</div>
+			<div class="modal-body">
+				<div id="VerClienteForm" class="form-horizontal">
+				</div>
+			</div>
 		</div>
+				     
+		</div>
+				
 	</div><!--/span-->
 </div><!--/row-->
 
 {% endblock %}
 {% block javascript %}
+<script src="{{ asset('js/util/functiongen.js') }}"></script>
+<script src="{{ asset('js/util/datatable_plugins.js') }}"></script>
 <script type="text/javascript">
-//mostrar Buscar Cliente------------------------------------>
-$('.btn-buscarc').click(function(e){
-	e.preventDefault();
-	$('#modalBuscarCliente').modal('show');
+
+
+var ClientesTable;
+
+var ReloadTableEditar;
+var ReloadTableRegistrar;
+
+var CargarBotones;
+
+$(document).ready(function(){
+
+	ubigeos = getAjaxObject("{{ path('dicars_admin_servicio_getoptionubigeo') }}");
+	cargarUbigeo('dist', 'prov', 'dep');
+
+	zonas = getAjaxObject("{{ path('dicars_admin_servicio_getoptionzonas') }}");
+	cargarSelect(zonas,'zona','id','desc');
+
+	RowCallBackFunction = function(nRow, aData, iDisplayIndex){
+	};
+	
+	UrlaDTable = '{{ path("dicars_ventas_servicio_gettablaclientes") }}';
+	FormatoDTable = [
+	              { "sWidth": "15%","mDataProp": "nombre"},
+	              { "sWidth": "15%","mDataProp": "apellido"},
+	              { "sWidth": "15%","mDataProp": "dni"},
+	              { "sWidth": "15%","mDataProp": "linea_credito"},	              
+	              { "sWidth": "13%","mDataProp": "ver_pagar"}
+	              ];
+	ClientesTable = createDataTable('clientes_table',UrlaDTable,FormatoDTable,null,RowCallBackFunction);
+	
+	ReloadTableEditar = reloadclosemodal('modalEditarDatos', 'clientes_table');
+	ReloadTableRegistrar = reloadclosemodal('modalRegistro', 'clientes_table');
+	
+	enviar('RegistrarClienteForm', ReloadTableRegistrar);
+	enviar('EditarClienteForm', ReloadTableEditar);
 });
+
 </script>
 {% endblock %}
