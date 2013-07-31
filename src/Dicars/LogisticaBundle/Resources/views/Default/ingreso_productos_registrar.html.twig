@@ -31,6 +31,12 @@
 							<div class="controls">
 								<input class="input-xlarge focused" id="registrador" name="registrador" type="text">
 							</div>
+						</div>						
+						<div class="control-group">
+						<label class="control-label" for="observacion">Observaciones</label>
+						<div class="controls">
+							<textarea id="observacion" name="observacion" class="input-xlarge"></textarea>
+						</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="motivo">Tipo</label>
@@ -64,12 +70,6 @@
 								<input class="input-xlarge datepicker" name="fecharegistro" id="fecharegistro" type="text">
 							</div>
 						</div>
-					</div>
-				</div>
-				<div class="control-group">
-					<label class="control-label" for="observacion">Observaciones</label>
-					<div class="controls">
-						<textarea id="observacion" name="observacion" class="input-xlarge"></textarea>
 					</div>
 				</div>
 				</fieldset>
@@ -123,15 +123,20 @@
 <script type="text/javascript">
 
 var SelectProductoData = new Array();
-var SelectProductosTableData = new Array();
+var OtherDataProductosTable = new Array();
 
 var BuscarProductosTable;
 var SelectProductosTable;
-var Attr = ['idproducto','cantidad','precio_uni'];
+var Attr = ['idproducto','cantidad','precio_uni','total'];
 var RowCallBackFunctionProducto;
-
+var ResetForm;
 $(document).ready(function(){
-	//mostrar Buscar Producto------------------------------------>
+	
+	ResetForm = function(data){
+		//$(location).attr("href", "{{ path('dicars_logistica_cons_ingresoproductos') }}");
+		console.log(data);
+	};
+	//mostrar Buscar Producto------------------------------------
 	$('.btn-buscarp').click(function(e){
 		e.preventDefault();
 		$('#modalBuscarProducto').modal('show');
@@ -141,24 +146,18 @@ $(document).ready(function(){
 		var data = SelectProductoData[0];
 		$('#producto').val(data.idproducto+" - "+data.nombre);
 		$('#modalBuscarProducto').modal('hide');
-	});
-
+	});	
+	
 	$("#AgregarProductoForm").submit(function(e){
 		e.preventDefault();
 		if(SelectProductoData.length > 0){
 			SelectProductoData[0].cantidad = $('#cantidad').val();
-			SelectProductoData[0].precio_uni = $('#precio_uni').val();			
-			SelectProductosTable.fnAddData(SelectProductoData);
-			$('#producto').val("");
-			$('#cantidad').val("");
-			$('#precio_uni').val("");
-			$('#registrador').val("");
-			$('#fecharegistro').val("");
-			$('#observacion').val("");
-			
+			SelectProductoData[0].precio_uni = $('#precio_uni').val();	
+			SelectProductoData[0].total = $('#cantidad').val()*$('#precio_uni').val();	
+			SelectProductosTable.fnAddData(SelectProductoData);					
 			SelectProductoData.pop();
 			Array2 = SelectProductosTable.fnGetData();
-			CopyArray(SelectProductosTableData,Array2,false,Attr);
+			CopyArray(OtherDataProductosTable,Array2,false,Attr);
 		}
 	});
 
@@ -190,7 +189,7 @@ $(document).ready(function(){
 		        		var index = $(SelectProductosTable.fnGetData()).getIndexObj(aData,'idproducto');
 		        		SelectProductosTable.fnDeleteRow(index);
 		        		Array2 = SelectProductosTable.fnGetData();
-		        		CopyArray(SelectProductosTableData,Array2,false,Attr);
+		        		CopyArray(OtherDataProductosTable,Array2,false,Attr);
 		        		});       
 		        },
 		  		"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span12'i><'span12 center'p>>",
@@ -200,7 +199,7 @@ $(document).ready(function(){
 		  		}
 	});
 
-	enviar("RegistrarIngresoForm",logdata,SelectProductosTableData);
+	enviar("RegistrarIngresoForm",ResetForm,OtherDataProductosTable);
 });
 </script>
 {% endblock %}
