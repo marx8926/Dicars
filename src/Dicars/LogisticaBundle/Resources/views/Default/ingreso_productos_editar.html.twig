@@ -151,12 +151,6 @@ function cargarEditar(detingprode){
 }
 
 $(document).ready(function(){
-	/*
-	$(DetIngProductosTable).ready(function(){
-		Array2 = DetIngProductosTable.fnGetData();
-		CopyArray(OtherDataDetIngreso,Array2,false,Attr);					
-	});
-	*/	
 	
 	RowCallBackFunction = function(nRow, aData, iDisplayIndex){		
 		$(nRow).find('.btn-editar').click(function(e){
@@ -197,6 +191,7 @@ $(document).ready(function(){
 		e.preventDefault();
 		$('#modalBuscarProducto').modal('show');
 	});
+	
 	$("#select_producto").click(function(e){
 		e.preventDefault();
 		var data = SelectProductoData[0];
@@ -206,8 +201,7 @@ $(document).ready(function(){
 
 	$("#AgregarProductoForm").submit(function(e){
 		e.preventDefault();
-		if(SelectProductoData.length > 0){			
-			
+		if(SelectProductoData.length > 0){						
 			SelectProductoData[0].iddetingreso = 0;
 			SelectProductoData[0].cantidad = $('#cantidad').val();
 			SelectProductoData[0].precio_uni = $('#precio_uni').val();
@@ -218,18 +212,17 @@ $(document).ready(function(){
 			DetIngProductosTable.fnAddData(SelectProductoData);
 			$('#producto').val("");
 			$('#cantidad').val("");
-			$('#precio_uni').val("");
-			
+			$('#precio_uni').val("");			
 			SelectProductoData.pop();
 			Array2 = DetIngProductosTable.fnGetData();
 			CopyArray(OtherDataDetIngreso,Array2,false,Attr);
-		}
-		
+		}		
 	});	
 	
 	$("#btn_enviar_cambios").click(function(e){
 		$("#RegistrarIngresoForm").submit();
 	});
+	
 	RowCallBackFunctionProducto = getSimpleSelectRowCallBack(SelectProductoData,"select_producto_table");
 	UrlaDTableProductos = '{{ path("dicars_logistica_servicio_gettablaproductos") }}';
 	FormatoDTableProductos = [

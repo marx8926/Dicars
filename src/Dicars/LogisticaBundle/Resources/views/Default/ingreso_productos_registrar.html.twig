@@ -127,7 +127,7 @@ var SelectProductosTableData = new Array();
 
 var BuscarProductosTable;
 var SelectProductosTable;
-var Attr = ['id','cantidad','precio_uni'];
+var Attr = ['idproducto','cantidad','precio_uni'];
 var RowCallBackFunctionProducto;
 
 $(document).ready(function(){
@@ -139,7 +139,7 @@ $(document).ready(function(){
 	$("#select_producto").click(function(e){
 		e.preventDefault();
 		var data = SelectProductoData[0];
-		$('#producto').val(data.id+" - "+data.nombre);
+		$('#producto').val(data.idproducto+" - "+data.nombre);
 		$('#modalBuscarProducto').modal('hide');
 	});
 
@@ -169,7 +169,7 @@ $(document).ready(function(){
 	RowCallBackFunctionProducto = getSimpleSelectRowCallBack(SelectProductoData,"select_producto_table");
 	UrlaDTableProductos = '{{ path("dicars_logistica_servicio_gettablaproductos") }}';
 	FormatoDTableProductos = [
-		              { "sWidth": "12%","mDataProp": "id"},
+		              { "sWidth": "12%","mDataProp": "idproducto"},
 		              { "sWidth": "12%","mDataProp": "nombre"},
 		              { "sWidth": "12%","mDataProp": "stock"},
 		              { "sWidth": "12%","mDataProp": "pcontado"}
@@ -178,7 +178,7 @@ $(document).ready(function(){
 
 	SelectProductosTable = $("#ingreso_productos_table").dataTable({
 		"aoColumns": [
-		              { "sWidth": "12%","mDataProp": "id"},
+		              { "sWidth": "12%","mDataProp": "idproducto"},
 		              { "sWidth": "12%","mDataProp": "nombre"},
 		              { "sWidth": "12%","mDataProp": "cantidad"},
 		              { "sWidth": "12%","mDataProp": "precio_uni"},		              
@@ -187,8 +187,8 @@ $(document).ready(function(){
 		       "fnCreatedRow": function( nRow, aData, iDisplayIndex ) {
 		        		$(nRow).find('.btn-danger').click(function(e){
 		        		e.preventDefault();
-		        		var index = $(SelectProductosTable.fnGetData()).getIndexObj(aData,'id');
-		        		SelectProductosTable.fnDeleteRow( index );
+		        		var index = $(SelectProductosTable.fnGetData()).getIndexObj(aData,'idproducto');
+		        		SelectProductosTable.fnDeleteRow(index);
 		        		Array2 = SelectProductosTable.fnGetData();
 		        		CopyArray(SelectProductosTableData,Array2,false,Attr);
 		        		});       
