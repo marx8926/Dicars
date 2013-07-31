@@ -65,24 +65,25 @@ class AdministrarIngresoProdController extends Controller{
 			$this->getDoctrine()->getEntityManager()->beginTransaction();
 			
 			try {
-				/*
+				
 				$em->persist($IngProd);
 				$em->flush();
-				*/
+				
 				foreach($otherdata as $key => $data){
 					$Producto = $this->getDoctrine()
 					->getRepository('DicarsDataBundle:Producto')
 					->findOneBy(array('nproductoId' => $data["idproducto"]));
-	
+					
 					$DetalleIngProd = new LogDetingprod();
 					$DetalleIngProd -> setNingprod($IngProd);
 					$DetalleIngProd -> setNproducto($Producto);
 					$DetalleIngProd -> setNdetingprodcant($data["cantidad"]);
 					$DetalleIngProd -> setNdetingprodprecunt($data["precio_uni"]);
-					$DetalleIngProd -> setNdetingprodtot(124);
-						/*
+					$DetalleIngProd -> setNdetingprodtot($data["total"]);
+					
 					$em->persist($DetalleIngProd);
-					$em->flush(); */
+					$em->flush(); 
+					
 				}
 			
 			} catch (Exception $e) {
@@ -95,7 +96,7 @@ class AdministrarIngresoProdController extends Controller{
 			$this->getDoctrine()->getEntityManager()->commit();
 			$em->clear();
 			
-			$return = array("responseCode"=>200, "datos"=>$datos);
+			$return = array("responseCode"=>200, "datos"=>$datos, 'otherdata'=>$otherdata);
 	
 		}
 		else {
