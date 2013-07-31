@@ -34,6 +34,12 @@ class DefaultController extends Controller
     {
     	return $this->render('DicarsVentasBundle:Default:cronogramapago.html.twig');
     }
+    public function cronograma_creditosAction($idcliente)
+    {
+    	return $this->render('DicarsVentasBundle:Default:cronograma_pago_ventas.html.twig',array(
+    			'idcliente' => $idcliente
+    	));
+    }
     public function ingregr_diaAction()
     {
     	return $this->render('DicarsVentasBundle:Default:reporte_ing_egr_dia.html.twig');

@@ -12,20 +12,20 @@
 <div class="row-fluid">		
 	<div class="box span12">
 		<div class="box-header well" data-original-title>
-			<h2><i class="icon-user"></i> Lista de Clientes</h2>
+			<h2><i class="icon-user"></i> Créditos</h2>
 		</div>
 		<div class="box-content">
-			<table class="table table-striped table-bordered bootstrap-datatable datatable" id="clientes_table">
+			<table class="table table-striped table-bordered bootstrap-datatable datatable" id="creditos_table">
 			  <thead>
 				  <tr>
-					  <th>Nombres</th>
-					  <th>Apellidos</th>
-					  <th>DNI</th>
-					  <th>Línea de Crédito</th>
-					  <th></th>			  
+					  <th>ID</th>
+					  <th>Monto Total</th>
+					  <th>Monto Pagado</th>
+					  <th>Nro de Cuotas</th>
+					  <th></th>
 				  </tr>
 			  </thead>
-		  </table>      
+		  </table>  
 		</div>
 				
 	</div><!--/span-->
@@ -38,14 +38,14 @@
 <script type="text/javascript">
 
 
-var ClientesTable;
+var CreditosTable;
 
 $(document).ready(function(){
 
 	RowCallBackFunction = function(nRow, aData, iDisplayIndex){
 	};
 	
-	UrlaDTable = '{{ path("dicars_ventas_servicio_gettablaclientes") }}';
+	UrlaDTable = '{{ path("dicars_ventas_servicio_gettablacreditosbyId",{'idcliente':''}) }}/{{ idcliente }}';
 	FormatoDTable = [
 	              { "sWidth": "15%","mDataProp": "nombre"},
 	              { "sWidth": "15%","mDataProp": "apellido"},
@@ -53,7 +53,7 @@ $(document).ready(function(){
 	              { "sWidth": "15%","mDataProp": "linea_credito"},	              
 	              { "sWidth": "13%","mDataProp": "ver_pagar"}
 	              ];
-	ClientesTable = createDataTable('clientes_table',UrlaDTable,FormatoDTable,null,RowCallBackFunction);
+	CreditosTable = createDataTable('creditos_table',UrlaDTable,FormatoDTable,null,RowCallBackFunction);
 });
 
 </script>

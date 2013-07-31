@@ -248,4 +248,40 @@ class VentaServiciosController extends Controller{
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
+	public function getTablaCreditosByIdAction($idcliente){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$Ventas = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:VenVenta')
+		->findBy(array('ncliente' => $idcliente ));
+			
+		$em->clear();
+	
+		$todo = array();
+		foreach ($OfertasProductos as $key => $OfertaProducto){
+			$Producto = $OfertaProducto -> getNproducto();
+				
+			if($OfertaProducto -> getCofertaproductoest() == 0)
+				$estado = "<span class='label label-important'>Eliminar</span>";
+			else
+				$estado = "<span class='label label-success'>Activo</span>";
+				
+			$todo[] = array(
+					'idofertaproducto' => $OfertaProducto -> getNofertaproductoId(),
+					'idproducto' => $Producto -> getNproductoId(),
+					'talla' => $Producto -> getCproductotalla() ,
+					'band'=> 0,
+					'nombre' => $Producto -> getCproductodesc(),
+					'pcontado' => $Producto -> getNproductopcontado(),
+					'pcredito' => $Producto -> getNproductopcredito(),
+					'stock' => $Producto -> getNproductostock(),
+					'marca' => $Producto -> getNproductomarca() -> getCmarcadesc(),
+					'labelestado' => $estado,
+					'estado' => $OfertaProducto -> getCofertaproductoest(),
+					'elim_btn' => "<a class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
+		}
+	
+		return new JsonResponse(array('aaData' => $todo));
+	}
+	
 }

@@ -385,7 +385,8 @@ $(document).ready(function(){
 			$('#cantidad').val("");
 			SelectProductoData.pop();
 			Array2 = SelectProductosTable.fnGetData();
-			CopyArray(SelectProductosTableData,Array2,false,Attr);			
+			CopyArray(SelectProductosTableData,Array2,false,Attr);
+			console.log(Array2);	
 			$("#total_credito").text(totalcontado = (sumArrayByAttr(Array2,'pcontado')).toFixed(2));
 			$("#total_contado").text(totalcredito = (sumArrayByAttr(Array2,'pcredito')).toFixed(2));
 			$('#contenedor').height($('#step1').height());

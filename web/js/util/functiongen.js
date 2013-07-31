@@ -49,15 +49,15 @@ function sumArrayByAttr(Array2,attr,attrresult,attrcondicion){
 	var total = 0;
 	$(Array2).each(function( index ){
 		var condicion = 1;
-		if(attrcondicion != 'undefined')
+		if(typeof(attrcondicion) != 'undefined')
 			condicion = this[attrcondicion];
 		if(condicion == 1){
-			if(this['cantidad']!='undefined')
+			if(typeof(this['cantidad'])!='undefined')
 				total +=(this[attr]*this['cantidad']);
 			else
 				total +=this[attr];
 		}
-		if(attrresult != 'undefined')
+		if(typeof(attrresult) != 'undefined')
 			this[attrresult] = (this[attr]*this['cantidad']);
 		
 	});

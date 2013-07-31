@@ -34,6 +34,9 @@ dicars_ventas_regimp_tarjetacredito:
 dicars_ventas_cronograma:
     pattern: /cronograma
     defaults: { _controller: DicarsVentasBundle:Default:cronograma }
+dicars_ventas_cronograma_creditos:
+    pattern: /cronograma_creditos/{idcliente}
+    defaults: { _controller: DicarsVentasBundle:Default:cronograma_creditos }
 dicars_ventas_ingregr_dia:
     pattern: /ingregr_dia
     defaults: { _controller: DicarsVentasBundle:Default:ingregr_dia }
