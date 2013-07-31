@@ -169,6 +169,7 @@ class VentaServiciosController extends Controller{
 					'stock' => $producto['nProductoStock'],
 					'talla' => $producto['cProductoTalla'],
 					'marcaId' => $producto['nProductoMarca'],
+					'descoferta' => $producto['DescripcionOferta'],
 					'marca' => $producto['cMarcaDesc'],
 					'categoriaId' => $producto['nCategoria_id'],
 					'categoria' => $producto['cCategoriaNom'],
@@ -253,32 +254,49 @@ class VentaServiciosController extends Controller{
 			
 		$Ventas = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:VenVenta')
-		->findBy(array('ncliente' => $idcliente ));
+		->findBy(array('ncliente' => $idcliente ,
+						'nventatippag' => 2
+				));
 			
 		$em->clear();
 	
 		$todo = array();
-		foreach ($OfertasProductos as $key => $OfertaProducto){
-			$Producto = $OfertaProducto -> getNproducto();
-				
-			if($OfertaProducto -> getCofertaproductoest() == 0)
-				$estado = "<span class='label label-important'>Eliminar</span>";
-			else
-				$estado = "<span class='label label-success'>Activo</span>";
+		foreach ($Ventas as $key => $Venta){
+			
+			$Credito = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:VenCredito')
+			->findOneBy(array('nventa' => $Venta -> getNventaId()));
+			
+			$todo[] = array(
+					'idventa' => $Venta -> getNventaId(),
+					'idcredito' => $Credito -> getNvencreditoId(),
+					'montototal' => $Venta -> getNventatotapag(),
+					'montopagado' => $Venta -> getNventatotamt() ,
+					'cuotas' => $Credito -> getNvencreditoncuota(),
+					'ver_pagar' => "<a class='btn btn-warning btn-pagar' href='#'>Pagar</a>",
+					);
+		}
+	
+		return new JsonResponse(array('aaData' => $todo));
+	}
+	
+	public function getTablaCuotasByIdAction($idcredito){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$Cronogramas = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:VenCronpago')
+		->findBy(array('nvencredito' => $idcredito));
+			
+		$em->clear();
+	
+		$todo = array();
+		foreach ($Cronogramas as $key => $Cronograma){
 				
 			$todo[] = array(
-					'idofertaproducto' => $OfertaProducto -> getNofertaproductoId(),
-					'idproducto' => $Producto -> getNproductoId(),
-					'talla' => $Producto -> getCproductotalla() ,
-					'band'=> 0,
-					'nombre' => $Producto -> getCproductodesc(),
-					'pcontado' => $Producto -> getNproductopcontado(),
-					'pcredito' => $Producto -> getNproductopcredito(),
-					'stock' => $Producto -> getNproductostock(),
-					'marca' => $Producto -> getNproductomarca() -> getCmarcadesc(),
-					'labelestado' => $estado,
-					'estado' => $OfertaProducto -> getCofertaproductoest(),
-					'elim_btn' => "<a class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
+					'fecpago' => $Cronograma -> getNcronpagofecpago() -> format('d/m/Y'),
+					'nrocuota' => $Cronograma -> getNcronpagonrocuota(),
+					'monto' => $Cronograma -> getNcronpagomoncouapg()
+			);
 		}
 	
 		return new JsonResponse(array('aaData' => $todo));

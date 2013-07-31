@@ -43,6 +43,7 @@ var ClientesTable;
 $(document).ready(function(){
 
 	RowCallBackFunction = function(nRow, aData, iDisplayIndex){
+		$(nRow).find('.btn-pagar').attr('href',"{{ path('dicars_ventas_cronograma_creditos',{'idcliente':''}) }}/"+aData.id);
 	};
 	
 	UrlaDTable = '{{ path("dicars_ventas_servicio_gettablaclientes") }}';

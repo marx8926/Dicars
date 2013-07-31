@@ -28,4 +28,12 @@ dicars_ventas_servicio_getventaproductossinoferta:
     
 dicars_ventas_servicio_gettablaofertaproductosbyid:
     pattern:  /servicio_gettablaofertaproductosbyid/{idOferta}
-    defaults: { _controller: DicarsVentasBundle:VentaServicios:getTablaOfertaProductoById } 
+    defaults: { _controller: DicarsVentasBundle:VentaServicios:getTablaOfertaProductoById }
+    
+dicars_ventas_servicio_gettablacreditosbyId:
+    pattern:  /servicio_gettablacreditosbyid/{idcliente}
+    defaults: { _controller: DicarsVentasBundle:VentaServicios:getTablaCreditosById } 
+    
+dicars_ventas_servicio_gettablacuotasbyId:
+    pattern:  /servicio_gettablacuotasbyid/{idcredito}
+    defaults: { _controller: DicarsVentasBundle:VentaServicios:getTablaCuotasById } 

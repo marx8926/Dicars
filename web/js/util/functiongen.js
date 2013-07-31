@@ -165,8 +165,7 @@ jQuery.fn.getIndexObj = function (obj,attr){
 
 function CopyArray(Array1,Array2,all,attrs){
 	while(Array1.length > 0)
-		Array1.pop();
-	
+		Array1.pop();	
 	if(all){
 		$(Array2).each(function( index ){
 			Array1.push(this);
@@ -178,7 +177,7 @@ function CopyArray(Array1,Array2,all,attrs){
 			var newdata = [];
 			var jsondata = '{';
 			for(var i=0; i<attrs.length;i++){
-				jsondata +='"'+attrs[i]+'":'+olddata[attrs[i]];
+				jsondata +='"'+attrs[i]+'":"'+olddata[attrs[i]]+'"';
 				if(attrs.length-1>i)
 					jsondata = jsondata + ',';
 			}

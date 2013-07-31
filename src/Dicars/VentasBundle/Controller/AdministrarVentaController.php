@@ -95,10 +95,6 @@ class AdministrarVentaController extends Controller {
 					$Producto = $this->getDoctrine()
 					->getRepository('DicarsDataBundle:Producto')
 					->findOneBy(array('nproductoId' => $data['id']));
-					
-					$DetVenta = new VenDetventa();
-					$DetVenta -> setNdetventacant( $data['cantidad']);
-					$DetVenta -> setNdetventadscto($data['descuento']);
 					if($TipoPago == '1'){
 						$Unitario = $data['pcontado'];
 						$MontoPro = $data['totalcontado'];
@@ -106,7 +102,12 @@ class AdministrarVentaController extends Controller {
 					else{
 						$Unitario = $data['pcredito'];
 						$MontoPro = $data['totalcredito'];
-					}					
+					}
+					
+					$DetVenta = new VenDetventa();
+					$DetVenta -> setNdetventacant( $data['cantidad']);
+					$DetVenta -> setNdetventadscto($data['descuento']);
+					$DetVenta -> setCdetventadesc($data['descoferta']);								
 					$DetVenta -> setNdetventaprecunt($Unitario);
 					$DetVenta -> setNdetventatot($MontoPro);
 					$DetVenta -> setNproducto($Producto);
@@ -134,7 +135,7 @@ class AdministrarVentaController extends Controller {
 						$CronoPago = new VenCronpago();
 						$CronoPago -> setNcronpagofecpago($FechaDiaPago);
 						$CronoPago -> setNcronpagofecreg($FechaDiaPago);
-						$CronoPago -> setNcronpagomoncouapg(0);
+						$CronoPago -> setNcronpagomoncouapg($datos["montocuota"]);
 						$CronoPago -> setNcronpagomoncouapl(0);
 						$CronoPago -> setNvencredito($VentaCredito);
 						$CronoPago -> setNcronpagonrocuota($i+1);

@@ -180,6 +180,7 @@
 				<p>
                         <a to_position='1' id='to_select_productos' href="#">atras</a>
                     </p>
+                <input type="hidden" name="montocuota" id="montocuota">
 				<input type="submit" value="enviar">
 			</form>
 			</div><!--/span-->
@@ -280,7 +281,7 @@ var SelectClienteTable;
 var totalcredito;
 var totalcontado;
 
-var Attr = ['id','cantidad','pcontado','pcredito','totalcredito','totalcontado','descuento'];
+var Attr = ['id','cantidad','pcontado','pcredito','totalcredito','totalcontado','descuento','descoferta'];
 var RowCallBackFunctionProducto;
 var RowCallBackFunctionCliente;
 
@@ -292,7 +293,6 @@ function VentaUpdate(){
 	var des = $("#descuento").val();
 	var montodesc;
 	var montoigv;
-	var mosntocuota;
 	if($("#tipo_moneda").val()==1)
 		TipoMoneda = "s/.";
 	else
@@ -316,9 +316,9 @@ function VentaUpdate(){
 	$("#spanigv").text("% "+TipoMoneda+" "+montoigv);
 
 	$("#spanamort").text(TipoMoneda);
-	mosntocuota = $("#saldo").val()/$("#num_cuotas").val();
-		
-	$("#spancouota").text("x "+TipoMoneda+" "+mosntocuota.toFixed(2));
+	montocuota = $("#saldo").val()/$("#num_cuotas").val();
+	$("#montocuota").val(montocuota);	
+	$("#spancouota").text("x "+TipoMoneda+" "+montocuota.toFixed(2));
 }
 
 $(document).ready(function(){
@@ -380,13 +380,14 @@ $(document).ready(function(){
 			SelectProductoData[0].cantidad = $('#cantidad').val();
 			SelectProductoData[0].totalcredito = SelectProductoData[0].pcredito*$('#cantidad').val();
 			SelectProductoData[0].totalcontado = SelectProductoData[0].pcontado*$('#cantidad').val();
+			console.log(SelectProductoData);
 			SelectProductosTable.fnAddData(SelectProductoData);
 			$('#producto').val("");
 			$('#cantidad').val("");
 			SelectProductoData.pop();
 			Array2 = SelectProductosTable.fnGetData();
 			CopyArray(SelectProductosTableData,Array2,false,Attr);
-			console.log(Array2);	
+			console.log(SelectProductosTableData);	
 			$("#total_credito").text(totalcontado = (sumArrayByAttr(Array2,'pcontado')).toFixed(2));
 			$("#total_contado").text(totalcredito = (sumArrayByAttr(Array2,'pcredito')).toFixed(2));
 			$('#contenedor').height($('#step1').height());
