@@ -133,8 +133,7 @@ var ResetForm;
 $(document).ready(function(){
 	
 	ResetForm = function(data){
-		//$(location).attr("href", "{{ path('dicars_logistica_cons_ingresoproductos') }}");
-		console.log(data);
+		$(location).attr("href", "{{ path('dicars_logistica_cons_ingresoproductos') }}");		
 	};
 	//mostrar Buscar Producto------------------------------------
 	$('.btn-buscarp').click(function(e){

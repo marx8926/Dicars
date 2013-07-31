@@ -79,7 +79,7 @@ var Marcas;
 
 function cargarEditar(producto){			
 
-	ArrayDatos = [	{'type':'hidden','value':producto.id,'name':'idE'},
+	ArrayDatos = [	{'type':'hidden','value':producto.idproducto,'name':'idE'},
 	              	{'label':'Serie','type':'input','typeinput':'text','pattern':'|^([0-9]+\s*)+$|','title':'Debe tener el formato correcto', 'req':'', 'max':'15','value':producto.serie,'name':'serieE'},
 	              	{'label':'Talla','type':'input','typeinput':'text','pattern':'|^([0-9]+\s*)+$|','title':'Debe tener el formato correcto', 'req':'', 'max':'2','value':producto.talla,'name':'tallaE'},	
 	              	{'label':'Descripcion','type':'input','typeinput':'text','pattern':'|^[a-zA-Z Ã±Ã‘Ã¡Ã�Ã©Ã‰Ã­Ã�Ã³Ã“ÃºÃšÃ¼ÃœÃ§]*$|','title':'Debe tener el formato correcto', 'req':'', 'max':'200','value':producto.nombre,'name':'descripcionE'},              	
@@ -111,7 +111,7 @@ function cargarEditar(producto){
 }
 
 function cargarVer(producto){		
-	ArrayDatos = [	{'label':'Codigo','type':'span','value':producto.id},
+	ArrayDatos = [	{'label':'Codigo','type':'span','value':producto.idproducto},
 	              	{'label':'Nombre','type':'span','value':producto.nombre},
 	              	{'label':'Talla','type':'span','value':producto.talla},
 	              	{'label':'Serie','type':'span','value':producto.serie},

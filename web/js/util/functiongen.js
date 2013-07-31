@@ -255,6 +255,7 @@ function reloadclosemodal(idmodal,idaTable){
 		$('#'+idaTable).dataTable().fnReloadAjax();
 		console.log(data);
 		$('#'+idmodal).modal('hide');
+		$('#'+idmodal+" form").reset();
 		};
 	return returnfunction;
 }
