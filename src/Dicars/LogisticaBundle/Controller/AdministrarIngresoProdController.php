@@ -84,6 +84,11 @@ class AdministrarIngresoProdController extends Controller{
 					$em->persist($DetalleIngProd);
 					$em->flush(); 
 					
+					$stock = $Producto -> getNproductostock();
+					$stockn = $stock + $data['cantidad'];
+						
+					$Producto -> setNproductostock($stockn);
+					$em->flush();
 				}
 			
 			} catch (Exception $e) {
