@@ -32,7 +32,17 @@
 				<h3>Cuotas</h3>
 			</div>
 			<div class="modal-body">
-				
+				<form id="EditarOfertasForm" class="form-horizontal" method="post" action="{{ path('dicars_ventas_editar_oferta') }}">
+					<div class="control-group">
+						<label class="control-label" for="amortizacion">A cuenta</label>
+						<div class="controls">
+							<div class="input-prepend input-append">
+								<input class="input-xlarge focused" style="margin: 0 0px 0 0;" name="monto" id="monto" type="number" step="0.1" value="0" min="0"><span id="spanamort" class="add-on">s/.</span>
+								<button id="pagar"type="button" class="btn btn-warning btn-buscarc" style="margin: 0 18px;">Pagar</button>
+							</div>
+						</div>
+					</div>
+				</form>
 				<table id="cuotas_table" class="table table-striped table-bordered bootstrap-datatable datatable">
 				  <thead>
 					  <tr>
@@ -62,15 +72,44 @@
 var CuotasTable;
 var CreditosTable;
 var RowCallBackFunction;
+var jsonData;
+var Band = true;
+
+function CalcularPago(){
+	/*console.log(jsonData);
+	CuotasTable.fnClearTable();
+	CuotasTable.fnAddData(jQuery.parseJSON(jsonData));*/
+	CloneAttrTable(CuotasTable,'cmonto',2);
+	var Array = CuotasTable.fnGetData();
+	var Monto = $("#monto").val();
+	$(Array).each(function(index){
+		Monto-=this.monto;
+		var quedan = 0;
+		if(Monto <= 0){
+			quedan = Math.abs(Monto);
+			Monto = 0;
+		}
+		else
+			quedan = 0;
+		CuotasTable.fnUpdate(quedan.toFixed(2),index,2);
+		return (Monto != 0);
+	});
+	console.log(CuotasTable.fnGetData());
+};
 
 $(document).ready(function(){
-
+	$("#pagar").click(function(e){
+		e.preventDefault();
+		CalcularPago();
+	});
+	
 	RowCallBackFunction = function(nRow, aData, iDisplayIndex){
 		$(nRow).find('.btn-pagar').click(function(e){
 			e.preventDefault();
 			CuotasTable.fnClearTable();
 			CuotasTable.fnReloadAjax("{{ path('dicars_ventas_servicio_gettablacuotasbyId',{'idcredito':''}) }}/"+aData.idcredito);
 			$('#modalCuotas').modal('show');
+			Band = true;
 		});
 	};
 	
@@ -93,7 +132,16 @@ $(document).ready(function(){
 		              { "sWidth": "15%","mDataProp": "fecpago"},
 		              { "sWidth": "15%","mDataProp": "nrocuota"},
 		              { "sWidth": "15%","mDataProp": "monto"}
-		              ],				             
+		              ],
+		"fnDrawCallback": function(oSettings ){
+					setTimeout(function() {
+						if(Band){
+							CloneAttr(CuotasTable.fnGetData(),'monto','cmonto');
+							if(CuotasTable.fnGetData().length>0)
+								Band = false;
+						}							
+		      		});
+		      	},
 	 	"aaSorting": [ [0, 'asc'], [1, 'asc'] ],
 	 	"bPaginate": false,
 		"bLengthChange": false,
@@ -103,7 +151,7 @@ $(document).ready(function(){
 		"bAutoWidth": false,
 	 	"aoColumnDefs": [
 	                  {"sType": 'string-case', "aTargets": [2]}],
-		 	"sDom": "<'row-fluid'r>t<'row-fluid'>",
+		 	"sDom": "<r>t<'row-fluid'>",
 		 	"sPaginationType": "bootstrap",
 		 	"oLanguage": {
 			"sLengthMenu": "_MENU_ registros por página"

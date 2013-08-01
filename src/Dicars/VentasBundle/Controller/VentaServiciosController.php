@@ -285,7 +285,7 @@ class VentaServiciosController extends Controller{
 			
 		$Cronogramas = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:VenCronpago')
-		->findBy(array('nvencredito' => $idcredito));
+		->findBy(array('nvencredito' => $idcredito),array('ncronpagofecpago' => 'ASC'));
 			
 		$em->clear();
 	

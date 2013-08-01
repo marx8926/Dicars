@@ -273,7 +273,8 @@
 
 var SelectProductoData = new Array();
 var SelectClienteData = new Array();
-var SelectProductosTableData = new Array();
+var OtherDataProductos = new Array();
+var OtherDataProductos = new Array();
 
 var SelectProductosTable;
 var SelectClienteTable;
@@ -344,7 +345,8 @@ $(document).ready(function(){
 	$("#finalizar_venta").click(function(e){
 		e.preventDefault();
     	$("#EnviarVentaForm").unbind();
-    	enviar('EnviarVentaForm',logdata,SelectProductosTableData);
+    	console.log(OtherDataProductos);	
+    	enviar('EnviarVentaForm',logdata,OtherDataProductos);
 		$("#EnviarVentaForm").submit();
 	});
 	
@@ -380,14 +382,12 @@ $(document).ready(function(){
 			SelectProductoData[0].cantidad = $('#cantidad').val();
 			SelectProductoData[0].totalcredito = SelectProductoData[0].pcredito*$('#cantidad').val();
 			SelectProductoData[0].totalcontado = SelectProductoData[0].pcontado*$('#cantidad').val();
-			console.log(SelectProductoData);
 			SelectProductosTable.fnAddData(SelectProductoData);
 			$('#producto').val("");
 			$('#cantidad').val("");
 			SelectProductoData.pop();
 			Array2 = SelectProductosTable.fnGetData();
-			CopyArray(SelectProductosTableData,Array2,false,Attr);
-			console.log(SelectProductosTableData);	
+			CopyArray(OtherDataProductos,Array2,false,Attr);
 			$("#total_credito").text(totalcontado = (sumArrayByAttr(Array2,'pcontado')).toFixed(2));
 			$("#total_contado").text(totalcredito = (sumArrayByAttr(Array2,'pcredito')).toFixed(2));
 			$('#contenedor').height($('#step1').height());
@@ -435,7 +435,7 @@ $(document).ready(function(){
 				var index = $(SelectProductosTable.fnGetData()).getIndexObj(aData,'id');
 				SelectProductosTable.fnDeleteRow( index );
 				Array2 = SelectProductosTable.fnGetData();
-				CopyArray(SelectProductosTableData,Array2,false,Attr);
+				CopyArray(OtherDataProductos,Array2,false,Attr);
 				$("#total_credito").text(totalcontado = sumArrayByAttr(Array2,'pcontado'));
 				$("#total_contado").text(totalcredito = sumArrayByAttr(Array2,'pcredito'));
 			});
@@ -447,7 +447,7 @@ $(document).ready(function(){
 		}
 	});
 	ajaxResponseData("forma_pago","{{ path('dicars_admin_servicio_getoptiontipobyclase',{'Clase':1}) }}");
-	initSlider(SelectProductosTableData);
+	initSlider(OtherDataProductos);
 	$('#contenedor').height($('#step1').height());
 	
 });

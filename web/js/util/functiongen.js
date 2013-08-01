@@ -17,7 +17,21 @@ function AddAttr(Array, attr, value){
 	$(Array).each(function( index ){
 		this[attr] = value;
 	});
-}	
+}
+
+function CloneAttr(Array, attr1, attr2){
+	$(Array).each(function( index ){
+		var value =this[attr1];
+		this[attr2] = value;
+	});
+}
+
+function CloneAttrTable(Tabla, attr, pos){
+	var Array = Tabla.fnGetData();
+	$(Array).each(function( index ){
+		CuotasTable.fnUpdate(this[attr],index,pos);
+	});
+}
 	
 function getMultipleSelectRowCallBack(DSelected){
 	var SelectRowFunction = function(nRow,aData,iDisplayIndex){
