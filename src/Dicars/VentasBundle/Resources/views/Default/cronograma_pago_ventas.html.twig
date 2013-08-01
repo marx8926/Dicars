@@ -83,14 +83,32 @@ $(document).ready(function(){
 	              { "sWidth": "13%","mDataProp": "ver_pagar"}
 	              ];
 	CreditosTable = createDataTable('creditos_table',UrlaDTableCredito,FormatoDTableCredito,null,RowCallBackFunction);
-
-	UrlaDTableCuotas = "{{ path('dicars_ventas_servicio_gettablacuotasbyId',{'idcredito':0}) }}";
-	FormatoDTableCuotas = [
-	              { "sWidth": "15%","mDataProp": "fecpago"},
-	              { "sWidth": "15%","mDataProp": "nrocuota"},
-	              { "sWidth": "15%","mDataProp": "monto"}
-	              ];
-	CuotasTable = createDataTable('cuotas_table',UrlaDTableCuotas,FormatoDTableCuotas,null,null);
+	
+	CuotasTable = $('#cuotas_table').dataTable({
+		"bProcessing": true,
+		"bServerSide": false,
+		"bDestroy": true,
+		"sAjaxSource": "{{ path('dicars_ventas_servicio_gettablacuotasbyId',{'idcredito':0}) }}",	  
+		"aoColumns": [
+		              { "sWidth": "15%","mDataProp": "fecpago"},
+		              { "sWidth": "15%","mDataProp": "nrocuota"},
+		              { "sWidth": "15%","mDataProp": "monto"}
+		              ],				             
+	 	"aaSorting": [ [0, 'asc'], [1, 'asc'] ],
+	 	"bPaginate": false,
+		"bLengthChange": false,
+		"bFilter": true,
+		"bSort": false,
+		"bInfo": false,
+		"bAutoWidth": false,
+	 	"aoColumnDefs": [
+	                  {"sType": 'string-case', "aTargets": [2]}],
+		 	"sDom": "<'row-fluid'r>t<'row-fluid'>",
+		 	"sPaginationType": "bootstrap",
+		 	"oLanguage": {
+			"sLengthMenu": "_MENU_ registros por página"
+				}	
+		});
 });
 
 </script>
