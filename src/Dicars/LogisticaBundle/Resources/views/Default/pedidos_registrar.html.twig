@@ -25,37 +25,21 @@
 							<div class="control-group">
 								<label class="control-label" for="codigo">Código</label>
 								<div class="controls">
-									<input class="input-xlarge focused" id="codigo" name="codigo" type="text">
+									<input id="serie" name="serie" type="text" style="width:40px;" maxlength="4">
+									-
+									<input id="numero" name="numero" type="text" style="width:60px;" maxlength="8">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="registrador">Registrador</label>
 								<div class="controls">
-									<input class="input-xlarge focused" id="registrador" name="registrador" type="text">
-								</div>
-							</div>
-							<div class="control-group">
-								<label class="control-label" for="motivo">Tipo</label>
-								<div class="controls">
-									<select id="tipo" data-rel="chosen" name="tipo">
-										<option>Option 1</option>
-										<option>Option 2</option>
-										<option>Option 3</option>
-										<option>Option 4</option>
-										<option>Option 5</option>
-									</select>
+									<input class="input-xlarge focused" id="registrador" name="registrador" type="text" readonly>
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="tienda">Tienda</label>
 								<div class="controls">
-								  	<select id="tienda" data-rel="chosen" name="tienda">
-										<option>Option 1</option>
-										<option>Option 2</option>
-										<option>Option 3</option>
-										<option>Option 4</option>
-										<option>Option 5</option>
-									</select>
+								  	<input class="input-xlarge focused" id="tienda" name="tienda" type="text" readonly>
 								</div>
 							</div>
 						</div>
@@ -77,6 +61,7 @@
 								<div class="controls">
 									<label class="checkbox inline">
 										<input type="checkbox" id="checkgerencia" value="option1">Enviar Correo a Gerencia
+										<input type="hidden" id="email" name="email">
 									</label>
 								</div>
 							</div>
@@ -148,7 +133,11 @@ var SelectProductosTable;
 var RowCallBackFunctionProducto;
 
 $(document).ready(function(){
-	
+
+	ResetForm = function(data){
+		$(location).attr("href", "{{ path('dicars_logistica_pedidos') }}");		
+	};
+
 	//mostrar Buscar Producto------------------------------------>
 	$('.btn-buscarp').click(function(e){
 		e.preventDefault();
@@ -158,7 +147,7 @@ $(document).ready(function(){
 	$("#select_producto").click(function(e){
 		e.preventDefault();
 		var data = SelectProductoData[0];
-		$('#producto').val(data.id+" - "+data.nombre);
+		$('#producto').val(data.idproducto+" - "+data.nombre);
 		$('#modalBuscarProducto').modal('hide');
 	});
 
@@ -176,6 +165,10 @@ $(document).ready(function(){
 	});
 
 	$("#btn_enviar_pedido").click(function(e){
+		if($('#id-checkgerencia').is(':checked'))
+			$('#email').val(1);//enviado a gerencia
+		else
+			$('#email').val(0);//NO enviado a gerencia
 		$("#RegistrarPedidoForm").submit();
 	});
 
@@ -213,7 +206,7 @@ $(document).ready(function(){
 		}
 	});
 
-	enviar("RegistrarPedidoForm",logdata,SelectProductosTableData);
+	enviar("RegistrarPedidoForm",ResetForm,SelectProductosTableData);
 	
 });
 

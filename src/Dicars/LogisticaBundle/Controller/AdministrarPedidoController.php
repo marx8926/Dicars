@@ -19,6 +19,8 @@ class AdministrarPedidoController extends Controller{
 		parse_str($form,$datos);
 		
 		$Serie = null;
+		$Numero = null;
+		$Email = null;
 		$Local = null;
 		$Fecha_reg = null;
 		$Fecha_ent = null;
@@ -26,24 +28,25 @@ class AdministrarPedidoController extends Controller{
 		
 		if ($form != null){
 			
+			$Serie = $datos['serie'];
+			$Numero = $datos['numero'];
+			$Email = $datos['email'];
 			$Fecha_reg = date_create_from_format('d/m/Y', $datos["fechapedido"]);
-				
 			$Fecha_ent = date_create_from_format('d/m/Y', $datos["fechaentrega"]);
-			
 			$Observacion = $datos['observaciones'];
 			
 			$Local = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:Local')
-			->findOneBy(array('nlocalId' => 1));			
+			->findOneBy(array('nlocalId' => 2));			
 			
 			$Empleado = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:VenPersonal')
 			->findOneBy(array('npersonalId' => 1));
 			
 			$Pedido = new  LogOrdped();
-			$Pedido -> setCordpedserie('qwer');
-			$Pedido -> setCordpednro('12345678');
-			$Pedido -> setCordpedenvemail('1');
+			$Pedido -> setCordpedserie($Serie);
+			$Pedido -> setCordpednro($Numero);
+			$Pedido -> setCordpedenvemail($Email);
 			$Pedido -> setCordpedest('1');
 			$Pedido -> setCordpedobsv($Observacion);
 			$Pedido -> setDordpedfecreg($Fecha_reg);
@@ -60,13 +63,13 @@ class AdministrarPedidoController extends Controller{
 				foreach($otherdata as $key => $data){
 					$Producto = $this->getDoctrine()
 					->getRepository('DicarsDataBundle:Producto')
-					->findOneBy(array('nproductoId' => $data['id']));
+					->findOneBy(array('nproductoId' => $data['idproducto']));
 					
 					$DetallePedido = new LogDetordped();
 					$DetallePedido -> setNdetordpedcant($data['cantidad']);
 					$DetallePedido -> setNordped($Pedido);
 					$DetallePedido -> setNproducto($Producto);
-					$DetallePedido -> setNdetordpedcantacept(10);
+					$DetallePedido -> setNdetordpedcantacept(0);
 					$DetallePedido -> setCdetordpedest('1');
 					$em->persist($DetallePedido);
 					$em->flush();

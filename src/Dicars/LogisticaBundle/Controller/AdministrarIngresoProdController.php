@@ -38,16 +38,16 @@ class AdministrarIngresoProdController extends Controller{
 				
 			$Local = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:Local')
-			->findOneBy(array('nlocalId' => 1));
+			->findOneBy(array('nlocalId' => 2));
 				
-			$Serie ='QRE';
-			$Numero ='12345678';
-			$Motivo = 1;
-			$SerieDoc = 'DOC';
+			$Serie = $datos["serie"];
+			$Numero = $datos["numero"];
+			$Motivo = $datos["tipo"];
+			$SerieDoc = $datos["docserie"];
 			$Fecha_reg = date_create_from_format('d/m/Y', $datos["fecharegistro"]);						
-			$NumeroDoc = 'DOC001';
+			$NumeroDoc = $datos["docnumero"];
 			$Observacion = $datos["observacion"];
-			$Estado = 'A';
+			$Estado = 1;
 			
 			$IngProd = new  LogIngprod();
 			$IngProd -> setNpersonal($Registrante);

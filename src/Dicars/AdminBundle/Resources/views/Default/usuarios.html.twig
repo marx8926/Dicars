@@ -110,13 +110,15 @@ function cargarEditar(usuarioE){
 			
 	ArrayDatos = [	{'type':'hidden','value':usuarioE.id,'name':'idE'},
 	      			{'label':'Trabajador','type':'span','value':usuarioE.trabajador,'name':'trabajadorE'},
-					{'label':'Usuario','type':'input', 'typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]*$|','title':'Debe tener el formato correcto', 'req':'', 'max':'50','value':usuarioE.usuario_id,'name':'usuario_idE'},
-	              	{'label':'Clave','type':'input','typeinput':'text','value':usuarioE.clave,'name':'contrasenaE'},
-	              	{'label':'Estado','type':'input','typeinput':'text','value':usuarioE.estado,'name':'estadoE'},
+					{'label':'Usuario','type':'input', 'typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]+$|','title':'Debe tener el formato correcto', 'req':'', 'max':'20','value':usuarioE.usuario_id,'name':'usuario_idE'},
+	              	{'label':'Clave','type':'input','typeinput':'text','value':usuarioE.clave,'name':'contrasenaE', 'pattern':'|^[a-zA-Z1-9]+$|', 'req':'', 'max':'20'},
+	              	{'label':'Estado','type':'select','name':'estadoE'},
 	              	{'label':'Fecha Registro','type':'date','value':usuarioE.fecharegistro,'name':'fecharegistroE'},
 					{'type':'actions'}];		
 	$("#EditarUsuarioForm").html(crearElementosForm(ArrayDatos));
-	docReady();
+	$('#estadoE').append('<option value="1">Habilitado</option>');
+	$('#estadoE').append('<option value="0">Inhabilitado</option>');
+	$('#estadoE').val(usuarioE.estado);
 }
 
 function cargarVer(usuario){
@@ -141,7 +143,7 @@ $("#select_trabajador").click(function(e){
 	e.preventDefault();
 	var data = SelectTrabajadorData[0];	
 	$('#trabajador').val(data.id);
-	$('#nombre_trabajador').val(data.nombres);
+	$('#nombre_trabajador').val(data.nombres + " " + data.apellidos);
 	$('#modalBuscarTrabajador').modal('hide');
 });
 
@@ -189,7 +191,7 @@ $(document).ready(function(){
 	FormatoDTable = [
 	              { "sWidth": "15%","mDataProp": "usuario_id"},
 	              { "sWidth": "15%","mDataProp": "trabajador"},
-	              { "sWidth": "15%","mDataProp": "estado"},
+	              { "sWidth": "15%","mDataProp": "selectEstado"},
 	              { "sWidth": "15%","mDataProp": "fecharegistro"},	              
 	              { "sWidth": "13%","mDataProp": "ver_btn"},
 	              { "sWidth": "13%","mDataProp": "edit_btn"},

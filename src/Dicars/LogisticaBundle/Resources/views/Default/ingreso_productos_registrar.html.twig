@@ -23,47 +23,46 @@
 						<div class="control-group">
 							<label class="control-label" for="codigo">Código</label>
 							<div class="controls">
-								<input class="input-xlarge focused" id="codigo" type="text">
+								<input id="serie" name="serie" type="text" style="width:40px;" maxlength="4">
+								-
+								<input id="numero" name="numero" type="text" style="width:60px;" maxlength="8">
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="registrador">Registrador</label>
 							<div class="controls">
-								<input class="input-xlarge focused" id="registrador" name="registrador" type="text">
+								<input class="input-xlarge focused" id="registrador" name="registrador" type="text" readonly>
 							</div>
-						</div>						
+						</div>	
 						<div class="control-group">
-						<label class="control-label" for="observacion">Observaciones</label>
-						<div class="controls">
-							<textarea id="observacion" name="observacion" class="input-xlarge"></textarea>
-						</div>
-						</div>
-						<div class="control-group">
-							<label class="control-label" for="motivo">Tipo</label>
+							<label class="control-label" for="tipo">Tipo</label>
 							<div class="controls">
-								<select id="tipo" data-rel="chosen">
-									<option>Option 1</option>
-									<option>Option 2</option>
-									<option>Option 3</option>
-									<option>Option 4</option>
-									<option>Option 5</option>
+								<select id="tipo" name="tipo">
 								</select>
 							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="tienda">Tienda</label>
 							<div class="controls">
-							  	<select id="tienda" data-rel="chosen">
-									<option>Option 1</option>
-									<option>Option 2</option>
-									<option>Option 3</option>
-									<option>Option 4</option>
-									<option>Option 5</option>
-								</select>
+							  	<input class="input-xlarge focused" id="tienda" name="tienda" type="text" readonly>
+							</div>
+						</div>					
+						<div class="control-group">
+							<label class="control-label" for="observacion">Observaciones</label>
+							<div class="controls">
+								<textarea id="observacion" name="observacion" class="input-xlarge"></textarea>
 							</div>
 						</div>
 					</div>
 					<div class="span6">
+						<div class="control-group">
+							<label class="control-label" for="codigo">Documento</label>
+							<div class="controls">
+								<input id="docserie" name="docserie" type="text" style="width:40px;" maxlength="4">
+								-
+								<input id="docnumero" name="docnumero" type="text" style="width:60px;" maxlength="8">
+							</div>
+						</div>
 						<div class="control-group">
 							<label class="control-label" for="fecharegistro">Fecha</label>
 							<div class="controls">
@@ -75,18 +74,18 @@
 				</fieldset>
 				</form>	
 				<form id="AgregarProductoForm" class="form-horizontal">
-				<div class="control-group">
-					<label class="control-label" for="producto">Producto</label>
-					<div class="controls">
-						<input class="input-xlarge focused" id="producto" type="text">
-					  	<button type="button" class="btn btn-info btn-buscarp" style="margin: 0 18px;"><i class="icon-search icon-white"></i>Buscar</button>
-						<label style="display:inline;" for="cantidad">Cantidad</label>
-						<input id="cantidad" name="cantidad" type="number" style="margin: 0 18px 0 0;">
-						<label style="display:inline;">Precio/Unidad</label>
-						<input id="precio_uni" name="precio_uni" type="number" style="margin: 0 18px;">
-						<button id="agregar_producto" type="submit" class="btn btn-primary"><i class="icon-plus icon-white"></i>Agregar</button>
+					<div class="control-group">
+						<label class="control-label" for="producto">Producto</label>
+						<div class="controls">
+							<input class="input-xlarge focused" id="producto" type="text">
+						  	<button type="button" class="btn btn-info btn-buscarp" style="margin: 0 18px;"><i class="icon-search icon-white"></i>Buscar</button>
+							<label style="display:inline;" for="cantidad">Cantidad</label>
+							<input id="cantidad" name="cantidad" type="number" min="1" style="margin: 0 18px 0 0;">
+							<label style="display:inline;">Precio/Unidad</label>
+							<input id="precio_uni" name="precio_uni" type="number" min="1" step="0.01" style="margin: 0 18px;">
+							<button id="agregar_producto" type="submit" class="btn btn-primary"><i class="icon-plus icon-white"></i>Agregar</button>
+						</div>
 					</div>
-				</div>
 				</form>
 				<hr>
 				<h3>Productos a Ingresar</h3>
@@ -130,7 +129,11 @@ var SelectProductosTable;
 var Attr = ['idproducto','cantidad','precio_uni','total'];
 var RowCallBackFunctionProducto;
 var ResetForm;
+
 $(document).ready(function(){
+
+	constantes = getAjaxObject("{{ path('dicars_admin_servicio_getoptionconstantes',{'idclase':3}) }}");
+	cargarSelect(constantes, 'tipo', 'id', 'desc');
 	
 	ResetForm = function(data){
 		$(location).attr("href", "{{ path('dicars_logistica_cons_ingresoproductos') }}");		

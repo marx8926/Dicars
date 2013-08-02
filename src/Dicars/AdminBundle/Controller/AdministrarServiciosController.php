@@ -153,11 +153,18 @@ class AdministrarServiciosController extends Controller {
 		$em->clear();
 		$todo = array();
 		foreach ($usuarios as $key => $usuario){
+			$estadochar = $usuario -> getCusuarioest();
+			if($estadochar=="1")
+				$estado = "<span class='label label-success'>Habilidado</span>";
+			else
+				$estado = "<span class='label label-important'>Inhabilitado</span>";
 			$personal = $usuario -> getNpersonal();
 			
-			$todo[] = array('trabajador' => $personal -> getCpersonalnom()." ".$personal -> getCpersonalape(),
+			$todo[] = array('id' => $usuario -> getNusuarioid(),
+						'trabajador' => $personal -> getCpersonalnom()." ".$personal -> getCpersonalape(),
 						'usuario_id' => $usuario -> getCusuarioid(),
 						'clave' => $usuario -> getCusuarioclave(),
+						'selectEstado' => $estado,
 						'estado' => $usuario -> getCusuarioest(),
 						'fecharegistro' => $usuario -> getCusuariofecreg() -> format('d/m/Y'),
 						'ver_btn' => "<a id-data='".$usuario -> getNusuarioId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",

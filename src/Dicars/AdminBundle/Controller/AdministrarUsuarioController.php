@@ -30,7 +30,7 @@ class AdministrarUsuarioController  extends Controller{
 			
 			$Usuario_id = $datos["usuario_id"];
 			$Usuario_clave = $datos["contrasena"];
-			$Usuario_estado = "A";
+			$Usuario_estado = $datos["estado"];
 			
 			$Usuario_fechareg = date_create_from_format('d/m/Y',$datos["fecharegistro"]);	
 			
@@ -85,22 +85,15 @@ class AdministrarUsuarioController  extends Controller{
 		if ($form != null){
 			
 			$Usuario_cod = $datos["idE"];
-			
-			$Usuario_trabajador = $this->getDoctrine()
-			->getRepository('DicarsDataBundle:VenPersonal')
-			->findOneBy(array('npersonalId'  => $datos["trabajadorE"]));
-			
 			$Usuario_id = $datos["usuario_idE"];
 			$Usuario_clave = $datos["contrasenaE"];
-			$Usuario_estado = "A";
-			
+			$Usuario_estado = $datos["estadoE"];
 			$Usuario_fechareg = date_create_from_format('d/m/Y',$datos["fecharegistroE"]);
 			
 			$Usuario = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:Usuario')
 			->findOneBy(array('nusuarioId' => $Usuario_cod));
 				
-			$Usuario->setNpersonal($Usuario_trabajador);
 			$Usuario->setCusuarioid($Usuario_id);
 			$Usuario->setCusuarioclave($Usuario_clave);
 			$Usuario->setCusuarioest($Usuario_estado);
