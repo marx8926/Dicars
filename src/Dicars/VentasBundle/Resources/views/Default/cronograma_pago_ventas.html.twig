@@ -32,12 +32,13 @@
 				<h3>Cuotas</h3>
 			</div>
 			<div class="modal-body">
-				<form id="EditarOfertasForm" class="form-horizontal" method="post" action="{{ path('dicars_ventas_editar_oferta') }}">
+				<form id="PagarCuotasForm" class="form-horizontal" method="post" action="{{ path('dicars_ventas_pagar_cuota') }}">
 					<div class="control-group">
 						<label class="control-label" for="amortizacion">A cuenta</label>
 						<div class="controls">
 							<div class="input-prepend input-append">
 								<input class="input-xlarge focused" style="margin: 0 0px 0 0;" name="monto" id="monto" type="number" step="0.1" value="0" min="0"><span id="spanamort" class="add-on">s/.</span>
+								<input type="hidden" name="idcredito" id="idcredito">
 								<button id="pagar"type="button" class="btn btn-warning btn-buscarc" style="margin: 0 18px;">Pagar</button>
 							</div>
 						</div>
@@ -57,7 +58,7 @@
 			</div>
 			<div class="modal-footer">
 				<a href="#" class="btn" data-dismiss="modal">Cerrar</a>
-				<a id="btn-guardar" href="#" class="btn btn-primary">Guardar</a>
+				<a id='guardar_pago' id="btn-guardar" href="#" class="btn btn-primary">Guardar</a>
 			</div>
 		</div> 
 	</div><!--/span-->
@@ -69,17 +70,18 @@
 <script src="{{ asset('js/util/datatable_plugins.js') }}"></script>
 <script type="text/javascript">
 
+var OtherDataCuotas = new Array();
 var CuotasTable;
 var CreditosTable;
 var RowCallBackFunction;
 var jsonData;
 var Band = true;
+var Attr = ['idcrono','monto','band'];
+var ReloadTableCreditos;
 
 function CalcularPago(){
-	/*console.log(jsonData);
-	CuotasTable.fnClearTable();
-	CuotasTable.fnAddData(jQuery.parseJSON(jsonData));*/
 	CloneAttrTable(CuotasTable,'cmonto',2);
+	AddAttr(CuotasTable.fnGetData(), 'band',0);
 	var Array = CuotasTable.fnGetData();
 	var Monto = $("#monto").val();
 	$(Array).each(function(index){
@@ -92,9 +94,11 @@ function CalcularPago(){
 		else
 			quedan = 0;
 		CuotasTable.fnUpdate(quedan.toFixed(2),index,2);
+		CuotasTable.fnGetData()[index].band= 1;
 		return (Monto != 0);
 	});
 	console.log(CuotasTable.fnGetData());
+	CopyArray(OtherDataCuotas,CuotasTable.fnGetData(),false,Attr);
 };
 
 $(document).ready(function(){
@@ -102,12 +106,19 @@ $(document).ready(function(){
 		e.preventDefault();
 		CalcularPago();
 	});
+
+	$("#guardar_pago").click(function(e){
+		e.preventDefault();
+		CalcularPago();
+		$("#PagarCuotasForm").submit();
+	});
 	
 	RowCallBackFunction = function(nRow, aData, iDisplayIndex){
 		$(nRow).find('.btn-pagar').click(function(e){
 			e.preventDefault();
 			CuotasTable.fnClearTable();
 			CuotasTable.fnReloadAjax("{{ path('dicars_ventas_servicio_gettablacuotasbyId',{'idcredito':''}) }}/"+aData.idcredito);
+			$("#idcredito").val(aData.idcredito);
 			$('#modalCuotas').modal('show');
 			Band = true;
 		});
@@ -133,10 +144,14 @@ $(document).ready(function(){
 		              { "sWidth": "15%","mDataProp": "nrocuota"},
 		              { "sWidth": "15%","mDataProp": "monto"}
 		              ],
+		"fnCreatedRow": function( nRow, aData, iDisplayIndex ) {
+						aData.band = 1;
+		              },
 		"fnDrawCallback": function(oSettings ){
 					setTimeout(function() {
 						if(Band){
 							CloneAttr(CuotasTable.fnGetData(),'monto','cmonto');
+							
 							if(CuotasTable.fnGetData().length>0)
 								Band = false;
 						}							
@@ -157,6 +172,9 @@ $(document).ready(function(){
 			"sLengthMenu": "_MENU_ registros por página"
 				}	
 		});
+
+	ReloadTableCreditos = reloadclosemodal('modalCuotas','creditos_table');
+	enviar("PagarCuotasForm",ReloadTableCreditos,OtherDataCuotas);
 });
 
 </script>

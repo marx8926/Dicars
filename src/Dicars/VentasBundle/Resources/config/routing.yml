@@ -13,6 +13,9 @@ ventas_administrar_oferta_routing:
 ventas_administrar_venta_routing:
     resource: "@DicarsVentasBundle/Resources/config/administrar_venta_routing.yml"   
 
+ventas_administrar_cronograma_routing:
+    resource: "@DicarsVentasBundle/Resources/config/administrar_cronograma_routing.yml"   
+
 dicars_ventas_homepage:
     pattern:  /index
     defaults: { _controller: DicarsVentasBundle:Default:index }

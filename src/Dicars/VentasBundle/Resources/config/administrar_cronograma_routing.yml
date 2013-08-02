@@ -1,0 +1,5 @@
+dicars_ventas_pagar_cuota:
+    pattern:  /pagar_cuota
+    defaults: { _controller: DicarsVentasBundle:AdministrarCronograma:PagarCuota }
+    requirements:
+          _method: POST
