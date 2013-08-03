@@ -36,7 +36,7 @@ class AdministrarSalidaProdController extends Controller{
 			
 			$Local = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:Local')
-			->findOneBy(array('nlocalId' => 1));
+			->findOneBy(array('nlocalId' => 2));
 			
 			$Serie =$datos['serie'];
 			$Numero =$datos['numero'];
@@ -66,7 +66,7 @@ class AdministrarSalidaProdController extends Controller{
 				foreach($otherdata as $key => $data){
 					$Producto = $this->getDoctrine()
 					->getRepository('DicarsDataBundle:Producto')
-					->findOneBy(array('nproductoId' => $data['id']));
+					->findOneBy(array('nproductoId' => $data['idproducto']));
 						
 					$DetalleSalProd = new LogDetsalprod();
 					$DetalleSalProd -> setNsalprod($SalProd);
@@ -93,7 +93,7 @@ class AdministrarSalidaProdController extends Controller{
 			}
 			$this->getDoctrine()->getEntityManager()->commit();
 			$em->clear();
-			$return = array("responseCode"=>200, "datos"=>$data);
+			$return = array("responseCode"=>200, "datos"=>$datos);
 	
 		}
 		else {

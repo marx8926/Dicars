@@ -226,11 +226,18 @@ public function getTablaProductosAction(){
 	
 		$todo = array();
 		foreach ($salprods as $key => $salprod){
-			$personal = $salprod -> getNpersonal();
+			
+			//$personal = $salprod -> getNpersonal();
 			
 			$solicitante = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:VenPersonal')
 			->findOneBy(array('npersonalId' => $salprod -> getNsolicitanteId()));
+			
+			$idpersonal = $salprod -> getNpersonal() -> getNpersonalId();
+			
+			$personal = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:VenPersonal')
+			->findOneBy(array('npersonalId' => $idpersonal));
 			 
 			$todo[] = array('id' => $salprod -> getNsalprodId(),
 					'registrante' => $personal -> getCpersonalnom()." ".$personal -> getCpersonalape(),

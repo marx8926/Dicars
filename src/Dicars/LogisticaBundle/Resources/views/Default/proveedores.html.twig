@@ -78,11 +78,11 @@ function cargarEditar(proveedor){
 	
 	ArrayDatos = [	{'type':'hidden','value':proveedor.id,'name':'idE'},
 	          		{'label':'RUC','type':'input', 'typeinput':'text','pattern':'[0-9]{11,}','title':'Debe tener el formato correcto: 11 digitos numericos', 'req':'', 'max':'11','value':proveedor.ruc,'name':'rucE'},
-	              	{'label':'Razón Social','type':'input','typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]*$|','title':'Debe tener el formato correcto: solo letras', 'req':'', 'max':'200','value':proveedor.razonsocial,'name':'razonsocialE'},
+	              	{'label':'Razón Social','type':'input','typeinput':'text','pattern':'|^[a-zA-Z ñÑáéíóúüç.0-9]*$|','title':'Debe tener el formato correcto: solo letras', 'req':'', 'max':'200','value':proveedor.razonsocial,'name':'razonsocialE'},
 	              	{'label':'Cuenta Corriente','type':'input','typeinput':'text','pattern':'|^([0-9]+\s*)+$|','title':'Debe tener el formato correcto', 'req':'', 'max':'20','value':proveedor.ccorriente,'name':'ccorrienteE'},
 	              	{'label':'Dirección','type':'input','typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç0-9]*$|','title':'Debe tener el formato correcto', 'req':'', 'max':'200','value':proveedor.direccion,'name':'direccionE'},
 	              	{'label':'Teléfono','type':'input','typeinput':'text','pattern':'[0-9]{9,}','title':'Debe tener el formato correcto', 'req':'', 'max':'9','value':proveedor.telefono,'name':'telefonoE'},
-	              	{'label':'Email','type':'input','typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç@.]*$|','title':'Debe tener el formato correcto', 'req':'', 'max':'100','value':proveedor.email,'name':'emailE'},
+	              	{'label':'Email','type':'input','typeinput':'text','pattern':'|^[a-zA-Z0-9 ñÑáÁéÉíÍóÓúÚüÜç@.]*$|','title':'Debe tener el formato correcto', 'req':'', 'max':'100','value':proveedor.email,'name':'emailE'},
 	              	{'label':'Página Web','type':'input','typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç@.0-9]*$|','title':'Debe tener el formato correcto', 'req':'', 'max':'150','value':proveedor.sitioweb,'name':'paginawebE'},
 					{'type':'actions'}];
 		

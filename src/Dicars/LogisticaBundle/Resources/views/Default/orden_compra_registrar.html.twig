@@ -228,6 +228,10 @@ function cargarEditar(producto){
 
 $(document).ready(function(){
 
+	ResetForm = function(data){
+		$(location).attr("href", "{{ path('dicars_logistica_orden_compra_consultar') }}");		
+	};
+
 	TiposIGV = getAjaxObject("{{ path('dicars_admin_servicio_getoptiontiposigv') }}");
 	cargarSelect(TiposIGV,'igv','id','porc');
 
@@ -237,7 +241,6 @@ $(document).ready(function(){
 		if($('#ordped').val() != '' ){
 			Array2 = DetOrdPedProductosTable.fnGetData();
 			CopyArray(SelectProductosTableData,Array2,false,Attr);
-
 			Suma();
 		}
 	};
@@ -249,7 +252,6 @@ $(document).ready(function(){
 			cargarEditar(aData);
 			$('#modalEditarCantidad').modal('show');
 			var index = $(DetOrdPedProductosTable.fnGetData()).getIndexObj(aData,'idproducto');
-			console.log(aData);
 			$('#EditarCantidadForm').unbind();
 			$('#EditarCantidadForm').submit(function(e){
 				e.preventDefault();
@@ -258,8 +260,8 @@ $(document).ready(function(){
 				Array2 = DetOrdPedProductosTable.fnGetData();
 				CopyArray(SelectProductosTableData,Array2,false,Attr);
 				$('#modalEditarCantidad').modal('hide');
+				Suma();
 			});
-			Suma();
 		});
 		$(nRow).find('.btn-danger').click(function(e){
 			e.preventDefault();
@@ -297,7 +299,7 @@ $(document).ready(function(){
 	$("#select_producto").click(function(e){
 		e.preventDefault();
 		var data = SelectProductoData[0];
-		$('#producto').val(data.id+" - "+data.nombre);
+		$('#producto').val(data.idproducto+" - "+data.nombre);
 		$('#modalBuscarProducto').modal('hide');
 	});
 
@@ -312,7 +314,7 @@ $(document).ready(function(){
 	$("#select_ordped").click(function(e){
 		e.preventDefault();
 		var data = SelectOrdPedData[0];
-		$('#ordped').val(data.numero + " - " + data.serie);
+		$('#ordped').val(data.serie + " - " + data.numero);
 		$('#ordped_id').val(data.id);
 		$('#modalBuscarOrdPed').modal('hide');
 
@@ -327,7 +329,7 @@ $(document).ready(function(){
 			SelectProductoData[0].pordcom = $('#precio').val();
 			SelectProductoData[0].iddetordped = 0;
 			SelectProductoData[0].labeleordcom = "<span class='label label-success'>Atendido</span>";
-			SelectProductoData[0].idproducto = SelectProductoData[0].id;
+			SelectProductoData[0].idproducto = SelectProductoData[0].idproducto;
 			SelectProductoData[0].eordcom = 1;
 			SelectProductoData[0].cantidad_rec = 0;
  			DetOrdPedProductosTable.fnAddData(SelectProductoData);
@@ -388,7 +390,7 @@ $(document).ready(function(){
 		              ];
 	BuscarOrdPedTable = createDataTable('select_ordped_table',UrlaDTableOrdPed,FormatoDTableOrdPed,null,RowCallBackFunctionOrdPed);
 
-	enviar("RegistrarOrdenCompraForm",logdata,SelectProductosTableData);
+	enviar("RegistrarOrdenCompraForm",ResetForm,SelectProductosTableData);
 	
 });
 

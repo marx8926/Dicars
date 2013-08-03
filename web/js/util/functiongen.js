@@ -109,7 +109,8 @@ function enviar(IdForm,responsefunction,otherdata){
 		otherdata = null;
 	$("#"+IdForm).submit(function(event){
 		event.preventDefault();
-        var url=$("#"+IdForm).attr("action");        
+        var url=$("#"+IdForm).attr("action"); 
+        console.log(url);
         $.post(
     		url,
     		{formulario:$("#"+IdForm).serialize(),otherdata:otherdata},

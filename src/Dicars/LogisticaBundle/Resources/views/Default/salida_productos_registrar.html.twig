@@ -5,6 +5,9 @@
 	<a href="{{path('dicars_logistica_homepage')}}">Logística</a><span class="divider">/</span>
 </li>
 <li>
+	<a href="{{path('dicars_logistica_cons_salidaproductos')}}">Salida Productos</a><span class="divider">/</span>
+</li>
+<li>
 	<a href="{{path('dicars_logistica_reg_salidaproductos')}}">Salida Productos: Registrar</a>
 </li>
 </li>
@@ -95,7 +98,6 @@
 						  <th>Código</th>
 						  <th>Nombre</th>
 						  <th>Cantidad</th>
-						  <th>Precio</th>
 						  <th>Acciones</th>
 					  </tr>
 				</thead>   
@@ -133,12 +135,16 @@ var SelectProductoData = new Array();
 
 var SelectTrabajadorData = new Array();
 
-var Attr = ['id','cantidad'];
+var Attr = ['idproducto','cantidad'];
 
 var RowCallBackFunctionProducto;
 var RowCallBackFunctionTrabajador;
 
 $(document).ready(function(){
+
+	ResetForm = function(data){
+		$(location).attr("href", "{{ path('dicars_logistica_cons_salidaproductos') }}");		
+	};
 
 	RowCallBackFunctionProducto = getSimpleSelectRowCallBack(SelectProductoData,"select_producto_table");
 	RowCallBackFunctionTrabajador = getSimpleSelectRowCallBack(SelectTrabajadorData,"select_trabajador_table");
@@ -167,7 +173,7 @@ $(document).ready(function(){
 	$("#select_producto").click(function(e){
 		e.preventDefault();
 		var data = SelectProductoData[0];
-		$('#producto').val(data.id+" - "+data.nombre);
+		$('#producto').val(data.idproducto+" - "+data.nombre);
 		$('#modalBuscarProducto').modal('hide');
 	});
 	$("#agregar_producto").click(function(e){
@@ -213,7 +219,7 @@ $(document).ready(function(){
         "fnCreatedRow": function( nRow, aData, iDisplayIndex ) {
       			$(nRow).find('.btn-danger').click(function(e){
       				e.preventDefault();
-      				var index = $(SelectProductosTable.fnGetData()).getIndexObj(aData,'id');
+      				var index = $(SelectProductosTable.fnGetData()).getIndexObj(aData,'idproducto');
       				SelectProductosTable.fnDeleteRow( index );
       				Array2 = SelectProductosTable.fnGetData();
       				CopyArray(SelectProductosTableData,Array2,false,Attr);
