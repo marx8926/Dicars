@@ -186,31 +186,7 @@
 			</div><!--/span-->
 			</fieldset>
                 <fieldset class="step" id="step3">
-                <div class="box-header well" data-original-title>
-					<h2>Datos de Pago</h2>
-				</div>
-				<div class="box-content">
-	                    <div class="form-horizontal">
-	                    	<div class="control-group">
-								<label class="control-label" for="producto">Cliente</label>
-								<div class="controls">
-									<span class="help-inline" style="margin-top:5px;">Cliente</span>
-								</div>
-							</div>
-							<div class="control-group">
-								<label class="control-label" for="producto">Empleado</label>
-								<div class="controls">
-									<span class="help-inline" style="margin-top:5px;">Empleado</span>
-								</div>
-							</div>
-							<div class="control-group" id="detalle_productos">
-							</div>
-	                    </div>
-	                    <p>
-                        	<a to_position='2' id='back_to_detalle' href="#">atras</a>
-                        	<a href="#" id="finalizar_venta">Finalizar</a>
-                    	</p>
-	            	</div>
+               {% include 'DicarsVentasBundle:Default:resumen_venta.html.twig' %}
                 </fieldset>
             </div>
         </div>
@@ -281,6 +257,7 @@ var SelectClienteTable;
 
 var totalcredito;
 var totalcontado;
+var tipoprecio;
 
 var Attr = ['id','cantidad','pcontado','pcredito','totalcredito','totalcontado','descuento','descoferta'];
 var RowCallBackFunctionProducto;
@@ -288,6 +265,7 @@ var RowCallBackFunctionCliente;
 
 var TiposIGV;
 var TipoMoneda;
+var CargarTablaResumen;
 
 function VentaUpdate(){
 	var igv = parseInt($("#tipo_igv").text());
@@ -302,10 +280,12 @@ function VentaUpdate(){
 	if($("#forma_pago").val() == 2){
 		$("#cuotas_block").show();
 		$("#monto_productos").val(totalcontado);
+		tipoprecio = 'pcontado';
 	}	
 	else{
 		$("#cuotas_block").hide();
 		$("#monto_productos").val(totalcredito);
+		tipoprecio = 'pcredito';
 	}
 	montodesc = ($("#monto_productos").val()*des/100).toFixed(2);
 	
@@ -315,7 +295,7 @@ function VentaUpdate(){
 	$("#saldo").val(($("#total").val()-$("#amortizacion").val()).toFixed(2));
 	$("#spandesc").text("% "+TipoMoneda+" "+montodesc);
 	$("#spanigv").text("% "+TipoMoneda+" "+montoigv);
-
+	
 	$("#spanamort").text(TipoMoneda);
 	montocuota = $("#saldo").val()/$("#num_cuotas").val();
 	$("#montocuota").val(montocuota);	
@@ -323,6 +303,11 @@ function VentaUpdate(){
 }
 
 $(document).ready(function(){
+
+	CargarTablaResumen = function(){
+		TablaProductosResumen.fnClearTable();
+		TablaProductosResumen.fnAddData(SelectProductosTable.fnGetData());
+	};
 	//mostrar Buscar Producto------------------------------------>
 	$("#wrapper").width($("#contenedor").width());
 	$("#steps").width($("#contenedor").width());
@@ -345,7 +330,6 @@ $(document).ready(function(){
 	$("#finalizar_venta").click(function(e){
 		e.preventDefault();
     	$("#EnviarVentaForm").unbind();
-    	console.log(OtherDataProductos);	
     	enviar('EnviarVentaForm',logdata,OtherDataProductos);
 		$("#EnviarVentaForm").submit();
 	});
@@ -374,8 +358,13 @@ $(document).ready(function(){
 		$('#cliente').val(data.nombre+" - "+data.apellido);
 		$('#cliente_id').val(data.id);
 		$('#modalBuscarCliente').modal('hide');
+		console.log(data);
+		
 	});
-
+	date = new Date();
+	console.log(date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear()+" - "+ (date.getUTCHours()-5)+':'
+		      + date.getUTCMinutes()+':'
+		      + date.getUTCSeconds() );
 	$("#AgregarProductoForm").submit(function(e){
 		e.preventDefault();
 		if(SelectProductoData.length > 0){
@@ -446,6 +435,31 @@ $(document).ready(function(){
 		"sLengthMenu": "_MENU_ records per page"
 		}
 	});
+	
+	TablaProductosResumen = $("#tabla_resumen_productos").dataTable({
+		"bProcessing": true,
+		"bServerSide": false,
+		"bDestroy": true,	  
+		"aoColumns": [
+		              { "sWidth": "15%","mDataProp": "id"},
+		              { "sWidth": "15%","mDataProp": "cantidad"},
+		              { "sWidth": "15%","mDataProp": "pcontado"}
+		              ],
+	 	"aaSorting": [ [0, 'asc'], [1, 'asc'] ],
+	 	"bPaginate": false,
+		"bLengthChange": false,
+		"bFilter": true,
+		"bSort": false,
+		"bInfo": false,
+		"bAutoWidth": false,
+	 	"aoColumnDefs": [
+	                  {"sType": 'string-case', "aTargets": [2]}],
+		 	"sDom": "<r>t<'row-fluid'>",
+		 	"sPaginationType": "bootstrap",
+		 	"oLanguage": {
+			"sLengthMenu": "_MENU_ registros por página"
+				}	
+		});
 	ajaxResponseData("forma_pago","{{ path('dicars_admin_servicio_getoptiontipobyclase',{'Clase':1}) }}");
 	initSlider(OtherDataProductos);
 	$('#contenedor').height($('#step1').height());

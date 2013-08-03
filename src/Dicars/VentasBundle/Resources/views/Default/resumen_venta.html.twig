@@ -1,23 +1,9 @@
-{% extends "::baseCharisma.html.twig" %}
-{% block title %}Resumen - Ventas -{% endblock %}
-{% block breadcrumb %}
-<li>
-	<a href="{{path('dicars_ventas_homepage')}}">Ventas</a> <span class="divider">/</span>
-</li>
-<li>
-	<a href="{{path('dicars_ventas_resumen_venta')}}">Resumen</a>
-</li>
-{% endblock %}
-{% block content %}
-<div class="row-fluid">		
-	<div class="box span12">
-				
-            <fieldset class="step" id="step2">
+
 			<div class="box-header well" data-original-title>
 				<h2>Resumen de Venta</h2>
 			</div>
 			<div class="box-content">
-			<form id="EnviarResumenVentaForm" class="form-horizontal"">
+			<div class="form-horizontal"">
 				<div class="control-group" align="center">
 					<label class="control-label">DICARS SAC</label>									
 				</div>
@@ -67,14 +53,14 @@
 				
 				<!-- TABLA DE PRODUCTOS POR COMPRAR aqui -->
 				<div class="controls-group">
-				<table class="table table-striped table-bordered" style="width: 310px;">
-				<thead >
-					  <tr>
-					  <th style="width: 180px;">Producto</th>
-					  <th style="width: 50px;">Cantidad</th>
-					  <th style="width: 80px;">Valor</th>
-					  </tr>
-				</thead>
+				<table id="tabla_resumen_productos" class="table table-striped table-bordered" style="width: 310px;">
+					<thead >
+						  <tr>
+						  <th style="width: 180px;">Producto</th>
+						  <th style="width: 50px;">Cantidad</th>
+						  <th style="width: 80px;">Valor</th>
+						  </tr>
+					</thead>
 				</table>
 				</div>
 				<!-- END TABLA DE PRODUCTOS -->
@@ -134,15 +120,9 @@
 						</div>
 					</div>
 				</div>
-				<p>
-                        <a to_position='1' id='to_select_productos' href="#">atras</a>
-                </p>
-				<input type="submit" value="enviar">
-			</form>
+	                    <p>
+                        	<a to_position='2' id='back_to_detalle' href="#">atras</a>
+                        	<a href="#" id="finalizar_venta">Finalizar</a>
+                    	</p>
+			</div>
 			</div><!--/span-->
-			</fieldset>
-		
-	</div><!--/span-->
-</div><!--/row-->
-
-{% endblock %}
