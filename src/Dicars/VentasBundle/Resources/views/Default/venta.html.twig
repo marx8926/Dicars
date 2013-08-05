@@ -268,7 +268,7 @@ var TipoMoneda;
 var CargarTablaResumen;
 
 function VentaUpdate(){
-	var igv = parseInt($("#tipo_igv").text());
+	var igv = parseInt($("#tipo_igv option:selected").text());
 	var des = $("#descuento").val();
 	var montodesc;
 	var montoigv;
@@ -300,6 +300,15 @@ function VentaUpdate(){
 	montocuota = $("#saldo").val()/$("#num_cuotas").val();
 	$("#montocuota").val(montocuota);	
 	$("#spancouota").text("x "+TipoMoneda+" "+montocuota.toFixed(2));
+
+	$("#forma_pagoR").text($("#forma_pago option:selected").text());
+	$("#montoR").text(montodesc);
+	$("#descuentoR").text(des+$("#spandesc").text());
+	$("#subtotalR").text($("#subtotal").val());
+	$("#tipo_igvR").text(igv+$("#spanigv").text());
+	$("#totalR").text($("#total").val());
+	$("#amortizacionR").text($("#amortizacion").val());
+	$("#saldoR").text($("#saldo").val());
 }
 
 $(document).ready(function(){
@@ -355,16 +364,19 @@ $(document).ready(function(){
 	$("#btn-select-cliente").click(function(e){
 		e.preventDefault();
 		var data = SelectClienteData[0];
-		$('#cliente').val(data.nombre+" - "+data.apellido);
+		$('#cliente').val(data.nombre+" "+data.apellido);
 		$('#cliente_id').val(data.id);
+		$('#clienteR').text(data.nombre+" "+data.apellido);
 		$('#modalBuscarCliente').modal('hide');
 		console.log(data);
 		
 	});
 	date = new Date();
-	console.log(date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear()+" - "+ (date.getUTCHours()-5)+':'
+	Fecha = date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear()+" - "+ (date.getUTCHours()-5)+':'
 		      + date.getUTCMinutes()+':'
-		      + date.getUTCSeconds() );
+		      + date.getUTCSeconds();
+	$("#fechaR").text(Fecha);
+    
 	$("#AgregarProductoForm").submit(function(e){
 		e.preventDefault();
 		if(SelectProductoData.length > 0){
