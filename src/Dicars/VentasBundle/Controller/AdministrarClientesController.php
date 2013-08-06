@@ -105,7 +105,7 @@ class AdministrarClientesController extends Controller{
 			
 			$Cliente_zona =  $this->getDoctrine()
 			->getRepository('DicarsDataBundle:VenZona')
-			->findOneBy(array('nzonaId' => 1));
+			->findOneBy(array('nzonaId' => $datos["zonaE"]));
 			
 			$Cliente_linea_op = $datos["lineaopE"];
 			$Cliente_arc_credito = $datos["arccreditoE"];

@@ -78,14 +78,12 @@ var ReloadTableRegistrar;
 var CargarBotones;
 
 function cargarEditar(cliente){
-	//url = "{{ path('dicars_ventas_servicio_getclientebyid', {'id': ''}) }}/"+id;	
-	//cliente = getAjaxObject(url);
 			
 	ArrayDatos = [	{'type':'hidden','value':cliente.id,'name':'idE'},
 	          		{'label':'Nombres','type':'input', 'typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]*$|','title':'Debe tener el formato correcto: solo letras', 'req':'', 'max':'50','value':cliente.nombre,'name':'nombresE'},
 	              	{'label':'Apellidos','type':'input','typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]*$|','title':'Debe tener el formato correcto: solo letras', 'req':'', 'max':'50','value':cliente.apellido,'name':'apellidosE'},
 	              	{'label':'Dni','type':'input','typeinput':'text','pattern':'[0-9]{8,}','title':'Debe tener el formato correcto', 'req':'', 'max':'8','value':cliente.dni,'name':'dniE'},
-	              	{'label':'Dirección','type':'input','typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç0-9]*$|','title':'Debe tener el formato correcto', 'req':'', 'max':'200','value':cliente.direccion,'name':'direccionE'},
+	              	{'label':'Dirección','type':'input','typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç0-9.]*$|','title':'Debe tener el formato correcto', 'req':'', 'max':'200','value':cliente.direccion,'name':'direccionE'},
 	              	{'label':'Referencia','type':'input','typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç0-9]*$|','title':'Debe tener el formato correcto', 'req':'', 'max':'200','value':cliente.referencia,'name':'referenciaE'},	              	
 	              	{'label':'Zona','type':'select','name':'zonaE'},
 	              	{'label':'Línea Op','type':'inputnumber', 'req':'', 'step':'0.10', 'min':'0', 'max':'1000','value':cliente.linea_credito,'name':'lineaopE'},

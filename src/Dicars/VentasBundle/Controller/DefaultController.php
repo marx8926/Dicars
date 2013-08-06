@@ -22,10 +22,6 @@ class DefaultController extends Controller
     {
     	return $this->render('DicarsVentasBundle:Default:trabajadores.html.twig');
     }
-    public function separar_productosAction()
-    {
-    	return $this->render('DicarsVentasBundle:Default:separar_productos.html.twig');
-    }
     public function regimp_tarjetacreditoAction()
     {
     	return $this->render('DicarsVentasBundle:Default:regimp_tarjetacredito.html.twig');

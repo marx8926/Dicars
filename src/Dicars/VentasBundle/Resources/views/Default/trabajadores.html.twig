@@ -73,13 +73,9 @@ var EmpleadosTable;
 
 var ReloadTableEditar;
 var ReloadTableRegistrar;
-var urlCargo = "{{ path('dicars_admin_servicio_getoptioncargos') }}";
-var CargarBotones;
+var RowCallBackFunction;
 
-function cargarEditar(id){
-	
-		url = "{{ path('dicars_ventas_servicio_gettrabajadorbyid', {'id': ''}) }}/"+id;	
-		empleado = getAjaxObject(url);
+function cargarEditar(empleado){
 				
 		ArrayDatos = [	{'type':'hidden','value':empleado.id,'name':'idE'},
 		      			{'label':'Cargo','type':'select','name':'cargoE'},
@@ -95,9 +91,8 @@ function cargarEditar(id){
 						{'type':'actions'}];
 			
 		$("#EditarEmpleadoForm").html(crearElementosForm(ArrayDatos));
-		ajaxResponseData('cargoE',urlCargo);
-		$('#sexoE').append('<option value="F">Femenino</option>');
-		$('#sexoE').append('<option value="M">Masculino</option>');
+		$('#sexoE').append('<option value="M">M</option>');		
+		$('#sexoE').append('<option value="F">F</option>');
 		$('#sexoE').val(empleado.sexo);
 
 		cargarSelect(cargos, 'cargoE', 'id', 'desc');
@@ -110,11 +105,9 @@ function cargarEditar(id){
 		$('[data-rel="chosen"],[rel="chosen"]').chosen();
 	}
 	
-function cargarVer(id){
-		url = "{{ path('dicars_ventas_servicio_gettrabajadorbyid', {'id': ''}) }}/"+id;			
-		empleado = getAjaxObject(url);
+function cargarVer(empleado){
 				
-		ArrayDatos = [	{'label':'Cargo','type':'span','value':empleado.cargo},
+		ArrayDatos = [	{'label':'Cargo','type':'span','value':empleado.cargodesc},
 						{'label':'Nombres','type':'span', 'value':empleado.nombres},
 		              	{'label':'Apellidos','type':'span','value':empleado.apellidos},
 		              	{'label':'Dni','type':'span','value':empleado.dni},
@@ -122,7 +115,7 @@ function cargarVer(id){
 		              	{'label':'Email','type':'span','value':empleado.email},
 		              	{'label':'Fecha Nacimiento','type':'span','value':empleado.fechanacimiento},
 		              	{'label':'Sexo','type':'span','value':empleado.sexo},
-		              	{'label':'Estado','type':'span','value':empleado.estado},
+		              	{'label':'Estado','type':'span','value':empleado.estadodesc},
 		              	{'label':'Edad','type':'span','value':empleado.edad},
 						{'type':'close'}];
 			
@@ -130,8 +123,7 @@ function cargarVer(id){
 	}
 	
 $(document).ready(function(){
-
-	//ajaxResponseData('cargo',urlCargo);
+	
 	cargos = getAjaxObject("{{ path('dicars_admin_servicio_getoptioncargos') }}");
 	cargarSelect(cargos, 'cargo', 'id', 'desc');
 	$('#cargo').attr('data-rel','chosen');
@@ -142,25 +134,19 @@ $(document).ready(function(){
 		e.preventDefault();
 		$('#modalRegistro').modal('show');
 	});
-	
-	CargarBotones = function(){
-		//	mostrar Editar Trabajador------------------------------------>
-			$('.btn-editar').unbind();
-			$('.btn-editar').click(function(e){
-				e.preventDefault();
-				$('#modalEditarDatos').modal('show');
-				id=$(this).attr("id-data");		
-				cargarEditar(id);
-			});		
-		//mostrar Ver Datos Trabajador------------------------------------>
-			$('.btn-datos').unbind();
-			$('.btn-datos').click(function(e){
-				e.preventDefault();
-				$('#modalVerDatos').modal('show');
-				id=$(this).attr("id-data");		
-				cargarVer(id);
-			});
-	};	
+
+	RowCallBackFunction = function(nRow, aData, iDisplayIndex){
+		$(nRow).find('.btn-datos').click(function(e){
+			e.preventDefault();
+			cargarVer(aData);
+			$('#modalVerDatos').modal('show');
+		});
+		$(nRow).find('.btn-editar').click(function(e){
+			e.preventDefault();
+			cargarEditar(aData);
+			$('#modalEditarDatos').modal('show');
+		});
+	};
 	
 	UrlaDTable = '{{ path("dicars_ventas_servicio_gettablaempleados") }}';
 	FormatoDTable = [
@@ -172,14 +158,13 @@ $(document).ready(function(){
 	              { "sWidth": "13%","mDataProp": "edit_btn"},
 	              { "sWidth": "14%","mDataProp": "elim_btn"}
 	              ];
-	EmpleadosTable = createDataTable('empleados_table',UrlaDTable,FormatoDTable,CargarBotones);		
-	});
+	EmpleadosTable = createDataTable('empleados_table',UrlaDTable,FormatoDTable,null,RowCallBackFunction);		
 
 	ReloadTableEditar = reloadclosemodal('modalEditarDatos', 'empleados_table');
 	ReloadTableRegistrar = reloadclosemodal('modalRegistro', 'empleados_table');
 
 	enviar('RegistrarTrabajadorForm', ReloadTableRegistrar);
 	enviar('EditarEmpleadoForm', ReloadTableEditar);
-	
+});
 </script>
 {% endblock %}

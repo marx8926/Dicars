@@ -76,11 +76,25 @@ class VentaServiciosController extends Controller{
 	
 		$todo = array();
 		foreach ($empleados as $key => $empleado){
+			$estadodesc="";
+			if ($empleado ->  getCpersonalest() == 1) {
+				$estadodesc = "<span class='label label-success'>Habilitado</span>";
+			}else 
+				$estadodesc = "<span class='label label-warning'>Inhabilitado</span>";
+			
 			$todo[] = array('id' => $empleado -> getNpersonalId() ,
+					'cargo' => $empleado -> getNcargo() -> getNcargoId(),
+					'cargodesc' => $empleado -> getNcargo() -> getNcargodesc(),
 					'nombres' => $empleado -> getCpersonalnom() , 
 					'apellidos' => $empleado -> getCpersonalape(),
 					'dni' => $empleado -> getCpersonaldni(), 
+					'email' => $empleado -> getCpersonalemail(),
 					'telefono' => $empleado -> getCpersonaltelf(),
+					'fechanacimiento' => $empleado -> getDpersonalfec() -> format('d/m/Y'),
+					'sexo' => $empleado -> getCpersonalsexo(),
+					'estado' => $empleado ->  getCpersonalest(),
+					'estadodesc' => $estadodesc, 
+					'edad' => $empleado -> getCpersonaledad(),
 					'ver_btn' => "<a id-data='".$empleado -> getNpersonalId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
 					'edit_btn' => "<a id-data='".$empleado -> getNpersonalId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
 					'elim_btn' => "<a id-data='".$empleado -> getNpersonalId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");

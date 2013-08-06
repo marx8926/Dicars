@@ -52,14 +52,12 @@ dicars_ventas_control_salidas:
 dicars_ventas_venta_productos:
     pattern: /venta_productos
     defaults: { _controller: DicarsVentasBundle:Default:venta_productos }
-dicars_ventas_ofertas:
-    pattern: /ofertas
-    defaults: { _controller: DicarsVentasBundle:Default:ofertas }
-    
 dicars_ventas_resumen_venta:
     pattern: /resumen_venta
     defaults: { _controller: DicarsVentasBundle:Default:resumen_venta }
-    
 dicars_ventas_view_editar_oferta:
     pattern: /view_editar_oferta/{idoferta}
     defaults: { _controller: DicarsVentasBundle:Default:editar_oferta }  
+dicars_ventas_ofertas:
+    pattern: /ofertas
+    defaults: { _controller: DicarsVentasBundle:Default:ofertas }
