@@ -24,10 +24,18 @@ class AdministrarCronogramaController extends Controller{
 			
 			$Pagado = $datos['monto']+$Credito -> getNvencreditoppag();
 			$Credito -> setNvencreditoppag($Pagado);
-			
+				
 			$Venta = $Credito -> getNventa();
 			
-			$VentaPagado = ($Venta -> getNventatotamt() + $datos['monto']);
+			$Saldo = $Venta ->getNventasaldo() - $datos['monto'];
+			
+			if($Saldo < 0){
+				$Venta -> setNventasaldo(0);
+				$Saldo = 0;
+			}else
+				$Venta -> setNventasaldo($Saldo);
+			
+			$VentaPagado = ($Venta -> getNventatotapag() - $Saldo);
 			$Venta -> setNventatotamt($VentaPagado);
 			
 			$em = $this->getDoctrine()->getEntityManager();

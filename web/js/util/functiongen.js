@@ -49,6 +49,13 @@ function getMultipleSelectRowCallBack(DSelected){
 	return SelectRowFunction;
 }
 
+function UnselectRow(idTable){
+	$("#"+idTable+" tr").each(function(index){
+		if($(this).hasClass("row_selected"))
+			$(this).toggleClass('row_selected');
+	});
+}
+
 function SubTablaArray(Table, Array, attr){
 	$(Array).each(function( index ){
 		var indexarray = $(Table.fnGetData()).getIndexObj(this,attr);

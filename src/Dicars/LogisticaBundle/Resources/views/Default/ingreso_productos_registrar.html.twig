@@ -82,7 +82,7 @@
 							<label style="display:inline;" for="cantidad">Cantidad</label>
 							<input id="cantidad" name="cantidad" type="number" min="1" style="margin: 0 18px 0 0;">
 							<label style="display:inline;">Precio/Unidad</label>
-							<input id="precio_uni" name="precio_uni" type="number" min="1" step="0.01" style="margin: 0 18px;">
+							<input id="precio_uni" name="precio_uni" type="number" min="0" step="0.01" style="margin: 0 18px;" >
 							<button id="agregar_producto" type="submit" class="btn btn-primary"><i class="icon-plus icon-white"></i>Agregar</button>
 						</div>
 					</div>
@@ -142,11 +142,14 @@ $(document).ready(function(){
 	$('.btn-buscarp').click(function(e){
 		e.preventDefault();
 		$('#modalBuscarProducto').modal('show');
+		UnselectRow("select_producto_table");
 	});
 	$("#select_producto").click(function(e){
 		e.preventDefault();
 		var data = SelectProductoData[0];
 		$('#producto').val(data.idproducto+" - "+data.nombre);
+		$("#cantidad").val(1);
+		$("#precio_uni").val(0);
 		$('#modalBuscarProducto').modal('hide');
 	});	
 	
@@ -155,7 +158,10 @@ $(document).ready(function(){
 		if(SelectProductoData.length > 0){
 			SelectProductoData[0].cantidad = $('#cantidad').val();
 			SelectProductoData[0].precio_uni = $('#precio_uni').val();	
-			SelectProductoData[0].total = $('#cantidad').val()*$('#precio_uni').val();	
+			SelectProductoData[0].total = $('#cantidad').val()*$('#precio_uni').val();
+			$("#cantidad").val("");
+			$("#precio_uni").val("");
+			$('#producto').val("");
 			SelectProductosTable.fnAddData(SelectProductoData);					
 			SelectProductoData.pop();
 			Array2 = SelectProductosTable.fnGetData();

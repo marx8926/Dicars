@@ -34,7 +34,7 @@ class VentaServiciosController extends Controller{
 					'linea_credito' => $cliente -> getNclientelineaop(),
 					'arccredito' => $cliente -> getCclientearccredito(),
 					'ocupacion' => $cliente -> getCclienteocup(),
-					'ver_pagar' => "<a class='btn btn-warning btn-pagar' href='#'>Pagar</a>",
+					'ver_pagar' => "<a class='btn btn-warning btn-pagar' href='#'>Ver Creditos</a>",
 					'ver_btn' => "<a class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
 					'edit_btn' => "<a class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
 					'elim_btn' => "<a class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
@@ -287,7 +287,7 @@ class VentaServiciosController extends Controller{
 					'montototal' => $Venta -> getNventatotapag(),
 					'montopagado' => $Venta -> getNventatotamt() ,
 					'cuotas' => $Credito -> getNvencreditoncuota(),
-					'ver_pagar' => "<a class='btn btn-warning btn-pagar' href='#'>Pagar</a>",
+					'ver_pagar' => "<a class='btn btn-warning btn-pagar' href='#'>Pagar Cuotas</a>",
 					);
 		}
 	
