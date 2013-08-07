@@ -32,8 +32,13 @@ class DefaultController extends Controller
     }
     public function cronograma_creditosAction($idcliente)
     {
+    	$cliente = $this->getDoctrine()
+    	->getRepository('DicarsDataBundle:VenCliente')
+    	->findOneBy(array('nclienteId' => $idcliente));
+    	
     	return $this->render('DicarsVentasBundle:Default:cronograma_pago_ventas.html.twig',array(
-    			'idcliente' => $idcliente
+    			'idcliente' => $idcliente,
+    			'nombre_cliente' => $cliente->getCclientenom()." ".$cliente->getCclienteape()
     	));
     }
     public function ingregr_diaAction()

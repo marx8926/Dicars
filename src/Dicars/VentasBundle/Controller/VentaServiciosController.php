@@ -271,6 +271,8 @@ class VentaServiciosController extends Controller{
 		->findBy(array('ncliente' => $idcliente ,
 						'nventatippag' => 2
 				));
+		
+		$pagado = null;
 			
 		$em->clear();
 	
@@ -281,8 +283,15 @@ class VentaServiciosController extends Controller{
 			->getRepository('DicarsDataBundle:VenCredito')
 			->findOneBy(array('nventa' => $Venta -> getNventaId()));
 			
+			if($Venta -> getNventasaldo() == 0)
+				$pagado = "<span class='label label-success'>Pagada</span>";
+			else
+				$pagado = "<span class='label label-important'>Pendiente</span>";
+			
 			$todo[] = array(
 					'idventa' => $Venta -> getNventaId(),
+					'fecha_venta' => $Venta -> getCventafecreg() -> format('d/m/Y'),
+					'pagado' => $pagado,
 					'idcredito' => $Credito -> getNvencreditoId(),
 					'montototal' => $Venta -> getNventatotapag(),
 					'montopagado' => $Venta -> getNventatotamt() ,

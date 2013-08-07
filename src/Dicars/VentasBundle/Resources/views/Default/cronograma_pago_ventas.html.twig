@@ -16,16 +16,17 @@
 <div class="row-fluid">		
 	<div class="box span12">
 		<div class="box-header well" data-original-title>
-			<h2><i class="icon-user"></i> Créditos</h2>
+			<h2>Créditos de {{ nombre_cliente }}</h2>
 		</div>
 		<div class="box-content">
 			<table class="table table-striped table-bordered bootstrap-datatable datatable" id="creditos_table">
 			  <thead>
 				  <tr>
-					  <th>ID</th>
+					  <th>Fecha de la Venta</th>
 					  <th>Monto Total</th>
 					  <th>Monto Pagado</th>
 					  <th>Nro de Cuotas</th>
+					  <th>Estado</th>
 					  <th></th>
 				  </tr>
 			  </thead>
@@ -107,6 +108,7 @@ function CalcularPago(){
 };
 
 $(document).ready(function(){
+	
 	$("#pagar").click(function(e){
 		e.preventDefault();
 		CalcularPago();
@@ -131,10 +133,11 @@ $(document).ready(function(){
 	
 	UrlaDTableCredito = "{{ path('dicars_ventas_servicio_gettablacreditosbyId',{'idcliente':''}) }}/{{ idcliente }}";
 	FormatoDTableCredito = [
-	              { "sWidth": "15%","mDataProp": "idventa"},
-	              { "sWidth": "15%","mDataProp": "montototal"},
-	              { "sWidth": "15%","mDataProp": "montopagado"},
-	              { "sWidth": "15%","mDataProp": "cuotas"},	              
+	              { "sWidth": "14%","mDataProp": "fecha_venta"},
+	              { "sWidth": "14%","mDataProp": "montototal"},
+	              { "sWidth": "14%","mDataProp": "montopagado"},
+	              { "sWidth": "14%","mDataProp": "cuotas"},
+	              { "sWidth": "14%","mDataProp": "pagado"},	              
 	              { "sWidth": "13%","mDataProp": "ver_pagar"}
 	              ];
 	CreditosTable = createDataTable('creditos_table',UrlaDTableCredito,FormatoDTableCredito,null,RowCallBackFunction);
