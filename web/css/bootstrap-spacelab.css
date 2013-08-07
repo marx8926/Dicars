@@ -1243,6 +1243,7 @@ legend + .control-group {
   width: 140px;
   padding-top: 5px;
   text-align: right;
+  font-weight:bold;
 }
 .form-horizontal .controls {
   *display: inline-block;

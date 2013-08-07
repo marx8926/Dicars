@@ -4,125 +4,129 @@
 			</div>
 			<div class="box-content">
 			<div class="form-horizontal"">
-				<div class="control-group" align="center">
-					<label class="control-label">DICARS SAC</label>									
-				</div>
-				<div class="control-group">
-					<label class="control-label">RUC</label>
-					<div class="controls">
-					<span class="help-inline" style="margin-top:5px;" id="ruc">11900678543</span>
-					</div>
-				</div>
-				<div class="control-group">
-					<label class="control-label">Fecha</label>
-					<div class="controls">
-					<span class="help-inline" style="margin-top:5px;" id="fechaR"></span>
-					</div>
-				</div>
-				<div class="control-group">
-					<label class="control-label">Serie</label>
-					<div class="controls">
-					<span class="help-inline" style="margin-top:5px;" id="serieR"></span>
-					</div>
-				</div>
-				<div class="control-group">
-					<label class="control-label">Nro Boleta</label>
-					<div class="controls">
-					<span class="help-inline" style="margin-top:5px;" id="rucR"></span>
-					</div>
-				</div>
-				<div class="control-group">
-					<label class="control-label" for="cliente">Cliente</label>
-					<div class="controls">
-					<span class="help-inline" style="margin-top:5px;" id="clienteR">SAM GARABATEITO</span>
-					</div>
-				</div>				
-				
-				<div class="control-group">
-					<label class="control-label" >Tipo de Pago</label>
-					<div class="controls">
-					<span class="help-inline" style="margin-top:5px;" id="forma_pagoR">CONTADO</span>
-					</div>
-				</div>   
-				<div class="control-group">
-					<label class="control-label">Tipo moneda</label>
-					<div class="controls">
-					<span class="help-inline" style="margin-top:5px;" id="tipo_monedaR">SOLES</span>
-					</div>
-				</div>
-				
-				<!-- TABLA DE PRODUCTOS POR COMPRAR aqui -->
-				<div class="controls-group">
-				<table id="tabla_resumen_productos" class="table table-striped table-bordered" style="width: 310px;">
-					<thead >
-						  <tr>
-						  <th style="width: 180px;">Producto</th>
-						  <th style="width: 50px;">Cantidad</th>
-						  <th style="width: 80px;">Valor</th>
-						  </tr>
-					</thead>
-				</table>
-				</div>
-				<!-- END TABLA DE PRODUCTOS -->
-				
-				<div class="control-group">
-					<label class="control-label">Monto</label>
-					<div class="controls">
-						<span class="help-inline" style="margin-top:5px;" id="MontoR">150</span>
-					</div>
-				</div>
-				<div class="control-group">
-					<label class="control-label" for="descuento">Descuento</label>
-					<div class="controls">
-						<span class="help-inline" style="margin-top:5px;" id="descuentoR"></span>
-					</div>
-				</div>
-				<div class="control-group">
-					<label class="control-label">Subtotal</label>
-					<div class="controls">
-						<span class="help-inline" style="margin-top:5px;" id="subtotalR"></span>
-					</div>
-				</div>
-				
-				<div class="control-group">
-					<label class="control-label">IGV</label>
-					<div class="controls">
-						<span class="help-inline" style="margin-top:5px;" id="tipo_igvR"></span>
-					</div>
-				</div>
-				
-				<div class="control-group">
-					<label class="control-label">Total</label>
-					<div class="controls">
-						<span class="help-inline" style="margin-top:5px;" id="totalR"></span>
-					</div>
-				</div>		
-				
-				<div class="control-group">
-					<label class="control-label">A cuenta</label>
-					<div class="controls">
-						<span class="help-inline" style="margin-top:5px;" id="amortizacionR"></span>
-					</div>
-				</div>
-											
-				<div class="control-group">
-					<label class="control-label">Saldo</label>
-					<div class="controls">
-						<span class="help-inline" style="margin-top:5px;" id="saldoR"></span>
-					</div>
-				</div>
-				
-				<div id="cuotas_block" class="control-group" style="display:none">
-					<label class="control-label">N° Cuotas</label>
-					<div class="controls">
-						<div class="input-prepend input-append">
-								<input class="input-xlarge focused " id="num_cuotasR"><span class="add-on">x 0.00 S/.</span>
+				<fieldset>
+					<div class="row-fluid">
+						<div class="span6">
+							<div class="control-group" align="center">
+								<label class="control-label">DICARS SAC</label>									
+							</div>
+							<div class="control-group">
+								<label class="control-label">RUC</label>
+								<div class="controls">
+								<span class="help-inline" style="margin-top:5px;" id="ruc">11900678543</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">Fecha</label>
+								<div class="controls">
+								<span class="help-inline" style="margin-top:5px;" id="fechaR"></span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">Serie</label>
+								<div class="controls">
+								<span class="help-inline" style="margin-top:5px;" id="serieR"></span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">Nro Boleta</label>
+								<div class="controls">
+								<span class="help-inline" style="margin-top:5px;" id="rucR"></span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="cliente">Cliente</label>
+								<div class="controls">
+								<span class="help-inline" style="margin-top:5px;" id="clienteR">SAM GARABATEITO</span>
+								</div>
+							</div>				
+							
+							<div class="control-group">
+								<label class="control-label" >Tipo de Pago</label>
+								<div class="controls">
+								<span class="help-inline" style="margin-top:5px;" id="forma_pagoR">CONTADO</span>
+								</div>
+							</div> 
+							<div class="control-group">
+								<label class="control-label">Tipo moneda</label>
+								<div class="controls">
+								<span class="help-inline" style="margin-top:5px;" id="tipo_monedaR">SOLES</span>
+								</div>
+							</div>  
+						</div>
+						<div class="span6">
+							<div class="control-group">
+								<label class="control-label">Monto</label>
+								<div class="controls">
+									<span class="help-inline" style="margin-top:5px;" id="MontoR">150</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="descuento">Descuento</label>
+								<div class="controls">
+									<span class="help-inline" style="margin-top:5px;" id="descuentoR"></span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">Subtotal</label>
+								<div class="controls">
+									<span class="help-inline" style="margin-top:5px;" id="subtotalR"></span>
+								</div>
+							</div>
+							
+							<div class="control-group">
+								<label class="control-label">IGV</label>
+								<div class="controls">
+									<span class="help-inline" style="margin-top:5px;" id="tipo_igvR"></span>
+								</div>
+							</div>
+							
+							<div class="control-group">
+								<label class="control-label">Total</label>
+								<div class="controls">
+									<span class="help-inline" style="margin-top:5px;" id="totalR"></span>
+								</div>
+							</div>		
+							
+							<div class="control-group">
+								<label class="control-label">A cuenta</label>
+								<div class="controls">
+									<span class="help-inline" style="margin-top:5px;" id="amortizacionR"></span>
+								</div>
+							</div>
+														
+							<div class="control-group">
+								<label class="control-label">Saldo</label>
+								<div class="controls">
+									<span class="help-inline" style="margin-top:5px;" id="saldoR"></span>
+								</div>
+							</div>
+							
+							<div id="cuotas_block" class="control-group" style="display:none">
+								<label class="control-label">N° Cuotas</label>
+								<div class="controls">
+									<div class="input-prepend input-append">
+											<input class="input-xlarge focused " id="num_cuotasR"><span class="add-on">x 0.00 S/.</span>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>
-	                    <p>
-                        	<a to_position='2' id='back_to_detalle' href="#">atras</a>
-                        	<a href="#" id="finalizar_venta">Finalizar</a>
-                    	</p>
+					<!-- TABLA DE PRODUCTOS POR COMPRAR aqui -->
+					<table id="tabla_resumen_productos" class="table table-striped table-bordered">
+						<thead >
+							  <tr>
+							  <th style="width: 60%;">Producto</th>
+							  <th style="width: 20%;">Cantidad</th>
+							  <th style="width: 20%;">Valor</th>
+							  </tr>
+						</thead>
+					</table>
+					<!-- END TABLA DE PRODUCTOS -->
+		            <div>
+	                	<a to_position='2' id='back_to_detalle' href="#" class="btn btn-success"><i class="icon icon-white icon-arrowthick-w"></i> Atrás</a>
+	                    <a href="#" id="finalizar_venta" class="btn btn-primary" style="float: right;"><i class="icon icon-white icon-cart"></i> Finalizar</a>
+	                </div>
+	        	</fieldset>
 			</div>
 			</div><!--/span-->
