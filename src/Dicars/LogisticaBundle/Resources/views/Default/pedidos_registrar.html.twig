@@ -82,7 +82,7 @@
 						<input class="input-xlarge focused" id="producto" type="text">
 					  	<button type="button" class="btn btn-info btn-buscarp" style="margin: 0 18px;"><i class="icon-search icon-white"></i>Buscar</button>
 						<label style="display:inline;" for="cantidad">Cantidad</label>
-						<input id="cantidad" type="number" style="margin: 0 18px 0 0;" required>
+						<input id="cantidad" type="number" style="margin: 0 18px 0 0;" min="1" required>
 						<button id="agregar_producto" type="submit" class="btn btn-primary"><i class="icon-plus icon-white"></i>Agregar</button>
 					</div>
 				</div>
@@ -141,6 +141,7 @@ $(document).ready(function(){
 	//mostrar Buscar Producto------------------------------------>
 	$('.btn-buscarp').click(function(e){
 		e.preventDefault();
+		UnselectRow("select_producto_table");
 		$('#modalBuscarProducto').modal('show');
 	});
 
@@ -149,6 +150,7 @@ $(document).ready(function(){
 		var data = SelectProductoData[0];
 		$('#producto').val(data.idproducto+" - "+data.nombre);
 		$('#modalBuscarProducto').modal('hide');
+		$('#cantidad').val(1);
 	});
 
 	$("#AgregarProductoForm").submit(function(e){

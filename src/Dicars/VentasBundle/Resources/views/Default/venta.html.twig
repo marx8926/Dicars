@@ -286,6 +286,7 @@ function VentaUpdate(){
 		TipoMoneda = "$";
 			
 	if($("#forma_pago").val() == 2){
+		UnselectRow("select_producto_table");
 		$("#cuotas_block").show();
 		$("#monto_productos").val(totalcontado);
 		tipoprecio = 'pcontado';
@@ -347,18 +348,20 @@ $(document).ready(function(){
 	$("#finalizar_venta").click(function(e){
 		e.preventDefault();
     	$("#EnviarVentaForm").unbind();
-    	enviar('EnviarVentaForm',logdata,OtherDataProductos);
+    	enviar('EnviarVentaForm',reloadpage,OtherDataProductos);
 		$("#EnviarVentaForm").submit();
 	});
 	
 	$('.btn-buscarp').click(function(e){
 		e.preventDefault();
 		$('#modalBuscarProducto').modal('show');
+		UnselectRow("select_producto_table");
 	});
 
 	$('.btn-buscarc').click(function(e){
 		e.preventDefault();
 		$('#modalBuscarCliente').modal('show');
+		UnselectRow("select_cliente_table");
 	});
 
 	$("#select_producto").click(function(e){
@@ -427,7 +430,7 @@ $(document).ready(function(){
 		              { "sWidth": "12%","mDataProp": "dni"},
 		              { "sWidth": "12%","mDataProp": "linea_credito"}
 		              ];
-	SelectClienteTable = createDataTable('select_pedido_table',UrlaDTableClientes,FormatoDTableClientes,null,RowCallBackFunctionCliente);
+	SelectClienteTable = createDataTable('select_cliente_table',UrlaDTableClientes,FormatoDTableClientes,null,RowCallBackFunctionCliente);
 
 	SelectProductosTable =$("#select_productos_venta").dataTable({
 		"aoColumns": [

@@ -68,12 +68,12 @@ $(document).ready(function(){
 	UrlaDTable = '{{ path("dicars_logistica_servicio_gettablaordpeds") }}';
 	FormatoDTable = [
 	              { "sWidth": "15%","mDataProp": "registrante"},
-	              { "sWidth": "15%","mDataProp": "local"},
+	              { "sWidth": "13%","mDataProp": "local"},
 	              { "sWidth": "11%","mDataProp": "serie"},
 	              { "sWidth": "11%","mDataProp": "numero"},	  
 	              { "sWidth": "13%","mDataProp": "fecha_reg"},
 	              { "sWidth": "13%","mDataProp": "fecha_ent"},
-	              { "sWidth": "11%","mDataProp": "ver_btn"},
+	              { "sWidth": "13%","mDataProp": "ver_btn"},
 	              { "sWidth": "11%","mDataProp": "elim_btn"}
 	              ];
 	PedidosTable = createDataTable('pedidos_table',UrlaDTable,FormatoDTable,CargarBotones);		
