@@ -4638,3 +4638,7 @@ div.subnav .nav > .open > .dropdown-toggle:hover .caret {
 .invisible {
   visibility: hidden;
 }
+/*----------------------------PROPIOS-------------------------------------------*/
+.icon-pago{
+	background: url('../img/icon-pay.png');
+}

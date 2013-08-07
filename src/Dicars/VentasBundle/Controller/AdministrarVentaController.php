@@ -50,7 +50,7 @@ class AdministrarVentaController extends Controller {
 			
 			$Local = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:Local')
-			->findOneBy(array('nlocalId' => 1));
+			->findOneBy(array('nlocalId' => 2));
 			
 			$TipoIGV = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:VenTipoigv')
