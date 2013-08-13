@@ -94,7 +94,7 @@ class AdministrarOrdCompraController extends Controller{
 					$DetalleCompra -> setNdetcompraimporte($data['importe']);
 					$DetalleCompra -> setNproducto($Producto);
 					$DetalleCompra -> setNdetordordped($data['iddetordped']);
-					$DetalleCompra -> setCdetcompraest($data['eordcom']);
+					$DetalleCompra -> setCdetcompraest(1);
 					
 					$em->persist($DetalleCompra);
 					$em->flush();
@@ -104,17 +104,17 @@ class AdministrarOrdCompraController extends Controller{
 						->getRepository('DicarsDataBundle:LogDetordped')
 						->findOneBy(array('ndetordpedId' => $data['iddetordped']));
 							
-						$DetallePed -> setCdetordpedest($data['eordcom']);
+						$DetallePed -> setCdetordpedest(1);
 						
 						$em->flush();
 					}
 				}
 				
-				$OrdPed = $this->getDoctrine()
+				/*$OrdPed = $this->getDoctrine()
 					->getRepository('DicarsDataBundle:LogOrdped')
 					->findOneBy(array('nordpedId' => $datos['ordped_id']));
 				
-				$OrdPed -> setCordpedest(1); //atendida completamente
+				$OrdPed -> setCordpedest(1); //atendida completamente*/
 	
 			} catch (Exception $e) {
 				$this->getDoctrine()->getEntityManager()->rollback();

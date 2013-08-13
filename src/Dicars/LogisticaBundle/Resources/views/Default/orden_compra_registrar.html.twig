@@ -66,7 +66,7 @@
 							<div class="control-group">
 								<label class="control-label" for="subtotal">Subtotal</label>
 								<div class="controls">
-									<input class="input-xlarge" id="subtotal" name="subtotal" type="number" step="0.10">
+									<input class="input-xlarge" id="subtotal" name="subtotal" min="0" type="number" readonly value="0">
 								</div>
 							</div>
 							<div class="control-group">
@@ -79,25 +79,25 @@
 							<div class="control-group">
 								<label class="control-label" for="total">Total</label>
 								<div class="controls">
-									<input class="input-xlarge" id="total" name="total" type="number" step="0.10">
+									<input class="input-xlarge" id="total" name="total" type="number" readonly value="0">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="descuento">Descuento</label>
 								<div class="controls">
-									<input class="input-xlarge" id="descuento" name="descuento" type="number" step="0.10">
+									<input class="input-xlarge" id="descuento" name="descuento" type="number" step="0.10" value="0">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="recequiv">Recargo de Equivalencia</label>
 								<div class="controls">
-									<input class="input-xlarge" id="recequiv" name="recequiv" type="number" step="0.10">
+									<input class="input-xlarge" id="recequiv" name="recequiv" type="number" step="0.10" value="0">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="retencion">Retención</label>
 								<div class="controls">
-									<input class="input-xlarge" id="retencion" name="retencion" type="number" step="0.10">
+									<input class="input-xlarge" id="retencion" name="retencion" type="number" step="0.10" value="0">
 								</div>
 							</div>
 						</div>
@@ -231,7 +231,6 @@ function cargarEditar(producto){
 	              	{'label':'Cantidad a Pedir','type':'inputnumber','req':'true', 'min':'1','max':'1000000','value':producto.cantidad,'name':'cantidadE'},
 					{'type':'actions'}];
 	$("#EditarCantidadForm").html(crearElementosForm(ArrayDatos));
-	console.log(OtherdataProductos);
 }
 
 $(document).ready(function(){
@@ -299,8 +298,7 @@ $(document).ready(function(){
 		e.preventDefault();
 		if(SelectDetPedido.length > 0){
 			SelectDetPedido[0].pordcom = $('#preciod').val();
-			SelectDetPedido[0].eordcom = 1;
-			SelectDetPedido[0].cantidad_rec = 0;
+			SelectDetPedido[0].cantidad= $('#cantidadd').val();
  			DetOrdPedProductosTable.fnAddData(SelectDetPedido);
 			$('#ordped').val("");
 			$('#cantidadd').val("");
@@ -317,8 +315,6 @@ $(document).ready(function(){
 			SelectProductoData[0].cantidad = $('#cantidad').val();
 			SelectProductoData[0].pordcom = $('#precio').val();
 			SelectProductoData[0].iddetordped = 0;
-			SelectProductoData[0].eordcom = 1;
-			SelectProductoData[0].cantidad_rec = 0;
 			SelectProductoData[0].pedido_codigo ='';
 			SelectProductoData[0].fecha_reg = '';
 			SelectProductoData[0].registrante = '';
@@ -330,10 +326,6 @@ $(document).ready(function(){
 			Array2 = DetOrdPedProductosTable.fnGetData();
 			CopyArray(OtherdataProductos,Array2,false,Attr);
 		}
-	});
-
-	$("#btn_enviar_ordcom").click(function(e){
-		$("#RegistrarOrdenCompraForm").submit();
 	});
 
 	RowCallBackFunctionProducto = getSimpleSelectRowCallBack(SelectProductoData,"select_producto_table");
@@ -352,10 +344,10 @@ $(document).ready(function(){
 		              { "sWidth": "12%","mDataProp": "elim_btn"}
 		              ],
 		       "fnCreatedRow": function( nRow, aData, iDisplayIndex ) {
+			       aData.importe = 0;
 			       aData.asigid = asigid;
 			       asigid++;
-		    	   Suma();
-		    	   aData.importe = 0;
+		    	   Suma();		    	   
 			   		$(nRow).find('.btn-editar').click(function(e){
 			   			e.preventDefault();
 			   			cargarEditar(aData);
