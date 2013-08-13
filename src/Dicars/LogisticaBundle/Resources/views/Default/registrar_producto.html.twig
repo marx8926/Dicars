@@ -1,10 +1,9 @@
 <div class="modal hide fade" id="modalRegistro">
 	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal">x</button>
 		<h3>Registrar Producto</h3>
 	</div>
-	<div class="modal-body">
-		<form id="RegistrarProductoForm" class="form-horizontal" method="post" action="{{ path('dicars_logistica_registrar_producto') }}">
+	<form id="RegistrarProductoForm" class="form-horizontal" method="post" action="{{ path('dicars_logistica_registrar_producto') }}">
+		<div class="modal-body">
 			<fieldset>		
 			  <div class="control-group">
 				<label class="control-label" for="serie">Serie</label>
@@ -118,15 +117,11 @@
 					</figure>
 				</div>
 			  </div>
-			  <div class="form-actions">
-				<button type="submit" class="btn btn-primary">Guardar</button>
-				<button type="reset" class="btn btn-cancelarprov" data-dismiss="modal">Cancelar</button>
-			  </div>
 			</fieldset>
-		  </form>
-	</div>
-	<!-- div class="modal-footer">
-		<a href="#" class="btn" data-dismiss="modal">Cancelar</a>
-		<a href="#" class="btn btn-primary">Guardar</a>
-	</div -->
+		</div>
+		<div class="modal-footer">
+			<button type="reset" class="btn btn-cancelarprov" data-dismiss="modal">Cancelar</button>
+			<button type="submit" class="btn btn-primary">Guardar</button>
+		</div>
+	</form>
 </div>
