@@ -33,15 +33,7 @@
 							<div class="control-group">
 								<label class="control-label" for="registrador">Registrador</label>
 								<div class="controls">
-									<input class="input-xlarge focused" id="registrador" name="registrador" type="text" readonly>
-								</div>
-							</div>
-							<div class="control-group">
-								<label class="control-label" for="ordped">Orden de Pedido</label>
-								<div class="controls">
-									<input class="input-xlarge focused" id="ordped" name="ordped" type="text" readonly>
-									<input id="ordped_id" name="ordped_id" type="hidden">
-					  				<button type="button" class="btn btn-info btn-ordped" style="margin: 0 18px;"><i class="icon-search icon-white"></i></button>
+									<input class="input-xlarge focused" id="registrador" name="registrador" type="text" readonly required>
 								</div>
 							</div>
 							<div class="control-group">
@@ -111,32 +103,47 @@
 						</div>
 					</div>
 				</fieldset>
-			</form>
-			<form id="AgregarProductoForm" class="form-horizontal">
+			<hr>
+			<h3>Productos de Orden de Compra</h3>
+			<hr>
+			<div class="form-horizontal">
+				<div class="control-group">
+					<label class="control-label" for="ordped">Pedido</label>
+					<div class="controls">
+						<input class="input-xlarge focused" id="ordped" name="ordped" type="text" readonly>
+						<button type="button" class="btn btn-info btn-ordped" style="margin: 0 18px;"><i class="icon-search icon-white"></i>Buscar</button>
+					  	<label style="display:inline;" for="preciod">Precio</label>
+						<input id="preciod" type="number" step="0.01" min="1" style="margin: 0 18px 0 0;">
+						<label style="display:inline;" for="cantidadd">Cantidad</label>
+						<input id="cantidadd" type="number" style="margin: 0 18px 0 0;">
+						<button id="agregar_detalle" type="button" class="btn btn-primary"><i class="icon-plus icon-white"></i>Agregar</button>
+					</div>
+				</div>
+			</div>
+			<div class="form-horizontal">
 				<div class="control-group">
 					<label class="control-label" for="producto">Producto</label>
 					<div class="controls">
 						<input class="input-xlarge focused" id="producto" type="text">
 					  	<button type="button" class="btn btn-info btn-buscarp" style="margin: 0 18px;"><i class="icon-search icon-white"></i>Buscar</button>
 					  	<label style="display:inline;" for="precio">Precio</label>
-						<input id="precio" type="number" step="0.01" min="1" style="margin: 0 18px 0 0;" required>
+						<input id="precio" type="number" step="0.01" min="1" style="margin: 0 18px 0 0;" >
 						<label style="display:inline;" for="cantidad">Cantidad</label>
-						<input id="cantidad" type="number" style="margin: 0 18px 0 0;" required>
-						<button id="agregar_producto" type="submit" class="btn btn-primary"><i class="icon-plus icon-white"></i>Agregar</button>
+						<input id="cantidad" type="number" style="margin: 0 18px 0 0;">
+						<button id="agregar_producto" type="button" class="btn btn-primary"><i class="icon-plus icon-white"></i>Agregar</button>
 					</div>
 				</div>
-			</form>
-			<hr>
-			<h3>Productos de Orden de Compra</h3>
+			</div>
 			<hr>
 			<table id="productos_table" class="table table-striped table-bordered bootstrap-datatable datatable">
 				<thead>
 					  <tr>
-						  <th>Código</th>
-						  <th>Nombre</th>
+						  <th>Pedido</th>
+						  <th>Registrante</th>
+						  <th>Producto</th>
 						  <th>Cantidad</th>
 						  <th>Precio</th>
-						  <th>Estado</th>
+						  <th>Fecha de registro</th>
 						  <th></th>
 						  <th></th>
 					  </tr>
@@ -148,14 +155,15 @@
 			<div class="form-horizontal">
 				<div class="form-actions">
 					<a href="{{ path('dicars_logistica_pedidos') }}" type="reset" class="btn btn-cancelar" >Cancelar</a>
-					<button class="btn" ><i class="icon-print"></i>Imprimir</button>
-					<button id="btn_enviar_ordcom" type="button" class="btn btn-primary"><i class="icon icon-white icon-save"></i>Guardar</button>
+					<button id="btn_enviar_ordcom" type="submit" class="btn btn-primary"><i class="icon icon-white icon-save"></i>Guardar</button>
 				</div>
 			</div>
 			{% include 'DicarsLogisticaBundle:Default:buscarproveedor.html.twig' %}
 			{% include 'DicarsLogisticaBundle:Default:buscarordped.html.twig' %}
 			{% include 'DicarsVentasBundle:Default:buscarproducto.html.twig' %}
 			
+			
+			</form>
 			<div class="modal hide fade" id="modalEditarCantidad" >
 				<div class="modal-header">
 					<h3>Datos del Producto</h3>
@@ -177,15 +185,16 @@
 // Se almacena el producto seleccionado
 var SelectProductoData = new Array();
 var SelectProveedorData = new Array();
+var SelectDetPedido = new Array();
 
-var SelectProductosTableData = new Array();
+var OtherdataProductos = new Array();
 
 var SelectOrdPedData = new Array();
 
 //Se almacena la data de la tabla de los productos seleccionados
-var SelectProductosTableData =  new Array();
+var OtherdataProductos =  new Array();
 
-var Attr = ['idproducto','cantidad','pordcom', 'eordcom', 'iddetordped','importe'];
+var Attr = ['idproducto','cantidad','pordcom', 'iddetordped','importe'];
 
 var BuscarProductosTable;
 var BuscarProveedoresTable;
@@ -199,6 +208,7 @@ var RowCallBackFunctionProveedor;
 var RowCallBackFunctionOrdPed;
 
 var DrawCallBack;
+var asigid = 0;
 
 var UrlPedido ='';
 
@@ -206,13 +216,11 @@ var TiposIGV;
 
 function Suma(){
 	
-	var subtotal = sumArrayByAttr(DetOrdPedProductosTable.fnGetData(),'pordcom','importe','eordcom');
+	var subtotal = sumArrayByAttr(DetOrdPedProductosTable.fnGetData(),'pordcom','importe');
 	var total = 0;
 	var igv = parseInt($("#igv option:selected").text());
 	$('#subtotal').val(subtotal);
 	total = subtotal + (igv * subtotal / 100);
-	//total = subtotal;
-
 	$('#total').val(total);
 }
 
@@ -222,8 +230,8 @@ function cargarEditar(producto){
 	              	{'label':'Precio','type':'inputnumber','req':'true', 'step':'0.01','min':'1','max':'1000000','value':producto.pordcom,'name':'pordcomE'},
 	              	{'label':'Cantidad a Pedir','type':'inputnumber','req':'true', 'min':'1','max':'1000000','value':producto.cantidad,'name':'cantidadE'},
 					{'type':'actions'}];
-		
 	$("#EditarCantidadForm").html(crearElementosForm(ArrayDatos));
+	console.log(OtherdataProductos);
 }
 
 $(document).ready(function(){
@@ -240,44 +248,9 @@ $(document).ready(function(){
 	DrawCallBack = function(){
 		if($('#ordped').val() != '' ){
 			Array2 = DetOrdPedProductosTable.fnGetData();
-			CopyArray(SelectProductosTableData,Array2,false,Attr);
+			CopyArray(OtherdataProductos,Array2,false,Attr);
 			Suma();
 		}
-	};
-	
-	RowCallBackFunction = function(nRow, aData, iDisplayIndex){
-		aData.importe = 0;
-		$(nRow).find('.btn-editar').click(function(e){
-			e.preventDefault();
-			cargarEditar(aData);
-			$('#modalEditarCantidad').modal('show');
-			var index = $(DetOrdPedProductosTable.fnGetData()).getIndexObj(aData,'idproducto');
-			$('#EditarCantidadForm').unbind();
-			$('#EditarCantidadForm').submit(function(e){
-				e.preventDefault();
-				DetOrdPedProductosTable.fnUpdate($('#cantidadE').val(),index,2);
-				DetOrdPedProductosTable.fnUpdate($('#pordcomE').val(),index,3);
-				Array2 = DetOrdPedProductosTable.fnGetData();
-				CopyArray(SelectProductosTableData,Array2,false,Attr);
-				$('#modalEditarCantidad').modal('hide');
-				Suma();
-			});
-		});
-		$(nRow).find('.btn-danger').click(function(e){
-			e.preventDefault();
-			var index = $(DetOrdPedProductosTable.fnGetData()).getIndexObj(aData,'idproducto');
-			if(aData.eordcom == 1){
-				DetOrdPedProductosTable.fnUpdate('<span class="label label-important">Eliminado</span>',index,4);
-				aData.eordcom = 0;
-			}
-			else{
-				DetOrdPedProductosTable.fnUpdate('<span class="label label-success">Atendido</span>',index,4);
-				aData.eordcom = 1;
-			}
-			Array2 = DetOrdPedProductosTable.fnGetData();
-			CopyArray(SelectProductosTableData,Array2,false,Attr);
-			Suma();
-		});
 	};
 
 	$('.btn-proveedor').click(function(e){
@@ -300,6 +273,8 @@ $(document).ready(function(){
 		e.preventDefault();
 		var data = SelectProductoData[0];
 		$('#producto').val(data.idproducto+" - "+data.nombre);
+		$('#cantidad').val(1);
+		$('#precio').val(0);
 		$('#modalBuscarProducto').modal('hide');
 	});
 
@@ -313,32 +288,47 @@ $(document).ready(function(){
 
 	$("#select_ordped").click(function(e){
 		e.preventDefault();
-		var data = SelectOrdPedData[0];
+		var data = SelectDetPedido[0];
 		$('#ordped').val(data.serie + " - " + data.numero);
 		$('#ordped_id').val(data.id);
+		$('#cantidadd').val(1);
+		$('#preciod').val(0);
 		$('#modalBuscarOrdPed').modal('hide');
-
-		UrlPedido = '{{ path("dicars_logistica_servicio_gettabladetordped",{'id':''}) }}/'+ data.id;
-		DetOrdPedProductosTable.fnReloadAjax(UrlPedido);
+	});
+	$("#agregar_detalle").click(function(e){
+		e.preventDefault();
+		if(SelectDetPedido.length > 0){
+			SelectDetPedido[0].pordcom = $('#preciod').val();
+			SelectDetPedido[0].eordcom = 1;
+			SelectDetPedido[0].cantidad_rec = 0;
+ 			DetOrdPedProductosTable.fnAddData(SelectDetPedido);
+			$('#ordped').val("");
+			$('#cantidadd').val("");
+			$('#preciod').val("");
+			SelectDetPedido.pop();
+			Array2 = DetOrdPedProductosTable.fnGetData();
+			CopyArray(OtherdataProductos,Array2,false,Attr);
+		}
 	});
 	
-	$("#AgregarProductoForm").submit(function(e){
+	$("#agregar_producto").click(function(e){
 		e.preventDefault();
 		if(SelectProductoData.length > 0){
 			SelectProductoData[0].cantidad = $('#cantidad').val();
 			SelectProductoData[0].pordcom = $('#precio').val();
 			SelectProductoData[0].iddetordped = 0;
-			SelectProductoData[0].labeleordcom = "<span class='label label-success'>Atendido</span>";
-			SelectProductoData[0].idproducto = SelectProductoData[0].idproducto;
 			SelectProductoData[0].eordcom = 1;
 			SelectProductoData[0].cantidad_rec = 0;
+			SelectProductoData[0].pedido_codigo ='';
+			SelectProductoData[0].fecha_reg = '';
+			SelectProductoData[0].registrante = '';
  			DetOrdPedProductosTable.fnAddData(SelectProductoData);
 			$('#producto').val("");
 			$('#cantidad').val("");
 			$('#precio').val("");
 			SelectProductoData.pop();
 			Array2 = DetOrdPedProductosTable.fnGetData();
-			CopyArray(SelectProductosTableData,Array2,false,Attr);
+			CopyArray(OtherdataProductos,Array2,false,Attr);
 		}
 	});
 
@@ -347,21 +337,57 @@ $(document).ready(function(){
 	});
 
 	RowCallBackFunctionProducto = getSimpleSelectRowCallBack(SelectProductoData,"select_producto_table");
-	RowCallBackFunctionOrdPed = getSimpleSelectRowCallBack(SelectOrdPedData,"select_ordped_table");
+	RowCallBackFunctionDetOrdPed = getSimpleSelectRowCallBack(SelectDetPedido,"select_ordped_table");
 	RowCallBackFunctionProveedor = getSimpleSelectRowCallBack(SelectProveedorData,"select_proveedor_table");
 
-	UrlaDTableOrdPedProductos = '{{ path("dicars_logistica_servicio_gettabladetordped",{'id':0}) }}';
-	FormatoDTableOrdPedProductos = [
-		              { "sWidth": "13%","mDataProp": "idproducto"},
-		              { "sWidth": "13%","mDataProp": "nombre"},
-		              { "sWidth": "13%","mDataProp": "cantidad"},
-		              { "sWidth": "13%","mDataProp": "pordcom"},
-		              { "sWidth": "13%","mDataProp": "labeleordcom"},
-		              { "sWidth": "13%","mDataProp": "edit_btn"},
-		              { "sWidth": "13%","mDataProp": "elim_btn"}
-		              ];
-	DetOrdPedProductosTable = createDataTable('productos_table',UrlaDTableOrdPedProductos,FormatoDTableOrdPedProductos,DrawCallBack,RowCallBackFunction);
-
+	DetOrdPedProductosTable = $('#productos_table').dataTable({
+		"aoColumns": [
+		      		{ "sWidth": "12%","mDataProp": "pedido_codigo"},
+		              { "sWidth": "12%","mDataProp": "registrante"},
+		              { "sWidth": "12%","mDataProp": "idproducto"},
+		              { "sWidth": "12%","mDataProp": "cantidad"},
+		              { "sWidth": "12%","mDataProp": "pordcom"},
+		              { "sWidth": "12%","mDataProp": "fecha_reg"},
+		              { "sWidth": "12%","mDataProp": "edit_btn"},
+		              { "sWidth": "12%","mDataProp": "elim_btn"}
+		              ],
+		       "fnCreatedRow": function( nRow, aData, iDisplayIndex ) {
+			       aData.asigid = asigid;
+			       asigid++;
+		    	   Suma();
+		    	   aData.importe = 0;
+			   		$(nRow).find('.btn-editar').click(function(e){
+			   			e.preventDefault();
+			   			cargarEditar(aData);
+			   			$('#modalEditarCantidad').modal('show');
+			   			var index = $(DetOrdPedProductosTable.fnGetData()).getIndexObj(aData,'asigid');
+			   			$('#EditarCantidadForm').unbind();
+			   			$('#EditarCantidadForm').submit(function(e){
+			   				e.preventDefault();
+			   				DetOrdPedProductosTable.fnUpdate($('#cantidadE').val(),index,3);
+			   				DetOrdPedProductosTable.fnUpdate($('#pordcomE').val(),index,4);
+			   				Array2 = DetOrdPedProductosTable.fnGetData();
+			   				CopyArray(OtherdataProductos,Array2,false,Attr);
+			   				$('#modalEditarCantidad').modal('hide');
+			   				Suma();
+			   			});
+			   		});
+			   		$(nRow).find('.btn-danger').click(function(e){
+			   			e.preventDefault();
+			   			var index = $(DetOrdPedProductosTable.fnGetData()).getIndexObj(aData,'idproducto');
+			   			DetOrdPedProductosTable.fnDeleteRow( index );
+			   			Array2 = DetOrdPedProductosTable.fnGetData();
+			   			CopyArray(OtherdataProductos,Array2,false,Attr);
+			   			Suma();
+			   		});    
+		        },
+		  		"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span12'i><'span12 center'p>>",
+		  		"sPaginationType": "bootstrap",
+		  		"oLanguage": {
+		  		"sLengthMenu": "_MENU_ registros por pagina"
+		  		}
+	});
+	
 	UrlaDTableProductos = '{{ path("dicars_logistica_servicio_gettablaproductos") }}';
 	FormatoDTableProductos = [
 		              { "sWidth": "12%","mDataProp": "idproducto"},
@@ -380,17 +406,17 @@ $(document).ready(function(){
 		              ];
 	BuscarProveedoresTable = createDataTable('select_proveedor_table',UrlaDTableProveedores,FormatoDTableProveedores,null,RowCallBackFunctionProveedor);
 
-	UrlaDTableOrdPed = '{{ path("dicars_logistica_servicio_gettablaordpeds") }}';
+	UrlaDTableOrdPed = "{{ path('dicars_logistica_servicio_gettabladetpedidocompra') }}";
 	FormatoDTableOrdPed = [
-		              { "sWidth": "20%","mDataProp": "id"},
-		              { "sWidth": "20%","mDataProp": "numero"},
-		              { "sWidth": "20%","mDataProp": "serie"},
-		              { "sWidth": "20%","mDataProp": "fecha_reg"},
-		              { "sWidth": "20%","mDataProp": "fecha_ent"}
+		              { "sWidth": "12%","mDataProp": "pedido_codigo"},
+		              { "sWidth": "12%","mDataProp": "registrante"},
+		              { "sWidth": "12%","mDataProp": "idproducto"},
+		              { "sWidth": "12%","mDataProp": "cantidad"},
+		              { "sWidth": "12%","mDataProp": "fecha_reg"}
 		              ];
-	BuscarOrdPedTable = createDataTable('select_ordped_table',UrlaDTableOrdPed,FormatoDTableOrdPed,null,RowCallBackFunctionOrdPed);
+	BuscarOrdPedTable = createDataTable('select_ordped_table',UrlaDTableOrdPed,FormatoDTableOrdPed,null,RowCallBackFunctionDetOrdPed);
 
-	enviar("RegistrarOrdenCompraForm",ResetForm,SelectProductosTableData);
+	enviar("RegistrarOrdenCompraForm",ResetForm,OtherdataProductos);
 	
 });
 

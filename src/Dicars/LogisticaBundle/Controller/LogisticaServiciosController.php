@@ -282,6 +282,37 @@ public function getTablaProductosAction(){
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
+	public function getTablaDetPedidoCompraAction(){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$detordpeds = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:LogDetordped')
+		->findBy(array('cdetordpedest'=>0));
+			
+		$em->clear();
+		
+		$todo = array();
+		foreach ($detordpeds as $key => $detordped){
+			$pedido = $detordped -> getNordped();
+			$registrante = $pedido -> getNpersonal();
+			$producto = $detordped -> getNproducto();
+		
+			$todo[] = array('iddetordped' => $pedido -> getNordpedId(),
+					'registrante' => $registrante -> getCpersonalnom()." ".$registrante -> getCpersonalape(),
+					'pedido_codigo' => $pedido -> getCordpedserie()."-".$pedido -> getCordpednro(),
+					'idproducto' => $producto -> getNproductoId(),
+					'nombre' => $producto -> getCproductodesc(),
+					'cantidad' => $detordped -> getNdetordpedcant(),
+					'fecha_reg' => $pedido -> getDordpedfecreg() -> format("d/m/Y"),
+					'fecha_ent' => $pedido -> getDordepedfecent() -> format("d/m/Y"),
+					'ver_btn' => "<a id-data='".$pedido -> getNordpedId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
+					'edit_btn' => "<a id-data='".$pedido -> getNordpedId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
+					'elim_btn' => "<a id-data='".$pedido -> getNordpedId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
+		
+		}
+		return new JsonResponse(array('aaData' => $todo));
+	}
+	
 	public function getTablaDetSalProdAction($id){
 		$em = $this->getDoctrine()->getEntityManager();
 			

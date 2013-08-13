@@ -53,6 +53,11 @@ dicars_logistica_servicio_getoptionlocal:
 dicars_logistica_servicio_gettablaordcom:
     pattern:  /servicio_gettablaordcom
     defaults: { _controller: DicarsLogisticaBundle:LogisticaServicios:getTablaOrdCom }
+    
 dicars_logistica_servicio_gettabladetordcom:
     pattern:  /servicio_gettabladetordcom/{idordcom}
     defaults: { _controller: DicarsLogisticaBundle:LogisticaServicios:getTablaDetOrdCom }
+    
+dicars_logistica_servicio_gettabladetpedidocompra:
+    pattern:  /servicio_gettabladetpedidocompra
+    defaults: { _controller: DicarsLogisticaBundle:LogisticaServicios:getTablaDetPedidoCompra }

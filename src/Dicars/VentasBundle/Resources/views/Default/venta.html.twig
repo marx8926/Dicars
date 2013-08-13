@@ -75,7 +75,7 @@
 			                <a class="btn btn-success" to_position='2' id='to_detalle' href="#" style="float: right; margin-bottom: 10px;">Siguiente <i class="icon icon-white icon-arrowthick-e"></i></a>
 					</div>
 			</fieldset>
-            <fieldset class="step" id="step2">
+            <fieldset class="step" id="step2" style="display:none;">
 			<div class="box-header well" data-original-title>
 				<h2>Datos de Pago</h2>
 			</div>
@@ -194,7 +194,7 @@
 			</form>
 			</div><!--/span-->
 			</fieldset>
-                <fieldset class="step" id="step3">
+                <fieldset class="step" id="step3" style="display:none;">
                {% include 'DicarsVentasBundle:Default:resumen_venta.html.twig' %}
                 </fieldset>
             </div>
@@ -485,6 +485,7 @@ $(document).ready(function(){
 		});
 	ajaxResponseData("forma_pago","{{ path('dicars_admin_servicio_getoptiontipobyclase',{'Clase':1}) }}");
 	initSlider(OtherDataProductos);
+	$(".step").show();
 	$('#contenedor').height($('#step1').height());
 	
 });
