@@ -4345,7 +4345,7 @@ div.subnav .nav > .open > .dropdown-toggle:hover .caret {
   background-color: #d3d3d3 \9;
 }
 .btn-primary {
-  background-color: #707070;
+  /*background-color: #4376de;
   background-image: -moz-linear-gradient(top, #909090, #3f3f3f);
   background-image: -ms-linear-gradient(top, #909090, #3f3f3f);
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#909090), to(#3f3f3f));
@@ -4359,6 +4359,19 @@ div.subnav .nav > .open > .dropdown-toggle:hover .caret {
   *background-color: #3f3f3f;
   /* Darken IE7 buttons by default so they stand out more given they won't have borders */
 
+  background-color: #4376de;
+  background-image: -moz-linear-gradient(top, #4c7de0, #366ddc);
+  background-image: -ms-linear-gradient(top, #4c7de0, #366ddc);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#4c7de0), to(#366ddc));
+  background-image: -webkit-linear-gradient(top, #4c7de0, #366ddc);
+  background-image: -o-linear-gradient(top, #4c7de0, #366ddc);
+  background-image: linear-gradient(top, #4c7de0, #366ddc);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4c7de0', endColorstr='#366ddc', GradientType=0);
+  border-color: #366ddc #366ddc #1d4ba8;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  *background-color: #366ddc;
+  /* Darken IE7 buttons by default so they stand out more given they won't have borders */
   filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
 }
 .btn-primary:hover,
@@ -4366,8 +4379,8 @@ div.subnav .nav > .open > .dropdown-toggle:hover .caret {
 .btn-primary.active,
 .btn-primary.disabled,
 .btn-primary[disabled] {
-  background-color: #3f3f3f;
-  *background-color: #323232;
+  background-color: #366ddc;
+  *background-color: #255fd4;
 }
 .btn-primary:active,
 .btn-primary.active {

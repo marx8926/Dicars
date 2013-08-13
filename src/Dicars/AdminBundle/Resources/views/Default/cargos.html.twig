@@ -33,8 +33,8 @@
 				<div class="modal-header">
 					<h3>Registrar Cargo</h3>
 				</div>
-				<div class="modal-body">
-					<form id="RegistrarCargoForm" class="form-horizontal" method="post" action="{{ path('dicars_admin_registrar_cargo') }}">
+				<form id="RegistrarCargoForm" class="form-horizontal" method="post" action="{{ path('dicars_admin_registrar_cargo') }}">
+					<div class="modal-body">
 						<fieldset>
 						  	<div class="control-group">
 								<label class="control-label" for="nom_cargo">Nombre de Cargo</label>
@@ -51,22 +51,20 @@
 									</select>
 								</div>
 						  	</div>
-						  	<div class="form-actions">
-								<button type="submit" class="btn btn-primary ">Guardar</button>
-								<button type="reset" class="btn btn-cancelarprov" data-dismiss="modal">Cancelar</button>
-						  	</div>
 						</fieldset>
-					</form>
-				</div>
+					</div>
+					<div class="modal-footer">
+						<button type="reset" class="btn btn-cancelarprov" data-dismiss="modal">Cancelar</button>
+						<button type="submit" class="btn btn-primary ">Guardar</button>
+					</div>
+				</form>
 			</div>
 			<div class="modal hide fade" id="modalEditarDatos" >
 			<div class="modal-header">
 				<h3>Datos del Cargo</h3>
 			</div>
-			<div class="modal-body">
-				<form id="EditarCargoForm" class="form-horizontal" method="post" action="{{ path ('dicars_admin_editar_cargo') }}">
-				</form>
-			</div>
+			<form id="EditarCargoForm" class="form-horizontal" method="post" action="{{ path ('dicars_admin_editar_cargo') }}">
+			</form>
 		</div>
 		</div>
 	</div>

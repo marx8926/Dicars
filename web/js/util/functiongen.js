@@ -283,6 +283,9 @@ function reloadclosemodal(idmodal,idaTable){
 	
 /*Funcion para crear los formularios de forma dinamica*/
 function crearElementosForm(Array){
+	var $form = $("<div>");
+	var $modalfooter = $("<div class='modal-footer'>");
+	var $modalbody = $("<div class='modal-body'>");
 	var $fielset = $("<fieldset>");
 	jQuery.each(Array, function() {
 		switch (this.type){
@@ -290,7 +293,7 @@ function crearElementosForm(Array){
 			$fielset.append('<h3>'+this.label+'</h3>');
 			break;
 		case 'actions':
-			$fielset.append('<div class="form-actions"><button type="submit" class="btn btn-primary">Guardar</button>  <button type="reset" class="btn" data-dismiss="modal">Cancelar</button></div>');
+			$modalfooter.append('<button type="reset" class="btn" data-dismiss="modal">Cancelar</button>  <button type="submit" class="btn btn-primary">Guardar</button>');
 			break;
 		case 'close':
 			$fielset.append('<div class="form-actions"><button type="reset" class="btn" data-dismiss="modal">Cerrar</button></div>');
@@ -305,11 +308,14 @@ function crearElementosForm(Array){
 			$div_control.append(addElemento(this));
 			$div_control_group.append($div_control);
 			$fielset.append($div_control_group);
+			$modalbody.append($fielset);
 			break;
 		}
 	   });
+	$form.append($modalbody);
+	$form.append($modalfooter);
 	
-	return $fielset;
+	return $form;
 }
 
 function addElemento(obj){
