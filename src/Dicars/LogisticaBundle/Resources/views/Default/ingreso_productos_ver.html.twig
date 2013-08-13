@@ -5,7 +5,7 @@
 	<a href="{{path('dicars_logistica_homepage')}}">Logística</a><span class="divider">/</span>
 </li>
 <li>
-	<a href="{{path('dicars_logistica_reg_ingresoproductos')}}">Ingreso Productos: Ver</a>
+	<a href="{{path('dicars_logistica_cons_ingresoproductos')}}">Ingreso de Productos</a>
 </li>
 </li>
 {% endblock %}
@@ -13,7 +13,7 @@
 <div class="row-fluid sortable">		
 	<div class="box span12">
 		<div class="box-header well" data-original-title>
-			<h2>Salida Productos: Ver Datos</h2>
+			<h2>INGRESO DE PRODUCTOS: VER DATOS</h2>
 		</div>
 		<div class="box-content">
 			<div id="RegistrarIngresoForm" class="form-horizontal">
@@ -53,16 +53,9 @@
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label" for="solicitante">Nro Serie</label>
+								<label class="control-label" for="solicitante">Código Documento</label>
 								<div class="controls">
-									<span class="help-inline" style="margin-top:5px;">{{ serie_nro }}</span>
-								</div>
-							</div>
-							
-							<div class="control-group">
-								<label class="control-label" for="solicitante">Serie Doc</label>
-								<div class="controls">
-									<span class="help-inline" style="margin-top:5px;">{{ serie_doc }}</span>
+									<span class="help-inline" style="margin-top:5px;">{{ serie_doc }} - {{ nro_doc }}</span>
 								</div>
 							</div>
 						</div>
@@ -76,7 +69,7 @@
 				</fieldset>
 			</div>
 			<hr>
-			<h3>Productos a Salir</h3>
+			<h3>Detalle</h3>
 			<hr>
 			<table id="deting_productos_table" name="deting_productos_table" class="table table-striped table-bordered bootstrap-datatable datatable">
 				<thead>
@@ -90,10 +83,8 @@
 				<tbody>
 				</tbody>
 			</table>
-			<div class="form-horizontal">
-				<div class="form-actions">
-					<a href="{{ path('dicars_logistica_cons_ingresoproductos') }}" class="btn btn-primary">Volver</a>
-				</div>
+			<div class="form-actions">
+				<a href="{{ path('dicars_logistica_cons_ingresoproductos') }}" class="btn btn-success"><i class="icon icon-white icon-arrowthick-w"></i> Volver</a>
 			</div>
 		</div>
 	</div>

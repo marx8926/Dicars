@@ -5,7 +5,7 @@
 	<a href="{{path('dicars_logistica_homepage')}}">Logística</a><span class="divider">/</span>
 </li>
 <li>
-	<a href="{{path('dicars_logistica_reg_ingresoproductos')}}">Ingreso de Productos: Registrar</a>
+	<a href="{{path('dicars_logistica_cons_ingresoproductos')}}">Ingreso de Productos</a>
 </li>
 </li>
 {% endblock %}
@@ -13,7 +13,7 @@
 <div class="row-fluid sortable">		
 	<div class="box span12">
 		<div class="box-header well" data-original-title>
-			<h2>INGRESO DE PRODUCTOS</h2>
+			<h2>INGRESO DE PRODUCTOS: REGISTRAR</h2>
 		</div>
 		<div class="box-content">
 			<form class="form-horizontal" id="RegistrarIngresoForm" method="post" action="{{ path('dicars_logistica_registrar_ingresoproducto') }}">
@@ -33,20 +33,20 @@
 							<div class="controls">
 								<input class="input-xlarge focused" id="registrador" name="registrador" type="text" readonly>
 							</div>
-						</div>	
-						<div class="control-group">
-							<label class="control-label" for="tipo">Tipo</label>
-							<div class="controls">
-								<select id="tipo" name="tipo">
-								</select>
-							</div>
 						</div>
 						<div class="control-group">
 							<label class="control-label" for="tienda">Tienda</label>
 							<div class="controls">
 							  	<input class="input-xlarge focused" id="tienda" name="tienda" type="text" readonly>
 							</div>
-						</div>					
+						</div>		
+						<div class="control-group">
+							<label class="control-label" for="tipo">Tipo</label>
+							<div class="controls">
+								<select id="tipo" name="tipo">
+								</select>
+							</div>
+						</div>				
 						<div class="control-group">
 							<label class="control-label" for="observacion">Observaciones</label>
 							<div class="controls">
@@ -66,7 +66,7 @@
 						<div class="control-group">
 							<label class="control-label" for="fecharegistro">Fecha</label>
 							<div class="controls">
-								<input class="input-xlarge datepicker" name="fecharegistro" id="fecharegistro" type="text">
+								<input class="input-xlarge datepicker" name="fecharegistro" id="fecharegistro" type="text" readonly>
 							</div>
 						</div>
 					</div>
@@ -107,9 +107,8 @@
 				</table>
 				<hr>
 				<div class="form-actions">
-					<a href="{{ path('dicars_logistica_cons_ingresoproductos') }}" class="btn btn-primary">Atras</a>
-					<button class="btn" ><i class="icon-print"></i>Imprimir</button>
-					<button type="button" id="enviar_ingreso_producto" class="btn btn-primary"><i class="icon icon-white icon-save"></i>Guardar</button>
+					<a href="{{ path('dicars_logistica_cons_ingresoproductos') }}" class="btn btn-success"><i class="icon icon-white icon-arrowthick-w"></i> Volver</a>
+					<button type="button" id="enviar_ingreso_producto" class="btn btn-primary" style="float: right;"><i class="icon icon-white icon-save"></i>Guardar</button>
 				</div>			
 								
 			{% include 'DicarsLogisticaBundle:Default:registrar_producto.html.twig' %}					
@@ -133,6 +132,20 @@ var RowCallBackFunctionProducto;
 var ResetForm;
 
 $(document).ready(function(){
+
+	date = new Date();
+	dia = '';
+	mes = '';
+	if(date.getDate() < 10)
+		dia = '0'+ (date.getDate());
+	else
+		dia = date.getDate();
+	if(date.getMonth()+1 < 10)
+		mes = '0'+ (date.getMonth() + 1);
+	else
+		mes = (date.getMonth() + 1);
+	Fecha = dia + "/" + (mes) + "/" + date.getFullYear();
+	$("#fecharegistro").val(Fecha);
 
 	constantes = getAjaxObject("{{ path('dicars_admin_servicio_getoptionconstantes',{'idclase':3}) }}");
 	cargarSelect(constantes, 'tipo', 'id', 'desc');

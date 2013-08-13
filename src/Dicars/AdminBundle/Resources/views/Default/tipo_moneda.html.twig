@@ -32,8 +32,8 @@
 				<div class="modal-header">
 					<h3>Registrar Tipo de Moneda</h3>
 				</div>
-				<div class="modal-body">
-					<form id="RegistrarTipoMonedaForm" class="form-horizontal" method="post" action="{{ path('dicars_admin_registrar_tipomoneda') }}">
+				<form id="RegistrarTipoMonedaForm" class="form-horizontal" method="post" action="{{ path('dicars_admin_registrar_tipomoneda') }}">
+					<div class="modal-body">
 						<fieldset>
 						  	<div class="control-group">
 								<label class="control-label" for="desc_tipomoneda">Nombre de la Moneda</label>
@@ -56,13 +56,13 @@
 									</select>
 								</div>
 						  	</div>
-						  	<div class="form-actions">
-								<button type="submit" class="btn btn-primary ">Guardar</button>
-								<button type="reset" class="btn" data-dismiss="modal">Cancelar</button>
-						  	</div>
 						</fieldset>
-					</form>
-				</div>
+					</div>
+					<div class="modal-footer">
+						<button type="reset" class="btn" data-dismiss="modal">Cancelar</button>
+						<button type="submit" class="btn btn-primary ">Guardar</button>
+					</div>
+				</form>
 			</div>
 			<div class="modal hide fade" id="modalEditarDatos">
 				<div class="modal-header">

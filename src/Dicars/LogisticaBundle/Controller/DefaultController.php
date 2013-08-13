@@ -44,6 +44,10 @@ class DefaultController extends Controller
     	->getRepository('DicarsDataBundle:VenPersonal')
     	->findOneBy(array('npersonalId' => $SalProd->getNsolicitanteId()));
     	
+    	$motivo = $this->getDoctrine()
+    	->getRepository('DicarsDataBundle:Constante')
+    	->findOneBy(array('nconstanteId' => $SalProd->getNsalprodmotivo()));
+    	
     	return $this->render('DicarsLogisticaBundle:Default:salida_productos_ver.html.twig',array(
     			'id' => $idsalprod,
     			'personal' => $SalProd->getNpersonal()->getCpersonalnom()." ".$SalProd->getNpersonal()->getCpersonalape(),
@@ -51,7 +55,7 @@ class DefaultController extends Controller
     			'serie' => $SalProd->getCsalprodserie(),
     			'nro' => $SalProd->getCsalprodnro(),
     			'fecha_reg' => $SalProd->getDsalprodfecreg()->format('d/m/Y'),
-    			'motivo' => $SalProd->getNsalprodmotivo(),
+    			'motivo' => $motivo -> getCconstantedesc(),
     			'solicitante' => $solicitante->getCpersonalnom()." ".$solicitante->getCpersonalape(),
     			'observacion' => $SalProd->getCsalprodobsv()
     			));
@@ -60,7 +64,11 @@ class DefaultController extends Controller
     {
     	$IngProd = $this->getDoctrine()
     	->getRepository('DicarsDataBundle:LogIngprod')
-    	->findOneBy(array('ningprodId' => $idingprod));    	 
+    	->findOneBy(array('ningprodId' => $idingprod));
+
+    	$motivo = $this->getDoctrine()
+    	->getRepository('DicarsDataBundle:Constante')
+    	->findOneBy(array('nconstanteId' => $IngProd->getNingprodmotivo()));
     	 
     	return $this->render('DicarsLogisticaBundle:Default:ingreso_productos_ver.html.twig',array(
     			'id' => $idingprod,
@@ -68,10 +76,10 @@ class DefaultController extends Controller
     			'local' => $IngProd->getNlocal()->getClocaldesc(),
     			'serie' => $IngProd->getCingprodserie(),
     			'nro' => $IngProd->getCingprodnro(),
-    			'motivo' => $IngProd->getNingprodmotivo(),
+    			'motivo' => $motivo -> getCconstantedesc(),
     			'serie_doc' => $IngProd->getCingproddocserie(),
     			'fecha_reg' => $IngProd->getDingprodfecreg()->format('d/m/Y'),
-    			'serie_nro' => $IngProd->getCingproddocnro(),    			
+    			'nro_doc' => $IngProd->getCingproddocnro(),    			
     			'observacion' => $IngProd->getCingprodobsv(),
     			'estado' => $IngProd->getCingprodest()
     	));
@@ -91,7 +99,7 @@ class DefaultController extends Controller
     			'motivo' => $IngProd->getNingprodmotivo(),
     			'serie_doc' => $IngProd->getCingproddocserie(),
     			'fecha_reg' => $IngProd->getDingprodfecreg()->format('d/m/Y'),
-    			'serie_nro' => $IngProd->getCingproddocnro(),
+    			'nro_doc' => $IngProd->getCingproddocnro(),
     			'observacion' => $IngProd->getCingprodobsv(),
     			'estado' => $IngProd->getCingprodest()
     	));

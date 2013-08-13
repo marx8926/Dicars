@@ -5,7 +5,7 @@
 	<a href="{{path('dicars_logistica_homepage')}}">Logística</a><span class="divider">/</span>
 </li>
 <li>
-	<a href="{{path('dicars_logistica_reg_ingresoproductos')}}">Salida Productos: Ver</a>
+	<a href="{{path('dicars_logistica_cons_ingresoproductos')}}">Ingreso de Productos</a>
 </li>
 </li>
 {% endblock %}
@@ -13,7 +13,7 @@
 <div class="row-fluid">		
 	<div class="box span12">
 		<div class="box-header well" data-original-title>
-			<h2>Salida Productos: Ver Datos</h2>
+			<h2>INGRESO DE PRODUCTOS: EDITAR</h2>
 		</div>
 		<div class="box-content">
 			<form id="RegistrarIngresoForm" class="form-horizontal" method="post" action = "{{ path('dicars_logistica_editar_ingresoproducto') }}">
@@ -34,9 +34,10 @@
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label" for="motivo">Motivo</label>
-								<div class="controls">									
-									<input class="input-xlarge focused" id="motivo" name="motivo" value="{{ motivo }}" type="text">
+								<label class="control-label" for="tipo">Motivo</label>
+								<div class="controls">	
+									<select id="tipo" name="tipo">
+									</select>
 								</div>
 							</div>
 							<div class="control-group">
@@ -55,16 +56,9 @@
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label" for="solicitante">Nro Serie</label>
+								<label class="control-label" for="solicitante">Código Documento</label>
 								<div class="controls">
-									<span class="help-inline" style="margin-top:5px;">{{ serie_nro }}</span>
-								</div>
-							</div>
-							
-							<div class="control-group">
-								<label class="control-label" for="solicitante">Serie Doc</label>
-								<div class="controls">
-									<span class="help-inline" style="margin-top:5px;">{{ serie_doc }}</span>
+									<span class="help-inline" style="margin-top:5px;">{{ serie_doc }} - {{ nro_doc }}</span>
 								</div>
 							</div>
 						</div>
@@ -92,7 +86,7 @@
 				</div>
 				</form>
 			<hr>
-			<h3>Productos a Salir</h3>
+			<h3>Detalle de Ingreso de Productos</h3>
 			<hr>
 			<table id="deting_productos_table" name="deting_productos_table" class="table table-striped table-bordered bootstrap-datatable datatable">
 				<thead>
@@ -107,11 +101,9 @@
 				<tbody>
 				</tbody>
 			</table>
-			<div class="form-horizontal">
-				<div class="form-actions">
-					<a href="{{ path('dicars_logistica_cons_ingresoproductos') }}" class="btn btn-primary">Volver</a>
-					<button id="btn_enviar_cambios" type="button" class="btn btn-primary"><i class="icon icon-white icon-save"></i>Guardar</button>
-				</div>
+			<div class="form-actions">
+				<a href="{{ path('dicars_logistica_cons_ingresoproductos') }}" class="btn btn-success"><i class="icon icon-white icon-arrowthick-w"></i> Volver</a>
+				<button id="btn_enviar_cambios" type="button" class="btn btn-primary" style="float: right;"><i class="icon icon-white icon-save"></i>Guardar</button>
 			</div>
 		</div>			
 			<div class="modal hide fade" id="modalEditarDatos" >
@@ -151,6 +143,10 @@ function cargarEditar(detingprode){
 }
 
 $(document).ready(function(){
+
+	constantes = getAjaxObject("{{ path('dicars_admin_servicio_getoptionconstantes',{'idclase':3}) }}");
+	cargarSelect(constantes, 'tipo', 'id', 'desc');
+	$('#tipo').val({{ motivo }});
 	
 	RowCallBackFunction = function(nRow, aData, iDisplayIndex){		
 		$(nRow).find('.btn-editar').click(function(e){
@@ -169,16 +165,16 @@ $(document).ready(function(){
 				CopyArray(OtherDataDetIngreso,Array2,false,Attr);
 				$('#modalEditarDatos').modal('hide');
 												
+			});
 		});
-	});
 
 		$(nRow).find('.btn-danger').click(function(e){
 			e.preventDefault();			
-			
+				
 			var index = $(DetIngProductosTable.fnGetData()).getIndexObj(aData,'idproducto');
 			BuscarProductosTable.fnAddData(aData);
 			DetIngProductosTable.fnDeleteRow(index);
-	});
+		});
 	};
 	
 	DrawCallBack = function(){
@@ -226,7 +222,6 @@ $(document).ready(function(){
 	RowCallBackFunctionProducto = getSimpleSelectRowCallBack(SelectProductoData,"select_producto_table");
 	UrlaDTableProductos = '{{ path("dicars_logistica_servicio_gettablaproductos") }}';
 	FormatoDTableProductos = [
-					  
 	                  { "sWidth": "12%","mDataProp": "idproducto"},
 		              { "sWidth": "12%","mDataProp": "nombre"},
 		              { "sWidth": "12%","mDataProp": "stock"},

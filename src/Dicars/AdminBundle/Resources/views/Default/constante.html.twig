@@ -34,8 +34,8 @@
 				<div class="modal-header">
 					<h3>Registrar Clase</h3>
 				</div>
-				<div class="modal-body">
-					<form id="RegistrarClaseForm" class="form-horizontal" method="post" action="{{ path('dicars_admin_registrar_constante') }}">
+				<form id="RegistrarClaseForm" class="form-horizontal" method="post" action="{{ path('dicars_admin_registrar_constante') }}">
+					<div class="modal-body">
 						<fieldset>
 							<div class="control-group">
 								<label class="control-label" for="clase">Nro de Clase</label>
@@ -55,22 +55,20 @@
 							  		<input class="input-xlarge focused" id="valor" name="valor" type="text" pattern="|^[0-9]{1,11}$|" maxlength="11" required>
 								</div>
 						  	</div>
-						  	<div class="form-actions">
-								<button type="submit" class="btn btn-primary ">Guardar</button>
-								<button type="reset" class="btn btn-cancelarprov" data-dismiss="modal">Cancelar</button>
-						  	</div>
 						</fieldset>
-					</form>
-				</div>
+					</div>
+					<div class="modal-footer">
+						<button type="reset" class="btn btn-cancelarprov" data-dismiss="modal">Cancelar</button>
+						<button type="submit" class="btn btn-primary ">Guardar</button>
+					</div>
+				</form>
 			</div>
 			<div class="modal hide fade" id="modalEditarDatos" >
 				<div class="modal-header">
 					<h3>Datos de la Clase</h3>
 				</div>
-				<div class="modal-body">
-					<form id="EditarClaseForm" class="form-horizontal" method="post" action="{{ path ('dicars_admin_editar_constante') }}">
-					</form>
-				</div>
+				<form id="EditarClaseForm" class="form-horizontal" method="post" action="{{ path ('dicars_admin_editar_constante') }}">
+				</form>
 			</div>
 		</div>
 	</div>

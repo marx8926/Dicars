@@ -3536,7 +3536,7 @@ input[type="submit"].btn.btn-mini {
   margin-top: 2px;
 }
 .modal-body {
-  overflow-y: auto;
+  /*overflow-y: auto;*/
   max-height: 400px;
   padding: 15px;
 }

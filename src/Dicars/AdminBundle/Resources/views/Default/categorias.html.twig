@@ -32,8 +32,8 @@
 				<div class="modal-header">
 					<h3>Registrar Categoría</h3>
 				</div>
-				<div class="modal-body">
-					<form id="RegistrarCategoriaForm" class="form-horizontal" method="post" action="{{ path('dicars_admin_registrar_categoria') }}">
+				<form id="RegistrarCategoriaForm" class="form-horizontal" method="post" action="{{ path('dicars_admin_registrar_categoria') }}">
+					<div class="modal-body">
 						<fieldset>
 						  	<div class="control-group">
 								<label class="control-label" for="nom_categoria">Nombre de Categoría</label>
@@ -56,23 +56,21 @@
 									</select>
 								</div>
 						  	</div>
-						  	<div class="form-actions">
-								<button type="submit" class="btn btn-primary ">Guardar</button>
-								<button type="reset" class="btn btn-cancelarprov" data-dismiss="modal">Cancelar</button>
-						  	</div>
 						</fieldset>
-					</form>
-				</div>
+					</div>
+					<div class="modal-footer">
+						<button type="reset" class="btn btn-cancelarprov" data-dismiss="modal">Cancelar</button>
+						<button type="submit" class="btn btn-primary ">Guardar</button>
+					</div>
+				</form>
 			</div>
 			<div class="modal hide fade" id="modalEditarDatos">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">x</button>
 				<h3>Editar Categoria</h3>
 			</div>
-			<div class="modal-body">
-				<form id="EditarCategoriaForm" class="form-horizontal" method="post" action="{{ path('dicars_admin_editar_categoria') }}">
-				</form>
-			</div>
+			<form id="EditarCategoriaForm" class="form-horizontal" method="post" action="{{ path('dicars_admin_editar_categoria') }}">
+			</form>
 		</div>
 		</div>
 	</div>

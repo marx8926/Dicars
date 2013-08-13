@@ -35,8 +35,8 @@
 				<div class="modal-header">
 					<h3>Registrar Tipo IGV</h3>
 				</div>
-				<div class="modal-body">
-					<form id="RegistrarTipoForm" class="form-horizontal" method="post" action="{{ path('dicars_admin_registrar_tipoigv') }}">
+				<form id="RegistrarTipoForm" class="form-horizontal" method="post" action="{{ path('dicars_admin_registrar_tipoigv') }}">
+					<div class="modal-body">
 						<fieldset>
 							<div class="control-group">
 								<label class="control-label" for="tipo">Tipo IGV</label>
@@ -59,13 +59,13 @@
 								</select>
 								</div>
 						  	</div>
-						  	<div class="form-actions">
-								<button type="submit" class="btn btn-primary ">Guardar</button>
-								<button type="reset" class="btn btn-cancelarprov" data-dismiss="modal">Cancelar</button>
-						  	</div>
 						</fieldset>
-					</form>
-				</div>
+					</div>
+					<div class="modal-footer">
+						<button type="reset" class="btn btn-cancelarprov" data-dismiss="modal">Cancelar</button>
+						<button type="submit" class="btn btn-primary ">Guardar</button>
+					</div>
+				</form>
 			</div>
 		</div>
 		

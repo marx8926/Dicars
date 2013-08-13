@@ -296,7 +296,7 @@ function crearElementosForm(Array){
 			$modalfooter.append('<button type="reset" class="btn" data-dismiss="modal">Cancelar</button>  <button type="submit" class="btn btn-primary">Guardar</button>');
 			break;
 		case 'close':
-			$fielset.append('<div class="form-actions"><button type="reset" class="btn" data-dismiss="modal">Cerrar</button></div>');
+			$modalfooter.append('<button type="reset" class="btn" data-dismiss="modal">Cerrar</button>');
 			break;
 		case 'hidden':
 			$fielset.append('<input type="hidden" name="'+this.name+'" value="'+this.value+'">');

@@ -35,8 +35,8 @@
 				<button type="button" class="close" data-dismiss="modal">x</button>
 				<h3>Registrar Zona</h3>
 			</div>
-			<div class="modal-body">
-				<form id="RegistrarZonaForm" class="form-horizontal" method="post" action="{{ path('dicars_admin_registrar_zona') }}">
+			<form id="RegistrarZonaForm" class="form-horizontal" method="post" action="{{ path('dicars_admin_registrar_zona') }}">
+				<div class="modal-body">
 					<fieldset>
 						<div class="control-group">
 							<label class="control-label" for="desc">Nombre de la Zona</label>
@@ -76,13 +76,13 @@
 								</select>
 							</div>
 					  	</div>
-					  	<div class="form-actions">
-							<button type="submit" class="btn btn-primary">Guardar</button>
-							<button type="reset" class="btn" data-dismiss="modal">Cancelar</button>
-						</div>
 					</fieldset>
-				  </form>
-			</div>
+				</div>
+				<div class="modal-footer">
+					<button type="reset" class="btn" data-dismiss="modal">Cancelar</button>
+					<button type="submit" class="btn btn-primary">Guardar</button>
+				</div>
+			</form>
 		</div>
 		<div class="modal hide fade" id="modalEditarDatos">
 			<div class="modal-header">

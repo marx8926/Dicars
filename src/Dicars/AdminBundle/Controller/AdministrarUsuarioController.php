@@ -32,7 +32,7 @@ class AdministrarUsuarioController  extends Controller{
 			$Usuario_clave = $datos["contrasena"];
 			$Usuario_estado = $datos["estado"];
 			
-			$Usuario_fechareg = date_create_from_format('d/m/Y',$datos["fecharegistro"]);	
+			$Usuario_fechareg = new \DateTime();
 			
 			$Usuario = new Usuario();
 			$Usuario->setNpersonal($Usuario_trabajador);
