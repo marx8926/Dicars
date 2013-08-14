@@ -77,7 +77,7 @@ class AdministrarOrdCompraController extends Controller{
 			$OrdCompra -> setNordcomretencion($Retencion);
 				
 			$em = $this->getDoctrine()->getEntityManager();
-			$this->getDoctrine()->getEntityManager()->beginTransaction();
+			$em->beginTransaction();
 			try {
 				$em->persist($OrdCompra);
 				$em->flush();
@@ -117,14 +117,15 @@ class AdministrarOrdCompraController extends Controller{
 				$OrdPed -> setCordpedest(1); //atendida completamente*/
 	
 			} catch (Exception $e) {
-				$this->getDoctrine()->getEntityManager()->rollback();
-				$this->getDoctrine()->getEntityManager()->close();
+				$em->rollback();
+				$em->close();
 				$return = array("responseCode"=>400, "greeting"=>"Bad");
 					
 				throw $e;
 			}
-			$this->getDoctrine()->getEntityManager()->commit();
+			$em->commit();
 			$em->clear();
+			$em->close();
 			$return = array("responseCode"=>200, "datos"=>$datos);
 	
 		}

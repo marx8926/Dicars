@@ -17,8 +17,6 @@ class VentaServiciosController extends Controller{
 		$clientes = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:VenCliente')
 		->findAll();
-			
-		$em->clear();
 	
 		$todo = array();
 		foreach ($clientes as $key => $cliente){
@@ -39,6 +37,8 @@ class VentaServiciosController extends Controller{
 					'edit_btn' => "<a class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
 					'elim_btn' => "<a class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
 		}
+		$em->clear();
+		$em->close();
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
@@ -48,8 +48,6 @@ class VentaServiciosController extends Controller{
 		$cliente = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:VenCliente')
 		->findOneBy(array('nclienteId' => $id));
-	
-		$em->clear();
 	
 		$data = array('id' => $cliente -> getNclienteId(),
 				'nombres' => $cliente -> getCclientenom(),
@@ -62,6 +60,8 @@ class VentaServiciosController extends Controller{
 				'arccredito' => $cliente -> getCclientearccredito(),
 				'ocupacion' => $cliente -> getCclienteocup());
 	
+		$em->clear();
+		$em->close();
 		return new JsonResponse($data);
 	}
 	
@@ -71,8 +71,6 @@ class VentaServiciosController extends Controller{
 		$empleados = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:VenPersonal')
 		->findAll();
-			
-		$em->clear();
 	
 		$todo = array();
 		foreach ($empleados as $key => $empleado){
@@ -99,6 +97,8 @@ class VentaServiciosController extends Controller{
 					'edit_btn' => "<a id-data='".$empleado -> getNpersonalId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
 					'elim_btn' => "<a id-data='".$empleado -> getNpersonalId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
 		}
+		$em->clear();
+		$em->close();
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
@@ -108,8 +108,6 @@ class VentaServiciosController extends Controller{
 		$empleado = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:VenPersonal')
 		->findOneBy(array('npersonalId' => $id));
-	
-		$em->clear();
 	
 		$data = array('id' => $empleado -> getNpersonalId(),
 				'cargo' => $empleado -> getNcargo()-> getNcargoId(),
@@ -123,6 +121,8 @@ class VentaServiciosController extends Controller{
 				'estado' => $empleado -> getCpersonalest(),
 				'edad' => $empleado -> getCpersonaledad());
 	
+		$em->clear();
+		$em->close();
 		return new JsonResponse($data);
 	}
 	
@@ -132,8 +132,6 @@ class VentaServiciosController extends Controller{
 		$ofertas = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:Oferta')
 		->findAll();
-			
-		$em->clear();
 	
 		$todo = array();
 		foreach ($ofertas as $key => $oferta){
@@ -158,6 +156,8 @@ class VentaServiciosController extends Controller{
 					'edit_btn' => "<a id-data='".$oferta -> getNofertaId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
 					'elim_btn' => "<a id-data='".$oferta -> getNofertaId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
 		}
+		$em->clear();
+		$em->close();
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
@@ -170,7 +170,6 @@ class VentaServiciosController extends Controller{
 		$smt->execute();
 		
 		$productos = $smt->fetchAll();
-		$em->clear();
 	
 		$todo = array();
 		foreach ($productos as $key => $producto){
@@ -192,6 +191,8 @@ class VentaServiciosController extends Controller{
 					'edit_btn' => "<a class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
 					'elim_btn' => "<a class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
 		}
+		$em->clear();
+		$em->close();
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
@@ -204,7 +205,6 @@ class VentaServiciosController extends Controller{
 		$smt->execute();
 	
 		$productos = $smt->fetchAll();
-		$em->clear();
 	
 		$todo = array();
 		foreach ($productos as $key => $producto){
@@ -224,6 +224,8 @@ class VentaServiciosController extends Controller{
 					'edit_btn' => "<a class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
 					'elim_btn' => "<a class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
 		}
+		$em->clear();
+		$em->close();
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
@@ -233,8 +235,6 @@ class VentaServiciosController extends Controller{
 		$OfertasProductos = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:OfertaProducto')
 		->findBy(array('noferta' => $idOferta ));
-			
-		$em->clear();
 		
 		$todo = array();
 		foreach ($OfertasProductos as $key => $OfertaProducto){
@@ -259,7 +259,8 @@ class VentaServiciosController extends Controller{
 				'estado' => $OfertaProducto -> getCofertaproductoest(),
 				'elim_btn' => "<a class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
 		}
-		
+		$em->clear();
+		$em->close();
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
@@ -273,8 +274,6 @@ class VentaServiciosController extends Controller{
 				));
 		
 		$pagado = null;
-			
-		$em->clear();
 	
 		$todo = array();
 		foreach ($Ventas as $key => $Venta){
@@ -299,7 +298,8 @@ class VentaServiciosController extends Controller{
 					'ver_pagar' => "<a class='btn btn-success btn-pagar' href='#'>Pagar Cuotas</a>",
 					);
 		}
-	
+		$em->clear();
+		$em->close();
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
@@ -309,8 +309,6 @@ class VentaServiciosController extends Controller{
 		$Cronogramas = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:VenCronpago')
 		->findBy(array('nvencredito' => $idcredito),array('ncronpagofecpago' => 'ASC'));
-			
-		$em->clear();
 	
 		$todo = array();
 		foreach ($Cronogramas as $key => $Cronograma){
@@ -322,7 +320,8 @@ class VentaServiciosController extends Controller{
 					'idcrono' => $Cronograma -> getNcronogramaId()
 			);
 		}
-	
+		$em->clear();
+		$em->close();
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	

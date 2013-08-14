@@ -55,7 +55,7 @@ class AdministrarPedidoController extends Controller{
 			$Pedido -> setNpersonal($Empleado);
 			
 			$em = $this->getDoctrine()->getEntityManager();
-			$this->getDoctrine()->getEntityManager()->beginTransaction();
+			$em->beginTransaction();
 			try {
 				$em->persist($Pedido);
 				$em->flush();	
@@ -77,14 +77,15 @@ class AdministrarPedidoController extends Controller{
 				}
 				
 			} catch (Exception $e) {
-				$this->getDoctrine()->getEntityManager()->rollback();
-				$this->getDoctrine()->getEntityManager()->close();
+				$em->rollback();
+				$em->close();
 				$return = array("responseCode"=>400, "greeting"=>"Bad");
 					
 				throw $e;
 			}
-			$this->getDoctrine()->getEntityManager()->commit();
+			$em->commit();
 			$em->clear();
+			$em->close();
 			$return = array("responseCode"=>200, "datos"=>$datos);
 				
 		}

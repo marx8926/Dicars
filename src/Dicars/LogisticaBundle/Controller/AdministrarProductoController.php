@@ -86,20 +86,21 @@ class AdministrarProductoController extends Controller{
 			$Producto->setNproductoutibruta($Producto_porc_uti_bruta);
 			
 			$em = $this->getDoctrine()->getEntityManager();
-			$this->getDoctrine()->getEntityManager()->beginTransaction();
+			$em->beginTransaction();
 			try {
 				$em->persist($Producto);
 				$em->flush();
 			} catch (Exception $e) {
-				$this->getDoctrine()->getEntityManager()->rollback();
-				$this->getDoctrine()->getEntityManager()->close();
+				$em->rollback();
+				$em->close();
 				$return = array("responseCode"=>400, "greeting"=>"Bad");
 							
 				throw $e;			
 			}
-				$this->getDoctrine()->getEntityManager()->commit();
-				$em->clear();
-				$return = array("responseCode"=>200, "datos"=>$datos);
+			$em->commit();
+			$em->clear();
+			$em->close();
+			$return = array("responseCode"=>200, "datos"=>$datos);
 					
 		}
 		else {
@@ -189,20 +190,20 @@ class AdministrarProductoController extends Controller{
 			$Producto->setNproductoutibruta($Producto_porc_uti_bruta);
 				
 			$em = $this->getDoctrine()->getEntityManager();
-			$this->getDoctrine()->getEntityManager()->beginTransaction();
+			$em->beginTransaction();
 			
 		try {
 			$em->flush();
 		} catch (Exception $e) {
-			$this->getDoctrine()->getEntityManager()->rollback();
-			$this->getDoctrine()->getEntityManager()->close();
+			$em->rollback();
+			$em->close();
 			$return = array("responseCode"=>400, "greeting"=>"Bad");
 				
 			throw $e;
 		}
-		$this->getDoctrine()->getEntityManager()->commit();
+		$em->commit();
 		$em->clear();
-		
+		$em->close();
 		$return = array("responseCode"=>200, "datos"=>$datos);
 			
 		}

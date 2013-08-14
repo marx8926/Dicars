@@ -62,7 +62,7 @@ class AdministrarIngresoProdController extends Controller{
 			$IngProd -> setCingprodest($Estado);
 			
 			$em = $this->getDoctrine()->getEntityManager();
-			$this->getDoctrine()->getEntityManager()->beginTransaction();
+			$em->beginTransaction();
 			
 			try {
 				
@@ -92,15 +92,15 @@ class AdministrarIngresoProdController extends Controller{
 				}
 			
 			} catch (Exception $e) {
-				$this->getDoctrine()->getEntityManager()->rollback();
-				$this->getDoctrine()->getEntityManager()->close();
+				$em->rollback();
+				$em->close();
 				$return = array("responseCode"=>400, "greeting"=>"Bad");
 					
 				throw $e;
 			}
-			$this->getDoctrine()->getEntityManager()->commit();
+			$em->commit();
 			$em->clear();
-			
+			$em->close();
 			$return = array("responseCode"=>200, "datos"=>$datos, 'otherdata'=>$otherdata);
 	
 		}
@@ -132,7 +132,7 @@ class AdministrarIngresoProdController extends Controller{
 			$Ingreso->setNingprodmotivo($Ingreso_motivo);
 				
 			$em = $this->getDoctrine()->getEntityManager();
-			$this->getDoctrine()->getEntityManager()->beginTransaction();
+			$em->beginTransaction();
 			
 			try {				
 				$em->flush();				
@@ -165,13 +165,14 @@ class AdministrarIngresoProdController extends Controller{
 					
 				}
 			} catch (Exception $e) {
-				$this->getDoctrine()->getEntityManager()->rollback();
-				$this->getDoctrine()->getEntityManager()->close();
+				$em->rollback();
+				$em->close();
 				$return = array("responseCode"=>400, "greeting"=>"Bad");			
 				throw $e;
 			}
-			$this->getDoctrine()->getEntityManager()->commit();
-			$em->clear();			
+			$em->commit();
+			$em->clear();
+			$em->close();
 			$return = array("responseCode"=>200, "datos"=>$datos, "otherdata"=>$otherdata);
 				
 			}

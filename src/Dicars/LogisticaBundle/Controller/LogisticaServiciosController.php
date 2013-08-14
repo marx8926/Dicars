@@ -18,7 +18,6 @@ public function getTablaProductosAction(){
 		$productos = $this->getDoctrine()
     		->getRepository('DicarsDataBundle:Producto')
 			->findAll();
-		$em->clear();
 		
 		$todo = array();
 		foreach ($productos as $key => $producto){
@@ -52,6 +51,8 @@ public function getTablaProductosAction(){
 					'edit_btn' => "<a id-data='".$producto -> getNproductoId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
 					'elim_btn' => "<a id-data='".$producto -> getNproductoId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
 		}
+		$em->clear();
+		$em->close();
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
@@ -63,8 +64,6 @@ public function getTablaProductosAction(){
 		->getRepository('DicarsDataBundle:Producto')
 		->findOneBy(array('nproductoId' => $id));
 		
-		$em->clear();
-		
 		$data = array('id' => $producto -> getNproductoId(),'serie' => $producto -> getCproductoserie(),'talla' => $producto -> getCproductotalla(),
 				'nombre' => $producto -> getCproductodesc(),'pcosto' => $producto -> getNproductopcosto(),'pcontado' => $producto -> getNproductopcontado(),
 				'pcredito' => $producto -> getNproductopcredito(),'tipo' => $producto -> getNproductotipo(),'codigobarras' => $producto -> getCproductocodbarra(),
@@ -72,6 +71,8 @@ public function getTablaProductosAction(){
 				'estado' => $producto -> getCproductoest(),'porcuti' => $producto -> getNproductoporcuti(),				
 				'utibruta' => $producto -> getNproductoutibruta(), 'marca' => $producto -> getNproductomarca() -> getNmarcaId());
 								
+		$em->clear();
+		$em->close();
 		return new JsonResponse($data);
 	}
 	
@@ -81,8 +82,6 @@ public function getTablaProductosAction(){
 		$proveedores = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:LogProveedor')
 		->findAll();
-		
-		$em->clear();
 		
 		$todo = array();
 		foreach ($proveedores as $key => $proveedor){
@@ -99,6 +98,8 @@ public function getTablaProductosAction(){
 					'elim_btn' => "<a id-data='".$proveedor -> getNproveedorId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>"
 					);
 		}
+		$em->clear();
+		$em->close();
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
@@ -109,8 +110,6 @@ public function getTablaProductosAction(){
 		->getRepository('DicarsDataBundle:LogProveedor')
 		->findOneBy(array('nproveedorId' => $id));
 		
-		$em->clear();
-		
 		$data = array('id' => $proveedor -> getNproveedorId(),
 					'ruc' => $proveedor -> getCproveedorruc(),
 					'razonsocial' => $proveedor -> getCproveedorrazsocial(),
@@ -120,6 +119,8 @@ public function getTablaProductosAction(){
 					'direccion' => $proveedor -> getCproveedordirec(),
 					'ccorriente' => $proveedor -> getCproveedorccorriente());
 	
+		$em->clear();
+		$em->close();
 		return new JsonResponse($data);
 	}
 	
@@ -129,8 +130,6 @@ public function getTablaProductosAction(){
 		$locales = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:Local')
 		->findAll();
-		
-		$em->clear();
 		
 		$todo = array();
 		foreach ($locales as $key => $local){
@@ -174,6 +173,8 @@ public function getTablaProductosAction(){
 					<a id-data='".$local -> getNlocalId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>"
 			);
 		}
+		$em->clear();
+		$em->close();
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
@@ -183,8 +184,6 @@ public function getTablaProductosAction(){
 		$local = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:Local')
 		->findOneBy(array('nlocalId' => $id));
-
-		$em->clear();
 		
 		$dist = $local -> getNubigeo();
 		
@@ -210,6 +209,8 @@ public function getTablaProductosAction(){
 				'dep' => $dep -> getNubigeoId(),
 				'tiprub' => $tiporubro->getNconstanteId());
 
+		$em->clear();
+		$em->close();
 		return new JsonResponse($data);
 	}
 	
@@ -219,7 +220,6 @@ public function getTablaProductosAction(){
 		$ingprods = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:LogIngprod')
 		->findAll();
-		$em->clear();
 	
 		$todo = array();
 		foreach ($ingprods as $key => $ingprod){			
@@ -232,6 +232,8 @@ public function getTablaProductosAction(){
 					'edit_btn' => "<a id-data='".$ingprod -> getNingprodId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
 					'elim_btn' => "<a id-data='".$ingprod -> getNingprodId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
 		}
+		$em->clear();
+		$em->close();
 		return new JsonResponse(array('aaData' => $todo));
 	}
 
@@ -269,6 +271,7 @@ public function getTablaProductosAction(){
 
 		}
 		$em->clear();
+		$em->close();
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
@@ -278,8 +281,6 @@ public function getTablaProductosAction(){
 		$ordpeds = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:LogOrdped')
 		->findAll();
-			
-		$em->clear();
 		
 		$todo = array();
 		foreach ($ordpeds as $key => $ordped){
@@ -297,6 +298,8 @@ public function getTablaProductosAction(){
 					'elim_btn' => "<a id-data='".$ordped -> getNordpedId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
 	
 		}
+		$em->clear();
+		$em->close();
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
@@ -306,8 +309,6 @@ public function getTablaProductosAction(){
 		$detordpeds = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:LogDetordped')
 		->findBy(array('cdetordpedest'=>0));
-			
-		$em->clear();
 		
 		$todo = array();
 		foreach ($detordpeds as $key => $detordped){
@@ -328,6 +329,8 @@ public function getTablaProductosAction(){
 					'elim_btn' => "<a id-data='".$pedido -> getNordpedId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
 		
 		}
+		$em->clear();
+		$em->close();
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
@@ -337,8 +340,6 @@ public function getTablaProductosAction(){
 		$detsalprods = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:LogDetSalProd')
 		->findBy(array('nsalprod'=>$id));
-			
-		$em->clear();
 	
 		$todo = array();
 		foreach ($detsalprods as $key => $detsalprod){
@@ -353,6 +354,8 @@ public function getTablaProductosAction(){
 					'elim_btn' => "<a id-data='".$detsalprod -> getNdetsalprodId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
 	
 		}
+		$em->clear();
+		$em->close();
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
@@ -383,6 +386,8 @@ public function getTablaProductosAction(){
 					'edit_btn' => "<a id-data='".$detordped -> getNdetordpedId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
 					'elim_btn' => "<a id-data='".$detordped -> getNdetordpedId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");			
 		}
+		$em->clear();
+		$em->close();
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
@@ -392,8 +397,6 @@ public function getTablaProductosAction(){
 		$detingprods = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:LogDetingProd')
 		->findBy(array('ningprod'=>$id));
-				
-		$em->clear();
 			
 		foreach ($detingprods as $key => $detingprod){
 			$producto = $detingprod -> getNproducto();
@@ -409,6 +412,8 @@ public function getTablaProductosAction(){
 					'edit_btn' => "<a class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
 					'elim_btn' => "<a class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");	
 		}
+		$em->clear();
+		$em->close();
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
@@ -419,14 +424,14 @@ public function getTablaProductosAction(){
 		->getRepository('DicarsDataBundle:Local')
 		->findAll();
 	
-		$em->clear();
-	
 		$todo = array();
 		foreach ($locales as $key => $local){
 			$todo[] = array('id' => $local -> getNlocalId(),
 					'desc' => $local -> getClocaldesc()
 			);
 		}
+		$em->clear();
+		$em->close();
 		return new JsonResponse($todo);
 	}
 	
@@ -436,8 +441,6 @@ public function getTablaProductosAction(){
 		$ordcoms = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:LogOrdcom')
 		->findAll();
-			
-		$em->clear();
 	
 		$todo = array();
 		foreach ($ordcoms as $key => $ordcom){
@@ -456,6 +459,8 @@ public function getTablaProductosAction(){
 					'elim_btn' => "<a id-data='".$ordcom -> getNordencomId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
 	
 		}
+		$em->clear();
+		$em->close();
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
@@ -465,8 +470,6 @@ public function getTablaProductosAction(){
 		$detordcoms = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:LogDetcompra')
 		->findBy(array('nordencompra'=>$idordcom));
-			
-		$em->clear();
 	
 		$todo = array();
 		foreach ($detordcoms as $key => $detordcom){
@@ -485,6 +488,8 @@ public function getTablaProductosAction(){
 					'elim_btn' => "<a id-data='".$detordcom -> getNdetcompraId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
 	
 		}
+		$em->clear();
+		$em->close();
 		return new JsonResponse(array('aaData' => $todo));
 	}
 
