@@ -423,3 +423,19 @@ function cargarSelect(arreglo, idselect, attrvalue, attrdescripcion){
 	});
 	$select.html(result);
 }
+/*------------------------------FECHAAAA------------------------------------------*/
+function fechaAhora(){
+	date = new Date();
+	dia = '';
+	mes = '';
+	if(date.getDate() < 10)
+		dia = '0'+ (date.getDate());
+	else
+		dia = date.getDate();
+	if(date.getMonth()+1 < 10)
+		mes = '0'+ (date.getMonth() + 1);
+	else
+		mes = (date.getMonth() + 1);
+	fecha = dia + "/" + (mes) + "/" + date.getFullYear();
+	return fecha;
+}

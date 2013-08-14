@@ -77,7 +77,7 @@ function cargarEditar(producto){
 	ArrayDatos = [	{'type':'hidden','value':producto.idproducto,'name':'idE'},
 	              	{'label':'Serie','type':'input','typeinput':'text','pattern':'|^([0-9]+\s*)+$|','title':'Debe tener el formato correcto', 'req':'', 'max':'15','value':producto.serie,'name':'serieE'},
 	              	{'label':'Talla','type':'input','typeinput':'text','pattern':'|^([0-9]+\s*)+$|','title':'Debe tener el formato correcto', 'req':'', 'max':'2','value':producto.talla,'name':'tallaE'},	
-	              	{'label':'Descripcion','type':'input','typeinput':'text','pattern':'|^[a-zA-Z Ã±Ã‘Ã¡Ã�Ã©Ã‰Ã­Ã�Ã³Ã“ÃºÃšÃ¼ÃœÃ§]*$|','title':'Debe tener el formato correcto', 'req':'', 'max':'200','value':producto.nombre,'name':'descripcionE'},              	
+	              	{'label':'Descripción','type':'input','typeinput':'text','pattern':'|^[a-zA-Z Ã±Ã‘Ã¡Ã�Ã©Ã‰Ã­Ã�Ã³Ã“ÃºÃšÃ¼ÃœÃ§]*$|','title':'Debe tener el formato correcto', 'req':'', 'max':'200','value':producto.nombre,'name':'descripcionE'},              	
 	              	{'label':'Marca','type':'select','name':'marcaE'},
 	              	{'label':'Tipo','type':'select','name':'tipoE'},	              	
 	              	{'label':'Imagen','type':'file','name':'imagen'},
@@ -87,10 +87,10 @@ function cargarEditar(producto){
 	  				{'label':'Stock Max','type':'input','typeinput':'text','pattern':'|^([0-9]+\s*)+$|','title':'Debe tener el formato correcto', 'req':'', 'max':'11','value':producto.stockmax,'name':'stockmaxE'},
 	  				{'label':'Precio Costo','type':'inputnumber', 'req':'', 'step':'0.01', 'min':'0', 'max':'1000','value':producto.pcosto,'name':'preciocostoE'},
 					{'label':'Precio de venta al Contado','type':'h3'},
-					{'label':'Precio Contado','type':'inputnumber', 'req':'', 'step':'0.01', 'min':'0', 'max':'1000','value':producto.pcontado,'name':'preciocontadoE'},
+					{'label':'Precio','type':'inputnumber', 'req':'', 'step':'0.01', 'min':'0', 'max':'1000','value':producto.pcontado,'name':'preciocontadoE'},
 					{'label':'Precio de venta al Credito','type':'h3'},
-					{'label':'Precio Credito','type':'inputnumber', 'req':'', 'step':'0.01', 'min':'0', 'max':'1000','value':producto.pcredito,'name':'preciocreditoE'},
-					{'label':'Estado','type':'input','typeinput':'text','pattern':'|^([0-9]+\s*)+$|','title':'Debe tener el formato correcto','req':'','max':'1','value':producto.estado,'name':'estadoE'},
+					{'label':'Precio','type':'inputnumber', 'req':'', 'step':'0.01', 'min':'0', 'max':'1000','value':producto.pcredito,'name':'preciocreditoE'},
+					{'label':'Estado','type':'select','name':'estadoE'},
 					{'label':'Porc Uti','type':'inputnumber', 'req':'', 'step':'0.01', 'min':'0', 'max':'1000','value':producto.porcuti,'name':'porcutiE'},
 					{'label':'Uti Bruta','type':'inputnumber', 'req':'', 'step':'0.01', 'min':'0', 'max':'1000','value':producto.utibruta,'name':'utibrutaE'},
 					{'type':'actions'}];
@@ -101,28 +101,30 @@ function cargarEditar(producto){
 	$('#tipoE').append('<option value="1">Option 1</option>');
 	$('#tipoE').append('<option value="2">Option 2</option>');
 	$('#tipoE').val(producto.tipo);
+
+	$('#estadoE').append('<option value="1">Habilitado</option>');
+	$('#estadoE').append('<option value="2">Inhabilitado</option>');
+	$('#estadoE').val(producto.estadoId);
+
 	$("input:checkbox, input:radio, input:file").not('[data-no-uniform="true"],#uniform-is-ajax').uniform();
 	$('[data-rel="chosen"],[rel="chosen"]').chosen();
 }
 
 function cargarVer(producto){		
-	ArrayDatos = [	{'label':'Codigo','type':'span','value':producto.idproducto},
+	ArrayDatos = [	{'label':'Codigo','type':'span','value':producto.codigobarras},
 	              	{'label':'Nombre','type':'span','value':producto.nombre},
 	              	{'label':'Talla','type':'span','value':producto.talla},
 	              	{'label':'Serie','type':'span','value':producto.serie},
 	              	{'label':'Marca','type':'span','value':producto.marca},	              	
 	              	{'label':'Tipo','type':'span','value':producto.tipo},
 	              	{'label':'Imagen','type':'img','value':'#'},
-	              	{'label':'Stock','type':'span','value':producto.stockmin},
-	  				{'label':'Stock','type':'span','value':producto.stock},
-	  				{'label':'Stock','type':'span','value':producto.stockmax},
+	              	{'label':'Stock','type':'span','value':producto.stock},
+	  				{'label':'Stock Mínimo','type':'span','value':producto.stockmin},
+	  				{'label':'Stock Máximo','type':'span','value':producto.stockmax},
 	  				{'label':'Precio Costo','type':'span','value':producto.pcosto},
-	  				{'label':'Marca','type':'span','value':producto.marca},
-					{'label':'Precio de venta al Contado','type':'h3'},
-					{'label':'Precio Contado','type':'span','value':producto.pcontado},
-					{'label':'Precio de venta al Credito','type':'h3'},
-					{'label':'Precio Credito','type':'span','value':producto.pcredito},
-					{'label':'Estado','type':'span','value':producto.estado},
+					{'label':'Precio de venta al Contado','type':'span','value':producto.pcontado},
+					{'label':'Precio de venta al Credito','type':'span','value':producto.pcredito},
+					{'label':'Estado','type':'span','value':producto.estadodesc},
 					{'label':'Porc Uti','type':'span','value':producto.porcuti},
 					{'label':'Uti Bruta','type':'span','value':producto.utibruta},
 					{'type':'close'}];
@@ -157,7 +159,7 @@ $(document).ready(function(){
 	
 	UrlaDTable = '{{ path("dicars_logistica_servicio_gettablaproductos") }}';
 	FormatoDTable = [
-		              { "sWidth": "12%","mDataProp": "idproducto"},
+		              { "sWidth": "12%","mDataProp": "codigobarras"},
 		              { "sWidth": "12%","mDataProp": "nombre"},
 		              { "sWidth": "12%","mDataProp": "stock"},
 		              { "sWidth": "12%","mDataProp": "pcontado"},

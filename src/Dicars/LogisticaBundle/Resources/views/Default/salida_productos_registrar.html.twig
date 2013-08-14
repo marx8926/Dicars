@@ -5,18 +5,14 @@
 	<a href="{{path('dicars_logistica_homepage')}}">Logística</a><span class="divider">/</span>
 </li>
 <li>
-	<a href="{{path('dicars_logistica_cons_salidaproductos')}}">Salida Productos</a><span class="divider">/</span>
-</li>
-<li>
-	<a href="{{path('dicars_logistica_reg_salidaproductos')}}">Salida Productos: Registrar</a>
-</li>
+	<a href="{{path('dicars_logistica_cons_salidaproductos')}}">Salida de Productos</a>
 </li>
 {% endblock %}
 {% block content %}
 <div class="row-fluid">		
 	<div class="box span12">
 		<div class="box-header well" data-original-title>
-			<h2>Salida Productos: Registrar</h2>
+			<h2>SALIDA DE PRODUCTOS: REGISTRAR</h2>
 		</div>
 		<div class="box-content">
 			<form id="RegistrarSalidaForm" class="form-horizontal" method="post" action="{{ path('dicars_logistica_registrar_salida_producto') }}">

@@ -22,12 +22,30 @@ public function getTablaProductosAction(){
 		
 		$todo = array();
 		foreach ($productos as $key => $producto){
-			$todo[] = array('idproducto' => $producto -> getNproductoId(),'serie' => $producto -> getCproductoserie(),'talla' => $producto -> getCproductotalla(),
-					'nombre' => $producto -> getCproductodesc(),'pcosto' => $producto -> getNproductopcosto(),'pcontado' => $producto -> getNproductopcontado(),
-					'pcredito' => $producto -> getNproductopcredito(),'tipo' => $producto -> getNproductotipo(),'codigobarras' => $producto -> getCproductocodbarra(),
-					'stockmin' => $producto -> getNproductostockmin(),'stock' => $producto -> getNproductostock(),'stockmax' => $producto -> getNproductostockmax(), 
-					'estado' => $producto -> getCproductoest(),'porcuti' => $producto -> getNproductoporcuti(),				
-					'utibruta' => $producto -> getNproductoutibruta(), 'marcaId' => $producto -> getNproductomarca() -> getNmarcaId(),'marca' => $producto -> getNproductomarca() -> getNmarcaId(),
+			$estadodesc = "";
+			if($producto -> getCproductoest() == 1)
+				$estadodesc = "<span class='label label-success'>Habilitado</span>";
+			else
+				$estadodesc = "<span class='label label-important'>Inhabilitado</span>";
+			
+			$todo[] = array('idproducto' => $producto -> getNproductoId(),
+					'serie' => $producto -> getCproductoserie(),
+					'talla' => $producto -> getCproductotalla(),
+					'nombre' => $producto -> getCproductodesc(),
+					'pcosto' => $producto -> getNproductopcosto(),
+					'pcontado' => $producto -> getNproductopcontado(),
+					'pcredito' => $producto -> getNproductopcredito(),
+					'tipo' => $producto -> getNproductotipo(),
+					'codigobarras' => $producto -> getCproductocodbarra(),
+					'stockmin' => $producto -> getNproductostockmin(),
+					'stock' => $producto -> getNproductostock(),
+					'stockmax' => $producto -> getNproductostockmax(), 
+					'estadoId' => $producto -> getCproductoest(),
+					'estadodesc' => $estadodesc,
+					'porcuti' => $producto -> getNproductoporcuti(),				
+					'utibruta' => $producto -> getNproductoutibruta(), 
+					'marcaId' => $producto -> getNproductomarca() -> getNmarcaId(),
+					'marca' => $producto -> getNproductomarca() -> getCmarcadesc(),
 					'ver_btn' => "<a id-data='".$producto -> getNproductoId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
 					'edit_btn' => "<a id-data='".$producto -> getNproductoId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
 					'elim_btn' => "<a id-data='".$producto -> getNproductoId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
@@ -245,6 +263,7 @@ public function getTablaProductosAction(){
 					'solicitante' => $solicitante -> getCpersonalnom()." ".$solicitante -> getCpersonalape(),
 					'serie' => $salprod -> getCsalprodserie(),
 					'numero' => $salprod -> getCsalprodnro(),
+					'serienum' => $salprod -> getCsalprodserie()." - ".$salprod -> getCsalprodnro(),  
 					'fecha_reg' => $salprod -> getDsalprodfecreg() -> format("d/m/Y"),
 					'ver_btn' => "<a id-data='".$salprod -> getNsalprodId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
 					'edit_btn' => "<a id-data='".$salprod -> getNsalprodId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",

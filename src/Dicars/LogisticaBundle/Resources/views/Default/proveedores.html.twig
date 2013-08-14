@@ -12,7 +12,7 @@
 <div class="row-fluid sortable">		
 	<div class="box span12">
 		<div class="box-header well" data-original-title>
-			<h2>Proveedores</h2>
+			<h2>PROVEEDORES</h2>
 			<div class="box-icon">
 				<a href="#" class="btn btn-registrar btn-round" alt="Registrar Proveedor"><i class="icon-plus"></i></a>
 				<!-- a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
@@ -39,22 +39,16 @@
 		{% include 'DicarsLogisticaBundle:Default:registrar_proveedor.html.twig' %}
 		<div class="modal hide fade" id="modalEditarDatos">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">x</button>
 				<h3>Editar Proveedor</h3>
 			</div>
-			<div class="modal-body">
-				<form id="EditarProveedorForm" class="form-horizontal" method="post" action="{{ path('dicars_logistica_editar_proveedor') }}">
-				</form>
-			</div>
+			<form id="EditarProveedorForm" class="form-horizontal" method="post" action="{{ path('dicars_logistica_editar_proveedor') }}">
+			</form>
 		</div>
 		<div class="modal hide fade" id="modalVerDatos">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">x</button>
 				<h3>Datos del Proveedor</h3>
 			</div>
-			<div class="modal-body">
-				<div id="VerProveedor" class="form-horizontal">
-				</div>
+			<div id="VerProveedor" class="form-horizontal">
 			</div>
 		</div>      
 		</div>

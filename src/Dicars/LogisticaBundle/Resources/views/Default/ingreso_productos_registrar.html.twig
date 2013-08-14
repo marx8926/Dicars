@@ -133,19 +133,7 @@ var ResetForm;
 
 $(document).ready(function(){
 
-	date = new Date();
-	dia = '';
-	mes = '';
-	if(date.getDate() < 10)
-		dia = '0'+ (date.getDate());
-	else
-		dia = date.getDate();
-	if(date.getMonth()+1 < 10)
-		mes = '0'+ (date.getMonth() + 1);
-	else
-		mes = (date.getMonth() + 1);
-	Fecha = dia + "/" + (mes) + "/" + date.getFullYear();
-	$("#fecharegistro").val(Fecha);
+	$("#fecharegistro").val(fechaAhora());
 
 	constantes = getAjaxObject("{{ path('dicars_admin_servicio_getoptionconstantes',{'idclase':3}) }}");
 	cargarSelect(constantes, 'tipo', 'id', 'desc');
