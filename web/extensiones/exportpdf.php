@@ -1,6 +1,6 @@
 <?php
 	$title = $_POST['title'];
-    $tabla = $_POST['content'];
+    /*$tabla = $_POST['content'];*/
 
     $content ="
 <style type='text/Css'>
@@ -8,7 +8,7 @@
 		border-collapse: collapse;
 		border: 1px solid #000;
     	text-align: left;
-    	width: 100%;
+    	width: 600px;
     	margin: 0 auto;
 	}
 	th, td {
@@ -20,22 +20,18 @@
 			color: #000;
 			border-bottom: 1px dashed #000;
 			padding: 12px 17px; /*12px 0 12px 0*/
-    }
+   }
     td{
     		color: #000;
 			padding: 7px 17px; /*7px 0 7px 7px*/
-	}
+}
     h1{
     		text-align: center;
     }
 </style>
-	
-<page >
-    		<h1> ".$title."</h1>
-    		<table>
+    		<page>
     		
-    ".$tabla."
-    		</table>
+    ".$title."
 </page>
     ";
 
