@@ -57,7 +57,7 @@ class AdministrarProductoController extends Controller{
 			
 			$Producto_categoria =  $this->getDoctrine()
 	    	->getRepository('DicarsDataBundle:VenCategoria')
-			->findOneBy(array('ncategoriaId' => 1));
+			->findOneBy(array('ncategoriaId' => $datos["categoria"]));
 			
 			$Producto_stock_min = $datos["stockmin"];
 			$Producto_stock_max = $datos["stockmax"];

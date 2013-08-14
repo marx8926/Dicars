@@ -9,10 +9,10 @@
 </li>
 {% endblock %}
 {% block content %}
-<div class="row-fluid sortable">		
+<div class="row-fluid">		
 	<div class="box span12">
 		<div class="box-header well" data-original-title>
-			<h2>Marcas</h2>
+			<h2>MARCAS</h2>
 			<div class="box-icon">
 				<a href="#" class="btn btn-round btn-registrar" alt="Registrar Marcas"><i class="icon-plus"></i></a>
 			</div>
@@ -62,10 +62,8 @@
 					<button type="button" class="close" data-dismiss="modal">x</button>
 					<h3>Editar Marca</h3>
 				</div>
-				<div class="modal-body">
-					<form id="EditarMarcaForm" class="form-horizontal" method="post" action="{{ path('dicars_admin_editar_marca') }}">
-					</form>
-				</div>
+				<form id="EditarMarcaForm" class="form-horizontal" method="post" action="{{ path('dicars_admin_editar_marca') }}">
+				</form>
 			</div>
 		</div>
 	</div>

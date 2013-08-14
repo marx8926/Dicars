@@ -46,6 +46,8 @@ public function getTablaProductosAction(){
 					'utibruta' => $producto -> getNproductoutibruta(), 
 					'marcaId' => $producto -> getNproductomarca() -> getNmarcaId(),
 					'marca' => $producto -> getNproductomarca() -> getCmarcadesc(),
+					'categoriaId' => $producto -> getNcategoria() -> getNcategoriaId(),
+					'categoria' => $producto -> getNcategoria() -> getCcategorianom(),
 					'ver_btn' => "<a id-data='".$producto -> getNproductoId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
 					'edit_btn' => "<a id-data='".$producto -> getNproductoId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
 					'elim_btn' => "<a id-data='".$producto -> getNproductoId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
@@ -239,8 +241,6 @@ public function getTablaProductosAction(){
 		$salprods = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:LogSalProd')
 		->findAll();
-			
-		$em->clear();
 	
 		$todo = array();
 		foreach ($salprods as $key => $salprod){
@@ -253,9 +253,7 @@ public function getTablaProductosAction(){
 			
 			$idpersonal = $salprod -> getNpersonal() -> getNpersonalId();
 			
-			$personal = $this->getDoctrine()
-			->getRepository('DicarsDataBundle:VenPersonal')
-			->findOneBy(array('npersonalId' => $idpersonal));
+			$personal = $salprod -> getNpersonal();
 			 
 			$todo[] = array('id' => $salprod -> getNsalprodId(),
 					'registrante' => $personal -> getCpersonalnom()." ".$personal -> getCpersonalape(),
@@ -270,6 +268,7 @@ public function getTablaProductosAction(){
 					'elim_btn' => "<a id-data='".$salprod -> getNsalprodId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
 
 		}
+		$em->clear();
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	

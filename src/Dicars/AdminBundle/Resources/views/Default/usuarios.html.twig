@@ -9,10 +9,10 @@
 </li>
 {% endblock %}
 {% block content %}
-<div class="row-fluid sortable">		
+<div class="row-fluid">		
 	<div class="box span12">
 		<div class="box-header well" data-original-title>
-			<h2><i class="icon-user"></i>Usuarios</h2>
+			<h2>USUARIOS</h2>
 		</div>
 		<div class="box-content">
 			<form id="RegistrarUsuarioForm" class="form-horizontal" method="post" action="{{ path('dicars_admin_registrar_usuario') }}">
@@ -20,7 +20,7 @@
 					<div class="control-group">
 						<label class="control-label" for="trabajador">Trabajador</label>
 						<div class="controls">
-							<input class="input-xlarge" id="nombre_trabajador" type="text" disabled required>
+							<input class="input-xlarge" id="nombre_trabajador" type="text" readonly required>
 							<input class="input-xlarge focused" id="trabajador" name="trabajador" type="hidden">
 							<button class="btn btn-info btn-trabajador" style="margin-left: 15px;"><i class="icon-user icon-white"></i></button>
 						</div>
@@ -28,7 +28,7 @@
 					<div class="control-group">
 						<label class="control-label" for="usuario_id">Usuario ID</label>
 						<div class="controls">
-							<input class="input-xlarge focused" id="usuario_id" name="usuario_id" type="text" required pattern="|^[a-zA-Z0-9]+$|" title="El formato de usuario debe ser correcto" maxlength="20">
+							<input class="input-xlarge focused" id="usuario_id" name="usuario_id" type="text" pattern="|^[a-zA-Z0-9]+$|" title="El usuario puede contener leras y números" maxlength="20" required>
 						</div>
 					</div>
 					<div class="control-group">
@@ -41,7 +41,7 @@
 					<div class="control-group">
 					<label class="control-label" for="estado">Estado</label>
 					<div class="controls">
-					 <select id="estado" name="estado" data-rel="chosen">
+					 <select id="estado" name="estado" data-rel="chosen" required>
 							<option value="1">Habilitado</option>
 							<option value="0">Inhabilitado</option>
 					  </select>
@@ -57,7 +57,6 @@
 			
 			<div class="modal hide fade" id="modalEditarDatos">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">x</button>
 				<h3>Editar Trabajador</h3>
 			</div>
 			<div class="modal-body">
@@ -68,7 +67,6 @@
 			
 			<div class="modal hide fade" id="modalVerDatos">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">x</button>
 				<h3>Datos del Trabajador</h3>
 			</div>
 			<div class="modal-body">
@@ -106,7 +104,7 @@ function cargarEditar(usuarioE){
 					{'label':'Usuario','type':'input', 'typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]+$|','title':'Debe tener el formato correcto', 'req':'', 'max':'20','value':usuarioE.usuario_id,'name':'usuario_idE'},
 	              	{'label':'Clave','type':'input','typeinput':'text','value':usuarioE.clave,'name':'contrasenaE', 'pattern':'|^[a-zA-Z1-9]+$|', 'req':'', 'max':'20'},
 	              	{'label':'Estado','type':'select','name':'estadoE'},
-	              	{'label':'Fecha Registro','type':'date','value':usuarioE.fecharegistro,'name':'fecharegistroE'},
+	              	{'label':'Fecha Registro','type':'span','value':usuarioE.fecharegistro,'name':'fecharegistroE'},
 					{'type':'actions'}];		
 	$("#EditarUsuarioForm").html(crearElementosForm(ArrayDatos));
 	$('#estadoE').append('<option value="1">Habilitado</option>');
@@ -119,7 +117,7 @@ function cargarVer(usuario){
 		ArrayDatos = [	{'label':'Trabajador','type':'span', 'value':usuario.trabajador},
 		              	{'label':'Usuario','type':'span','value':usuario.usuario_id},
 		              	{'label':'Clave','type':'span','value':usuario.clave},
-		              	{'label':'Estado','type':'span','value':usuario.estado},
+		              	{'label':'Estado','type':'span','value':usuario.selectEstado},
 		              	{'label':'Fecha Registro','type':'span','value':usuario.fecharegistro},		              	
 						{'type':'close'}];
 			
