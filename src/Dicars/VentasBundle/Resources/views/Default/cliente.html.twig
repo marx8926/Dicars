@@ -12,52 +12,42 @@
 <div class="row-fluid">		
 	<div class="box span12">
 		<div class="box-header well" data-original-title>
-			<h2><i class="icon-user"></i>Clientes</h2>
+			<h2>CLIENTES</h2>
 			<div class="box-icon">
 				<a href="#" class="btn btn-registrar btn-round" alt="Registrar Cliente"><i class="icon-plus"></i></a>
-				<!-- a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
-				<a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a -->
 			</div>
 		</div>
 		<div class="box-content">
 			<table class="table table-striped table-bordered bootstrap-datatable datatable" id="clientes_table">
-			  <thead>
-				  <tr>
-					  <th>Nombres</th>
-					  <th>Apellidos</th>
-					  <th>DNI</th>
-					  <th>Línea de Crédito</th>
-					  <th></th>
-					  <th></th>
-					  <th></th>					  
-				  </tr>
-			  </thead>
-		  </table>  
-  
-		     {% include 'DicarsVentasBundle:Default:registrar_cliente.html.twig' %}
+				<thead>
+					<tr>
+						<th>Nombres</th>
+					  	<th>Apellidos</th>
+					  	<th>DNI</th>
+					  	<th>Línea de Crédito</th>
+					  	<th></th>
+					  	<th></th>
+					  	<th></th>					  
+				  	</tr>
+			  	</thead>
+		  	</table>  
+  			{% include 'DicarsVentasBundle:Default:registrar_cliente.html.twig' %}
 		     
-		<div class="modal hide fade" id="modalEditarDatos">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">x</button>
-				<h3>Editar Cliente</h3>
-			</div>
-			<div class="modal-body">
+			<div class="modal hide fade" id="modalEditarDatos">
+				<div class="modal-header">
+					<h3>Editar Cliente</h3>
+				</div>
 				<form id="EditarClienteForm" class="form-horizontal" method="post" action="{{ path('dicars_ventas_editar_cliente') }}">
 				</form>
-			</div>
-		</div>		
+			</div>		
 		
-		<div class="modal hide fade" id="modalVerDatos">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">x</button>
-				<h3>Datos del Cliente</h3>
-			</div>
-			<div class="modal-body">
+			<div class="modal hide fade" id="modalVerDatos">
+				<div class="modal-header">
+					<h3>Datos del Cliente</h3>
+				</div>
 				<div id="VerClienteForm" class="form-horizontal">
 				</div>
 			</div>
-		</div>
-				     
 		</div>
 				
 	</div><!--/span-->
@@ -84,11 +74,11 @@ function cargarEditar(cliente){
 	              	{'label':'Apellidos','type':'input','typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]*$|','title':'Debe tener el formato correcto: solo letras', 'req':'', 'max':'50','value':cliente.apellido,'name':'apellidosE'},
 	              	{'label':'Dni','type':'input','typeinput':'text','pattern':'[0-9]{8,}','title':'Debe tener el formato correcto', 'req':'', 'max':'8','value':cliente.dni,'name':'dniE'},
 	              	{'label':'Dirección','type':'input','typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç0-9.]*$|','title':'Debe tener el formato correcto', 'req':'', 'max':'200','value':cliente.direccion,'name':'direccionE'},
-	              	{'label':'Referencia','type':'input','typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç0-9]*$|','title':'Debe tener el formato correcto', 'req':'', 'max':'200','value':cliente.referencia,'name':'referenciaE'},	              	
-	              	{'label':'Zona','type':'select','name':'zonaE'},
+	              	{'label':'Referencia','type':'input','typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç0-9]*$|','title':'Debe tener el formato correcto', 'req':'', 'max':'200','value':cliente.referencia,'name':'referenciaE'},
+	              	{'label':'Ocupación','type':'input','typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]*$|','title':'Debe tener el formato correcto: solo letras', 'req':'', 'max':'40','value':cliente.ocupacion,'name':'ocupacionE'},
 	              	{'label':'Línea Op','type':'inputnumber', 'req':'', 'step':'0.10', 'min':'0', 'max':'1000','value':cliente.linea_credito,'name':'lineaopE'},
 	              	{'label':'Arc Crédito','type':'input','typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]*$|','title':'Debe tener el formato correcto: solo letras', 'req':'', 'max':'1000','value':cliente.arccredito,'name':'arccreditoE'},
-	              	{'label':'Ocupación','type':'input','typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]*$|','title':'Debe tener el formato correcto: solo letras', 'req':'', 'max':'40','value':cliente.ocupacion,'name':'ocupacionE'},
+	              	{'label':'Zona','type':'select','name':'zonaE'},
 					{'type':'actions'}];
 		
 	$("#EditarClienteForm").html(crearElementosForm(ArrayDatos));
@@ -103,12 +93,12 @@ function cargarVer(cliente){
 	ArrayDatos = [	{'label':'Nombres','type':'span','value':cliente.nombre},
 	              	{'label':'Apellidos','type':'span','value':cliente.apellido},
 	              	{'label':'Dni','type':'span','value':cliente.dni},
-	              	{'label':'Referencia','type':'span','value':cliente.referencia},
 	              	{'label':'Dirección','type':'span','value':cliente.direccion},
-	              	{'label':'Zona','type':'span','value':cliente.zonadesc},
-	              	{'label':'Línea Op','type':'span','value':cliente.linea_credito},
-	              	{'label':'Arc Crédito','type':'span','value':cliente.arccredito},
+	              	{'label':'Referencia','type':'span','value':cliente.referencia},
 	              	{'label':'Ocupación','type':'span','value':cliente.ocupacion},
+	              	{'label':'Línea Operativa','type':'span','value':cliente.linea_credito},
+	              	{'label':'Documento','type':'span','value':cliente.arccredito},
+	              	{'label':'Zona','type':'span','value':cliente.zonadesc},
 					{'type':'close'}];
 		
 	$("#VerClienteForm").html(crearElementosForm(ArrayDatos));

@@ -12,11 +12,9 @@
 <div class="row-fluid">		
 	<div class="box span12">
 		<div class="box-header well" data-original-title>
-			<h2><i class="icon-user"></i>Trabajadores</h2>
+			<h2>TRABAJADORES</h2>
 			<div class="box-icon">
 				<a href="#" class="btn btn-registrar btn-round" alt="Registrar Trabajador"><i class="icon-plus"></i></a>
-				<!-- a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
-				<a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a -->
 			</div>
 		</div>
 		<div class="box-content">
@@ -39,23 +37,17 @@
 		
 		<div class="modal hide fade" id="modalEditarDatos">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">x</button>
 				<h3>Editar Trabajador</h3>
 			</div>
-			<div class="modal-body">
-				<form id="EditarEmpleadoForm" class="form-horizontal" method="post" action="{{ path('dicars_ventas_editar_trabajador') }}">
-				</form>
-			</div>
+			<form id="EditarEmpleadoForm" class="form-horizontal" method="post" action="{{ path('dicars_ventas_editar_trabajador') }}">
+			</form>
 		</div>		
 		
 		<div class="modal hide fade" id="modalVerDatos">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">x</button>
 				<h3>Datos del Trabajador</h3>
 			</div>
-			<div class="modal-body">
-				<div id="VerEmpleadoForm" class="form-horizontal">
-				</div>
+			<div id="VerEmpleadoForm" class="form-horizontal">
 			</div>
 		</div>  
 		    
@@ -81,13 +73,13 @@ function cargarEditar(empleado){
 		      			{'label':'Cargo','type':'select','name':'cargoE'},
 						{'label':'Nombres','type':'input', 'typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]*$|','title':'Debe tener el formato correcto', 'req':'', 'max':'50','value':empleado.nombres,'name':'nombresE'},
 		              	{'label':'Apellidos','type':'input','typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]*$|','title':'Debe tener el formato correcto', 'req':'', 'max':'50','value':empleado.apellidos,'name':'apellidosE'},
+		              	{'label':'Fecha Nacimiento','type':'date','value':empleado.fechanacimiento,'name':'fechanacimientoE'},
+		              	{'label':'Edad','type':'input','typeinput':'text','pattern':'[0-9]{2}','title':'Debe tener el formato correcto', 'req':'', 'max':'2','value':empleado.edad,'name':'edadE'},
 		              	{'label':'Dni','type':'input','typeinput':'text','pattern':'[0-9]{8,}','title':'Debe tener el formato correcto', 'req':'', 'max':'8','value':empleado.dni,'name':'dniE'},
 		              	{'label':'Telefono','type':'input','typeinput':'text','pattern':'[0-9]{9,}','title':'Debe tener el formato correcto', 'req':'', 'max':'9','value':empleado.telefono,'name':'telefonoE'},
 		              	{'label':'Email','type':'input','typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç@.]*$|','title':'Debe tener el formato correcto', 'req':'', 'max':'100','value':empleado.email,'name':'emailE'},
-		              	{'label':'Fecha Nacimiento','type':'date','value':empleado.fechanacimiento,'name':'fechanacimientoE'},
 		              	{'label':'Sexo','type':'select','name':'sexoE'},
 		              	{'label':'Estado','type':'select','name':'estadoE'},		              
-		              	{'label':'Edad','type':'input','typeinput':'text','pattern':'[0-9]{2,}','title':'Debe tener el formato correcto', 'req':'', 'max':'2','value':empleado.edad,'name':'edadE'},
 						{'type':'actions'}];
 			
 		$("#EditarEmpleadoForm").html(crearElementosForm(ArrayDatos));
@@ -110,13 +102,13 @@ function cargarVer(empleado){
 		ArrayDatos = [	{'label':'Cargo','type':'span','value':empleado.cargodesc},
 						{'label':'Nombres','type':'span', 'value':empleado.nombres},
 		              	{'label':'Apellidos','type':'span','value':empleado.apellidos},
+		              	{'label':'Fecha Nacimiento','type':'span','value':empleado.fechanacimiento},
+		              	{'label':'Edad','type':'span','value':empleado.edad},
 		              	{'label':'Dni','type':'span','value':empleado.dni},
 		              	{'label':'Telefono','type':'span','value':empleado.telefono},
 		              	{'label':'Email','type':'span','value':empleado.email},
-		              	{'label':'Fecha Nacimiento','type':'span','value':empleado.fechanacimiento},
 		              	{'label':'Sexo','type':'span','value':empleado.sexo},
 		              	{'label':'Estado','type':'span','value':empleado.estadodesc},
-		              	{'label':'Edad','type':'span','value':empleado.edad},
 						{'type':'close'}];
 			
 		$("#VerEmpleadoForm").html(crearElementosForm(ArrayDatos));

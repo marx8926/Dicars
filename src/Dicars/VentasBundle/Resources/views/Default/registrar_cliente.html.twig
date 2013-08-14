@@ -1,76 +1,71 @@
 <div class="modal hide fade" id="modalRegistro">
 	<div class="modal-header">
-		<button type="button" class="close" data-dismiss="modal">x</button>
 		<h3>Registrar Cliente</h3>
 	</div>
-	<div class="modal-body">
-		<form id="RegistrarClienteForm" class="form-horizontal" method="post" action="{{ path('dicars_ventas_registrar_cliente') }}">
-		<fieldset>
-			<div class="control-group">
-				<label class="control-label" for="nombres">Nombres</label>
-				<div class="controls">
-			 		<input class="input-xlarge focused" maxlength="50" required pattern="|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]*$|" title="Este campo debe ser sólo letras" name="nombres" id="focusedInput" type="text">
+	<form id="RegistrarClienteForm" class="form-horizontal" method="post" action="{{ path('dicars_ventas_registrar_cliente') }}">
+		<div class="modal-body">
+			<fieldset>
+				<div class="control-group">
+					<label class="control-label" for="nombres">Nombres</label>
+					<div class="controls">
+				 		<input class="input-xlarge focused" maxlength="50" required pattern="|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]*$|" title="Este campo debe ser sólo letras" name="nombres" id="focusedInput" type="text">
+					</div>
 				</div>
-			</div>
-			 <div class="control-group">
-				<label class="control-label" for="apellidos">Apellidos</label>
-				<div class="controls">
-			  		<input class="input-xlarge focused" maxlength="50" required pattern="|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]*$|" title="Este campo debe ser sólo letras" name="apellidos" id="focusedInput" type="text">
+				 <div class="control-group">
+					<label class="control-label" for="apellidos">Apellidos</label>
+					<div class="controls">
+				  		<input class="input-xlarge focused" maxlength="50" required pattern="|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]*$|" title="Este campo debe ser sólo letras" name="apellidos" id="focusedInput" type="text">
+					</div>
+				</div>			
+				 <div class="control-group">
+					<label class="control-label" for="dni">DNI</label>
+					<div class="controls">
+					  	<input class="input-xlarge focused" maxlength="8" required pattern="|^\d{8}$|" title="Este campo debe tener 8 números" name="dni" id="focusedInput" type="text">
+					</div>
 				</div>
-			</div>			
-			 <div class="control-group">
-				<label class="control-label" for="dni">DNI</label>
-				<div class="controls">
-				  	<input class="input-xlarge focused" maxlength="8" required pattern="|^\d{8}$|" title="Este campo debe tener 8 números" name="dni" id="focusedInput" type="text">
+				<div class="control-group">
+					<label class="control-label" for="direccion">Dirección</label>
+					<div class="controls">
+						 <input class="input-xlarge focused" required pattern="|^([a-zA-ZñÑáÁéÉíÍóÓúÚüÜç0-9.]+\s*)+$" maxlength="200" name="direccion" id="focusedInput" type="text">
+					</div>
 				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label" for="direccion">Dirección</label>
-				<div class="controls">
-					 <input class="input-xlarge focused" required pattern="|^([a-zA-ZñÑáÁéÉíÍóÓúÚüÜç0-9.]+\s*)+$" maxlength="200" name="direccion" id="focusedInput" type="text">
+				<div class="control-group">
+					<label class="control-label" for="referencia">Referencia</label>
+					<div class="controls">
+					  <input class="input-xlarge focused" required pattern="|^([a-zA-ñÑáÁéÉíÍóÓúÚüÜç0-9]+\s*)+$" maxlength="200" name="referencia" id="focusedInput" type="text">
+					</div>
+				</div>			
+				<div class="control-group">
+					<label class="control-label" for="ocupacion">Ocupacion</label>
+					<div class="controls">
+					  <input class="input-xlarge focused" required pattern="|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]*$|" title="Este campo debe ser sólo letras" maxlength="40" name="ocupacion" id="focusedInput" type="text">
+					</div>
 				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label" for="referencia">Referencia</label>
-				<div class="controls">
-				  <input class="input-xlarge focused" required pattern="|^([a-zA-ñÑáÁéÉíÍóÓúÚüÜç0-9]+\s*)+$" maxlength="200" name="referencia" id="focusedInput" type="text">
+				<div class="control-group">
+					<label class="control-label" for="lineaop">Linea Operativa</label>
+					<div class="controls">
+					  <input class="input-xlarge focused" name="lineaop" id="lineaop" type="number" step="0.10" min="0" max="1000" required>
+					</div>
 				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label" for="lineaop">LineaOp</label>
-				<div class="controls">
-				  <input class="input-xlarge focused" name="lineaop" id="lineaop" type="number" step="0.10" min="0" max="1000" required>
+				<div class="control-group">
+					<label class="control-label" for="arccredito">Documento</label>
+					<div class="controls">
+					  <input class="input-xlarge focused" required pattern="|^([a-zA-ñÑáÁéÉíÍóÓúÚüÜç0-9]+\s*)+$" name="arccredito" id="focusedInput" type="text">
+					</div>
 				</div>
-			</div>
-			<div class="control-group">
-				<label class="control-label" for="arccredito">ArcCredito</label>
+				
+				<div class="control-group">
+				<label class="control-label" for="zona">Zona</label>
 				<div class="controls">
-				  <input class="input-xlarge focused" required pattern="|^([a-zA-ñÑáÁéÉíÍóÓúÚüÜç0-9]+\s*)+$" name="arccredito" id="focusedInput" type="text" placeholder="text">
+				  <select id="zona" name="zona">
+				  </select>
 				</div>
-			</div>			
-			<div class="control-group">
-				<label class="control-label" for="ocupacion">Ocupacion</label>
-				<div class="controls">
-				  <input class="input-xlarge focused" required pattern="|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]*$|" title="Este campo debe ser sólo letras" maxlength="40" name="ocupacion" id="focusedInput" type="text">
 				</div>
-			</div>
-			
-			<div class="control-group">
-			<label class="control-label" for="zona">Zona</label>
-			<div class="controls">
-			  <select id="zona" name="zona">
-			  </select>
-			</div>
-			</div>
-			<div class="form-actions">
-				<button type="submit" class="btn btn-primary">Guardar</button>
-				<button type="reset" class="btn" data-dismiss="modal">Cancelar</button>
-			</div>
-		</fieldset>
-		</form>
-	</div>
-	<!-- div class="modal-footer">
-		<a href="#" class="btn" data-dismiss="modal">Cancelar</a>
-		<a href="#" class="btn btn-primary">Guardar</a>
-	</div -->
+			</fieldset>
+		</div>
+		<div class="modal-footer">
+			<button type="reset" class="btn" data-dismiss="modal">Cancelar</button>
+			<button type="submit" class="btn btn-primary">Guardar</button>
+		</div>
+	</form>
 </div>

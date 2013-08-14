@@ -1,83 +1,82 @@
 <div class="modal hide fade" id="modalRegistro">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">x</button>
-				<h3>Registrar Trabajador</h3>
-			</div>
-			<div class="modal-body">
-				<form id="RegistrarTrabajadorForm" class="form-horizontal" method="post" action="{{ path('dicars_ventas_registrar_trabajador') }}">
-					<fieldset>
+	<div class="modal-header">
+		<h3>Registrar Trabajador</h3>
+	</div>
+	<form id="RegistrarTrabajadorForm" class="form-horizontal" method="post" action="{{ path('dicars_ventas_registrar_trabajador') }}">
+		<div class="modal-body">
+			<fieldset>
 					  <div class="control-group">
 						<label class="control-label" for="nombres">Nombres</label>
 						<div class="controls">
-						  <input class="input-xlarge focused" maxlength="50" required pattern="|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]*$|" title="Este campo debe ser sólo letras" id="nombres" name="nombres" type="text">
+						  <input class="input-xlarge focused" maxlength="50" pattern="|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]*$|" title="Este campo debe ser sólo letras" id="nombres" name="nombres" type="text" required>
 						</div>
 					  </div>
 					  <div class="control-group">
 						<label class="control-label" for="apellidos">Apellidos</label>
 						<div class="controls">
-						  <input class="input-xlarge focused" maxlength="50" required pattern="|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]*$|" title="Este campo debe ser sólo letras" id="apellidos" name="apellidos" type="text">
+						  <input class="input-xlarge focused" maxlength="50" pattern="|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]*$|" title="Este campo debe ser sólo letras" id="apellidos" name="apellidos" type="text" required>
 						</div>
 					  </div>
 					  <div class="control-group">
 						<label class="control-label" for="fechanacimiento">Fecha de Nacimiento</label>
 						<div class="controls">
-						  <input type="text" placeholder="dd/mm/YYYY" pattern="|^\d{2}/\d{2}/\d{4}$|" maxlength="10" title="Debe ingresar un formato de fecha correcto" class="input-xlarge datepicker" id="fechanacimiento" name="fechanacimiento">
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="dni">DNI</label>
-						<div class="controls">
-						  <input class="input-xlarge focused" maxlength="8" required pattern="|^\d{8}$|" title="Este campo debe tener 8 números" id="dni" name="dni" type="text">
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="telefono">Teléfono</label>
-						<div class="controls">
-						  <input class="input-xlarge focused" placeholder="999999999" required pattern="|^([0-9]+\s*)+$|" maxlength="12" title="Este campo sólo acepta 9 números obligatorios" id="telefono" name="telefono" type="text">
-						</div>
-					  </div>
-					  <div class="control-group">
-						<label class="control-label" for="email">Email</label>
-						<div class="controls">
-						  <input class="input-xlarge focused" maxlength="100" placeholder="example@domain.com" title="Debe ingresar un formato de email correcto" required id="email" name="email" type="email">
-						</div>
-					  </div>					  
-					  <div class="control-group">
-						<label class="control-label" for="sexo">Sexo</label>
-						<div class="controls">
-						  <select id="sexo" required name="sexo" data-rel="chosen">
-							<option value="M">M</option>
-							<option value="F">F</option>
-						  </select>
+						  <input type="text" placeholder="dd/mm/YYYY" pattern="|^\d{2}/\d{2}/\d{4}$|" maxlength="10" title="Debe ingresar un formato de fecha correcto" class="input-xlarge datepicker" id="fechanacimiento" name="fechanacimiento" required>
 						</div>
 					  </div>					  
 					  <div class="control-group">
 						<label class="control-label" for="edad">Edad</label>
 						<div class="controls">
-						  <input class="input-xlarge focused" maxlength="3" pattern="|^([0-9]+\s*)+$|" title="Este campo sólo admite números" id="edad" name="edad" type="text" >
+						  <input class="input-xlarge focused" maxlength="2" pattern="|^\d{2}$|" title="Este campo sólo admite números" id="edad" name="edad" type="text" required>
+						</div>
+					  </div>
+					  <div class="control-group">
+						<label class="control-label" for="dni">DNI</label>
+						<div class="controls">
+						  <input class="input-xlarge focused" maxlength="8" pattern="|^\d{8}$|" title="Este campo debe tener 8 números" id="dni" name="dni" type="text" required>
+						</div>
+					  </div>
+					  <div class="control-group">
+						<label class="control-label" for="telefono">Teléfono</label>
+						<div class="controls">
+						  <input class="input-xlarge focused" placeholder="999999999" pattern="|^([0-9]+\s*)+$|" maxlength="12" title="Este campo sólo acepta 9 números obligatorios" id="telefono" name="telefono" type="text" required>
+						</div>
+					  </div>
+					  <div class="control-group">
+						<label class="control-label" for="email">Email</label>
+						<div class="controls">
+						  <input class="input-xlarge focused" maxlength="100" placeholder="example@domain.com" title="Debe ingresar un formato de email correcto" id="email" name="email" type="email" required>
+						</div>
+					  </div>					  
+					  <div class="control-group">
+						<label class="control-label" for="sexo">Sexo</label>
+						<div class="controls">
+						  <select id="sexo" name="sexo" data-rel="chosen" required> 
+							<option value="M">M</option>
+							<option value="F">F</option>
+						  </select>
 						</div>
 					  </div>	
 					  <div class="control-group">
 						<label class="control-label" for="cargo">Cargo</label>
 						<div class="controls">
-						  <select id="cargo" required name="cargo">
+						  <select id="cargo" name="cargo" required>
 						  </select>
 						</div>
 					  </div>					  
 					  <div class="control-group">
 						<label class="control-label" for="estado">Estado</label>
 						<div class="controls">
-						  <select id="estado" required name="estado" data-rel="chosen">
+						  <select id="estado" name="estado" data-rel="chosen" required>
 							<option value="1">Habilitado</option>
 							<option value="0">Inhabilitado</option>
 						  </select>
 						</div>
-					  </div>					  
-					  <div class="form-actions">
-						<button type="submit" class="btn btn-primary">Guardar</button>
-						<button type="reset" class="btn" data-dismiss="modal">Cancelar</button>
 					  </div>
-					</fieldset>
-			  </form>
+			</fieldset>
 		</div>
+		<div class="modal-footer">
+			<button type="reset" class="btn" data-dismiss="modal">Cancelar</button>
+			<button type="submit" class="btn btn-primary">Guardar</button>
+		</div>
+	</form>
 </div>
