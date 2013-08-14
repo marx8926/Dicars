@@ -29,19 +29,20 @@ class AdministrarMarcasController extends Controller{
 			$Marca->setCmarcaest($MarcaEst);
 	
 			$em = $this->getDoctrine()->getEntityManager();
-			$this->getDoctrine()->getEntityManager()->beginTransaction();
+			$em->beginTransaction();
 			try {
 				$em->persist($Marca);
 				$em->flush();
 			} catch (Exception $e) {
-				$this->getDoctrine()->getEntityManager()->rollback();
-				$this->getDoctrine()->getEntityManager()->close();
+				$em->rollback();
+				$em->close();
 				$return = array("responseCode"=>400, "greeting"=>"Bad");
 					
 				throw $e;
 			}
-			$this->getDoctrine()->getEntityManager()->commit();
+			$em->commit();
 			$em->clear();
+			$em->close();
 			$return = array("responseCode"=>200, "datos"=>$datos);
 		}
 		else {
@@ -78,19 +79,20 @@ class AdministrarMarcasController extends Controller{
 			$Marca->setCmarcaest($MarcaEst);
 	
 			$em = $this->getDoctrine()->getEntityManager();
-			$this->getDoctrine()->getEntityManager()->beginTransaction();
+			$em->beginTransaction();
 	
 			try {
 				$em->flush();
 			} catch (Exception $e) {
-				$this->getDoctrine()->getEntityManager()->rollback();
-				$this->getDoctrine()->getEntityManager()->close();
+				$em->rollback();
+				$em->close();
 				$return = array("responseCode"=>400, "greeting"=>"Bad");
-	
+					
 				throw $e;
 			}
-			$this->getDoctrine()->getEntityManager()->commit();
+			$em->commit();
 			$em->clear();
+			$em->close();
 			$return = array("responseCode"=>200, "datos"=>$datos);
 	
 		}

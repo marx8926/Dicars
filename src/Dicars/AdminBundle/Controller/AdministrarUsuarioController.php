@@ -42,20 +42,19 @@ class AdministrarUsuarioController  extends Controller{
 			$Usuario->setCusuariofecreg($Usuario_fechareg);
 			
 			$em = $this->getDoctrine()->getEntityManager();
-			$this->getDoctrine()->getEntityManager()->beginTransaction();
+			$em -> beginTransaction();
 			try {
 				$em->persist($Usuario);
 				$em->flush();
 			} catch (Exception $e){
-				$this->getDoctrine()->getEntityManager()->rollback();
-				$this->getDoctrine()->getEntityManager()->close();
-				$return = array("responseCode"=>400, "greeting"=>"Bad");
-					
+				$em->rollback();
+				$em->close();
+				$return = array("responseCode"=>400, "greeting"=>"Bad");					
 				throw $e;
 			}
-			$this->getDoctrine()->getEntityManager()->commit();
+			$em->commit();
 			$em->clear();
-			
+			$em->close();			
 			$return = array("responseCode"=>200, "datos"=>$datos);
 		}
 		else {
@@ -76,7 +75,6 @@ class AdministrarUsuarioController  extends Controller{
 		
 		$Usuario_cod = null;
 		$Usuario_trabajador = null;
-		//$Usuario_id : NOMBRE DE USUARIO DEL TRABAJADOR
 		$Usuario_id = null;
 		$Usuario_clave = null;
 		$Usuario_estado = null;
@@ -88,7 +86,6 @@ class AdministrarUsuarioController  extends Controller{
 			$Usuario_id = $datos["usuario_idE"];
 			$Usuario_clave = $datos["contrasenaE"];
 			$Usuario_estado = $datos["estadoE"];
-			$Usuario_fechareg = date_create_from_format('d/m/Y',$datos["fecharegistroE"]);
 			
 			$Usuario = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:Usuario')
@@ -97,23 +94,22 @@ class AdministrarUsuarioController  extends Controller{
 			$Usuario->setCusuarioid($Usuario_id);
 			$Usuario->setCusuarioclave($Usuario_clave);
 			$Usuario->setCusuarioest($Usuario_estado);
-			$Usuario->setCusuariofecreg($Usuario_fechareg);	
 			
 			$em = $this->getDoctrine()->getEntityManager();
-			$this->getDoctrine()->getEntityManager()->beginTransaction();
+			$em->beginTransaction();
 	
 			try {
 				$em->flush();
 			} catch (Exception $e) {
-				$this->getDoctrine()->getEntityManager()->rollback();
-				$this->getDoctrine()->getEntityManager()->close();
+				$em->rollback();
+				$em->close();
 				$return = array("responseCode"=>400, "greeting"=>"Bad");
 	
 				throw $e;
 			}
-			$this->getDoctrine()->getEntityManager()->commit();
+			$em->commit();
+			$em->close();
 			$em->clear();
-			
 			$return = array("responseCode"=>200, "datos"=>$datos);	
 		}
 		else {

@@ -22,7 +22,7 @@ class AdministrarTipoIGVController  extends Controller{
 		$TipoIGV_fechareg = null;
 	
 		if ($form!=null){
-				/**/
+			
 			$TipoIGV_tipoigv = $datos["tipo"];
 			$TipoIGV_porcentaje = $datos["porc"];
 			$TipoIGV_estado = $datos["estado"];				
@@ -35,20 +35,20 @@ class AdministrarTipoIGVController  extends Controller{
 			$VenTipoigv->setDtipoigvfecreg($TipoIGV_fechareg);
 				
 			$em = $this->getDoctrine()->getEntityManager();
-			$this->getDoctrine()->getEntityManager()->beginTransaction();
+			$em->beginTransaction();
 			try {
 				$em->persist($VenTipoigv);
 				$em->flush();
 			} catch (Exception $e){
-				$this->getDoctrine()->getEntityManager()->rollback();
-				$this->getDoctrine()->getEntityManager()->close();
+				$em->rollback();
+				$em->close();
 				$return = array("responseCode"=>400, "greeting"=>"Bad");
 					
 				throw $e;
 			}
-			$this->getDoctrine()->getEntityManager()->commit();
+			$em->commit();
 			$em->clear();
-				
+			$em->close();
 			$return = array("responseCode"=>200, "datos"=>$datos);
 		}
 		else {
@@ -92,14 +92,15 @@ class AdministrarTipoIGVController  extends Controller{
 			try {
 				$em->flush();
 			} catch (Exception $e) {
-				$this->getDoctrine()->getEntityManager()->rollback();
-				$this->getDoctrine()->getEntityManager()->close();
+				$em->rollback();
+				$em->close();
 				$return = array("responseCode"=>400, "greeting"=>"Bad");
-	
+					
 				throw $e;
 			}
-			$this->getDoctrine()->getEntityManager()->commit();
+			$em->commit();
 			$em->clear();
+			$em->close();
 			$return = array("responseCode"=>200, "datos"=>$datos);
 	
 		}

@@ -18,7 +18,6 @@ class AdministrarServiciosController extends Controller {
 		$cargos = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:VenCargo')
 		->findAll();
-		$em->clear();
 	
 		$todo = array();
 		foreach ($cargos as $key => $cargo){
@@ -36,6 +35,8 @@ class AdministrarServiciosController extends Controller {
 							'edit_btn' => "<a id-data='".$cargo -> getNcargoId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>"
 					);
 		}
+		$em->clear();
+		$em->close();
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
@@ -46,12 +47,13 @@ class AdministrarServiciosController extends Controller {
 		->getRepository('DicarsDataBundle:VenCargo')
 		->findOneBy(array('ncargoId' => $id));
 	
-		$em->clear();
 	
 		$data = array('id' => $cargo -> getNcargoId(),
 					'nom_cargo' => $cargo -> getNcargodesc(),
 					'selectEstado' => $cargo -> getCcargocoest());
-	
+
+		$em->clear();
+		$em->close();
 		return new JsonResponse($data);
 	}
 	
@@ -61,7 +63,6 @@ class AdministrarServiciosController extends Controller {
 		$categorias = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:VenCategoria')
 		->findAll();
-		$em->clear();
 	
 		$todo = array();
 		foreach ($categorias as $key => $categoria){
@@ -80,6 +81,8 @@ class AdministrarServiciosController extends Controller {
 					'edit_btn' => "<a id-data='".$categoria -> getNcategoriaId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>"
 			);
 		}
+		$em->clear();
+		$em->close();
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
@@ -90,13 +93,14 @@ class AdministrarServiciosController extends Controller {
 		->getRepository('DicarsDataBundle:VenCategoria')
 		->findOneBy(array('ncategoriaId' => $id));
 	
-		$em->clear();
 	
 		$data = array('id' => $categoria -> getNcategoriaId(),
 				'nom_categoria' => $categoria -> getCcategorianom(),
 				'desc_categoria' => $categoria -> getCcategoriadesc(),
 				'selectEstado' => $categoria -> getCcategoriaest());
-	
+
+		$em->clear();
+		$em->close();
 		return new JsonResponse($data);
 	}
 	
@@ -106,7 +110,6 @@ class AdministrarServiciosController extends Controller {
 		$marcas = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:VenMarca')
 		->findAll();
-		$em->clear();
 	
 		$todo = array();
 		foreach ($marcas as $key => $marca){
@@ -124,6 +127,9 @@ class AdministrarServiciosController extends Controller {
 					'edit_btn' => "<a id-data='".$marca -> getNmarcaId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>"
 			);
 		}
+
+		$em->clear();
+		$em->close();
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
@@ -134,12 +140,12 @@ class AdministrarServiciosController extends Controller {
 		->getRepository('DicarsDataBundle:VenMarca')
 		->findOneBy(array('nmarcaId' => $id));
 	
-		$em->clear();
-	
 		$data = array('id' => $marca -> getNmarcaId(),
 				'desc_marca' => $marca -> getCmarcadesc(),
 				'selectEstado' => $marca -> getCmarcaest());
-	
+		
+		$em->clear();
+		$em->close();
 		return new JsonResponse($data);
 	}
 
@@ -150,7 +156,6 @@ class AdministrarServiciosController extends Controller {
 		$usuarios = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:Usuario')
 		->findAll();
-		$em->clear();
 		$todo = array();
 		foreach ($usuarios as $key => $usuario){
 			$estadochar = $usuario -> getCusuarioest();
@@ -171,6 +176,9 @@ class AdministrarServiciosController extends Controller {
 						'edit_btn' => "<a id-data='".$usuario -> getNusuarioId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
 						'elim_btn' => "<a id-data='".$usuario -> getNusuarioId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
 		}
+
+		$em->clear();
+		$em->close();
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
@@ -181,8 +189,6 @@ class AdministrarServiciosController extends Controller {
 		->getRepository('DicarsDataBundle:Usuario')
 		->findOneBy(array('nusuarioId' => $id));
 	
-		$em->clear();
-	
 		$data = array('id' => $usuario -> getNusuarioId(),
 				'trabajador' => $usuario -> getNpersonal()->getNpersonalId(),
 				'usuario_id' => $usuario -> getCusuarioId(),
@@ -190,7 +196,8 @@ class AdministrarServiciosController extends Controller {
 				'estado' => $usuario -> getCusuarioest(),
 				'fecharegistro' => $usuario -> getCusuariofecreg()-> format('d/m/Y')
 				);
-	
+		$em->clear();
+		$em->close();
 		return new JsonResponse($data);
 	}
 	
@@ -200,7 +207,6 @@ class AdministrarServiciosController extends Controller {
 		$zonas = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:VenZona')
 		->findAll();
-		$em->clear();
 	
 		$todo = array();
 		foreach ($zonas as $key => $zona){
@@ -234,6 +240,9 @@ class AdministrarServiciosController extends Controller {
 					'edit_btn' => "<a id-data='".$zona -> getNzonaId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>"
 			);
 		}
+		
+		$em->clear();
+		$em->close();		
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
@@ -243,15 +252,16 @@ class AdministrarServiciosController extends Controller {
 		$marcas = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:VenMarca')
 		->findAll();
-		$em->clear();
-		
+				
 		$todo = array();
 		
 		foreach ($marcas as $key => $marca){
 			$todo[] = array('id' => $marca->getNmarcaId(),
 				'desc' => $marca->getCmarcadesc(),
 				);
-		}	
+		}
+		$em->clear();
+		$em->close();	
 		return new JsonResponse($todo);
 	}
 	
@@ -276,7 +286,6 @@ class AdministrarServiciosController extends Controller {
 		$categorias = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:VenCategoria')
 		->findAll();
-		$em->clear();
 		
 		$todo = array();
 		
@@ -285,6 +294,8 @@ class AdministrarServiciosController extends Controller {
 					'desc' => $categoria->getCcategorianom(),
 			);
 		}
+		$em->clear();
+		$em->close();
 		return new JsonResponse($todo);
 	}
 	
@@ -294,7 +305,6 @@ class AdministrarServiciosController extends Controller {
 		$constantes = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:Constante')
 		->findAll();
-		$em->clear();
 	
 		$todo = array();
 		foreach ($constantes as $key => $constante){
@@ -305,6 +315,8 @@ class AdministrarServiciosController extends Controller {
 					'edit_btn' => "<a id-data='".$constante -> getNconstanteId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>"
 			);
 		}
+		$em->clear();
+		$em->close();
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
@@ -315,13 +327,13 @@ class AdministrarServiciosController extends Controller {
 		->getRepository('DicarsDataBundle:Constante')
 		->findOneBy(array('nconstanteId' => $id));
 	
-		$em->clear();
-	
 		$data = array('id' => $constante -> getNconstanteId(),
 				'clase' => $constante -> getNconstanteclase(),
 				'nom_clase' => $constante -> getCconstantedesc(),
 				'valor' => $constante -> getCconstantevalor());
-	
+		
+		$em->clear();
+		$em->close();
 		return new JsonResponse($data);
 	}
 	
@@ -331,7 +343,6 @@ class AdministrarServiciosController extends Controller {
 		$monedas = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:VenTipomoneda')
 		->findAll();
-		$em->clear();
 	
 		$todo = array();
 		foreach ($monedas as $key => $moneda){
@@ -349,6 +360,8 @@ class AdministrarServiciosController extends Controller {
 					'edit_btn' => "<a id-data='".$moneda -> getNtipomoneda()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>"
 			);
 		}
+		$em->clear();
+		$em->close();
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
@@ -358,7 +371,6 @@ class AdministrarServiciosController extends Controller {
 		$Tipos = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:Constante')
 		->findBy(array('nconstanteclase' => $Clase));
-		$em->clear();
 	
 		$result = "";
 		foreach ($Tipos as $key => $tipo){
@@ -375,8 +387,6 @@ class AdministrarServiciosController extends Controller {
 		->getRepository('DicarsDataBundle:Ubigeo')
 		->findAll();
 		
-		$em->clear();
-		
 		$todo = array();
 		foreach ($ubigeos as $key => $ubigeo){
 			$todo[] = array('id' => $ubigeo -> getNubigeoId(),
@@ -387,6 +397,9 @@ class AdministrarServiciosController extends Controller {
 					'depend' => $ubigeo -> getNubigeodep()
 			);
 		}
+		
+		$em->clear();
+		$em->close();
 		return new JsonResponse($todo);
 	}
 	
@@ -396,9 +409,7 @@ class AdministrarServiciosController extends Controller {
 		$constantes = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:Constante')
 		->findBy(array('nconstanteclase'=>$idclase));
-	
-		$em->clear();
-	
+		
 		$todo = array();
 		foreach ($constantes as $key => $constante){
 			if($constante -> getCconstantevalor() != 0){
@@ -409,6 +420,8 @@ class AdministrarServiciosController extends Controller {
 				);
 			}
 		}
+		$em->clear();
+		$em->close();
 		return new JsonResponse($todo);
 	}
 	
@@ -419,8 +432,6 @@ class AdministrarServiciosController extends Controller {
 		->getRepository('DicarsDataBundle:VenCargo')
 		->findAll();
 	
-		$em->clear();
-	
 		$todo = array();
 		foreach ($cargos as $key => $cargo){
 			$todo[] = array('id' => $cargo -> getNcargoId(),
@@ -428,6 +439,8 @@ class AdministrarServiciosController extends Controller {
 					'estado' => $cargo -> getCcargocoest()
 			);
 		}
+		$em->clear();
+		$em->close();
 		return new JsonResponse($todo);
 	}
 	
@@ -438,14 +451,14 @@ class AdministrarServiciosController extends Controller {
 		->getRepository('DicarsDataBundle:VenTipoigv')
 		->findAll();
 	
-		$em->clear();
-	
 		$todo = array();
 		foreach ($tiposigv as $key => $tipoigv){
 			$todo[] = array('id' => $tipoigv -> getNtipoigv(),
 					'porc' => $tipoigv -> getNtipoigvproc()
 			);
 		}
+		$em->clear();
+		$em->close();
 		return new JsonResponse($todo);
 	}
 	
@@ -455,7 +468,6 @@ class AdministrarServiciosController extends Controller {
 		$zonas = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:VenZona')
 		->findAll();
-		$em->clear();
 	
 		$todo = array();
 	
@@ -464,6 +476,8 @@ class AdministrarServiciosController extends Controller {
 					'desc' => $zona->getCzonadesc(),
 			);
 		}
+		$em->clear();
+		$em->close();
 		return new JsonResponse($todo);
 	}
 	
@@ -473,7 +487,6 @@ class AdministrarServiciosController extends Controller {
 		$tipos = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:VenTipoigv')
 		->findAll();
-		$em->clear();
 	
 		$todo = array();
 		foreach ($tipos as $key => $tipo){
@@ -485,6 +498,8 @@ class AdministrarServiciosController extends Controller {
 					'edit_btn' => "<a id-data='".$tipo -> getNtipoigv()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>"
 			);
 		}
+		$em->clear();
+		$em->close();
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
@@ -494,13 +509,15 @@ class AdministrarServiciosController extends Controller {
 		$tipos = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:VenTipoigv')
 		->findOneBy(array('ntipoigv' => $id));
-		$em->clear();
 	
 		$data = array('id' => $tipos -> getNtipoigv(),
 				'tipo' => $tipos -> getCtipoigv(),
 				'porcentaje' => $tipos -> getNtipoigvproc(),
 				'fecha' => $tipos -> getDtipoigvfecreg() -> format("d/m/Y"),
 				'estado' => $tipos -> getCtipoigvest());
+		
+		$em->clear();
+		$em->close();
 		return new JsonResponse($data);
 	}
 		
