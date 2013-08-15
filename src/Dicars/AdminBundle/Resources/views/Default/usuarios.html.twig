@@ -146,6 +146,7 @@ var RowCallBackFunctionTrabajador;
 
 var ReloadTableUsuario;
 var ReloadTableEditar;
+var ErrorFunction;
 
 $(document).ready(function(){
 	
@@ -163,8 +164,16 @@ $(document).ready(function(){
 	};
 	
 	ReloadTableUsuario = function(data){
-	UsuariosTable.fnReloadAjax();
-	$("#RegistrarUsuarioForm").reset();
+		UsuariosTable.fnReloadAjax();
+		$("#RegistrarUsuarioForm").reset();
+		datanotyoptions = '{"text":"Lo hiciste bien!","layout":"top","type":"success"}';
+		noty( $.parseJSON(datanotyoptions));
+		
+	};
+
+	ErrorFunction = function(){
+		datanotyoptions = '{"text":"Hay un error :(","layout":"top","type":"error"}';
+		noty( $.parseJSON(datanotyoptions));
 	};
 
 	//DATOS DEL MODAL EMPLEADOS
@@ -192,7 +201,7 @@ $(document).ready(function(){
 	UsuariosTable = createDataTable('usuarios_table',UrlaDTableUser,FormatoDTable,null,RowCallBackFunction);
 
 	ReloadTableEditar = reloadclosemodal('modalEditarDatos', 'usuarios_table');
-	enviar("RegistrarUsuarioForm",ReloadTableUsuario);
+	enviar("RegistrarUsuarioForm",ReloadTableUsuario, null, ErrorFunction);
 	enviar('EditarUsuarioForm', ReloadTableEditar);				
 });
 

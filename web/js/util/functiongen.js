@@ -111,8 +111,8 @@ function getSimpleSelectRowCallBack(DSelected, tableid){
  * responsefunction : es la funcion que se ejecuta cuando responde el controlador
  * otherdata: son datos adicionales que se pueden enviar al controlador
  */
-function enviar(IdForm,responsefunction,otherdata){
-	if(typeof(otherdata)=== 'undefined')
+function enviar(IdForm,successfunction,otherdata, errorfunction){
+	if(typeof(otherdata)=== 'undefined' || otherdata == null)
 		otherdata = null;
 	$("#"+IdForm).submit(function(event){
 		event.preventDefault();
@@ -125,17 +125,20 @@ function enviar(IdForm,responsefunction,otherdata){
         
         Consulta.done(function( data ) {
       	  if(data.responseCode==200 ){
-				if(typeof(responsefunction)=== 'undefined' || responsefunction == null)
+				if(typeof(successfunction)=== 'undefined' || successfunction == null)
 					console.log("no function");
 				else 
-					responsefunction(data);
+					successfunction(data);
       	  }else if(data.responseCode==400)
       		  alert('Error bad request');
       	  else alert("An unexpeded error occured.");
         });
         
         Consulta.fail(function() { 
-        	alert("error"); 
+        	if(typeof(errorfunction)=== 'undefined' || errorfunction == null)
+				console.log("no function");
+			else 
+				errorfunction(); 
         });
 	});
 		
