@@ -166,14 +166,16 @@ $(document).ready(function(){
 	ReloadTableUsuario = function(data){
 		UsuariosTable.fnReloadAjax();
 		$("#RegistrarUsuarioForm").reset();
-		datanotyoptions = '{"text":"Lo hiciste bien!","layout":"top","type":"success"}';
+		datanotyoptions = '{"text":"Se ha agregado correctamente el usuario.","layout":"top","type":"success"}';
 		noty( $.parseJSON(datanotyoptions));
 		
 	};
 
 	ErrorFunction = function(){
-		datanotyoptions = '{"text":"Hay un error :(","layout":"top","type":"error"}';
-		noty( $.parseJSON(datanotyoptions));
+		if($('#nombre_trabajador').val() == ""){
+			datanotyoptions = '{"text":"Por favor complete todos los campos.","layout":"top","type":"error"}';
+			noty( $.parseJSON(datanotyoptions));
+		}
 	};
 
 	//DATOS DEL MODAL EMPLEADOS
