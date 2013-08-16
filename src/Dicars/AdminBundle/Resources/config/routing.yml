@@ -20,6 +20,9 @@ ventas_administrar_usuario_routing:
 admin_administrar_tipoigv_routing:
     resource: "@DicarsAdminBundle/Resources/config/administrar_tipoigv_routing.yml"    
     
+admin_administrar_zonapersonal:
+    resource: "@DicarsAdminBundle/Resources/config/administrar_zonapersonal.yml"  
+
 dicars_admin_homepage:
     pattern:  /index
     defaults: { _controller: DicarsAdminBundle:Default:index }
@@ -47,3 +50,7 @@ dicars_admin_tipomoneda:
 dicars_admin_tipoigv:
     pattern:  /tipoigv
     defaults: { _controller: DicarsAdminBundle:Default:tipoigv }
+    
+dicars_admin_zonapersonal:
+    pattern:  /zonapersonal
+    defaults: { _controller: DicarsAdminBundle:Default:ZonaPersonal }

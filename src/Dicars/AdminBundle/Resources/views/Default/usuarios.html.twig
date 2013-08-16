@@ -124,19 +124,6 @@ function cargarVer(usuario){
 		$("#VerUsuarioForm").html(crearElementosForm(ArrayDatos));
 		console.log(usuario.id);
 	}
-//mostrar trabajadores------------------------------------>
-$('.btn-trabajador').click(function(e){
-	e.preventDefault();
-	$('#modalBuscarTrabajador').modal('show');
-});
-//seleccionar trabajador para agregarlo------------------->
-$("#select_trabajador").click(function(e){
-	e.preventDefault();
-	var data = SelectTrabajadorData[0];	
-	$('#trabajador').val(data.id);
-	$('#nombre_trabajador').val(data.nombres + " " + data.apellidos);
-	$('#modalBuscarTrabajador').modal('hide');
-});
 
 var UsuariosTable;
 var SelectTrabajadorData = new Array();
@@ -149,6 +136,20 @@ var ReloadTableEditar;
 var ErrorFunction;
 
 $(document).ready(function(){
+
+	//mostrar trabajadores------------------------------------>
+	$('.btn-trabajador').click(function(e){
+		e.preventDefault();
+		$('#modalBuscarTrabajador').modal('show');
+	});
+	//seleccionar trabajador para agregarlo------------------->
+	$("#select_trabajador").click(function(e){
+		e.preventDefault();
+		var data = SelectTrabajadorData[0];	
+		$('#trabajador').val(data.id);
+		$('#nombre_trabajador').val(data.nombres + " " + data.apellidos);
+		$('#modalBuscarTrabajador').modal('hide');
+	});
 	
 	RowCallBackFunction = function(nRow, aData, iDisplayIndex){
 		$(nRow).find('.btn-datos').click(function(e){

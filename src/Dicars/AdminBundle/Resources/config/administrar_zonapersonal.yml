@@ -1,0 +1,5 @@
+dicars_admin_registrar_zonapersonal:
+    pattern:  /registrar_zonapersonal
+    defaults: { _controller: DicarsAdminBundle:AdministrarZonaPersonal:RegistrarZonaPersonal }
+    requirements:
+          _method: POST

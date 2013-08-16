@@ -520,6 +520,114 @@ class AdministrarServiciosController extends Controller {
 		$em->close();
 		return new JsonResponse($data);
 	}
+	
+	public function getTablaZonasNoAsignadaAction(){
+		$em = $this->getDoctrine()->getEntityManager();
+	
+		$sql = "select nZona_id from ven_zona 
+				where not exists (
+					select * from ven_zonapersonal 
+					where ven_zona.nZona_id = ven_zonapersonal.nZona_id)";						
+	
+		$smt = $em->getConnection()->prepare($sql);
+		$smt->execute();
+	
+		$zonas = $smt->fetchAll();
+		
+		$todo = array();
+		
+		foreach ($zonas as $key => $idzona){
+			$zona = $this->getDoctrine()
+				->getRepository('DicarsDataBundle:VenZona')
+				->findOneBy(array('nzonaId' =>$idzona['nZona_id']));
+			
+			$estado = '';
+			$estadochar = $zona -> getNzonaest();
+			
+			if($estadochar=="1")
+				$estado = "<span class='label label-success'>Habilidado</span>";
+			else
+				$estado = "<span class='label label-important'>Inhabilitado</span>";
+				
+			$dist = $zona -> getNubigeo();
+				
+			$prov = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:Ubigeo')
+			->findOneBy(array('nubigeoId' => $dist -> getNubigeodep()));
+				
+			$dep = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:Ubigeo')
+			->findOneBy(array('nubigeoId' => $prov -> getNubigeodep()));
+				
+			$ubigeo =  $dist -> getCubigeodesc()." - ".$prov -> getCubigeodesc()." - ".$dep -> getCubigeodesc();
+				
+			$todo[] = array('id' => $zona -> getNzonaId(),
+					'desc' => $zona -> getCzonadesc(),
+					'selectEstado' => $zona -> getNzonaest(),
+					'estado' => $estado,
+					'dist' => $dist -> getNubigeoId(),
+					'prov' => $prov -> getNubigeoId(),
+					'dep' => $dep -> getNubigeoId(),
+					'ubigeo' =>  $ubigeo
+			);
+		}
+		
+		$em->clear();
+		$em->close();
+		return new JsonResponse(array('aaData' => $todo));
+	}
+	
+	public function getTablaZonaPersonalAction(){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$zonaspersonal = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:VenZonapersonal')
+		->findAll();
+	
+		$todo = array();
+		foreach ($zonaspersonal as $key => $zonapersonal){
+			$estado = '';
+			$zona = $zonapersonal -> getNzona();
+			$personal = $zonapersonal ->getNpersonal();
+			$estadochar = $zona -> getNzonaest();
+			
+			if($estadochar=="1")
+				$estado = "<span class='label label-success'>Habilidado</span>";
+			else
+				$estado = "<span class='label label-important'>Inhabilitado</span>";
+			
+			$dist = $zona -> getNubigeo();
+			
+			$prov = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:Ubigeo')
+			->findOneBy(array('nubigeoId' => $dist -> getNubigeodep()));
+			
+			$dep = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:Ubigeo')
+			->findOneBy(array('nubigeoId' => $prov -> getNubigeodep()));
+			
+			$ubigeo =  $dist -> getCubigeodesc()." - ".$prov -> getCubigeodesc()." - ".$dep -> getCubigeodesc();
+			
+			$todo[] = array(
+					'idzonapersonal' => $zonapersonal -> getNzonapersonalId(),
+					'idzona' => $zona -> getNzonaId(),
+					'idpersonal' => $personal -> getNpersonalId(),
+					'nombrepersonal' => $personal -> getCpersonalnom()." ".$personal->getCpersonalape(),
+					'desc' => $zona -> getCzonadesc(),
+					'selectEstado' => $zona -> getNzonaest(),
+					'estado' => $estado,
+					'dist' => $dist -> getNubigeoId(),
+					'prov' => $prov -> getNubigeoId(),
+					'dep' => $dep -> getNubigeoId(),
+					'ubigeo' =>  $ubigeo,
+					'edit_btn' => "<a class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>"
+			);
+		}
+		
+		$em->clear();
+		$em->close();		
+		return new JsonResponse(array('aaData' => $todo));
+	}
 		
 }
 	

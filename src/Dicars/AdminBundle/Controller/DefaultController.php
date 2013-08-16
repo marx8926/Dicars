@@ -42,4 +42,9 @@ class DefaultController extends Controller
     {
     	return $this->render('DicarsAdminBundle:Default:tipo_igv.html.twig');
     }
+    
+    public function ZonaPersonalAction()
+    {
+    	return $this->render('DicarsAdminBundle:Default:zonapersonal.html.twig');
+    }
 }

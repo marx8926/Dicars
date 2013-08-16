@@ -75,4 +75,12 @@ dicars_admin_servicio_gettablatipoigv:
     defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getTablaTipoIGV } 
 dicars_admin_servicio_gettablatipoigvById:
     pattern:  /servicio_gettablatipoigvById/{id}
-    defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getTablaTipoIGVById }     
+    defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getTablaTipoIGVById }
+    
+dicars_admin_servicio_gettablazonanoasignada:
+    pattern:  /servicio_gettablazonanoasignada
+    defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getTablaZonasNoAsignada }
+    
+dicars_admin_servicio_gettablazonapersonal:
+    pattern:  /servicio_gettablazonapersonal
+    defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getTablaZonaPersonal }

@@ -4,10 +4,10 @@
     <id name="nubigeoId" type="integer" column="nUbigeo_id">
       <generator strategy="IDENTITY"/>
     </id>
+    <field name="cubigeodesc" type="string" column="cUbigeoDesc" length="150" nullable="false"/>
     <field name="nubigeodpt" type="integer" column="nUbigeoDpt" nullable="false"/>
     <field name="nubigeoprov" type="integer" column="nUbigeoProv" nullable="false"/>
     <field name="nubigeodist" type="integer" column="nUbigeoDist" nullable="false"/>
-    <field name="cubigeodesc" type="string" column="cUbigeoDesc" length="150" nullable="false"/>
     <field name="nubigeodep" type="integer" column="nUbigeoDep" nullable="false"/>
   </entity>
 </doctrine-mapping>

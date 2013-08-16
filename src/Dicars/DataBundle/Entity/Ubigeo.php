@@ -22,6 +22,13 @@ class Ubigeo
     private $nubigeoId;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="cUbigeoDesc", type="string", length=150, nullable=false)
+     */
+    private $cubigeodesc;
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="nUbigeoDpt", type="integer", nullable=false)
@@ -43,13 +50,6 @@ class Ubigeo
     private $nubigeodist;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="cUbigeoDesc", type="string", length=150, nullable=false)
-     */
-    private $cubigeodesc;
-
-    /**
      * @var integer
      *
      * @ORM\Column(name="nUbigeoDep", type="integer", nullable=false)
@@ -66,6 +66,29 @@ class Ubigeo
     public function getNubigeoId()
     {
         return $this->nubigeoId;
+    }
+
+    /**
+     * Set cubigeodesc
+     *
+     * @param string $cubigeodesc
+     * @return Ubigeo
+     */
+    public function setCubigeodesc($cubigeodesc)
+    {
+        $this->cubigeodesc = $cubigeodesc;
+    
+        return $this;
+    }
+
+    /**
+     * Get cubigeodesc
+     *
+     * @return string 
+     */
+    public function getCubigeodesc()
+    {
+        return $this->cubigeodesc;
     }
 
     /**
@@ -135,29 +158,6 @@ class Ubigeo
     public function getNubigeodist()
     {
         return $this->nubigeodist;
-    }
-
-    /**
-     * Set cubigeodesc
-     *
-     * @param string $cubigeodesc
-     * @return Ubigeo
-     */
-    public function setCubigeodesc($cubigeodesc)
-    {
-        $this->cubigeodesc = $cubigeodesc;
-    
-        return $this;
-    }
-
-    /**
-     * Get cubigeodesc
-     *
-     * @return string 
-     */
-    public function getCubigeodesc()
-    {
-        return $this->cubigeodesc;
     }
 
     /**
