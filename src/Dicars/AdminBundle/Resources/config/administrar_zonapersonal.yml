@@ -3,3 +3,9 @@ dicars_admin_registrar_zonapersonal:
     defaults: { _controller: DicarsAdminBundle:AdministrarZonaPersonal:RegistrarZonaPersonal }
     requirements:
           _method: POST
+          
+dicars_admin_editar_zonapersonal:
+    pattern:  /editar_zonapersonal
+    defaults: { _controller: DicarsAdminBundle:AdministrarZonaPersonal:EditarZonaPersonal }
+    requirements:
+          _method: POST

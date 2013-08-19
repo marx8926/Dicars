@@ -54,3 +54,7 @@ dicars_admin_tipoigv:
 dicars_admin_zonapersonal:
     pattern:  /zonapersonal
     defaults: { _controller: DicarsAdminBundle:Default:ZonaPersonal }
+    
+dicars_admin_editar_zonapersonal_view:
+    pattern:  /editar_zonapersonal_view/{idzonapersonal}
+    defaults: { _controller: DicarsAdminBundle:Default:EditarZonaPersonal }

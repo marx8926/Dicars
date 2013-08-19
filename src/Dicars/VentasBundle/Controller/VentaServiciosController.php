@@ -325,4 +325,31 @@ class VentaServiciosController extends Controller{
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
+	public function getTablaClientesByZonaAction($idzona){		
+		$em = $this->getDoctrine()->getEntityManager();
+		
+		$clientes = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:VenCliente')
+		->findBy(array('nzona' => $idzona));
+	
+		$todo = array();
+		foreach ($clientes as $key => $cliente){
+			$todo[] = array(
+					'id' => $cliente -> getNclienteId() ,
+					'nombre' => $cliente -> getCclientenom() , 
+					'apellido' => $cliente -> getCclienteape(),
+					'dni' => $cliente -> getCclientedni(), 
+					'referencia' => $cliente -> getCclienteref(),
+					'direccion' => $cliente -> getCclientecdir(),
+					'zonaId' => $cliente -> getNzona() -> getNzonaId(),
+					'zonadesc' => $cliente -> getNzona() -> getCzonadesc(),
+					'linea_credito' => $cliente -> getNclientelineaop(),
+					'arccredito' => $cliente -> getCclientearccredito(),
+					'ocupacion' => $cliente -> getCclienteocup());
+		}
+		$em->clear();
+		$em->close();
+		return new JsonResponse(array('aaData' => $todo));
+	}
+	
 }

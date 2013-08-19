@@ -15,22 +15,21 @@
 			<h2>Zonas Asignadas</h2>
 		</div>
 		<div class="box-content">
-			<form id="RegistrarZonapersonalForm" class="form-horizontal" method="post" action="{{ path('dicars_admin_registrar_zonapersonal') }}">
+			<form id="EditarZonapersonalForm" class="form-horizontal" method="post" action="{{ path('dicars_admin_editar_zonapersonal') }}">
 				<fieldset>
-					<div class="control-group">
-						<label class="control-label" for="nombre_trabajador">Trabajador</label>
-						<div class="controls">
-							<input class="input-xlarge" id="nombre_trabajador" type="text" readonly required>
-							<input id="id_trabajador" name="id_trabajador" type="hidden">
-							<button class="btn btn-info" id="btn-trabajador" style="margin-left: 15px;"><i class="icon-user icon-white"></i></button>
-						</div>
-					</div>
+					<input type="hidden" name="idzonapersonal" value="{{ idzonapersonal }}">
 					<div class="control-group">
 						<label class="control-label" for="nombre_zona">Zona</label>
 						<div class="controls">
-							<input class="input-xlarge" id="nombre_zona" type="text" readonly required>
-							<input id="id_zona" name="id_zona" type="hidden">
-							<button class="btn btn-info" id="btn-zona" style="margin-left: 15px;"><i class="icon-user icon-white"></i></button>
+							<input class="input-xlarge" id="nombre_zona" type="text" value="{{ nombrezona }}" readonly required>
+						</div>
+					</div>
+					<div class="control-group">
+						<label class="control-label" for="nombre_trabajador">Trabajador</label>
+						<div class="controls">
+							<input class="input-xlarge" id="nombre_trabajador" type="text" value="{{ nombrepersonal }}" readonly>
+							<input id="id_trabajador" name="id_trabajador" type="hidden" value="{{ idpersonal }}">
+							<button class="btn btn-info" id="btn-trabajador" style="margin-left: 15px;"><i class="icon-user icon-white"></i></button>
 						</div>
 					</div>
 					<div class="form-actions">
@@ -62,30 +61,6 @@
 					<a  id="select_zona" href="#" class="btn btn-primary">Seleccionar</a>
 				</div>
 			</div							>
-		<div class="box-content">
-			<table class="table table-striped table-bordered bootstrap-datatable datatable" id="zonapersonal_table">
-			  <thead>
-				  <tr>
-					  <th>Nombre</th>
-					  <th>Encargado</th>
-					  <th>Estado</th>
-					  <th>Ubigeo</th>
-					  <th></th>
-				  </tr>
-			  </thead>   
-			  <tbody>
-			</tbody>
-		</table>
-		<div class="modal hide fade" id="modalEditarDatos">
-			<div class="modal-header">
-				<h3>Editar Asignacion</h3>
-			</div>
-			<div class="modal-body">
-				<form id="EditarZonaPersonalForm" class="form-horizontal" method="post" action="{{ path('dicars_admin_editar_zona') }}">
-				</form>
-			</div>
-		</div> 
-		</div>
 	</div><!--/span-->
 </div><!--/row-->
 
@@ -103,25 +78,21 @@ var SelectZonaData = new Array();
 var BuscarZonaTable;
 var ReloadTableZonapersonal;
 
-var ReloadTableEditar = reloadclosemodal('EditarZonaPersonalForm', 'zonas_table');
 var RowCallBackFunctionTrabajador;
 var RowCallBackFunctionZonas;
 var ubigeos;
+var volver;
 
 //init------------------------------------>
 $(document).ready(function(){
 
-	RowCallBackFunction = function(nRow, aData, iDisplayIndex){
-		var id = aData.idzonapersonal;
-		$(nRow).find('.btn-editar').attr('href',"{{ path('dicars_admin_editar_zonapersonal_view',{'idzonapersonal':''}) }}/"+id);
+	volver = function(data){
+		$(location).attr("href", "{{ path('dicars_admin_zonapersonal') }}");		
 	};
+
 	$('#btn-trabajador').click(function(e){
 		e.preventDefault();
 		$('#modalBuscarTrabajador').modal('show');
-	});
-	$('#btn-zona').click(function(e){
-		e.preventDefault();
-		$('#modalBuscarZona').modal('show');
 	});
 
 	$("#select_trabajador").click(function(e){
@@ -131,35 +102,9 @@ $(document).ready(function(){
 		$('#nombre_trabajador').val(data.nombres + " " + data.apellidos);
 		$('#modalBuscarTrabajador').modal('hide');
 	});
-	$("#select_zona").click(function(e){
-		e.preventDefault();
-		var data = SelectZonaData[0];	
-		$('#id_zona').val(data.id);
-		$('#nombre_zona').val(data.desc);
-		$('#modalBuscarZona').modal('hide');
-	});
-
-	ReloadTableZonapersonal = function(data){
-		ZonaPersonalTable.fnReloadAjax();
-		console.log(data);
-		$("#RegistrarZonapersonalForm").reset();
-		datanotyoptions = '{"text":"Se ha asigno correctamente la zona.","layout":"top","type":"success"}';
-		noty( $.parseJSON(datanotyoptions));
-		
-	};
 
 	RowCallBackFunctionTrabajador = getSimpleSelectRowCallBack(SelectTrabajadorData,"select_trabajador_table");
 	RowCallBackFunctionZonas = getSimpleSelectRowCallBack(SelectZonaData,"zonas_table");
-
-	UrlaDTable = '{{ path("dicars_admin_servicio_gettablazonapersonal") }}';
-	FormatoDTable = [
-		              { "sWidth": "25%","mDataProp": "desc"},
-		              { "sWidth": "25%","mDataProp": "nombrepersonal"},
-		              { "sWidth": "25%","mDataProp": "estado"},
-		              { "sWidth": "35%","mDataProp": "ubigeo"},
-		              { "sWidth": "15%","mDataProp": "edit_btn"}
-		              ];
-	ZonaPersonalTable = createDataTable('zonapersonal_table',UrlaDTable,FormatoDTable,null, RowCallBackFunction);
 
 	//DATOS DEL MODAL EMPLEADOS
 	RowCallBackFunctionTrabajador = getSimpleSelectRowCallBack(SelectTrabajadorData,"select_trabajador_table");
@@ -173,16 +118,7 @@ $(document).ready(function(){
 	              ];
 	BuscarTrabajadorTable = createDataTable('select_trabajador_table',UrlaDTable,FormatoDUsuarioTable,null,RowCallBackFunctionTrabajador);
 
-	UrlaDTable = '{{ path("dicars_admin_servicio_gettablazonanoasignada") }}';
-	FormatoDTable = [
-		              { "sWidth": "25%","mDataProp": "desc"},
-		              { "sWidth": "25%","mDataProp": "estado"},
-		              { "sWidth": "35%","mDataProp": "ubigeo"}
-		              ];
-	BuscarZonaTable = createDataTable('zonas_table',UrlaDTable,FormatoDTable,null, RowCallBackFunctionZonas);
-
-
-	enviar('RegistrarZonapersonalForm', ReloadTableZonapersonal);
+	enviar('EditarZonapersonalForm', volver);
 });
 </script>
 {% endblock %}

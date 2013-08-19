@@ -47,4 +47,21 @@ class DefaultController extends Controller
     {
     	return $this->render('DicarsAdminBundle:Default:zonapersonal.html.twig');
     }
+    public function EditarZonaPersonalAction($idzonapersonal)
+    {
+    	$Zonapersonal = $this->getDoctrine()
+    	->getRepository('DicarsDataBundle:VenZonapersonal')
+    	->findOneBy(array('nzonapersonalId' => $idzonapersonal));
+    	
+    	$Personal = $Zonapersonal -> getNpersonal();
+    	$Zona = $Zonapersonal -> getNzona();
+    	
+    	return $this->render('DicarsAdminBundle:Default:editarzonapersonal.html.twig',array(
+    			'nombrepersonal' => $Personal -> getCpersonalnom()." ".$Personal -> getCpersonalape(),
+    			'idpersonal' => $Personal -> getNpersonalId(),
+    			'nombrezona' => $Zona -> getCzonadesc(),
+    			'idzona' => $Zona -> getNzonaId(),
+    			'idzonapersonal' => $idzonapersonal
+    			));
+    }
 }

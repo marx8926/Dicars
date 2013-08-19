@@ -37,3 +37,7 @@ dicars_ventas_servicio_gettablacreditosbyId:
 dicars_ventas_servicio_gettablacuotasbyId:
     pattern:  /servicio_gettablacuotasbyid/{idcredito}
     defaults: { _controller: DicarsVentasBundle:VentaServicios:getTablaCuotasById } 
+    
+dicars_ventas_servicio_gettablaclientesbyzona:
+    pattern:  /servicio_gettablaclientesbyzona/{idzona}
+    defaults: { _controller: DicarsVentasBundle:VentaServicios:getTablaClientesByZona }
