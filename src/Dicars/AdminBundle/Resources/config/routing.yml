@@ -22,6 +22,8 @@ admin_administrar_tipoigv_routing:
     
 admin_administrar_zonapersonal:
     resource: "@DicarsAdminBundle/Resources/config/administrar_zonapersonal.yml"  
+admin_administrar_movimiento_routing:
+    resource: "@DicarsAdminBundle/Resources/config/administrar_mov_routing.yml"  
 
 dicars_admin_homepage:
     pattern:  /index
@@ -58,3 +60,7 @@ dicars_admin_zonapersonal:
 dicars_admin_editar_zonapersonal_view:
     pattern:  /editar_zonapersonal_view/{idzonapersonal}
     defaults: { _controller: DicarsAdminBundle:Default:EditarZonaPersonal }
+    
+dicars_admin_movimientos:
+    pattern:  /movimientos
+    defaults: { _controller: DicarsAdminBundle:Default:movimientos }

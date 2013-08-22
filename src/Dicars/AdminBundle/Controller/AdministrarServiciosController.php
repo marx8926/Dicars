@@ -628,6 +628,37 @@ class AdministrarServiciosController extends Controller {
 		$em->close();		
 		return new JsonResponse(array('aaData' => $todo));
 	}
+	
+	public function getTablaMovAction(){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$movimientos = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:VenMovimiento')
+		->findAll();
+	
+		$todo = array();
+		foreach ($movimientos as $key => $movimiento){
+			$tipo_mov = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:Constante')
+			->findOneBy(array('nconstanteId' => $movimiento -> getNmovimientotip()));
+			
+			$tipo_pago = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:Constante')
+			->findOneBy(array('nconstanteId' => $movimiento -> getNmovimientotippag()));
+				
+			$todo[] = array('id' => $movimiento -> getNmovimientoId(),
+					'fecha_reg' => $movimiento -> getDmovimientofecreg() -> format('d/m/Y'),
+					'concepto' => $movimiento -> getCmovimientoconcepto(),
+					'monto' => $movimiento -> getNmovimientomonto(),
+					'tipo_mov' => $tipo_mov -> getCconstantedesc(),
+					'tipo_pago' => $tipo_pago -> getCconstantedesc(),
+					'personal' => $movimiento -> getNpersonal() -> getCpersonalnom()." ".$movimiento -> getNpersonal() -> getCpersonalape()
+			);
+		}
+		$em->clear();
+		$em->close();
+		return new JsonResponse(array('aaData' => $todo));
+	}
 		
 }
 	

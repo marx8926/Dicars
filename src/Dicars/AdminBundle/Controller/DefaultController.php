@@ -64,4 +64,8 @@ class DefaultController extends Controller
     			'idzonapersonal' => $idzonapersonal
     			));
     }
+    public function movimientosAction()
+    {
+    	return $this->render('DicarsAdminBundle:Default:movimientos.html.twig');
+    }
 }

@@ -1,0 +1,5 @@
+dicars_admin_registrar_mov:
+    pattern:  /registrar_mov
+    defaults: { _controller: DicarsAdminBundle:AdministrarMovimiento:RegistrarMov }
+    requirements:
+          _method: POST

@@ -84,3 +84,7 @@ dicars_admin_servicio_gettablazonanoasignada:
 dicars_admin_servicio_gettablazonapersonal:
     pattern:  /servicio_gettablazonapersonal
     defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getTablaZonaPersonal }
+    
+dicars_admin_servicio_gettablamov:
+    pattern:  /servicio_gettablamov
+    defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getTablaMov }
