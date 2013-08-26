@@ -30,8 +30,12 @@
 							<div class="control-group">
 								<label class="control-label" for="producto">Selecciona un Producto</label>
 								<div class="controls">
-									<input class="input-xlarge focused" id="producto" type="text" readonly required>
+									<input class="input focused" id="producto" type="text" readonly required>
 								  	<button type="button" class="btn btn-info btn-buscarp" style="margin: 0 18px;"><i class="icon-search icon-white"></i>Buscar</button>
+									<label style="display:inline;" for="modpcontado">P. Contado</label>
+									<input id="modpcontado" type="number" style="margin: 0 18px 0 0;" step="0.01" required>
+									<label style="display:inline;" for="modpcredito">P. Credito</label>
+									<input id="modpcredito" type="number" style="margin: 0 18px 0 0;" step="0.01" required>
 									<label style="display:inline;" for="cantidad">Cantidad</label>
 									<input id="cantidad" type="number" style="margin: 0 18px 0 0;" min="1" required>
 									<button id="agregar_producto" type="submit" class="btn btn-primary"><i class="icon-plus icon-white"></i>Agregar</button>
@@ -47,8 +51,8 @@
 									  	<th>Código</th>
 									  	<th>Nombre</th>
 								  		<th>Cantidad</th>
-								  		<th>P Credito</th>
 								  		<th>P Contado</th>
+								  		<th>P Credito</th>
 									  	<th>Acciones</th>
 									</tr>
 							  	</thead>   
@@ -60,15 +64,15 @@
 								<thead>
 								  	<tr>
 								  		<th colspan='3'></th>
-								  		<th>P Credito</th>
 									  	<th>P Contado</th>
+								  		<th>P Credito</th>
 									</tr>
 							  	</thead>  
 							  	<tbody>
 							  	<tr>
 							  		<td colspan='3'>Total</td>
-							  		<td id='total_credito'>0</td>
 							  		<td id='total_contado'>0</td>
+							  		<td id='total_credito'>0</td>
 							  	</tr>					
 								</tbody>
 							</table>
@@ -146,19 +150,21 @@
 							</div>		
 						</div>
 						<div class="span6">
-							<div class="control-group">
-								<label class="control-label" for="amortizacion">A cuenta</label>
-								<div class="controls">
-									<div class="input-prepend input-append">
-										<input class="input-xlarge focused" style="margin: 0 0px 0 0;" name="amortizacion" id="amortizacion" type="number" step="0.1" value="0" min="0"><span id="spanamort" class="add-on"></span>
+							<div id="saldo_block" >
+								<div class="control-group">
+									<label class="control-label" for="amortizacion">A cuenta</label>
+									<div class="controls">
+										<div class="input-prepend input-append">
+											<input class="input-xlarge focused" style="margin: 0 0px 0 0;" name="amortizacion" id="amortizacion" type="number" step="0.1" value="0" min="0"><span id="spanamort" class="add-on"></span>
+										</div>
 									</div>
 								</div>
-							</div>
-														
-							<div class="control-group">
-								<label class="control-label" for="saldo">Saldo restante</label>
-								<div class="controls">
-									<input class="input-xlarge focused" style="margin: 0 18px 0 0;" name="saldo" id="saldo" type="text" readonly>
+															
+								<div class="control-group">
+									<label class="control-label" for="saldo">Saldo restante</label>
+									<div class="controls">
+										<input class="input-xlarge focused" style="margin: 0 18px 0 0;" name="saldo" id="saldo" type="text" readonly>
+									</div>
 								</div>
 							</div>
 							<div id="cuotas_block" >
@@ -278,6 +284,7 @@ var CargarTablaResumen;
 function VentaUpdate(){
 	var igv = parseInt($("#tipo_igv option:selected").text());
 	var des = $("#descuento").val();
+	var formapago = $("#forma_pago").val();
 	var montodesc;
 	var montoigv;
 	if($("#tipo_moneda").val()==1)
@@ -285,17 +292,27 @@ function VentaUpdate(){
 	else
 		TipoMoneda = "$";
 			
-	if($("#forma_pago").val() == 2){
+	if(formapago == 2){
 		UnselectRow("select_producto_table");
+		$("#saldo_block").show();
 		$("#cuotas_block").show();
+		$("#monto_productos").val(totalcredito);
+		tipoprecio = 'pcontado';
+	}
+
+	else if(formapago == 3){
+		$("#saldo_block").show();
+		$("#cuotas_block").hide();
 		$("#monto_productos").val(totalcontado);
 		tipoprecio = 'pcontado';
-	}	
-	else{
-		$("#cuotas_block").hide();
-		$("#monto_productos").val(totalcredito);
-		tipoprecio = 'pcredito';
 	}
+	else {
+		$("#cuotas_block").hide();
+		$("#saldo_block").hide();
+		$("#monto_productos").val(totalcontado);
+		tipoprecio = 'pcontado';
+	}
+	CargarTablaResumen(formapago);
 	montodesc = ($("#monto_productos").val()*des/100).toFixed(2);
 	
 	$("#subtotal").val(($("#monto_productos").val()*(100/(igv+100))*(100-des)/100).toFixed(2));
@@ -322,9 +339,14 @@ function VentaUpdate(){
 
 $(document).ready(function(){
 
-	CargarTablaResumen = function(){
+	CargarTablaResumen = function(formapago){
 		TablaProductosResumen.fnClearTable();
-		TablaProductosResumen.fnAddData(SelectProductosTable.fnGetData());
+		var Array = SelectProductosTable.fnGetData();
+		if(formapago == 2)
+			CloneAttr(Array,'pcredito','pventa');
+		else
+			CloneAttr(Array,'pcontado','pventa');
+		TablaProductosResumen.fnAddData(Array);
 	};
 	//mostrar Buscar Producto------------------------------------>
 	$("#wrapper").width($("#contenedor").width());
@@ -370,6 +392,11 @@ $(document).ready(function(){
 		$('#producto').val(data.id+" - "+data.nombre);
 		$('#cantidad').val("1");
 		$('#modalBuscarProducto').modal('hide');
+		$('#cantidad').attr('max',data.stock);
+		$('#modpcontado').val(data.pcontado);
+		$('#modpcontado').attr('min',data.pcosto);
+		$('#modpcredito').val(data.pcredito);
+		$('#modpcredito').attr('min',data.pcosto);
 	});
 
 	$("#btn-select-cliente").click(function(e){
@@ -379,7 +406,6 @@ $(document).ready(function(){
 		$('#cliente_id').val(data.id);
 		$('#clienteR').text(data.nombre+" "+data.apellido);
 		$('#modalBuscarCliente').modal('hide');
-		console.log(data);
 		
 	});
 	date = new Date();
@@ -392,16 +418,20 @@ $(document).ready(function(){
 		e.preventDefault();
 		if(SelectProductoData.length > 0){
 			SelectProductoData[0].cantidad = $('#cantidad').val();
+			SelectProductoData[0].pcontado = $('#modpcontado').val();
+			SelectProductoData[0].pcredito = $('#modpcredito').val();
 			SelectProductoData[0].totalcredito = SelectProductoData[0].pcredito*$('#cantidad').val();
 			SelectProductoData[0].totalcontado = SelectProductoData[0].pcontado*$('#cantidad').val();
 			SelectProductosTable.fnAddData(SelectProductoData);
 			$('#producto').val("");
 			$('#cantidad').val("");
+			$('#modpcontado').val("");
+			$('#modpcredito').val("");
 			SelectProductoData.pop();
 			Array2 = SelectProductosTable.fnGetData();
 			CopyArray(OtherDataProductos,Array2,false,Attr);
-			$("#total_credito").text(totalcontado = (sumArrayByAttr(Array2,'pcontado')).toFixed(2));
-			$("#total_contado").text(totalcredito = (sumArrayByAttr(Array2,'pcredito')).toFixed(2));
+			$("#total_credito").text(totalcontado = (sumArrayByAttr(Array2,'pcredito')).toFixed(2));
+			$("#total_contado").text(totalcredito = (sumArrayByAttr(Array2,'pcontado')).toFixed(2));
 			$('#contenedor').height($('#step1').height());
 		}
 	});
@@ -409,7 +439,7 @@ $(document).ready(function(){
 	RowCallBackFunctionProducto = getSimpleSelectRowCallBack(SelectProductoData,"select_producto_table");
 	RowCallBackFunctionCliente = getSimpleSelectRowCallBack(SelectClienteData,"select_producto_table");
 	
-	UrlaDTableProductos = '{{ path("dicars_ventas_servicio_getventaproductosoferta") }}';
+	UrlaDTableProductos = "{{ path('dicars_ventas_servicio_getventaproductosoferta') }}";
 	FormatoDTableProductos = [
 		              { "sWidth": "12%","mDataProp": "id"},
 		              { "sWidth": "12%","mDataProp": "nombre"},
@@ -448,8 +478,8 @@ $(document).ready(function(){
 				SelectProductosTable.fnDeleteRow( index );
 				Array2 = SelectProductosTable.fnGetData();
 				CopyArray(OtherDataProductos,Array2,false,Attr);
-				$("#total_credito").text(totalcontado = sumArrayByAttr(Array2,'pcontado'));
-				$("#total_contado").text(totalcredito = sumArrayByAttr(Array2,'pcredito'));
+				$("#total_credito").text(totalcontado = sumArrayByAttr(Array2,'pcredito'));
+				$("#total_contado").text(totalcredito = sumArrayByAttr(Array2,'pcontado'));
 			});
 		},
 		"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span12'i><'span12 center'p>>",
@@ -466,13 +496,12 @@ $(document).ready(function(){
 		"aoColumns": [
 		              { "sWidth": "15%","mDataProp": "id"},
 		              { "sWidth": "15%","mDataProp": "cantidad"},
-		              { "sWidth": "15%","mDataProp": "pcontado"}
+		              { "sWidth": "15%","mDataProp": "pventa"}
 		              ],
 	 	"aaSorting": [ [0, 'asc'], [1, 'asc'] ],
 	 	"bPaginate": false,
 		"bLengthChange": false,
 		"bFilter": true,
-		"bSort": false,
 		"bInfo": false,
 		"bAutoWidth": false,
 	 	"aoColumnDefs": [

@@ -1,6 +1,8 @@
 <?php
 namespace Dicars\VentasBundle\Controller;
 
+use Dicars\DataBundle\Entity\VenTransaccion;
+
 use Dicars\DataBundle\Entity\VenCronpago;
 
 use Dicars\DataBundle\Entity\VenCredito;
@@ -36,13 +38,22 @@ class AdministrarVentaController extends Controller {
 		$Total = null;
 		$NumCuotas = null;
 		$FechaDiaPago = null;
-		
+		$DesTrans = null;
+		$MontoTrans = null;
+		$EmpleadoTrans = null;
 		
 		if ($form!=null){
+			
+			$em = $this->getDoctrine()->getEntityManager();
+			$em->beginTransaction();
 			
 			$Estado = '1';
 			$FechaReg = new \DateTime();
 			$Observacion = $datos["observacion"];
+			
+			$EmpleadoTrans = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:VenPersonal')
+			->findOneBy(array('npersonalId' => 1));
 			
 			$Cliente = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:VenCliente')
@@ -70,6 +81,9 @@ class AdministrarVentaController extends Controller {
 			$NumCuotas = $datos["num_cuotas"];
 			$FechaDiaPago = date_create_from_format('d/m/Y', $datos["prim_cuota"]);
 			
+			$DesTrans = "Venta al Contado";
+			$MontoTrans = $datos["total"];
+			
 			$Venta = new VenVenta();
 			$Venta -> setCventaest($Estado);
 			$Venta -> setCventafecreg($FechaReg);
@@ -85,16 +99,50 @@ class AdministrarVentaController extends Controller {
 			$Venta -> setNventatotamt($Amortizacion);
 			$Venta -> setNventatotapag($Total);
 			
-			$em = $this->getDoctrine()->getEntityManager();
-			$em->beginTransaction();
-			try {
-				$em->persist($Venta);
-				$em->flush();
-				
+			$em->persist($Venta);
+			
+			if($TipoPago == '2'){
+				$VentaCredito = new VenCredito();
+				$VentaCredito -> setCcreditoest("1");
+				$VentaCredito -> setNcreditoformapag($TipoPago);
+				$VentaCredito -> setNvencreditomontinicial($Amortizacion);
+				$VentaCredito -> setNvencreditoncuota($NumCuotas);
+				$VentaCredito -> setNvencreditoppag(100/$NumCuotas);
+				$VentaCredito -> setNventa($Venta);
+					
+				$em->persist($VentaCredito);
+					
+				for($i = 0 ; $i < $NumCuotas; $i++){
+			
+					$CronoPago = new VenCronpago();
+					$CronoPago -> setNcronpagofecpago($FechaDiaPago);
+					$CronoPago -> setNcronpagofecreg($FechaDiaPago);
+					$CronoPago -> setNcronpagomoncouapg($datos["montocuota"]);
+					$CronoPago -> setNcronpagomoncouapl(0);
+					$CronoPago -> setNvencredito($VentaCredito);
+					$CronoPago -> setNcronpagonrocuota($i+1);
+			
+					$em->persist($CronoPago);
+			
+					$FechaDiaPago -> modify('+7 day');
+				}
+					
+				$DesTrans = "Venta Credito";
+				$MontoTrans = $datos["amortizacion"];
+			}
+			if($TipoPago == '3'){
+				$DesTrans = "Venta Separada";
+				$MontoTrans = $datos["amortizacion"];
+			}
+			else{
 				foreach($otherdata as $key => $data){
 					$Producto = $this->getDoctrine()
 					->getRepository('DicarsDataBundle:Producto')
 					->findOneBy(array('nproductoId' => $data['id']));
+					
+					$Stock = $Producto -> getNproductostock();
+					$Producto -> setNproductostock($Stock - $data['cantidad']);
+					
 					if($TipoPago == '1'){
 						$Unitario = $data['pcontado'];
 						$MontoPro = $data['totalcontado'];
@@ -103,49 +151,33 @@ class AdministrarVentaController extends Controller {
 						$Unitario = $data['pcredito'];
 						$MontoPro = $data['totalcredito'];
 					}
-					
+						
 					$DetVenta = new VenDetventa();
 					$DetVenta -> setNdetventacant( $data['cantidad']);
 					$DetVenta -> setNdetventadscto($data['descuento']);
-					$DetVenta -> setCdetventadesc($data['descoferta']);								
+					$DetVenta -> setCdetventadesc($data['descoferta']);
 					$DetVenta -> setNdetventaprecunt($Unitario);
 					$DetVenta -> setNdetventatot($MontoPro);
 					$DetVenta -> setNproducto($Producto);
 					$DetVenta -> setNventa($Venta);
-					
+						
 					$em->persist($DetVenta);
-					$em->flush();
 				}
+			}
+			
+			$Transaccion = new VenTransaccion();
+			$Transaccion -> setCtransacciondesc($DesTrans);
+			$Transaccion -> setDtransaccionfecreg($FechaReg);
+			$Transaccion -> setNpersonal($EmpleadoTrans);
+			$Transaccion -> setNtransaccionmont($MontoTrans);
+			$Transaccion -> setNtransacciontippag($TipoPago);
+			$Transaccion -> setNventa($Venta);
+			
+			$em -> persist($Transaccion);
+			
+			try {
 				
-				if($TipoPago == '2'){
-				
-					$VentaCredito = new VenCredito();
-					$VentaCredito -> setCcreditoest("1");
-					$VentaCredito -> setNcreditoformapag($TipoPago);
-					$VentaCredito -> setNvencreditomontinicial($Amortizacion);
-					$VentaCredito -> setNvencreditoncuota($NumCuotas);
-					$VentaCredito -> setNvencreditoppag(100/$NumCuotas);
-					$VentaCredito -> setNventa($Venta);
-					
-					$em->persist($VentaCredito);
-					$em->flush();
-					
-					for($i = 0 ; $i < $NumCuotas; $i++){
-						
-						$CronoPago = new VenCronpago();
-						$CronoPago -> setNcronpagofecpago($FechaDiaPago);
-						$CronoPago -> setNcronpagofecreg($FechaDiaPago);
-						$CronoPago -> setNcronpagomoncouapg($datos["montocuota"]);
-						$CronoPago -> setNcronpagomoncouapl(0);
-						$CronoPago -> setNvencredito($VentaCredito);
-						$CronoPago -> setNcronpagonrocuota($i+1);
-						
-						$em->persist($CronoPago);
-						$em->flush();
-						
-						$FechaDiaPago -> modify('+7 day');
-					}
-				}
+				$em -> flush();
 				
 			} catch (Exception $e) {
 				$em->rollback();

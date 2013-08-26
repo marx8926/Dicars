@@ -33,7 +33,6 @@ function initSlider(productos) {
 			$("#rquiredproducts").modal('show');
 		}
 		VentaUpdate();
-		CargarTablaResumen();
         e.preventDefault();
     });
     

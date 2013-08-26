@@ -389,6 +389,14 @@ function cargarDist(idselect, ubigeo, iddepend){
 	$select.html(result); 
 }
 
+/* idtagdist:es el id del select que acumulara los options de los distritos
+ * idtagprov:es el id del select que acumulara los options de los provincia
+ * idtagdep:es el id del select que acumulara los options de los departamento
+ * iddist: es el id por defecto que se le asignara al distrito
+ * iddist: es el id por defecto que se le asignara a la provincia
+ * iddep: es el id por defecto que se le asignara a departamento
+ * */
+
 function cargarUbigeo(idtagdist, idtagprov, idtagdep, iddist, idprov, iddep){
 	
 	cargarDep(idtagdep, ubigeos);

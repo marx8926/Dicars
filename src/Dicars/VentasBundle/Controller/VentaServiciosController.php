@@ -179,6 +179,7 @@ class VentaServiciosController extends Controller{
 					'nombre' => $producto['cProductoDesc'],
 					'pcontado' => $producto['PrecioContado_Dscto'],
 					'pcredito' => $producto['PrecioCredito_Dscto'],
+					'pcosto' => $producto['nProductoPCosto'],
 					'stock' => $producto['nProductoStock'],
 					'talla' => $producto['cProductoTalla'],
 					'marcaId' => $producto['nProductoMarca'],
