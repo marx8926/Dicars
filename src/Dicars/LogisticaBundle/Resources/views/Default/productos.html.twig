@@ -71,6 +71,8 @@ var ReloadTableRegistrar;
 var RowCallBackFunction;
 
 var Marcas;
+var codigo;
+var asInitVals = new Array();
 
 function cargarEditar(producto){			
 
@@ -151,7 +153,7 @@ $(document).ready(function(){
 	//mostrar Registrar Cliente------------------------------------>
 	$('.btn-registrar').click(function(e){
 		e.preventDefault();
-		$('#modalRegistro').modal('show');			
+		$('#modalRegistro').modal('show');
 	});
 
 	RowCallBackFunction = function(nRow, aData, iDisplayIndex){
@@ -165,7 +167,7 @@ $(document).ready(function(){
 			cargarEditar(aData);
 			$('#modalEditarDatos').modal('show');
 		});
-	}
+	};
 	
 	UrlaDTable = '{{ path("dicars_logistica_servicio_gettablaproductos") }}';
 	FormatoDTable = [
@@ -185,6 +187,7 @@ $(document).ready(function(){
 
 	enviar('RegistrarProductoForm', ReloadTableRegistrar);
 	enviar('EditarProductoForm',ReloadTableEditar);
+
 });
 </script>
 {% endblock %}

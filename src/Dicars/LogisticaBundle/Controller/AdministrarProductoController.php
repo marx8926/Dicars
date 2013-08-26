@@ -52,7 +52,7 @@ class AdministrarProductoController extends Controller{
 			$Producto_prec_contado = $datos["preciocontado"];
 			$Producto_prec_credito = $datos["preciocredito"];
 			$Producto_prec_costo = $datos["preciocosto"];
-			$Producto_cod_barra = "AGHJ3456";
+			$Producto_cod_barra = "000000000000";
 			$Producto_archivo = "Hola soy el archivo";
 			
 			$Producto_categoria =  $this->getDoctrine()
@@ -87,9 +87,21 @@ class AdministrarProductoController extends Controller{
 			
 			$em = $this->getDoctrine()->getEntityManager();
 			$em->beginTransaction();
+			
 			try {
 				$em->persist($Producto);
 				$em->flush();
+				
+				$sql = "call sp_generar_codigobarra";
+			
+				$smt = $em->getConnection()->prepare($sql);
+				$smt->execute();
+				
+				$codigos = $smt->fetchAll();
+				$codigo = $codigos[0]['codigo'];
+				$Producto->setCproductocodbarra($codigo);
+				$em->flush();
+				
 			} catch (Exception $e) {
 				$em->rollback();
 				$em->close();

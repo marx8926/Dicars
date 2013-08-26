@@ -492,5 +492,20 @@ public function getTablaProductosAction(){
 		$em->close();
 		return new JsonResponse(array('aaData' => $todo));
 	}
-
+	
+	public function getGenerarCodigoProductoAction(){		
+		$em = $this->getDoctrine()->getEntityManager();
+		
+		$sql = "call sp_generar_codigobarra";
+		
+		$smt = $em->getConnection()->prepare($sql);
+		$smt->execute();
+		
+		$codigos = $smt->fetchAll();
+		$codigo = $codigos[0]['codigo'];
+		
+		$em->clear();
+		$em->close();
+		return new Response($codigo);
+	}
 }

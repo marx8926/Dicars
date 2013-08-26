@@ -175,16 +175,13 @@ class VentaServiciosController extends Controller{
 		foreach ($productos as $key => $producto){
 			$todo[] = array(
 					'id' => $producto['nProducto_id'] ,
-					'talla' => $producto['cProductoTalla'] ,
-					'nombre' => $producto['cProductoDesc'],
+					'desc' => $producto['cProductoDesc']." - ".$producto['cMarcaDesc']." - ".$producto['cProductoTalla'],
 					'pcontado' => $producto['PrecioContado_Dscto'],
 					'pcredito' => $producto['PrecioCredito_Dscto'],
 					'pcosto' => $producto['nProductoPCosto'],
 					'stock' => $producto['nProductoStock'],
-					'talla' => $producto['cProductoTalla'],
 					'marcaId' => $producto['nProductoMarca'],
 					'descoferta' => $producto['DescripcionOferta'],
-					'marca' => $producto['cMarcaDesc'],
 					'categoriaId' => $producto['nCategoria_id'],
 					'categoria' => $producto['cCategoriaNom'],
 					'descuento' => $producto['nOfertaProductoPorc'] ,

@@ -230,7 +230,10 @@ function ajaxResponseData(namediv,path){
         url: path,
         async: false
         }).responseText;
-	$('#'+namediv).html(data);
+	if(namediv !=null)
+		$('#'+namediv).html(data);
+	else
+		return data;
 }
 
 function ajaxResponseDataPost(namediv,path){

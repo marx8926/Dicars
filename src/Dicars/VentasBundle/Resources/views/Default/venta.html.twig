@@ -49,7 +49,7 @@
 								<thead>
 								  	<tr>
 									  	<th>Código</th>
-									  	<th>Nombre</th>
+									  	<th>Descripción</th>
 								  		<th>Cantidad</th>
 								  		<th>P Contado</th>
 								  		<th>P Credito</th>
@@ -216,9 +216,7 @@
 				  <thead>
 					  <tr>
 						  <th>Código</th>
-						  <th>Descripcion</th>
-						  <th>Marca</th>
-						  <th>Talla</th>
+						  <th>Descripción</th>
 						  <th>Stock</th>
 						  <th>Precio Contado</th>
 						  <th>Precio Credito</th>
@@ -442,16 +440,14 @@ $(document).ready(function(){
 	UrlaDTableProductos = "{{ path('dicars_ventas_servicio_getventaproductosoferta') }}";
 	FormatoDTableProductos = [
 		              { "sWidth": "12%","mDataProp": "id"},
-		              { "sWidth": "12%","mDataProp": "nombre"},
-		              { "sWidth": "12%","mDataProp": "marca"},
-		              { "sWidth": "12%","mDataProp": "talla"},
+		              { "sWidth": "12%","mDataProp": "desc"},
 		              { "sWidth": "12%","mDataProp": "stock"},
 		              { "sWidth": "12%","mDataProp": "pcontado"},
 		              { "sWidth": "12%","mDataProp": "pcredito"},
 		              { "sWidth": "12%","mDataProp": "descuento"}
 		              ];
 	BuscarProductosTable = createDataTable('select_producto_table',UrlaDTableProductos,FormatoDTableProductos,null,RowCallBackFunctionProducto);
-
+	
 	
 	UrlaDTableClientes = '{{ path("dicars_ventas_servicio_gettablaclientes") }}';
 	FormatoDTableClientes = [
@@ -465,7 +461,7 @@ $(document).ready(function(){
 	SelectProductosTable =$("#select_productos_venta").dataTable({
 		"aoColumns": [
 		              { "sWidth": "12%","mDataProp": "id"},
-		              { "sWidth": "12%","mDataProp": "nombre"},
+		              { "sWidth": "12%","mDataProp": "desc"},
 		              { "sWidth": "12%","mDataProp": "cantidad"},
 		              { "sWidth": "12%","mDataProp": "pcontado"},
 		              { "sWidth": "12%","mDataProp": "pcredito"},
