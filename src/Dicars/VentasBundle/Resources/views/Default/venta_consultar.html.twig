@@ -1,0 +1,98 @@
+{% extends "::baseCharisma.html.twig" %}
+{% block title %}Consultar - Ventas -{% endblock %}
+{% block breadcrumb %}
+<li>
+	<a href="{{path('dicars_ventas_consultar')}}">Ventas</a><span class="divider">/</span>
+</li>
+<li>
+	<a href="{{path('dicars_ventas_consultar')}}">Consultar</a>
+</li>
+{% endblock %}
+{% block content %}
+<div class="row-fluid">		
+	<div class="box span12">
+		<div class="box-header well" data-original-title>
+			<h2>VENTAS: CONSULTAR</h2>
+			<div class="box-icon">
+				<a href="{{path('dicars_ventas_venta_productos')}}" class="btn btn-round" alt="Registrar Ventas"><i class="icon-plus"></i></a>
+			</div>
+		</div>
+		<div class="box-content">
+			<div class="form-horizontal">
+				<fieldset>
+					<div class="control-group">
+						<label class="control-label">Del</label>
+						<div class="controls">
+							<input type="text" class="input-xlarge datepicker" id="date01" value="02/06/2013" style="margin: 0 18px 0 0;">
+							<label style="display:inline;">Al</label>
+					  		<input type="text" class="input-xlarge datepicker" id="date02" value="02/06/2013" style="margin: 0 18px;">
+						</div>
+					</div>
+					<div class="control-group">
+						<div class="controls">
+							<label class="checkbox inline">
+								<input type="checkbox" id="vendedorCheck" value="option1"> Por Vendedor
+							</label>
+							<input id="vendedor" name="vendedor" type="text" style="margin: 0 18px;">
+						</div>
+					</div>
+				</fieldset>
+			</div>
+			<hr>
+			<table id="ventas_table" class="table table-striped table-bordered bootstrap-datatable datatable">
+				<thead>
+					<tr>
+						<th>Fecha de Registro</th>
+						<th>Cliente</th>
+					  	<th>Vendedor</th>
+					  	<th>Tipo de Pago</th>
+					  	<th>Monto</th>
+					  	<th>Estado</th>
+					  	<th></th>
+					  	<th></th>
+				  	</tr>
+			  	</thead>   
+			  	<tbody>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+{% endblock %}
+{% block javascript %}
+<script src="{{ asset('js/util/functiongen.js') }}"></script>
+<script src="{{ asset('js/util/datatable_plugins.js') }}"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	CargarBotones = function(){
+		//mostrar Editar Cliente------------------------------------>
+		$('.btn-editar').unbind();
+		$('.btn-editar').click(function(e){
+			id=$(this).attr("id-data");
+			$(this).attr('href',"{{ path('dicars_logistica_editar_ingresoproductos',{'idingprode':''}) }}/"+id);
+		});
+		//mostrar Ver Datos Trabajador------------------------------------>
+		$('.btn-datos').unbind();
+		$('.btn-datos').click(function(e){
+			id=$(this).attr("id-data");
+			$(this).attr('href',"{{ path('dicars_ventas_ver',{'idventa':''}) }}/"+id);
+		});
+	};
+	
+	UrlaDTable = '{{ path("dicars_ventas_servicio_gettablaventas") }}';
+	FormatoDTable = [
+				  { "sWidth": "12%","mDataProp": "fecha_reg"},
+	              { "sWidth": "13%","mDataProp": "cliente"},
+	              { "sWidth": "13%","mDataProp": "vendedor"},
+	              { "sWidth": "12%","mDataProp": "tipo_pago"},
+	              { "sWidth": "12%","mDataProp": "monto"},
+	              { "sWidth": "12%","mDataProp": "estado"},
+	              { "sWidth": "12%","mDataProp": "ver_btn"},
+	              { "sWidth": "12%","mDataProp": "edit_btn"}
+	              ];
+	SalProdTable = createDataTable('ventas_table',UrlaDTable,FormatoDTable,CargarBotones);		
+	});
+
+</script>
+{% endblock %}

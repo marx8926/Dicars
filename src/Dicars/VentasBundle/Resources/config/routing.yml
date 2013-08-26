@@ -61,3 +61,9 @@ dicars_ventas_view_editar_oferta:
 dicars_ventas_ofertas:
     pattern: /ofertas
     defaults: { _controller: DicarsVentasBundle:Default:ofertas }
+dicars_ventas_consultar:
+    pattern: /venta_consultar
+    defaults: { _controller: DicarsVentasBundle:Default:venta_consultar }
+dicars_ventas_ver:
+    pattern: /venta_ver/{idventa}
+    defaults: { _controller: DicarsVentasBundle:Default:venta_ver }

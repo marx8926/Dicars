@@ -350,4 +350,81 @@ class VentaServiciosController extends Controller{
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
+	public function getTablaVentasAction(){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$Ventas = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:VenVenta')
+		->findAll();
+	
+		$todo = array();
+		foreach ($Ventas as $key => $Venta){
+			/*
+			anulada 0
+			pendiente/deuda 1
+			pagada/cancelada 2
+			separada 3
+			*/
+			
+			$estado = '';
+			if($Venta -> getCventaest() == 0)
+				$estado = "<span class='label'>Anulada</span>";
+			else if ($Venta -> getCventaest() == 1)
+				$estado = "<span class='label label-important'>Pendiente/Deuda</span>";
+			else if ($Venta -> getCventaest() == 2)
+				$estado = "<span class='label label-success'>Pagada/Cancelada</span>";
+			else
+				$estado = "<span class='label label-warning'>Separada</span>";
+			
+			$venta_trans = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:VenTransaccion')
+			->findOneBy(array('nventa' => $Venta -> getNventaId()));
+			
+			$tipo_pago = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:Constante')
+			->findOneBy(array('nconstanteId' => $Venta -> getNventatippag()));
+			
+			$tipo_moneda = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:VenTipomoneda')
+			->findOneBy(array('ntipomoneda' => $Venta -> getNtipomoneda()));
+			
+			$local = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:Local')
+			->findOneBy(array('nlocalId' => $Venta -> getNlocal()));
+			
+			$tipo_IGV = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:VenTipoigv')
+			->findOneBy(array('ntipoigv' => $Venta -> getNtipoigv()));
+			
+			$todo[] = array(
+					'id' => $Venta -> getNventaId(),
+					'fecha_reg' => $Venta -> getCventafecreg() -> format('d/m/Y'),
+					'cliente' => $Venta -> getNcliente() -> getCclientenom()." ".$Venta -> getNcliente() -> getCclienteape() ,
+					'vendedor' => $venta_trans -> getNpersonal() -> getCpersonalnom()." ".$venta_trans -> getNpersonal() -> getCpersonalape(), 
+					'tipo_pagoId' => $Venta -> getNventatippag(),
+					'tipo_pago' => $tipo_pago -> getCconstantedesc(),
+					'monto' => $Venta -> getNventatotapag(), 
+					'estadoId' => $Venta -> getCventaest(),
+					'estado' => $estado,
+					'tipo_monedaId' => $Venta -> getNtipomoneda(),
+					'tipo_moneda' => $tipo_moneda,
+					'subtotal' => $Venta -> getNventasubtotal(),
+					'descuento' => $Venta -> getNventadscto(),
+					'observacion' => $Venta -> getCventaobsv(),
+					'amortizado' => $Venta -> getNventatotamt(),
+					'saldo' => $Venta -> getNventasaldo(),
+					'localId' => $Venta -> getNlocal(),
+					'local' => $local,
+					'tipo_IGVId' => $Venta -> getNtipoigv(),
+					'tipo_IGV' => $tipo_IGV,
+					'ver_pagar' => "<a class='btn btn-success btn-pagar' href='#'><i class='icon-zoom-in icon-white'></i> Ver Creditos</a>",
+					'ver_btn' => "<a class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
+					'edit_btn' => "<a class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
+					'elim_btn' => "<a class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
+		}
+		$em->clear();
+		$em->close();
+		return new JsonResponse(array('aaData' => $todo));
+	}
+	
 }

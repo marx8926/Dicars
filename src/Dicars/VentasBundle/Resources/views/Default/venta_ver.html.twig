@@ -1,0 +1,143 @@
+{% extends "::baseCharisma.html.twig" %}
+{% block title %}Ver Pedido - Logística -{% endblock %}
+{% block breadcrumb %}
+<li>
+	<a href="{{path('dicars_ventas_consultar')}}">Ventas</a><span class="divider">/</span>
+</li>
+<li>
+	<a href="#">Ver</a>
+</li>
+{% endblock %}
+{% block content %}
+<div class="row-fluid sortable">		
+	<div class="box span12">
+		<div class="box-header well" data-original-title>
+			<h2>VENTAS: VER DATOS</h2>
+		</div>
+		<div class="box-content">
+			<div class="form-horizontal">
+				<fieldset>
+					<div class="row-fluid">
+						<div class="span6">
+							<div class="control-group">
+								<label class="control-label" for="codigo">Fecha</label>
+								<div class="controls">
+									<span class="help-inline" style="margin-top:5px;">{{ fecha_reg }}</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="vendedor">Vendedor</label>
+								<div class="controls">
+									<span class="help-inline" style="margin-top:5px;">{{ vendedor }}</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="cliente">Cliente</label>
+								<div class="controls">
+								  	<span class="help-inline" style="margin-top:5px;">{{ cliente }}</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="observaciones">Observaciones</label>
+								<div class="controls">
+									<span class="help-inline" style="margin-top:5px;">{{ observacion }}</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="tipo_pago">Tipo de Pago</label>
+								<div class="controls">
+									<span class="help-inline" style="margin-top:5px;">{{ tipo_pago }}</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="tipo_moneda">Tipo de Moneda</label>
+								<div class="controls">
+									<span class="help-inline" style="margin-top:5px;">{{ tipo_moneda }}</span>
+								</div>
+							</div>
+						</div>
+						<div class="span6">
+							<div class="control-group">
+								<label class="control-label" for="monto">Monto</label>
+								<div class="controls">
+									<span class="help-inline" style="margin-top:5px;">{{ monto }}</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="descuento">Descuento</label>
+								<div class="controls">
+									<span class="help-inline" style="margin-top:5px;">{{ descuento }}</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="subtotal">Subtotal</label>
+								<div class="controls">
+									<span class="help-inline" style="margin-top:5px;">{{ subtotal }}</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="igv">IGV</label>
+								<div class="controls">
+									<span class="help-inline" style="margin-top:5px;">{{ tipo_IGV }}</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="total">Total</label>
+								<div class="controls">
+									<span class="help-inline" style="margin-top:5px;">{{ total }}</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="acuenta">A cuenta</label>
+								<div class="controls">
+									<span class="help-inline" style="margin-top:5px;">{{ amortizado }}</span>
+								</div>
+							</div>
+						</div>
+					</div>
+				</fieldset>
+			</div>
+			<hr>
+			<h3>Detalle de la Venta</h3>
+			<hr>
+			<table id="productos_table" class="table table-striped table-bordered bootstrap-datatable datatable">
+				<thead>
+					  <tr>
+						  <th>Código Producto</th>
+						  <th>Producto</th>
+						  <th>Cantidad</th>
+						  <th>Precio</th>
+					  </tr>
+				</thead>   
+				<tbody>
+				</tbody>
+			</table>
+			<div class="form-actions">
+				<a href="{{ path('dicars_ventas_consultar') }}" class="btn btn-success"><i class="icon icon-white icon-arrowthick-w"></i> Volver</a>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+{% block javascript %}
+<script src="{{ asset('js/util/functiongen.js') }}"></script>
+<script src="{{ asset('js/util/datatable_plugins.js') }}"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+
+	UrlaDTablePedidos = '{{ path("dicars_logistica_servicio_gettabladetordcom",{'idventa':''}) }}/{{ id }}';
+	FormatoDTablePedidos = [
+		              { "sWidth": "16%","mDataProp": "producto_codigo"},
+		              { "sWidth": "16%","mDataProp": "cantidad"},
+		              { "sWidth": "16%","mDataProp": "pordcom"},
+		              { "sWidth": "16%","mDataProp": "importe"},
+		              { "sWidth": "16%","mDataProp": "estado"},
+		              { "sWidth": "16%","mDataProp": "ordped_id"}
+		              ];
+	BuscarPedidosTable = createDataTable('productos_table',UrlaDTablePedidos,FormatoDTablePedidos);
+	
+});
+
+
+</script>
+{% endblock %}
