@@ -205,5 +205,51 @@ class AdministrarVentaController extends Controller {
 		$return = json_encode($return);
 		return new Response($return,200,array('Content-Type'=>'application/json'));
 	}
+	
+	public function AnularVentaAction(){
+		$request = $this->get('request');
+		$form = $request->request->get('formulario');
+		
+		$datos = array();
+		parse_str($form,$datos);
+		
+		$estado = null;
+		
+		if ($form!=null){
+			$venta_id = $datos['venta_id'];
+			
+			$venta_estado = 0;
+			
+			$Venta = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:VenVenta')
+			->findOneBy(array('nventaId' => $venta_id));
+			
+			$Venta->setCventaest($venta_estado);
+			
+			$em = $this->getDoctrine()->getEntityManager();
+			$em->beginTransaction();
+			try {
+				$em->flush();
+			} catch (Exception $e) {
+				$em->rollback();
+				$em->close();
+				$return = array("responseCode"=>400, "greeting"=>"Bad");
+					
+				throw $e;
+			}
+				
+			$em->commit();
+			$em->clear();
+			$em->close();
+				
+			$return = array("responseCode"=>200, "datos"=>$datos);
+		}
+		else {
+			$return = array("responseCode"=>400, "greeting"=>"Bad");
+		}
+			
+		$return = json_encode($return);
+		return new Response($return,200,array('Content-Type'=>'application/json'));
+	}
 
 }

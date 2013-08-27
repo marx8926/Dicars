@@ -58,31 +58,18 @@
 			</table>
 			<div class="modal hide fade" id="modalAnular">
 				<div class="modal-header">
-					<h3>Registrar Cargo</h3>
+					<h3>Anular Venta</h3>
 				</div>
-				<form id="RegistrarCargoForm" class="form-horizontal" method="post" action="{{ path('dicars_admin_registrar_cargo') }}">
+				<form id="AnularForm" class="form-horizontal" method="post" action="{{ path('dicars_admin_registrar_cargo') }}">
 					<div class="modal-body">
-						<fieldset>
-						  	<div class="control-group">
-								<label class="control-label" for="nom_cargo">Nombre de Cargo</label>
-								<div class="controls">
-							  		<input class="input-xlarge focused" id="nom_cargo" name="nom_cargo" type="text" pattern="|^[a-zA-Z ñÑáéíóúüç.0-9]*$|" required>
-								</div>
-						  	</div>
-						  	<div class="control-group">
-								<label class="control-label" for="selectEstado">Estado</label>
-								<div class="controls">
-							  		<select id="selectEstado" name="selectEstado" required>
-										<option value="1">Habilitado</option>
-										<option value="0">Inhabilitado</option>
-									</select>
-								</div>
-						  	</div>
-						</fieldset>
+						<input id="venta_id" name="venta_id" type="hidden" required>
+						<div class="alert alert-error">
+							¿Desea realmente <strong>ANULAR</strong> esta venta?
+						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="reset" class="btn btn-cancelarprov" data-dismiss="modal">Cancelar</button>
-						<button type="submit" class="btn btn-primary ">Guardar</button>
+						<button type="submit" class="btn btn-primary ">Sí</button>
 					</div>
 				</form>
 			</div>
@@ -108,6 +95,12 @@ $(document).ready(function(){
 		$('.btn-datos').click(function(e){
 			id=$(this).attr("id-data");
 			$(this).attr('href',"{{ path('dicars_ventas_ver',{'idventa':''}) }}/"+id);
+		});
+		$('.btn-elim').click(function(e){
+			id=$(this).attr("id-data");
+			$('#venta_id').val(id);
+			/*$(this).attr('href',"{{ path('dicars_ventas_ver',{'idventa':''}) }}/"+id);*/
+			$('#modalAnular').modal('show');
 		});
 	};
 	

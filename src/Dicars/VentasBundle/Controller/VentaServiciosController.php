@@ -366,6 +366,7 @@ class VentaServiciosController extends Controller{
 			pagada/cancelada 2
 			separada 3
 			*/
+			$elim = ''; //SOLO SE ANULAN LAS VENTAS AL CONTADO
 			$edit = '';
 			$estado = '';
 			if($Venta -> getCventaest() == 0)
@@ -423,7 +424,7 @@ class VentaServiciosController extends Controller{
 					'ver_pagar' => "<a class='btn btn-success btn-pagar' href='#'><i class='icon-zoom-in icon-white'></i> Ver Creditos</a>",
 					'ver_btn' => "<a id-data='".$Venta -> getNventaId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
 					'edit_btn' => $edit,
-					'elim_btn' => "<a id-data='".$Venta -> getNventaId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Anular</a>");
+					'elim_btn' => "<a id-data='".$Venta -> getNventaId()."' class='btn btn-danger btn-elim' href='#'><i class='icon-trash icon-white'></i>Anular</a>");
 		}
 		$em->clear();
 		$em->close();
