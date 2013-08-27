@@ -50,11 +50,42 @@
 					  	<th>Estado</th>
 					  	<th></th>
 					  	<th></th>
+					  	<th></th>
 				  	</tr>
 			  	</thead>   
 			  	<tbody>
 				</tbody>
 			</table>
+			<div class="modal hide fade" id="modalAnular">
+				<div class="modal-header">
+					<h3>Registrar Cargo</h3>
+				</div>
+				<form id="RegistrarCargoForm" class="form-horizontal" method="post" action="{{ path('dicars_admin_registrar_cargo') }}">
+					<div class="modal-body">
+						<fieldset>
+						  	<div class="control-group">
+								<label class="control-label" for="nom_cargo">Nombre de Cargo</label>
+								<div class="controls">
+							  		<input class="input-xlarge focused" id="nom_cargo" name="nom_cargo" type="text" pattern="|^[a-zA-Z ñÑáéíóúüç.0-9]*$|" required>
+								</div>
+						  	</div>
+						  	<div class="control-group">
+								<label class="control-label" for="selectEstado">Estado</label>
+								<div class="controls">
+							  		<select id="selectEstado" name="selectEstado" required>
+										<option value="1">Habilitado</option>
+										<option value="0">Inhabilitado</option>
+									</select>
+								</div>
+						  	</div>
+						</fieldset>
+					</div>
+					<div class="modal-footer">
+						<button type="reset" class="btn btn-cancelarprov" data-dismiss="modal">Cancelar</button>
+						<button type="submit" class="btn btn-primary ">Guardar</button>
+					</div>
+				</form>
+			</div>
 		</div>
 	</div>
 </div>
@@ -82,16 +113,17 @@ $(document).ready(function(){
 	
 	UrlaDTable = '{{ path("dicars_ventas_servicio_gettablaventas") }}';
 	FormatoDTable = [
-				  { "sWidth": "12%","mDataProp": "fecha_reg"},
-	              { "sWidth": "13%","mDataProp": "cliente"},
-	              { "sWidth": "13%","mDataProp": "vendedor"},
-	              { "sWidth": "12%","mDataProp": "tipo_pago"},
-	              { "sWidth": "12%","mDataProp": "total"},
+				  { "sWidth": "8%","mDataProp": "fecha_reg"},
+	              { "sWidth": "15%","mDataProp": "cliente"},
+	              { "sWidth": "15%","mDataProp": "vendedor"},
+	              { "sWidth": "10%","mDataProp": "tipo_pago"},
+	              { "sWidth": "7%","mDataProp": "total"},
 	              { "sWidth": "12%","mDataProp": "estado"},
 	              { "sWidth": "12%","mDataProp": "ver_btn"},
-	              { "sWidth": "12%","mDataProp": "edit_btn"}
+	              { "sWidth": "10%","mDataProp": "elim_btn"},
+	              { "sWidth": "10%","mDataProp": "edit_btn"}
 	              ];
-	SalProdTable = createDataTable('ventas_table',UrlaDTable,FormatoDTable,CargarBotones);		
+	VentasTable = createDataTable('ventas_table',UrlaDTable,FormatoDTable,CargarBotones);		
 	});
 
 </script>

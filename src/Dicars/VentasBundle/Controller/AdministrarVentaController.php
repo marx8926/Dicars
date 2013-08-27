@@ -47,7 +47,6 @@ class AdministrarVentaController extends Controller {
 			$em = $this->getDoctrine()->getEntityManager();
 			$em->beginTransaction();
 			
-			$Estado = '1';
 			$FechaReg = new \DateTime();
 			$Observacion = $datos["observacion"];
 			
@@ -83,6 +82,15 @@ class AdministrarVentaController extends Controller {
 			
 			$DesTrans = "Venta al Contado";
 			$MontoTrans = $datos["total"];
+			
+			if ($Saldo == 0) 
+				$Estado = '2'; //pagada/cancelada
+			else if($Saldo > 0 && $TipoPago == 3)
+				$Estado = '3'; //separada
+			else if($Saldo > 0 && $TipoPago == 2)
+				$Estado = '1'; //pendiente/deuda
+			else
+				$Estado = '0'; //anulada
 			
 			$Venta = new VenVenta();
 			$Venta -> setCventaest($Estado);
@@ -134,35 +142,36 @@ class AdministrarVentaController extends Controller {
 				$DesTrans = "Venta Separada";
 				$MontoTrans = $datos["amortizacion"];
 			}
-			else{
-				foreach($otherdata as $key => $data){
-					$Producto = $this->getDoctrine()
-					->getRepository('DicarsDataBundle:Producto')
-					->findOneBy(array('nproductoId' => $data['id']));
-					
+			
+			foreach($otherdata as $key => $data){
+				$Producto = $this->getDoctrine()
+				->getRepository('DicarsDataBundle:Producto')
+				->findOneBy(array('nproductoId' => $data['id']));
+				
+				if($TipoPago != '3'){
 					$Stock = $Producto -> getNproductostock();
 					$Producto -> setNproductostock($Stock - $data['cantidad']);
-					
-					if($TipoPago == '1'){
-						$Unitario = $data['pcontado'];
-						$MontoPro = $data['totalcontado'];
-					}
-					else{
-						$Unitario = $data['pcredito'];
-						$MontoPro = $data['totalcredito'];
-					}
-						
-					$DetVenta = new VenDetventa();
-					$DetVenta -> setNdetventacant( $data['cantidad']);
-					$DetVenta -> setNdetventadscto($data['descuento']);
-					$DetVenta -> setCdetventadesc($data['descoferta']);
-					$DetVenta -> setNdetventaprecunt($Unitario);
-					$DetVenta -> setNdetventatot($MontoPro);
-					$DetVenta -> setNproducto($Producto);
-					$DetVenta -> setNventa($Venta);
-						
-					$em->persist($DetVenta);
 				}
+				
+				if($TipoPago == '2'){
+					$Unitario = $data['pcredito'];
+					$MontoPro = $data['totalcredito'];
+				}
+				else{
+					$Unitario = $data['pcontado'];
+					$MontoPro = $data['totalcontado'];
+				}
+					
+				$DetVenta = new VenDetventa();
+				$DetVenta -> setNdetventacant( $data['cantidad']);
+				$DetVenta -> setNdetventadscto($data['descuento']);
+				$DetVenta -> setCdetventadesc($data['descoferta']);
+				$DetVenta -> setNdetventaprecunt($Unitario);
+				$DetVenta -> setNdetventatot($MontoPro);
+				$DetVenta -> setNproducto($Producto);
+				$DetVenta -> setNventa($Venta);
+					
+				$em->persist($DetVenta);
 			}
 			
 			$Transaccion = new VenTransaccion();

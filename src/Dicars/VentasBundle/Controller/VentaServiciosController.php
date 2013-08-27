@@ -422,7 +422,7 @@ class VentaServiciosController extends Controller{
 					'ver_pagar' => "<a class='btn btn-success btn-pagar' href='#'><i class='icon-zoom-in icon-white'></i> Ver Creditos</a>",
 					'ver_btn' => "<a id-data='".$Venta -> getNventaId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
 					'edit_btn' => $edit,
-					'elim_btn' => "<a class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
+					'elim_btn' => "<a id-data='".$Venta -> getNventaId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Anular</a>");
 		}
 		$em->clear();
 		$em->close();
