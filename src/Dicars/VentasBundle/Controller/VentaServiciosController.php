@@ -365,7 +365,7 @@ class VentaServiciosController extends Controller{
 			pagada/cancelada 2
 			separada 3
 			*/
-			
+			$edit = '';
 			$estado = '';
 			if($Venta -> getCventaest() == 0)
 				$estado = "<span class='label'>Anulada</span>";
@@ -373,8 +373,10 @@ class VentaServiciosController extends Controller{
 				$estado = "<span class='label label-important'>Pendiente/Deuda</span>";
 			else if ($Venta -> getCventaest() == 2)
 				$estado = "<span class='label label-success'>Pagada/Cancelada</span>";
-			else
+			else{
 				$estado = "<span class='label label-warning'>Separada</span>";
+				$edit = "<a id-data='".$Venta -> getNventaId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>";
+			}
 			
 			$venta_trans = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:VenTransaccion')
@@ -403,11 +405,11 @@ class VentaServiciosController extends Controller{
 					'vendedor' => $venta_trans -> getNpersonal() -> getCpersonalnom()." ".$venta_trans -> getNpersonal() -> getCpersonalape(), 
 					'tipo_pagoId' => $Venta -> getNventatippag(),
 					'tipo_pago' => $tipo_pago -> getCconstantedesc(),
-					'monto' => $Venta -> getNventatotapag(), 
+					'total' => $Venta -> getNventatotapag(), 
 					'estadoId' => $Venta -> getCventaest(),
 					'estado' => $estado,
 					'tipo_monedaId' => $Venta -> getNtipomoneda(),
-					'tipo_moneda' => $tipo_moneda,
+					'tipo_moneda' => $tipo_moneda -> getCtipomonedadesc(),
 					'subtotal' => $Venta -> getNventasubtotal(),
 					'descuento' => $Venta -> getNventadscto(),
 					'observacion' => $Venta -> getCventaobsv(),
@@ -416,10 +418,10 @@ class VentaServiciosController extends Controller{
 					'localId' => $Venta -> getNlocal(),
 					'local' => $local,
 					'tipo_IGVId' => $Venta -> getNtipoigv(),
-					'tipo_IGV' => $tipo_IGV,
+					'tipo_IGV' => $tipo_IGV -> getNtipoigvproc(),
 					'ver_pagar' => "<a class='btn btn-success btn-pagar' href='#'><i class='icon-zoom-in icon-white'></i> Ver Creditos</a>",
-					'ver_btn' => "<a class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
-					'edit_btn' => "<a class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
+					'ver_btn' => "<a id-data='".$Venta -> getNventaId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
+					'edit_btn' => $edit,
 					'elim_btn' => "<a class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
 		}
 		$em->clear();
@@ -427,4 +429,28 @@ class VentaServiciosController extends Controller{
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
+	public function getTablaVentaProductosByIdAction($idventa){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$VentaProductos = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:VenDetventa')
+		->findBy(array('nventa' => $idventa ));
+	
+		$todo = array();
+		foreach ($VentaProductos as $key => $VentaProducto){
+			$Producto = $VentaProducto -> getNproducto();
+				
+			$todo[] = array(
+					'idproducto' => $Producto -> getNproductoId(),
+					'productodesc' => $Producto -> getCproductodesc(),
+					'cantidad' => $VentaProducto -> getNdetventacant() ,
+					'precio'=> $VentaProducto -> getNdetventaprecunt(),
+					'importe' => $VentaProducto -> getNdetventatot(),
+					'elim_btn' => "<a class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>"
+					);
+		}
+		$em->clear();
+		$em->close();
+		return new JsonResponse(array('aaData' => $todo));
+	}	
 }

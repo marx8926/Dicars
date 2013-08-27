@@ -45,3 +45,6 @@ dicars_ventas_servicio_gettablaclientesbyzona:
 dicars_ventas_servicio_gettablaventas:
     pattern:  /servicio_gettablaventas
     defaults: { _controller: DicarsVentasBundle:VentaServicios:getTablaVentas }
+dicars_ventas_servicio_gettablaventaproductosbyid:
+    pattern:  /servicio_gettablaventaproductosbyid/{idventa}
+    defaults: { _controller: DicarsVentasBundle:VentaServicios:getTablaVentaProductosById }

@@ -91,7 +91,7 @@ class DefaultController extends Controller
     {
     	$Venta = $this->getDoctrine()
     	->getRepository('DicarsDataBundle:VenVenta')
-    	->findOneBy(array('nventa' => $idventa));
+    	->findOneBy(array('nventaId' => $idventa));
     
     	if($Venta -> getCventaest() == 0)
 			$estado = "<span class='label'>Anulada</span>";
@@ -122,27 +122,27 @@ class DefaultController extends Controller
 		->getRepository('DicarsDataBundle:VenTipoigv')
 		->findOneBy(array('ntipoigv' => $Venta -> getNtipoigv()));
     
-    	return $this->render('DicarsLogisticaBundle:Default:ingreso_productos_ver.html.twig',array(
+    	return $this->render('DicarsVentasBundle:Default:venta_ver.html.twig',array(
     			'id' => $Venta -> getNventaId(),
-					'fecha_reg' => $Venta -> getCventafecreg() -> format('d/m/Y'),
-					'cliente' => $Venta -> getNcliente() -> getCclientenom()." ".$Venta -> getNcliente() -> getCclienteape() ,
-					'vendedor' => $venta_trans -> getNpersonal() -> getCpersonalnom()." ".$venta_trans -> getNpersonal() -> getCpersonalape(), 
-					'tipo_pagoId' => $Venta -> getNventatippag(),
-					'tipo_pago' => $tipo_pago -> getCconstantedesc(),
-					'monto' => $Venta -> getNventatotapag(), 
-					'estadoId' => $Venta -> getCventaest(),
-					'estado' => $estado,
-					'tipo_monedaId' => $Venta -> getNtipomoneda(),
-					'tipo_moneda' => $tipo_moneda,
-					'subtotal' => $Venta -> getNventasubtotal(),
-					'descuento' => $Venta -> getNventadscto(),
-					'observacion' => $Venta -> getCventaobsv(),
-					'amortizado' => $Venta -> getNventatotamt(),
-					'saldo' => $Venta -> getNventasaldo(),
-					'localId' => $Venta -> getNlocal(),
-					'local' => $local,
-					'tipo_IGVId' => $Venta -> getNtipoigv(),
-					'tipo_IGV' => $tipo_IGV
+				'fecha_reg' => $Venta -> getCventafecreg() -> format('d/m/Y'),
+				'cliente' => $Venta -> getNcliente() -> getCclientenom()." ".$Venta -> getNcliente() -> getCclienteape() ,
+				'vendedor' => $venta_trans -> getNpersonal() -> getCpersonalnom()." ".$venta_trans -> getNpersonal() -> getCpersonalape(), 
+				'tipo_pagoId' => $Venta -> getNventatippag(),
+				'tipo_pago' => $tipo_pago -> getCconstantedesc(),
+				'total' => $Venta -> getNventatotapag(), 
+				'estadoId' => $Venta -> getCventaest(),
+				'estado' => $estado,
+				'tipo_monedaId' => $Venta -> getNtipomoneda(),
+				'tipo_moneda' => $tipo_moneda -> getCtipomonedadesc(),
+				'subtotal' => $Venta -> getNventasubtotal(),
+				'descuento' => $Venta -> getNventadscto(),
+				'observacion' => $Venta -> getCventaobsv(),
+				'amortizado' => $Venta -> getNventatotamt(),
+				'saldo' => $Venta -> getNventasaldo(),
+				'localId' => $Venta -> getNlocal(),
+				'local' => $local,
+				'tipo_IGVId' => $Venta -> getNtipoigv(),
+				'tipo_IGV' => $tipo_IGV -> getNtipoigvproc()
     	));
     }
 }

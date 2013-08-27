@@ -58,39 +58,33 @@
 						</div>
 						<div class="span6">
 							<div class="control-group">
-								<label class="control-label" for="monto">Monto</label>
-								<div class="controls">
-									<span class="help-inline" style="margin-top:5px;">{{ monto }}</span>
-								</div>
-							</div>
-							<div class="control-group">
 								<label class="control-label" for="descuento">Descuento</label>
 								<div class="controls">
-									<span class="help-inline" style="margin-top:5px;">{{ descuento }}</span>
+									<span class="help-inline" style="margin-top:5px;">{{ descuento }} %</span>
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="subtotal">Subtotal</label>
 								<div class="controls">
-									<span class="help-inline" style="margin-top:5px;">{{ subtotal }}</span>
+									<span class="help-inline" style="margin-top:5px;">s/. {{ subtotal }}</span>
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="igv">IGV</label>
 								<div class="controls">
-									<span class="help-inline" style="margin-top:5px;">{{ tipo_IGV }}</span>
+									<span class="help-inline" style="margin-top:5px;">{{ tipo_IGV }} %</span>
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="total">Total</label>
 								<div class="controls">
-									<span class="help-inline" style="margin-top:5px;">{{ total }}</span>
+									<span class="help-inline" style="margin-top:5px;">s/. {{ total }}</span>
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label" for="acuenta">A cuenta</label>
 								<div class="controls">
-									<span class="help-inline" style="margin-top:5px;">{{ amortizado }}</span>
+									<span class="help-inline" style="margin-top:5px;">s/. {{ amortizado }}</span>
 								</div>
 							</div>
 						</div>
@@ -107,6 +101,7 @@
 						  <th>Producto</th>
 						  <th>Cantidad</th>
 						  <th>Precio</th>
+						  <th>Importe</th>
 					  </tr>
 				</thead>   
 				<tbody>
@@ -125,14 +120,13 @@
 <script type="text/javascript">
 $(document).ready(function(){
 
-	UrlaDTablePedidos = '{{ path("dicars_logistica_servicio_gettabladetordcom",{'idventa':''}) }}/{{ id }}';
+	UrlaDTablePedidos = '{{ path("dicars_ventas_servicio_gettablaventaproductosbyid",{'idventa':''}) }}/{{ id }}';
 	FormatoDTablePedidos = [
-		              { "sWidth": "16%","mDataProp": "producto_codigo"},
+		              { "sWidth": "16%","mDataProp": "idproducto"},
+		              { "sWidth": "16%","mDataProp": "productodesc"},
 		              { "sWidth": "16%","mDataProp": "cantidad"},
-		              { "sWidth": "16%","mDataProp": "pordcom"},
-		              { "sWidth": "16%","mDataProp": "importe"},
-		              { "sWidth": "16%","mDataProp": "estado"},
-		              { "sWidth": "16%","mDataProp": "ordped_id"}
+		              { "sWidth": "16%","mDataProp": "precio"},
+		              { "sWidth": "16%","mDataProp": "importe"}
 		              ];
 	BuscarPedidosTable = createDataTable('productos_table',UrlaDTablePedidos,FormatoDTablePedidos);
 	
