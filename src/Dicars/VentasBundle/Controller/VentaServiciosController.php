@@ -178,6 +178,7 @@ class VentaServiciosController extends Controller{
 					'desc' => $producto['cProductoDesc']." - ".$producto['cMarcaDesc']." - ".$producto['cProductoTalla'],
 					'pcontado' => $producto['PrecioContado_Dscto'],
 					'pcredito' => $producto['PrecioCredito_Dscto'],
+					'codigo' => $producto['cProductoCodBarra'],
 					'pcosto' => $producto['nProductoPCosto'],
 					'stock' => $producto['nProductoStock'],
 					'marcaId' => $producto['nProductoMarca'],

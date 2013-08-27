@@ -439,7 +439,7 @@ $(document).ready(function(){
 	
 	UrlaDTableProductos = "{{ path('dicars_ventas_servicio_getventaproductosoferta') }}";
 	FormatoDTableProductos = [
-		              { "sWidth": "12%","mDataProp": "id"},
+		              { "sWidth": "12%","mDataProp": "codigo"},
 		              { "sWidth": "12%","mDataProp": "desc"},
 		              { "sWidth": "12%","mDataProp": "stock"},
 		              { "sWidth": "12%","mDataProp": "pcontado"},
@@ -460,7 +460,7 @@ $(document).ready(function(){
 
 	SelectProductosTable =$("#select_productos_venta").dataTable({
 		"aoColumns": [
-		              { "sWidth": "12%","mDataProp": "id"},
+		              { "sWidth": "12%","mDataProp": "codigo"},
 		              { "sWidth": "12%","mDataProp": "desc"},
 		              { "sWidth": "12%","mDataProp": "cantidad"},
 		              { "sWidth": "12%","mDataProp": "pcontado"},

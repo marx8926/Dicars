@@ -229,11 +229,12 @@ function ajaxResponseData(namediv,path){
 	var data = $.ajax({
         url: path,
         async: false
-        }).responseText;
+        });
+	
 	if(namediv !=null)
 		$('#'+namediv).html(data);
 	else
-		return data;
+		return data.responseText;
 }
 
 function ajaxResponseDataPost(namediv,path){

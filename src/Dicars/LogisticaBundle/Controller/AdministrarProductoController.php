@@ -11,7 +11,7 @@ use Doctrine\ORM\TransactionRequiredException;
 
 class AdministrarProductoController extends Controller{
 
-	public function RegistrarProductoAction(){
+	public function RegistrarProductoAction(){		
 		
 		$request = $this->get('request');
 		$form = $request->request->get('formulario');
@@ -38,8 +38,7 @@ class AdministrarProductoController extends Controller{
 		$Producto_porc_uti = null;
 		$Producto_porc_uti_bruta = null;		
 		
-		if ($form != null){
-			//$Producto_id = $datos["codigo"];
+		if ($form != null){			
 			$Producto_talla = $datos["talla"];
 			$Producto_serie = $datos["serie"];
 			
@@ -52,7 +51,6 @@ class AdministrarProductoController extends Controller{
 			$Producto_prec_contado = $datos["preciocontado"];
 			$Producto_prec_credito = $datos["preciocredito"];
 			$Producto_prec_costo = $datos["preciocosto"];
-			$Producto_cod_barra = "000000000000";
 			$Producto_archivo = "Hola soy el archivo";
 			
 			$Producto_categoria =  $this->getDoctrine()
@@ -65,6 +63,7 @@ class AdministrarProductoController extends Controller{
 			$Producto_est = $datos["estado"];
 			$Producto_porc_uti = $datos["porcuti"];
 			$Producto_porc_uti_bruta = $datos["utibruta"];
+			$Producto_cod_barra = $datos['codigo'];
 			
 			$Producto = new Producto();
 			$Producto->setCproductotalla($Producto_talla);
@@ -75,7 +74,6 @@ class AdministrarProductoController extends Controller{
 			$Producto->setNproductopcontado($Producto_prec_contado);
 			$Producto->setNproductopcredito($Producto_prec_credito);
 			$Producto->setNproductopcosto($Producto_prec_costo);
-			$Producto->setCproductocodbarra($Producto_cod_barra);
 			$Producto->setCproductoimage($Producto_archivo);
 			$Producto->setNcategoria($Producto_categoria);
 			$Producto->setNproductostockmin($Producto_stock_min);
@@ -84,22 +82,12 @@ class AdministrarProductoController extends Controller{
 			$Producto->setCproductoest($Producto_est);
 			$Producto->setNproductoporcuti($Producto_porc_uti);
 			$Producto->setNproductoutibruta($Producto_porc_uti_bruta);
+			$Producto->setCproductocodbarra($Producto_cod_barra);
 			
 			$em = $this->getDoctrine()->getEntityManager();
-			$em->beginTransaction();
-			
+			$em->beginTransaction();			
 			try {
 				$em->persist($Producto);
-				$em->flush();
-				
-				$sql = "call sp_generar_codigobarra";
-			
-				$smt = $em->getConnection()->prepare($sql);
-				$smt->execute();
-				
-				$codigos = $smt->fetchAll();
-				$codigo = $codigos[0]['codigo'];
-				$Producto->setCproductocodbarra($codigo);
 				$em->flush();
 				
 			} catch (Exception $e) {
