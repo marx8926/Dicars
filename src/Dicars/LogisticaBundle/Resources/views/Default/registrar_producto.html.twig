@@ -36,7 +36,8 @@
 				<div class="control-group">
 				<label class="control-label" for="tipo">Tipo</label>
 				<div class="controls">
-				  <input class="input-xlarge focused" required pattern="|^([0-9]+\s*)+$|" maxlength="11" id="tipo" name="tipo" type="text">
+				  <select id="tipprod" required name="tipprod">
+				  </select>
 				</div>
 			  	</div>
 			  <div class="control-group">
@@ -114,14 +115,6 @@
 				<label class="control-label" for="utibruta">Uti Bruta</label>
 				<div class="controls">
 				  <input class="input-xlarge focused" required pattern="\d+(\.\d*)?" name="utibruta" id="utibruta" type="text">
-				</div>
-			  </div>
-			  <div class="control-group">
-			  	<label class="control-label">Código de Barras</label>
-			  	<div class="controls">
-					<figure>
-						<img src="" alt="Tarjeta">
-					</figure>
 				</div>
 			  </div>
 			</fieldset>

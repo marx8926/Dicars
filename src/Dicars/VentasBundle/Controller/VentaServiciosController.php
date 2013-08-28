@@ -360,6 +360,16 @@ class VentaServiciosController extends Controller{
 	
 		$todo = array();
 		foreach ($Ventas as $key => $Venta){
+			$VentaProductos = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:VenDetventa')
+			->findBy(array('nventa' => $Venta -> getNventaId() ));
+			
+			$cantidad = 0;
+
+			foreach ($VentaProductos as $key => $VentaProducto){
+				$cantidad = $cantidad + 1;
+			}
+			
 			/*
 			anulada 0
 			pendiente/deuda 1
@@ -421,6 +431,7 @@ class VentaServiciosController extends Controller{
 					'local' => $local,
 					'tipo_IGVId' => $Venta -> getNtipoigv(),
 					'tipo_IGV' => $tipo_IGV -> getNtipoigvproc(),
+					'cant_prod' => $cantidad,
 					'ver_pagar' => "<a class='btn btn-success btn-pagar' href='#'><i class='icon-zoom-in icon-white'></i> Ver Creditos</a>",
 					'ver_btn' => "<a id-data='".$Venta -> getNventaId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
 					'edit_btn' => $edit,

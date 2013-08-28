@@ -106,9 +106,8 @@ function cargarEditar(producto){
 	cargarSelect(Categorias,'categoriaE','id','desc');
 	$('#categoriaE').val(producto.categoriaId);
 	
-	$('#tipoE').append('<option value="1">Option 1</option>');
-	$('#tipoE').append('<option value="2">Option 2</option>');
-	$('#tipoE').val(producto.tipo);
+	cargarSelect(tipoproductos,'tipprod', 'id', 'desc');
+	$('#tipoE').val(producto.tipoId);
 
 	$('#estadoE').append('<option value="1">Habilitado</option>');
 	$('#estadoE').append('<option value="2">Inhabilitado</option>');
@@ -149,14 +148,16 @@ $(document).ready(function(){
 
 	Categorias = getAjaxObject("{{ path('dicars_admin_servicio_getoptioncategorias') }}");
 	cargarSelect(Categorias,'categoria','id','desc');
+
+	tipoproductos = getAjaxObject("{{ path('dicars_admin_servicio_getoptionconstantes',{'idclase':5}) }}");
+	cargarSelect(tipoproductos,'tipprod', 'id', 'desc');
 	
 	//mostrar Registrar Cliente------------------------------------>
 	$('.btn-registrar').click(function(e){
 		e.preventDefault();
 		$('#modalRegistro').modal('show');
 	});
-	var codigo = ajaxResponseData(null,"{{ path ('dicars_logistica_servicio_getgenerarcodigoprducto') }}");
-	console.log(codigo);
+	
 	$('#RegistrarProductoForm').submit(function(e){
 		e.preventDefault();
 		var codigo = ajaxResponseData(null,"{{ path ('dicars_logistica_servicio_getgenerarcodigoprducto') }}");

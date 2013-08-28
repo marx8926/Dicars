@@ -35,10 +35,11 @@
 			<table id="ventas_table" class="table table-striped table-bordered bootstrap-datatable datatable">
 				<thead>
 					<tr>
-						<th>Fecha de Registro</th>
+						<th>Fec. Registro</th>
 						<th>Cliente</th>
 					  	<th>Vendedor</th>
-					  	<th>Tipo de Pago</th>
+					  	<th>Cant. Producto</th>
+					  	<th>Tipo Pago</th>
 					  	<th>Total</th>
 					  	<th>Estado</th>
 					  	<th></th>
@@ -100,13 +101,14 @@ $(document).ready(function(){
 	UrlaDTable = '{{ path("dicars_ventas_servicio_gettablaventas") }}';
 	FormatoDTable = [
 				  { "sWidth": "8%","mDataProp": "fecha_reg"},
-	              { "sWidth": "15%","mDataProp": "cliente"},
-	              { "sWidth": "15%","mDataProp": "vendedor"},
+	              { "sWidth": "14%","mDataProp": "cliente"},
+	              { "sWidth": "14%","mDataProp": "vendedor"},
+	              { "sWidth": "7%","mDataProp": "cant_prod"},
 	              { "sWidth": "10%","mDataProp": "tipo_pago"},
-	              { "sWidth": "7%","mDataProp": "total"},
-	              { "sWidth": "12%","mDataProp": "estado"},
-	              { "sWidth": "12%","mDataProp": "ver_btn"},
-	              { "sWidth": "10%","mDataProp": "elim_btn"},
+	              { "sWidth": "6%","mDataProp": "total"},
+	              { "sWidth": "11%","mDataProp": "estado"},
+	              { "sWidth": "11%","mDataProp": "ver_btn"},
+	              { "sWidth": "9%","mDataProp": "elim_btn"},
 	              { "sWidth": "10%","mDataProp": "edit_btn"}
 	              ];
 	VentasTable = createDataTable('ventas_table',UrlaDTable,FormatoDTable,CargarBotones);		

@@ -21,6 +21,11 @@ public function getTablaProductosAction(){
 		
 		$todo = array();
 		foreach ($productos as $key => $producto){
+			
+			$tipo_prod = $this->getDoctrine()
+    		->getRepository('DicarsDataBundle:Constante')
+			->findOneBy(array('nconstanteId' => $producto -> getNproductotipo())); 
+			
 			$estadodesc = "";
 			if($producto -> getCproductoest() == 1)
 				$estadodesc = "<span class='label label-success'>Habilitado</span>";
@@ -31,10 +36,12 @@ public function getTablaProductosAction(){
 					'serie' => $producto -> getCproductoserie(),
 					'talla' => $producto -> getCproductotalla(),
 					'nombre' => $producto -> getCproductodesc(),
+					'descprod' => $producto -> getCproductodesc()." - ".$producto -> getNproductomarca() -> getCmarcadesc()." - ".$producto -> getCproductotalla(),
 					'pcosto' => $producto -> getNproductopcosto(),
 					'pcontado' => $producto -> getNproductopcontado(),
 					'pcredito' => $producto -> getNproductopcredito(),
-					'tipo' => $producto -> getNproductotipo(),
+					'tipoId' => $tipo_prod -> getNconstanteId(),
+					'tipo' => $tipo_prod -> getCconstantedesc(),
 					'codigobarras' => $producto -> getCproductocodbarra(),
 					'stockmin' => $producto -> getNproductostockmin(),
 					'stock' => $producto -> getNproductostock(),
@@ -454,6 +461,7 @@ public function getTablaProductosAction(){
 			$proveedor = $ordcom -> getNproveedor();
 	
 			$todo[] = array('id' => $ordcom -> getNordencomId(),
+					'sernum' => $ordcom -> getCordcomserie()." - ".$ordcom -> getCordcomnro(),
 					'serie' => $ordcom -> getCordcomserie(),
 					'numero' => $ordcom -> getCordcomnro(),
 					'registrante' => $registrante -> getCpersonalnom()." ".$registrante -> getCpersonalape(),
