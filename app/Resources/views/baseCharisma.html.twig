@@ -100,13 +100,12 @@
 						<li><a class="ajax-link" href="{{ path('dicars_ventas_control_salidas') }}"><i class="icon-eye-open"></i><span class="hidden-tablet"> Control de Salidas</span></a></li>
 						<li><a class="ajax-link" href="{{ path('dicars_ventas_ofertas') }}"><i class="icon-list-alt"></i><span class="hidden-tablet"> Ofertas</span></a></li>
 						<li><a class="ajax-link" href="{{ path('dicars_ventas_regimp_tarjetacredito') }}"><i class="icon-font"></i><span class="hidden-tablet"> Tarjeta de Crédito</span></a></li>
-						<li><a class="ajax-link" href="{{ path('dicars_ventas_separar_productos') }}"><i class="icon-shopping-cart"></i><span class="hidden-tablet"> Separar Productos</span></a></li>
 						<li><a class="ajax-link" href="{{ path('dicars_ventas_ingregr_dia') }}"><i class="icon-list-alt"></i><span class="hidden-tablet"> Reporte de Ingresos/Egresos</span></a></li>
 						<li><a class="ajax-link" href="{{ path('dicars_ventas_reporte_zonas') }}"><i class="icon-list-alt"></i><span class="hidden-tablet"> Reporte de Zonas</span></a></li>
 						<li class="nav-header hidden-tablet">Logística</li>
 						<li><a class="ajax-link" href="{{ path('dicars_logistica_productos') }}"><i class="icon-align-justify"></i><span class="hidden-tablet"> Administrar Productos</span></a></li>
 						<li><a class="ajax-link" href="{{ path('dicars_logistica_proveedores') }}"><i class="icon-user"></i><span class="hidden-tablet"> Administrar Proveedores</span></a></li>
-						<li><a class="ajax-link" href="{{ path('dicars_logistica_pedidos') }}"><i class="icon-th"></i><span class="hidden-tablet"> Pedidos</span></a></li>
+						<li><a class="ajax-link" href="{{ path('dicars_logistica_pedidos') }}"><i class="icon-th"></i><span class="hidden-tablet"> Orden de Pedido</span></a></li>
 						<li><a class="ajax-link" href="{{ path('dicars_logistica_orden_compra_consultar') }}"><i class="icon-th"></i><span class="hidden-tablet"> Orden de Compra</span></a></li>
 						<li><a class="ajax-link" href="{{ path('dicars_logistica_cons_ingresoproductos') }}"><i class="icon-folder-open"></i><span class="hidden-tablet"> Ingreso de Productos</span></a></li>
 						<li><a class="ajax-link" href="{{ path('dicars_logistica_cons_salidaproductos') }}"><i class="icon-star"></i><span class="hidden-tablet"> Salida de Productos</span></a></li>
@@ -240,6 +239,9 @@
 	<script src="{{ asset('js/jquery.history.js')}}"></script>
 	<!-- application script for Charisma demo -->
 	<script src="{{ asset('js/charisma.js')}}"></script>
+	<script type="text/javascript">
+	var urlES =  "{{ asset('js/es_ES.txt')}}";
+	</script>
 	{% block javascript %}
 	{% endblock %}
 		

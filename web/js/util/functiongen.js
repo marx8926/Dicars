@@ -150,6 +150,8 @@ function enviar(IdForm,successfunction,otherdata, errorfunction){
 function createDataTable(idTable,UrlaDTable,FormatoDTable, CallBackFunction, RowCallBackFunction){
 	
 	oTable = $('#'+idTable).dataTable({
+		"aLengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
+		"iDisplayLength": 25,
 		"bProcessing": true,
 		"bServerSide": false,
 		"bDestroy": true,
@@ -176,10 +178,8 @@ function createDataTable(idTable,UrlaDTable,FormatoDTable, CallBackFunction, Row
 		 	"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span12'i><'span12 center'p>>",
 		 	"sPaginationType": "bootstrap",
 		 	"oLanguage": {
-		 		"sSearch": "Buscar:",
-		 		"sLengthMenu": "_MENU_ registros por página",
-		 		"sPaginationType": "full_numbers"
-				} 		            
+		 		"sUrl": urlES
+			} 		            
 	
 		});
 	return oTable;
