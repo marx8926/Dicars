@@ -13,6 +13,9 @@ class WelcomeController extends Controller
          * or @Template annotation as demonstrated in DemoController.
          *
          */
-        return $this->render('AcmeDemoBundle:Welcome:index.html.twig');
+        //return $this->render('AcmeDemoBundle:Welcome:index.html.twig');
+        
+                       return $this->redirect($this->generateUrl('ingreso'));
+
     }
 }
