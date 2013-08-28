@@ -57,7 +57,7 @@ class VenCliente
     private $cclientecdir;
 
     /**
-     * @var float
+     * @var string
      *
      * @ORM\Column(name="nClienteLineaOp", type="decimal", nullable=false)
      */
@@ -217,7 +217,7 @@ class VenCliente
     /**
      * Set nclientelineaop
      *
-     * @param float $nclientelineaop
+     * @param string $nclientelineaop
      * @return VenCliente
      */
     public function setNclientelineaop($nclientelineaop)
@@ -230,7 +230,7 @@ class VenCliente
     /**
      * Get nclientelineaop
      *
-     * @return float 
+     * @return string 
      */
     public function getNclientelineaop()
     {

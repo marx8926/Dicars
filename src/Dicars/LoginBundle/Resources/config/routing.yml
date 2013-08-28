@@ -1,3 +1,27 @@
-dicars_login_homepage:
-    pattern:  /index
-    defaults: { _controller: DicarsLoginBundle:Default:index }
+#dicars_login_homepage:
+ #   pattern:  /index
+  #  defaults: { _controller: DicarsLoginBundle:Default:index }
+    
+dicars_user:
+  pattern: /user
+  defaults: { _controller: DicarsLoginBundle:Default:crear}
+  
+ingreso:
+  pattern: /ingreso
+  defaults: {_controller: DicarsLoginBundle:Default:index }
+  
+ingreso_check:
+  pattern: /ingreso_check
+
+salir:
+  pattern: /salir
+  
+main:
+  pattern: /main
+  defaults: {_controller: DicarsLoginBundle:Default:main}
+  
+check:
+  pattern: /check
+  defaults: {_controller: DicarsLoginBundle:Default:check}
+  requirements:
+          _method: POST 

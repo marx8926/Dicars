@@ -50,21 +50,21 @@ class Producto
     private $cproductodesc;
 
     /**
-     * @var float
+     * @var string
      *
      * @ORM\Column(name="nProductoPContado", type="decimal", nullable=false)
      */
     private $nproductopcontado;
 
     /**
-     * @var float
+     * @var string
      *
      * @ORM\Column(name="nProductoPCredito", type="decimal", nullable=false)
      */
     private $nproductopcredito;
 
     /**
-     * @var float
+     * @var string
      *
      * @ORM\Column(name="nProductoPCosto", type="decimal", nullable=false)
      */
@@ -73,7 +73,7 @@ class Producto
     /**
      * @var string
      *
-     * @ORM\Column(name="cProductoCodBarra", type="text", nullable=false)
+     * @ORM\Column(name="cProductoCodBarra", type="string", length=12, nullable=false)
      */
     private $cproductocodbarra;
 
@@ -113,14 +113,14 @@ class Producto
     private $cproductoest;
 
     /**
-     * @var float
+     * @var string
      *
      * @ORM\Column(name="nProductoPorcUti", type="decimal", nullable=false)
      */
     private $nproductoporcuti;
 
     /**
-     * @var float
+     * @var string
      *
      * @ORM\Column(name="nProductoUtiBruta", type="decimal", nullable=false)
      */
@@ -253,7 +253,7 @@ class Producto
     /**
      * Set nproductopcontado
      *
-     * @param float $nproductopcontado
+     * @param string $nproductopcontado
      * @return Producto
      */
     public function setNproductopcontado($nproductopcontado)
@@ -266,7 +266,7 @@ class Producto
     /**
      * Get nproductopcontado
      *
-     * @return float 
+     * @return string 
      */
     public function getNproductopcontado()
     {
@@ -276,7 +276,7 @@ class Producto
     /**
      * Set nproductopcredito
      *
-     * @param float $nproductopcredito
+     * @param string $nproductopcredito
      * @return Producto
      */
     public function setNproductopcredito($nproductopcredito)
@@ -289,7 +289,7 @@ class Producto
     /**
      * Get nproductopcredito
      *
-     * @return float 
+     * @return string 
      */
     public function getNproductopcredito()
     {
@@ -299,7 +299,7 @@ class Producto
     /**
      * Set nproductopcosto
      *
-     * @param float $nproductopcosto
+     * @param string $nproductopcosto
      * @return Producto
      */
     public function setNproductopcosto($nproductopcosto)
@@ -312,7 +312,7 @@ class Producto
     /**
      * Get nproductopcosto
      *
-     * @return float 
+     * @return string 
      */
     public function getNproductopcosto()
     {
@@ -460,7 +460,7 @@ class Producto
     /**
      * Set nproductoporcuti
      *
-     * @param float $nproductoporcuti
+     * @param string $nproductoporcuti
      * @return Producto
      */
     public function setNproductoporcuti($nproductoporcuti)
@@ -473,7 +473,7 @@ class Producto
     /**
      * Get nproductoporcuti
      *
-     * @return float 
+     * @return string 
      */
     public function getNproductoporcuti()
     {
@@ -483,7 +483,7 @@ class Producto
     /**
      * Set nproductoutibruta
      *
-     * @param float $nproductoutibruta
+     * @param string $nproductoutibruta
      * @return Producto
      */
     public function setNproductoutibruta($nproductoutibruta)
@@ -496,7 +496,7 @@ class Producto
     /**
      * Get nproductoutibruta
      *
-     * @return float 
+     * @return string 
      */
     public function getNproductoutibruta()
     {

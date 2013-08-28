@@ -22,28 +22,28 @@ class VenDetventa
     private $ndetventaId;
 
     /**
-     * @var float
+     * @var string
      *
      * @ORM\Column(name="nDetVentaCant", type="decimal", nullable=false)
      */
     private $ndetventacant;
 
     /**
-     * @var float
+     * @var string
      *
      * @ORM\Column(name="nDetVentaPrecUnt", type="decimal", nullable=false)
      */
     private $ndetventaprecunt;
 
     /**
-     * @var float
+     * @var string
      *
      * @ORM\Column(name="nDetVentaDscto", type="decimal", nullable=false)
      */
     private $ndetventadscto;
 
     /**
-     * @var float
+     * @var string
      *
      * @ORM\Column(name="nDetVentaTot", type="decimal", nullable=false)
      */
@@ -91,7 +91,7 @@ class VenDetventa
     /**
      * Set ndetventacant
      *
-     * @param float $ndetventacant
+     * @param string $ndetventacant
      * @return VenDetventa
      */
     public function setNdetventacant($ndetventacant)
@@ -104,7 +104,7 @@ class VenDetventa
     /**
      * Get ndetventacant
      *
-     * @return float 
+     * @return string 
      */
     public function getNdetventacant()
     {
@@ -114,7 +114,7 @@ class VenDetventa
     /**
      * Set ndetventaprecunt
      *
-     * @param float $ndetventaprecunt
+     * @param string $ndetventaprecunt
      * @return VenDetventa
      */
     public function setNdetventaprecunt($ndetventaprecunt)
@@ -127,7 +127,7 @@ class VenDetventa
     /**
      * Get ndetventaprecunt
      *
-     * @return float 
+     * @return string 
      */
     public function getNdetventaprecunt()
     {
@@ -137,7 +137,7 @@ class VenDetventa
     /**
      * Set ndetventadscto
      *
-     * @param float $ndetventadscto
+     * @param string $ndetventadscto
      * @return VenDetventa
      */
     public function setNdetventadscto($ndetventadscto)
@@ -150,7 +150,7 @@ class VenDetventa
     /**
      * Get ndetventadscto
      *
-     * @return float 
+     * @return string 
      */
     public function getNdetventadscto()
     {
@@ -160,7 +160,7 @@ class VenDetventa
     /**
      * Set ndetventatot
      *
-     * @param float $ndetventatot
+     * @param string $ndetventatot
      * @return VenDetventa
      */
     public function setNdetventatot($ndetventatot)
@@ -173,7 +173,7 @@ class VenDetventa
     /**
      * Get ndetventatot
      *
-     * @return float 
+     * @return string 
      */
     public function getNdetventatot()
     {

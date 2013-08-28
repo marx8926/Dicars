@@ -29,7 +29,7 @@ class VenTipoigv
     private $ctipoigv;
 
     /**
-     * @var float
+     * @var string
      *
      * @ORM\Column(name="nTipoIGVProc", type="decimal", nullable=false)
      */
@@ -87,7 +87,7 @@ class VenTipoigv
     /**
      * Set ntipoigvproc
      *
-     * @param float $ntipoigvproc
+     * @param string $ntipoigvproc
      * @return VenTipoigv
      */
     public function setNtipoigvproc($ntipoigvproc)
@@ -100,7 +100,7 @@ class VenTipoigv
     /**
      * Get ntipoigvproc
      *
-     * @return float 
+     * @return string 
      */
     public function getNtipoigvproc()
     {

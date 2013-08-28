@@ -22,7 +22,7 @@ class OfertaProducto
     private $nofertaproductoId;
 
     /**
-     * @var float
+     * @var string
      *
      * @ORM\Column(name="nOfertaProductoPorc", type="decimal", nullable=true)
      */
@@ -70,7 +70,7 @@ class OfertaProducto
     /**
      * Set nofertaproductoporc
      *
-     * @param float $nofertaproductoporc
+     * @param string $nofertaproductoporc
      * @return OfertaProducto
      */
     public function setNofertaproductoporc($nofertaproductoporc)
@@ -83,7 +83,7 @@ class OfertaProducto
     /**
      * Get nofertaproductoporc
      *
-     * @return float 
+     * @return string 
      */
     public function getNofertaproductoporc()
     {

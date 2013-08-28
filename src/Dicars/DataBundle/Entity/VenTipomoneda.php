@@ -29,7 +29,7 @@ class VenTipomoneda
     private $ctipomonedadesc;
 
     /**
-     * @var float
+     * @var string
      *
      * @ORM\Column(name="nTipoMonedaMont", type="decimal", nullable=false)
      */
@@ -80,7 +80,7 @@ class VenTipomoneda
     /**
      * Set ntipomonedamont
      *
-     * @param float $ntipomonedamont
+     * @param string $ntipomonedamont
      * @return VenTipomoneda
      */
     public function setNtipomonedamont($ntipomonedamont)
@@ -93,7 +93,7 @@ class VenTipomoneda
     /**
      * Get ntipomonedamont
      *
-     * @return float 
+     * @return string 
      */
     public function getNtipomonedamont()
     {

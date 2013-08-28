@@ -29,7 +29,7 @@ class VenVenta
     private $cventafecreg;
 
     /**
-     * @var float
+     * @var string
      *
      * @ORM\Column(name="nVentaSubTotal", type="decimal", nullable=false)
      */
@@ -43,7 +43,7 @@ class VenVenta
     private $cventaest;
 
     /**
-     * @var float
+     * @var string
      *
      * @ORM\Column(name="nVentaDscto", type="decimal", nullable=false)
      */
@@ -64,21 +64,21 @@ class VenVenta
     private $cventaobsv;
 
     /**
-     * @var float
+     * @var string
      *
      * @ORM\Column(name="nVentaTotApag", type="decimal", nullable=false)
      */
     private $nventatotapag;
 
     /**
-     * @var float
+     * @var string
      *
      * @ORM\Column(name="nVentaTotAmt", type="decimal", nullable=false)
      */
     private $nventatotamt;
 
     /**
-     * @var float
+     * @var string
      *
      * @ORM\Column(name="nVentaSaldo", type="decimal", nullable=false)
      */
@@ -162,7 +162,7 @@ class VenVenta
     /**
      * Set nventasubtotal
      *
-     * @param float $nventasubtotal
+     * @param string $nventasubtotal
      * @return VenVenta
      */
     public function setNventasubtotal($nventasubtotal)
@@ -175,7 +175,7 @@ class VenVenta
     /**
      * Get nventasubtotal
      *
-     * @return float 
+     * @return string 
      */
     public function getNventasubtotal()
     {
@@ -208,7 +208,7 @@ class VenVenta
     /**
      * Set nventadscto
      *
-     * @param float $nventadscto
+     * @param string $nventadscto
      * @return VenVenta
      */
     public function setNventadscto($nventadscto)
@@ -221,7 +221,7 @@ class VenVenta
     /**
      * Get nventadscto
      *
-     * @return float 
+     * @return string 
      */
     public function getNventadscto()
     {
@@ -277,7 +277,7 @@ class VenVenta
     /**
      * Set nventatotapag
      *
-     * @param float $nventatotapag
+     * @param string $nventatotapag
      * @return VenVenta
      */
     public function setNventatotapag($nventatotapag)
@@ -290,7 +290,7 @@ class VenVenta
     /**
      * Get nventatotapag
      *
-     * @return float 
+     * @return string 
      */
     public function getNventatotapag()
     {
@@ -300,7 +300,7 @@ class VenVenta
     /**
      * Set nventatotamt
      *
-     * @param float $nventatotamt
+     * @param string $nventatotamt
      * @return VenVenta
      */
     public function setNventatotamt($nventatotamt)
@@ -313,7 +313,7 @@ class VenVenta
     /**
      * Get nventatotamt
      *
-     * @return float 
+     * @return string 
      */
     public function getNventatotamt()
     {
@@ -323,7 +323,7 @@ class VenVenta
     /**
      * Set nventasaldo
      *
-     * @param float $nventasaldo
+     * @param string $nventasaldo
      * @return VenVenta
      */
     public function setNventasaldo($nventasaldo)
@@ -336,7 +336,7 @@ class VenVenta
     /**
      * Get nventasaldo
      *
-     * @return float 
+     * @return string 
      */
     public function getNventasaldo()
     {

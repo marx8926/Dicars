@@ -29,7 +29,7 @@ class VenTransaccion
     private $ctransacciondesc;
 
     /**
-     * @var float
+     * @var string
      *
      * @ORM\Column(name="nTransaccionMont", type="decimal", nullable=false)
      */
@@ -107,7 +107,7 @@ class VenTransaccion
     /**
      * Set ntransaccionmont
      *
-     * @param float $ntransaccionmont
+     * @param string $ntransaccionmont
      * @return VenTransaccion
      */
     public function setNtransaccionmont($ntransaccionmont)
@@ -120,7 +120,7 @@ class VenTransaccion
     /**
      * Get ntransaccionmont
      *
-     * @return float 
+     * @return string 
      */
     public function getNtransaccionmont()
     {

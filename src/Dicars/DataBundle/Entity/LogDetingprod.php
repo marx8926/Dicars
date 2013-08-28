@@ -29,14 +29,14 @@ class LogDetingprod
     private $ndetingprodcant;
 
     /**
-     * @var float
+     * @var string
      *
      * @ORM\Column(name="nDetIngProdPrecUnt", type="decimal", nullable=false)
      */
     private $ndetingprodprecunt;
 
     /**
-     * @var float
+     * @var string
      *
      * @ORM\Column(name="nDetIngProdTot", type="decimal", nullable=false)
      */
@@ -100,7 +100,7 @@ class LogDetingprod
     /**
      * Set ndetingprodprecunt
      *
-     * @param float $ndetingprodprecunt
+     * @param string $ndetingprodprecunt
      * @return LogDetingprod
      */
     public function setNdetingprodprecunt($ndetingprodprecunt)
@@ -113,7 +113,7 @@ class LogDetingprod
     /**
      * Get ndetingprodprecunt
      *
-     * @return float 
+     * @return string 
      */
     public function getNdetingprodprecunt()
     {
@@ -123,7 +123,7 @@ class LogDetingprod
     /**
      * Set ndetingprodtot
      *
-     * @param float $ndetingprodtot
+     * @param string $ndetingprodtot
      * @return LogDetingprod
      */
     public function setNdetingprodtot($ndetingprodtot)
@@ -136,7 +136,7 @@ class LogDetingprod
     /**
      * Get ndetingprodtot
      *
-     * @return float 
+     * @return string 
      */
     public function getNdetingprodtot()
     {

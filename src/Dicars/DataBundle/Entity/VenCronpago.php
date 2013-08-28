@@ -43,14 +43,14 @@ class VenCronpago
     private $ncronpagofecpago;
 
     /**
-     * @var float
+     * @var string
      *
      * @ORM\Column(name="nCronPagoMonCouApg", type="decimal", nullable=false)
      */
     private $ncronpagomoncouapg;
 
     /**
-     * @var float
+     * @var string
      *
      * @ORM\Column(name="nCronPagoMonCouApl", type="decimal", nullable=false)
      */
@@ -150,7 +150,7 @@ class VenCronpago
     /**
      * Set ncronpagomoncouapg
      *
-     * @param float $ncronpagomoncouapg
+     * @param string $ncronpagomoncouapg
      * @return VenCronpago
      */
     public function setNcronpagomoncouapg($ncronpagomoncouapg)
@@ -163,7 +163,7 @@ class VenCronpago
     /**
      * Get ncronpagomoncouapg
      *
-     * @return float 
+     * @return string 
      */
     public function getNcronpagomoncouapg()
     {
@@ -173,7 +173,7 @@ class VenCronpago
     /**
      * Set ncronpagomoncouapl
      *
-     * @param float $ncronpagomoncouapl
+     * @param string $ncronpagomoncouapl
      * @return VenCronpago
      */
     public function setNcronpagomoncouapl($ncronpagomoncouapl)
@@ -186,7 +186,7 @@ class VenCronpago
     /**
      * Get ncronpagomoncouapl
      *
-     * @return float 
+     * @return string 
      */
     public function getNcronpagomoncouapl()
     {

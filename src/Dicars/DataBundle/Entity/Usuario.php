@@ -3,6 +3,9 @@
 namespace Dicars\DataBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\Encoder\MessageDigestPasswordEncoder;
+use \Serializable;
 
 /**
  * Usuario
@@ -10,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="usuario")
  * @ORM\Entity
  */
-class Usuario
+class Usuario implements UserInterface, \Serializable
 {
     /**
      * @var integer
@@ -19,35 +22,57 @@ class Usuario
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
      */
-    private $nusuarioId;
+    protected $nusuarioId;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="cUsuarioID", type="string", length=20, nullable=false)
+     * @ORM\Column(name="cUsuarioID", type="string", length=255, nullable=false)
      */
-    private $cusuarioid;
+    protected $cusuarioid;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="cUsuarioClave", type="text", nullable=false)
+     * @ORM\Column(name="cUsuarioClave", type="string", length=255, nullable=false)
      */
-    private $cusuarioclave;
+    protected $cusuarioclave;
 
     /**
      * @var string
      *
      * @ORM\Column(name="cUsuarioEst", type="string", length=1, nullable=false)
      */
-    private $cusuarioest;
+    protected $cusuarioest;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="cUsuarioFecReg", type="datetime", nullable=false)
      */
-    private $cusuariofecreg;
+    protected $cusuariofecreg;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="salt", type="string", length=255, nullable=true)
+     */
+    protected $salt;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     *
+     * @ORM\ManyToMany(targetEntity="Rol", inversedBy="idUsuario")
+     * @ORM\JoinTable(name="many_usuario_rol",
+     *   joinColumns={
+     *     @ORM\JoinColumn(name="id_usuario", referencedColumnName="nUsuario_id")
+     *   },
+     *   inverseJoinColumns={
+     *     @ORM\JoinColumn(name="id_rol", referencedColumnName="id")
+     *   }
+     * )
+     */
+    protected $idRol;
 
     /**
      * @var \VenPersonal
@@ -57,9 +82,17 @@ class Usuario
      *   @ORM\JoinColumn(name="nPersonal_id", referencedColumnName="nPersonal_id")
      * })
      */
-    private $npersonal;
+    protected $npersonal;
 
-
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->idRol = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->salt = md5(time());
+    }
+    
 
     /**
      * Get nusuarioId
@@ -102,7 +135,10 @@ class Usuario
      */
     public function setCusuarioclave($cusuarioclave)
     {
-        $this->cusuarioclave = $cusuarioclave;
+       $encoder = new MessageDigestPasswordEncoder('sha512', true, 10);
+        $passw = $encoder->encodePassword($cusuarioclave, $this->getSalt());
+              
+        $this->cusuarioclave = $passw;
     
         return $this;
     }
@@ -164,6 +200,62 @@ class Usuario
     }
 
     /**
+     * Set salt
+     *
+     * @param string $salt
+     * @return Usuario
+     */
+    public function setSalt($salt)
+    {
+        $this->salt = $salt;
+    
+        return $this;
+    }
+
+    /**
+     * Get salt
+     *
+     * @return string 
+     */
+    public function getSalt()
+    {
+        return $this->salt;
+    }
+
+    /**
+     * Add idRol
+     *
+     * @param \Dicars\DataBundle\Entity\Rol $idRol
+     * @return Usuario
+     */
+    public function addIdRol(\Dicars\DataBundle\Entity\Rol $idRol)
+    {
+        $this->idRol[] = $idRol;
+    
+        return $this;
+    }
+
+    /**
+     * Remove idRol
+     *
+     * @param \Dicars\DataBundle\Entity\Rol $idRol
+     */
+    public function removeIdRol(\Dicars\DataBundle\Entity\Rol $idRol)
+    {
+        $this->idRol->removeElement($idRol);
+    }
+
+    /**
+     * Get idRol
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getIdRol()
+    {
+        return $this->idRol;
+    }
+
+    /**
      * Set npersonal
      *
      * @param \Dicars\DataBundle\Entity\VenPersonal $npersonal
@@ -184,5 +276,29 @@ class Usuario
     public function getNpersonal()
     {
         return $this->npersonal;
+    }
+
+    public function eraseCredentials() {
+        
+    }
+
+    public function getPassword() {
+        return $this->getCusuarioclave();
+    }
+
+    public function getRoles() {
+        return $this->getIdRol()->toArray();
+    }
+
+    public function getUsername() {
+        return $this->getCusuarioid();
+    }
+
+    public function serialize() {
+        return serialize(array($this->nusuarioId,  $this->cusuarioclave, $this->cusuarioid));
+    }
+
+    public function unserialize($serialized) {
+        list($this->nusuarioId, $this->cusuarioclave, $this->cusuarioid) = unserialize($serialized);
     }
 }

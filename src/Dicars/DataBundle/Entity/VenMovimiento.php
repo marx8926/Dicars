@@ -22,7 +22,7 @@ class VenMovimiento
     private $nmovimientoId;
 
     /**
-     * @var float
+     * @var string
      *
      * @ORM\Column(name="nMovimientoMonto", type="decimal", nullable=false)
      */
@@ -81,7 +81,7 @@ class VenMovimiento
     /**
      * Set nmovimientomonto
      *
-     * @param float $nmovimientomonto
+     * @param string $nmovimientomonto
      * @return VenMovimiento
      */
     public function setNmovimientomonto($nmovimientomonto)
@@ -94,7 +94,7 @@ class VenMovimiento
     /**
      * Get nmovimientomonto
      *
-     * @return float 
+     * @return string 
      */
     public function getNmovimientomonto()
     {

@@ -43,7 +43,7 @@ class LogKardex
     private $nkardextipoing;
 
     /**
-     * @var float
+     * @var string
      *
      * @ORM\Column(name="nKardexPrecUnt", type="decimal", nullable=true)
      */
@@ -57,7 +57,7 @@ class LogKardex
     private $nkardexcant;
 
     /**
-     * @var float
+     * @var string
      *
      * @ORM\Column(name="nKardexTot", type="decimal", nullable=true)
      */
@@ -71,14 +71,14 @@ class LogKardex
     private $nkardexsaldocant;
 
     /**
-     * @var float
+     * @var string
      *
      * @ORM\Column(name="nKardexSaldoPrecUnt", type="decimal", nullable=false)
      */
     private $nkardexsaldoprecunt;
 
     /**
-     * @var float
+     * @var string
      *
      * @ORM\Column(name="nKardexSaldoTot", type="decimal", nullable=false)
      */
@@ -188,7 +188,7 @@ class LogKardex
     /**
      * Set nkardexprecunt
      *
-     * @param float $nkardexprecunt
+     * @param string $nkardexprecunt
      * @return LogKardex
      */
     public function setNkardexprecunt($nkardexprecunt)
@@ -201,7 +201,7 @@ class LogKardex
     /**
      * Get nkardexprecunt
      *
-     * @return float 
+     * @return string 
      */
     public function getNkardexprecunt()
     {
@@ -234,7 +234,7 @@ class LogKardex
     /**
      * Set nkardextot
      *
-     * @param float $nkardextot
+     * @param string $nkardextot
      * @return LogKardex
      */
     public function setNkardextot($nkardextot)
@@ -247,7 +247,7 @@ class LogKardex
     /**
      * Get nkardextot
      *
-     * @return float 
+     * @return string 
      */
     public function getNkardextot()
     {
@@ -280,7 +280,7 @@ class LogKardex
     /**
      * Set nkardexsaldoprecunt
      *
-     * @param float $nkardexsaldoprecunt
+     * @param string $nkardexsaldoprecunt
      * @return LogKardex
      */
     public function setNkardexsaldoprecunt($nkardexsaldoprecunt)
@@ -293,7 +293,7 @@ class LogKardex
     /**
      * Get nkardexsaldoprecunt
      *
-     * @return float 
+     * @return string 
      */
     public function getNkardexsaldoprecunt()
     {
@@ -303,7 +303,7 @@ class LogKardex
     /**
      * Set nkardexsaldotot
      *
-     * @param float $nkardexsaldotot
+     * @param string $nkardexsaldotot
      * @return LogKardex
      */
     public function setNkardexsaldotot($nkardexsaldotot)
@@ -316,7 +316,7 @@ class LogKardex
     /**
      * Get nkardexsaldotot
      *
-     * @return float 
+     * @return string 
      */
     public function getNkardexsaldotot()
     {

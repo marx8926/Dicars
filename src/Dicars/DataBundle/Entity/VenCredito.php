@@ -36,7 +36,7 @@ class VenCredito
     private $nvencreditoncuota;
 
     /**
-     * @var float
+     * @var string
      *
      * @ORM\Column(name="nVenCreditoMontInicial", type="decimal", nullable=false)
      */
@@ -127,7 +127,7 @@ class VenCredito
     /**
      * Set nvencreditomontinicial
      *
-     * @param float $nvencreditomontinicial
+     * @param string $nvencreditomontinicial
      * @return VenCredito
      */
     public function setNvencreditomontinicial($nvencreditomontinicial)
@@ -140,7 +140,7 @@ class VenCredito
     /**
      * Get nvencreditomontinicial
      *
-     * @return float 
+     * @return string 
      */
     public function getNvencreditomontinicial()
     {

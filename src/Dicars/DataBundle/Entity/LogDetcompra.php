@@ -29,14 +29,14 @@ class LogDetcompra
     private $ndetcompracant;
 
     /**
-     * @var float
+     * @var string
      *
      * @ORM\Column(name="nDetCompraPrecUnt", type="decimal", nullable=false)
      */
     private $ndetcompraprecunt;
 
     /**
-     * @var float
+     * @var string
      *
      * @ORM\Column(name="nDetCompraImporte", type="decimal", nullable=false)
      */
@@ -114,7 +114,7 @@ class LogDetcompra
     /**
      * Set ndetcompraprecunt
      *
-     * @param float $ndetcompraprecunt
+     * @param string $ndetcompraprecunt
      * @return LogDetcompra
      */
     public function setNdetcompraprecunt($ndetcompraprecunt)
@@ -127,7 +127,7 @@ class LogDetcompra
     /**
      * Get ndetcompraprecunt
      *
-     * @return float 
+     * @return string 
      */
     public function getNdetcompraprecunt()
     {
@@ -137,7 +137,7 @@ class LogDetcompra
     /**
      * Set ndetcompraimporte
      *
-     * @param float $ndetcompraimporte
+     * @param string $ndetcompraimporte
      * @return LogDetcompra
      */
     public function setNdetcompraimporte($ndetcompraimporte)
@@ -150,7 +150,7 @@ class LogDetcompra
     /**
      * Get ndetcompraimporte
      *
-     * @return float 
+     * @return string 
      */
     public function getNdetcompraimporte()
     {

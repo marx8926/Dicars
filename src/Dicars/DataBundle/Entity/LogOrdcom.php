@@ -43,21 +43,21 @@ class LogOrdcom
     private $cordcomnro;
 
     /**
-     * @var float
+     * @var string
      *
      * @ORM\Column(name="nOrdComSubTotal", type="decimal", nullable=false)
      */
     private $nordcomsubtotal;
 
     /**
-     * @var float
+     * @var string
      *
      * @ORM\Column(name="nOrdComIGV", type="decimal", nullable=false)
      */
     private $nordcomigv;
 
     /**
-     * @var float
+     * @var string
      *
      * @ORM\Column(name="nOrdComTotal", type="decimal", nullable=false)
      */
@@ -78,21 +78,21 @@ class LogOrdcom
     private $cordcomest;
 
     /**
-     * @var float
+     * @var string
      *
      * @ORM\Column(name="nOrdComDesct", type="decimal", nullable=false)
      */
     private $nordcomdesct;
 
     /**
-     * @var float
+     * @var string
      *
      * @ORM\Column(name="nOrdComRecEqv", type="decimal", nullable=false)
      */
     private $nordcomreceqv;
 
     /**
-     * @var float
+     * @var string
      *
      * @ORM\Column(name="nOrdComRetencion", type="decimal", nullable=false)
      */
@@ -202,7 +202,7 @@ class LogOrdcom
     /**
      * Set nordcomsubtotal
      *
-     * @param float $nordcomsubtotal
+     * @param string $nordcomsubtotal
      * @return LogOrdcom
      */
     public function setNordcomsubtotal($nordcomsubtotal)
@@ -215,7 +215,7 @@ class LogOrdcom
     /**
      * Get nordcomsubtotal
      *
-     * @return float 
+     * @return string 
      */
     public function getNordcomsubtotal()
     {
@@ -225,7 +225,7 @@ class LogOrdcom
     /**
      * Set nordcomigv
      *
-     * @param float $nordcomigv
+     * @param string $nordcomigv
      * @return LogOrdcom
      */
     public function setNordcomigv($nordcomigv)
@@ -238,7 +238,7 @@ class LogOrdcom
     /**
      * Get nordcomigv
      *
-     * @return float 
+     * @return string 
      */
     public function getNordcomigv()
     {
@@ -248,7 +248,7 @@ class LogOrdcom
     /**
      * Set nordcomtotal
      *
-     * @param float $nordcomtotal
+     * @param string $nordcomtotal
      * @return LogOrdcom
      */
     public function setNordcomtotal($nordcomtotal)
@@ -261,7 +261,7 @@ class LogOrdcom
     /**
      * Get nordcomtotal
      *
-     * @return float 
+     * @return string 
      */
     public function getNordcomtotal()
     {
@@ -317,7 +317,7 @@ class LogOrdcom
     /**
      * Set nordcomdesct
      *
-     * @param float $nordcomdesct
+     * @param string $nordcomdesct
      * @return LogOrdcom
      */
     public function setNordcomdesct($nordcomdesct)
@@ -330,7 +330,7 @@ class LogOrdcom
     /**
      * Get nordcomdesct
      *
-     * @return float 
+     * @return string 
      */
     public function getNordcomdesct()
     {
@@ -340,7 +340,7 @@ class LogOrdcom
     /**
      * Set nordcomreceqv
      *
-     * @param float $nordcomreceqv
+     * @param string $nordcomreceqv
      * @return LogOrdcom
      */
     public function setNordcomreceqv($nordcomreceqv)
@@ -353,7 +353,7 @@ class LogOrdcom
     /**
      * Get nordcomreceqv
      *
-     * @return float 
+     * @return string 
      */
     public function getNordcomreceqv()
     {
@@ -363,7 +363,7 @@ class LogOrdcom
     /**
      * Set nordcomretencion
      *
-     * @param float $nordcomretencion
+     * @param string $nordcomretencion
      * @return LogOrdcom
      */
     public function setNordcomretencion($nordcomretencion)
@@ -376,7 +376,7 @@ class LogOrdcom
     /**
      * Get nordcomretencion
      *
-     * @return float 
+     * @return string 
      */
     public function getNordcomretencion()
     {
