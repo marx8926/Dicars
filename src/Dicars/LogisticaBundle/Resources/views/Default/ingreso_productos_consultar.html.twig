@@ -54,35 +54,25 @@
 <script src="{{ asset('js/util/datatable_plugins.js') }}"></script>
 <script type="text/javascript">
 var CargarBotones;
-
-CargarBotones = function(){
-	//mostrar Editar Cliente------------------------------------>
-	$('.btn-editar').unbind();
-	$('.btn-editar').click(function(e){			
-		id=$(this).attr("id-data");		
-		$(this).attr('href',"{{ path('dicars_logistica_editar_ingresoproductos',{'idingprode':''}) }}/"+id);
-
-	});
-	//mostrar Ver Datos Trabajador------------------------------------>
-	$('.btn-datos').unbind();
-	$('.btn-datos').click(function(e){
-		id=$(this).attr("id-data");	
-		$(this).attr('href',"{{ path('dicars_logistica_ver_ingresoproductos',{'idingprod':''}) }}/"+id);
-	});
-};
+var RowCallBackIngProd;
 
 $(document).ready(function(){
+
+	RowCallBackIngProd = function (nRow, aData, iDisplayIndex){
+		$(nRow).find('.btn-editar').attr('href',"{{ path('dicars_logistica_editar_ingresoproductos',{'idingprode':''}) }}/"+aData.idingprod);
+		$(nRow).find('.btn-datos').attr('href',"{{ path('dicars_logistica_ver_ingresoproductos',{'idingprod':''}) }}/"+aData.idingprod);
+	};
 	
 	UrlaDTable = '{{ path("dicars_logistica_servicio_gettablaingresoproducto") }}';
 	FormatoDTable = [
-		              { "sWidth": "15%","mDataProp": "id"},
+		              { "sWidth": "15%","mDataProp": "idingprod"},
 		              { "sWidth": "15%","mDataProp": "serie"},
 		              { "sWidth": "15%","mDataProp": "numero"},
 		              { "sWidth": "15%","mDataProp": "serie_doc"},		              
 		              { "sWidth": "13%","mDataProp": "ver_btn"},
 		              { "sWidth": "13%","mDataProp": "edit_btn"}		              		              
 		              ];
-	oTable = createDataTable('ingreso_productos_table',UrlaDTable,FormatoDTable,CargarBotones);
+	oTable = createDataTable('ingreso_productos_table',UrlaDTable,FormatoDTable,null,RowCallBackIngProd);
 });
 </script>
 {% endblock %}

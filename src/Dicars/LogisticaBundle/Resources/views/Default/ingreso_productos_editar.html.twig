@@ -222,7 +222,7 @@ $(document).ready(function(){
 	RowCallBackFunctionProducto = getSimpleSelectRowCallBack(SelectProductoData,"select_producto_table");
 	UrlaDTableProductos = '{{ path("dicars_logistica_servicio_gettablaproductos") }}';
 	FormatoDTableProductos = [
-	                  { "sWidth": "12%","mDataProp": "idproducto"},
+	                  { "sWidth": "12%","mDataProp": "codigobarras"},
 		              { "sWidth": "12%","mDataProp": "nombre"},
 		              { "sWidth": "12%","mDataProp": "stock"},
 		              { "sWidth": "12%","mDataProp": "pcontado"}
@@ -231,7 +231,7 @@ $(document).ready(function(){
 	
 	UrlaDTableProductos = "{{ path('dicars_logistica_servicio_gettabladetingprod',{'id':''}) }}/{{ id }}";
 	FormatoDTableProductos = [
-		              { "sWidth": "25%","mDataProp": "idproducto"},
+		              { "sWidth": "25%","mDataProp": "codigobarras"},
 		              { "sWidth": "25%","mDataProp": "cantidad"},
 		              { "sWidth": "25%","mDataProp": "precio_uni"},
 		              { "sWidth": "13%","mDataProp": "total"},

@@ -224,13 +224,14 @@ public function getTablaProductosAction(){
 		$todo = array();
 		foreach ($ingprods as $key => $ingprod){			
 			
-			$todo[] = array('id' => $ingprod -> getNingprodId(),
+			$todo[] = array(
+					'idingprod' => $ingprod -> getNingprodId(),
 					'serie' => $ingprod -> getCingprodserie(),
 					'numero' => $ingprod -> getCingprodnro(),
 					'serie_doc' => $ingprod -> getCingproddocserie(),					
-					'ver_btn' => "<a id-data='".$ingprod -> getNingprodId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
-					'edit_btn' => "<a id-data='".$ingprod -> getNingprodId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
-					'elim_btn' => "<a id-data='".$ingprod -> getNingprodId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
+					'ver_btn' => "<a class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
+					'edit_btn' => "<a class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
+					'elim_btn' => "<a class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
 		}
 		$em->clear();
 		$em->close();
@@ -403,6 +404,7 @@ public function getTablaProductosAction(){
 	
 			$todo[] = array('iddetingreso' => $detingprod -> getNdetingprodId(),
 					'producto_serie' => $producto -> getCproductoserie(),
+					'codigobarras' => $producto -> getCproductocodbarra(),
 					'idproducto' => $producto -> getNproductoId(),
 					'cantidad' => $detingprod -> getNdetingprodcant(),
 					'precio_uni' => $detingprod -> getNdetingprodprecunt(),
