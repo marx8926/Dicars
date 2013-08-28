@@ -241,12 +241,8 @@ function ajaxResponseData(namediv,path){
 	var data = $.ajax({
         url: path,
         async: false
-        });
-	
-	if(namediv !=null)
+        }).responseText;
 		$('#'+namediv).html(data);
-	else
-		return data.responseText;
 }
 
 function ajaxResponseDataPost(namediv,path){
