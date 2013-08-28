@@ -454,7 +454,7 @@ public function getTablaProductosAction(){
 			
 		$ordcoms = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:LogOrdcom')
-		->findAll();
+		->findBy(array('cordcomest'=>1));
 	
 		$todo = array();
 		foreach ($ordcoms as $key => $ordcom){

@@ -14,7 +14,7 @@
 		<div class="box-header well" data-original-title>
 			<h2>ORDENES DE COMPRA</h2>
 			<div class="box-icon">
-				<a href="{{path('dicars_logistica_orden_compra_registrar')}}" class="btn btn-round" alt="Registrar Orden de Compra"><i class="icon-plus"></i></a>
+				<a href="{{path('dicars_logistica_eliminar_ordcompra')}}" class="btn btn-round" alt="Registrar Orden de Compra"><i class="icon-plus"></i></a>
 			</div>
 		</div>
 		<div class="box-content">
@@ -35,6 +35,22 @@
 		  </table>       
 		</div>
 	</div><!--/span-->
+	<div class="modal hide fade" id="EliminarOrdCompraAlert" Style="whidth:">
+			<form action="{{ path('dicars_logistica_eliminar_ordcompra') }}" method="post" id="EliminarOrdCompraForm">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">×</button>
+					<h2><i class="icon-alert icon-red icon32"></i>Eliminar</h2>
+				</div>
+				<div class="modal-body">
+					<p>¿Esta seguro de que desea eliminar la Orden de Compra?</p>
+					<input type="hidden" name="idordcompra" id="idordcompra">		
+				</div>
+				<div class="modal-footer">
+					<a href="#" class="btn" data-dismiss="modal">Cancelar</a>
+					<input type="submit" value="Eliminar" class="btn btn-primary">
+				</div>
+			</form>
+		</div>
 </div><!--/row-->
 
 {% endblock %}
@@ -47,8 +63,14 @@ var RowCallBackFunction;
 
 $(document).ready(function(){
 
+	ReloadTableOrdCompra = reloadclosemodal('EliminarOrdCompraAlert','ordcom_table');
+
 	RowCallBackFunction = function(nRow, aData, iDisplayIndex){
 		$(nRow).find('.btn-datos').attr('href',"{{ path('dicars_logistica_orden_compra_ver',{'idordcom':''}) }}/"+aData.id);
+		$(nRow).find('.btn-danger').click(function(){
+			$("#idordcompra").val(aData.id);
+			$("#EliminarOrdCompraAlert").modal('show');
+		});
 	};
 	
 	UrlaDTable = '{{ path("dicars_logistica_servicio_gettablaordcom") }}';
@@ -61,7 +83,9 @@ $(document).ready(function(){
 	              { "sWidth": "11%","mDataProp": "ver_btn"},
 	              { "sWidth": "11%","mDataProp": "elim_btn"}
 	              ];
-	OrdComTable = createDataTable('ordcom_table',UrlaDTable,FormatoDTable,null,RowCallBackFunction);		
+	OrdComTable = createDataTable('ordcom_table',UrlaDTable,FormatoDTable,null,RowCallBackFunction);
+
+	enviar("EliminarOrdCompraForm",ReloadTableOrdCompra);	
 	});
 	
 </script>
