@@ -167,9 +167,28 @@
 			</div>
 			{% include 'DicarsLogisticaBundle:Default:buscarproveedor.html.twig' %}
 			{% include 'DicarsLogisticaBundle:Default:buscarordped.html.twig' %}
-			{% include 'DicarsVentasBundle:Default:buscarproducto.html.twig' %}
-			
-			
+			<div class="modal hide fade" id="modalBuscarProducto">
+				<div class="modal-header">
+					<h3>Productos</h3>
+				</div>
+				<div class="modal-body">
+					<table id="select_producto_table" class="table table-striped table-bordered bootstrap-datatable datatable">
+					  <thead>
+						  <tr>
+							  <th>Codigo</th>
+							  <th>Producto</th>
+							  <th>Stock</th>
+						  </tr>
+					  </thead>   
+					  <tbody>
+					  </tbody>
+				  </table>
+				</div>
+				<div class="modal-footer">
+					<a href="#" class="btn" data-dismiss="modal">Cancelar</a>
+					<a  id="select_producto" href="#" class="btn btn-primary">Seleccionar</a>
+				</div>
+			</div>
 			</form>
 			<div class="modal hide fade" id="modalEditarCantidad" >
 				<div class="modal-header">
@@ -205,7 +224,7 @@ var Attr = ['idproducto','cantidad','pordcom', 'iddetordped','importe'];
 
 var BuscarProductosTable;
 var BuscarProveedoresTable;
-var BuscarOrdPedTable;
+var BuscarDetOrdPedTable;
 var DetOrdPedProductosTable;
 
 var SelectProductosTable;
@@ -278,10 +297,11 @@ $(document).ready(function(){
 	$("#select_producto").click(function(e){
 		e.preventDefault();
 		var data = SelectProductoData[0];
-		$('#producto').val(data.idproducto+" - "+data.nombre);
+		$('#producto').val(data.nombre);
 		$('#cantidad').val(1);
 		$('#precio').val(0);
 		$('#modalBuscarProducto').modal('hide');
+		UnselectRow("select_producto_table");
 	});
 
 	$("#select_proveedor").click(function(e){
@@ -295,11 +315,12 @@ $(document).ready(function(){
 	$("#select_ordped").click(function(e){
 		e.preventDefault();
 		var data = SelectDetPedido[0];
-		$('#ordped').val(data.serie + " - " + data.numero);
+		$('#ordped').val(data.nombre);
 		$('#ordped_id').val(data.id);
 		$('#cantidadd').val(1);
 		$('#preciod').val(0);
 		$('#modalBuscarOrdPed').modal('hide');
+		UnselectRow("select_ordped_table");
 	});
 	$("#agregar_detalle").click(function(e){
 		e.preventDefault();
@@ -307,6 +328,7 @@ $(document).ready(function(){
 			SelectDetPedido[0].pordcom = $('#preciod').val();
 			SelectDetPedido[0].cantidad= $('#cantidadd').val();
  			DetOrdPedProductosTable.fnAddData(SelectDetPedido);
+ 			SubTablaArray(BuscarDetOrdPedTable,SelectDetPedido,'iddetordped');
 			$('#ordped').val("");
 			$('#cantidadd').val("");
 			$('#preciod').val("");
@@ -373,7 +395,9 @@ $(document).ready(function(){
 			   		});
 			   		$(nRow).find('.btn-danger').click(function(e){
 			   			e.preventDefault();
-			   			var index = $(DetOrdPedProductosTable.fnGetData()).getIndexObj(aData,'idproducto');
+			   			var index = $(DetOrdPedProductosTable.fnGetData()).getIndexObj(aData,'asigid');
+			   			if(aData.iddetordped != 0)
+			   				BuscarDetOrdPedTable.fnAddData(aData);
 			   			DetOrdPedProductosTable.fnDeleteRow( index );
 			   			Array2 = DetOrdPedProductosTable.fnGetData();
 			   			CopyArray(OtherdataProductos,Array2,false,Attr);
@@ -389,10 +413,9 @@ $(document).ready(function(){
 	
 	UrlaDTableProductos = '{{ path("dicars_logistica_servicio_gettablaproductos") }}';
 	FormatoDTableProductos = [
-		              { "sWidth": "12%","mDataProp": "idproducto"},
+		              { "sWidth": "12%","mDataProp": "codigobarras"},
 		              { "sWidth": "12%","mDataProp": "nombre"},
 		              { "sWidth": "12%","mDataProp": "stock"},
-		              { "sWidth": "12%","mDataProp": "pcontado"}
 		              ];
 	BuscarProductosTable = createDataTable('select_producto_table',UrlaDTableProductos,FormatoDTableProductos,null,RowCallBackFunctionProducto);
 
@@ -409,11 +432,11 @@ $(document).ready(function(){
 	FormatoDTableOrdPed = [
 		              { "sWidth": "12%","mDataProp": "pedido_codigo"},
 		              { "sWidth": "12%","mDataProp": "registrante"},
-		              { "sWidth": "12%","mDataProp": "idproducto"},
+		              { "sWidth": "12%","mDataProp": "codigobarras"},
 		              { "sWidth": "12%","mDataProp": "cantidad"},
 		              { "sWidth": "12%","mDataProp": "fecha_reg"}
 		              ];
-	BuscarOrdPedTable = createDataTable('select_ordped_table',UrlaDTableOrdPed,FormatoDTableOrdPed,null,RowCallBackFunctionDetOrdPed);
+	BuscarDetOrdPedTable = createDataTable('select_ordped_table',UrlaDTableOrdPed,FormatoDTableOrdPed,null,RowCallBackFunctionDetOrdPed);
 
 	enviar("RegistrarOrdenCompraForm",ResetForm,OtherdataProductos);
 	

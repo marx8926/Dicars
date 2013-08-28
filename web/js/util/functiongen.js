@@ -155,7 +155,16 @@ function createDataTable(idTable,UrlaDTable,FormatoDTable, CallBackFunction, Row
 		"bProcessing": true,
 		"bServerSide": false,
 		"bDestroy": true,
-		"sAjaxSource": UrlaDTable,	  
+		"sAjaxSource": UrlaDTable,
+		"fnServerData": function( sUrl, aoData, fnCallback, oSettings ) {
+            oSettings.jqXHR = $.ajax( {
+                "url": sUrl,
+                "data": aoData,
+                "success": fnCallback,
+                "dataType": "json",
+                "cache": false
+            } );
+        },
 		"aoColumns": FormatoDTable,				             
 	 	"aaSorting": [ [0, 'asc'], [1, 'asc'] ],
 	 	"fnCreatedRow": function( nRow, aData, iDisplayIndex ) {

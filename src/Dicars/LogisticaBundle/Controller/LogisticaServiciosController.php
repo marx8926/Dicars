@@ -320,7 +320,7 @@ public function getTablaProductosAction(){
 			
 		$detordpeds = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:LogDetordped')
-		->findBy(array('cdetordpedest'=>0));
+		->findBy(array('cdetordpedest'=>1));
 		
 		$todo = array();
 		foreach ($detordpeds as $key => $detordped){
@@ -332,6 +332,7 @@ public function getTablaProductosAction(){
 					'registrante' => $registrante -> getCpersonalnom()." ".$registrante -> getCpersonalape(),
 					'pedido_codigo' => $pedido -> getCordpedserie()."-".$pedido -> getCordpednro(),
 					'idproducto' => $producto -> getNproductoId(),
+					'codigobarras' => $producto -> getCproductocodbarra(),
 					'nombre' => $producto -> getCproductodesc(),
 					'cantidad' => $detordped -> getNdetordpedcant(),
 					'fecha_reg' => $pedido -> getDordpedfecreg() -> format("d/m/Y"),
@@ -516,7 +517,7 @@ public function getTablaProductosAction(){
 		$smt->execute();
 		
 		$codigos = $smt->fetchAll();
-		$codigo = $codigos[0]['codigo'];
+		$codigo = $codigos[0]['Codigo'];
 		
 		$em->clear();
 		$em->close();
