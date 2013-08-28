@@ -260,6 +260,9 @@ public function getTablaProductosAction(){
 		foreach ($salprods as $key => $salprod){
 			
 			//$personal = $salprod -> getNpersonal();
+			$motivo = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:Constante')
+			->findOneBy(array('nconstanteId' => $salprod -> getNsalprodmotivo()));
 			
 			$solicitante = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:VenPersonal')
@@ -275,8 +278,10 @@ public function getTablaProductosAction(){
 					'solicitante' => $solicitante -> getCpersonalnom()." ".$solicitante -> getCpersonalape(),
 					'serie' => $salprod -> getCsalprodserie(),
 					'numero' => $salprod -> getCsalprodnro(),
-					'serienum' => $salprod -> getCsalprodserie()." - ".$salprod -> getCsalprodnro(),  
+					'serienum' => $salprod -> getCsalprodserie()." - ".$salprod -> getCsalprodnro(),
+					'motivo' => $motivo -> getCconstantedesc(),  
 					'fecha_reg' => $salprod -> getDsalprodfecreg() -> format("d/m/Y"),
+					'observacion' => $salprod -> getCsalprodobsv(),
 					'ver_btn' => "<a id-data='".$salprod -> getNsalprodId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
 					'edit_btn' => "<a id-data='".$salprod -> getNsalprodId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
 					'elim_btn' => "<a id-data='".$salprod -> getNsalprodId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
@@ -303,6 +308,7 @@ public function getTablaProductosAction(){
 					'local' => $ordped -> getNlocal() -> getClocaldesc(),
 					'serie' => $ordped -> getCordpedserie(),
 					'numero' => $ordped -> getCordpednro(),
+					'sernum' => $ordped -> getCordpedserie()." - ".$ordped -> getCordpednro(),
 					'fecha_reg' => $ordped -> getDordpedfecreg() -> format("d/m/Y"),
 					'fecha_ent' => $ordped -> getDordepedfecent() -> format("d/m/Y"),
 					'ver_btn' => "<a id-data='".$ordped -> getNordpedId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
@@ -359,13 +365,12 @@ public function getTablaProductosAction(){
 			$producto = $detsalprod -> getNproducto();
 	
 			$todo[] = array('id' => $detsalprod -> getNdetsalprodId(),
-					'producto_serie' => $producto -> getCproductoserie(),
+					'producto_desc' => $producto -> getCproductodesc()." - ".$producto -> getNproductomarca() -> getCmarcadesc()." - ".$producto -> getCproductotalla(),
 					'cantidad' => $detsalprod -> getDetsalprodcant(),
 					'estado' => $detsalprod -> getCdetsalprodest(),
 					'ver_btn' => "<a id-data='".$detsalprod -> getNdetsalprodId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
 					'edit_btn' => "<a id-data='".$detsalprod -> getNdetsalprodId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
 					'elim_btn' => "<a id-data='".$detsalprod -> getNdetsalprodId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
-	
 		}
 		$em->clear();
 		$em->close();
@@ -492,7 +497,7 @@ public function getTablaProductosAction(){
 			//$proveedor = $detordcom -> getNproveedor();
 	
 			$todo[] = array('id' => $detordcom -> getNdetcompraId(),
-					'producto_codigo' => $producto -> getCproductoserie(),
+					'producto_desc' => $producto -> getCproductodesc(),
 					'cantidad' => $detordcom -> getNdetcompracant(),
 					'pordcom' => $detordcom -> getNdetcompraprecunt(),
 					'importe' => $detordcom -> getNdetcompraimporte(),

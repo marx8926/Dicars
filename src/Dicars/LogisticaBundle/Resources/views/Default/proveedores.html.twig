@@ -27,7 +27,6 @@
 					<th>Razón Social</th>
 					<th>Teléfono</th>
 					<th>Email</th>
-					<th>Página Web</th>
 					<th></th>
 					<th></th>
 					<th></th>
@@ -123,13 +122,12 @@ $(document).ready(function(){
 
 	UrlaDTable = '{{ path("dicars_logistica_servicio_gettablaproveedores") }}';
 	FormatoDTable = [
-		              { "sWidth": "12%","mDataProp": "ruc"},
-		              { "sWidth": "12%","mDataProp": "razonsocial"},
-		              { "sWidth": "12%","mDataProp": "telefono"},
-		              { "sWidth": "12%","mDataProp": "email"},
-		              { "sWidth": "12%","mDataProp": "sitioweb"},
-		              { "sWidth": "13%","mDataProp": "ver_btn"},
-		              { "sWidth": "13%","mDataProp": "edit_btn"},
+		              { "sWidth": "14%","mDataProp": "ruc"},
+		              { "sWidth": "14%","mDataProp": "razonsocial"},
+		              { "sWidth": "14%","mDataProp": "telefono"},
+		              { "sWidth": "14%","mDataProp": "email"},
+		              { "sWidth": "14%","mDataProp": "ver_btn"},
+		              { "sWidth": "14%","mDataProp": "edit_btn"},
 		              { "sWidth": "14%","mDataProp": "elim_btn"}
 		              ];
 	oTable = createDataTable('proveedores_table',UrlaDTable,FormatoDTable,null, RowCallBackFunction);

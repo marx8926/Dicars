@@ -180,7 +180,7 @@ function createDataTable(idTable,UrlaDTable,FormatoDTable, CallBackFunction, Row
 		 	},
 		 	
 	 	"aoColumnDefs": [
-	                  {"sType": 'string-case', "aTargets": [2]}
+	                  {"sType": 'string-case', "aTargets": [1]}
 	                  ],
 	 	
 	 	
