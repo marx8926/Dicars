@@ -2,7 +2,7 @@
 {% block title %}Productos - Logística -{% endblock %}
 {% block breadcrumb %}
 <li>
-	<a href="{{path('dicars_ventas_homepage')}}">Logística</a> <span class="divider">/</span>
+	<a href="{{path('dicars_logistica_homepage')}}">Logística</a> <span class="divider">/</span>
 </li>
 <li>
 	<a href="{{path('dicars_logistica_productos')}}">Productos</a>
@@ -21,11 +21,11 @@
 			<table class="table table-striped table-bordered bootstrap-datatable datatable" id="productos_table">
 			  	<thead>
 				  	<tr>
-					  	<th>Código</th>
 					  	<th>Nombre</th>
 					  	<th>Stock</th>
 					  	<th>Precio Contado</th>
 					  	<th>Precio Crédito</th>
+					  	<th>Cod. Barra</th>
 					  	<th></th>
 					  	<th></th>
 						<th></th>
@@ -104,7 +104,7 @@ function cargarEditar(producto){
 	cargarSelect(Categorias,'categoriaE','id','desc');
 	$('#categoriaE').val(producto.categoriaId);
 	
-	cargarSelect(tipoproductos,'tipprod', 'id', 'desc');
+	cargarSelect(tipoproductos,'tipoE', 'id', 'desc');
 	$('#tipoE').val(producto.tipoId);
 
 	$('#estadoE').append('<option value="1">Habilitado</option>');
@@ -187,11 +187,11 @@ $(document).ready(function(){
 	
 	UrlaDTable = '{{ path("dicars_logistica_servicio_gettablaproductos") }}';
 	FormatoDTable = [
-		              { "sWidth": "12%","mDataProp": "codigobarras"},
 		              { "sWidth": "12%","mDataProp": "nombre"},
 		              { "sWidth": "12%","mDataProp": "stock"},
 		              { "sWidth": "12%","mDataProp": "pcontado"},
 		              { "sWidth": "12%","mDataProp": "pcredito"},
+		              { "sWidth": "12%","mDataProp": "codigobarras"},
 		              { "sWidth": "13%","mDataProp": "ver_btn"},
 		              { "sWidth": "13%","mDataProp": "edit_btn"},
 		              { "sWidth": "14%","mDataProp": "elim_btn"}

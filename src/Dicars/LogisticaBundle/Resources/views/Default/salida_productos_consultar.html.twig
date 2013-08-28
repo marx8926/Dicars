@@ -34,10 +34,12 @@
 			<table id="salida_prod_table" class="table table-striped table-bordered bootstrap-datatable datatable">
 				<thead>
 					<tr>
-						<th>Fecha de Registro</th>
-					  	<th>Código</th>
+						<th>Fec. Registro</th>
+					  	<th>N° Sal. Productos</th>
 						<th>Registrante</th>
 					  	<th>Solicitante</th>
+					  	<th>Motivo</th>
+					  	<th>Observación</th>
 					  	<th>Local</th>
 					  	<th></th>
 					  	<th></th>
@@ -75,13 +77,15 @@ $(document).ready(function(){
 	
 	UrlaDTable = '{{ path("dicars_logistica_servicio_gettablasalprods") }}';
 	FormatoDTable = [
-				  { "sWidth": "13%","mDataProp": "fecha_reg"},
+				  { "sWidth": "8%","mDataProp": "fecha_reg"},
 	              { "sWidth": "11%","mDataProp": "serienum"},
 	              { "sWidth": "15%","mDataProp": "registrante"},
 	              { "sWidth": "15%","mDataProp": "solicitante"},
+	              { "sWidth": "7%","mDataProp": "motivo"},
+	              { "sWidth": "10%","mDataProp": "observacion"},
 	              { "sWidth": "13%","mDataProp": "local"},
 	              { "sWidth": "11%","mDataProp": "ver_btn"},
-	              { "sWidth": "11%","mDataProp": "elim_btn"}
+	              { "sWidth": "12%","mDataProp": "elim_btn"}
 	              ];
 	SalProdTable = createDataTable('salida_prod_table',UrlaDTable,FormatoDTable,CargarBotones);		
 	});

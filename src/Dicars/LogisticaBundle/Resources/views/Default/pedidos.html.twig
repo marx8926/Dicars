@@ -24,11 +24,10 @@
 			  <thead>
 				  <tr>
 					  <th>Registrador</th>
-					  <th>Local</th>
-					  <th>Serie Prod.</th>
-					  <th>Número Prod.</th>
+					  <th>N° Ord. Pedido</th>
 					  <th>Fecha de Registro</th>
 					  <th>Fecha de Entrega</th>
+					  <th>Local</th>
 					  <th></th>
 					  <th></th>
 				  </tr>
@@ -78,14 +77,13 @@ $(document).ready(function(){
 	
 	UrlaDTable = '{{ path("dicars_logistica_servicio_gettablaordpeds") }}';
 	FormatoDTable = [
-	              { "sWidth": "15%","mDataProp": "registrante"},
-	              { "sWidth": "13%","mDataProp": "local"},
-	              { "sWidth": "11%","mDataProp": "serie"},
-	              { "sWidth": "11%","mDataProp": "numero"},	  
-	              { "sWidth": "13%","mDataProp": "fecha_reg"},
-	              { "sWidth": "13%","mDataProp": "fecha_ent"},
-	              { "sWidth": "13%","mDataProp": "ver_btn"},
-	              { "sWidth": "11%","mDataProp": "elim_btn"}
+	              { "sWidth": "14%","mDataProp": "registrante"},
+	              { "sWidth": "14%","mDataProp": "sernum"},	  
+	              { "sWidth": "14%","mDataProp": "fecha_reg"},
+	              { "sWidth": "14%","mDataProp": "fecha_ent"},
+	              { "sWidth": "14%","mDataProp": "local"},
+	              { "sWidth": "14%","mDataProp": "ver_btn"},
+	              { "sWidth": "14%","mDataProp": "elim_btn"}
 	              ];
 	PedidosTable = createDataTable('pedidos_table',UrlaDTable,FormatoDTable,null,RowCallBackIngProd);
 
