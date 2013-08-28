@@ -169,13 +169,16 @@ function createDataTable(idTable,UrlaDTable,FormatoDTable, CallBackFunction, Row
 		 	},
 		 	
 	 	"aoColumnDefs": [
-	                  {"sType": 'string-case', "aTargets": [2]}],
+	                  {"sType": 'string-case', "aTargets": [2]}
+	                  ],
 	 	
 	 	
 		 	"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span12'i><'span12 center'p>>",
 		 	"sPaginationType": "bootstrap",
 		 	"oLanguage": {
-			"sLengthMenu": "_MENU_ registros por página"
+		 		"sSearch": "Buscar:",
+		 		"sLengthMenu": "_MENU_ registros por página",
+		 		"sPaginationType": "full_numbers"
 				} 		            
 	
 		});
