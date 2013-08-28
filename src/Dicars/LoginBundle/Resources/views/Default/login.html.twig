@@ -170,11 +170,12 @@
             $("#myForm").submit(function(event){                        
                     event.preventDefault();                             
                     //get the url for the form
-                    var href="{{path('main')}}";
+                   var href="{{path('dicars_admin_homepage')}}";
              
                    $(location).attr('href',href); 
             
                     return false;});
+              
         });
           
         </script>
