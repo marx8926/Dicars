@@ -3,3 +3,9 @@ dicars_logistica_registrar_ordcompra:
     defaults: { _controller: DicarsLogisticaBundle:AdministrarOrdCompra:RegistrarOrdCompra }
     requirements:
           _method: POST
+          
+dicars_logistica_eliminar_ordcompra:
+    pattern:  /eliminar_ordcompra
+    defaults: { _controller: DicarsLogisticaBundle:AdministrarOrdCompra:EliminarOrdCompra }
+    requirements:
+          _method: POST

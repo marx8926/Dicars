@@ -46,7 +46,7 @@ class AdministrarProductoController extends Controller{
     		->getRepository('DicarsDataBundle:VenMarca')
 			->findOneBy(array('nmarcaId'  => 1));
 			
-			$Producto_tipo = $datos["tipo"];
+			$Producto_tipo = $datos["tipprod"];
 			$Producto_desc = $datos["descripcion"];
 			$Producto_prec_contado = $datos["preciocontado"];
 			$Producto_prec_credito = $datos["preciocredito"];

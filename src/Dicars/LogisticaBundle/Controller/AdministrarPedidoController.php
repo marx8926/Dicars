@@ -97,49 +97,49 @@ class AdministrarPedidoController extends Controller{
 		
 		$return = json_encode($return);
 		return new Response($return,200,array('Content-Type'=>'application/json'));
-		}
+	}
 		
-		public function EliminarPedidoAction(){
-			$request = $this->get('request');
-			$form = $request->request->get('formulario');
+	public function EliminarPedidoAction(){
+		$request = $this->get('request');
+		$form = $request->request->get('formulario');
+		
+		$datos = array();
+		parse_str($form,$datos);
+		
+		$idPedido = null;
 			
-			$datos = array();
-			parse_str($form,$datos);
+		if ($form != null){				
+			$idPedido = $datos['idpedprod'];
+							
+			$Pedido = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:LogOrdped')
+			->findOneBy(array('nordpedId' => $idPedido));
 			
-			$idPedido = null;
-				
-			if ($form != null){				
-				$idPedido = $datos['idpedprod'];
-								
-				$IngProd = $this->getDoctrine()
-				->getRepository('DicarsDataBundle:LogOrdped')
-				->findOneBy(array('nordpedId' => $idPedido));
-				
-				$IngProd -> setCordpedest('0');
-				
-				$em = $this->getDoctrine()->getEntityManager();
-				$em->beginTransaction();
-			try {
-				$em->flush();
+			$Pedido -> setCordpedest('0');
 			
-			} catch (Exception $e) {
-				$em->rollback();
-				$em->close();
-				$return = array("responseCode"=>400, "greeting"=>"Bad");
-					
-				throw $e;
-			}
-			$em->commit();
-			$em->clear();
+			$em = $this->getDoctrine()->getEntityManager();
+			$em->beginTransaction();
+		try {
+			$em->flush();
+		
+		} catch (Exception $e) {
+			$em->rollback();
 			$em->close();
-			$return = array("responseCode"=>200, "datos"=>$datos);
-			
-			}
-		else {
 			$return = array("responseCode"=>400, "greeting"=>"Bad");
+				
+			throw $e;
 		}
+		$em->commit();
+		$em->clear();
+		$em->close();
+		$return = array("responseCode"=>200, "datos"=>$datos);
 		
-		$return = json_encode($return);
-		return new Response($return,200,array('Content-Type'=>'application/json'));
 		}
+	else {
+		$return = array("responseCode"=>400, "greeting"=>"Bad");
+	}
+	
+	$return = json_encode($return);
+	return new Response($return,200,array('Content-Type'=>'application/json'));
+	}
 }

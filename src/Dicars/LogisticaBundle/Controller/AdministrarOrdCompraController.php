@@ -136,5 +136,49 @@ class AdministrarOrdCompraController extends Controller{
 		$return = json_encode($return);
 		return new Response($return,200,array('Content-Type'=>'application/json'));
 	}
+	
+	public function EliminarOrdCompraAction(){
+		$request = $this->get('request');
+		$form = $request->request->get('formulario');
+			
+		$datos = array();
+		parse_str($form,$datos);
+			
+		$idPedido = null;
+	
+		if ($form != null){
+			$idOrdCompra = $datos['idordcompra'];
+	
+			$OrdCompra = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:LogOrdCom')
+			->findOneBy(array('nordencomId' => $idOrdCompra));
+	
+			$OrdCompra -> setCordcomest('0');
+	
+			$em = $this->getDoctrine()->getEntityManager();
+			$em->beginTransaction();
+			try {
+				$em->flush();
+					
+			} catch (Exception $e) {
+				$em->rollback();
+				$em->close();
+				$return = array("responseCode"=>400, "greeting"=>"Bad");
+					
+				throw $e;
+			}
+			$em->commit();
+			$em->clear();
+			$em->close();
+			$return = array("responseCode"=>200, "datos"=>$datos);
+				
+		}
+		else {
+			$return = array("responseCode"=>400, "greeting"=>"Bad");
+		}
+	
+		$return = json_encode($return);
+		return new Response($return,200,array('Content-Type'=>'application/json'));
+	}
 
 }
