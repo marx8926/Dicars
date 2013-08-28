@@ -94,19 +94,20 @@
 				<div class="well nav-collapse sidebar-nav">
 					<ul class="nav nav-tabs nav-stacked main-menu">
 						<li class="nav-header hidden-tablet">Ventas</li>
+						<li><a class="ajax-link" href="{{ path('dicars_ventas_consultar') }}"><i class="icon-shopping-cart"></i><span class="hidden-tablet"> Ventas</span></a></li>
+						<li><a class="ajax-link" href="{{ path('dicars_ventas_cronograma') }}"><i class="icon-edit"></i><span class="hidden-tablet"> Cronograma de Pago</span></a></li>
 						<li><a class="ajax-link" href="{{ path('dicars_ventas_clientes_dm') }}"><i class="icon-user"></i><span class="hidden-tablet"> Morosos y Deudores</span></a></li>
 						<li><a class="ajax-link" href="{{ path('dicars_ventas_control_salidas') }}"><i class="icon-eye-open"></i><span class="hidden-tablet"> Control de Salidas</span></a></li>
-						<li><a class="ajax-link" href="{{ path('dicars_ventas_cronograma') }}"><i class="icon-edit"></i><span class="hidden-tablet"> Cronograma de Pago</span></a></li>
 						<li><a class="ajax-link" href="{{ path('dicars_ventas_ofertas') }}"><i class="icon-list-alt"></i><span class="hidden-tablet"> Ofertas</span></a></li>
 						<li><a class="ajax-link" href="{{ path('dicars_ventas_regimp_tarjetacredito') }}"><i class="icon-font"></i><span class="hidden-tablet"> Tarjeta de Crédito</span></a></li>
 						<li><a class="ajax-link" href="{{ path('dicars_ventas_separar_productos') }}"><i class="icon-shopping-cart"></i><span class="hidden-tablet"> Separar Productos</span></a></li>
-						<li><a class="ajax-link" href="{{ path('dicars_ventas_venta_productos') }}"><i class="icon-shopping-cart"></i><span class="hidden-tablet"> Venta</span></a></li>
 						<li><a class="ajax-link" href="{{ path('dicars_ventas_ingregr_dia') }}"><i class="icon-list-alt"></i><span class="hidden-tablet"> Reporte de Ingresos/Egresos</span></a></li>
 						<li><a class="ajax-link" href="{{ path('dicars_ventas_reporte_zonas') }}"><i class="icon-list-alt"></i><span class="hidden-tablet"> Reporte de Zonas</span></a></li>
 						<li class="nav-header hidden-tablet">Logística</li>
 						<li><a class="ajax-link" href="{{ path('dicars_logistica_productos') }}"><i class="icon-align-justify"></i><span class="hidden-tablet"> Administrar Productos</span></a></li>
 						<li><a class="ajax-link" href="{{ path('dicars_logistica_proveedores') }}"><i class="icon-user"></i><span class="hidden-tablet"> Administrar Proveedores</span></a></li>
 						<li><a class="ajax-link" href="{{ path('dicars_logistica_pedidos') }}"><i class="icon-th"></i><span class="hidden-tablet"> Pedidos</span></a></li>
+						<li><a class="ajax-link" href="{{ path('dicars_logistica_orden_compra_consultar') }}"><i class="icon-th"></i><span class="hidden-tablet"> Orden de Compra</span></a></li>
 						<li><a class="ajax-link" href="{{ path('dicars_logistica_cons_ingresoproductos') }}"><i class="icon-folder-open"></i><span class="hidden-tablet"> Ingreso de Productos</span></a></li>
 						<li><a class="ajax-link" href="{{ path('dicars_logistica_cons_salidaproductos') }}"><i class="icon-star"></i><span class="hidden-tablet"> Salida de Productos</span></a></li>
 						<li class="nav-header hidden-tablet">Administración</li>
@@ -118,6 +119,10 @@
 						<li><a class="ajax-link" href="{{ path('dicars_admin_categorias') }}"><i class="icon-star"></i><span class="hidden-tablet"> Categorías</span></a></li>
 						<li><a href="{{ path('dicars_admin_marcas') }}"><i class="icon-ban-circle"></i><span class="hidden-tablet"> Marcas</span></a></li>
 						<li><a href="{{ path('dicars_admin_zonas') }}"><i class="icon-ban-circle"></i><span class="hidden-tablet"> Zonas</span></a></li>
+						<li><a href="{{ path('dicars_admin_zonapersonal') }}"><i class="icon-ban-circle"></i><span class="hidden-tablet"> Zona/Personal</span></a></li>
+						<li><a href="{{ path('dicars_admin_tipoigv') }}"><i class="icon-ban-circle"></i><span class="hidden-tablet"> Tipo de IGV</span></a></li>
+						<li><a href="{{ path('dicars_admin_tipomoneda') }}"><i class="icon-ban-circle"></i><span class="hidden-tablet"> Tipo de Moneda</span></a></li>
+						<li><a href="{{ path('dicars_admin_movimientos') }}"><i class="icon-ban-circle"></i><span class="hidden-tablet"> Movimientos</span></a></li>
 						<li><a href="{{ path('dicars_admin_constantes') }}"><i class="icon-globe"></i><span class="hidden-tablet"> Constantes</span></a></li>
 					</ul>
 				</div>
