@@ -222,13 +222,17 @@ public function getTablaProductosAction(){
 		->findAll();
 	
 		$todo = array();
-		foreach ($ingprods as $key => $ingprod){			
+		foreach ($ingprods as $key => $ingprod){
+
+			$personal = $ingprod -> getNpersonal();
 			
 			$todo[] = array(
 					'idingprod' => $ingprod -> getNingprodId(),
-					'serie' => $ingprod -> getCingprodserie(),
-					'numero' => $ingprod -> getCingprodnro(),
-					'serie_doc' => $ingprod -> getCingproddocserie(),					
+					'personal' => $personal -> getCpersonalnom()." ".$personal -> getCpersonalape(),
+					'numero' => $ingprod -> getCingproddocserie()." - ".$ingprod -> getCingprodnro(),
+					'fechareg' => $ingprod -> getDingprodfecreg() -> format("d/m/Y"),
+					'documento' => $ingprod -> getCingproddocserie()." - ".$ingprod -> getCingproddocnro(),
+					'motivo' => $ingprod -> getNingprodmotivo(),	
 					'ver_btn' => "<a class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
 					'edit_btn' => "<a class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
 					'elim_btn' => "<a class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
@@ -281,7 +285,7 @@ public function getTablaProductosAction(){
 			
 		$ordpeds = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:LogOrdped')
-		->findAll();
+		->findBy(array('cordpedest' => '1'));
 		
 		$todo = array();
 		foreach ($ordpeds as $key => $ordped){

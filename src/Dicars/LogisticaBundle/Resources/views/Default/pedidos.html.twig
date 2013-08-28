@@ -38,6 +38,22 @@
 		  </table>       
 		</div>
 	</div><!--/span-->
+		<div class="modal hide fade" id="EliminarPedidoAlert" Style="whidth:">
+			<form action="{{ path('dicars_logistica_eliminar_pedido') }}" method="post" id="EliminarPedidoForm">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">×</button>
+					<h2><i class="icon-alert icon-red icon32"></i>Eliminar</h2>
+				</div>
+				<div class="modal-body">
+					<p>¿Esta seguro de que desea eliminar el Pedido?</p>
+					<input type="hidden" name="idpedprod" id="idpedprod">		
+				</div>
+				<div class="modal-footer">
+					<a href="#" class="btn" data-dismiss="modal">Cancelar</a>
+					<input type="submit" value="Eliminar" class="btn btn-primary">
+				</div>
+			</form>
+		</div>
 </div><!--/row-->
 
 {% endblock %}
@@ -46,23 +62,18 @@
 <script src="{{ asset('js/util/datatable_plugins.js') }}"></script>
 <script type="text/javascript">
 var CargarBotones;
+var ReloadTablePedidos;
+var RowCallBackIngProd;
 $(document).ready(function(){
-	
-	CargarBotones = function(){
-		//	mostrar Editar Trabajador------------------------------------>
-			$('.btn-editar').unbind();
-			$('.btn-editar').click(function(e){
-				e.preventDefault();
-				$('#modalEditarDatos').modal('show');
-				id=$(this).attr("id-data");		
-				cargarEditar(id);
-			});		
-		//mostrar Ver Datos Trabajador------------------------------------>
-			$('.btn-datos').unbind();
-			$('.btn-datos').click(function(e){
-				id=$(this).attr("id-data");	
-				$(this).attr('href',"{{ path('dicars_logistica_pedidos_ver',{'idpedido':''}) }}/"+id);
-			});
+
+	ReloadTablePedidos = reloadclosemodal('EliminarPedidoAlert','pedidos_table');
+
+	RowCallBackIngProd = function (nRow, aData, iDisplayIndex){
+		$(nRow).find('.btn-datos').attr('href',"{{ path('dicars_logistica_pedidos_ver',{'idpedido':''}) }}/"+aData.id);
+		$(nRow).find('.btn-danger').click(function(){
+			$("#idpedprod").val(aData.id);
+			$("#EliminarPedidoAlert").modal('show');
+		});
 	};
 	
 	UrlaDTable = '{{ path("dicars_logistica_servicio_gettablaordpeds") }}';
@@ -76,14 +87,10 @@ $(document).ready(function(){
 	              { "sWidth": "13%","mDataProp": "ver_btn"},
 	              { "sWidth": "11%","mDataProp": "elim_btn"}
 	              ];
-	PedidosTable = createDataTable('pedidos_table',UrlaDTable,FormatoDTable,CargarBotones);		
-	});
+	PedidosTable = createDataTable('pedidos_table',UrlaDTable,FormatoDTable,null,RowCallBackIngProd);
 
-	/*ReloadTableEditar = reloadclosemodal('modalEditarDatos', 'empleados_table');
-	ReloadTableRegistrar = reloadclosemodal('modalRegistro', 'empleados_table');
-	
-	enviar('RegistrarTrabajadorForm', ReloadTableRegistrar);
-	enviar('EditarEmpleadoForm', ReloadTableEditar);*/
+	enviar("EliminarPedidoForm",ReloadTablePedidos);
+	});
 	
 </script>
 {% endblock %}

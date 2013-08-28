@@ -3,3 +3,9 @@ dicars_logistica_registrar_pedido:
     defaults: { _controller: DicarsLogisticaBundle:AdministrarPedido:RegistrarPedido }
     requirements:
           _method: POST
+          
+dicars_logistica_eliminar_pedido:
+    pattern:  /eliminar_pedido
+    defaults: { _controller: DicarsLogisticaBundle:AdministrarPedido:EliminarPedido }
+    requirements:
+          _method: POST

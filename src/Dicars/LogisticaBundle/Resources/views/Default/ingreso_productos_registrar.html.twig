@@ -192,7 +192,7 @@ $(document).ready(function(){
 	BuscarProductosTable = createDataTable('select_producto_table',UrlaDTableProductos,FormatoDTableProductos,null,RowCallBackFunctionProducto);
 
 	SelectProductosTable = $("#ingreso_productos_table").dataTable({
-		"aoColumns": [
+				"aoColumns": [
 		              { "sWidth": "12%","mDataProp": "codigobarras"},
 		              { "sWidth": "12%","mDataProp": "nombre"},
 		              { "sWidth": "12%","mDataProp": "cantidad"},
@@ -211,7 +211,8 @@ $(document).ready(function(){
 		  		"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span12'i><'span12 center'p>>",
 		  		"sPaginationType": "bootstrap",
 		  		"oLanguage": {
-		  		"sLengthMenu": "_MENU_ registros por pagina"
+		  		"sLengthMenu": "_MENU_ registros por pagina",
+		  		"sSearch": "Buscar:"
 		  		}
 	});
 
