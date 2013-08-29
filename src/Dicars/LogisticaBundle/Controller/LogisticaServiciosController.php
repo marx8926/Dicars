@@ -297,7 +297,7 @@ public function getTablaProductosAction(){
 			
 		$ordpeds = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:LogOrdped')
-		->findBy(array('cordpedest' => '0'));
+		->findBy(array('cordpedest' => '1')); //habilitado
 		
 		$todo = array();
 		foreach ($ordpeds as $key => $ordped){
@@ -321,46 +321,46 @@ public function getTablaProductosAction(){
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
-	public function getTablaDetPedidoCompraAction(){
-		$em = $this->getDoctrine()->getEntityManager();
+public function getTablaDetPedidoCompraAction(){
+	$em = $this->getDoctrine()->getEntityManager();
+	
+	$detapedidoRepo =  $this->getDoctrine()
+	->getRepository('DicarsDataBundle:LogDetordped');
+	
+	$detordpeds1 = $detapedidoRepo
+	->findBy(array('cdetordpedest'=>0));//Los detalles no atendidos
+	
+	$detordpeds2 = $detapedidoRepo
+	->findBy(array('cdetordpedest'=>1));//Los detalles parcialmente atendidos
+	
+	$detordpeds =  array_merge($detordpeds1, $detordpeds2);
+	
+	$todo = array();
+	foreach ($detordpeds as $key => $detordped){
+		$pedido = $detordped -> getNordped();
+		$registrante = $pedido -> getNpersonal();
+		$producto = $detordped -> getNproducto();
 		
-		$detapedidoRepo =  $this->getDoctrine()
-		->getRepository('DicarsDataBundle:LogDetordped');
-		
-		$detordpeds1 = $detapedidoRepo
-		->findBy(array('cdetordpedest'=>0));
-		
-		$detordpeds2 = $detapedidoRepo
-		->findBy(array('cdetordpedest'=>1));
-		
-		$detordpeds =  array_merge($detordpeds1, $detordpeds2);
-		
-		$todo = array();
-		foreach ($detordpeds as $key => $detordped){
-			$pedido = $detordped -> getNordped();
-			$registrante = $pedido -> getNpersonal();
-			$producto = $detordped -> getNproducto();
-		
-			$todo[] = array('iddetordped' => $detordped -> getNdetordpedId(),
-					'registrante' => $registrante -> getCpersonalnom()." ".$registrante -> getCpersonalape(),
-					'pedido_codigo' => $pedido -> getCordpedserie()."-".$pedido -> getCordpednro(),
-					'idproducto' => $producto -> getNproductoId(),
-					'codigobarras' => $producto -> getCproductocodbarra(),
-					'descprod' => $producto -> getCproductodesc()." - ".$producto -> getNproductomarca() -> getCmarcadesc()." - ".$producto -> getCproductotalla(),
-					'aceptado' => $detordped -> getNdetordpedcantacept(),
-					'faltan' => $detordped -> getNdetordpedcant() - $detordped -> getNdetordpedcantacept(),
-					'cantidad' => $detordped -> getNdetordpedcant(),
-					'fecha_reg' => $pedido -> getDordpedfecreg() -> format("d/m/Y"),
-					'fecha_ent' => $pedido -> getDordepedfecent() -> format("d/m/Y"),
-					'ver_btn' => "<a id-data='".$pedido -> getNordpedId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
-					'edit_btn' => "<a id-data='".$pedido -> getNordpedId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
-					'elim_btn' => "<a id-data='".$pedido -> getNordpedId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
-		
-		}
-		$em->clear();
-		$em->close();
-		return new JsonResponse(array('aaData' => $todo));
+		$todo[] = array('iddetordped' => $detordped -> getNdetordpedId(),
+		'registrante' => $registrante -> getCpersonalnom()." ".$registrante -> getCpersonalape(),
+		'pedido_codigo' => $pedido -> getCordpedserie()."-".$pedido -> getCordpednro(),
+		'idproducto' => $producto -> getNproductoId(),
+		'codigobarras' => $producto -> getCproductocodbarra(),
+		'descprod' => $producto -> getCproductodesc()." - ".$producto -> getNproductomarca() -> getCmarcadesc()." - ".$producto -> getCproductotalla(),
+		'aceptado' => $detordped -> getNdetordpedcantacept(),
+		'faltan' => $detordped -> getNdetordpedcant() - $detordped -> getNdetordpedcantacept(),
+		'cantidad' => $detordped -> getNdetordpedcant(),
+		'fecha_reg' => $pedido -> getDordpedfecreg() -> format("d/m/Y"),
+		'fecha_ent' => $pedido -> getDordepedfecent() -> format("d/m/Y"),
+		'ver_btn' => "<a id-data='".$pedido -> getNordpedId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
+		'edit_btn' => "<a id-data='".$pedido -> getNordpedId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
+		'elim_btn' => "<a id-data='".$pedido -> getNordpedId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
+	
 	}
+	$em->clear();
+	$em->close();
+	return new JsonResponse(array('aaData' => $todo));
+}
 	
 	public function getTablaDetSalProdAction($id){
 		$em = $this->getDoctrine()->getEntityManager();
