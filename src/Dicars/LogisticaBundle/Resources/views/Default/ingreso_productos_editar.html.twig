@@ -21,7 +21,7 @@
 					<div class="row-fluid">
 						<div class="span6">
 							<div class="control-group">
-								<label class="control-label" for="codigo">Código</label>
+								<label class="control-label" for="codigo">Número Ingreso</label>
 								<div class="controls">
 									<span class="help-inline" style="margin-top:5px;">{{ serie }} - {{ nro }}</span>
 									<input type="hidden" id="idingprod" name="idingprod" value="{{ id }}">
@@ -56,7 +56,7 @@
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label" for="solicitante">Código Documento</label>
+								<label class="control-label" for="solicitante">Número Documento</label>
 								<div class="controls">
 									<span class="help-inline" style="margin-top:5px;">{{ serie_doc }} - {{ nro_doc }}</span>
 								</div>
@@ -75,12 +75,12 @@
 				<div class="control-group">
 					<label class="control-label" for="producto">Producto</label>
 					<div class="controls">
-						<input class="input-xlarge focused" id="producto" type="text">
+						<input class="input-xlarge focused" id="producto" disabled type="text">
 					  	<button type="button" class="btn btn-info btn-buscarp" style="margin: 0 18px;"><i class="icon-search icon-white"></i>Buscar</button>
 						<label style="display:inline;" for="cantidad">Cantidad</label>
-						<input id="cantidad" name="cantidad" type="number" style="margin: 0 18px 0 0;">
+						<input id="cantidad" name="cantidad" type="number" min=1 style="margin: 0 18px 0 0;">
 						<label style="display:inline;">Precio/Unidad</label>
-						<input id="precio_uni" name="precio_uni" type="number" style="margin: 0 18px;">
+						<input id="precio_uni" name="precio_uni" type="number" min=0 style="margin: 0 18px;">
 						<button id="agregar_producto" type="submit" class="btn btn-primary"><i class="icon-plus icon-white"></i>Agregar</button>
 					</div>
 				</div>
@@ -135,7 +135,7 @@ var RowCallBackFunctionProducto;
 var DrawCallBack;
 function cargarEditar(detingprode){
 	ArrayDatos = [	{'type':'hidden','value':detingprode.idproducto,'name':'idE'},
-	              	{'label':'Cantidad','type':'inputnumber','req':'', 'step':'1', 'min':'0', 'max':'15','value':detingprode.cantidad,'name':'cantidadE'},
+	              	{'label':'Cantidad','type':'inputnumber','req':'', 'step':'1', 'min':'1', 'max':'15','value':detingprode.cantidad,'name':'cantidadE'},
 	              	{'label':'Precio','type':'inputnumber', 'req':'', 'step':'1', 'min':'0', 'max':'1000','value':detingprode.precio_uni,'name':'precioE'},
 	              	{'type':'actions'}];
 	
@@ -191,14 +191,14 @@ $(document).ready(function(){
 	$("#select_producto").click(function(e){
 		e.preventDefault();
 		var data = SelectProductoData[0];
-		$('#producto').val(data.id+" - "+data.nombre);
+		$('#producto').val(data.idproducto+" - "+data.nombre);
 		$('#modalBuscarProducto').modal('hide');
 	});
 
 	$("#AgregarProductoForm").submit(function(e){
 		e.preventDefault();
 		if(SelectProductoData.length > 0){						
-			SelectProductoData[0].iddetingreso = 0;
+			SelectProductoData[0].iddetingreso = 0;			
 			SelectProductoData[0].cantidad = $('#cantidad').val();
 			SelectProductoData[0].precio_uni = $('#precio_uni').val();
 			SelectProductoData[0].total = $('#precio_uni').val()*$('#cantidad').val();
@@ -221,9 +221,8 @@ $(document).ready(function(){
 	
 	RowCallBackFunctionProducto = getSimpleSelectRowCallBack(SelectProductoData,"select_producto_table");
 	UrlaDTableProductos = '{{ path("dicars_logistica_servicio_gettablaproductos") }}';
-	FormatoDTableProductos = [
-	                  { "sWidth": "12%","mDataProp": "codigobarras"},
-		              { "sWidth": "12%","mDataProp": "nombre"},
+	FormatoDTableProductos = [	                  
+		              { "sWidth": "12%","mDataProp": "descprod"},
 		              { "sWidth": "12%","mDataProp": "stock"},
 		              { "sWidth": "12%","mDataProp": "pcontado"}
 		              ];

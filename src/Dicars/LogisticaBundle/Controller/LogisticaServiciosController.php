@@ -232,6 +232,11 @@ public function getTablaProductosAction(){
 		foreach ($ingprods as $key => $ingprod){
 
 			$personal = $ingprod -> getNpersonal();
+			$motivo = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:Constante')
+			->findOneBy(array('nconstanteId'=>8)); 
+			
+			$ingprod -> getNingprodmotivo();			
 			
 			$todo[] = array(
 					'idingprod' => $ingprod -> getNingprodId(),
@@ -239,11 +244,12 @@ public function getTablaProductosAction(){
 					'numero' => $ingprod -> getCingproddocserie()." - ".$ingprod -> getCingprodnro(),
 					'fechareg' => $ingprod -> getDingprodfecreg() -> format("d/m/Y"),
 					'documento' => $ingprod -> getCingproddocserie()." - ".$ingprod -> getCingproddocnro(),
-					'motivo' => $ingprod -> getNingprodmotivo(),	
+					'motivo' => $motivo -> getCconstantedesc(),	
 					'ver_btn' => "<a class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
 					'edit_btn' => "<a class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
 					'elim_btn' => "<a class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
 		}
+		
 		$em->clear();
 		$em->close();
 		return new JsonResponse(array('aaData' => $todo));
