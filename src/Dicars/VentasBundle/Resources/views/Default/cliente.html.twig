@@ -1,8 +1,8 @@
 {% extends "::baseCharisma.html.twig" %}
-{% block title %}Clientes - Ventas -{% endblock %}
+{% block title %}Clientes - Administración -{% endblock %}
 {% block breadcrumb %}
 <li>
-	<a href="{{path('dicars_ventas_homepage')}}">Ventas</a> <span class="divider">/</span>
+	<a href="{{path('dicars_admin_homepage')}}">Administración</a> <span class="divider">/</span>
 </li>
 <li>
 	<a href="{{path('dicars_ventas_clientes')}}">Clientes</a>
@@ -26,8 +26,7 @@
 					  	<th>DNI</th>
 					  	<th>Línea de Crédito</th>
 					  	<th></th>
-					  	<th></th>
-					  	<th></th>					  
+					  	<th></th>				  
 				  	</tr>
 			  	</thead>
 		  	</table>  
@@ -140,8 +139,7 @@ $(document).ready(function(){
 	              { "sWidth": "15%","mDataProp": "dni"},
 	              { "sWidth": "15%","mDataProp": "linea_credito"},	              
 	              { "sWidth": "13%","mDataProp": "ver_btn"},
-	              { "sWidth": "13%","mDataProp": "edit_btn"},
-	              { "sWidth": "14%","mDataProp": "elim_btn"}
+	              { "sWidth": "13%","mDataProp": "edit_btn"}
 	              ];
 	oTable = createDataTable('clientes_table',UrlaDTable,FormatoDTable,null,RowCallBackFunction);
 

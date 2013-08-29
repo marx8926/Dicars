@@ -47,7 +47,7 @@ class AdministrarPedidoController extends Controller{
 			$Pedido -> setCordpedserie($Serie);
 			$Pedido -> setCordpednro($Numero);
 			$Pedido -> setCordpedenvemail($Email);
-			$Pedido -> setCordpedest('1');
+			$Pedido -> setCordpedest('0'); //no atendido
 			$Pedido -> setCordpedobsv($Observacion);
 			$Pedido -> setDordpedfecreg($Fecha_reg);
 			$Pedido -> setDordepedfecent($Fecha_ent);
