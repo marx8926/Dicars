@@ -323,10 +323,17 @@ public function getTablaProductosAction(){
 	
 	public function getTablaDetPedidoCompraAction(){
 		$em = $this->getDoctrine()->getEntityManager();
-			
-		$detordpeds = $this->getDoctrine()
-		->getRepository('DicarsDataBundle:LogDetordped')
+		
+		$detapedidoRepo =  $this->getDoctrine()
+		->getRepository('DicarsDataBundle:LogDetordped');
+		
+		$detordpeds1 = $detapedidoRepo
+		->findBy(array('cdetordpedest'=>0));
+		
+		$detordpeds2 = $detapedidoRepo
 		->findBy(array('cdetordpedest'=>1));
+		
+		$detordpeds =  array_merge($detordpeds1, $detordpeds2);
 		
 		$todo = array();
 		foreach ($detordpeds as $key => $detordped){
@@ -334,12 +341,14 @@ public function getTablaProductosAction(){
 			$registrante = $pedido -> getNpersonal();
 			$producto = $detordped -> getNproducto();
 		
-			$todo[] = array('iddetordped' => $pedido -> getNordpedId(),
+			$todo[] = array('iddetordped' => $detordped -> getNdetordpedId(),
 					'registrante' => $registrante -> getCpersonalnom()." ".$registrante -> getCpersonalape(),
 					'pedido_codigo' => $pedido -> getCordpedserie()."-".$pedido -> getCordpednro(),
 					'idproducto' => $producto -> getNproductoId(),
 					'codigobarras' => $producto -> getCproductocodbarra(),
-					'nombre' => $producto -> getCproductodesc(),
+					'descprod' => $producto -> getCproductodesc()." - ".$producto -> getNproductomarca() -> getCmarcadesc()." - ".$producto -> getCproductotalla(),
+					'aceptado' => $detordped -> getNdetordpedcantacept(),
+					'faltan' => $detordped -> getNdetordpedcant() - $detordped -> getNdetordpedcantacept(),
 					'cantidad' => $detordped -> getNdetordpedcant(),
 					'fecha_reg' => $pedido -> getDordpedfecreg() -> format("d/m/Y"),
 					'fecha_ent' => $pedido -> getDordepedfecent() -> format("d/m/Y"),

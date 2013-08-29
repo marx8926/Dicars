@@ -46,8 +46,8 @@ class AdministrarOrdCompraController extends Controller{
 			
 			$Fecha_reg = new \DateTime();
 			
-			$Serie = $datos['serie'];
-			$Numero = $datos['numero'];
+			$Serie = '1234';
+			$Numero = '12345678';
 			
 			$Subtotal = $datos['subtotal'];
 			$IGV = $datos['igv'];
@@ -55,7 +55,7 @@ class AdministrarOrdCompraController extends Controller{
 							
 			$Observacion = $datos['observaciones'];
 			
-			$Estado = $datos['selectEstado'];
+			$Estado = 1;
 			
 			$Descuento = $datos['descuento'];
 			$RecEquivalente = $datos['recequiv'];
@@ -78,44 +78,38 @@ class AdministrarOrdCompraController extends Controller{
 				
 			$em = $this->getDoctrine()->getEntityManager();
 			$em->beginTransaction();
-			try {
-				$em->persist($OrdCompra);
-				$em->flush();
-	
-				foreach($otherdata as $key => $data){
-					$Producto = $this->getDoctrine()
-					->getRepository('DicarsDataBundle:Producto')
-					->findOneBy(array('nproductoId' => $data['idproducto']));
-						
-					$DetalleCompra = new LogDetcompra();
-					$DetalleCompra -> setNordencompra($OrdCompra);
-					$DetalleCompra -> setNdetcompracant($data['cantidad']);
-					$DetalleCompra -> setNdetcompraprecunt($data['pordcom']);
-					$DetalleCompra -> setNdetcompraimporte($data['importe']);
-					$DetalleCompra -> setNproducto($Producto);
-					$DetalleCompra -> setNdetordordped($data['iddetordped']);
-					$DetalleCompra -> setCdetcompraest(1);
+			
+			$em->persist($OrdCompra);
+
+			foreach($otherdata as $key => $data){
+				$Producto = $this->getDoctrine()
+				->getRepository('DicarsDataBundle:Producto')
+				->findOneBy(array('nproductoId' => $data['idproducto']));
 					
-					$em->persist($DetalleCompra);
-					$em->flush();
+				$DetalleCompra = new LogDetcompra();
+				$DetalleCompra -> setNordencompra($OrdCompra);
+				$DetalleCompra -> setNdetcompracant($data['cantidad']);
+				$DetalleCompra -> setNdetcompraprecunt($data['pordcom']);
+				$DetalleCompra -> setNdetcompraimporte($data['importe']);
+				$DetalleCompra -> setNproducto($Producto);
+				$DetalleCompra -> setNdetordordped($data['iddetordped']);
+				$DetalleCompra -> setCdetcompraest(1);
+				
+				$em->persist($DetalleCompra);
+					
+				if($data['iddetordped'] != 0){
+					$DetallePed = $this->getDoctrine()
+					->getRepository('DicarsDataBundle:LogDetordped')
+					->findOneBy(array('ndetordpedId' => $data['iddetordped']));
 						
-					if($data['iddetordped'] != 0){
-						$DetallePed = $this->getDoctrine()
-						->getRepository('DicarsDataBundle:LogDetordped')
-						->findOneBy(array('ndetordpedId' => $data['iddetordped']));
-							
-						$DetallePed -> setCdetordpedest(1);
-						
-						$em->flush();
-					}
+					$DetallePed -> setCdetordpedest($data['estadopedido']);
+					$Aceptada = $DetallePed -> getNdetordpedcantacept() + $data['cantidad'];
+					$DetallePed -> setNdetordpedcantacept($Aceptada);					
 				}
-				
-				/*$OrdPed = $this->getDoctrine()
-					->getRepository('DicarsDataBundle:LogOrdped')
-					->findOneBy(array('nordpedId' => $datos['ordped_id']));
-				
-				$OrdPed -> setCordpedest(1); //atendida completamente*/
-	
+			}
+			
+			try {
+					$em->flush();
 			} catch (Exception $e) {
 				$em->rollback();
 				$em->close();
