@@ -122,7 +122,7 @@ class AdministrarPedidoController extends Controller{
 			->findBy(array('nordped' => $idPedido));
 			
 			foreach($DetOrdPeds as $key => $DetOrdPed){
-				$DetallePedido -> setCdetordpedest('3'); //eliminado
+				$DetOrdPed -> setCdetordpedest('3'); //eliminado
 			}
 			
 			$em = $this->getDoctrine()->getEntityManager();

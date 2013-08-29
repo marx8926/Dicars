@@ -40,11 +40,12 @@
 		<div class="modal hide fade" id="EliminarPedidoAlert" Style="whidth:">
 			<form action="{{ path('dicars_logistica_eliminar_pedido') }}" method="post" id="EliminarPedidoForm">
 				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">×</button>
-					<h2><i class="icon-alert icon-red icon32"></i>Eliminar</h2>
+					<h2><i class="icon-alert icon-red icon32"></i> Eliminar</h2>
 				</div>
 				<div class="modal-body">
-					<p>¿Esta seguro de que desea eliminar el Pedido?</p>
+					<div class="alert alert-error">
+						¿Esta seguro de que desea <strong>ELIMINAR</strong> el Pedido?
+					</div>
 					<input type="hidden" name="idpedprod" id="idpedprod">		
 				</div>
 				<div class="modal-footer">
