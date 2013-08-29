@@ -72,4 +72,8 @@ class DefaultController extends Controller
         return $this->redirect($this->generateUrl('main'));
 
     }
+	public function homeAction()
+    {
+        return $this->render('DicarsLoginBundle:Default:index.html.twig');
+    }
 }

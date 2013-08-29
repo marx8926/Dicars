@@ -6,5 +6,36 @@
 </li>
 {% endblock %}
 {% block content %}
- Vista Principal de Logística
+ <div class="row-fluid">
+	<a data-rel="tooltip" title="Ver, Agregar y editar Productos." class="well span3 top-block" href="{{ path('dicars_logistica_productos') }}">
+		<span class="icon32 icon-color icon-inbox"></span>
+		<div>Administrar <br> Productos</div>
+	</a>
+
+	<a data-rel="tooltip" title="Ver, Agregar y editar Proveedores." class="well span3 top-block" href="{{ path('dicars_logistica_proveedores') }}">
+		<span class="icon32 icon-color icon-users"></span>
+		<div>Administrar <br> Proveedores</div>
+	</a>
+
+	<a data-rel="tooltip" title="Ver, Agregar, editar y eliminar Pedidos." class="well span3 top-block" href="{{ path('dicars_logistica_pedidos') }}">
+		<span class="icon32 icon-color icon-compose"></span>
+		<div>Orden <br> de Pedido</div>
+	</a>
+	
+	<a data-rel="tooltip" title="Ver, Agregar, editar y eliminar Orden Salida." class="well span3 top-block" href="{{ path('dicars_logistica_orden_compra_consultar') }}">
+		<span class="icon32 icon-color icon-compose"></span>
+		<div>Orden <br> de Compra</div>
+	</a>
+</div>
+<div class="row-fluid">
+	<a data-rel="tooltip" title="Ver, Agregar, editar y eliminar Pedidos." class="well span3 top-block" href="{{ path('dicars_logistica_cons_ingresoproductos') }}">
+		<span class="icon32 icon-color icon-archive"></span>
+		<div>Ingreso <br> de Productos</div>
+	</a>
+	
+	<a data-rel="tooltip" title="Ver, Agregar, editar y eliminar Orden Salida." class="well span3 top-block" href="{{ path('dicars_logistica_cons_salidaproductos') }}">
+		<span class="icon32 icon-color icon-reply"></span>
+		<div>Salida <br> de Productos</div>
+	</a>
+</div>
 {% endblock %}

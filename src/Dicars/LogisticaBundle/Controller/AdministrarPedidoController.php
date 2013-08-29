@@ -47,7 +47,7 @@ class AdministrarPedidoController extends Controller{
 			$Pedido -> setCordpedserie($Serie);
 			$Pedido -> setCordpednro($Numero);
 			$Pedido -> setCordpedenvemail($Email);
-			$Pedido -> setCordpedest('1');
+			$Pedido -> setCordpedest('1'); //HABILITADO
 			$Pedido -> setCordpedobsv($Observacion);
 			$Pedido -> setDordpedfecreg($Fecha_reg);
 			$Pedido -> setDordepedfecent($Fecha_ent);
@@ -69,7 +69,7 @@ class AdministrarPedidoController extends Controller{
 				$DetallePedido -> setNordped($Pedido);
 				$DetallePedido -> setNproducto($Producto);
 				$DetallePedido -> setNdetordpedcantacept(0);
-				$DetallePedido -> setCdetordpedest('1');
+				$DetallePedido -> setCdetordpedest('0'); //no atendido
 				$em->persist($DetallePedido);
 				$em->flush();
 				
@@ -116,6 +116,14 @@ class AdministrarPedidoController extends Controller{
 			->findOneBy(array('nordpedId' => $idPedido));
 			
 			$Pedido -> setCordpedest('0');
+			
+			$DetOrdPeds =  $this->getDoctrine()
+			->getRepository('DicarsDataBundle:LogDetordped')
+			->findBy(array('nordped' => $idPedido));
+			
+			foreach($DetOrdPeds as $key => $DetOrdPed){
+				$DetallePedido -> setCdetordpedest('3'); //eliminado
+			}
 			
 			$em = $this->getDoctrine()->getEntityManager();
 			$em->beginTransaction();

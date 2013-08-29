@@ -1,0 +1,25 @@
+{% extends "::baseCharisma.html.twig" %}
+{% block title %}Reportes -{% endblock %}
+{% block breadcrumb %}
+<li>
+	<a href="{{path('dicars_reportes_homepage')}}">Reportes</a>
+</li>
+{% endblock %}
+{% block content %}
+ <div class="row-fluid">
+	<a data-rel="tooltip" title="Ver Salidas." class="well span3 top-block" href="{{ path('dicars_ventas_control_salidas') }}">
+		<span class="icon32 icon-color icon-page"></span>
+		<div>Control de<br>Salidas</div>
+	</a>
+
+	<a data-rel="tooltip" title="Ver, agregar y editar Trabajadores." class="well span3 top-block" href="{{ path('dicars_ventas_ingregr_dia') }}">
+		<span class="icon32 icon-color icon-page"></span>
+		<div>Reporte de<br>Ingresos/Egresos</div>
+	</a>
+
+	<a data-rel="tooltip" title="Ver, agregar y editar Usuarios." class="well span3 top-block" href="{{ path('dicars_ventas_reporte_zonas') }}">
+		<span class="icon32 icon-color icon-page"></span>
+		<div>Reporte<br>de Zonas</div>
+	</a>
+</div>
+{% endblock %}

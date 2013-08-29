@@ -65,3 +65,6 @@ dicars_logistica_servicio_gettabladetpedidocompra:
 dicars_logistica_servicio_getgenerarcodigoprducto:
     pattern:  /servicio_getgenerarcodigoprducto
     defaults: { _controller: DicarsLogisticaBundle:LogisticaServicios:getGenerarCodigoProducto }
+dicars_logistica_servicio_getgenerarcodigopedido:
+    pattern:  /servicio_getgenerarcodigopedido
+    defaults: { _controller: DicarsLogisticaBundle:LogisticaServicios:getGenerarCodigoPedido }

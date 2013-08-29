@@ -25,3 +25,7 @@ check:
   defaults: {_controller: DicarsLoginBundle:Default:check}
   requirements:
           _method: POST 
+
+dicars_home:
+    pattern:  /home
+    defaults: { _controller: DicarsLoginBundle:Default:home }

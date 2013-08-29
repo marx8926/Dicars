@@ -1,5 +1,71 @@
 {% extends "::baseCharisma.html.twig" %}
-{% block title %}Home{% endblock %}
+{% block title %}Administración -{% endblock %}
+{% block breadcrumb %}
+<li>
+	<a href="{{path('dicars_admin_homepage')}}">Administración</a>
+</li>
+{% endblock %}
 {% block content %}
-<p>Bienvenido al Sistema!</p>
+ <div class="row-fluid">
+	<a data-rel="tooltip" title="Ver, agregar y editar Clientes." class="well span3 top-block" href="{{ path('dicars_ventas_clientes') }}">
+		<span class="icon32 icon-color icon-users"></span>
+		<div>Administrar<br> Clientes</div>
+	</a>
+
+	<a data-rel="tooltip" title="Ver, agregar y editar Trabajadores." class="well span3 top-block" href="{{ path('dicars_ventas_trabajadores') }}">
+		<span class="icon32 icon-color icon-users"></span>
+		<div>Administrar<br>Trabajadores</div>
+	</a>
+
+	<a data-rel="tooltip" title="Ver, agregar y editar Usuarios." class="well span3 top-block" href="{{ path('dicars_admin_usuarios') }}">
+		<span class="icon32 icon-color icon-users"></span>
+		<div>Administrar<br> Usuarios</div>
+	</a>
+	<a data-rel="tooltip" title="Ver, agregar y editar Locales." class="well span3 top-block" href="{{ path('dicars_logistica_locales') }}">
+		<span class="icon32 icon-color icon-home"></span>
+		<div>Administrar<br> Locales</div>
+	</a>	
+</div>
+<div class="row-fluid">
+	<a data-rel="tooltip" title="Ver, Agregar y editar Cargos." class="well span3 top-block" href="{{ path('dicars_admin_cargos') }}">
+		<span class="icon32 icon-color icon-bookmark"></span>
+		<div>Administrar<br> Cargos</div>
+	</a>
+	<a data-rel="tooltip" title="Ver, Agregar y editar Categorías." class="well span3 top-block" href="{{ path('dicars_admin_categorias') }}">
+		<span class="icon32 icon-color icon-bookmark"></span>
+		<div>Administrar<br> Categorías</div>
+	</a>
+	<a data-rel="tooltip" title="Ver, Agregar y editar Marcas." class="well span3 top-block" href="{{ path('dicars_admin_marcas') }}">
+		<span class="icon32 icon-color icon-bookmark"></span>
+		<div>Administrar<br> Marcas</div>
+	</a>
+	<a data-rel="tooltip" title="Ver, Agregar y editar Zonas." class="well span3 top-block" href="{{ path('dicars_admin_zonas') }}">
+		<span class="icon32 icon-color icon-flag"></span>
+		<div>Administrar<br> Zonas</div>
+	</a>
+</div>
+<div class="row-fluid">
+	<a data-rel="tooltip" title="Ver, Agregar y editar Zona/Editar." class="well span3 top-block" href="{{ path('dicars_admin_zonapersonal') }}">
+		<span class="icon32 icon-color icon-user"></span>
+		<div>Zona<br>Personal</div>
+	</a>
+	<a data-rel="tooltip" title="Ver, Agregar y editar Tipo IGV." class="well span3 top-block" href="{{ path('dicars_admin_tipoigv') }}">
+		<span class="icon32 icon-color icon-tag"></span>
+		<div>Tipo de<br> IGV</div>
+	</a>
+	<a data-rel="tooltip" title="Ver, Agregar y editar Tipo Moneda." class="well span3 top-block" href="{{ path('dicars_admin_tipomoneda') }}">
+		<span class="icon32 icon-color icon-tag"></span>
+		<div>Tipo de<br> Moneda</div>
+	</a>
+	<a data-rel="tooltip" title="Ver y agregar Movimiento de Dinero." class="well span3 top-block" href="{{ path('dicars_admin_movimientos') }}">
+		<span class="icon32 icon-color icon-transfer-ew"></span>
+		<div>Registrar<br> Movimientos</div>
+	</a>
+</div>
+<div class="row-fluid">
+	<a data-rel="tooltip" title="Ver, Agregar y editar Constantes." class="well span3 top-block" href="{{ path('dicars_admin_constantes') }}">
+		<span class="icon32 icon-color icon-pin"></span>
+		<div><br>Constantes</div>
+	</a>
+</div>
 {% endblock %}

@@ -28,7 +28,6 @@
 					  	<th>Cod. Barra</th>
 					  	<th></th>
 					  	<th></th>
-						<th></th>
 					</tr>
 			  	</thead>   
 			  	<tbody>				
@@ -158,14 +157,13 @@ $(document).ready(function(){
 	
 	$('#RegistrarProductoForm').submit(function(e){
 		e.preventDefault();
-		var data = $.ajax({
+		var ajax = $.ajax({
 			url: "{{ path ('dicars_logistica_servicio_getgenerarcodigoprducto') }}",
 			dataType: "json",
 			async: false
 			});
-		var codigo = data.responseText;
-		data.done(function(){
-			$('#codigo').val(codigo);
+		ajax.done(function(data){
+			$('#codigo').val(data);
 			$('#RegistrarProductoForm').unbind();
 			enviar('RegistrarProductoForm', ReloadTableRegistrar);
 			$('#RegistrarProductoForm').submit();
@@ -193,8 +191,7 @@ $(document).ready(function(){
 		              { "sWidth": "12%","mDataProp": "pcredito"},
 		              { "sWidth": "12%","mDataProp": "codigobarras"},
 		              { "sWidth": "13%","mDataProp": "ver_btn"},
-		              { "sWidth": "13%","mDataProp": "edit_btn"},
-		              { "sWidth": "14%","mDataProp": "elim_btn"}
+		              { "sWidth": "13%","mDataProp": "edit_btn"}
 		              ];
 	oTable = createDataTable('productos_table',UrlaDTable,FormatoDTable,null,RowCallBackFunction);
 
