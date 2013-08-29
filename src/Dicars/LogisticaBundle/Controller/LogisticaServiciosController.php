@@ -297,7 +297,7 @@ public function getTablaProductosAction(){
 			
 		$ordpeds = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:LogOrdped')
-		->findBy(array('cordpedest' => '1'));
+		->findBy(array('cordpedest' => '0'));
 		
 		$todo = array();
 		foreach ($ordpeds as $key => $ordped){
@@ -536,5 +536,20 @@ public function getTablaProductosAction(){
 		$em->clear();
 		$em->close();
 		return new Response($codigo);
+	}
+	
+	public function getGenerarCodigoPedidoAction(){
+		$em = $this->getDoctrine()->getEntityManager();
+	
+		$sql = "call sp_generar_sn_ordenpedido";
+	
+		$smt = $em->getConnection()->prepare($sql);
+		$smt->execute();
+	
+		$codigos = $smt->fetchAll();
+	
+		$em->clear();
+		$em->close();
+		return new JsonResponse($codigos);
 	}
 }
