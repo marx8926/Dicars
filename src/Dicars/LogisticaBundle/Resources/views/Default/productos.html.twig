@@ -157,14 +157,13 @@ $(document).ready(function(){
 	
 	$('#RegistrarProductoForm').submit(function(e){
 		e.preventDefault();
-		var data = $.ajax({
+		var ajax = $.ajax({
 			url: "{{ path ('dicars_logistica_servicio_getgenerarcodigoprducto') }}",
 			dataType: "json",
 			async: false
 			});
-		var codigo = data.responseText;
-		data.done(function(){
-			$('#codigo').val(codigo);
+		ajax.done(function(data){
+			$('#codigo').val(data);
 			$('#RegistrarProductoForm').unbind();
 			enviar('RegistrarProductoForm', ReloadTableRegistrar);
 			$('#RegistrarProductoForm').submit();

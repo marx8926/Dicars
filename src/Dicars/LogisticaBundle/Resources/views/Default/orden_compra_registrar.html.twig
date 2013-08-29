@@ -311,7 +311,7 @@ $(document).ready(function(){
 	$("#select_producto").click(function(e){
 		e.preventDefault();
 		var data = SelectProductoData[0];
-		$('#producto').val(data.nombre);
+		$('#producto').val(data.descprod);
 		$('#cantidad').val(1);
 		$('#precio').val(0);
 		$('#modalBuscarProducto').modal('hide');
@@ -329,7 +329,7 @@ $(document).ready(function(){
 	$("#select_ordped").click(function(e){
 		e.preventDefault();
 		var data = SelectDetPedido[0];
-		$('#ordped').val(data.nombre);
+		$('#ordped').val(data.descprod);
 		$('#ordped_id').val(data.id);
 		$('#cantidadd').val(1);
 		$('#preciod').val(0);
@@ -456,7 +456,7 @@ $(document).ready(function(){
 		              ];
 	BuscarDetOrdPedTable = createDataTable('select_ordped_table',UrlaDTableOrdPed,FormatoDTableOrdPed,null,RowCallBackFunctionDetOrdPed);
 
-	enviar("RegistrarOrdenCompraForm",logdata,OtherdataProductos);
+	enviar("RegistrarOrdenCompraForm",ResetForm,OtherdataProductos);
 	
 });
 
