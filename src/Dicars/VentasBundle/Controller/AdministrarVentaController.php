@@ -41,6 +41,7 @@ class AdministrarVentaController extends Controller {
 		$DesTrans = null;
 		$MontoTrans = null;
 		$EmpleadoTrans = null;
+		$SalProd = null;
 		
 		if ($form!=null){
 			
@@ -109,6 +110,22 @@ class AdministrarVentaController extends Controller {
 			
 			$em->persist($Venta);
 			
+
+			if($TipoPago == '3'){
+				$DesTrans = "Venta Separada";
+				$MontoTrans = $datos["amortizacion"];
+			
+				$SalProd = new  LogSalprod();
+				$SalProd -> setNpersonal($EmpleadoTrans);
+				$SalProd -> setNlocal($Local);
+				$SalProd -> setCsalprodserie('1234');
+				$SalProd -> setCsalprodnro('12345678');
+				$SalProd -> setDsalprodfecreg($Fecha_reg);
+				$SalProd -> setNsalprodmotivo('Salida Venta');
+				$SalProd -> setNsolicitanteId(1);
+				$SalProd -> setCsalprodobsv($Observacion);
+			}
+			
 			if($TipoPago == '2'){
 				$VentaCredito = new VenCredito();
 				$VentaCredito -> setCcreditoest("1");
@@ -138,10 +155,6 @@ class AdministrarVentaController extends Controller {
 				$DesTrans = "Venta Credito";
 				$MontoTrans = $datos["amortizacion"];
 			}
-			if($TipoPago == '3'){
-				$DesTrans = "Venta Separada";
-				$MontoTrans = $datos["amortizacion"];
-			}
 			
 			foreach($otherdata as $key => $data){
 				$Producto = $this->getDoctrine()
@@ -151,6 +164,14 @@ class AdministrarVentaController extends Controller {
 				if($TipoPago != '3'){
 					$Stock = $Producto -> getNproductostock();
 					$Producto -> setNproductostock($Stock - $data['cantidad']);
+					
+					$DetalleSalProd = new LogDetsalprod();
+					$DetalleSalProd -> setNsalprod($SalProd);
+					$DetalleSalProd -> setNproducto($Producto);
+					$DetalleSalProd -> setDetsalprodcant($data['cantidad']);
+					$DetalleSalProd -> setCdetsalprodest('1');
+						
+					$em->persist($DetalleSalProd);
 				}
 				
 				if($TipoPago == '2'){
