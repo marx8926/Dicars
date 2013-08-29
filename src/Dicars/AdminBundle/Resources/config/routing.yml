@@ -28,6 +28,9 @@ admin_administrar_movimiento_routing:
 dicars_admin_homepage:
     pattern:  /index
     defaults: { _controller: DicarsAdminBundle:Default:index }
+dicars_reportes_homepage:
+    pattern:  /reportes
+    defaults: { _controller: DicarsAdminBundle:Default:reportesindex }
 dicars_admin_constantes:
     pattern:  /constantes
     defaults: { _controller: DicarsAdminBundle:Default:constantes }

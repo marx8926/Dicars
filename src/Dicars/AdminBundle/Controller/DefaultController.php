@@ -10,6 +10,10 @@ class DefaultController extends Controller
     {
         return $this->render('DicarsAdminBundle:Default:index.html.twig');
     }
+    public function reportesindexAction()
+    {
+    	return $this->render('DicarsAdminBundle:Default:reportes_index.html.twig');
+    }
     public function constantesAction()
     {
     	return $this->render('DicarsAdminBundle:Default:constante.html.twig');
