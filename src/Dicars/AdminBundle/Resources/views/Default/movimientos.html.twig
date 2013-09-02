@@ -34,7 +34,7 @@
 			</table>
 			<div class="modal hide fade" id="modalRegistroMov">
 				<div class="modal-header">
-					<h3>Registrar Moviemiento</h3>
+					<h3>Registrar Movimiento</h3>
 				</div>
 				<form id="RegistrarMovForm" class="form-horizontal" method="post" action="{{ path('dicars_admin_registrar_mov') }}">
 					<div class="modal-body">
@@ -48,7 +48,7 @@
 						  	<div class="control-group">
 								<label class="control-label" for="monto">Monto</label>
 								<div class="controls">
-							  		<input class="input-xlarge focused" id="monto" name="monto" type="number" step="0.1" required>
+							  		<input class="input-xlarge focused" id="monto" name="monto" type="number" step="0.1" min="1" required>
 								</div>
 						  	</div>
 						  	<div class="control-group">
