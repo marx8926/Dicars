@@ -24,6 +24,7 @@ class VentaServiciosController extends Controller{
 					'id' => $cliente -> getNclienteId() ,
 					'nombre' => $cliente -> getCclientenom() , 
 					'apellido' => $cliente -> getCclienteape(),
+					'nomape' => $cliente -> getCclientenom()." ".$cliente -> getCclienteape(),
 					'dni' => $cliente -> getCclientedni(), 
 					'referencia' => $cliente -> getCclienteref(),
 					'direccion' => $cliente -> getCclientecdir(),
@@ -32,6 +33,7 @@ class VentaServiciosController extends Controller{
 					'linea_credito' => $cliente -> getNclientelineaop(),
 					'arccredito' => $cliente -> getCclientearccredito(),
 					'ocupacion' => $cliente -> getCclienteocup(),
+					'doc_btn' => "<a class='btn btn-success btn-doc' href='#'><i class='icon-zoom-in icon-white'></i>Ver Documento</a>",
 					'ver_pagar' => "<a class='btn btn-success btn-pagar' href='#'><i class='icon-zoom-in icon-white'></i> Ver Creditos</a>",
 					'ver_btn' => "<a class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
 					'edit_btn' => "<a class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
@@ -74,10 +76,17 @@ class VentaServiciosController extends Controller{
 	
 		$todo = array();
 		foreach ($empleados as $key => $empleado){
-			$estadodesc="";
-			if ($empleado ->  getCpersonalest() == 1) {
+			$sexo = "";
+			$estadodesc = "";
+			
+			if ($empleado -> getCpersonalsexo() == "M")
+				$sexo = "Masculino";
+			else
+				$sexo = "Femenino";
+			
+			if ($empleado ->  getCpersonalest() == 1)
 				$estadodesc = "<span class='label label-success'>Habilitado</span>";
-			}else 
+			else 
 				$estadodesc = "<span class='label label-warning'>Inhabilitado</span>";
 			
 			$todo[] = array('id' => $empleado -> getNpersonalId() ,
@@ -85,11 +94,12 @@ class VentaServiciosController extends Controller{
 					'cargodesc' => $empleado -> getNcargo() -> getNcargodesc(),
 					'nombres' => $empleado -> getCpersonalnom() , 
 					'apellidos' => $empleado -> getCpersonalape(),
+					'nomape' => $empleado -> getCpersonalnom()." ".$empleado -> getCpersonalape(),
 					'dni' => $empleado -> getCpersonaldni(), 
 					'email' => $empleado -> getCpersonalemail(),
 					'telefono' => $empleado -> getCpersonaltelf(),
 					'fechanacimiento' => $empleado -> getDpersonalfec() -> format('d/m/Y'),
-					'sexo' => $empleado -> getCpersonalsexo(),
+					'sexo' => $sexo,
 					'estado' => $empleado ->  getCpersonalest(),
 					'estadodesc' => $estadodesc, 
 					'edad' => $empleado -> getCpersonaledad(),

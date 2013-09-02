@@ -21,10 +21,10 @@
 			<table class="table table-striped table-bordered bootstrap-datatable datatable" id="clientes_table">
 				<thead>
 					<tr>
-						<th>Nombres</th>
-					  	<th>Apellidos</th>
+						<th>Nombre y Apellidos</th>
 					  	<th>DNI</th>
 					  	<th>Línea de Crédito</th>
+					  	<th></th>
 					  	<th></th>
 					  	<th></th>				  
 				  	</tr>
@@ -96,7 +96,6 @@ function cargarVer(cliente){
 	              	{'label':'Referencia','type':'span','value':cliente.referencia},
 	              	{'label':'Ocupación','type':'span','value':cliente.ocupacion},
 	              	{'label':'Línea Operativa','type':'span','value':cliente.linea_credito},
-	              	{'label':'Documento','type':'span','value':cliente.arccredito},
 	              	{'label':'Zona','type':'span','value':cliente.zonadesc},
 					{'type':'close'}];
 		
@@ -134,12 +133,12 @@ $(document).ready(function(){
 	
 	UrlaDTable = '{{ path("dicars_ventas_servicio_gettablaclientes") }}';
 	FormatoDTable = [
-	              { "sWidth": "15%","mDataProp": "nombre"},
-	              { "sWidth": "15%","mDataProp": "apellido"},
-	              { "sWidth": "15%","mDataProp": "dni"},
-	              { "sWidth": "15%","mDataProp": "linea_credito"},	              
-	              { "sWidth": "13%","mDataProp": "ver_btn"},
-	              { "sWidth": "13%","mDataProp": "edit_btn"}
+	              { "sWidth": "16%","mDataProp": "nomape"},
+	              { "sWidth": "16%","mDataProp": "dni"},
+	              { "sWidth": "16%","mDataProp": "linea_credito"},	              
+	              { "sWidth": "16%","mDataProp": "ver_btn"},
+	              { "sWidth": "16%","mDataProp": "edit_btn"},
+	              { "sWidth": "16%","mDataProp": "doc_btn"}
 	              ];
 	oTable = createDataTable('clientes_table',UrlaDTable,FormatoDTable,null,RowCallBackFunction);
 

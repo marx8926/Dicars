@@ -34,12 +34,9 @@
 					</div>
 					<div class="form-actions">
 						<button id="agregar_usuario" type="submit" class="btn btn-primary">Asignar</button>
-						<button type="reset" class="btn">Limpiar Campos</button>
+						<a class="btn" href="{{ path('dicars_admin_zonapersonal') }}">Cancelar</a>
 				  	</div>
 				</fieldset>
-			<div style="padding-left: 17px;">
-				<a href="{{ path('dicars_admin_zonapersonal') }}" type="reset" class="btn btn-success btn-cancelar" ><i class="icon icon-white icon-arrowthick-w"></i> Volver</a>				
-			</div>
 			</form>
 			{% include 'DicarsVentasBundle:Default:buscartrabajador.html.twig' %}
 			<div class="modal hide fade" id="modalBuscarZona">
