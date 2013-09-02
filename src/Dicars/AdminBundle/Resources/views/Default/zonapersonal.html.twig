@@ -12,7 +12,7 @@
 <div class="row-fluid">		
 	<div class="box span12">
 		<div class="box-header well" data-original-title>
-			<h2>Zonas Asignadas</h2>
+			<h2>ZONAS ASIGNADAS</h2>
 		</div>
 		<div class="box-content">
 			<form id="RegistrarZonapersonalForm" class="form-horizontal" method="post" action="{{ path('dicars_admin_registrar_zonapersonal') }}">
@@ -61,7 +61,7 @@
 					<a href="#" class="btn" data-dismiss="modal">Cancelar</a>
 					<a  id="select_zona" href="#" class="btn btn-primary">Seleccionar</a>
 				</div>
-			</div							>
+			</div>							
 		<div class="box-content">
 			<table class="table table-striped table-bordered bootstrap-datatable datatable" id="zonapersonal_table">
 			  <thead>
@@ -173,7 +173,7 @@ $(document).ready(function(){
 	              ];
 	BuscarTrabajadorTable = createDataTable('select_trabajador_table',UrlaDTable,FormatoDUsuarioTable,null,RowCallBackFunctionTrabajador);
 
-	UrlaDTable = '{{ path("dicars_admin_servicio_gettablazonanoasignada") }}';
+	UrlaDTable = '{{ path("dicars_admin_servicio_gettablazonas") }}';
 	FormatoDTable = [
 		              { "sWidth": "25%","mDataProp": "desc"},
 		              { "sWidth": "25%","mDataProp": "estado"},

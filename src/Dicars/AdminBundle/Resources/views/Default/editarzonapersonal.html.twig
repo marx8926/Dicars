@@ -12,7 +12,7 @@
 <div class="row-fluid">		
 	<div class="box span12">
 		<div class="box-header well" data-original-title>
-			<h2>Zonas Asignadas</h2>
+			<h2>ZONAS ASIGNADAS</h2>
 		</div>
 		<div class="box-content">
 			<form id="EditarZonapersonalForm" class="form-horizontal" method="post" action="{{ path('dicars_admin_editar_zonapersonal') }}">
@@ -22,14 +22,14 @@
 						<label class="control-label" for="nombre_zona">Zona</label>
 						<div class="controls">
 							<input class="input-xlarge" id="nombre_zona" type="text" value="{{ nombrezona }}" readonly required>
+							<input id="idzona" name="idzona" type="hidden">
+							<button class="btn btn-info" id="btn-zona" style="margin-left: 15px;"><i class="icon-user icon-white"></i></button>
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="nombre_trabajador">Trabajador</label>
 						<div class="controls">
 							<input class="input-xlarge" id="nombre_trabajador" type="text" value="{{ nombrepersonal }}" readonly>
-							<input id="id_trabajador" name="id_trabajador" type="hidden" value="{{ idpersonal }}">
-							<button class="btn btn-info" id="btn-trabajador" style="margin-left: 15px;"><i class="icon-user icon-white"></i></button>
 						</div>
 					</div>
 					<div class="form-actions">
@@ -38,7 +38,6 @@
 				  	</div>
 				</fieldset>
 			</form>
-			{% include 'DicarsVentasBundle:Default:buscartrabajador.html.twig' %}
 			<div class="modal hide fade" id="modalBuscarZona">
 				<div class="modal-header">
 					<h3>Zonas</h3>
@@ -90,33 +89,28 @@ $(document).ready(function(){
 		$(location).attr("href", "{{ path('dicars_admin_zonapersonal') }}");		
 	};
 
-	$('#btn-trabajador').click(function(e){
+	$('#btn-zona').click(function(e){
 		e.preventDefault();
-		$('#modalBuscarTrabajador').modal('show');
+		$('#modalBuscarZona').modal('show');
 	});
-
-	$("#select_trabajador").click(function(e){
+	$("#select_zona").click(function(e){
 		e.preventDefault();
-		var data = SelectTrabajadorData[0];	
-		$('#id_trabajador').val(data.id);
-		$('#nombre_trabajador').val(data.nombres + " " + data.apellidos);
-		$('#modalBuscarTrabajador').modal('hide');
+		var data = SelectZonaData[0];	
+		$('#idzona').val(data.id);
+		$('#nombre_zona').val(data.desc);
+		$('#modalBuscarZona').modal('hide');
 	});
 
 	RowCallBackFunctionTrabajador = getSimpleSelectRowCallBack(SelectTrabajadorData,"select_trabajador_table");
 	RowCallBackFunctionZonas = getSimpleSelectRowCallBack(SelectZonaData,"zonas_table");
 
-	//DATOS DEL MODAL EMPLEADOS
-	RowCallBackFunctionTrabajador = getSimpleSelectRowCallBack(SelectTrabajadorData,"select_trabajador_table");
-
-	UrlaDTable = '{{ path("dicars_ventas_servicio_gettablaempleados") }}';
-	FormatoDUsuarioTable = [
-	              { "sWidth": "25%","mDataProp": "nombres"},
-	              { "sWidth": "25%","mDataProp": "apellidos"},
-	              { "sWidth": "25%","mDataProp": "dni"},
-	              { "sWidth": "25%","mDataProp": "telefono"}
-	              ];
-	BuscarTrabajadorTable = createDataTable('select_trabajador_table',UrlaDTable,FormatoDUsuarioTable,null,RowCallBackFunctionTrabajador);
+	UrlaDTable = '{{ path("dicars_admin_servicio_gettablazonas") }}';
+	FormatoDTable = [
+		              { "sWidth": "25%","mDataProp": "desc"},
+		              { "sWidth": "25%","mDataProp": "estado"},
+		              { "sWidth": "35%","mDataProp": "ubigeo"}
+		              ];
+	BuscarZonaTable = createDataTable('zonas_table',UrlaDTable,FormatoDTable,null, RowCallBackFunctionZonas);
 
 	enviar('EditarZonapersonalForm', volver);
 });
