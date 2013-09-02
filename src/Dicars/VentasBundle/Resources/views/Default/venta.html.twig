@@ -85,6 +85,8 @@
 			</div>
 			<div class="box-content">
 			<form id="EnviarVentaForm" class="form-horizontal" method="post" action="{{ path("dicars_ventas_registrar_venta") }}">
+				<input type="hidden" name="serie_salida" id="serie_salida">
+				<input type="hidden" name="numero_salida" id="numer_salida">
 				<fieldset>
 					<div class="row-fluid">
 						<div class="span6">
@@ -180,7 +182,7 @@
 							<div class="control-group">
 								<label class="control-label" for="producto">Observacion</label>
 								<div class="controls">
-									<textarea class="input-xlarge" name="observacion" rows="2" cols="" required></textarea>
+									<textarea class="input-xlarge" name="observacion" rows="2" cols="" value=""></textarea>
 								</div>
 							</div>
 						</div>
@@ -365,8 +367,17 @@ $(document).ready(function(){
 	$("#finalizar_venta").click(function(e){
 		e.preventDefault();
     	$("#EnviarVentaForm").unbind();
-    	enviar('EnviarVentaForm',reloadpage,OtherDataProductos);
-		$("#EnviarVentaForm").submit();
+    	var ajax = $.ajax({
+			url: "{{ path ('dicars_logistica_servicio_getgenerarcodigosalprod') }}",
+			dataType: "json",
+			async: false
+			});
+		ajax.done(function(data){
+			$('#numero_salida').val(data[0].NUMERO);
+			$('#serie_salida').val(data[0].SERIE);
+	    	enviar('EnviarVentaForm',reloadpage,OtherDataProductos);
+			$("#EnviarVentaForm").submit();
+		});
 	});
 	
 	$('.btn-buscarp').click(function(e){

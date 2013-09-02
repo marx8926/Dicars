@@ -42,8 +42,7 @@ class AdministrarVentaController extends Controller {
 		$EmpleadoTrans = null;
 		$SalProd = null;
 		
-		if ($form!=null){
-			
+		if ($form!=null){			
 			$em = $this->getDoctrine()->getEntityManager();
 			$em->beginTransaction();
 			

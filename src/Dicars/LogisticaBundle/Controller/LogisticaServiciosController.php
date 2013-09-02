@@ -558,4 +558,19 @@ public function getTablaDetPedidoCompraAction(){
 		$em->close();
 		return new JsonResponse($codigos);
 	}
+	
+	public function getGenerarCodigoSalProdAction(){
+		$em = $this->getDoctrine()->getEntityManager();
+	
+		$sql = "call sp_generar_sn_salprod";
+	
+		$smt = $em->getConnection()->prepare($sql);
+		$smt->execute();
+	
+		$codigos = $smt->fetchAll();
+	
+		$em->clear();
+		$em->close();
+		return new JsonResponse($codigos);
+	}
 }
