@@ -1,14 +1,13 @@
 <?php
 namespace Dicars\VentasBundle\Controller;
 
+use Dicars\DataBundle\Entity\LogDetsalprod;
+
+use Dicars\DataBundle\Entity\LogSalprod;
 use Dicars\DataBundle\Entity\VenTransaccion;
-
 use Dicars\DataBundle\Entity\VenCronpago;
-
 use Dicars\DataBundle\Entity\VenCredito;
-
 use Dicars\DataBundle\Entity\VenDetventa;
-
 use Dicars\DataBundle\Entity\VenVenta;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -114,16 +113,19 @@ class AdministrarVentaController extends Controller {
 			if($TipoPago == '3'){
 				$DesTrans = "Venta Separada";
 				$MontoTrans = $datos["amortizacion"];
+			}
 			
+			if($TipoPago != '3'){
 				$SalProd = new  LogSalprod();
 				$SalProd -> setNpersonal($EmpleadoTrans);
 				$SalProd -> setNlocal($Local);
 				$SalProd -> setCsalprodserie('1234');
 				$SalProd -> setCsalprodnro('12345678');
-				$SalProd -> setDsalprodfecreg($Fecha_reg);
+				$SalProd -> setDsalprodfecreg($FechaReg);
 				$SalProd -> setNsalprodmotivo('Salida Venta');
 				$SalProd -> setNsolicitanteId(1);
 				$SalProd -> setCsalprodobsv($Observacion);
+				$em -> persist($SalProd);
 			}
 			
 			if($TipoPago == '2'){

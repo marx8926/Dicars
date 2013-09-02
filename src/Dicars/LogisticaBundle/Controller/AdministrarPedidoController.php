@@ -71,8 +71,7 @@ class AdministrarPedidoController extends Controller{
 				$DetallePedido -> setNdetordpedcantacept(0);
 				$DetallePedido -> setCdetordpedest('0'); //no atendido
 				$em->persist($DetallePedido);
-				$em->flush();
-				
+				$em->flush();				
 			}
 				
 			try {

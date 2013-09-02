@@ -113,12 +113,6 @@
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label" for="subtotal">Monto Productos</label>
-								<div class="controls">
-									<input class="input-xlarge focused" style="margin: 0 18px 0 0;" name="monto_productos" id="monto_productos" type="text" readonly>
-								</div>
-							</div>
-							<div class="control-group">
 								<label class="control-label" for="descuento">Venta Descuento</label>
 								<div class="controls">
 									<div class="input-prepend input-append">
@@ -285,6 +279,8 @@ function VentaUpdate(){
 	var formapago = $("#forma_pago").val();
 	var montodesc;
 	var montoigv;
+	var montoproductos;
+	
 	if($("#tipo_moneda").val()==1)
 		TipoMoneda = "s/.";
 	else
@@ -294,26 +290,27 @@ function VentaUpdate(){
 		UnselectRow("select_producto_table");
 		$("#saldo_block").show();
 		$("#cuotas_block").show();
-		$("#monto_productos").val(totalcredito);
+		montoproductos = totalcredito;
 		tipoprecio = 'pcontado';
 	}
 
 	else if(formapago == 3){
 		$("#saldo_block").show();
 		$("#cuotas_block").hide();
-		$("#monto_productos").val(totalcontado);
+		montoproductos = totalcontado;
 		tipoprecio = 'pcontado';
 	}
 	else {
 		$("#cuotas_block").hide();
 		$("#saldo_block").hide();
-		$("#monto_productos").val(totalcontado);
+		montoproductos = totalcontado;
 		tipoprecio = 'pcontado';
 	}
-	CargarTablaResumen(formapago);
-	montodesc = ($("#monto_productos").val()*des/100).toFixed(2);
 	
-	$("#subtotal").val(($("#monto_productos").val()*(100/(igv+100))*(100-des)/100).toFixed(2));
+	CargarTablaResumen(formapago);
+	montodesc = (montoproductos*des/100).toFixed(2);
+	
+	$("#subtotal").val((montoproductos*(100/(igv+100))*(100-des)/100).toFixed(2));
 	montoigv = ($("#subtotal").val()*igv/100).toFixed(2);
 	$("#total").val(($("#subtotal").val()*(100+igv)/100).toFixed(2));
 	$("#saldo").val(($("#total").val()-$("#amortizacion").val()).toFixed(2));
@@ -428,8 +425,8 @@ $(document).ready(function(){
 			SelectProductoData.pop();
 			Array2 = SelectProductosTable.fnGetData();
 			CopyArray(OtherDataProductos,Array2,false,Attr);
-			$("#total_credito").text(totalcontado = (sumArrayByAttr(Array2,'pcredito')).toFixed(2));
-			$("#total_contado").text(totalcredito = (sumArrayByAttr(Array2,'pcontado')).toFixed(2));
+			$("#total_credito").text(totalcredito = (sumArrayByAttr(Array2,'pcredito')).toFixed(2));
+			$("#total_contado").text(totalcontado = (sumArrayByAttr(Array2,'pcontado')).toFixed(2));
 			$('#contenedor').height($('#step1').height());
 		}
 	});
