@@ -136,7 +136,7 @@ $(document).ready(function(){
 	$("#select_producto").click(function(e){
 		e.preventDefault();
 		var data = SelectProductoData[0];
-		$('#producto').val(data.idproducto+" - "+data.nombre);
+		$('#producto').val(data.nombre);
 		$('#modalBuscarProducto').modal('hide');
 		$('#cantidad').val(1);
 	});
@@ -186,7 +186,7 @@ $(document).ready(function(){
 	SelectProductosTable = $("#productos_table").dataTable({
 		"aoColumns": [
 		              { "sWidth": "12%","mDataProp": "idproducto"},
-		              { "sWidth": "12%","mDataProp": "nombre"},
+		              { "sWidth": "12%","mDataProp": "descprod"},
 		              { "sWidth": "12%","mDataProp": "cantidad"},
 		              { "sWidth": "12%","mDataProp": "elim_btn"}
 		              ],

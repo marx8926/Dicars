@@ -61,8 +61,8 @@ class AdministrarProductoController extends Controller{
 			$Producto_stock_max = $datos["stockmax"];
 			$Producto_stock = $datos["stock"];
 			$Producto_est = $datos["estado"];
-			$Producto_porc_uti = $datos["porcuti"];
-			$Producto_porc_uti_bruta = $datos["utibruta"];
+			$Producto_porc_uti = 0;
+			$Producto_porc_uti_bruta = 0;
 			$Producto_cod_barra = $datos['codigo'];
 			
 			$Producto = new Producto();

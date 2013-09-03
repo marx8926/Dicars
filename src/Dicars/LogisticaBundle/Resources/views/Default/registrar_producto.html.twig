@@ -9,14 +9,14 @@
 			  <div class="control-group">
 				<label class="control-label" for="serie">Serie</label>
 				<div class="controls">
-				  <input class="input-large focused" required maxlength="15" id="serie" name="serie" type="text">
+				  <input maxlength="15" id="serie" name="serie" type="text" pattern='|^([0-9]+\s+)+$|'>
 				</div>
 			  </div>
 			  
 			  <div class="control-group">
 				<label class="control-label" for="talla">Talla</label>
 				<div class="controls">
-				  <input class="input-xlarge focused" required maxlength="15" id="talla" name="talla" type="text">
+				  <input required maxlength="15" id="talla" name="talla" type="text" pattern='|^([0-9]+\s+)+$|'>
 				</div>
 			  </div>
 			  <div class="control-group">
@@ -62,38 +62,38 @@
 			  <div class="control-group">
 				<label class="control-label" for="preciocontado">Precio Contado</label>
 				<div class="controls">
-				  <input class="input-xlarge focused" required pattern="\d+(\.\d*)?" name="preciocontado" id="preciocontado" type="text">
+				  <input required name="preciocontado" id="preciocontado" min="1" step="0.01" type="number">
 				</div>
 			  </div>
 			  
 			  <div class="control-group">
 				<label class="control-label" for="preciocredito">Precio Credito</label>
 				<div class="controls">
-				  <input class="input-xlarge focused" required pattern="\d+(\.\d*)?" name="preciocredito" id="preciocredito" type="text">
+				  <input required name="preciocredito" id="preciocredito" min="1" step="0.01" type="number">
 				</div>
 			  </div>
 			  <div class="control-group">
 				<label class="control-label" for="preciocosto">Precio Costo</label>
 				<div class="controls">
-				  <input class="input-xlarge focused" required pattern="\d+(\.\d*)?" name="preciocosto" id="preciocosto" type="text">
+				  <input required name="preciocosto" id="preciocosto" min="1" step="0.01" type="number">
 				</div>
 			  </div>
 			  <div class="control-group">
 				<label class="control-label" for="stockmin">Stock Min</label>
 				<div class="controls">
-				  <input class="input-xlarge focused" required pattern="|^([0-9]+\s*)+$|" maxlength="11" name="stockmin" id="stockmin" type="text">
+				  <input required maxlength="11" name="stockmin" id="stockmin" min="1" step="1" type="number">
 				</div>
 			  </div>			  
 			  <div class="control-group">
 				<label class="control-label" for="stock">Stock</label>
 				<div class="controls">
-				  <input class="input-xlarge focused" required pattern="|^([0-9]+\s*)+$|" maxlength="11" name="stock" id="stock" type="text">
+				  <input required maxlength="11" name="stock" id="stock" min="1" step="1" type="number">
 				</div>
 			  </div>
 			  <div class="control-group">
 				<label class="control-label" for="stockmax">Stock Max</label>
 				<div class="controls">
-				  <input class="input-xlarge focused" required pattern="|^([0-9]+\s*)+$|" maxlength="11" name="stockmax" id="stockmax" type="text">
+				  <input required maxlength="11" name="stockmax" id="stockmax" min="1" step="1" type="number">
 				</div>
 			  </div>					  
 			  <div class="control-group">
@@ -103,18 +103,6 @@
 				<option value="1">Habilitado</option>
 				<option value="0">Inhabilitado</option>
 			  </select>
-				</div>
-			  </div>			  
-			  <div class="control-group">
-				<label class="control-label" for="porcuti">Porc Uti</label>
-				<div class="controls">
-				  <input class="input-xlarge focused" required pattern="\d+(\.\d*)?" name="porcuti" id="porcuti" type="text">
-				</div>
-			  </div>
-			  <div class="control-group">
-				<label class="control-label" for="utibruta">Uti Bruta</label>
-				<div class="controls">
-				  <input class="input-xlarge focused" required pattern="\d+(\.\d*)?" name="utibruta" id="utibruta" type="text">
 				</div>
 			  </div>
 			</fieldset>

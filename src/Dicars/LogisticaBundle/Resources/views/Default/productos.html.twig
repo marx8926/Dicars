@@ -9,7 +9,7 @@
 </li>
 {% endblock %}
 {% block content %}
-<div class="row-fluid sortable">		
+<div class="row-fluid">		
 	<div class="box span12">
 		<div class="box-header well" data-original-title>
 			<h2>PRODUCTOS</h2>
@@ -85,9 +85,9 @@ function cargarEditar(producto){
 	              	{'label':'Tipo','type':'select','name':'tipoE'},	              	
 	              	{'label':'Imagen','type':'file','name':'imagen'},
 	              	{'label':'','type':'img','value':'#'},
-	              	{'label':'Stock Min','type':'input','typeinput':'text','pattern':'|^([0-9]+\s*)+$|','title':'Debe tener el formato correcto', 'req':'', 'max':'11','value':producto.stockmin,'name':'stockminE'},
-	  				{'label':'Stock','type':'input','typeinput':'text','pattern':'|^([0-9]+\s*)+$|','title':'Debe tener el formato correcto', 'req':'', 'max':'11','value':producto.stock,'name':'stockE'},
-	  				{'label':'Stock Max','type':'input','typeinput':'text','pattern':'|^([0-9]+\s*)+$|','title':'Debe tener el formato correcto', 'req':'', 'max':'11','value':producto.stockmax,'name':'stockmaxE'},
+	              	{'label':'Stock Min','type':'inputnumber','req':'true','step':'1', 'min':'0', 'value':producto.stockmin,'name':'stockminE'},
+	  				{'label':'Stock','type':'inputnumber', 'req':'true', 'step':'1', 'min':'0', 'value':producto.stock,'name':'stockE'},
+	  				{'label':'Stock Max','type':'inputnumber', 'req':'true', 'step':'1', 'min':'0','value':producto.stockmax,'name':'stockmaxE'},
 	  				{'label':'Precio Costo','type':'inputnumber', 'req':'', 'step':'0.01', 'min':'0', 'max':'1000','value':producto.pcosto,'name':'preciocostoE'},
 					{'label':'Precio de venta al Contado','type':'h3'},
 					{'label':'Precio','type':'inputnumber', 'req':'', 'step':'0.01', 'min':'0', 'max':'1000','value':producto.pcontado,'name':'preciocontadoE'},
