@@ -18,6 +18,7 @@ class AdministrarOfertasController extends Controller{
 		
 		$datos = array();
 		parse_str($form,$datos);
+		
 		$OfertaDescripcion = null;
 		$OfertaPorcentaje = null;
 		$OfertaFechaVigente = null;
@@ -30,7 +31,7 @@ class AdministrarOfertasController extends Controller{
 			$OfertaPorcentaje = $datos['descuento'];
 			$OfertaFechaVigente = date_create_from_format('d/m/Y',$datos["fecha_ini"]);
 			$OfertaFechaVencimiento = date_create_from_format('d/m/Y',$datos["fecha_fin"]);
-			$OfertaEstado = $datos['estado'];
+			$OfertaEstado = 1;
 			
 			$Oferta = new Oferta();
 			$Oferta -> setCofertadesc($OfertaDescripcion);
@@ -46,7 +47,7 @@ class AdministrarOfertasController extends Controller{
 				foreach($otherdata as $key => $data){
 					$Producto = $this->getDoctrine()
 					->getRepository('DicarsDataBundle:Producto')
-					->findOneBy(array('nproductoId' => $data['id']));
+					->findOneBy(array('nproductoId' => $data['idproducto']));
 						
 					$OfertaProducto = new OfertaProducto();
 					$OfertaProducto -> setNoferta($Oferta);
@@ -54,8 +55,7 @@ class AdministrarOfertasController extends Controller{
 					$OfertaProducto -> setCofertaproductoest($OfertaEstado);
 					$OfertaProducto -> setNofertaproductoporc($OfertaPorcentaje);
 					$em->persist($OfertaProducto);
-					$em->flush();
-						
+					$em->flush();						
 				}
 			} catch (Exception $e) {
 				$em->rollback();

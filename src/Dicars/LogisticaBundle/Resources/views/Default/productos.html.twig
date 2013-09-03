@@ -22,9 +22,12 @@
 			  	<thead>
 				  	<tr>
 					  	<th>Nombre</th>
+					  	<th>Tipo</th>
+					  	<th>Categoría</th>
+					  	<th>Talla</th>
 					  	<th>Stock</th>
-					  	<th>Precio Contado</th>
-					  	<th>Precio Crédito</th>
+					  	<th>Prec. Contado</th>
+					  	<th>Prec. Crédito</th>
 					  	<th>Cod. Barra</th>
 					  	<th></th>
 					  	<th></th>
@@ -185,13 +188,16 @@ $(document).ready(function(){
 	
 	UrlaDTable = '{{ path("dicars_logistica_servicio_gettablaproductos") }}';
 	FormatoDTable = [
-		              { "sWidth": "12%","mDataProp": "nombre"},
-		              { "sWidth": "12%","mDataProp": "stock"},
-		              { "sWidth": "12%","mDataProp": "pcontado"},
-		              { "sWidth": "12%","mDataProp": "pcredito"},
-		              { "sWidth": "12%","mDataProp": "codigobarras"},
-		              { "sWidth": "13%","mDataProp": "ver_btn"},
-		              { "sWidth": "13%","mDataProp": "edit_btn"}
+		              { "sWidth": "13%","mDataProp": "nombre"},
+		              { "sWidth": "11%","mDataProp": "tipo"},
+		              { "sWidth": "10%","mDataProp": "categoria"},
+		              { "sWidth": "8%","mDataProp": "talla"},
+		              { "sWidth": "8%","mDataProp": "stock"},
+		              { "sWidth": "10%","mDataProp": "pcontado"},
+		              { "sWidth": "10%","mDataProp": "pcredito"},
+		              { "sWidth": "10%","mDataProp": "codigobarras"},
+		              { "sWidth": "11%","mDataProp": "ver_btn"},
+		              { "sWidth": "9%","mDataProp": "edit_btn"}
 		              ];
 	oTable = createDataTable('productos_table',UrlaDTable,FormatoDTable,null,RowCallBackFunction);
 

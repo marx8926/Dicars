@@ -453,9 +453,11 @@ class AdministrarServiciosController extends Controller {
 	
 		$todo = array();
 		foreach ($tiposigv as $key => $tipoigv){
-			$todo[] = array('id' => $tipoigv -> getNtipoigv(),
-					'porc' => $tipoigv -> getNtipoigvproc()
-			);
+			if($tipoigv->getCtipoigvest() == 1){
+				$todo[] = array('id' => $tipoigv -> getNtipoigv(),
+						'porc' => $tipoigv -> getNtipoigvproc()
+				);
+			}
 		}
 		$em->clear();
 		$em->close();

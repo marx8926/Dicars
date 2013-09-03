@@ -28,10 +28,10 @@
 					<div class="box-content">
 						<form id="AgregarProductoForm" class="form-horizontal">
 							<div class="control-group">
-								<label class="control-label" for="producto">Selecciona un Producto</label>
+								<label class="control-label" for="producto">Producto</label>
 								<div class="controls">
 									<input class="input focused" id="producto" type="text" readonly required>
-								  	<button type="button" class="btn btn-info btn-buscarp" style="margin: 0 18px;"><i class="icon-search icon-white"></i>Buscar</button>
+								  	<button type="button" class="btn btn-info btn-buscarp" style="margin: 0 18px;"><i class="icon-search icon-white"></i></button>
 									<label style="display:inline;" for="modpcontado">P. Contado</label>
 									<input id="modpcontado" type="number" style="margin: 0 18px 0 0;" step="0.01" required>
 									<label style="display:inline;" for="modpcredito">P. Credito</label>
@@ -151,7 +151,7 @@
 									<label class="control-label" for="amortizacion">A cuenta</label>
 									<div class="controls">
 										<div class="input-prepend input-append">
-											<input class="input-xlarge focused" style="margin: 0 0px 0 0;" name="amortizacion" id="amortizacion" type="number" step="0.1" value="0" min="0"><span id="spanamort" class="add-on"></span>
+											<input class="input-xlarge focused" style="margin: 0 0px 0 0;" name="amortizacion" id="amortizacion" type="number" step="0.01" value="0" min="0" required><span id="spanamort" class="add-on"></span>
 										</div>
 									</div>
 								</div>
@@ -159,7 +159,7 @@
 								<div class="control-group">
 									<label class="control-label" for="saldo">Saldo restante</label>
 									<div class="controls">
-										<input class="input-xlarge focused" style="margin: 0 18px 0 0;" name="saldo" id="saldo" type="text" readonly>
+										<input class="input-xlarge focused" name="saldo" id="saldo" type="text" readonly>
 									</div>
 								</div>
 							</div>
@@ -168,19 +168,34 @@
 									<label class="control-label" for="num_cuotas">N° Cuotas</label>
 									<div class="controls">
 										<div class="input-prepend input-append">
-												<input class="input-xlarge focused " name="num_cuotas" id="num_cuotas" type="number" min="2" value="2" required><span id="spancouota" class="add-on">x 0.00 S/.</span>
+											<input class="input-xlarge focused " name="num_cuotas" id="num_cuotas" type="number" min="1" value="1" required><span id="spancouota" class="add-on">x 0.00 S/.</span>
 										</div>
 									</div>
 								</div>
 								<div class="control-group">
 									<label class="control-label" for="prim_cuota">Fecha 1° Cuota</label>
 									<div class="controls">
-									  <input type="text" placeholder="dd/mm/YYYY" pattern="|^\d{2}/\d{2}/\d{4}$|" maxlength="10" title="Debe ingresar un formato de fecha correcto" class="input-xlarge datepicker" id="prim_cuota" name="prim_cuota">
+									  <input type="text" placeholder="dd/mm/aaaa" pattern="|^\d{2}/\d{2}/\d{4}$|" maxlength="10" title="Debe ingresar un formato de fecha correcto" class="input-xlarge datepicker" id="prim_cuota" name="prim_cuota">
+									</div>
+								</div>
+							</div>
+							<div id="pagocont_block">
+								<div class="control-group">
+									<label class="control-label" for="importe">Importe</label>
+									<div class="controls">
+										<input name="importe" id="importe" type="number" value="0" step="0.01">
+										<span id="importe_help" style="color: red;" class="help-inline">El Importe debe ser mayor que el Total</span>
+									</div>
+								</div>
+								<div class="control-group">
+									<label class="control-label" for="vuelto">Vuelto</label>
+									<div class="controls">
+										<input name="vuelto" id="vuelto" type="text" readonly>
 									</div>
 								</div>
 							</div>
 							<div class="control-group">
-								<label class="control-label" for="producto">Observacion</label>
+								<label class="control-label" for="producto">Observación</label>
 								<div class="controls">
 									<textarea class="input-xlarge" name="observacion" rows="2" cols="" value=""></textarea>
 								</div>
@@ -276,6 +291,7 @@ var TipoMoneda;
 var CargarTablaResumen;
 
 function VentaUpdate(){
+	
 	var igv = parseInt($("#tipo_igv option:selected").text());
 	var des = $("#descuento").val();
 	var formapago = $("#forma_pago").val();
@@ -284,14 +300,15 @@ function VentaUpdate(){
 	var montoproductos;
 	
 	if($("#tipo_moneda").val()==1)
-		TipoMoneda = "s/.";
+		TipoMoneda = " - s/.";
 	else
-		TipoMoneda = "$";
-			
+		TipoMoneda = " - $";
+
 	if(formapago == 2){
 		UnselectRow("select_producto_table");
 		$("#saldo_block").show();
 		$("#cuotas_block").show();
+		$("#pagocont_block").hide();
 		montoproductos = totalcredito;
 		tipoprecio = 'pcontado';
 	}
@@ -303,6 +320,7 @@ function VentaUpdate(){
 		tipoprecio = 'pcontado';
 	}
 	else {
+		$("#pagocont_block").show();
 		$("#cuotas_block").hide();
 		$("#saldo_block").hide();
 		montoproductos = totalcontado;
@@ -330,8 +348,25 @@ function VentaUpdate(){
 	$("#subtotalR").text($("#subtotal").val());
 	$("#tipo_igvR").text(igv+$("#spanigv").text());
 	$("#totalR").text($("#total").val());
+	$("#importeR").text($("#importe").val());
+	$("#vueltoR").text($("#vuelto").val());
 	$("#amortizacionR").text($("#amortizacion").val());
 	$("#saldoR").text($("#saldo").val());
+	total = $('#total').val();
+	$('#amortizacion').attr('max', total);	
+	$('#importe').attr('min', total);
+	if($('#importe').val() >= total){
+		$('#vuelto').val(($('#importe').val() - total).toFixed(2));
+		$('#importe_help').hide();
+	}
+	else if($('#importe').val() == "0"){
+		$('#vuelto').val("0");
+		$('#importe_help').hide();
+	}
+	else{
+		$('#vuelto').val("0");
+		$('#importe_help').show();
+	}
 }
 
 $(document).ready(function(){
@@ -355,14 +390,14 @@ $(document).ready(function(){
 	
 	$("#EnviarVentaForm").change(function(e){
 		VentaUpdate();
-		});
+	});
 
 	$("#EnviarVentaForm").bind("keypress", function(e) {
 		  if (e.keyCode == 13) {               
 			    e.preventDefault();
 			    return false;
-			  }
-			});
+		  }
+	});
 	
 	$("#finalizar_venta").click(function(e){
 		e.preventDefault();
@@ -371,7 +406,7 @@ $(document).ready(function(){
 			url: "{{ path ('dicars_logistica_servicio_getgenerarcodigosalprod') }}",
 			dataType: "json",
 			async: false
-			});
+		});
 		ajax.done(function(data){
 			$('#numero_salida').val(data.NUMERO);
 			$('#serie_salida').val(data.SERIE);
@@ -395,7 +430,7 @@ $(document).ready(function(){
 	$("#select_producto").click(function(e){
 		e.preventDefault();
 		var data = SelectProductoData[0];
-		$('#producto').val(data.id+" - "+data.nombre);
+		$('#producto').val(data.desc);
 		$('#cantidad').val("1");
 		$('#modalBuscarProducto').modal('hide');
 		$('#cantidad').attr('max',data.stock);
@@ -489,7 +524,7 @@ $(document).ready(function(){
 		"sDom": "<'row-fluid'<'span6'l><'span6'f>r>t<'row-fluid'<'span12'i><'span12 center'p>>",
 		"sPaginationType": "bootstrap",
 		"oLanguage": {
-		"sLengthMenu": "_MENU_ registros por página"
+			"sUrl": urlES
 		}
 	});
 	
@@ -498,7 +533,7 @@ $(document).ready(function(){
 		"bServerSide": false,
 		"bDestroy": true,	  
 		"aoColumns": [
-		              { "sWidth": "15%","mDataProp": "id"},
+		              { "sWidth": "15%","mDataProp": "desc"},
 		              { "sWidth": "15%","mDataProp": "cantidad"},
 		              { "sWidth": "15%","mDataProp": "pventa"}
 		              ],
@@ -513,7 +548,7 @@ $(document).ready(function(){
 		 	"sDom": "<r>t<'row-fluid'>",
 		 	"sPaginationType": "bootstrap",
 		 	"oLanguage": {
-			"sLengthMenu": "_MENU_ registros por página"
+		 		"sUrl": urlES
 				}	
 		});
 	ajaxResponseData("forma_pago","{{ path('dicars_admin_servicio_getoptiontipobyclase',{'Clase':1}) }}");
