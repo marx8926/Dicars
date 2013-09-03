@@ -139,18 +139,23 @@ $(document).ready(function(){
 		           	{'td1':'PROVEEDOR:','td2': '{{ proveedor }}','td3':'FECHA DE EMISIÓN:','td4':'{{ fecha_reg }}',},
 		           	{'td1':'OBSERVACIONES:','td2': '{{ observacion }}','td3':'','td4':'',}	];
        	
-		total = [	{'td1':'CANT. TOTAL:','td2':totalcantidad},
-		         	{'td1':'CANT. TOTAL:','td2':totalcantidad},
-		         	{'td1':'CANT. TOTAL:','td2':totalcantidad},
-		         	{'td1':'CANT. TOTAL:','td2':totalcantidad},
-		         	{'td1':'(IGV) PROCENTAJE%:','td2':'{{ igv }}',
+		total = [	{'td1':'SUB TOTAL:','td2':'S/. {{ subtotal }}'},
+		         	{'td1':'DESCUENTO {{ descuento }}%:','td2':'S/. -{{ montodescuento }}'},
+		         	{'td1':'RECARGO EQUIV:','td2':'S/. {{ recequiv }}'},
+		         	{'td1':'RETENCION:','td2':'S/. {{ retencion }}'},
+		         	{'td1':'IGV {{ igv }}%:','td2':'S/. {{ montoigv }}'},
 		         	{'td1':'','td2':''},
-		         	{'td1':'CANT. TOTAL:','td2':'{{ total }}'}	];
+		         	{'td1':'CANT. TOTAL:','td2':'S/. {{ total }}'}	];
 		
 		var tablaresumen = toHTML(crearTablaToArray("resume",null,null,['td1','td2','td3','td4'],['style="width: 25%;" class="impar" ','style="width:25%;" ','style="width: 25%;" class="impar" ','style="width: 25%;" '],resumen));
-		var tableproductos = toHTML(crearTablaToArray("tproductos",['Producto','Cantidad', 'Precio Unitario','Importe'],
-				['style="width: 45%; background: #e7e6e6;" class="prodth" ','style="width: 15%; background: #e7e6e6;" class="prodth" ','style="width: 20%; background: #e7e6e6;" class="prodth" ','style="width: 20%; background: #e7e6e6;" class="prodth" '],
-				['nombre','cantidad','pordcom','importe'],['style="width: 45%;" class="izquierda"','style="width: 15%;"','style="width: 20%;" class="izquierda"','style="width: 20%;" class="izquierda"'],BuscarOrdComTable.fnGetData()));
+
+		var tableproductos = toHTML(crearTablaToArray("tproductos",
+				['Producto','Cantidad', 'Precio Unitario','Importe'],
+				['style="width: 45%;" class="prodth" ','style="width: 15%;" class="prodth" ','style="width: 20%;" class="prodth" ','style="width: 20%;" class="prodth" '],
+				['nombre','cantidad','pordcom','importe'],
+				['style="width: 45%;" class="izquierda"','style="width: 15%;"','style="width: 20%;"','style="width: 20%;"'],
+				BuscarOrdComTable.fnGetData()));
+		
 		var tablatotal = toHTML(crearTablaToArray('total',null,null,['td1','td2'],['style="width: 80%;" class="upbold" ','style="width: 20%;"  class="verde"'],total));
 		
 		$("#title").val("ORDEN DE COMPRA");

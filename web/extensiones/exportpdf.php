@@ -36,6 +36,7 @@
 		text-align: center;
 	}
 	#tproductos td.prodth{
+		background: #e7e6e6;
 		text-transform: uppercase;
 	}
 	#tproductos th, #tproductos td{

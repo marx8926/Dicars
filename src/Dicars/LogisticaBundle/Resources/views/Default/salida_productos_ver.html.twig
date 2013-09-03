@@ -118,8 +118,8 @@ $(document).ready(function(){
 		           	{'td1':'OBSERVACIONES:','td2': '{{ observacion }}','td3':'MOTIVO:','td4':'{{ motivo }}',}	];
 		
 		var tablaresumen = toHTML(crearTablaToArray("resume",null,null,['td1','td2','td3','td4'],['style="width: 25%;" class="impar" ','style="width:25%;" ','style="width: 25%;" class="impar" ','style="width: 25%;" '],resumen));
-		var tableproductos = toHTML(crearTablaToArray("tproductos",['Producto','Cantidad'],['style="width: 75%; background: #e7e6e6;" class="prodth" ','style="width: 25%; background: #e7e6e6;" class="prodth" '],['nombre','cantidad'],['style="width: 75%;" class="izquierda"','style="width: 25%;"'],BuscarSalProdTable.fnGetData()));
-		var tablatotal = toHTML(crearTablaToArray('total',null,null,['td1','td2'],['style="width: 75%;" class="upbold" ','style="width: 25%;"  class="verde"'],total));
+		var tableproductos = toHTML(crearTablaToArray("tproductos",['Producto','Cantidad'],['style="width: 80%;" class="prodth" ','style="width: 20%;" class="prodth" '],['nombre','cantidad'],['style="width: 80%;" class="izquierda"','style="width: 20%;"'],BuscarSalProdTable.fnGetData()));
+		var tablatotal = toHTML(crearTablaToArray('total',null,null,['td1','td2'],['style="width: 80%;" class="upbold" ','style="width: 20%;"  class="verde"'],total));
 		
 		$("#title").val("SALIDA PRODUCTOS");
 		$("#table_resumen").val(tablaresumen);

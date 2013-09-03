@@ -155,6 +155,8 @@ class DefaultController extends Controller
     	
     	$personal = $OrdCom->getNpersonal();
     	$proveedor = $OrdCom -> getNproveedor();
+    	
+    	$subtotal = $OrdCom->getNordcomsubtotal();
     
     	return $this->render('DicarsLogisticaBundle:Default:orden_compra_ver.html.twig',array(
     			'id' => $idordcom,
@@ -165,10 +167,12 @@ class DefaultController extends Controller
     			'nro' => $OrdCom->getCordcomnro(),
     			'subtotal' => $OrdCom->getNordcomsubtotal(),
     			'igv' => $OrdCom->getNordcomigv(),
+    			'montoigv' => $OrdCom->getNordcomigv()*$OrdCom->getNordcomsubtotal()/100,
     			'total' => $OrdCom->getNordcomtotal(),
     			'observacion' => $OrdCom->getCordcomobsv(),
     			'estado' => $OrdCom->getCordcomest(),
     			'descuento' => $OrdCom->getNordcomdesct(),
+    			'montodescuento' => $OrdCom->getNordcomsubtotal()*$OrdCom->getNordcomsubtotal()/100,
     			'recequiv' => $OrdCom->getNordcomreceqv(),
     			'retencion' => $OrdCom->getNordcomretencion()
     	));
