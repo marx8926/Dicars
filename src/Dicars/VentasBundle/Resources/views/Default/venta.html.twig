@@ -86,7 +86,7 @@
 			<div class="box-content">
 			<form id="EnviarVentaForm" class="form-horizontal" method="post" action="{{ path("dicars_ventas_registrar_venta") }}">
 				<input type="hidden" name="serie_salida" id="serie_salida">
-				<input type="hidden" name="numero_salida" id="numer_salida">
+				<input type="hidden" name="numero_salida" id="numero_salida">
 				<fieldset>
 					<div class="row-fluid">
 						<div class="span6">
@@ -373,8 +373,8 @@ $(document).ready(function(){
 			async: false
 			});
 		ajax.done(function(data){
-			$('#numero_salida').val(data[0].NUMERO);
-			$('#serie_salida').val(data[0].SERIE);
+			$('#numero_salida').val(data.NUMERO);
+			$('#serie_salida').val(data.SERIE);
 	    	enviar('EnviarVentaForm',reloadpage,OtherDataProductos);
 			$("#EnviarVentaForm").submit();
 		});

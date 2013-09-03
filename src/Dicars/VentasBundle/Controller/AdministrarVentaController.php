@@ -75,6 +75,8 @@ class AdministrarVentaController extends Controller {
 			$TipoPago = $datos["forma_pago"];
 			$Amortizacion = $datos["amortizacion"];
 			$Total = $datos["total"];
+			$SerieSalida = $datos['serie_salida'];
+			$NumeroSalida = $datos['numero_salida'];
 			
 			$NumCuotas = $datos["num_cuotas"];
 			$FechaDiaPago = date_create_from_format('d/m/Y', $datos["prim_cuota"]);
@@ -118,8 +120,8 @@ class AdministrarVentaController extends Controller {
 				$SalProd = new  LogSalprod();
 				$SalProd -> setNpersonal($EmpleadoTrans);
 				$SalProd -> setNlocal($Local);
-				$SalProd -> setCsalprodserie('1234');
-				$SalProd -> setCsalprodnro('12345678');
+				$SalProd -> setCsalprodserie($SerieSalida);
+				$SalProd -> setCsalprodnro($NumeroSalida);
 				$SalProd -> setDsalprodfecreg($FechaReg);
 				$SalProd -> setNsalprodmotivo('Salida Venta');
 				$SalProd -> setNsolicitanteId(1);

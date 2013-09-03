@@ -571,6 +571,6 @@ public function getTablaDetPedidoCompraAction(){
 	
 		$em->clear();
 		$em->close();
-		return new JsonResponse($codigos);
+		return new JsonResponse($codigos[0]);
 	}
 }
