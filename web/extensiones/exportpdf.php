@@ -48,7 +48,6 @@
 	}
 	#total td.verde{
 		padding-left: 17px;
-		color: #70AD47;
 		font-weight: bold;
 		text-align: center;
 	}
