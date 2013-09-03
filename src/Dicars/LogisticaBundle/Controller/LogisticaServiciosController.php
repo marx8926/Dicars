@@ -268,7 +268,7 @@ public function getTablaProductosAction(){
 			//$personal = $salprod -> getNpersonal();
 			$motivo = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:Constante')
-			->findOneBy(array('nconstanteId' => $salprod -> getNsalprodmotivo()));
+			->findOneBy(array('nconstanteclase' => '4', 'cconstantevalor' =>$salprod -> getNsalprodmotivo()));
 			
 			$solicitante = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:VenPersonal')

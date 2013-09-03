@@ -474,24 +474,26 @@ function toHTML(element){
 }
 
 /*-------------------------------- Crear Tabla ------------------------------------*/
-function crearTablaToArray(Head,Attr,Array){
-	var table = $("<table>");
+function crearTablaToArray(Idtable,Head,HeadExt,Attr,AttrExt,Array){
+	var table = $("<table id='"+Idtable+"'>");
 	var thead = $("<thead>");
 	var tbody = $("<tbody>");
 	var trh = $("<tr>");
-	for (var i = 0 ; i< Head.length ; i++){
-		trh.append("<td>"+Head[i]+"</td>");
+	if(Head != null){
+		for (var i = 0 ; i< Head.length ; i++){
+			trh.append("<td "+HeadExt[i]+">"+Head[i]+"</td>");
+		}
+		thead.append(trh);
+		table.append(thead);
 	}
 	
 	$(Array).each(function(index){
 		var trb = $("<tr>");
 		for(var j = 0 ; j < Attr.length ; j++){
-			trb.append("<td>"+this[Attr[j]]+"</td>");
+			trb.append("<td "+AttrExt[j]+" >"+this[Attr[j]]+"</td>");
 		}
 		tbody.append(trb);
 	});
-	thead.append(trh);
-	table.append(thead);
 	table.append(tbody);
 	return table;
 }

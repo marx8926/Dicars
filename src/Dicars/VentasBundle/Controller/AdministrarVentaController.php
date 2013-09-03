@@ -123,7 +123,7 @@ class AdministrarVentaController extends Controller {
 				$SalProd -> setCsalprodserie($SerieSalida);
 				$SalProd -> setCsalprodnro($NumeroSalida);
 				$SalProd -> setDsalprodfecreg($FechaReg);
-				$SalProd -> setNsalprodmotivo('Salida Venta');
+				$SalProd -> setNsalprodmotivo(2);
 				$SalProd -> setNsolicitanteId(1);
 				$SalProd -> setCsalprodobsv($Observacion);
 				$em -> persist($SalProd);

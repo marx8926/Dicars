@@ -107,6 +107,13 @@
 				<tbody>
 				</tbody>
 			</table>
+			<form method="post" action="{{ asset('extensiones/exportpdf.php') }}" target="_blank" id="CreatePDFForm">
+				<input type="hidden" name="title" id="title"/>
+				<input type="hidden" name="table_resumen" id="table_resumen"/>
+				<input type="hidden" name="table_producto" id="table_producto"/>
+				<input type="hidden" name="table_total" id="table_total"/>
+				<input type="submit" value="PDF"/>
+			</form>
 			<div class="form-actions">
 				<a href="{{ path('dicars_logistica_orden_compra_consultar') }}" class="btn btn-success"><i class="icon icon-white icon-arrowthick-w"></i> Volver</a>
 			</div>
@@ -118,9 +125,42 @@
 <script src="{{ asset('js/util/functiongen.js') }}"></script>
 <script src="{{ asset('js/util/datatable_plugins.js') }}"></script>
 <script type="text/javascript">
+
+var resumen;
+var total;
+var DrawCallBackPedido;
+var totalcantidad = 0;
+
 $(document).ready(function(){
 
-	UrlaDTablePedidos = '{{ path("dicars_logistica_servicio_gettabladetordcom",{'idordcom':''}) }}/{{ id }}';
+	DrawCallBackCompra = function (){
+		
+		resumen = [	{'td1':'REGISTRADOR:','td2': '{{ personal }}','td3':'ORDEN:','td4':'{{ serie }} - {{ nro }}',},
+		           	{'td1':'PROVEEDOR:','td2': '{{ proveedor }}','td3':'FECHA DE EMISIÓN:','td4':'{{ fecha_reg }}',},
+		           	{'td1':'OBSERVACIONES:','td2': '{{ observacion }}','td3':'','td4':'',}	];
+       	
+		total = [	{'td1':'CANT. TOTAL:','td2':totalcantidad},
+		         	{'td1':'CANT. TOTAL:','td2':totalcantidad},
+		         	{'td1':'CANT. TOTAL:','td2':totalcantidad},
+		         	{'td1':'CANT. TOTAL:','td2':totalcantidad},
+		         	{'td1':'(IGV) PROCENTAJE%:','td2':'{{ igv }}',
+		         	{'td1':'','td2':''},
+		         	{'td1':'CANT. TOTAL:','td2':'{{ total }}'}	];
+		
+		var tablaresumen = toHTML(crearTablaToArray("resume",null,null,['td1','td2','td3','td4'],['style="width: 25%;" class="impar" ','style="width:25%;" ','style="width: 25%;" class="impar" ','style="width: 25%;" '],resumen));
+		var tableproductos = toHTML(crearTablaToArray("tproductos",['Producto','Cantidad', 'Precio Unitario','Importe'],
+				['style="width: 45%; background: #e7e6e6;" class="prodth" ','style="width: 15%; background: #e7e6e6;" class="prodth" ','style="width: 20%; background: #e7e6e6;" class="prodth" ','style="width: 20%; background: #e7e6e6;" class="prodth" '],
+				['nombre','cantidad','pordcom','importe'],['style="width: 45%;" class="izquierda"','style="width: 15%;"','style="width: 20%;" class="izquierda"','style="width: 20%;" class="izquierda"'],BuscarOrdComTable.fnGetData()));
+		var tablatotal = toHTML(crearTablaToArray('total',null,null,['td1','td2'],['style="width: 80%;" class="upbold" ','style="width: 20%;"  class="verde"'],total));
+		
+		$("#title").val("ORDEN DE COMPRA");
+		$("#table_resumen").val(tablaresumen);
+		$("#table_producto").val(tableproductos);
+		$("#table_total").val(tablatotal);
+	};
+	
+
+	UrlaDTablePedidos = "{{ path('dicars_logistica_servicio_gettabladetordcom',{'idordcom':''}) }}/{{ id }}";
 	FormatoDTablePedidos = [
 		              { "sWidth": "16%","mDataProp": "producto_desc"},
 		              { "sWidth": "16%","mDataProp": "cantidad"},
@@ -128,7 +168,7 @@ $(document).ready(function(){
 		              { "sWidth": "16%","mDataProp": "importe"},
 		              { "sWidth": "16%","mDataProp": "ordped_id"}
 		              ];
-	BuscarPedidosTable = createDataTable('productos_table',UrlaDTablePedidos,FormatoDTablePedidos);
+	BuscarOrdComTable = createDataTable('productos_table',UrlaDTablePedidos,FormatoDTablePedidos,DrawCallBackCompra);
 	
 });
 

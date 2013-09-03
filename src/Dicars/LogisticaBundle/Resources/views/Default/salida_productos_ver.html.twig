@@ -80,6 +80,13 @@
 				<tbody>
 				</tbody>
 			</table>
+			<form method="post" action="{{ asset('extensiones/exportpdf.php') }}" target="_blank" id="CreatePDFForm">
+				<input type="hidden" name="title" id="title"/>
+				<input type="hidden" name="table_resumen" id="table_resumen"/>
+				<input type="hidden" name="table_producto" id="table_producto"/>
+				<input type="hidden" name="table_total" id="table_total"/>
+				<input type="submit" value="PDF"/>
+			</form>
 			<div class="form-actions">
 				<a href="{{ path('dicars_logistica_cons_salidaproductos') }}" class="btn btn-success"><i class="icon icon-white icon-arrowthick-w"></i> Volver</a>
 			</div>
@@ -93,14 +100,39 @@
 <script src="{{ asset('js/util/datatable_plugins.js') }}"></script>
 <script type="text/javascript">
 
+var resumen;
+var totalcantidad = 0;
+var total;
+var DrawCallBackPedido;
+
 $(document).ready(function(){
+
+	DrawCallBackSalida = function (){
+		$(BuscarSalProdTable.fnGetData()).each(function(){
+			totalcantidad += this.cantidad;
+		});
+		total = [	{'td1':'CANT. TOTAL:','td2':totalcantidad}	];
+
+		resumen = [	{'td1':'REGISTRADOR:','td2': '{{ personal }}','td3':'ORDEN:','td4':'{{ serie }} - {{ nro }}',},
+		           	{'td1':'TIENDA:','td2': '{{ local }}','td3':'FECHA DE EMISIÓN:','td4':'{{ fecha_reg }}',},
+		           	{'td1':'OBSERVACIONES:','td2': '{{ observacion }}','td3':'MOTIVO:','td4':'{{ motivo }}',}	];
+		
+		var tablaresumen = toHTML(crearTablaToArray("resume",null,null,['td1','td2','td3','td4'],['style="width: 25%;" class="impar" ','style="width:25%;" ','style="width: 25%;" class="impar" ','style="width: 25%;" '],resumen));
+		var tableproductos = toHTML(crearTablaToArray("tproductos",['Producto','Cantidad'],['style="width: 75%; background: #e7e6e6;" class="prodth" ','style="width: 25%; background: #e7e6e6;" class="prodth" '],['nombre','cantidad'],['style="width: 75%;" class="izquierda"','style="width: 25%;"'],BuscarSalProdTable.fnGetData()));
+		var tablatotal = toHTML(crearTablaToArray('total',null,null,['td1','td2'],['style="width: 75%;" class="upbold" ','style="width: 25%;"  class="verde"'],total));
+		
+		$("#title").val("SALIDA PRODUCTOS");
+		$("#table_resumen").val(tablaresumen);
+		$("#table_producto").val(tableproductos);
+		$("#table_total").val(tablatotal);
+	};
 	
-	UrlaDTableSalProd = '{{ path("dicars_logistica_servicio_gettabladetsalprod",{'id':''}) }}/{{ id }}';
+	UrlaDTableSalProd = "{{ path('dicars_logistica_servicio_gettabladetsalprod',{'id':''}) }}/{{ id }}";
 	FormatoDTableSalProd = [
 		              { "sWidth": "50%","mDataProp": "producto_desc"},
 		              { "sWidth": "50%","mDataProp": "cantidad"}
 		              ];
-	BuscarSalProdTable = createDataTable('salida_productos_table',UrlaDTableSalProd,FormatoDTableSalProd);
+	BuscarSalProdTable = createDataTable('salida_productos_table',UrlaDTableSalProd,FormatoDTableSalProd,DrawCallBackSalida);
 });
 </script>
 {% endblock %}
