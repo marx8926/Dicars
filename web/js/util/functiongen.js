@@ -66,6 +66,16 @@ function SubTablaArray(Table, Array, attr){
 /*
  * Nesesita tener definido el atributo cantidad
  */
+
+function sumColArray(Array,attr){
+	var total = 0;
+	$(Array).each(function(index){
+		total += this[attr];
+		console.log( this[attr]);
+	});
+	return total;
+}
+
 function sumArrayByAttr(Array2,attr,attrresult,attrcondicion){
 	var total = 0;
 	$(Array2).each(function( index ){

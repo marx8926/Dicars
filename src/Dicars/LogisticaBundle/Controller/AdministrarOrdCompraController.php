@@ -58,8 +58,8 @@ class AdministrarOrdCompraController extends Controller{
 			$Estado = 1;
 			
 			$Descuento = $datos['descuento'];
-			$RecEquivalente = $datos['recequiv'];
-			$Retencion = $datos['retencion'];
+			$RecEquivalente = 0;
+			$Retencion = 0;
 				
 			$OrdCompra = new  LogOrdcom();
 			$OrdCompra -> setNpersonal($Empleado);
