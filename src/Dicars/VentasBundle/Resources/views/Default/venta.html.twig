@@ -51,8 +51,8 @@
 									  	<th>Código</th>
 									  	<th>Descripción</th>
 								  		<th>Cantidad</th>
-								  		<th>P Contado</th>
-								  		<th>P Credito</th>
+								  		<th>Prec. Contado</th>
+								  		<th>Prec. Credito</th>
 									  	<th>Acciones</th>
 									</tr>
 							  	</thead>   
@@ -64,8 +64,8 @@
 								<thead>
 								  	<tr>
 								  		<th colspan='3'></th>
-									  	<th>P Contado</th>
-								  		<th>P Credito</th>
+									  	<th>Prec. Contado</th>
+								  		<th>Prec. Credito</th>
 									</tr>
 							  	</thead>  
 							  	<tbody>
@@ -183,7 +183,7 @@
 								<div class="control-group">
 									<label class="control-label" for="importe">Importe</label>
 									<div class="controls">
-										<input name="importe" id="importe" type="number" value="0" step="0.01">
+										<input id="importe" type="number" value="0" step="0.01">
 										<span id="importe_help" style="color: red;" class="help-inline">El Importe debe ser mayor que el Total</span>
 									</div>
 								</div>
@@ -309,6 +309,7 @@ function VentaUpdate(){
 		$("#saldo_block").show();
 		$("#cuotas_block").show();
 		$("#pagocont_block").hide();
+		$("#resume-credito").show();
 		montoproductos = totalcredito;
 		tipoprecio = 'pcontado';
 	}
@@ -316,6 +317,7 @@ function VentaUpdate(){
 	else if(formapago == 3){
 		$("#saldo_block").show();
 		$("#cuotas_block").hide();
+		$("#pagocont_block").hide();
 		montoproductos = totalcontado;
 		tipoprecio = 'pcontado';
 	}
@@ -323,6 +325,7 @@ function VentaUpdate(){
 		$("#pagocont_block").show();
 		$("#cuotas_block").hide();
 		$("#saldo_block").hide();
+		$("#resume-credito").hide();
 		montoproductos = totalcontado;
 		tipoprecio = 'pcontado';
 	}
@@ -339,7 +342,7 @@ function VentaUpdate(){
 	
 	$("#spanamort").text(TipoMoneda);
 	montocuota = $("#saldo").val()/$("#num_cuotas").val();
-	$("#montocuota").val(montocuota);	
+	$("#montocuota").val(montocuota);
 	$("#spancouota").text("x "+TipoMoneda+" "+montocuota.toFixed(2));
 
 	$("#forma_pagoR").text($("#forma_pago option:selected").text());
@@ -354,18 +357,20 @@ function VentaUpdate(){
 	$("#saldoR").text($("#saldo").val());
 	total = $('#total').val();
 	$('#amortizacion').attr('max', total);	
-	$('#importe').attr('min', total);
-	if($('#importe').val() >= total){
-		$('#vuelto').val(($('#importe').val() - total).toFixed(2));
-		$('#importe_help').hide();
-	}
-	else if($('#importe').val() == "0"){
-		$('#vuelto').val("0");
-		$('#importe_help').hide();
-	}
-	else{
-		$('#vuelto').val("0");
-		$('#importe_help').show();
+	if(formapago == 1){
+		$('#importe').attr('min', total);
+		if($('#importe').val() >= total){
+			$('#vuelto').val(($('#importe').val() - total).toFixed(2));
+			$('#importe_help').hide();
+		}
+		else if($('#importe').val() == "0"){
+			$('#vuelto').val("0");
+			$('#importe_help').hide();
+		}
+		else{
+			$('#vuelto').val("0");
+			$('#importe_help').show();
+		}
 	}
 }
 
@@ -446,6 +451,7 @@ $(document).ready(function(){
 		$('#cliente').val(data.nombre+" "+data.apellido);
 		$('#cliente_id').val(data.id);
 		$('#clienteR').text(data.nombre+" "+data.apellido);
+		$('#direccionR').text(data.direccion);
 		$('#modalBuscarCliente').modal('hide');
 		
 	});
@@ -533,9 +539,10 @@ $(document).ready(function(){
 		"bServerSide": false,
 		"bDestroy": true,	  
 		"aoColumns": [
-		              { "sWidth": "15%","mDataProp": "desc"},
-		              { "sWidth": "15%","mDataProp": "cantidad"},
-		              { "sWidth": "15%","mDataProp": "pventa"}
+					  { "sWidth": "10%","mDataProp": "codigo"},
+		              { "sWidth": "50%","mDataProp": "desc"},
+		              { "sWidth": "20%","mDataProp": "cantidad"},
+		              { "sWidth": "20%","mDataProp": "pventa"}
 		              ],
 	 	"aaSorting": [ [0, 'asc'], [1, 'asc'] ],
 	 	"bPaginate": false,
