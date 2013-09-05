@@ -17,12 +17,18 @@
 		<div class="box-content">
 			<div class="form-horizontal">
 				<fieldset>
+					<div class="control-group">
+						<label class="control-label" for="cliente">Cliente</label>
+						<div class="controls">
+						  	<span class="help-inline" style="margin-top:5px;">{{ cliente }}</span>
+						</div>
+					</div>
 					<div class="row-fluid">
 						<div class="span6">
 							<div class="control-group">
-								<label class="control-label" for="codigo">Fecha</label>
+								<label class="control-label" for="direccion">Dirección</label>
 								<div class="controls">
-									<span class="help-inline" style="margin-top:5px;">{{ fecha_reg }}</span>
+									<span class="help-inline" style="margin-top:5px;">{{ direccion }}</span>
 								</div>
 							</div>
 							<div class="control-group">
@@ -31,16 +37,24 @@
 									<span class="help-inline" style="margin-top:5px;">{{ vendedor }}</span>
 								</div>
 							</div>
-							<div class="control-group">
-								<label class="control-label" for="cliente">Cliente</label>
-								<div class="controls">
-								  	<span class="help-inline" style="margin-top:5px;">{{ cliente }}</span>
-								</div>
-							</div>
-							<div class="control-group">
+							<!-- div class="control-group">
 								<label class="control-label" for="observaciones">Observaciones</label>
 								<div class="controls">
 									<span class="help-inline" style="margin-top:5px;">{{ observacion }}</span>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label" for="tipo_moneda">Tipo de Moneda</label>
+								<div class="controls">
+									<span class="help-inline" style="margin-top:5px;">{{ tipo_moneda }}</span>
+								</div>
+							</div -->
+						</div>
+						<div class="span6">
+							<div class="control-group">
+								<label class="control-label" for="codigo">Fecha</label>
+								<div class="controls">
+									<span class="help-inline" style="margin-top:5px;">{{ fecha_reg }}</span>
 								</div>
 							</div>
 							<div class="control-group">
@@ -49,14 +63,6 @@
 									<span class="help-inline" style="margin-top:5px;">{{ tipo_pago }}</span>
 								</div>
 							</div>
-							<div class="control-group">
-								<label class="control-label" for="tipo_moneda">Tipo de Moneda</label>
-								<div class="controls">
-									<span class="help-inline" style="margin-top:5px;">{{ tipo_moneda }}</span>
-								</div>
-							</div>
-						</div>
-						<div class="span6">
 							<div class="control-group">
 								<label class="control-label" for="descuento">Descuento</label>
 								<div class="controls">

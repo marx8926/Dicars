@@ -126,6 +126,7 @@ class DefaultController extends Controller
     			'id' => $Venta -> getNventaId(),
 				'fecha_reg' => $Venta -> getCventafecreg() -> format('d/m/Y'),
 				'cliente' => $Venta -> getNcliente() -> getCclientenom()." ".$Venta -> getNcliente() -> getCclienteape() ,
+    			'direccion' => $Venta -> getNcliente() -> getCclientecdir(),
 				'vendedor' => $venta_trans -> getNpersonal() -> getCpersonalnom()." ".$venta_trans -> getNpersonal() -> getCpersonalape(), 
 				'tipo_pagoId' => $Venta -> getNventatippag(),
 				'tipo_pago' => $tipo_pago -> getCconstantedesc(),
