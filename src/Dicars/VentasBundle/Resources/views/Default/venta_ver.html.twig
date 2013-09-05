@@ -63,6 +63,24 @@
 									<span class="help-inline" style="margin-top:5px;">{{ tipo_pago }}</span>
 								</div>
 							</div>
+						</div>
+					</div>
+					<table id="productos_table" class="table table-striped table-bordered bootstrap-datatable datatable">
+						<thead>
+							  <tr>
+								  <th>Código</th>
+								  <th>Producto</th>
+								  <th>Cantidad</th>
+								  <th>Importe</th>
+							  </tr>
+						</thead>   
+						<tbody>
+						</tbody>
+					</table>
+					<div class="row-fluid">
+						<div class="span6">
+						</div>
+						<div class="span6">
 							<div class="control-group">
 								<label class="control-label" for="descuento">Descuento</label>
 								<div class="controls">
@@ -87,32 +105,16 @@
 									<span class="help-inline" style="margin-top:5px;">s/. {{ total }}</span>
 								</div>
 							</div>
-							<div class="control-group">
+							<!-- div class="control-group">
 								<label class="control-label" for="acuenta">A cuenta</label>
 								<div class="controls">
 									<span class="help-inline" style="margin-top:5px;">s/. {{ amortizado }}</span>
 								</div>
-							</div>
+							</div -->
 						</div>
 					</div>
 				</fieldset>
 			</div>
-			<hr>
-			<h3>Detalle de la Venta</h3>
-			<hr>
-			<table id="productos_table" class="table table-striped table-bordered bootstrap-datatable datatable">
-				<thead>
-					  <tr>
-						  <th>Código Producto</th>
-						  <th>Producto</th>
-						  <th>Cantidad</th>
-						  <th>Precio</th>
-						  <th>Importe</th>
-					  </tr>
-				</thead>   
-				<tbody>
-				</tbody>
-			</table>
 			<div class="form-actions">
 				<a href="{{ path('dicars_ventas_consultar') }}" class="btn btn-success"><i class="icon icon-white icon-arrowthick-w"></i> Volver</a>
 			</div>
@@ -128,13 +130,40 @@ $(document).ready(function(){
 
 	UrlaDTablePedidos = '{{ path("dicars_ventas_servicio_gettablaventaproductosbyid",{'idventa':''}) }}/{{ id }}';
 	FormatoDTablePedidos = [
-		              { "sWidth": "16%","mDataProp": "idproducto"},
-		              { "sWidth": "16%","mDataProp": "productodesc"},
-		              { "sWidth": "16%","mDataProp": "cantidad"},
-		              { "sWidth": "16%","mDataProp": "precio"},
-		              { "sWidth": "16%","mDataProp": "importe"}
+		              { "sWidth": "10%","mDataProp": "idproducto"},
+		              { "sWidth": "50%","mDataProp": "productodesc"},
+		              { "sWidth": "20%","mDataProp": "cantidad"},
+		              { "sWidth": "20%","mDataProp": "importe"}
 		              ];
-	BuscarPedidosTable = createDataTable('productos_table',UrlaDTablePedidos,FormatoDTablePedidos);
+	BuscarPedidosTable = $('#productos_table').dataTable({
+		"bProcessing": true,
+		"bServerSide": false,
+		"bDestroy": true,	 
+		"sAjaxSource": UrlaDTablePedidos,
+		"fnServerData": function( sUrl, aoData, fnCallback, oSettings ) {
+            oSettings.jqXHR = $.ajax( {
+                "url": sUrl,
+                "data": aoData,
+                "success": fnCallback,
+                "dataType": "json",
+                "cache": false
+            } );
+        },
+		"aoColumns": FormatoDTablePedidos,
+	 	"aaSorting": [ [0, 'asc'], [1, 'asc'] ],
+	 	"bPaginate": false,
+		"bLengthChange": false,
+		"bFilter": true,
+		"bInfo": false,
+		"bAutoWidth": false,
+	 	"aoColumnDefs": [
+	                  {"sType": 'string-case', "aTargets": [2]}],
+		 	"sDom": "<r>t<'row-fluid'>",
+		 	"sPaginationType": "bootstrap",
+		 	"oLanguage": {
+		 		"sUrl": urlES
+				}	
+		});
 	
 });
 
