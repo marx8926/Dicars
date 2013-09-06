@@ -183,7 +183,7 @@
 								<div class="control-group">
 									<label class="control-label" for="importe">Importe</label>
 									<div class="controls">
-										<input id="importe" type="number" value="0" step="0.01">
+										<input id="importe" name="importe" type="number" value="0" step="0.01">
 										<span id="importe_help" style="color: red;" class="help-inline">El Importe debe ser mayor que el Total</span>
 									</div>
 								</div>
@@ -290,6 +290,9 @@ var TiposIGV;
 var TipoMoneda;
 var CargarTablaResumen;
 
+var volverConsultar;
+var unlockload;
+
 function VentaUpdate(){
 	
 	var igv = parseInt($("#tipo_igv option:selected").text());
@@ -304,30 +307,32 @@ function VentaUpdate(){
 	else
 		TipoMoneda = " - $";
 
-	if(formapago == 2){
-		UnselectRow("select_producto_table");
-		$("#saldo_block").show();
-		$("#cuotas_block").show();
-		$("#pagocont_block").hide();
-		$("#resume-credito").show();
-		montoproductos = totalcredito;
-		tipoprecio = 'pcontado';
-	}
-
-	else if(formapago == 3){
-		$("#saldo_block").show();
-		$("#cuotas_block").hide();
-		$("#pagocont_block").hide();
-		montoproductos = totalcontado;
-		tipoprecio = 'pcontado';
-	}
-	else {
+	if(formapago == 1){
 		$("#pagocont_block").show();
 		$("#cuotas_block").hide();
 		$("#saldo_block").hide();
 		$("#resume-credito").hide();
 		montoproductos = totalcontado;
 		tipoprecio = 'pcontado';
+	}
+	else{
+		$('#importe').attr('min', "0");
+		$("#saldo_block").show();
+		$("#pagocont_block").hide();
+		
+		if(formapago == 2){
+			UnselectRow("select_producto_table");
+			$("#cuotas_block").show();
+			$("#resume-credito").show();
+			montoproductos = totalcredito;
+			tipoprecio = 'pcredito';
+		}
+
+		else{
+			$("#cuotas_block").hide();
+			montoproductos = totalcontado;
+			tipoprecio = 'pcontado';
+		}
 	}
 	
 	CargarTablaResumen(formapago);
@@ -351,19 +356,20 @@ function VentaUpdate(){
 	$("#subtotalR").text($("#subtotal").val());
 	$("#tipo_igvR").text(igv+$("#spanigv").text());
 	$("#totalR").text($("#total").val());
-	$("#importeR").text($("#importe").val());
-	$("#vueltoR").text($("#vuelto").val());
 	$("#amortizacionR").text($("#amortizacion").val());
 	$("#saldoR").text($("#saldo").val());
-	total = $('#total').val();
+	total = parseFloat($('#total').val());
 	$('#amortizacion').attr('max', total);	
 	if(formapago == 1){
+		$("#importeR").text($("#importe").val());
+		$("#vueltoR").text($("#vuelto").val());
 		$('#importe').attr('min', total);
+		
 		if($('#importe').val() >= total){
 			$('#vuelto').val(($('#importe').val() - total).toFixed(2));
 			$('#importe_help').hide();
 		}
-		else if($('#importe').val() == "0"){
+		else if($('#importe').val() == 0){
 			$('#vuelto').val("0");
 			$('#importe_help').hide();
 		}
@@ -375,6 +381,18 @@ function VentaUpdate(){
 }
 
 $(document).ready(function(){
+
+	unlockload = function(){
+		$.unblockUI({ 
+            onUnblock: function(){ 
+                $(location).attr("href","{{ path('dicars_ventas_consultar') }}"); 
+            } 
+        });
+	};	
+
+	volverConsultar = function(){
+		$(location).attr("href","{{ path('dicars_ventas_consultar') }}");
+	};
 
 	CargarTablaResumen = function(formapago){
 		TablaProductosResumen.fnClearTable();
@@ -415,7 +433,11 @@ $(document).ready(function(){
 		ajax.done(function(data){
 			$('#numero_salida').val(data.NUMERO);
 			$('#serie_salida').val(data.SERIE);
-	    	enviar('EnviarVentaForm',reloadpage,OtherDataProductos);
+	    	enviar('EnviarVentaForm',unlockload,OtherDataProductos);
+	    	$.blockUI({ 
+		    	message: "Registrando...",
+		    	css: { top: '10px', left: '', right: '10px' } 
+			});
 			$("#EnviarVentaForm").submit();
 		});
 	});
@@ -484,7 +506,7 @@ $(document).ready(function(){
 	});
 	
 	RowCallBackFunctionProducto = getSimpleSelectRowCallBack(SelectProductoData,"select_producto_table");
-	RowCallBackFunctionCliente = getSimpleSelectRowCallBack(SelectClienteData,"select_producto_table");
+	RowCallBackFunctionCliente = getSimpleSelectRowCallBack(SelectClienteData,"select_cliente_table");
 	
 	UrlaDTableProductos = "{{ path('dicars_ventas_servicio_getventaproductosoferta') }}";
 	FormatoDTableProductos = [
