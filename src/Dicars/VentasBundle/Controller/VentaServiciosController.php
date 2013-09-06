@@ -364,17 +364,16 @@ class VentaServiciosController extends Controller{
 	public function getTablaVentasAction($fecmin,$fecmax){
 		$em = $this->getDoctrine()->getEntityManager();
 		
-		$fecmin = date_create_from_format('Y-m-d', $fecmin);
-		$fecmax = date_create_from_format('Y-m-d', $fecmax);
+		$fecmindate = date_create_from_format('Y-m-d H:i:s', $fecmin."00:00:00");
+		$fecmaxdate = date_create_from_format('Y-m-d H:i:s', $fecmax."23:59:59");
 		
 		$VentasRepositore = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:VenVenta');
 		
 		$query = $VentasRepositore->createQueryBuilder('v')
-		->where('v.cventafecreg > :fecmin')
-		->andWhere('v.cventafecreg < :fecmax')
-		->setParameter('fecmin', $fecmin)
-		->setParameter('fecmax', $fecmax)
+		->where("v.cventafecreg  BETWEEN :fecmin AND :fecmax")
+		->setParameter('fecmin', $fecmindate)
+		->setParameter('fecmax', $fecmaxdate)
 		->getQuery();
 		
 		$Ventas = $query->getResult();

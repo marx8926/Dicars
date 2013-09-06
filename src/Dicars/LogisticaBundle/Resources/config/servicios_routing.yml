@@ -27,7 +27,7 @@ dicars_logistica_servicio_gettablaingresoproducto:
     defaults: { _controller: DicarsLogisticaBundle:LogisticaServicios:getTablaIngresoProducto }
 
 dicars_logistica_servicio_gettablasalprods:
-    pattern:  /servicio_gettablasalprods
+    pattern:  /servicio_gettablasalprods/{fecmin}/{fecmax}
     defaults: { _controller: DicarsLogisticaBundle:LogisticaServicios:getTablaSalProd }
 
 dicars_logistica_servicio_gettabladetsalprod:

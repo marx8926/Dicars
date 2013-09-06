@@ -255,12 +255,22 @@ public function getTablaProductosAction(){
 		return new JsonResponse(array('aaData' => $todo));
 	}
 
-	public function getTablaSalProdAction(){
+	public function getTablaSalProdAction($fecmin,$fecmax){
 		$em = $this->getDoctrine()->getEntityManager();
-			
-		$salprods = $this->getDoctrine()
-		->getRepository('DicarsDataBundle:LogSalProd')
-		->findAll();
+		
+		$fecmindate = date_create_from_format('Y-m-d H:i:s', $fecmin."00:00:00");
+		$fecmaxdate = date_create_from_format('Y-m-d H:i:s', $fecmax."23:59:59");
+		
+		$salprodsRepository = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:LogSalProd');
+		
+		$query = $salprodsRepository->createQueryBuilder('s')
+		->where("s.dsalprodfecreg  BETWEEN :fecmin AND :fecmax")
+		->setParameter('fecmin', $fecmindate)
+		->setParameter('fecmax', $fecmaxdate)
+		->getQuery();
+		
+		$salprods = $query->getResult();		
 	
 		$todo = array();
 		foreach ($salprods as $key => $salprod){

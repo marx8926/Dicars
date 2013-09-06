@@ -26,6 +26,7 @@
 							<input type="text" class="input-xlarge datepicker" id="date01" value="02/06/2013" style="margin: 0 18px 0 0;">
 							<label style="display:inline;">Al</label>
 					  		<input type="text" class="input-xlarge datepicker" id="date02" value="02/06/2013" style="margin: 0 18px;">
+							<button id="buscarfecha" type="button" class="btn btn-info btn-buscarp" style="margin: 0 18px;"><i class="icon-search icon-white"></i>Buscar</button>
 						</div>
 					</div>
 				</fieldset>
@@ -56,7 +57,21 @@
 <script src="{{ asset('js/util/functiongen.js') }}"></script>
 <script src="{{ asset('js/util/datatable_plugins.js') }}"></script>
 <script type="text/javascript">
+
+var SalProdTable;
 $(document).ready(function(){
+
+	$('#buscarfecha').click(function(e){
+		e.preventDefault();
+		var date01 = $("#date01").val().split('/');
+		var date02 = $("#date02").val().split('/');
+		var fecmin = date01[2]+'-'+date01[1]+'-'+date01[0];
+		var fecmax = date02[2]+'-'+date02[1]+'-'+date02[0];
+		UrlaDTable = '{{ path("dicars_logistica_servicio_gettablasalprods",{"fecmin":"fecmin","fecmax":"fecmax"}) }}';
+		UrlaDTable = UrlaDTable.replace('fecmin',fecmin);
+		UrlaDTable = UrlaDTable.replace('fecmax',fecmax);
+		SalProdTable.fnReloadAjax(UrlaDTable);
+	});
 	
 	CargarBotones = function(){
 		//	mostrar Editar Trabajador------------------------------------>
@@ -75,7 +90,7 @@ $(document).ready(function(){
 			});
 	};
 	
-	UrlaDTable = '{{ path("dicars_logistica_servicio_gettablasalprods") }}';
+	UrlaDTable = '{{ path("dicars_logistica_servicio_gettablasalprods",{"fecmin":"2000-01-01","fecmax":"2000-01-01"}) }}';
 	FormatoDTable = [
 				  { "sWidth": "8%","mDataProp": "fecha_reg"},
 	              { "sWidth": "11%","mDataProp": "serienum"},
