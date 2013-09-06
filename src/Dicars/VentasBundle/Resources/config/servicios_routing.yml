@@ -43,8 +43,17 @@ dicars_ventas_servicio_gettablaclientesbyzona:
     defaults: { _controller: DicarsVentasBundle:VentaServicios:getTablaClientesByZona }
 
 dicars_ventas_servicio_gettablaventas:
-    pattern:  /servicio_gettablaventas
+    pattern:  /servicio_gettablaventas/{fecmin}/{fecmax}
     defaults: { _controller: DicarsVentasBundle:VentaServicios:getTablaVentas }
+    
 dicars_ventas_servicio_gettablaventaproductosbyid:
     pattern:  /servicio_gettablaventaproductosbyid/{idventa}
     defaults: { _controller: DicarsVentasBundle:VentaServicios:getTablaVentaProductosById }
+    
+dicars_ventas_servicio_gettablalistadeudores:
+    pattern:  /servicio_gettablalistadeudores
+    defaults: { _controller: DicarsVentasBundle:VentaServicios:getTablaDeudoresGen }
+    
+dicars_ventas_servicio_gettablalistadeudoresdet:
+    pattern:  /servicio_gettablalistadeudoresdet
+    defaults: { _controller: DicarsVentasBundle:VentaServicios:getTablaDeudoresDet }

@@ -18,6 +18,7 @@
 			<table id="deudores_table" class="table table-striped table-bordered bootstrap-datatable datatable">
 			  <thead>
 				  <tr>
+				  	  <th>ID</th>
 					  <th>Nombres y Apellidos</th>
 					  <th>DNI</th>
 					  <th>Zona</th>
@@ -29,18 +30,111 @@
 					  <th>Responsable</th>
 				  </tr>
 			  </thead>
-		  </table>        
+		  </table>
+				<input id="pdfgen" type="button" value="Reporte General"/>
+				<input id="pdfdet" type="button" value="Reporte Detallado"/>
+		</div>
+		<div class="modal hide fade" id="exportmodal">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<h3>EXPORTAR</h3>
+			</div>
+			<div class="modal-body">
+				<form method="post" target="_blank" id="CreatePDFForm">
+					<input type="hidden" name="title" id="title"/>
+					<input type="hidden" name="table_clientes" id="table_clientes"/>
+					<a id="pdfbutton" href="#"><p><i class="icon32 icon-pdf icon-color"></i> PDF</p></a>
+					<a id="xlsutton" href="#"><p><i class="icon32 icon-xls icon-color"></i> Exel</p></a>
+				</form>				
+			</div>
 		</div>
 	</div><!--/span-->
 </div><!--/row-->
 
 {% endblock %}
 {% block javascript %}
+<script src="{{ asset('js/util/functiongen.js') }}"></script>
+<script src="{{ asset('js/util/datatable_plugins.js') }}"></script>
 <script type="text/javascript">
-//mostrar Ver Datos------------------------------------>
-$('.btn-datos').click(function(e){
-	e.preventDefault();
-	$('#modalVerDatos').modal('show');
+
+var deudoresdetallados;
+var deudoresgen;
+var DrawCallbackDeudores;
+var DeudoresTable;
+var urlExportXLS = "{{ asset('extensiones/reportes_xsl/formato_reporte_deudores.php') }}";
+var urlExportPDF = "{{ asset('extensiones/reportes_pdf/formato_reporte_deudores.php') }}";
+
+$(document).ready(function(){
+
+	DrawCallbackDeudores = function (){
+		deudoresgen = DeudoresTable.fnGetData();
+	};
+	
+	UrlaDTableDeudores = "{{ path('dicars_ventas_servicio_gettablalistadeudores') }}";
+	FormatoDTableDeudores = [
+						{ "sWidth": "12%","mDataProp": "idcliente"},
+		              	{ "sWidth": "12%","mDataProp": "nombre"},
+		              	{ "sWidth": "12%","mDataProp": "dni"},
+		              	{ "sWidth": "12%","mDataProp": "zona"},
+		              	{ "sWidth": "12%","mDataProp": "direccion"},
+		              	{ "sWidth": "12%","mDataProp": "totalcredito"},
+		              	{ "sWidth": "12%","mDataProp": "totalpagorealizado"},
+		              	{ "sWidth": "12%","mDataProp": "saldo"},
+		              	{ "sWidth": "12%","mDataProp": "estado"},
+		              	{ "sWidth": "12%","mDataProp": "responsable"}
+		              	];
+	DeudoresTable = createDataTable('deudores_table',UrlaDTableDeudores,FormatoDTableDeudores,DrawCallbackDeudores);
+
+	deudoresdetallado = getAjaxObject("{{ path('dicars_ventas_servicio_gettablalistadeudoresdet') }}").aaData;
+	
+	$("#pdfgen").click(function(){
+		var tabla_clientes = toHTML(crearTablaToArray("tclientes",
+				['ID','NOMBRE','DNI','ZONA','DIRECCIÓN','TOTAL CRÉDITO','TOTAL PAGO REALIZADO','SALDO','ESTADO','RESPONSABLE'],
+				[	'style="width: 5%;" class="head" ','style="width: 20%;" class="head" ','style="width: 10%;" class="head" ',
+					'style="width: 10%;" class="head" ','style="width: 10%;" class="head" ','style="width: 10%;" class="head" ',
+					'style="width: 10%;" class="head" ','style="width: 5%;" class="head" ','style="width: 10%;" class="head" ',
+					'style="width: 10%;" class="head" '],
+				['idcliente','nombre','dni','zona','direccion','totalcredito','totalpagorealizado','saldo','estado','responsable'],
+				[	'style="width: 5%;" ','style="width: 20%;" ','style="width: 10%;" ',
+					'style="width: 10%;" ','style="width: 10%;" ','style="width: 10%;" ',
+					'style="width: 10%;" ','style="width: 5%;" ','style="width: 10%;" ',
+					'style="width: 10%;" '],
+					deudoresgen));
+		$("#title").val("LISTA DE CLIENTES DEUDORES GENERAL");
+		$("#table_clientes").val(tabla_clientes);
+		$("#exportmodal").modal('show');
+		
+	});
+	$("#pdfdet").click(function(){
+		var tabla_clientes = toHTML(crearTablaToArray("tclientes",
+				['NOMBRE','ID','FEC CRÉDITO','MONTO CRÉDITO OTORGADO','TOTAL PAGO REALIZADO','SALDO','FECHA FINALIZACIÓN','ESTADO','RESPONSABLE'],
+				[	'style="width: 20%;" class="head" ','style="width: 10%;" class="head" ','style="width: 10%;" class="head" ',
+					'style="width: 10%;" class="head" ','style="width: 10%;" class="head" ','style="width: 10%;" class="head" ',
+					'style="width: 10%;" class="head" ','style="width: 10%;" class="head" ','style="width: 10%;" class="head" '	],
+				['nombre','idcliente','fecha_venta','totalcredito','totalpagorealizado','saldo','fechafinal','estado','responsable'],
+				[	'style="width: 20%;" ','style="width: 10%;" ','style="width: 10%;" ',
+					'style="width: 10%;" ','style="width: 10%;" ','style="width: 10%;" ',
+					'style="width: 10%;" ','style="width: 10%;" ','style="width: 10%;" '	],
+					deudoresdetallado));
+		
+		$("#title").val("LISTA DE CLIENTES DEUDORES DETALLADO");
+		$("#table_clientes").val(tabla_clientes);
+		$("#exportmodal").modal('show');
+	});
+
+	$("#pdfbutton").click(function(e){
+		e.preventDefault();
+		$("#CreatePDFForm").attr("action",urlExportPDF);
+		$("#CreatePDFForm").submit();
+		$("#exportmodal").modal('hide');
+	});
+	
+	$("#xlsutton").click(function(e){
+		e.preventDefault();
+		$("#CreatePDFForm").attr("action",urlExportXLS);
+		$("#CreatePDFForm").submit();
+		$("#exportmodal").modal('hide');
+	});
 });
 </script>
 {% endblock %}

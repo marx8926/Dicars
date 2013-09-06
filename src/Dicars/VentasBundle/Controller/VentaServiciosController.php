@@ -361,12 +361,23 @@ class VentaServiciosController extends Controller{
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
-	public function getTablaVentasAction(){
+	public function getTablaVentasAction($fecmin,$fecmax){
 		$em = $this->getDoctrine()->getEntityManager();
-			
-		$Ventas = $this->getDoctrine()
-		->getRepository('DicarsDataBundle:VenVenta')
-		->findAll();
+		
+		$fecmin = date_create_from_format('Y-m-d', $fecmin);
+		$fecmax = date_create_from_format('Y-m-d', $fecmax);
+		
+		$VentasRepositore = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:VenVenta');
+		
+		$query = $VentasRepositore->createQueryBuilder('v')
+		->where('v.cventafecreg > :fecmin')
+		->andWhere('v.cventafecreg < :fecmax')
+		->setParameter('fecmin', $fecmin)
+		->setParameter('fecmax', $fecmax)
+		->getQuery();
+		
+		$Ventas = $query->getResult();
 	
 		$todo = array();
 		foreach ($Ventas as $key => $Venta){
@@ -443,9 +454,9 @@ class VentaServiciosController extends Controller{
 					'tipo_IGV' => $tipo_IGV -> getNtipoigvproc(),
 					'cant_prod' => $cantidad,
 					'ver_pagar' => "<a class='btn btn-success btn-pagar' href='#'><i class='icon-zoom-in icon-white'></i> Ver Creditos</a>",
-					'ver_btn' => "<a id-data='".$Venta -> getNventaId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
+					'ver_btn' => "<a class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
 					'edit_btn' => $edit,
-					'elim_btn' => "<a id-data='".$Venta -> getNventaId()."' class='btn btn-danger btn-elim' href='#'><i class='icon-trash icon-white'></i>Anular</a>");
+					'elim_btn' => "<a class='btn btn-danger btn-elim' href='#'><i class='icon-trash icon-white'></i>Anular</a>");
 		}
 		$em->clear();
 		$em->close();
@@ -475,5 +486,65 @@ class VentaServiciosController extends Controller{
 		$em->clear();
 		$em->close();
 		return new JsonResponse(array('aaData' => $todo));
-	}	
+	}
+	
+	public function getTablaDeudoresGenAction(){
+		$em = $this->getDoctrine()->getEntityManager();
+	
+		$sql = "SELECT * FROM dicarsbd.ven_listaclientedeudores";
+	
+		$smt = $em->getConnection()->prepare($sql);
+		$smt->execute();
+	
+		$deudores = $smt->fetchAll();
+	
+		$todo = array();
+		foreach ($deudores as $key => $deudor){
+			$todo[] = array(
+					'idcliente' => $deudor['id'] ,
+					'nombre' => $deudor['Cliente'] ,
+					'dni' => $deudor['DNI'],
+					'zona' => $deudor['Zona'],
+					'direccion' => $deudor['Direccion'],
+					'totalcredito' => $deudor['TotalCredito'],
+					'totalpagorealizado' => $deudor['TotalPagoRealizado'],
+					'saldo' => $deudor['Saldo'],
+					'estado' => $deudor['Estado'],
+					'responsable' => $deudor['Responsable']);
+		}
+		$em->clear();
+		$em->close();
+		return new JsonResponse(array('aaData' => $todo));
+	}
+	
+	public function getTablaDeudoresDetAction(){
+		$em = $this->getDoctrine()->getEntityManager();
+	
+		$sql = "SELECT * FROM dicarsbd.ven_listaclientedeudores_detallado";
+	
+		$smt = $em->getConnection()->prepare($sql);
+		$smt->execute();
+	
+		$deudores = $smt->fetchAll();
+	
+		$todo = array();
+		foreach ($deudores as $key => $deudor){
+			$todo[] = array(
+					'idcliente' => $deudor['id'] ,
+					'nombre' => $deudor['Cliente'] ,
+					'dni' => $deudor['DNI'],
+					'zona' => $deudor['Zona'],
+					'direccion' => $deudor['Direccion'],
+					'fecha_venta' => $deudor['FecVenta'],
+					'totalcredito' => $deudor['TotalCredito'],
+					'totalpagorealizado' => $deudor['TotalPagoRealizado'],
+					'fechafinal' => $deudor['FecFinalizacion'],
+					'saldo' => $deudor['Saldo'],
+					'estado' => $deudor['Estado'],
+					'responsable' => $deudor['Responsable']);
+		}
+		$em->clear();
+		$em->close();
+		return new JsonResponse(array('aaData' => $todo));
+	}
 }

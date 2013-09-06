@@ -26,6 +26,7 @@
 							<input type="text" class="input-xlarge datepicker" id="date01" value="02/06/2013" style="margin: 0 18px 0 0;">
 							<label style="display:inline;">Al</label>
 					  		<input type="text" class="input-xlarge datepicker" id="date02" value="02/06/2013" style="margin: 0 18px;">
+							<button id="buscarfecha" type="button" class="btn btn-info btn-buscarp" style="margin: 0 18px;"><i class="icon-search icon-white"></i>Buscar</button>
 						</div>
 					</div>
 					
@@ -75,30 +76,39 @@
 <script src="{{ asset('js/util/functiongen.js') }}"></script>
 <script src="{{ asset('js/util/datatable_plugins.js') }}"></script>
 <script type="text/javascript">
+var VentasTable;
 $(document).ready(function(){
-	
-	CargarBotones = function(){
+
+	$('#buscarfecha').click(function(e){
+		e.preventDefault();
+		var date01 = $("#date01").val().split('/');
+		var date02 = $("#date02").val().split('/');
+		var fecmin = date01[2]+'-'+date01[1]+'-'+date01[0];
+		var fecmax = date02[2]+'-'+date02[1]+'-'+date02[0];
+		UrlaDTable = '{{ path("dicars_ventas_servicio_gettablaventas",{"fecmin":"fecmin","fecmax":"fecmax"}) }}';
+		UrlaDTable = UrlaDTable.replace('fecmin',fecmin);
+		UrlaDTable = UrlaDTable.replace('fecmax',fecmax);
+		VentasTable.fnReloadAjax(UrlaDTable);
+	});
+
+	RowCallBackFunctionVenta = function(nRow, aData, iDisplayIndex){
 		//mostrar Editar Cliente------------------------------------>
-		$('.btn-editar').unbind();
-		$('.btn-editar').click(function(e){
-			id=$(this).attr("id-data");
-			$(this).attr('href',"{{ path('dicars_ventas_ver',{'idventa':''}) }}/"+id);
+		$(nRow).find('.btn-editar').click(function(e){
+			$(this).attr('href',"{{ path('dicars_ventas_ver',{'idventa':''}) }}/"+aData.id);
 		});
 		//mostrar Ver Datos Trabajador------------------------------------>
-		$('.btn-datos').unbind();
-		$('.btn-datos').click(function(e){
+		$(nRow).find('.btn-datos').click(function(e){
 			id=$(this).attr("id-data");
-			$(this).attr('href',"{{ path('dicars_ventas_ver',{'idventa':''}) }}/"+id);
+			$(this).attr('href',"{{ path('dicars_ventas_ver',{'idventa':''}) }}/"+aData.id);
 		});
-		$('.btn-elim').click(function(e){
+		$(nRow).find('.btn-elim').click(function(e){
 			id=$(this).attr("id-data");
-			$('#venta_id').val(id);
-			/*$(this).attr('href',"{{ path('dicars_ventas_ver',{'idventa':''}) }}/"+id);*/
+			$('#venta_id').val(aData.id);
 			$('#modalAnular').modal('show');
 		});
 	};
 	
-	UrlaDTable = '{{ path("dicars_ventas_servicio_gettablaventas") }}';
+	UrlaDTable = '{{ path("dicars_ventas_servicio_gettablaventas",{"fecmin":"2000-01-01","fecmax":"2000-01-01"}) }}';
 	FormatoDTable = [
 				  { "sWidth": "8%","mDataProp": "fecha_reg"},
 	              { "sWidth": "14%","mDataProp": "cliente"},
@@ -111,7 +121,7 @@ $(document).ready(function(){
 	              { "sWidth": "9%","mDataProp": "elim_btn"},
 	              { "sWidth": "10%","mDataProp": "edit_btn"}
 	              ];
-	VentasTable = createDataTable('ventas_table',UrlaDTable,FormatoDTable,CargarBotones);		
+	VentasTable = createDataTable('ventas_table',UrlaDTable,FormatoDTable,null,RowCallBackFunctionVenta);		
 	});
 
 </script>
