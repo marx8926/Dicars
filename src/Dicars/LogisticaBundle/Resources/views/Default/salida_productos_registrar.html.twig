@@ -199,7 +199,7 @@ $(document).ready(function(){
 	$("#enviar_salida_producto").click(function(e){
 		$.blockUI({ 
 	    	message: "Registrando...",
-	    	css: { top: '10px', left: '', right: '10px' },
+	    	css: { padding: '15px'},
     		onBlock: function(){
     			var ajax = $.ajax({
     				url: "{{ path ('dicars_logistica_servicio_getgenerarcodigosalprod') }}",
@@ -210,7 +210,6 @@ $(document).ready(function(){
 					$('#numero').val(data.NUMERO);
 					$('#serie').val(data.SERIE);
 					enviar("RegistrarSalidaForm",unlockload,SelectProductosTableData);
-					
 					$('#RegistrarSalidaForm').submit();
 				});
         	} 

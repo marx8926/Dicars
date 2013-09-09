@@ -160,16 +160,22 @@ $(document).ready(function(){
 		else
 			$('#email').val(0);//NO enviado a gerencia
 		e.preventDefault();
-		var ajax = $.ajax({
-			url: "{{ path ('dicars_logistica_servicio_getgenerarcodigopedido') }}",
-			dataType: "json",
-			async: false
-			});
-		ajax.done(function(data){
-			$('#numero').val(data[0].NUMERO);
-			$('#serie').val(data[0].SERIE);
-			enviar("RegistrarPedidoForm",ResetForm,SelectProductosTableData);
-			$('#RegistrarPedidoForm').submit();
+		$.blockUI({ 
+	    	message: "Registrando...",
+	    	css: { padding: '15px'},
+    		onBlock: function(){
+    			var ajax = $.ajax({
+    				url: "{{ path ('dicars_logistica_servicio_getgenerarcodigopedido') }}",
+    				dataType: "json",
+    				async: false
+    			});
+    			ajax.done(function(data){
+    				$('#numero').val(data[0].NUMERO);
+    				$('#serie').val(data[0].SERIE);
+    				enviar("RegistrarPedidoForm",ResetForm,SelectProductosTableData);
+    				$('#RegistrarPedidoForm').submit();
+    			});
+        	} 
 		});
 	});
 
