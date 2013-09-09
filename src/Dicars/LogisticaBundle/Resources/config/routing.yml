@@ -75,4 +75,10 @@ dicars_logistica_orden_compra_ver:
     defaults: { _controller: DicarsLogisticaBundle:Default:orden_compra_ver }
 dicars_logistica_editar_ingresoproductos:
     pattern:  /editar_ingresoproductos/{idingprode}
-    defaults: { _controller: DicarsLogisticaBundle:Default:editar_ingresoproductos }     
+    defaults: { _controller: DicarsLogisticaBundle:Default:editar_ingresoproductos }
+dicars_logistica_saldoini:
+    pattern:  /saldoini
+    defaults: { _controller: DicarsLogisticaBundle:Default:saldo_inicial }
+dicars_logistica_kardex:
+    pattern:  /kardex
+    defaults: { _controller: DicarsLogisticaBundle:Default:kardex }     

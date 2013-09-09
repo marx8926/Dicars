@@ -177,4 +177,13 @@ class DefaultController extends Controller
     			'retencion' => $OrdCom->getNordcomretencion()
     	));
     }
+
+    public function saldo_inicialAction()
+    {
+    	return $this->render('DicarsLogisticaBundle:Default:saldo_inicial.html.twig');
+    }
+    public function kardexAction()
+    {
+    	return $this->render('DicarsLogisticaBundle:Default:generar_kardex.html.twig');
+    }
 }
