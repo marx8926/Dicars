@@ -128,13 +128,23 @@ var Attr = ['idproducto','cantidad'];
 var RowCallBackFunctionProducto;
 var RowCallBackFunctionTrabajador;
 
+var unlockload;
+
 $(document).ready(function(){
 
 	$('#fecha').val(fechaAhora());
 
-	ResetForm = function(data){
+	/*ResetForm = function(data){
 		$(location).attr("href", "{{ path('dicars_logistica_cons_salidaproductos') }}");		
-	};
+	};*/
+
+	unlockload = function(){
+		$.unblockUI({ 
+            onUnblock: function(){ 
+                $(location).attr("href","{{ path('dicars_logistica_cons_salidaproductos') }}"); 
+            } 
+        });
+	};	
 
 	RowCallBackFunctionProducto = getSimpleSelectRowCallBack(SelectProductoData,"select_producto_table");
 	RowCallBackFunctionTrabajador = getSimpleSelectRowCallBack(SelectTrabajadorData,"select_trabajador_table");
@@ -187,18 +197,25 @@ $(document).ready(function(){
 	});
 
 	$("#enviar_salida_producto").click(function(e){
-		var ajax = $.ajax({
-			url: "{{ path ('dicars_logistica_servicio_getgenerarcodigosalprod') }}",
-			dataType: "json",
-			async: false
-			});
-		ajax.done(function(data){
-			$('#numero').val(data.NUMERO);
-			$('#serie').val(data.SERIE);
-			enviar("RegistrarSalidaForm",ResetForm,SelectProductosTableData);
-			$('#RegistrarSalidaForm').submit();
+		$.blockUI({ 
+	    	message: "Registrando...",
+	    	css: { top: '10px', left: '', right: '10px' },
+    		onBlock: function(){
+    			var ajax = $.ajax({
+    				url: "{{ path ('dicars_logistica_servicio_getgenerarcodigosalprod') }}",
+    				dataType: "json",
+    				async: false
+    			});
+				ajax.done(function(data){
+					$('#numero').val(data.NUMERO);
+					$('#serie').val(data.SERIE);
+					enviar("RegistrarSalidaForm",unlockload,SelectProductosTableData);
+					
+					$('#RegistrarSalidaForm').submit();
+				});
+        	} 
 		});
-		$("#RegistrarSalidaForm").submit();
+		
 	});
 	
 	UrlaDTableProductos = '{{ path("dicars_logistica_servicio_gettablaproductos") }}';

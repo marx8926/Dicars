@@ -451,6 +451,8 @@ function cargarUbigeo(idtagdist, idtagprov, idtagdep, iddist, idprov, iddep){
 }
 /*--------------------------------FIN UBIGEO------------------------------------*/
 
+/*--------------------------------SELECT!!------------------------------------*/
+
 function cargarSelect(arreglo, idselect, attrvalue, attrdescripcion){
 	var $select = $('#'+idselect);
 	var result = '';

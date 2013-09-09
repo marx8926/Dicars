@@ -576,7 +576,9 @@ $(document).ready(function(){
 		 		"sUrl": urlES
 				}	
 		});
-	ajaxResponseData("forma_pago","{{ path('dicars_admin_servicio_getoptiontipobyclase',{'Clase':1}) }}");
+	tipoPago = getAjaxObject("{{ path('dicars_admin_servicio_getoptionconstantes',{'idclase':1}) }}");
+	cargarSelect(tipoPago,"forma_pago",'valor','desc');
+	
 	initSlider(OtherDataProductos);
 	$(".step").show();
 	$('#contenedor').height($('#step1').height());
