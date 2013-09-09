@@ -165,8 +165,8 @@ class AdministrarVentaController extends Controller {
 				->findOneBy(array('nproductoId' => $data['id']));
 				
 				if($TipoPago != '3'){
-					$Stock = $Producto -> getNproductostock();
-					$Producto -> setNproductostock($Stock - $data['cantidad']);
+					/*$Stock = $Producto -> getNproductostock();
+					$Producto -> setNproductostock($Stock - $data['cantidad']);*/
 					
 					$DetalleSalProd = new LogDetsalprod();
 					$DetalleSalProd -> setNsalprod($SalProd);

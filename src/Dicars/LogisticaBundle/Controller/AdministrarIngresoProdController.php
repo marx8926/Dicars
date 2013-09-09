@@ -64,33 +64,30 @@ class AdministrarIngresoProdController extends Controller{
 			$em = $this->getDoctrine()->getEntityManager();
 			$em->beginTransaction();
 			
-			try {
-				
-				$em->persist($IngProd);
-				$em->flush();
-				
-				foreach($otherdata as $key => $data){
-					$Producto = $this->getDoctrine()
-					->getRepository('DicarsDataBundle:Producto')
-					->findOneBy(array('nproductoId' => $data["idproducto"]));
-					
-					$DetalleIngProd = new LogDetingprod();
-					$DetalleIngProd -> setNingprod($IngProd);
-					$DetalleIngProd -> setNproducto($Producto);
-					$DetalleIngProd -> setNdetingprodcant($data["cantidad"]);
-					$DetalleIngProd -> setNdetingprodprecunt($data["precio_uni"]);
-					$DetalleIngProd -> setNdetingprodtot($data["total"]);
-					
-					$em->persist($DetalleIngProd);
-					$em->flush(); 
-					
-					$stock = $Producto -> getNproductostock();
-					$stockn = $stock + $data['cantidad'];
-						
-					$Producto -> setNproductostock($stockn);
-					$em->flush();
-				}
+			$em->persist($IngProd);
 			
+			foreach($otherdata as $key => $data){
+				$Producto = $this->getDoctrine()
+				->getRepository('DicarsDataBundle:Producto')
+				->findOneBy(array('nproductoId' => $data["idproducto"]));
+					
+				$DetalleIngProd = new LogDetingprod();
+				$DetalleIngProd -> setNingprod($IngProd);
+				$DetalleIngProd -> setNproducto($Producto);
+				$DetalleIngProd -> setNdetingprodcant($data["cantidad"]);
+				$DetalleIngProd -> setNdetingprodprecunt($data["precio_uni"]);
+				$DetalleIngProd -> setNdetingprodtot($data["total"]);
+					
+				$em->persist($DetalleIngProd);
+				/*
+				 $stock = $Producto -> getNproductostock();
+				$stockn = $stock + $data['cantidad'];
+			
+				$Producto -> setNproductostock($stockn);*/
+			}
+			
+			try {
+				$em->flush();
 			} catch (Exception $e) {
 				$em->rollback();
 				$em->close();
@@ -134,8 +131,7 @@ class AdministrarIngresoProdController extends Controller{
 			$em = $this->getDoctrine()->getEntityManager();
 			$em->beginTransaction();
 			
-			try {				
-				$em->flush();				
+			try {								
 				foreach($otherdata as $key => $data){
 					
 					if($data["band"]==1){						
@@ -145,8 +141,8 @@ class AdministrarIngresoProdController extends Controller{
 											
 						$DetalleIngProd -> setNdetingprodcant($data["cantidad"]);
 						$DetalleIngProd -> setNdetingprodprecunt($data["precio_uni"]);
-						$DetalleIngProd -> setNdetingprodtot($data["total"]);										
-						$em->flush();						
+						$DetalleIngProd -> setNdetingprodtot($data["total"]);	
+						
 					} else if($data["band"]==2){
 						$Producto = $this->getDoctrine()
 						->getRepository('DicarsDataBundle:Producto')

@@ -59,31 +59,28 @@ class AdministrarSalidaProdController extends Controller{
 				
 			$em = $this->getDoctrine()->getEntityManager();
 			$em->beginTransaction();
+			$em->persist($SalProd);
+			
+			foreach($otherdata as $key => $data){
+				$Producto = $this->getDoctrine()
+				->getRepository('DicarsDataBundle:Producto')
+				->findOneBy(array('nproductoId' => $data['idproducto']));
+			
+				$DetalleSalProd = new LogDetsalprod();
+				$DetalleSalProd -> setNsalprod($SalProd);
+				$DetalleSalProd -> setNproducto($Producto);
+				$DetalleSalProd -> setDetsalprodcant($data['cantidad']);
+				$DetalleSalProd -> setCdetsalprodest('1');
+					
+				$em->persist($DetalleSalProd);
+					
+				/*$stock = $Producto -> getNproductostock();
+				$stockn = $stock - $data['cantidad'];
+					
+				$Producto -> setNproductostock($stockn);*/
+			}
 			try {
-				$em->persist($SalProd);
 				$em->flush();
-	
-				foreach($otherdata as $key => $data){
-					$Producto = $this->getDoctrine()
-					->getRepository('DicarsDataBundle:Producto')
-					->findOneBy(array('nproductoId' => $data['idproducto']));
-						
-					$DetalleSalProd = new LogDetsalprod();
-					$DetalleSalProd -> setNsalprod($SalProd);
-					$DetalleSalProd -> setNproducto($Producto);
-					$DetalleSalProd -> setDetsalprodcant($data['cantidad']);
-					$DetalleSalProd -> setCdetsalprodest('1');
-					
-					$em->persist($DetalleSalProd);
-					$em->flush();
-					
-					$stock = $Producto -> getNproductostock();
-					$stockn = $stock - $data['cantidad'];
-					
-					$Producto -> setNproductostock($stockn);
-					$em->flush();
-				}
-	
 			} catch (Exception $e) {
 				$em->rollback();
 				$em->close();
