@@ -140,7 +140,7 @@ $(document).ready(function(){
 	RowCallBackFunctionTrabajador = getSimpleSelectRowCallBack(SelectTrabajadorData,"select_trabajador_table");
 
 	constantes = getAjaxObject("{{ path('dicars_admin_servicio_getoptionconstantes',{'idclase':4}) }}");
-	cargarSelect(constantes, 'motivo', 'id', 'desc');
+	cargarSelect(constantes, 'motivo', 'valor', 'desc');
 
 	//mostrar Buscar Cliente------------------------------------>
 	$('.btn-solicitante').click(function(e){

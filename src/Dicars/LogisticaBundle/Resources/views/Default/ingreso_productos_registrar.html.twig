@@ -130,7 +130,7 @@ $(document).ready(function(){
 	$("#fecharegistro").val(fechaAhora());
 
 	constantes = getAjaxObject("{{ path('dicars_admin_servicio_getoptionconstantes',{'idclase':3}) }}");
-	cargarSelect(constantes, 'tipo', 'id', 'desc');
+	cargarSelect(constantes, 'tipo', 'valor', 'desc');
 	
 	ResetForm = function(data){
 		$.unblockUI({ 
