@@ -1,5 +1,5 @@
 {% extends "::baseCharisma.html.twig" %}
-{% block title %}Registrar Pedido - Logística -{% endblock %}
+{% block title %}Registrar Orden Compra - Logística -{% endblock %}
 {% block breadcrumb %}
 <li>
 	<a href="{{path('dicars_logistica_homepage')}}">Logística</a><span class="divider">/</span>
@@ -36,7 +36,7 @@
 							<div class="control-group">
 								<label class="control-label" for="observaciones">Observaciones</label>
 								<div class="controls">
-									<textarea id="observaciones" name="observaciones" class="input-xlarge" required></textarea>
+									<textarea id="observaciones" name="observaciones" class="input-xlarge"></textarea>
 								</div>
 							</div>
 						</div>
@@ -73,7 +73,7 @@
 					</div>
 				</fieldset>
 			<hr>
-			<h3>Detalle de la Orden de Compra</h3>	
+			<h3>Detalle Orden de Compra</h3>	
 			<hr>
 			<div class="span12">
 			<div class="form-horizontal">
@@ -130,11 +130,10 @@
 				<thead>
 					  <tr>
 						  <th>Pedido</th>
-						  <th>Registrante</th>
 						  <th>Producto</th>
 						  <th>Cantidad</th>
-						  <th>Precio</th>
-						  <th>Importe</th>
+						  <th>Precio s/.</th>
+						  <th>Importe s/.</th>
 						  <th>Fecha de registro</th>
 						  <th></th>
 						  <th></th>
@@ -270,7 +269,7 @@ function Suma(){
 
 function cargarEditar(producto){			
 
-	ArrayDatos = [	{'label':'Producto','type':'span','value':producto.nombre},   
+	ArrayDatos = [	{'label':'Producto','type':'span','value':producto.descprod},   
 	              	{'label':'Precio','type':'inputnumber','req':'true', 'step':'0.01','min':'1','max':'1000000','value':producto.pordcom,'name':'pordcomE'},
 	              	{'label':'Cantidad a Pedir','type':'inputnumber','req':'true', 'min':'1','max':'1000000','value':producto.cantidad,'name':'cantidadE'},
 					{'type':'actions'}];
@@ -346,6 +345,7 @@ $(document).ready(function(){
 			SelectDetPedido[0].estadopedido = $('#selectEstado').val();
  			DetOrdPedProductosTable.fnAddData(SelectDetPedido);
  			SubTablaArray(BuscarDetOrdPedTable,SelectDetPedido,'iddetordped');
+ 			$('#imported').val("1");
 			$('#ordped').val("");
 			$('#cantidadd').val("");
 			$('#preciod').val("");
@@ -367,6 +367,7 @@ $(document).ready(function(){
 			SelectProductoData[0].registrante = '';
 			SelectProductoData[0].estadopedido = 0;
  			DetOrdPedProductosTable.fnAddData(SelectProductoData);
+ 			$('#importe').val("1");
 			$('#producto').val("");
 			$('#cantidad').val("");
 			$('#precio').val("");
@@ -383,8 +384,7 @@ $(document).ready(function(){
 	DetOrdPedProductosTable = $('#productos_table').dataTable({
 		"aoColumns": [
 		      		{ "sWidth": "12%","mDataProp": "pedido_codigo"},
-		              { "sWidth": "12%","mDataProp": "registrante"},
-		              { "sWidth": "12%","mDataProp": "idproducto"},
+		              { "sWidth": "12%","mDataProp": "descprod"},
 		              { "sWidth": "12%","mDataProp": "cantidad"},
 		              { "sWidth": "12%","mDataProp": "pordcom"},
 		              { "sWidth": "12%","mDataProp": "importe"},

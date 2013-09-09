@@ -15,6 +15,13 @@
 			<h2>PEDIDOS: VER DATOS</h2>
 		</div>
 		<div class="box-content">
+			<form method="post" action="{{ asset('extensiones/exportpdf.php') }}" target="_blank" id="CreatePDFForm">
+				<input type="hidden" name="title" id="title"/>
+				<input type="hidden" name="table_resumen" id="table_resumen"/>
+				<input type="hidden" name="table_producto" id="table_producto"/>
+				<input type="hidden" name="table_total" id="table_total"/>
+				<button type="submit" class="btn btn-success" style="float: right; margin-right: 10px;"/><i class="icon icon-white icon-pdf"></i> PDF</button> 
+			</form>
 			<div class="form-horizontal">
 				<fieldset>
 					<div class="row-fluid">
@@ -76,13 +83,6 @@
 				<tbody>
 				</tbody>
 			</table>
-			<form method="post" action="{{ asset('extensiones/exportpdf.php') }}" target="_blank" id="CreatePDFForm">
-				<input type="hidden" name="title" id="title"/>
-				<input type="hidden" name="table_resumen" id="table_resumen"/>
-				<input type="hidden" name="table_producto" id="table_producto"/>
-				<input type="hidden" name="table_total" id="table_total"/>
-				<input type="submit" value="PDF"/>
-			</form>
 			<div class="form-actions">
 				<a href="{{ path('dicars_logistica_pedidos') }}" class="btn btn-success"><i class="icon icon-white icon-arrowthick-w"></i> Volver</a>
 			</div>
@@ -123,7 +123,7 @@ $(document).ready(function(){
 	
 	UrlaDTablePedidos = "{{ path('dicars_logistica_servicio_gettabladetordped',{'id':''}) }}/{{ id }}";
 	FormatoDTablePedidos = [
-		              { "sWidth": "25%","mDataProp": "nombre"},
+		              { "sWidth": "25%","mDataProp": "desc"},
 		              { "sWidth": "25%","mDataProp": "cantidad"},
 		              { "sWidth": "25%","mDataProp": "cantidad_rec"},
 		              { "sWidth": "25%","mDataProp": "estado"}

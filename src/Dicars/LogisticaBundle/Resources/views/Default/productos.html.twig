@@ -22,6 +22,7 @@
 			  	<thead>
 				  	<tr>
 					  	<th>Nombre</th>
+					  	<th>Marca</th>
 					  	<th>Tipo</th>
 					  	<th>Categoría</th>
 					  	<th>Talla</th>
@@ -77,9 +78,9 @@ var asInitVals = new Array();
 function cargarEditar(producto){			
 
 	ArrayDatos = [	{'type':'hidden','value':producto.idproducto,'name':'idE'},
-	              	{'label':'Serie','type':'input','typeinput':'text','pattern':'|^([0-9]+\s*)+$|','title':'Debe tener el formato correcto', 'req':'', 'max':'15','value':producto.serie,'name':'serieE'},
-	              	{'label':'Talla','type':'input','typeinput':'text','pattern':'|^([0-9]+\s*)+$|','title':'Debe tener el formato correcto', 'req':'', 'max':'2','value':producto.talla,'name':'tallaE'},	
-	              	{'label':'Descripción','type':'input','typeinput':'text','pattern':'|^[a-zA-Z Ã±Ã‘Ã¡Ã�Ã©Ã‰Ã­Ã�Ã³Ã“ÃºÃšÃ¼ÃœÃ§]*$|','title':'Debe tener el formato correcto', 'req':'', 'max':'200','value':producto.nombre,'name':'descripcionE'},              	
+	              	{'label':'Serie','type':'input','typeinput':'text','pattern':'|^([0-9]+\s+)+$|','req':'true', 'max':'15','value':producto.serie,'name':'serieE'},
+	              	{'label':'Talla','type':'input','typeinput':'text','pattern':'|^([0-9]+\s+)+$|','req':'true', 'max':'2','value':producto.talla,'name':'tallaE'},	
+	              	{'label':'Descripción','type':'input','typeinput':'text','pattern':'|^[a-zA-Z Ã±Ã‘Ã¡Ã�Ã©Ã‰Ã­Ã�Ã³Ã“ÃºÃšÃ¼ÃœÃ§]*$|','req':'true', 'max':'200','value':producto.nombre,'name':'descripcionE'},              	
 	              	{'label':'Marca','type':'select','name':'marcaE'},
 	              	{'label':'Categoría','type':'select','name':'categoriaE'},
 	              	{'label':'Tipo','type':'select','name':'tipoE'},	              	
@@ -88,14 +89,14 @@ function cargarEditar(producto){
 	              	{'label':'Stock Min','type':'inputnumber','req':'true','step':'1', 'min':'0', 'value':producto.stockmin,'name':'stockminE'},
 	  				{'label':'Stock','type':'inputnumber', 'req':'true', 'step':'1', 'min':'0', 'value':producto.stock,'name':'stockE'},
 	  				{'label':'Stock Max','type':'inputnumber', 'req':'true', 'step':'1', 'min':'0','value':producto.stockmax,'name':'stockmaxE'},
-	  				{'label':'Precio Costo','type':'inputnumber', 'req':'', 'step':'0.01', 'min':'0', 'max':'1000','value':producto.pcosto,'name':'preciocostoE'},
+	  				{'label':'Precio Costo','type':'inputnumber', 'req':'true', 'step':'0.01', 'min':'0', 'max':'1000','value':producto.pcosto,'name':'preciocostoE'},
 					{'label':'Precio de venta al Contado','type':'h3'},
-					{'label':'Precio','type':'inputnumber', 'req':'', 'step':'0.01', 'min':'0', 'max':'1000','value':producto.pcontado,'name':'preciocontadoE'},
+					{'label':'Precio','type':'inputnumber', 'req':'true', 'step':'0.01', 'min':'0', 'max':'1000','value':producto.pcontado,'name':'preciocontadoE'},
 					{'label':'Precio de venta al Credito','type':'h3'},
-					{'label':'Precio','type':'inputnumber', 'req':'', 'step':'0.01', 'min':'0', 'max':'1000','value':producto.pcredito,'name':'preciocreditoE'},
+					{'label':'Precio','type':'inputnumber', 'req':'true', 'step':'0.01', 'min':'0', 'max':'1000','value':producto.pcredito,'name':'preciocreditoE'},
 					{'label':'Estado','type':'select','name':'estadoE'},
-					{'label':'Porc Uti','type':'inputnumber', 'req':'', 'step':'0.01', 'min':'0', 'max':'1000','value':producto.porcuti,'name':'porcutiE'},
-					{'label':'Uti Bruta','type':'inputnumber', 'req':'', 'step':'0.01', 'min':'0', 'max':'1000','value':producto.utibruta,'name':'utibrutaE'},
+					/*{'label':'Porc Uti','type':'inputnumber', 'req':'', 'step':'0.01', 'min':'0', 'max':'1000','value':producto.porcuti,'name':'porcutiE'},
+					{'label':'Uti Bruta','type':'inputnumber', 'req':'', 'step':'0.01', 'min':'0', 'max':'1000','value':producto.utibruta,'name':'utibrutaE'},*/
 					{'type':'actions'}];
 		
 	$("#EditarProductoForm").html(crearElementosForm(ArrayDatos));
@@ -189,12 +190,13 @@ $(document).ready(function(){
 	UrlaDTable = '{{ path("dicars_logistica_servicio_gettablaproductos") }}';
 	FormatoDTable = [
 		              { "sWidth": "13%","mDataProp": "nombre"},
+		              { "sWidth": "8%","mDataProp": "marca"},
 		              { "sWidth": "11%","mDataProp": "tipo"},
-		              { "sWidth": "10%","mDataProp": "categoria"},
-		              { "sWidth": "8%","mDataProp": "talla"},
-		              { "sWidth": "8%","mDataProp": "stock"},
-		              { "sWidth": "10%","mDataProp": "pcontado"},
-		              { "sWidth": "10%","mDataProp": "pcredito"},
+		              { "sWidth": "8%","mDataProp": "categoria"},
+		              { "sWidth": "7%","mDataProp": "talla"},
+		              { "sWidth": "7%","mDataProp": "stock"},
+		              { "sWidth": "8%","mDataProp": "pcontado"},
+		              { "sWidth": "8%","mDataProp": "pcredito"},
 		              { "sWidth": "10%","mDataProp": "codigobarras"},
 		              { "sWidth": "11%","mDataProp": "ver_btn"},
 		              { "sWidth": "9%","mDataProp": "edit_btn"}

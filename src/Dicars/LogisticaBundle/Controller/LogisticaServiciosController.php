@@ -427,6 +427,7 @@ public function getTablaDetPedidoCompraAction(){
 					'idproducto' => $producto -> getNproductoId(),
 					'serie' => $producto -> getCproductoserie(),
 					'nombre' => $producto -> getCproductodesc(),
+					'desc' => $producto -> getCproductodesc()." - ".$producto -> getNproductomarca() -> getCmarcadesc()." - ".$producto -> getCproductotalla(),
 					'stock' => $producto -> getNproductostock(),
 					'pordcom' => 0,
 					'labeleordcom' => '<span class="label label-success">Atendido</span>',
@@ -533,6 +534,7 @@ public function getTablaDetPedidoCompraAction(){
 	
 			$todo[] = array('id' => $detordcom -> getNdetcompraId(),
 					'producto_desc' => $producto -> getCproductodesc(),
+					'desc' => $producto -> getCproductodesc()." - ".$producto -> getNproductomarca() -> getCmarcadesc()." - ".$producto -> getCproductotalla(),
 					'cantidad' => $detordcom -> getNdetcompracant(),
 					'pordcom' => $detordcom -> getNdetcompraprecunt(),
 					'importe' => $detordcom -> getNdetcompraimporte(),

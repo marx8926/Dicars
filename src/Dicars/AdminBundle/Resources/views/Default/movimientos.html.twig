@@ -96,7 +96,7 @@ var ReloadTableRegistrar = reloadclosemodal('modalRegistroMov', 'mov_table');
 //Init------------------------------------>
 $(document).ready(function(){
 
-	tipopago = getAjaxObject("{{ path('dicars_admin_servicio_getoptionconstantes',{'idclase':1}) }}");
+	tipopago = getAjaxObject("{{ path('dicars_admin_servicio_getoptionconstantes',{'idclase':7}) }}");
 	cargarSelect(tipopago,'selectTipoPag', 'id', 'desc');
 
 	tipomov = getAjaxObject("{{ path('dicars_admin_servicio_getoptionconstantes',{'idclase':6}) }}");

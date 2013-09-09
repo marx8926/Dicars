@@ -476,6 +476,7 @@ class VentaServiciosController extends Controller{
 			$todo[] = array(
 					'idproducto' => $Producto -> getNproductoId(),
 					'productodesc' => $Producto -> getCproductodesc(),
+					'desc' => $Producto -> getCproductodesc()." - ".$Producto -> getNproductomarca() -> getCmarcadesc()." - ".$Producto -> getCproductotalla(),
 					'cantidad' => $VentaProducto -> getNdetventacant() ,
 					'precio'=> $VentaProducto -> getNdetventaprecunt(),
 					'importe' => $VentaProducto -> getNdetventatot(),

@@ -20,14 +20,6 @@
 					<div class="row-fluid">
 						<div class="span6">
 							<div class="control-group">
-								<label class="control-label" for="codigo">Número Salida</label>
-								<div class="controls">
-									<input id="serie" name="serie" type="text" style="width:40px;" maxlength="4">
-									-
-									<input id="numero" name="numero" type="text" style="width:60px;" maxlength="8">
-								</div>
-							</div>
-							<div class="control-group">
 								<label class="control-label" for="registrador">Registrador</label>
 								<div class="controls">
 									<input class="input-xlarge focused" id="registrador" name="registrador" type="text" readonly>
@@ -52,7 +44,7 @@
 							<div class="control-group">
 								<label class="control-label" for="fecha">Fecha</label>
 								<div class="controls">
-									<input class="input-xlarge datepicker" id="fecha" name="fecha" type="text" required readonly>
+									<input class="input-xlarge" id="fecha" name="fecha" type="text" required readonly>
 								</div>
 							</div>
 							<div class="control-group">
@@ -68,10 +60,12 @@
 					<div class="control-group">
 						<label class="control-label" for="observaciones">Observaciones</label>
 						<div class="controls">
-							<textarea id="observaciones" name="observaciones" class="input-xlarge" required></textarea>
+							<textarea id="observaciones" name="observaciones" class="input-xlarge"></textarea>
 						</div>
 					</div>
 				</fieldset>
+				<input id="serie" name="serie" type="hidden" required>
+				<input id="numero" name="numero" type="hidden" required>
 			</form>
 			<hr>
 			<h3>Detalle Salida Productos</h3>
@@ -193,6 +187,17 @@ $(document).ready(function(){
 	});
 
 	$("#enviar_salida_producto").click(function(e){
+		var ajax = $.ajax({
+			url: "{{ path ('dicars_logistica_servicio_getgenerarcodigosalprod') }}",
+			dataType: "json",
+			async: false
+			});
+		ajax.done(function(data){
+			$('#numero').val(data.NUMERO);
+			$('#serie').val(data.SERIE);
+			enviar("RegistrarSalidaForm",ResetForm,SelectProductosTableData);
+			$('#RegistrarSalidaForm').submit();
+		});
 		$("#RegistrarSalidaForm").submit();
 	});
 	
@@ -207,7 +212,7 @@ $(document).ready(function(){
 	SelectProductosTable = $("#salida_productos_table").dataTable({
 		"aoColumns": [
 		              { "sWidth": "25%","mDataProp": "idproducto"},
-		              { "sWidth": "25%","mDataProp": "nombre"},
+		              { "sWidth": "25%","mDataProp": "descprod"},
 		              { "sWidth": "25%","mDataProp": "cantidad"},
 		              { "sWidth": "25%","mDataProp": "elim_btn"}
 		              ],
@@ -236,7 +241,6 @@ $(document).ready(function(){
 		              ];
 	
 	BuscarTrabajadorTable = createDataTable('select_trabajador_table',UrlaDTableTrabajadores,FormatoDTableTrabajadores,null,RowCallBackFunctionTrabajador);
-	enviar("RegistrarSalidaForm",logdata,SelectProductosTableData);
 });
 </script>
 {% endblock %}

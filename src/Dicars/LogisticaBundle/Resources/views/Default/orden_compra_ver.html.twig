@@ -15,6 +15,13 @@
 			<h2>ORDEN DE COMPRA: VER DATOS</h2>
 		</div>
 		<div class="box-content">
+			<form method="post" action="{{ asset('extensiones/exportpdf.php') }}" target="_blank" id="CreatePDFForm">
+				<input type="hidden" name="title" id="title"/>
+				<input type="hidden" name="table_resumen" id="table_resumen"/>
+				<input type="hidden" name="table_producto" id="table_producto"/>
+				<input type="hidden" name="table_total" id="table_total"/>
+				<button type="submit" class="btn btn-success" style="float: right; margin-right: 10px;"/><i class="icon icon-white icon-pdf"></i> PDF</button>
+			</form>
 			<div class="form-horizontal">
 				<fieldset>
 					<div class="row-fluid">
@@ -87,21 +94,14 @@
 					  <tr>
 						  <th>Producto</th>
 						  <th>Cantidad</th>
-						  <th>Prec. Unitario</th>
-						  <th>Importe</th>
+						  <th>Prec. Unitario s/.</th>
+						  <th>Importe s/.</th>
 						  <th>Orden de Pedido</th>
 					  </tr>
 				</thead>   
 				<tbody>
 				</tbody>
 			</table>
-			<form method="post" action="{{ asset('extensiones/exportpdf.php') }}" target="_blank" id="CreatePDFForm">
-				<input type="hidden" name="title" id="title"/>
-				<input type="hidden" name="table_resumen" id="table_resumen"/>
-				<input type="hidden" name="table_producto" id="table_producto"/>
-				<input type="hidden" name="table_total" id="table_total"/>
-				<input type="submit" value="PDF"/>
-			</form>
 			<div class="form-actions">
 				<a href="{{ path('dicars_logistica_orden_compra_consultar') }}" class="btn btn-success"><i class="icon icon-white icon-arrowthick-w"></i> Volver</a>
 			</div>
@@ -153,7 +153,7 @@ $(document).ready(function(){
 
 	UrlaDTablePedidos = "{{ path('dicars_logistica_servicio_gettabladetordcom',{'idordcom':''}) }}/{{ id }}";
 	FormatoDTablePedidos = [
-		              { "sWidth": "16%","mDataProp": "producto_desc"},
+		              { "sWidth": "16%","mDataProp": "desc"},
 		              { "sWidth": "16%","mDataProp": "cantidad"},
 		              { "sWidth": "16%","mDataProp": "pordcom"},
 		              { "sWidth": "16%","mDataProp": "importe"},
