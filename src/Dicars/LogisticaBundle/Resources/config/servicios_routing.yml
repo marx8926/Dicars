@@ -23,7 +23,7 @@ dicars_logistica_servicio_getlocalbyid:
     defaults: { _controller: DicarsLogisticaBundle:LogisticaServicios:getLocalById }
     
 dicars_logistica_servicio_gettablaingresoproducto:
-    pattern:  /servicio_gettablaingresoproducto
+    pattern:  /servicio_gettablaingresoproducto/{fecmin}/{fecmax}
     defaults: { _controller: DicarsLogisticaBundle:LogisticaServicios:getTablaIngresoProducto }
 
 dicars_logistica_servicio_gettablasalprods:

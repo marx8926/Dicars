@@ -221,12 +221,22 @@ public function getTablaProductosAction(){
 		return new JsonResponse($data);
 	}
 	
-	public function getTablaIngresoProductoAction(){
+	public function getTablaIngresoProductoAction($fecmin,$fecmax){
 		$em = $this->getDoctrine()->getEntityManager();
-			
-		$ingprods = $this->getDoctrine()
-		->getRepository('DicarsDataBundle:LogIngprod')
-		->findAll();
+		
+		$fecmindate = date_create_from_format('Y-m-d H:i:s', $fecmin."00:00:00");
+		$fecmaxdate = date_create_from_format('Y-m-d H:i:s', $fecmax."23:59:59");
+		
+		$ingprodsRepository = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:LogIngprod');
+		
+		$query = $ingprodsRepository->createQueryBuilder('i')
+		->where("i.dingprodfecreg  BETWEEN :fecmin AND :fecmax")
+		->setParameter('fecmin', $fecmindate)
+		->setParameter('fecmax', $fecmaxdate)
+		->getQuery();
+		
+		$ingprods = $query->getResult();
 	
 		$todo = array();
 		foreach ($ingprods as $key => $ingprod){

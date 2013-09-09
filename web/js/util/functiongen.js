@@ -463,18 +463,8 @@ function cargarSelect(arreglo, idselect, attrvalue, attrdescripcion){
 /*------------------------------FECHAAAA------------------------------------------*/
 function fechaAhora(){
 	date = new Date();
-	dia = '';
-	mes = '';
-	if(date.getDate() < 10)
-		dia = '0'+ (date.getDate());
-	else
-		dia = date.getDate();
-	if(date.getMonth()+1 < 10)
-		mes = '0'+ (date.getMonth() + 1);
-	else
-		mes = (date.getMonth() + 1);
-	fecha = dia + "/" + (mes) + "/" + date.getFullYear();
-	return fecha;
+	Fecha = paddate(date.getDate())+"/"+paddate((date.getMonth()+1))+"/"+date.getFullYear();
+	return Fecha;
 }
 
 function toHTML(element){
@@ -506,4 +496,17 @@ function crearTablaToArray(Idtable,Head,HeadExt,Attr,AttrExt,Array){
 	});
 	table.append(tbody);
 	return table;
+}
+
+/* Recuperar la hora y el dia */
+function paddate(n){
+	return n<10 ? '0'+n : n;
+}
+
+function getHourFormato(){
+	date = new Date();
+	Hora = (date.getUTCHours()-5)+':'
+    + date.getUTCMinutes()+':'
+    + date.getUTCSeconds();
+	return Hora;
 }

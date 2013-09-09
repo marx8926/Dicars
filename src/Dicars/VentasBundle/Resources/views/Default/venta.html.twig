@@ -477,11 +477,7 @@ $(document).ready(function(){
 		$('#modalBuscarCliente').modal('hide');
 		
 	});
-	date = new Date();
-	Fecha = date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear()+" - "+ (date.getUTCHours()-5)+':'
-		      + date.getUTCMinutes()+':'
-		      + date.getUTCSeconds();
-	$("#fechaR").text(Fecha);
+	$("#fechaR").text(fechaAhora()+" "+getHourFormato());
     
 	$("#AgregarProductoForm").submit(function(e){
 		e.preventDefault();

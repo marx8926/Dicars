@@ -27,6 +27,7 @@
 							<input type="text" class="input-xlarge datepicker" id="date01" value="02/06/2013" style="margin: 0 18px 0 0;">
 							<label style="display:inline;">Al</label>
 					  		<input type="text" class="input-xlarge datepicker" id="date02" value="02/06/2013" style="margin: 0 18px;">
+					  		<button id="buscarfecha" type="button" class="btn btn-info btn-buscarp" style="margin: 0 18px;"><i class="icon-search icon-white"></i>Buscar</button>
 						</div>
 					</div>
 				</fieldset>
@@ -56,15 +57,36 @@
 <script type="text/javascript">
 var CargarBotones;
 var RowCallBackIngProd;
+var IngresoProdTable;
+
+function getUrlRangoFecha(){
+	var date01 = $("#date01").val().split('/');
+	var date02 = $("#date02").val().split('/');
+	var fecmin = date01[2]+'-'+date01[1]+'-'+date01[0];
+	var fecmax = date02[2]+'-'+date02[1]+'-'+date02[0];
+	Urlreturn = '{{ path("dicars_logistica_servicio_gettablaingresoproducto",{"fecmin":"fecmin","fecmax":"fecmax"}) }}';
+	Urlreturn = Urlreturn.replace('fecmin',fecmin);
+	Urlreturn = Urlreturn.replace('fecmax',fecmax);
+
+	return Urlreturn;
+}
 
 $(document).ready(function(){
+
+	$("#date01,#date02").val(fechaAhora());
+
+	$('#buscarfecha').click(function(e){
+		e.preventDefault();
+		UrlaDTable = getUrlRangoFecha();
+		IngresoProdTable.fnReloadAjax(UrlaDTable);
+	});
 
 	RowCallBackIngProd = function (nRow, aData, iDisplayIndex){
 		$(nRow).find('.btn-editar').attr('href',"{{ path('dicars_logistica_editar_ingresoproductos',{'idingprode':''}) }}/"+aData.idingprod);
 		$(nRow).find('.btn-datos').attr('href',"{{ path('dicars_logistica_ver_ingresoproductos',{'idingprod':''}) }}/"+aData.idingprod);
 	};
 	
-	UrlaDTable = '{{ path("dicars_logistica_servicio_gettablaingresoproducto") }}';
+	UrlaDTable = getUrlRangoFecha();
 	FormatoDTable = [
 		              { "sWidth": "15%","mDataProp": "fechareg"},
 		              { "sWidth": "15%","mDataProp": "numero"},
@@ -74,7 +96,7 @@ $(document).ready(function(){
 		              { "sWidth": "13%","mDataProp": "ver_btn"},
 		              { "sWidth": "13%","mDataProp": "edit_btn"}		              		              
 		              ];
-	oTable = createDataTable('ingreso_productos_table',UrlaDTable,FormatoDTable,null,RowCallBackIngProd);
+	IngresoProdTable = createDataTable('ingreso_productos_table',UrlaDTable,FormatoDTable,null,RowCallBackIngProd);
 });
 </script>
 {% endblock %}

@@ -77,20 +77,30 @@
 <script src="{{ asset('js/util/datatable_plugins.js') }}"></script>
 <script type="text/javascript">
 var VentasTable;
-$(document).ready(function(){
+var UrlaDTable;
 
-	$('#buscarfecha').click(function(e){
-		e.preventDefault();
+function getUrlRangoFecha(){
 		var date01 = $("#date01").val().split('/');
 		var date02 = $("#date02").val().split('/');
 		var fecmin = date01[2]+'-'+date01[1]+'-'+date01[0];
 		var fecmax = date02[2]+'-'+date02[1]+'-'+date02[0];
-		UrlaDTable = '{{ path("dicars_ventas_servicio_gettablaventas",{"fecmin":"fecmin","fecmax":"fecmax"}) }}';
-		UrlaDTable = UrlaDTable.replace('fecmin',fecmin);
-		UrlaDTable = UrlaDTable.replace('fecmax',fecmax);
+		Urlreturn = '{{ path("dicars_ventas_servicio_gettablaventas",{"fecmin":"fecmin","fecmax":"fecmax"}) }}';
+		Urlreturn = Urlreturn.replace('fecmin',fecmin);
+		Urlreturn = Urlreturn.replace('fecmax',fecmax);
+
+		console.log(Urlreturn);
+		return Urlreturn;
+}
+$(document).ready(function(){	
+	
+	$("#date01,#date02").val(fechaAhora());
+
+	$('#buscarfecha').click(function(e){
+		e.preventDefault();
+		UrlaDTable = getUrlRangoFecha();
 		VentasTable.fnReloadAjax(UrlaDTable);
 	});
-
+	
 	RowCallBackFunctionVenta = function(nRow, aData, iDisplayIndex){
 		//mostrar Editar Cliente------------------------------------>
 		$(nRow).find('.btn-editar').click(function(e){
@@ -108,7 +118,7 @@ $(document).ready(function(){
 		});
 	};
 	
-	UrlaDTable = '{{ path("dicars_ventas_servicio_gettablaventas",{"fecmin":"2000-01-01","fecmax":"2000-01-01"}) }}';
+	UrlaDTable = getUrlRangoFecha();
 	FormatoDTable = [
 				  { "sWidth": "8%","mDataProp": "fecha_reg"},
 	              { "sWidth": "14%","mDataProp": "cliente"},
