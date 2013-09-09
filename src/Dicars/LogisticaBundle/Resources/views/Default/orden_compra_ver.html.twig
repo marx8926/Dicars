@@ -15,13 +15,6 @@
 			<h2>ORDEN DE COMPRA: VER DATOS</h2>
 		</div>
 		<div class="box-content">
-			<form method="post" action="{{ asset('extensiones/exportpdf.php') }}" target="_blank" id="CreatePDFForm">
-				<input type="hidden" name="title" id="title"/>
-				<input type="hidden" name="table_resumen" id="table_resumen"/>
-				<input type="hidden" name="table_producto" id="table_producto"/>
-				<input type="hidden" name="table_total" id="table_total"/>
-				<button type="submit" class="btn btn-success" style="float: right; margin-right: 10px;"/><i class="icon icon-white icon-pdf"></i> PDF</button>
-			</form>
 			<div class="form-horizontal">
 				<fieldset>
 					<div class="row-fluid">
@@ -106,6 +99,23 @@
 				<a href="{{ path('dicars_logistica_orden_compra_consultar') }}" class="btn btn-success"><i class="icon icon-white icon-arrowthick-w"></i> Volver</a>
 			</div>
 		</div>
+		<input id="pdfgen" type="button" value="Reporte General"/>
+		<div class="modal hide fade" id="exportmodal">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<h3>EXPORTAR</h3>
+			</div>
+			<div class="modal-body">
+				<form method="post" target="_blank" id="CreatePDFForm">
+					<input type="hidden" name="title" id="title"/>
+					<input type="hidden" name="table_resumen" id="table_resumen"/>
+					<input type="hidden" name="table_producto" id="table_producto"/>
+					<input type="hidden" name="table_total" id="table_total"/>
+					<a id="pdfbutton" href="#"><p><i class="icon32 icon-pdf icon-color"></i> PDF</p></a>
+					<a id="xlsutton" href="#"><p><i class="icon32 icon-xls icon-color"></i> Exel</p></a>
+				</form>				
+			</div>
+		</div>
 	</div>
 </div>
 {% endblock %}
@@ -118,6 +128,13 @@ var resumen;
 var total;
 var DrawCallBackPedido;
 var totalcantidad = 0;
+
+var tablaresumen;
+var tableproductos;
+var tablatotal;
+
+var urlExportXLS = "{{ asset('extensiones/reportes_xls/formato_reporte_logistica.php') }}";
+var urlExportPDF = "{{ asset('extensiones/reportes_pdf/formato_reporte_logistica.php') }}";
 
 $(document).ready(function(){
 
@@ -133,21 +150,16 @@ $(document).ready(function(){
 		         	{'td1':'','td2':''},
 		         	{'td1':'CANT. TOTAL:','td2':'S/. {{ total }}'}	];
 		
-		var tablaresumen = toHTML(crearTablaToArray("resume",null,null,['td1','td2','td3','td4'],['style="width: 25%;" class="impar" ','style="width:25%;" ','style="width: 25%;" class="impar" ','style="width: 25%;" '],resumen));
+		tablaresumen = toHTML(crearTablaToArray("resume",null,null,['td1','td2','td3','td4'],['style="width: 25%;" class="impar" ','style="width:25%;" ','style="width: 25%;" class="impar" ','style="width: 25%;" '],resumen));
 
-		var tableproductos = toHTML(crearTablaToArray("tproductos",
+		tableproductos = toHTML(crearTablaToArray("tproductos",
 				['Producto','Cantidad', 'Precio Unitario','Importe'],
 				['style="width: 45%;" class="prodth" ','style="width: 15%;" class="prodth" ','style="width: 20%;" class="prodth" ','style="width: 20%;" class="prodth" '],
-				['nombre','cantidad','pordcom','importe'],
+				['desc','cantidad','pordcom','importe'],
 				['style="width: 45%;" class="izquierda"','style="width: 15%;"','style="width: 20%;"','style="width: 20%;"'],
 				BuscarOrdComTable.fnGetData()));
 		
-		var tablatotal = toHTML(crearTablaToArray('total',null,null,['td1','td2'],['style="width: 80%;" class="upbold" ','style="width: 20%;"  class="verde"'],total));
-		
-		$("#title").val("ORDEN DE COMPRA");
-		$("#table_resumen").val(tablaresumen);
-		$("#table_producto").val(tableproductos);
-		$("#table_total").val(tablatotal);
+		tablatotal = toHTML(crearTablaToArray('total',null,null,['td1','td2'],['style="width: 80%;" class="upbold" ','style="width: 20%;"  class="verde"'],total));
 	};
 	
 
@@ -160,7 +172,28 @@ $(document).ready(function(){
 		              { "sWidth": "16%","mDataProp": "ordped_id"}
 		              ];
 	BuscarOrdComTable = createDataTable('productos_table',UrlaDTablePedidos,FormatoDTablePedidos,DrawCallBackCompra);
+
+	$("#pdfgen").click(function(){
+		$("#title").val("ORDEN DE COMPRA");
+		$("#table_resumen").val(tablaresumen);
+		$("#table_producto").val(tableproductos);
+		$("#table_total").val(tablatotal);
+		$("#exportmodal").modal('show');		
+	});
 	
+	$("#pdfbutton").click(function(e){
+		e.preventDefault();
+		$("#CreatePDFForm").attr("action",urlExportPDF);
+		$("#CreatePDFForm").submit();
+		$("#exportmodal").modal('hide');
+	});
+	
+	$("#xlsutton").click(function(e){
+		e.preventDefault();
+		$("#CreatePDFForm").attr("action",urlExportXLS);
+		$("#CreatePDFForm").submit();
+		$("#exportmodal").modal('hide');
+	});
 });
 
 

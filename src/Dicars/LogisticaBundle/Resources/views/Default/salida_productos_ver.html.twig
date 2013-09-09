@@ -80,15 +80,25 @@
 				<tbody>
 				</tbody>
 			</table>
-			<form method="post" action="{{ asset('extensiones/exportpdf.php') }}" target="_blank" id="CreatePDFForm">
-				<input type="hidden" name="title" id="title"/>
-				<input type="hidden" name="table_resumen" id="table_resumen"/>
-				<input type="hidden" name="table_producto" id="table_producto"/>
-				<input type="hidden" name="table_total" id="table_total"/>
-				<input type="submit" value="PDF"/>
-			</form>
 			<div class="form-actions">
 				<a href="{{ path('dicars_logistica_cons_salidaproductos') }}" class="btn btn-success"><i class="icon icon-white icon-arrowthick-w"></i> Volver</a>
+			</div>
+		</div>
+		<input id="pdfgen" type="button" value="Reporte General"/>
+		<div class="modal hide fade" id="exportmodal">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<h3>EXPORTAR</h3>
+			</div>
+			<div class="modal-body">
+				<form method="post" target="_blank" id="CreatePDFForm">
+					<input type="hidden" name="title" id="title"/>
+					<input type="hidden" name="table_resumen" id="table_resumen"/>
+					<input type="hidden" name="table_producto" id="table_producto"/>
+					<input type="hidden" name="table_total" id="table_total"/>
+					<a id="pdfbutton" href="#"><p><i class="icon32 icon-pdf icon-color"></i> PDF</p></a>
+					<a id="xlsutton" href="#"><p><i class="icon32 icon-xls icon-color"></i> Exel</p></a>
+				</form>				
 			</div>
 		</div>
 	</div>
@@ -104,6 +114,12 @@ var resumen;
 var totalcantidad = 0;
 var total;
 var DrawCallBackPedido;
+var tablaresumen;
+var tableproductos;
+var tablatotal;
+
+var urlExportXLS = "{{ asset('extensiones/reportes_xls/formato_reporte_logistica.php') }}";
+var urlExportPDF = "{{ asset('extensiones/reportes_pdf/formato_reporte_logistica.php') }}";
 
 $(document).ready(function(){
 
@@ -117,14 +133,21 @@ $(document).ready(function(){
 		           	{'td1':'TIENDA:','td2': '{{ local }}','td3':'FECHA DE EMISIÓN:','td4':'{{ fecha_reg }}',},
 		           	{'td1':'OBSERVACIONES:','td2': '{{ observacion }}','td3':'MOTIVO:','td4':'{{ motivo }}',}	];
 		
-		var tablaresumen = toHTML(crearTablaToArray("resume",null,null,['td1','td2','td3','td4'],['style="width: 25%;" class="impar" ','style="width:25%;" ','style="width: 25%;" class="impar" ','style="width: 25%;" '],resumen));
-		var tableproductos = toHTML(crearTablaToArray("tproductos",['Producto','Cantidad'],['style="width: 80%;" class="prodth" ','style="width: 20%;" class="prodth" '],['nombre','cantidad'],['style="width: 80%;" class="izquierda"','style="width: 20%;"'],BuscarSalProdTable.fnGetData()));
-		var tablatotal = toHTML(crearTablaToArray('total',null,null,['td1','td2'],['style="width: 80%;" class="upbold" ','style="width: 20%;"  class="verde"'],total));
-		
-		$("#title").val("SALIDA PRODUCTOS");
-		$("#table_resumen").val(tablaresumen);
-		$("#table_producto").val(tableproductos);
-		$("#table_total").val(tablatotal);
+		tablaresumen = toHTML(crearTablaToArray("resume",null,null,
+				['td1','td2','td3','td4'],
+				['style="width: 25%;" class="impar" ','style="width:25%;" ','style="width: 25%;" class="impar" ','style="width: 25%;" '],
+				resumen));
+		tableproductos = toHTML(crearTablaToArray("tproductos",
+				['Producto','Cantidad'],
+				['style="width: 80%;" class="prodth" ','style="width: 20%;" class="prodth" '],
+				['producto_desc','cantidad'],
+				['style="width: 80%;" class="izquierda"','style="width: 20%;"'],
+				BuscarSalProdTable.fnGetData()));
+		tablatotal = toHTML(crearTablaToArray('total',null,null,
+				['td1','td2'],
+				['style="width: 80%;" class="upbold" ','style="width: 20%;"  class="verde"'],
+				total));
+
 	};
 	
 	UrlaDTableSalProd = "{{ path('dicars_logistica_servicio_gettabladetsalprod',{'id':''}) }}/{{ id }}";
@@ -133,6 +156,28 @@ $(document).ready(function(){
 		              { "sWidth": "50%","mDataProp": "cantidad"}
 		              ];
 	BuscarSalProdTable = createDataTable('salida_productos_table',UrlaDTableSalProd,FormatoDTableSalProd,DrawCallBackSalida);
+
+	$("#pdfgen").click(function(){
+		$("#title").val("ORDEN DE SALIDA");
+		$("#table_resumen").val(tablaresumen);
+		$("#table_producto").val(tableproductos);
+		$("#table_total").val(tablatotal);
+		$("#exportmodal").modal('show');		
+	});
+	
+	$("#pdfbutton").click(function(e){
+		e.preventDefault();
+		$("#CreatePDFForm").attr("action",urlExportPDF);
+		$("#CreatePDFForm").submit();
+		$("#exportmodal").modal('hide');
+	});
+	
+	$("#xlsutton").click(function(e){
+		e.preventDefault();
+		$("#CreatePDFForm").attr("action",urlExportXLS);
+		$("#CreatePDFForm").submit();
+		$("#exportmodal").modal('hide');
+	});
 });
 </script>
 {% endblock %}

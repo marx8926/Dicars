@@ -250,7 +250,7 @@ public function getTablaProductosAction(){
 			$todo[] = array(
 					'idingprod' => $ingprod -> getNingprodId(),
 					'personal' => $personal -> getCpersonalnom()." ".$personal -> getCpersonalape(),
-					'numero' => $ingprod -> getCingproddocserie()." - ".$ingprod -> getCingprodnro(),
+					'numero' => $ingprod -> getCingprodserie()." - ".$ingprod -> getCingprodnro(),
 					'fechareg' => $ingprod -> getDingprodfecreg() -> format("d/m/Y"),
 					'documento' => $ingprod -> getCingproddocserie()." - ".$ingprod -> getCingproddocnro(),
 					'motivo' => $motivo -> getCconstantedesc(),	

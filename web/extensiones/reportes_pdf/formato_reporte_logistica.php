@@ -1,18 +1,13 @@
 <?php
-	$title = $_POST['title'];
-	$table_resumen = $_POST['table_resumen'];
-	$table_producto = $_POST['table_producto'];
-	$table_total = $_POST['table_total'];
-	
-    header('Content-type: application/x-msdownload; charset=utf-16');
-	header('Content-Disposition: attachment; filename=reporte_excel.xls');
-	header('Pragma: no-cache');
-	header('Expires: 0');
+$title = $_POST['title'];
+$table_resumen = $_POST['table_resumen'];
+$table_producto = $_POST['table_producto'];
+$table_total = $_POST['table_total'];
+
+ob_start();
 ?>
-<html>
-	<head>
-	<meta charset="utf-8">
-	<style type="text/css">
+    
+    <style type="text/css">
 	<!--
 	table{
 		width: 100%;
@@ -61,8 +56,7 @@
 	}
 	-->
 	</style>
-	</head>
-	<body>
+	<page>
 		<div id="divh3">
 			<h3><?php echo $title ?></h3>
 		</div>
@@ -70,5 +64,14 @@
 		<?php echo $table_resumen ?><br>
 		<?php echo $table_producto ?> <br>
 		<?php echo $table_total ?>
-	</body>
-</html>
+    </page>
+    <?php 
+    $content = ob_get_clean();
+
+
+    require_once(dirname(__FILE__).'/../html2pdf/html2pdf.class.php');
+    $html2pdf = new HTML2PDF('P','A4','es');
+    $html2pdf->pdf->SetDisplayMode('fullpage');
+    $html2pdf->writeHTML($content);
+    $html2pdf->Output('example.pdf');
+?>
