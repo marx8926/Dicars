@@ -17,6 +17,8 @@
 		</div>
 		<div class="box-content">
 			<form class="form-horizontal" id="RegistrarIngresoForm" method="post" action="{{ path('dicars_logistica_registrar_ingresoproducto') }}">
+				<input type="hidden" name="serie_ingreso" id="serie_ingreso">
+				<input type="hidden" name="numero_ingreso" id="numero_ingreso">
 				<fieldset>
 				<div class="row-fluid">
 					<div class="span6">
@@ -42,7 +44,7 @@
 						<div class="control-group">
 							<label class="control-label" for="observacion">Observaciones</label>
 							<div class="controls">
-								<textarea id="observacion" name="observacion" class="input-xlarge"></textarea>
+								<textarea id="observacion" name="observacion" class="input-xlarge" value=""></textarea>
 							</div>
 						</div>
 					</div>
@@ -131,7 +133,11 @@ $(document).ready(function(){
 	cargarSelect(constantes, 'tipo', 'id', 'desc');
 	
 	ResetForm = function(data){
-		$(location).attr("href", "{{ path('dicars_logistica_cons_ingresoproductos') }}");		
+		$.unblockUI({ 
+            onUnblock: function(){
+        		$(location).attr("href", "{{ path('dicars_logistica_cons_ingresoproductos') }}");
+            } 
+        });		
 	};
 	//mostrar Buscar Producto------------------------------------
 	$('.btn-buscarp').click(function(e){
@@ -165,12 +171,27 @@ $(document).ready(function(){
 	});
 
 	$("#enviar_ingreso_producto").click(function(e){
+		e.preventDefault();
+		
+		$.blockUI({ 
+	    	message: "Registrando...",
+	    	css: { top: '10px', left: '', right: '10px' } 
+		});
+		
 		if($("#docserie").val()=="" || $("#docnumero").val()==""){
 			$("#docserie").val("0000");
 			$("#docnumero").val("00000000");
 			}
-			
-		$("#RegistrarIngresoForm").submit();
+		var ajax = $.ajax({
+			url: "{{ path ('dicars_logistica_servicio_getgenerarcodigoingprod') }}",
+			dataType: "json",
+			async: false
+		});
+		ajax.done(function(data){
+			$('#numero_ingreso').val(data.NUMERO);
+			$('#serie_ingreso').val(data.SERIE);
+			$("#RegistrarIngresoForm").submit();
+		});
 	});
 	
 	RowCallBackFunctionProducto = getSimpleSelectRowCallBack(SelectProductoData,"select_producto_table");

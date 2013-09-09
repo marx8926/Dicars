@@ -242,11 +242,10 @@ public function getTablaProductosAction(){
 		foreach ($ingprods as $key => $ingprod){
 
 			$personal = $ingprod -> getNpersonal();
+			
 			$motivo = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:Constante')
-			->findOneBy(array('nconstanteId'=>8)); 
-			
-			$ingprod -> getNingprodmotivo();			
+			->findOneBy(array('nconstanteclase' => '3', 'cconstantevalor' =>$ingprod -> getNingprodmotivo()));
 			
 			$todo[] = array(
 					'idingprod' => $ingprod -> getNingprodId(),
@@ -265,7 +264,7 @@ public function getTablaProductosAction(){
 		return new JsonResponse(array('aaData' => $todo));
 	}
 
-	public function getTablaSalProdAction($fecmin,$fecmax){
+public function getTablaSalProdAction($fecmin,$fecmax){
 		$em = $this->getDoctrine()->getEntityManager();
 		
 		$fecmindate = date_create_from_format('Y-m-d H:i:s', $fecmin."00:00:00");
@@ -284,8 +283,6 @@ public function getTablaProductosAction(){
 	
 		$todo = array();
 		foreach ($salprods as $key => $salprod){
-			
-			//$personal = $salprod -> getNpersonal();
 			$motivo = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:Constante')
 			->findOneBy(array('nconstanteclase' => '4', 'cconstantevalor' =>$salprod -> getNsalprodmotivo()));
@@ -585,6 +582,21 @@ public function getTablaDetPedidoCompraAction(){
 		$em = $this->getDoctrine()->getEntityManager();
 	
 		$sql = "call sp_generar_sn_salprod";
+	
+		$smt = $em->getConnection()->prepare($sql);
+		$smt->execute();
+	
+		$codigos = $smt->fetchAll();
+	
+		$em->clear();
+		$em->close();
+		return new JsonResponse($codigos[0]);
+	}
+	
+	public function getGenerarCodigoIngProdAction(){
+		$em = $this->getDoctrine()->getEntityManager();
+	
+		$sql = "call sp_generar_sn_ingproducto";
 	
 		$smt = $em->getConnection()->prepare($sql);
 		$smt->execute();

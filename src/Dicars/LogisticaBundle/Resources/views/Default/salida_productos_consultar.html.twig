@@ -59,17 +59,25 @@
 <script type="text/javascript">
 
 var SalProdTable;
-$(document).ready(function(){
+var UrlaDTable;
+function getUrlRangoFecha(){
+	var date01 = $("#date01").val().split('/');
+	var date02 = $("#date02").val().split('/');
+	var fecmin = date01[2]+'-'+date01[1]+'-'+date01[0];
+	var fecmax = date02[2]+'-'+date02[1]+'-'+date02[0];
+	Urlreturn = '{{ path("dicars_logistica_servicio_gettablasalprods",{"fecmin":"fecmin","fecmax":"fecmax"}) }}';
+	Urlreturn = Urlreturn.replace('fecmin',fecmin);
+	Urlreturn = Urlreturn.replace('fecmax',fecmax);
 
+	return Urlreturn;
+}
+
+$(document).ready(function(){
+	$("#date01,#date02").val(fechaAhora());
+	
 	$('#buscarfecha').click(function(e){
 		e.preventDefault();
-		var date01 = $("#date01").val().split('/');
-		var date02 = $("#date02").val().split('/');
-		var fecmin = date01[2]+'-'+date01[1]+'-'+date01[0];
-		var fecmax = date02[2]+'-'+date02[1]+'-'+date02[0];
-		UrlaDTable = '{{ path("dicars_logistica_servicio_gettablasalprods",{"fecmin":"fecmin","fecmax":"fecmax"}) }}';
-		UrlaDTable = UrlaDTable.replace('fecmin',fecmin);
-		UrlaDTable = UrlaDTable.replace('fecmax',fecmax);
+		UrlaDTable = getUrlRangoFecha();
 		SalProdTable.fnReloadAjax(UrlaDTable);
 	});
 	
@@ -90,7 +98,7 @@ $(document).ready(function(){
 			});
 	};
 	
-	UrlaDTable = '{{ path("dicars_logistica_servicio_gettablasalprods",{"fecmin":"2000-01-01","fecmax":"2000-01-01"}) }}';
+	UrlaDTable = getUrlRangoFecha();
 	FormatoDTable = [
 				  { "sWidth": "8%","mDataProp": "fecha_reg"},
 	              { "sWidth": "11%","mDataProp": "serienum"},

@@ -73,3 +73,7 @@ dicars_logistica_servicio_getgenerarcodigopedido:
 dicars_logistica_servicio_getgenerarcodigosalprod:
     pattern:  /servicio_getgenerarcodigosalprod
     defaults: { _controller: DicarsLogisticaBundle:LogisticaServicios:getGenerarCodigoSalProd }
+    
+dicars_logistica_servicio_getgenerarcodigoingprod:
+    pattern:  /servicio_getgenerarcodigoingprod
+    defaults: { _controller: DicarsLogisticaBundle:LogisticaServicios:getGenerarCodigoIngProd }

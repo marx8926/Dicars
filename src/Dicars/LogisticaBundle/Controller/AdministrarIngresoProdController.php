@@ -40,8 +40,8 @@ class AdministrarIngresoProdController extends Controller{
 			->getRepository('DicarsDataBundle:Local')
 			->findOneBy(array('nlocalId' => 2));
 				
-			$Serie = $datos["serie"];
-			$Numero = $datos["numero"];
+			$Serie = $datos["serie_ingreso"];
+			$Numero = $datos["numero_ingreso"];
 			$Motivo = $datos["tipo"];
 			$SerieDoc = $datos["docserie"];
 			$Fecha_reg = date_create_from_format('d/m/Y', $datos["fecharegistro"]);						

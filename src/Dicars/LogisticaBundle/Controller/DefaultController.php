@@ -45,8 +45,8 @@ class DefaultController extends Controller
     	->findOneBy(array('npersonalId' => $SalProd->getNsolicitanteId()));
     	
     	$motivo = $this->getDoctrine()
-    	->getRepository('DicarsDataBundle:Constante')
-    	->findOneBy(array('nconstanteId' => $SalProd->getNsalprodmotivo()));
+			->getRepository('DicarsDataBundle:Constante')
+			->findOneBy(array('nconstanteclase' => '4', 'cconstantevalor' =>$SalProd -> getNsalprodmotivo()));
     	
     	return $this->render('DicarsLogisticaBundle:Default:salida_productos_ver.html.twig',array(
     			'id' => $idsalprod,
@@ -67,8 +67,8 @@ class DefaultController extends Controller
     	->findOneBy(array('ningprodId' => $idingprod));
 
     	$motivo = $this->getDoctrine()
-    	->getRepository('DicarsDataBundle:Constante')
-    	->findOneBy(array('nconstanteId' => $IngProd->getNingprodmotivo()));
+			->getRepository('DicarsDataBundle:Constante')
+			->findOneBy(array('nconstanteclase' => '3', 'cconstantevalor' =>$IngProd -> getNingprodmotivo()));
     	 
     	return $this->render('DicarsLogisticaBundle:Default:ingreso_productos_ver.html.twig',array(
     			'id' => $idingprod,
