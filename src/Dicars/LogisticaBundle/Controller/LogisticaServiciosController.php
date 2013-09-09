@@ -487,12 +487,22 @@ public function getTablaDetPedidoCompraAction(){
 		return new JsonResponse($todo);
 	}
 	
-	public function getTablaOrdComAction(){
+	public function getTablaOrdComAction($fecmin,$fecmax){
 		$em = $this->getDoctrine()->getEntityManager();
-			
-		$ordcoms = $this->getDoctrine()
-		->getRepository('DicarsDataBundle:LogOrdcom')
-		->findBy(array('cordcomest'=>1));
+		
+		$fecmindate = date_create_from_format('Y-m-d H:i:s', $fecmin."00:00:00");
+		$fecmaxdate = date_create_from_format('Y-m-d H:i:s', $fecmax."23:59:59");
+		
+		$ordcomsRepository = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:LogOrdcom');
+		
+		$query = $ordcomsRepository->createQueryBuilder('oc')
+		->where("oc.ordcomfecreg  BETWEEN :fecmin AND :fecmax AND oc.cordcomest = '1'")
+		->setParameter('fecmin', $fecmindate)
+		->setParameter('fecmax', $fecmaxdate)
+		->getQuery();
+		
+		$ordcoms = $query->getResult();
 	
 		$todo = array();
 		foreach ($ordcoms as $key => $ordcom){

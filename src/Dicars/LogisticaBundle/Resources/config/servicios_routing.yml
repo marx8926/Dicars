@@ -51,7 +51,7 @@ dicars_logistica_servicio_getoptionlocal:
     defaults: { _controller: DicarsLogisticaBundle:LogisticaServicios:getOptionLocales }  
     
 dicars_logistica_servicio_gettablaordcom:
-    pattern:  /servicio_gettablaordcom
+    pattern:  /servicio_gettablaordcom/{fecmin}/{fecmax}
     defaults: { _controller: DicarsLogisticaBundle:LogisticaServicios:getTablaOrdCom }
     
 dicars_logistica_servicio_gettabladetordcom:

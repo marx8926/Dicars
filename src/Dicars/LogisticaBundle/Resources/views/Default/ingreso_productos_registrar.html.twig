@@ -170,28 +170,28 @@ $(document).ready(function(){
 		}
 	});
 
-	$("#enviar_ingreso_producto").click(function(e){
-		e.preventDefault();
-		
+	$("#enviar_ingreso_producto").click(function(e){		
 		$.blockUI({ 
 	    	message: "Registrando...",
-	    	css: { top: '10px', left: '', right: '10px' } 
-		});
-		
-		if($("#docserie").val()=="" || $("#docnumero").val()==""){
-			$("#docserie").val("0000");
-			$("#docnumero").val("00000000");
-			}
-		var ajax = $.ajax({
-			url: "{{ path ('dicars_logistica_servicio_getgenerarcodigoingprod') }}",
-			dataType: "json",
-			async: false
-		});
-		ajax.done(function(data){
-			$('#numero_ingreso').val(data.NUMERO);
-			$('#serie_ingreso').val(data.SERIE);
-			$("#RegistrarIngresoForm").submit();
-		});
+	    	css: { top: '10px', left: '', right: '10px' },
+    		onBlock: function(){
+    			if($("#docserie").val()=="" || $("#docnumero").val()==""){
+    				$("#docserie").val("0000");
+    				$("#docnumero").val("00000000");
+    				}
+    			var ajax = $.ajax({
+    				url: "{{ path ('dicars_logistica_servicio_getgenerarcodigoingprod') }}",
+    				dataType: "json"
+    			});
+    			ajax.done(function(data){
+    				$('#numero_ingreso').val(data.NUMERO);
+    				$('#serie_ingreso').val(data.SERIE);
+    				$("#RegistrarIngresoForm").submit();
+    			});
+        		
+        	}
+		});		
+		e.preventDefault();
 	});
 	
 	RowCallBackFunctionProducto = getSimpleSelectRowCallBack(SelectProductoData,"select_producto_table");

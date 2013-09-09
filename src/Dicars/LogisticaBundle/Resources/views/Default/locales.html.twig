@@ -192,7 +192,7 @@ $(document).ready(function(){
 	cargarUbigeo('dist', 'prov', 'dep');
 
 	constantes = getAjaxObject("{{ path('dicars_admin_servicio_getoptionconstantes',{'idclase':2}) }}");
-	cargarSelect(constantes,'tiprub', 'id', 'desc');
+	cargarSelect(constantes,'tiprub', 'valor', 'desc');
 
 	RowCallBackFunction = function(nRow, aData, iDisplayIndex){
 		$(nRow).find('.btn-datos').click(function(e){
