@@ -247,14 +247,40 @@
 		{% include 'DicarsVentasBundle:Default:buscarcliente.html.twig' %}
 		<div class="modal hide fade" id="rquiredproducts">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">×</button>
-				<h3>Attencion</h3>
+				<h3>Atención</h3>
 			</div>
 			<div class="modal-body">
 				<div class="alert alert-error">
 				<p><i class="icon icon-alert icon-red"></i> Nesesita agregrar productos</p>
 				</div>
 				
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="btn" data-dismiss="modal">Aceptar</a>
+			</div>
+		</div>
+		<div class="modal hide fade" id="vercronograma">
+			<div class="modal-header">
+				<h3>¿Desea exportar el Cronograma?</h3>
+			</div>
+			<div class="modal-body">
+				<form method="post" target="_blank" id="CreatePDFForm">
+					<input type="hidden" name="title" id="title"/>
+					<input type="hidden" name="table_resumen" id="table_resumen"/>
+					<input type="hidden" name="table_producto" id="table_producto"/>
+					<input type="hidden" name="table_total" id="table_total"/>
+					<div class="sortable row-fluid ui-sortable">
+						<a id="pdfbutton" data-rel="tooltip" class="well span3 top-block" style="width: 48%;" href="#" data-original-title="Exportar a PDF.">
+							<span class="icon32 icon-color icon-pdf"></span>
+							<div>PDF</div>
+						</a>
+		
+						<a id="xlsutton" data-rel="tooltip" class="well span3 top-block" style="width: 48%;" href="#" data-original-title="Exportar a Excel.">
+							<span class="icon32 icon-color icon-xls"></span>
+							<div>Excel</div>
+						</a>
+					</div>
+				</form>
 			</div>
 			<div class="modal-footer">
 				<a href="#" class="btn" data-dismiss="modal">Aceptar</a>
@@ -385,7 +411,11 @@ $(document).ready(function(){
 	unlockload = function(){
 		$.unblockUI({ 
             onUnblock: function(){ 
-                $(location).attr("href","{{ path('dicars_ventas_consultar') }}"); 
+                if($("#forma_pago").val() == 2){
+                	$('#vercronograma').modal('show');
+                }
+                else
+                	$(location).attr("href","{{ path('dicars_ventas_consultar') }}"); 
             } 
         });
 	};	

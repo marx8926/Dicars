@@ -570,10 +570,13 @@ class VentaServiciosController extends Controller{
 		$Amortizacion = $Venta -> getNventatotapag();
 		$Monto_credito = $Venta -> getNventatotapag();
 		$NombreCliente = $Cliente -> getCclientenom()." ".$Cliente -> getCclienteape();
-
-		$Cronogramas = $this->getDoctrine()
-		->getRepository('DicarsDataBundle:VenCronpago')
-		->findBy(array('nvencredito' => $Nro),array('ncronpagofecpago' => 'ASC'));		
+		
+		$sql = "SELECT * FROM ven_listacronpago_by_venta where venta_id =".$idventa;
+		
+		$smt = $em->getConnection()->prepare($sql);
+		$smt->execute();
+		
+		$Cronogramas = $smt->fetchAll();
 		
 		$DetVenta = array();
 		foreach ($VentaProductos as $key => $VentaProducto){
@@ -592,12 +595,14 @@ class VentaServiciosController extends Controller{
 		
 		$Cuotas = array();
 		foreach ($Cronogramas as $key => $Cronograma){
-		
+			$estado = '';
 			$Cuotas[] = array(
-					'fecpago' => $Cronograma -> getNcronpagofecpago() -> format('d/m/Y'),
-					'nrocuota' => $Cronograma -> getNcronpagonrocuota(),
-					'monto' => $Cronograma -> getNcronpagomoncouapg(),
-					'idcrono' => $Cronograma -> getNcronogramaId()
+					'fecpago' => $Cronograma['FecVenc'],
+					'nrocuota' => $Cronograma['NroCuota'],
+					'monto' => $Cronograma['MontoPagado'],
+					'deuda' => $Cronograma['Deuda'],
+					'saldo' => $Cronograma['Saldo'],
+					'estado' => $Cronograma['Estado']
 			);
 		}
 		
