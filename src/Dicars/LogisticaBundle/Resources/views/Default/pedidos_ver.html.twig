@@ -14,6 +14,13 @@
 		<div class="box-header well" data-original-title>
 			<h2>PEDIDOS: VER DATOS</h2>
 		</div>
+		<div class="row-fluid">
+			<div class="span6">
+			</div>
+			<div class="span6">
+				<input id="pdfgen" type="button" value="Reporte" class="btn btn-success" style="float: right; margin: 10px 10px 0 0;"/>
+			</div>
+		</div>
 		<div class="box-content">
 			<div class="form-horizontal">
 				<fieldset>
@@ -76,7 +83,6 @@
 				<tbody>
 				</tbody>
 			</table>			
-			<input id="pdfgen" type="button" value="Reporte General"/>
 			<div class="form-actions">
 				<a href="{{ path('dicars_logistica_pedidos') }}" class="btn btn-success"><i class="icon icon-white icon-arrowthick-w"></i> Volver</a>
 			</div>
@@ -92,8 +98,17 @@
 					<input type="hidden" name="table_resumen" id="table_resumen"/>
 					<input type="hidden" name="table_producto" id="table_producto"/>
 					<input type="hidden" name="table_total" id="table_total"/>
-					<a id="pdfbutton" href="#"><p><i class="icon32 icon-pdf icon-color"></i> PDF</p></a>
-					<a id="xlsutton" href="#"><p><i class="icon32 icon-xls icon-color"></i> Exel</p></a>
+					<div class="sortable row-fluid ui-sortable">
+						<a id="pdfbutton" data-rel="tooltip" class="well span3 top-block" style="width: 48%;" href="#" data-original-title="Exportar a PDF.">
+							<span class="icon32 icon-color icon-pdf"></span>
+							<div>PDF</div>
+						</a>
+		
+						<a id="xlsutton" data-rel="tooltip" class="well span3 top-block" style="width: 48%;" href="#" data-original-title="Exportar a Excel.">
+							<span class="icon32 icon-color icon-xls"></span>
+							<div>Excel</div>
+						</a>
+					</div>
 				</form>				
 			</div>
 		</div>
