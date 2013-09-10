@@ -48,7 +48,21 @@
 				</div>
 			</div>
 		</div>
-				
+		<input id="pdfgen" type="button" value="Reporte General"/>
+		<div class="modal hide fade" id="exportmodal">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<h3>EXPORTAR</h3>
+			</div>
+			<div class="modal-body">
+				<form method="post" target="_blank" id="CreatePDFForm">
+					<input type="hidden" name="title" id="title"/>
+					<input type="hidden" name="table_clientes" id="table_clientes"/>
+					<a id="pdfbutton" href="#"><p><i class="icon32 icon-pdf icon-color"></i> PDF</p></a>
+					<a id="xlsutton" href="#"><p><i class="icon32 icon-xls icon-color"></i> Exel</p></a>
+				</form>				
+			</div>
+		</div>
 	</div><!--/span-->
 </div><!--/row-->
 
@@ -63,8 +77,14 @@ var oTable;
 
 var ReloadTableEditar;
 var ReloadTableRegistrar;
+var DrawCallbackClientes;
+var tabla_clientes;
 
 var CargarBotones;
+var ClientesTable;
+
+var urlExportXLS = "{{ asset('extensiones/reportes_xls/formato_reporte_clientes.php') }}";
+var urlExportPDF = "{{ asset('extensiones/reportes_pdf/formato_reporte_clientes.php') }}";
 
 function cargarEditar(cliente){
 			
@@ -83,8 +103,7 @@ function cargarEditar(cliente){
 	$("#EditarClienteForm").html(crearElementosForm(ArrayDatos));
 
 	cargarSelect(zonas,'zonaE','id','desc');
-	$('#zonaE').val(cliente.zonaId);
-	
+	$('#zonaE').val(cliente.zonaId);	
 }
 
 function cargarVer(cliente){
@@ -103,6 +122,17 @@ function cargarVer(cliente){
 }
 
 $(document).ready(function(){
+
+	DrawCallbackClientes = function (){
+		tabla_clientes = toHTML(crearTablaToArray("tclientes",
+				['ID','NOMBRE','DNI','LINEA OPERATIVA','ZONA','DIRECCIÓN'],
+				[	'style="width: 5%;" class="head" ','style="width: 25%;" class="head" ','style="width: 15%;" class="head" ',
+					'style="width: 15%;" class="head" ','style="width: 15%;" class="head" ','style="width: 25%;" class="head" ',],
+				['id','nombre','dni','linea_credito','zonadesc','direccion'],
+				[	'style="width: 5%;" ','style="width: 25%;" ','style="width: 15%;" ',
+					'style="width: 15%;" ','style="width: 15%;" ','style="width: 25%;" '],
+					ClientesTable.fnGetData()));
+	};
 
 	ubigeos = getAjaxObject("{{ path('dicars_admin_servicio_getoptionubigeo') }}");
 	cargarUbigeo('dist', 'prov', 'dep');
@@ -140,13 +170,33 @@ $(document).ready(function(){
 	              { "sWidth": "16%","mDataProp": "edit_btn"},
 	              { "sWidth": "16%","mDataProp": "doc_btn"}
 	              ];
-	oTable = createDataTable('clientes_table',UrlaDTable,FormatoDTable,null,RowCallBackFunction);
+	ClientesTable = createDataTable('clientes_table',UrlaDTable,FormatoDTable,DrawCallbackClientes,RowCallBackFunction);
 
-ReloadTableEditar = reloadclosemodal('modalEditarDatos', 'clientes_table');
-ReloadTableRegistrar = reloadclosemodal('modalRegistro', 'clientes_table');
+	ReloadTableEditar = reloadclosemodal('modalEditarDatos', 'clientes_table');
+	ReloadTableRegistrar = reloadclosemodal('modalRegistro', 'clientes_table');
+	
+	enviar('RegistrarClienteForm', ReloadTableRegistrar);
+	enviar('EditarClienteForm', ReloadTableEditar);
 
-enviar('RegistrarClienteForm', ReloadTableRegistrar);
-enviar('EditarClienteForm', ReloadTableEditar);
+	$("#pdfgen").click(function(){
+		$("#title").val("LISTA DE CLIENTES");
+		$("#table_clientes").val(tabla_clientes);
+		$("#exportmodal").modal('show');	
+	});
+	
+	$("#pdfbutton").click(function(e){
+		e.preventDefault();
+		$("#CreatePDFForm").attr("action",urlExportPDF);
+		$("#CreatePDFForm").submit();
+		$("#exportmodal").modal('hide');
+	});
+	
+	$("#xlsutton").click(function(e){
+		e.preventDefault();
+		$("#CreatePDFForm").attr("action",urlExportXLS);
+		$("#CreatePDFForm").submit();
+		$("#exportmodal").modal('hide');
+	});
 });
 
 </script>
