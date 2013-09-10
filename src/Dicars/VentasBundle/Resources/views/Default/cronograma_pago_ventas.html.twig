@@ -83,6 +83,7 @@ var jsonData;
 var Band = true;
 var Attr = ['idcrono','monto','band'];
 var ReloadTableCreditos;
+var DetalleVentaTabla;
 
 function CalcularPago(){
 	CloneAttrTable(CuotasTable,'cmonto',2);
@@ -122,11 +123,13 @@ $(document).ready(function(){
 	RowCallBackFunction = function(nRow, aData, iDisplayIndex){
 		$(nRow).find('.btn-pagar').click(function(e){
 			e.preventDefault();
+			$('#modalCuotas').modal('show');
 			CuotasTable.fnClearTable();
+			DetalleVentaTabla = getAjaxObject("{{ path('dicars_ventas_servicio_gettablaventaproductosbyid',{'idventa':''}) }}/"+aData.idventa).aaData;
 			CuotasTable.fnReloadAjax("{{ path('dicars_ventas_servicio_gettablacuotasbyId',{'idcredito':''}) }}/"+aData.idcredito);
 			$("#idcredito").val(aData.idcredito);
-			$('#modalCuotas').modal('show');
 			Band = true;
+			console.log(DetalleVentaTabla);
 		});
 	};
 	

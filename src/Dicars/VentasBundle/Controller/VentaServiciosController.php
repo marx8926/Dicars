@@ -547,4 +547,71 @@ class VentaServiciosController extends Controller{
 		$em->close();
 		return new JsonResponse(array('aaData' => $todo));
 	}
+	
+	public function getCronPagoVentaAction($idventa){
+		$em = $this->getDoctrine()->getEntityManager();
+
+		$Venta = $this->getDoctrine()
+    	->getRepository('DicarsDataBundle:VenVenta')
+    	->findOneBy(array('nventaId' => $idventa));
+		
+		$Cliente = $Venta -> getNcliente();
+		
+		$VentaProductos = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:VenDetventa')
+		->findBy(array('nventa' => $idventa ));
+		
+		$Credito = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:VenCredito')
+		->findOneBy(array('nventa' => $idventa ));
+		
+		$Nro = $Credito->getNvencreditoId();
+		$Fecha_reg = $Venta->getCventafecreg()->format('d/m/Y');
+		$Amortizacion = $Venta -> getNventatotapag();
+		$Monto_credito = $Venta -> getNventatotapag();
+		$NombreCliente = $Cliente -> getCclientenom()." ".$Cliente -> getCclienteape();
+
+		$Cronogramas = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:VenCronpago')
+		->findBy(array('nvencredito' => $Nro),array('ncronpagofecpago' => 'ASC'));		
+		
+		$DetVenta = array();
+		foreach ($VentaProductos as $key => $VentaProducto){
+			$Producto = $VentaProducto -> getNproducto();
+		
+			$DetVenta[] = array(
+					'idproducto' => $Producto -> getNproductoId(),
+					'productodesc' => $Producto -> getCproductodesc(),
+					'desc' => $Producto -> getCproductodesc()." - ".$Producto -> getNproductomarca() -> getCmarcadesc()." - ".$Producto -> getCproductotalla(),
+					'cantidad' => $VentaProducto -> getNdetventacant() ,
+					'precio'=> $VentaProducto -> getNdetventaprecunt(),
+					'importe' => $VentaProducto -> getNdetventatot(),
+					'elim_btn' => "<a class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>"
+			);
+		}
+		
+		$Cuotas = array();
+		foreach ($Cronogramas as $key => $Cronograma){
+		
+			$Cuotas[] = array(
+					'fecpago' => $Cronograma -> getNcronpagofecpago() -> format('d/m/Y'),
+					'nrocuota' => $Cronograma -> getNcronpagonrocuota(),
+					'monto' => $Cronograma -> getNcronpagomoncouapg(),
+					'idcrono' => $Cronograma -> getNcronogramaId()
+			);
+		}
+		
+		$em->clear();
+		$em->close();
+		
+		return new JsonResponse(array(
+				'detventas' => $DetVenta,
+				'cuotas' => $Cuotas,
+				'nro' => $Nro,
+				'fecreg' => $Fecha_reg,
+				'amortizacion' => $Amortizacion,
+				'monto' => $Monto_credito,
+				'cliente' => $NombreCliente));
+		
+	}
 }
