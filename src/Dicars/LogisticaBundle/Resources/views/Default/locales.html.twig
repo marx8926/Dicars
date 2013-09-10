@@ -15,8 +15,6 @@
 			<h2>Locales</h2>
 			<div class="box-icon">
 				<a href="#" class="btn btn-registrar btn-round" alt="Registrar Local"><i class="icon-plus"></i></a>
-				<!-- a href="#" class="btn btn-minimize btn-round"><i class="icon-chevron-up"></i></a>
-				<a href="#" class="btn btn-close btn-round"><i class="icon-remove"></i></a -->
 			</div>
 		</div>
 		<div class="box-content">
@@ -28,7 +26,9 @@
 					  <th>Teléfono</th>
 					  <th>Dirección</th>
 					  <th>Tipo de Rubro</th>
-					  <th>Acciones</th>
+					  <th></th>
+					  <th></th>
+					  <th></th>
 				  </tr>
 			  </thead>   
 			  <tbody>
@@ -109,7 +109,6 @@
 		</div>
 		<div class="modal hide fade" id="modalEditarLocal">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">x</button>
 				<h3>Editar Local</h3>
 			</div>
 			<form id="EditarLocalForm" class="form-horizontal" method="post" action="{{ path('dicars_logistica_editar_local') }}">
@@ -117,7 +116,6 @@
 		</div>
 		<div class="modal hide fade" id="modalVerDatos">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">x</button>
 				<h3>Datos del Local</h3>
 			</div>
 			<div class="modal-body">
@@ -218,12 +216,14 @@ $(document).ready(function(){
 
 	UrlaDTable = '{{ path("dicars_logistica_servicio_gettablalocales") }}';
 	FormatoDTable = [
-		              { "sWidth": "12%","mDataProp": "nombre_tienda"},
+		              { "sWidth": "16%","mDataProp": "nombre_tienda"},
 		              { "sWidth": "12%","mDataProp": "estado"},
 		              { "sWidth": "12%","mDataProp": "telefono"},
-		              { "sWidth": "12%","mDataProp": "direccion"},
-		              { "sWidth": "12%","mDataProp": "tiprub"},
-		              { "sWidth": "40%","mDataProp": "Acciones"}
+		              { "sWidth": "16%","mDataProp": "direccion"},
+		              { "sWidth": "13%","mDataProp": "tiprub"},
+		              { "sWidth": "11%","mDataProp": "ver_btn"},
+		              { "sWidth": "10%","mDataProp": "edit_btn"},
+		              { "sWidth": "10%","mDataProp": "elim_btn"}
 		              ];
 	oTable = createDataTable('locales_table',UrlaDTable,FormatoDTable,null, RowCallBackFunction);
 });
