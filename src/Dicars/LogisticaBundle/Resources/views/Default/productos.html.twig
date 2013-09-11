@@ -87,7 +87,6 @@ function cargarEditar(producto){
 	              	{'label':'Imagen','type':'file','name':'imagen'},
 	              	{'label':'','type':'img','value':'#'},
 	              	{'label':'Stock Min','type':'inputnumber','req':'true','step':'1', 'min':'0', 'value':producto.stockmin,'name':'stockminE'},
-	  				{'label':'Stock','type':'inputnumber', 'req':'true', 'step':'1', 'min':'0', 'value':producto.stock,'name':'stockE'},
 	  				{'label':'Stock Max','type':'inputnumber', 'req':'true', 'step':'1', 'min':'0','value':producto.stockmax,'name':'stockmaxE'},
 	  				{'label':'Precio Costo','type':'inputnumber', 'req':'true', 'step':'0.01', 'min':'0', 'max':'1000','value':producto.pcosto,'name':'preciocostoE'},
 					{'label':'Precio de venta al Contado','type':'h3'},
@@ -95,8 +94,6 @@ function cargarEditar(producto){
 					{'label':'Precio de venta al Credito','type':'h3'},
 					{'label':'Precio','type':'inputnumber', 'req':'true', 'step':'0.01', 'min':'0', 'max':'1000','value':producto.pcredito,'name':'preciocreditoE'},
 					{'label':'Estado','type':'select','name':'estadoE'},
-					/*{'label':'Porc Uti','type':'inputnumber', 'req':'', 'step':'0.01', 'min':'0', 'max':'1000','value':producto.porcuti,'name':'porcutiE'},
-					{'label':'Uti Bruta','type':'inputnumber', 'req':'', 'step':'0.01', 'min':'0', 'max':'1000','value':producto.utibruta,'name':'utibrutaE'},*/
 					{'type':'actions'}];
 		
 	$("#EditarProductoForm").html(crearElementosForm(ArrayDatos));
@@ -151,7 +148,7 @@ $(document).ready(function(){
 	cargarSelect(Categorias,'categoria','id','desc');
 
 	tipoproductos = getAjaxObject("{{ path('dicars_admin_servicio_getoptionconstantes',{'idclase':5}) }}");
-	cargarSelect(tipoproductos,'tipprod', 'id', 'desc');
+	cargarSelect(tipoproductos,'tipprod', 'valor', 'desc');
 	
 	//mostrar Registrar Cliente------------------------------------>
 	$('.btn-registrar').click(function(e){
