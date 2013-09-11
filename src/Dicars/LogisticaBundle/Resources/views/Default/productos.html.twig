@@ -78,9 +78,9 @@ var asInitVals = new Array();
 function cargarEditar(producto){			
 
 	ArrayDatos = [	{'type':'hidden','value':producto.idproducto,'name':'idE'},
-	              	{'label':'Serie','type':'input','typeinput':'text','pattern':'|^([0-9]+)+$|','req':'true', 'max':'15','value':producto.serie,'name':'serieE'},
+	              	{'label':'Serie','type':'input','typeinput':'text','pattern':'|^[a-zA-Z0-9\-\]+$|','req':'true', 'max':'15','value':producto.serie,'name':'serieE'},
 	              	{'label':'Talla','type':'input','typeinput':'text','pattern':'|^([0-9]+)+$|','req':'true', 'max':'2','value':producto.talla,'name':'tallaE'},	
-	              	{'label':'Descripción','type':'input','typeinput':'text','pattern':'|^[a-zA-Z Ã±Ã‘Ã¡Ã�Ã©Ã‰Ã­Ã�Ã³Ã“ÃºÃšÃ¼ÃœÃ§]*$|','req':'true', 'max':'200','value':producto.nombre,'name':'descripcionE'},              	
+	              	{'label':'Descripción','type':'input','typeinput':'text','pattern':'|^[a-zA-Z0-9 Ã±Ã‘Ã¡Ã�Ã©Ã‰Ã­Ã�Ã³Ã“ÃºÃšÃ¼ÃœÃ§]*$|','req':'true', 'max':'200','value':producto.nombre,'name':'descripcionE'},              	
 	              	{'label':'Marca','type':'select','name':'marcaE'},
 	              	{'label':'Categoría','type':'select','name':'categoriaE'},
 	              	{'label':'Tipo','type':'select','name':'tipoE'},	              	
@@ -202,6 +202,8 @@ $(document).ready(function(){
 
 	ReloadTableEditar = reloadclosemodal('modalEditarDatos','productos_table');
 	ReloadTableRegistrar = reloadclosemodal('modalRegistro','productos_table');
+
+	enviar('EditarProductoForm',ReloadTableEditar);
 
 });
 </script>
