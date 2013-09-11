@@ -617,4 +617,20 @@ public function getTablaDetPedidoCompraAction(){
 		$em->close();
 		return new JsonResponse($codigos[0]);
 	}
+	public function getTableSaldosAction($fecha){
+		$em = $this->getDoctrine()->getEntityManager();
+		
+		$fec = date_create_from_format('Y-m-d', $fecha);
+		
+		$sql = "call spF_kardex_SaldoInicial(".$fec->format('Y').",".$fec->format('m').",2)";
+		
+		$smt = $em->getConnection()->prepare($sql);
+		$smt->execute();
+		
+		$saldos = $smt->fetchAll();
+		
+		$em->clear();
+		$em->close();
+		return new JsonResponse(array('aaData' => $saldos));
+	}
 }

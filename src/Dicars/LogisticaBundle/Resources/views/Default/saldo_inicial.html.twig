@@ -5,7 +5,7 @@
 	<a href="{{path('dicars_logistica_homepage')}}">Logística</a> <span class="divider">/</span>
 </li>
 <li>
-	<a href="{{path('dicars_logistica_saldoini')}}">Saldo Inicial</a>
+	<a href="{{path('dicars_logistica_saldoini')}}">Saldos</a>
 </li>
 {% endblock %}
 {% block content %}
@@ -18,11 +18,8 @@
 		<div class="form-horizontal">
 				<fieldset>
 					<div class="control-group">
-						<label class="control-label">Del</label>
 						<div class="controls">
-							<input type="text" class="input-xlarge datepicker" id="date01" value="02/06/2013" style="margin: 0 18px 0 0;">
-							<label style="display:inline;">Al</label>
-					  		<input type="text" class="input-xlarge datepicker" id="date02" value="02/06/2013" style="margin: 0 18px;">
+							<input type="text" class="input-xlarge datepicker" id="date01" style="margin: 0 18px 0 0;">
 							<button id="buscarfecha" type="button" class="btn btn-info btn-buscarp" style="margin: 0 18px;"><i class="icon-search icon-white"></i>Buscar</button>
 						</div>
 					</div>
@@ -31,10 +28,11 @@
 			<table id="saldoini_table" class="table table-striped table-bordered bootstrap-datatable datatable">
 			  <thead>
 				  <tr>
-					  <th>Fecha</th>
+					  <th>Año</th>
+					  <th>Mes</th>
 					  <th>Producto</th>
 					  <th>Cantidad</th>
-					  <th>Prec. Unitario s/.</th>					  
+					  <th>Prec. Unitario s/.</th>
 					  <th>Total s/.</th>
 				  </tr>
 			  </thead>   
@@ -53,52 +51,38 @@
 
 var RowCallBackFunction;
 var UrlaDTable;
+var saldoiniTable;
+
 function getUrlRangoFecha(){
 	var date01 = $("#date01").val().split('/');
-	var date02 = $("#date02").val().split('/');
-	var fecmin = date01[2]+'-'+date01[1]+'-'+date01[0];
-	var fecmax = date02[2]+'-'+date02[1]+'-'+date02[0];
-	Urlreturn = '{{ path("dicars_logistica_servicio_gettablaordcom",{"fecmin":"fecmin","fecmax":"fecmax"}) }}';
-	Urlreturn = Urlreturn.replace('fecmin',fecmin);
-	Urlreturn = Urlreturn.replace('fecmax',fecmax);
-
+	var fecha = date01[2]+'-'+date01[1]+'-'+date01[0];
+	Urlreturn = '{{ path("dicars_logistica_servicio_gettablasaldos",{"fecha":"fecha"}) }}';
+	Urlreturn = Urlreturn.replace('fecha',fecha);
+	console.log(Urlreturn);
 	return Urlreturn;
 }
 
 $(document).ready(function(){
 	
-	/*$("#date01,#date02").val(fechaAhora());
+	$("#date01").val(fechaAhora());
 	
 	$('#buscarfecha').click(function(e){
 		e.preventDefault();
 		UrlaDTable = getUrlRangoFecha();
-		OrdComTable.fnReloadAjax(UrlaDTable);
+		saldoiniTable.fnReloadAjax(UrlaDTable);
 	});
-
-	ReloadTableOrdCompra = reloadclosemodal('EliminarOrdCompraAlert','ordcom_table');
-
-	RowCallBackFunction = function(nRow, aData, iDisplayIndex){
-		$(nRow).find('.btn-datos').attr('href',"{{ path('dicars_logistica_orden_compra_ver',{'idordcom':''}) }}/"+aData.id);
-		$(nRow).find('.btn-danger').click(function(){
-			$("#idordcompra").val(aData.id);
-			$("#EliminarOrdCompraAlert").modal('show');
-		});
-	};
 	
 	UrlaDTable = getUrlRangoFecha();
 	FormatoDTable = [
-	              { "sWidth": "10%","mDataProp": "sernum"},
-	              { "sWidth": "13%","mDataProp": "fecha_reg"},
-	              { "sWidth": "20%","mDataProp": "registrante"},
-	              { "sWidth": "11%","mDataProp": "proveedor"},
-	              { "sWidth": "13%","mDataProp": "total"},
-	              { "sWidth": "11%","mDataProp": "ver_btn"},
-	              { "sWidth": "11%","mDataProp": "elim_btn"}
+	              { "sWidth": "10%","mDataProp": "Anio"},
+	              { "sWidth": "13%","mDataProp": "Mes"},
+	              { "sWidth": "20%","mDataProp": "Producto"},
+	              { "sWidth": "11%","mDataProp": "Stock"},
+	              { "sWidth": "13%","mDataProp": "PrecUnit"},
+	              { "sWidth": "11%","mDataProp": "PrecTotal"}
 	              ];
-	OrdComTable = createDataTable('ordcom_table',UrlaDTable,FormatoDTable,null,RowCallBackFunction);
-
-	enviar("EliminarOrdCompraForm",ReloadTableOrdCompra);	
-	});*/
+	saldoiniTable = createDataTable('saldoini_table',UrlaDTable,FormatoDTable);
+	});
 	
 </script>
 {% endblock %}

@@ -77,3 +77,7 @@ dicars_logistica_servicio_getgenerarcodigosalprod:
 dicars_logistica_servicio_getgenerarcodigoingprod:
     pattern:  /servicio_getgenerarcodigoingprod
     defaults: { _controller: DicarsLogisticaBundle:LogisticaServicios:getGenerarCodigoIngProd }
+    
+dicars_logistica_servicio_gettablasaldos:
+    pattern:  /servicio_gettablasaldos/{fecha}
+    defaults: { _controller: DicarsLogisticaBundle:LogisticaServicios:getTableSaldos }
