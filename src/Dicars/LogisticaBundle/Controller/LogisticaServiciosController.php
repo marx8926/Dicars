@@ -159,7 +159,7 @@ public function getTablaProductosAction(){
 			
 			$tiporubro = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:Constante')
-			->findOneBy(array('nconstanteId' => $local -> getNlocaltiprub()));
+			->findOneBy(array('nconstanteclase'=>'2','cconstantevalor' => $local -> getNlocaltiprub()));
 			
 			$todo[] = array('id' => $local -> getNlocalId(), 
 							'nombre_tienda' => $local -> getClocaldesc(),
@@ -204,7 +204,7 @@ public function getTablaProductosAction(){
 		
 		$tiporubro = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:Constante')
-		->findOneBy(array('nconstanteId' => $local -> getNlocaltiprub()));
+		->findOneBy(array('nconstanteclase'=>'2','cconstantevalor' => $local -> getNlocaltiprub()));
 		
 		$data = array('id' => $local -> getNlocalId(),
 				'nombre_tienda' => $local -> getClocaldesc(),
