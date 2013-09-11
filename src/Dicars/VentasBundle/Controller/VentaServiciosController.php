@@ -305,6 +305,7 @@ class VentaServiciosController extends Controller{
 					'montopagado' => $Venta -> getNventatotamt() ,
 					'cuotas' => $Credito -> getNvencreditoncuota(),
 					'ver_pagar' => "<a class='btn btn-success btn-pagar' href='#'>Pagar Cuotas</a>",
+					'ver_reporte' => "<button type='button' class='btn btn-success btn-cronograma' data-loading-text='Cargando...'>Reporte del Crédito</button>",
 					);
 		}
 		$em->clear();

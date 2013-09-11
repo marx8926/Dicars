@@ -24,6 +24,7 @@
 					  <th>Nro de Cuotas</th>
 					  <th>Estado</th>
 					  <th></th>
+					  <th></th>
 				  </tr>
 			  </thead>
 		  </table>
@@ -67,6 +68,32 @@
 			<a href="{{ path('dicars_ventas_cronograma') }}" class="btn btn-success"><i class="icon icon-white icon-arrowthick-w"></i> Volver</a>
 		</div> 
 	</div><!--/span-->
+	<div class="modal hide fade" id="vercronograma">
+		<div class="modal-header">
+			<h3>¿Desea exportar el Cronograma?</h3>
+		</div>
+		<div class="modal-body">
+			<form method="post" target="_blank" id="CreatePDFForm">
+				<input type="hidden" name="tcronograma" id="tcronograma"/>
+				<input type="hidden" name="tdetalle" id="tdetalle"/>
+				<input type="hidden" name="tresumen" id="tresumen"/>
+				<div class="row-fluid ui-sortable">
+					<a id="pdfbutton" data-rel="tooltip" class="well span3 top-block" style="width: 48%;" href="#" data-original-title="Exportar a PDF.">
+						<span class="icon32 icon-color icon-pdf"></span>
+						<div>PDF</div>
+					</a>
+	
+					<a id="xlsutton" data-rel="tooltip" class="well span3 top-block" style="width: 48%;" href="#" data-original-title="Exportar a Excel.">
+						<span class="icon32 icon-color icon-xls"></span>
+						<div>Excel</div>
+					</a>
+				</div>
+			</form>
+		</div>
+		<div class="modal-footer">
+			<a href="#" class="btn" data-dismiss="modal">Cancelar</a>
+		</div>
+	</div>
 </div><!--/row-->
 
 {% endblock %}
@@ -84,6 +111,11 @@ var Band = true;
 var Attr = ['idcrono','monto','band'];
 var ReloadTableCreditos;
 var DetalleVentaTabla;
+var CronogramaReport;
+
+
+var urlExportXLS = "{{ asset('extensiones/reportes_xls/formato_reporte_cronpago.php') }}";
+var urlExportPDF = "{{ asset('extensiones/reportes_pdf/formato_reporte_cronpago.php') }}";
 
 function CalcularPago(){
 	CloneAttrTable(CuotasTable,'cmonto',2);
@@ -107,6 +139,32 @@ function CalcularPago(){
 	CopyArray(OtherDataCuotas,CuotasTable.fnGetData(),false,Attr);
 };
 
+function prepararDatos(){
+	var tabladetalle = toHTML(crearTablaToArray("tdetalle",
+			['Producto','Cantidad', 'Precio Credito','Total'],
+			['style="width: 45%;" class="prodth" ','style="width: 15%;" class="prodth" ','style="width: 20%;" class="prodth" ','style="width: 20%;" class="prodth" '],
+			['desc','cantidad','precio','importe'],
+			['style="width: 45%;" class="izquierda"','style="width: 15%;"','style="width: 20%;"','style="width: 20%;"'],
+			CronogramaReport.detventas));
+
+	var tablacronograma = toHTML(crearTablaToArray("tcronograma",
+			['Cuota','Fecha Vencimiento', 'Deuda','Monto Pagado','Saldo','Estado'],
+			['style="width: 16%;" class="prodth" ','style="width: 18%;" class="prodth" ','style="width: 16%;" class="prodth" ','style="width: 16%;" class="prodth" ','style="width: 16%;" class="prodth" ','style="width: 18%;" class="prodth" '],
+			['nrocuota','fecpago','deuda','monto','saldo','estado'],
+			['style="width: 16%;" class="izquierda"','style="width: 18%;"','style="width: 16%;"','style="width: 16%;"','style="width: 16%;"','style="width: 18%;" '],
+			CronogramaReport.cuotas));
+	
+	resumen = [	{'td1':'','td2': '','td3':'NRO CREDITO:','td4':CronogramaReport.nro,},
+	           	{'td1':'CLIENTE:','td2': CronogramaReport.cliente,'td3':'','td4':'',},
+	           	{'td1':'FECHA REGISTRO CREDITO:','td2': CronogramaReport.fecreg,'td3':'MONTO TOTAL DEUDA:','td4':CronogramaReport.monto,}	];
+
+	tablaresumen = toHTML(crearTablaToArray("resume",null,null,['td1','td2','td3','td4'],['style="width: 25%;" class="impar" ','style="width:25%;" ','style="width: 25%;" class="impar" ','style="width: 25%;" '],resumen));
+   	
+	$('#tdetalle').val(tabladetalle);
+	$('#tcronograma').val(tablacronograma);
+	$('#tresumen').val(tablaresumen);
+}
+
 $(document).ready(function(){
 	
 	$("#pagar").click(function(e){
@@ -118,6 +176,18 @@ $(document).ready(function(){
 		e.preventDefault();
 		CalcularPago();
 		$("#PagarCuotasForm").submit();
+	});
+
+	$("#pdfbutton").click(function(e){
+		e.preventDefault();
+		$("#CreatePDFForm").attr("action",urlExportPDF);
+		$("#CreatePDFForm").submit();
+	});
+	
+	$("#xlsutton").click(function(e){
+		e.preventDefault();
+		$("#CreatePDFForm").attr("action",urlExportXLS);
+		$("#CreatePDFForm").submit();
 	});
 	
 	RowCallBackFunction = function(nRow, aData, iDisplayIndex){
@@ -131,6 +201,13 @@ $(document).ready(function(){
 			Band = true;
 			console.log(DetalleVentaTabla);
 		});
+
+		$(nRow).find('.btn-cronograma').click(function(e){
+			e.preventDefault();
+			$('#vercronograma').modal('show');
+			CronogramaReport = getAjaxObject("{{ path('dicars_ventas_servicio_getcronpagoventa',{'idventa':''}) }}/"+aData.idventa);
+			prepararDatos();
+		});
 	};
 	
 	UrlaDTableCredito = "{{ path('dicars_ventas_servicio_gettablacreditosbyId',{'idcliente':''}) }}/{{ idcliente }}";
@@ -140,7 +217,8 @@ $(document).ready(function(){
 	              { "sWidth": "14%","mDataProp": "montopagado"},
 	              { "sWidth": "14%","mDataProp": "cuotas"},
 	              { "sWidth": "14%","mDataProp": "pagado"},	              
-	              { "sWidth": "13%","mDataProp": "ver_pagar"}
+	              { "sWidth": "14%","mDataProp": "ver_pagar"},
+	              { "sWidth": "14%","mDataProp": "ver_reporte"}
 	              ];
 	CreditosTable = createDataTable('creditos_table',UrlaDTableCredito,FormatoDTableCredito,null,RowCallBackFunction);
 	

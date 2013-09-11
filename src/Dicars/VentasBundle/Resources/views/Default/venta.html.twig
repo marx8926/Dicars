@@ -251,7 +251,7 @@
 			</div>
 			<div class="modal-body">
 				<div class="alert alert-error">
-				<p><i class="icon icon-alert icon-red"></i> Nesesita agregrar productos</p>
+				<p><i class="icon icon-alert icon-red"></i> Necesita agregrar productos</p>
 				</div>
 				
 			</div>
@@ -265,11 +265,10 @@
 			</div>
 			<div class="modal-body">
 				<form method="post" target="_blank" id="CreatePDFForm">
-					<input type="hidden" name="title" id="title"/>
-					<input type="hidden" name="table_resumen" id="table_resumen"/>
-					<input type="hidden" name="table_producto" id="table_producto"/>
-					<input type="hidden" name="table_total" id="table_total"/>
-					<div class="sortable row-fluid ui-sortable">
+					<input type="hidden" name="tcronograma" id="tcronograma"/>
+					<input type="hidden" name="tdetalle" id="tdetalle"/>
+					<input type="hidden" name="tresumen" id="tresumen"/>
+					<div class="row-fluid ui-sortable">
 						<a id="pdfbutton" data-rel="tooltip" class="well span3 top-block" style="width: 48%;" href="#" data-original-title="Exportar a PDF.">
 							<span class="icon32 icon-color icon-pdf"></span>
 							<div>PDF</div>
@@ -283,7 +282,7 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-				<a href="#" class="btn" data-dismiss="modal">Aceptar</a>
+				<a href="#" class="btn" data-dismiss="modal">Cancelar</a>
 			</div>
 		</div>
 	</div><!--/row-->
@@ -318,6 +317,11 @@ var CargarTablaResumen;
 
 var volverConsultar;
 var unlockload;
+
+var CronogramaReport;
+
+var urlExportXLS = "{{ asset('extensiones/reportes_xls/formato_reporte_cronpago.php') }}";
+var urlExportPDF = "{{ asset('extensiones/reportes_pdf/formato_reporte_cronpago.php') }}";
 
 function VentaUpdate(){
 	
@@ -406,19 +410,53 @@ function VentaUpdate(){
 	}
 }
 
+function prepararDatos(){
+	var tabladetalle = toHTML(crearTablaToArray("tdetalle",
+			['Producto','Cantidad', 'Precio Credito','Total'],
+			['style="width: 45%;" class="prodth" ','style="width: 15%;" class="prodth" ','style="width: 20%;" class="prodth" ','style="width: 20%;" class="prodth" '],
+			['desc','cantidad','precio','importe'],
+			['style="width: 45%;" class="izquierda"','style="width: 15%;"','style="width: 20%;"','style="width: 20%;"'],
+			CronogramaReport.detventas));
+
+	var tablacronograma = toHTML(crearTablaToArray("tcronograma",
+			['Cuota','Fecha Vencimiento', 'Deuda','Monto Pagado','Saldo','Estado'],
+			['style="width: 16%;" class="prodth" ','style="width: 18%;" class="prodth" ','style="width: 16%;" class="prodth" ','style="width: 16%;" class="prodth" ','style="width: 16%;" class="prodth" ','style="width: 18%;" class="prodth" '],
+			['nrocuota','fecpago','deuda','monto','saldo','estado'],
+			['style="width: 16%;" class="izquierda"','style="width: 18%;"','style="width: 16%;"','style="width: 16%;"','style="width: 16%;"','style="width: 18%;" '],
+			CronogramaReport.cuotas));
+	
+	resumen = [	{'td1':'','td2': '','td3':'NRO CREDITO:','td4':CronogramaReport.nro,},
+	           	{'td1':'CLIENTE:','td2': CronogramaReport.cliente,'td3':'','td4':'',},
+	           	{'td1':'FECHA REGISTRO CREDITO:','td2': CronogramaReport.fecreg,'td3':'MONTO TOTAL DEUDA:','td4':CronogramaReport.monto,}	];
+
+	tablaresumen = toHTML(crearTablaToArray("resume",null,null,['td1','td2','td3','td4'],['style="width: 25%;" class="impar" ','style="width:25%;" ','style="width: 25%;" class="impar" ','style="width: 25%;" '],resumen));
+   	
+	$('#tdetalle').val(tabladetalle);
+	$('#tcronograma').val(tablacronograma);
+	$('#tresumen').val(tablaresumen);
+}
+
 $(document).ready(function(){
 
-	unlockload = function(){
-		$.unblockUI({ 
-            onUnblock: function(){ 
-                if($("#forma_pago").val() == 2){
-                	$('#vercronograma').modal('show');
-                }
-                else
-                	$(location).attr("href","{{ path('dicars_ventas_consultar') }}"); 
-            } 
-        });
-	};	
+	unlockload = function(data){
+		if($("#forma_pago").val() == 2){
+			CronogramaReport = getAjaxObject("{{ path('dicars_ventas_servicio_getcronpagoventa',{'idventa':''}) }}/"+data.idventa);
+			console.log(CronogramaReport);
+			$.unblockUI({
+	            onUnblock: function(){ 
+	            	$('#vercronograma').modal('show');
+	            	prepararDatos(); 
+	            } 
+	        });
+        }
+		else{
+			$.unblockUI({
+	            onUnblock: function(){ 
+	                $(location).attr("href","{{ path('dicars_ventas_consultar') }}"); 
+	            } 
+	        });
+		}
+	};
 
 	volverConsultar = function(){
 		$(location).attr("href","{{ path('dicars_ventas_consultar') }}");
@@ -451,24 +489,42 @@ $(document).ready(function(){
 			    return false;
 		  }
 	});
+
+	$('#vercronograma').on('hidden', function(){
+		$(location).attr("href","{{ path('dicars_ventas_consultar') }}");
+	});
+
+	$("#pdfbutton").click(function(e){
+		e.preventDefault();
+		$("#CreatePDFForm").attr("action",urlExportPDF);
+		$("#CreatePDFForm").submit();
+	});
+	
+	$("#xlsutton").click(function(e){
+		e.preventDefault();
+		$("#CreatePDFForm").attr("action",urlExportXLS);
+		$("#CreatePDFForm").submit();
+	});
 	
 	$("#finalizar_venta").click(function(e){
 		e.preventDefault();
-    	$("#EnviarVentaForm").unbind();
-    	var ajax = $.ajax({
-			url: "{{ path ('dicars_logistica_servicio_getgenerarcodigosalprod') }}",
-			dataType: "json",
-			async: false
-		});
-		ajax.done(function(data){
-			$('#numero_salida').val(data.NUMERO);
-			$('#serie_salida').val(data.SERIE);
-	    	enviar('EnviarVentaForm',unlockload,OtherDataProductos);
-	    	$.blockUI({ 
-		    	message: "Registrando...",
-		    	css: { top: '10px', left: '', right: '10px' } 
-			});
-			$("#EnviarVentaForm").submit();
+		$.blockUI({ 
+	    	message: "Registrando...",
+	    	css: { padding: '10px' }, 
+			onBlock: function() { 
+				$("#EnviarVentaForm").unbind();
+		    	var ajax = $.ajax({
+					url: "{{ path ('dicars_logistica_servicio_getgenerarcodigosalprod') }}",
+					dataType: "json",
+					async: false
+				});
+				ajax.done(function(data){
+					$('#numero_salida').val(data.NUMERO);
+					$('#serie_salida').val(data.SERIE);
+			    	enviar('EnviarVentaForm',unlockload,OtherDataProductos);
+					$("#EnviarVentaForm").submit();
+				}); 
+        	}
 		});
 	});
 	

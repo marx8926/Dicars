@@ -483,7 +483,7 @@ function crearTablaToArray(Idtable,Head,HeadExt,Attr,AttrExt,Array){
 	var trh = $("<tr>");
 	if(Head != null){
 		for (var i = 0 ; i< Head.length ; i++){
-			trh.append("<td "+HeadExt[i]+">"+Head[i]+"</td>");
+			trh.append("<td "+HeadExt[i]+" >"+Head[i]+"</td>");
 		}
 		thead.append(trh);
 		table.append(thead);

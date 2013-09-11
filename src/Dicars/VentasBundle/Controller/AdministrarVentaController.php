@@ -221,7 +221,7 @@ class AdministrarVentaController extends Controller {
 			$em->commit();
 			$em->clear();
 			$em->close();
-			$return = array("responseCode"=>200, "datos"=>$datos, "otherdata"=>$otherdata);
+			$return = array("responseCode"=>200, "idventa"=>$Venta -> getNventaId());
 		}
 		else {
 			$return = array("responseCode"=>400, "greeting"=>"Bad");
