@@ -59,7 +59,7 @@ class AdministrarProductoController extends Controller{
 			
 			$Producto_stock_min = $datos["stockmin"];
 			$Producto_stock_max = $datos["stockmax"];
-			$Producto_stock = $datos["stock"];
+			$Producto_stock = 0;
 			$Producto_est = $datos["estado"];
 			$Producto_porc_uti = 0;
 			$Producto_porc_uti_bruta = 0;
@@ -162,10 +162,7 @@ class AdministrarProductoController extends Controller{
 				
 			$Producto_stock_min = $datos["stockminE"];
 			$Producto_stock_max = $datos["stockmaxE"];
-			$Producto_stock = $datos["stockE"];
 			$Producto_est = $datos["estadoE"];
-			$Producto_porc_uti = $datos["porcutiE"];
-			$Producto_porc_uti_bruta = $datos["utibrutaE"];
 
 			$Producto = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:Producto')
@@ -184,10 +181,7 @@ class AdministrarProductoController extends Controller{
 			$Producto->setNcategoria($Producto_categoria);
 			$Producto->setNproductostockmin($Producto_stock_min);
 			$Producto->setNproductostockmax($Producto_stock_max);
-			$Producto->setNproductostock($Producto_stock);
 			$Producto->setCproductoest($Producto_est);
-			$Producto->setNproductoporcuti($Producto_porc_uti);
-			$Producto->setNproductoutibruta($Producto_porc_uti_bruta);
 				
 			$em = $this->getDoctrine()->getEntityManager();
 			$em->beginTransaction();
