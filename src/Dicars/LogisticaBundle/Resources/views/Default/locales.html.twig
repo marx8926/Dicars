@@ -162,7 +162,7 @@ function cargarEditar(local){
 	$('#estadoE').append('<option value="0">Inhabilitado</option>');
 	$('#estadoE').val(local.estadoValor);
 
-	cargarSelect(constantes,'tiprubE', 'id', 'desc');
+	cargarSelect(constantes,'tiprubE', 'valor', 'desc');
 	$('#tiprubE').val(local.tiprubId);
 	
 	cargarUbigeo('distE', 'provE', 'depE', local.dist, local.prov, local.dep);
