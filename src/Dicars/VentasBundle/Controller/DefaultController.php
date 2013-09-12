@@ -107,8 +107,8 @@ class DefaultController extends Controller
 		->findOneBy(array('nventa' => $Venta -> getNventaId()));
 		
 		$tipo_pago = $this->getDoctrine()
-		->getRepository('DicarsDataBundle:Constante')
-		->findOneBy(array('nconstanteId' => $Venta -> getNventatippag()));
+			->getRepository('DicarsDataBundle:Constante')
+			->findOneBy(array('nconstanteclase' => '1', 'cconstantevalor' =>$Venta -> getNventatippag()));
 		
 		$tipo_moneda = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:VenTipomoneda')

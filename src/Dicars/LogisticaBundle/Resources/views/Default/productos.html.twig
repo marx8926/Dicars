@@ -104,7 +104,7 @@ function cargarEditar(producto){
 	cargarSelect(Categorias,'categoriaE','id','desc');
 	$('#categoriaE').val(producto.categoriaId);
 	
-	cargarSelect(tipoproductos,'tipoE', 'id', 'desc');
+	cargarSelect(tipoproductos,'tipoE', 'valor', 'desc');
 	$('#tipoE').val(producto.tipoId);
 
 	$('#estadoE').append('<option value="1">Habilitado</option>');
