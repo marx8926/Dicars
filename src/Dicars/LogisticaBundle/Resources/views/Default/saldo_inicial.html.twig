@@ -22,6 +22,13 @@
 			<div id="myTabContent" class="tab-content">
 				<div class="tab-pane active" id="inicial">
 					<h3>Saldos Iniciales</h3>
+					<div class="row-fluid">
+						<div class="span6">
+						</div>
+						<div class="span6">
+							<input id="xlsinigen" type="button" value="Reporte" class="btn btn-success" style="float: right; margin: 10px 10px 0 0;"/>
+						</div>
+					</div>
 					<div class="form-horizontal">
 						<fieldset>
 							<div class="control-group">
@@ -49,6 +56,13 @@
 				</div>
 				<div class="tab-pane" id="actual">
 					<h3>Saldos Actuales</h3>
+					<div class="row-fluid">
+						<div class="span6">
+						</div>
+						<div class="span6">
+							<input id="xlsactualgen" type="button" value="Reporte" class="btn btn-success" style="float: right; margin: 10px 10px 0 0;"/>
+						</div>
+					</div>
 					<div class="form-horizontal">
 						<fieldset>
 							<div class="control-group">
@@ -73,10 +87,15 @@
 					  <tbody>
 					  </tbody>
 				  </table>
+				  
 				</div>
 			</div>       
 		</div>
 	</div><!--/span-->
+	<form method="post" target="_blank" id="CreateXLSForm">
+		<input type="hidden" name="titulo" id="titulo"/>
+		<input type="hidden" name="tsaldos" id="tsaldos"/>
+	</form>
 </div><!--/row-->
 
 {% endblock %}
@@ -90,6 +109,9 @@ var UrlaDTable2;
 
 var saldoiniTable;
 var saldoactualTable;
+
+
+var urlExportXLS = "{{ asset('extensiones/reportes_xls/formato_reporte_saldos.php') }}";
 
 function getUrlRangoFecha(tipo){
 	var Urlreturn = '';
@@ -108,6 +130,20 @@ function getUrlRangoFecha(tipo){
 	return Urlreturn;
 }
 
+function prepararDatos(){
+	var tablasaldos = toHTML(crearTablaToArray("tdetalle",
+			['Año','Mes', 'Producto','Cantidad','Prec. Unitario','Prec. Total'],
+			['style="width: 15%;" class="prodth" ','style="width: 15%;" class="prodth" ','style="width: 25%;" class="prodth" ','style="width: 15%;" class="prodth" ','style="width: 15%;" class="prodth" ','style="width: 15%;" class="prodth" '],
+			['Anio','Mes','Producto','Stock','PrecUnit','PrecTotal'],
+			['style="width: 15%;"','style="width: 15%;"','style="width: 25%;"','style="width: 15%;"','style="width: 15%;"','style="width: 15%;"'],
+			saldoiniTable.fnGetData()));
+
+	var titulo = "Saldos Iniciales "+$('#date01').val();
+   	
+	$('#tsaldos').val(tablasaldos);
+	$('#titulo').val(titulo);
+}
+
 $(document).ready(function(){
 	
 	$("#date01").val(fechaAhora());
@@ -123,6 +159,13 @@ $(document).ready(function(){
 		e.preventDefault();
 		UrlaDTable2 = getUrlRangoFecha(2);
 		saldoactualTable.fnReloadAjax(UrlaDTable2);
+	});
+
+	$("#xlsinigen").click(function(e){
+		e.preventDefault();
+		prepararDatos();
+		$("#CreateXLSForm").attr("action",urlExportXLS);
+		$("#CreateXLSForm").submit();
 	});
 	
 	UrlaDTable = getUrlRangoFecha(1);

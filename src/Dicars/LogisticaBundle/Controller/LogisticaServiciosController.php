@@ -668,7 +668,7 @@ public function getTablaDetPedidoCompraAction(){
 		
 		$fec = date_create_from_format('Y-m-d', $fecha);
 	
-		$sql = "SELECT * FROM dicarsbd.log_consultar_kardex where Anio =".$fec->format('Y')." and NroMes =".$fec->format('m').";";
+		$sql = "SELECT * FROM dicarsbd.log_consultar_kardex where Anio =".$fec->format('Y')." and NroMes =".$fec->format('m');
 
 		$smt = $em->getConnection()->prepare($sql);
 		$smt->execute();

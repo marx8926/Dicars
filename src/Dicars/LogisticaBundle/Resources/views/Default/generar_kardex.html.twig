@@ -52,6 +52,7 @@
 
 var UrlaDTable;
 var KardexTable;
+var RowCallBackKardex;
 
 function getUrlRangoFecha(){
 	var date01 = $("#date01").val().split('/');
@@ -63,6 +64,17 @@ function getUrlRangoFecha(){
 }
 
 $(document).ready(function(){
+
+	$('table').removeClass("table-striped");
+	
+	RowCallBackKardex = function(nRow, aData, iDisplayIndex){
+		if(aData.TipoIngreso == "Saldo Inicial")
+			$(nRow).css("background-color","#FFFF99"); //#E3E84D #F5F3BA //#F3D9D9  //#E2F6C5 
+		/*else if(aData.TipoIngreso == "Ingreso")
+			$(nRow).css("background-color","#CCFFCC"); 
+		else
+			$(nRow).css("background-color","#FFCCCC");*/ 
+	};
 	
 	$("#date01").val(fechaAhora());
 	
@@ -82,7 +94,7 @@ $(document).ready(function(){
 	              { "sWidth": "11%","mDataProp": "PrecUnit"},
 	              { "sWidth": "11%","mDataProp": "PrecTot"}
 	              ];
-	KardexTable = createDataTable('kardex_table',UrlaDTable,FormatoDTable);
+	KardexTable = createDataTable('kardex_table',UrlaDTable,FormatoDTable,null,RowCallBackKardex);
 });
 
 </script>
