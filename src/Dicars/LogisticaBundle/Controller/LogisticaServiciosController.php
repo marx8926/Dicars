@@ -24,7 +24,7 @@ public function getTablaProductosAction(){
 			
 			$tipo_prod = $this->getDoctrine()
     		->getRepository('DicarsDataBundle:Constante')
-			->findOneBy(array('nconstanteId' => $producto -> getNproductotipo())); 
+			->findOneBy(array('nconstanteclase' => '5', 'cconstantevalor' => $producto -> getNproductotipo())); 
 			
 			$estadodesc = "";
 			if($producto -> getCproductoest() == 1)

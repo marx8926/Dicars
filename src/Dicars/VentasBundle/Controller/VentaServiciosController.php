@@ -417,7 +417,7 @@ class VentaServiciosController extends Controller{
 			
 			$tipo_pago = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:Constante')
-			->findOneBy(array('nconstanteId' => $Venta -> getNventatippag()));
+			->findOneBy(array('nconstanteclase' => '1', 'cconstantevalor' => $Venta -> getNventatippag()));
 			
 			$tipo_moneda = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:VenTipomoneda')

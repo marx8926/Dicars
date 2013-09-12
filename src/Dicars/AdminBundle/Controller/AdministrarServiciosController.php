@@ -642,7 +642,7 @@ class AdministrarServiciosController extends Controller {
 		foreach ($movimientos as $key => $movimiento){
 			$tipo_mov = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:Constante')
-			->findOneBy(array('nconstanteId' => $movimiento -> getNmovimientotip()));
+			->findOneBy(array('nconstanteclase' => '6', 'cconstantevalor'  => $movimiento -> getNmovimientotip()));
 			
 			$tipo_pago = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:Constante')
