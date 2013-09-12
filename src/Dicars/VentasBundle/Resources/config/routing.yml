@@ -67,3 +67,7 @@ dicars_ventas_consultar:
 dicars_ventas_ver:
     pattern: /venta_ver/{idventa}
     defaults: { _controller: DicarsVentasBundle:Default:venta_ver }
+    
+dicars_ventas_reporte:
+    pattern: /venta_reporte
+    defaults: { _controller: DicarsVentasBundle:Default:ventas_reporte }

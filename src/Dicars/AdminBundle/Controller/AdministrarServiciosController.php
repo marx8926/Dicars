@@ -631,12 +631,22 @@ class AdministrarServiciosController extends Controller {
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
-	public function getTablaMovAction(){
+	public function getTablaMovAction($fecmin,$fecmax){
 		$em = $this->getDoctrine()->getEntityManager();
-			
-		$movimientos = $this->getDoctrine()
-		->getRepository('DicarsDataBundle:VenMovimiento')
-		->findAll();
+		
+		$fecmindate = date_create_from_format('Y-m-d H:i:s', $fecmin."00:00:00");
+		$fecmaxdate = date_create_from_format('Y-m-d H:i:s', $fecmax."23:59:59");
+		
+		$movimientosRepository =$this->getDoctrine()
+		->getRepository('DicarsDataBundle:VenMovimiento');
+		
+		$query = $movimientosRepository->createQueryBuilder('m')
+		->where("m.dmovimientofecreg  BETWEEN :fecmin AND :fecmax")
+		->setParameter('fecmin', $fecmindate)
+		->setParameter('fecmax', $fecmaxdate)
+		->getQuery();
+		
+		$movimientos = $query->getResult();
 	
 		$todo = array();
 		foreach ($movimientos as $key => $movimiento){
@@ -646,9 +656,10 @@ class AdministrarServiciosController extends Controller {
 			
 			$tipo_pago = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:Constante')
-			->findOneBy(array('nconstanteId' => $movimiento -> getNmovimientotippag()));
+			->findOneBy(array('nconstanteclase' => '7', 'cconstantevalor' => $movimiento -> getNmovimientotippag()));
 				
 			$todo[] = array('id' => $movimiento -> getNmovimientoId(),
+					'valortipo' =>$movimiento -> getNmovimientotip(),
 					'fecha_reg' => $movimiento -> getDmovimientofecreg() -> format('d/m/Y'),
 					'concepto' => $movimiento -> getCmovimientoconcepto(),
 					'monto' => $movimiento -> getNmovimientomonto(),

@@ -61,3 +61,7 @@ dicars_ventas_servicio_gettablalistadeudoresdet:
 dicars_ventas_servicio_getcronpagoventa:
     pattern:  /servicio_getcronpagoventa/{idventa}
     defaults: { _controller: DicarsVentasBundle:VentaServicios:getCronPagoVenta }
+    
+dicars_ventas_servicio_gettablareportevetas:
+    pattern:  /servicio_gettablareportevetas/{fecmin}/{fecmax}
+    defaults: { _controller: DicarsVentasBundle:VentaServicios:getTablaReporteVentas }
