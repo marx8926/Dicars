@@ -81,3 +81,14 @@ dicars_logistica_servicio_getgenerarcodigoingprod:
 dicars_logistica_servicio_gettablasaldos:
     pattern:  /servicio_gettablasaldos/{fecha}
     defaults: { _controller: DicarsLogisticaBundle:LogisticaServicios:getTableSaldos }
+dicars_logistica_servicio_gettablasaldoactual:
+    pattern:  /servicio_gettablasaldoactual/{fecha}
+    defaults: { _controller: DicarsLogisticaBundle:LogisticaServicios:getTableSaldoActual }
+
+dicars_logistica_servicio_cierremes:
+    pattern:  /servicio_cierremes/{idlocal}
+    defaults: { _controller: DicarsLogisticaBundle:LogisticaServicios:cierreMes }
+    
+dicars_logistica_servicio_gettablakardex:
+    pattern:  /servicio_gettablakardex/{fecha}
+    defaults: { _controller: DicarsLogisticaBundle:LogisticaServicios:gettablagenerarKardex }

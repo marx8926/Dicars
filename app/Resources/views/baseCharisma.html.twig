@@ -109,6 +109,7 @@
 						<li><a class="ajax-link" href="{{ path('dicars_logistica_saldoini') }}"><i class="icon icon-black icon-document"></i><span class="hidden-tablet"> Saldos</span></a></li>
 						<li><a class="ajax-link" href="{{ path('dicars_logistica_kardex') }}"><i class="icon icon-black icon-document"></i><span class="hidden-tablet"> Generar Kardex</span></a></li>
 						<li><a class="ajax-link" href="{{ path('dicars_logistica_cons_salidaproductos') }}"><i class="icon icon-black icon-reply"></i><span class="hidden-tablet"> Salida de Productos</span></a></li>
+						<li><a class="ajax-link" href="#" id="lanza-cierremes"><i class="icon icon-black icon-key"></i><span class="hidden-tablet"> Cierre de Mes</span></a></li>
 						<li class="nav-header hidden-tablet">Administración</li>
 						<li><a class="ajax-link" href="{{ path('dicars_ventas_clientes') }}"><i class="icon icon-black icon-users"></i><span class="hidden-tablet"> Clientes</span></a></li>
 						<li><a class="ajax-link" href="{{ path('dicars_ventas_trabajadores') }}"><i class="icon icon-black icon-users"></i><span class="hidden-tablet"> Trabajadores</span></a></li>
@@ -161,6 +162,27 @@
 				</div><!--/fluid-row-->
 				
 		<hr>
+		
+		<div class="modal hide fade" id="modalcierremes">
+			<div class="modal-header">
+				<h3>¿Está seguro que desea cerrar el mes?</h3>
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="btn" data-dismiss="modal">No</a>
+				<a href="#" class="btn btn-primary" id="btn-cierremes">Sí</a>
+			</div>
+		</div>
+		<div class="modal hide fade" id="aftercierremes">
+			<div class="modal-header">
+				<h3>Cierre Exitoso!</h3>
+			</div>
+			<div class="modal-body">
+				<p>¡El cierre de mes se ha realizado exitosamente!</p>
+			</div>
+			<div class="modal-footer">
+				<a href="#" class="btn" data-dismiss="modal">Cerrar</a>
+			</div>
+		</div>
 
 		<footer>
 			<p class="pull-left">&copy; <a href="http://clmdevelopers.com" target="_blank">CLM Developers</a> 2013</p>
@@ -244,7 +266,24 @@
 	<script src="{{ asset('js/charisma.js')}}"></script>
 	<script src="{{ asset('js/jquery.blockUI.js')}}"></script>
 	<script type="text/javascript">
-	var urlES =  "{{ asset('js/es_ES.txt')}}";
+		var urlES =  "{{ asset('js/es_ES.txt')}}";
+
+		$('#lanza-cierremes').click(function(e){
+			e.preventDefault();
+			$('#modalcierremes').modal('show');
+		});
+
+		$('#btn-cierremes').click(function(){
+			$('#modalcierremes').modal('hide');
+			var ajax = $.ajax({
+				url: "{{ path('dicars_logistica_servicio_cierremes',{'idlocal':''}) }}/"+2,
+				dataType: "json",
+				async: false
+			});
+			ajax.done(function(data){
+				$('#aftercierremes').modal('show');
+			});
+		});
 	</script>
 	{% block javascript %}
 	{% endblock %}

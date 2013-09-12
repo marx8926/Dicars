@@ -633,4 +633,50 @@ public function getTablaDetPedidoCompraAction(){
 		$em->close();
 		return new JsonResponse(array('aaData' => $saldos));
 	}
+	public function getTableSaldoActualAction($fecha){
+		$em = $this->getDoctrine()->getEntityManager();
+	
+		$fec = date_create_from_format('Y-m-d', $fecha);
+	
+		$sql = "call spF_kardex_StockActual(".$fec->format('Y').",".$fec->format('m').",2)";
+	
+		$smt = $em->getConnection()->prepare($sql);
+		$smt->execute();
+	
+		$saldos = $smt->fetchAll();
+	
+		$em->clear();
+		$em->close();
+		return new JsonResponse(array('aaData' => $saldos));
+	}
+	public function cierreMesAction($idlocal){
+		$em = $this->getDoctrine()->getEntityManager();
+	
+		$sql = "call spI_cierreMes(".$idlocal.")";
+
+		$smt = $em->getConnection()->prepare($sql);
+		$smt->execute();
+	
+		$result = $smt->fetchAll();
+		
+		$em->clear();
+		$em->close();
+		return new JsonResponse(array('aaData' => $result));
+	}
+	public function gettablagenerarKardexAction($fecha) {
+		$em = $this->getDoctrine()->getEntityManager();
+		
+		$fec = date_create_from_format('Y-m-d', $fecha);
+	
+		$sql = "SELECT * FROM dicarsbd.log_consultar_kardex where Anio =".$fec->format('Y')." and NroMes =".$fec->format('m').";";
+
+		$smt = $em->getConnection()->prepare($sql);
+		$smt->execute();
+	
+		$kardex = $smt->fetchAll();
+		
+		$em->clear();
+		$em->close();
+		return new JsonResponse(array('aaData' => $kardex));
+	}
 }
