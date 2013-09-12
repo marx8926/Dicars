@@ -146,4 +146,9 @@ class DefaultController extends Controller
 				'tipo_IGV' => $tipo_IGV -> getNtipoigvproc()
     	));
     }
+    
+    public function ventas_reporteAction()
+    {
+    	return $this->render('DicarsVentasBundle:Default:venta_reporte.html.twig');
+    }
 }

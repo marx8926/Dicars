@@ -620,4 +620,19 @@ class VentaServiciosController extends Controller{
 				'cliente' => $NombreCliente));
 		
 	}
+	
+	public function getTablaReporteVentasAction($fecmin,$fecmax){
+		$em = $this->getDoctrine()->getEntityManager();
+	
+		$sql = "SELECT * FROM dicarsbd.ven_consulta_venta where FecReg between '".$fecmin."' and '".$fecmax."'";
+		
+		$smt = $em->getConnection()->prepare($sql);
+		$smt->execute();
+		
+		$ventas = $smt->fetchAll();
+		
+		$em->clear();
+		$em->close();
+		return new JsonResponse(array('aaData' => $ventas));
+	}
 }

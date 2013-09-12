@@ -86,5 +86,5 @@ dicars_admin_servicio_gettablazonapersonal:
     defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getTablaZonaPersonal }
     
 dicars_admin_servicio_gettablamov:
-    pattern:  /servicio_gettablamov
+    pattern:  /servicio_gettablamov/{fecmin}/{fecmax}
     defaults: { _controller: DicarsAdminBundle:AdministrarServicios:getTablaMov }

@@ -1,0 +1,138 @@
+{% extends "::baseCharisma.html.twig" %}
+{% block title %}Consultar - Ventas -{% endblock %}
+{% block breadcrumb %}
+<li>
+	<a href="{{path('dicars_ventas_homepage')}}">Ventas</a><span class="divider">/</span>
+</li>
+<li>
+	<a href="{{path('dicars_ventas_consultar')}}">Consultar</a>
+</li>
+{% endblock %}
+{% block content %}
+<div class="row-fluid">		
+	<div class="box span12">
+		<div class="box-header well" data-original-title>
+			<h2>VENTAS: CONSULTAR</h2>
+			<div class="box-icon">
+				<a href="{{path('dicars_ventas_venta_productos')}}" class="btn btn-round" alt="Registrar Ventas"><i class="icon-plus"></i></a>
+			</div>
+		</div>
+		<div class="box-content">
+			<div class="form-horizontal">
+				<fieldset>
+					<div class="control-group">
+						<label class="control-label">Del</label>
+						<div class="controls">
+							<input type="text" class="input-xlarge datepicker" id="date01" style="margin: 0 18px 0 0;">
+							<label style="display:inline;">Al</label>
+					  		<input type="text" class="input-xlarge datepicker" id="date02" style="margin: 0 18px;">
+							<button id="buscarfecha" type="button" class="btn btn-info btn-buscarp" style="margin: 0 18px;"><i class="icon-search icon-white"></i>Buscar</button>
+						</div>
+					</div>
+					
+				</fieldset>
+			</div>
+			<hr>
+			<table id="ventas_table" class="table table-striped table-bordered bootstrap-datatable datatable">
+				<thead>
+					<tr>
+						<th>Fec. Registro</th>
+						<th>Tienda</th>
+					  	<th>Cliente</th>
+					  	<th>Producto</th>
+					  	<th>Serie</th>
+					  	<th>Cant</th>
+					  	<th>Desct</th>
+					  	<th>P Costo</th>
+					  	<th>P Credito</th>
+					  	<th>P Contado</th>
+				  	</tr>
+			  	</thead>   
+			  	<tbody>
+				</tbody>
+			</table>
+			<div class="modal hide fade" id="modalAnular">
+				<div class="modal-header">
+					<h3>Anular Venta</h3>
+				</div>
+				<form id="AnularForm" class="form-horizontal" method="post" action="{{ path('dicars_admin_registrar_cargo') }}">
+					<div class="modal-body">
+						<input id="venta_id" name="venta_id" type="hidden" required>
+						<div class="alert alert-error">
+							¿Desea realmente <strong>ANULAR</strong> esta venta?
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="reset" class="btn btn-cancelarprov" data-dismiss="modal">Cancelar</button>
+						<button type="submit" class="btn btn-primary ">Sí</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
+{% block javascript %}
+<script src="{{ asset('js/util/functiongen.js') }}"></script>
+<script src="{{ asset('js/util/datatable_plugins.js') }}"></script>
+<script type="text/javascript">
+var VentasTable;
+var UrlaDTable;
+
+function getUrlRangoFecha(){
+		var date01 = $("#date01").val().split('/');
+		var date02 = $("#date02").val().split('/');
+		var fecmin = date01[2]+'-'+date01[1]+'-'+date01[0];
+		var fecmax = date02[2]+'-'+date02[1]+'-'+date02[0];
+		Urlreturn = '{{ path("dicars_ventas_servicio_gettablareportevetas",{"fecmin":"fecmin","fecmax":"fecmax"}) }}';
+		Urlreturn = Urlreturn.replace('fecmin',fecmin);
+		Urlreturn = Urlreturn.replace('fecmax',fecmax);
+
+		console.log(Urlreturn);
+		return Urlreturn;
+}
+$(document).ready(function(){	
+	
+	$("#date01,#date02").val(fechaAhora());
+
+	$('#buscarfecha').click(function(e){
+		e.preventDefault();
+		UrlaDTable = getUrlRangoFecha();
+		VentasTable.fnReloadAjax(UrlaDTable);
+	});
+	
+	RowCallBackFunctionVenta = function(nRow, aData, iDisplayIndex){
+		//mostrar Editar Cliente------------------------------------>
+		$(nRow).find('.btn-editar').click(function(e){
+			$(this).attr('href',"{{ path('dicars_ventas_ver',{'idventa':''}) }}/"+aData.id);
+		});
+		//mostrar Ver Datos Trabajador------------------------------------>
+		$(nRow).find('.btn-datos').click(function(e){
+			id=$(this).attr("id-data");
+			$(this).attr('href',"{{ path('dicars_ventas_ver',{'idventa':''}) }}/"+aData.id);
+		});
+		$(nRow).find('.btn-elim').click(function(e){
+			id=$(this).attr("id-data");
+			$('#venta_id').val(aData.id);
+			$('#modalAnular').modal('show');
+		});
+	};
+	
+	UrlaDTable = getUrlRangoFecha();
+	FormatoDTable = [
+				  { "sWidth": "8%","mDataProp": "FecReg"},
+	              { "sWidth": "14%","mDataProp": "Tienda"},
+	              { "sWidth": "14%","mDataProp": "Cliente"},
+	              { "sWidth": "7%","mDataProp": "Producto"},
+	              { "sWidth": "10%","mDataProp": "Serie"},
+	              { "sWidth": "6%","mDataProp": "Cant"},
+	              { "sWidth": "11%","mDataProp": "Desct"},
+	              { "sWidth": "11%","mDataProp": "PrecioCosto"},
+	              { "sWidth": "9%","mDataProp": "PrecioVentaContado"},
+	              { "sWidth": "10%","mDataProp": "PrecioVentaCredito"}
+	              ];
+	VentasTable = createDataTable('ventas_table',UrlaDTable,FormatoDTable,null,RowCallBackFunctionVenta);		
+	});
+
+</script>
+{% endblock %}
