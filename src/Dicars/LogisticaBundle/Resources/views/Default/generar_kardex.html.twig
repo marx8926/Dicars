@@ -15,7 +15,15 @@
 			<h2>KARDEX</h2>
 		</div>
 		<div class="box-content">
-		<div class="form-horizontal">
+			<div class="row-fluid">
+				<div class="span6">
+				</div>
+				<div class="span6">
+					<input id="xlsresumengen" type="button" value="Reporte Resumen" class="btn btn-success" style="float: right; margin: 10px 10px 0 0;"/>
+					<input id="xlsvalorizadogen" type="button" value="Reporte Valorizado" class="btn btn-success" style="float: right; margin: 10px 10px 0 0;"/>
+				</div>
+			</div>
+			<div class="form-horizontal">
 				<fieldset>
 					<div class="control-group">
 						<div class="controls">
@@ -42,6 +50,31 @@
 		  </table>       
 		</div>
 	</div><!--/span-->
+	<div class="modal hide fade" id="exportmodal">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<h3>EXPORTAR</h3>
+			</div>
+			<div class="modal-body">
+				<form method="post" target="_blank" id="CreatePDFForm">
+					<input type="hidden" name="title" id="title"/>
+					<input type="hidden" name="table_resumen" id="table_resumen"/>
+					<input type="hidden" name="table_producto" id="table_producto"/>
+					<input type="hidden" name="table_total" id="table_total"/>
+					<div class="sortable row-fluid ui-sortable">
+						<a id="pdfbutton" data-rel="tooltip" class="well span3 top-block" style="width: 48%;" href="#" data-original-title="Exportar a PDF.">
+							<span class="icon32 icon-color icon-pdf"></span>
+							<div>PDF</div>
+						</a>
+		
+						<a id="xlsutton" data-rel="tooltip" class="well span3 top-block" style="width: 48%;" href="#" data-original-title="Exportar a Excel.">
+							<span class="icon32 icon-color icon-xls"></span>
+							<div>Excel</div>
+						</a>
+					</div>
+				</form>				
+			</div>
+		</div>
 </div><!--/row-->
 
 {% endblock %}
