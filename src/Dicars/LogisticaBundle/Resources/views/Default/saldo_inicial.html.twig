@@ -26,7 +26,7 @@
 						<div class="span6">
 						</div>
 						<div class="span6">
-							<input id="xlsinigen" type="button" value="Reporte" class="btn btn-success" style="float: right; margin: 10px 10px 0 0;"/>
+							<input id="xlsinigen" type="button" value="Reporte a Excel" class="btn btn-success" style="float: right; margin: 10px 10px 0 0;"/>
 						</div>
 					</div>
 					<div class="form-horizontal">
@@ -60,7 +60,7 @@
 						<div class="span6">
 						</div>
 						<div class="span6">
-							<input id="xlsactualgen" type="button" value="Reporte" class="btn btn-success" style="float: right; margin: 10px 10px 0 0;"/>
+							<input id="xlsactualgen" type="button" value="Reporte a Excel" class="btn btn-success" style="float: right; margin: 10px 10px 0 0;"/>
 						</div>
 					</div>
 					<div class="form-horizontal">
@@ -130,7 +130,7 @@ function getUrlRangoFecha(tipo){
 	return Urlreturn;
 }
 
-function prepararDatos(){
+function prepararIniDatos(){
 	var tablasaldos = toHTML(crearTablaToArray("tdetalle",
 			['Año','Mes', 'Producto','Cantidad','Prec. Unitario','Prec. Total'],
 			['style="width: 15%;" class="prodth" ','style="width: 15%;" class="prodth" ','style="width: 25%;" class="prodth" ','style="width: 15%;" class="prodth" ','style="width: 15%;" class="prodth" ','style="width: 15%;" class="prodth" '],
@@ -139,6 +139,20 @@ function prepararDatos(){
 			saldoiniTable.fnGetData()));
 
 	var titulo = "Saldos Iniciales "+$('#date01').val();
+   	
+	$('#tsaldos').val(tablasaldos);
+	$('#titulo').val(titulo);
+}
+
+function prepararActDatos(){
+	var tablasaldos = toHTML(crearTablaToArray("tdetalle",
+			['Año','Mes', 'Producto','Cantidad','Prec. Unitario','Prec. Total'],
+			['style="width: 15%;" class="prodth" ','style="width: 15%;" class="prodth" ','style="width: 25%;" class="prodth" ','style="width: 15%;" class="prodth" ','style="width: 15%;" class="prodth" ','style="width: 15%;" class="prodth" '],
+			['Anio','Mes','Producto','Stock','PrecUnit','PrecTot'],
+			['style="width: 15%;"','style="width: 15%;"','style="width: 25%;"','style="width: 15%;"','style="width: 15%;"','style="width: 15%;"'],
+			saldoactualTable.fnGetData()));
+
+	var titulo = "Saldos Actuales "+$('#date02').val();
    	
 	$('#tsaldos').val(tablasaldos);
 	$('#titulo').val(titulo);
@@ -163,7 +177,14 @@ $(document).ready(function(){
 
 	$("#xlsinigen").click(function(e){
 		e.preventDefault();
-		prepararDatos();
+		prepararIniDatos();
+		$("#CreateXLSForm").attr("action",urlExportXLS);
+		$("#CreateXLSForm").submit();
+	});
+
+	$("#xlsactualgen").click(function(e){
+		e.preventDefault();
+		prepararActDatos();
 		$("#CreateXLSForm").attr("action",urlExportXLS);
 		$("#CreateXLSForm").submit();
 	});
