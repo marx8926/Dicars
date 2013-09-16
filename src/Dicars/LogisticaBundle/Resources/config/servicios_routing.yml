@@ -92,3 +92,7 @@ dicars_logistica_servicio_cierremes:
 dicars_logistica_servicio_gettablakardex:
     pattern:  /servicio_gettablakardex/{fecha}
     defaults: { _controller: DicarsLogisticaBundle:LogisticaServicios:gettablagenerarKardex }
+    
+dicars_logistica_servicio_gettablakardexval:
+    pattern:  /servicio_gettablakardexval/{fecha}
+    defaults: { _controller: DicarsLogisticaBundle:LogisticaServicios:gettablagenerarKardexVal }

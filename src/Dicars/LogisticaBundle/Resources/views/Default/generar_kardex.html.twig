@@ -50,31 +50,12 @@
 		  </table>       
 		</div>
 	</div><!--/span-->
-	<div class="modal hide fade" id="exportmodal">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">×</button>
-				<h3>EXPORTAR</h3>
-			</div>
-			<div class="modal-body">
-				<form method="post" target="_blank" id="CreatePDFForm">
-					<input type="hidden" name="title" id="title"/>
-					<input type="hidden" name="table_resumen" id="table_resumen"/>
-					<input type="hidden" name="table_producto" id="table_producto"/>
-					<input type="hidden" name="table_total" id="table_total"/>
-					<div class="sortable row-fluid ui-sortable">
-						<a id="pdfbutton" data-rel="tooltip" class="well span3 top-block" style="width: 48%;" href="#" data-original-title="Exportar a PDF.">
-							<span class="icon32 icon-color icon-pdf"></span>
-							<div>PDF</div>
-						</a>
-		
-						<a id="xlsutton" data-rel="tooltip" class="well span3 top-block" style="width: 48%;" href="#" data-original-title="Exportar a Excel.">
-							<span class="icon32 icon-color icon-xls"></span>
-							<div>Excel</div>
-						</a>
-					</div>
-				</form>				
-			</div>
-		</div>
+	<form method="post" target="_blank" id="CreateXLSGenForm">
+		<input type="hidden" name="titulo" id="titulo"/>
+		<input type="hidden" name="table_kardexgen" id="table_kardexgen"/>
+	</form>
+	<form method="post" target="_blank" id="CreateXLSValForm">
+	</form>
 </div><!--/row-->
 
 {% endblock %}
@@ -86,6 +67,10 @@
 var UrlaDTable;
 var KardexTable;
 var RowCallBackKardex;
+var tablakardexval;
+
+var urlExportGenXLS = "{{ asset('extensiones/reportes_xls/formato_reporte_kargexgen.php') }}";
+var urlExportValXLS = "{{ asset('extensiones/reportes_xls/formato_reporte_kargexval.php') }}";
 
 function getUrlRangoFecha(){
 	var date01 = $("#date01").val().split('/');
@@ -94,6 +79,29 @@ function getUrlRangoFecha(){
 	Urlreturn = Urlreturn.replace('fecha',fecha);
 
 	return Urlreturn;
+}
+
+function getUrlRangoFechaVal(){
+	var date01 = $("#date01").val().split('/');
+	var fecha = date01[2]+'-'+date01[1]+'-'+date01[0];
+	Urlreturn = '{{ path("dicars_logistica_servicio_gettablakardexval",{"fecha":"fecha"}) }}';
+	Urlreturn = Urlreturn.replace('fecha',fecha);
+
+	return Urlreturn;
+}
+
+function prepararGenDatos(){
+	var tablakardex = toHTML(crearTablaToArray("tdetalle",
+			['Año','Mes', 'Documento','Producto','Detalle','Tipo de Ingreso','Cantidad','Prec. Unitario s/.','Prec. Total s/.'],
+			['class="prodth" ','class="prodth" ','class="prodth" ','class="prodth" ','class="prodth" ','class="prodth" ','class="prodth" ','class="prodth" ','class="prodth" '],
+			['Anio','Mes','Documento','Producto','Detalle','TipoIngreso','Cantidad','PrecUnit','PrecTot'],
+			['style="width: 15%;"','style="width: 15%;"','style="width: 25%;"','style="width: 15%;"','style="width: 15%;"','style="width: 15%;"'],
+			KardexTable.fnGetData()));
+
+	var titulo = "Kardex General " + fechaAhora();
+   	
+	$('#table_kardexgen').val(tablakardex);
+	$('#titulo').val(titulo);
 }
 
 $(document).ready(function(){
@@ -115,6 +123,39 @@ $(document).ready(function(){
 		e.preventDefault();
 		UrlaDTable = getUrlRangoFecha();
 		KardexTable.fnReloadAjax(UrlaDTable);
+	});
+
+	$("#xlsresumengen").click(function(e){
+		e.preventDefault();
+		prepararGenDatos();
+		$("#CreateXLSGenForm").attr("action",urlExportGenXLS);
+		$("#CreateXLSGenForm").submit();
+	});
+	$("#xlsvalorizadogen").click(function(e){
+		e.preventDefault();
+
+		tablakardexval = $.ajax({
+	        url: getUrlRangoFechaVal(),
+	        async: false
+	    }).responseText;
+
+		$("#CreateXLSValForm").attr("action",urlExportValXLS);
+		
+		$('#CreateXLSValForm').submit(function(e){
+			e.preventDefault();
+			$.ajax({
+				async: false,
+				type: "POST",
+				dataType: 'jsonp',
+	      	  	url: "{{ asset('extensiones/reportes_xls/formato_reporte_kargexval.php') }}",
+	      	  	data: { kardex:"hola" } 
+			}).done(function(result){
+  	      		//windows.open($('#CreateXLSValForm').attr('action'),'_blank');
+  	      		console.log(result);
+			});
+		});
+		
+		$("#CreateXLSValForm").submit();
 	});
 	
 	UrlaDTable = getUrlRangoFecha();

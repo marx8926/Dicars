@@ -679,4 +679,20 @@ public function getTablaDetPedidoCompraAction(){
 		$em->close();
 		return new JsonResponse(array('aaData' => $kardex));
 	}
+	public function gettablagenerarKardexValAction($fecha) {
+		$em = $this->getDoctrine()->getEntityManager();
+	
+		$fec = date_create_from_format('Y-m-d', $fecha);
+	
+		$sql = "SELECT * FROM dicarsbd.log_consultar_kardexvalorizado where Anio =".$fec->format('Y')." and NroMes =".$fec->format('m');
+	
+		$smt = $em->getConnection()->prepare($sql);
+		$smt->execute();
+	
+		$kardex = $smt->fetchAll();
+	
+		$em->clear();
+		$em->close();
+		return new JsonResponse($kardex);
+	}
 }

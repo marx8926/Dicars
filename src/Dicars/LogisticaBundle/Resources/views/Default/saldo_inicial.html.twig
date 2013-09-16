@@ -138,7 +138,7 @@ function prepararIniDatos(){
 			['style="width: 15%;"','style="width: 15%;"','style="width: 25%;"','style="width: 15%;"','style="width: 15%;"','style="width: 15%;"'],
 			saldoiniTable.fnGetData()));
 
-	var titulo = "Saldos Iniciales "+$('#date01').val();
+	var titulo = "Saldos Iniciales " + fechaAhora();
    	
 	$('#tsaldos').val(tablasaldos);
 	$('#titulo').val(titulo);
@@ -152,7 +152,7 @@ function prepararActDatos(){
 			['style="width: 15%;"','style="width: 15%;"','style="width: 25%;"','style="width: 15%;"','style="width: 15%;"','style="width: 15%;"'],
 			saldoactualTable.fnGetData()));
 
-	var titulo = "Saldos Actuales "+$('#date02').val();
+	var titulo = "Saldos Actuales " + fechaAhora();
    	
 	$('#tsaldos').val(tablasaldos);
 	$('#titulo').val(titulo);
