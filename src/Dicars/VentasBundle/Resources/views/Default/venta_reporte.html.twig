@@ -17,6 +17,13 @@
 				<a href="{{path('dicars_ventas_venta_productos')}}" class="btn btn-round" alt="Registrar Ventas"><i class="icon-plus"></i></a>
 			</div>
 		</div>
+		<div class="row-fluid">
+			<div class="span6">
+			</div>
+			<div class="span6">
+				<input id="pdfgen" type="button" value="Reporte" class="btn btn-success" style="float: right; margin: 10px 10px 0 0;"/>
+			</div>
+		</div>
 		<div class="box-content">
 			<div class="form-horizontal">
 				<fieldset>
@@ -69,6 +76,29 @@
 				</form>
 			</div>
 		</div>
+		<div class="modal hide fade" id="exportmodal">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<h3>EXPORTAR</h3>
+			</div>
+			<div class="modal-body">
+				<form method="post" target="_blank" id="CreatePDFForm">
+					<input type="hidden" name="title" id="title"/>
+					<input type="hidden" name="table_venta" id="table_venta"/>
+					<div class="sortable row-fluid ui-sortable">
+						<a id="pdfbutton" data-rel="tooltip" class="well span3 top-block" style="width: 48%;" href="#" data-original-title="Exportar a PDF.">
+							<span class="icon32 icon-color icon-pdf"></span>
+							<div>PDF</div>
+						</a>
+		
+						<a id="xlsutton" data-rel="tooltip" class="well span3 top-block" style="width: 48%;" href="#" data-original-title="Exportar a Excel.">
+							<span class="icon32 icon-color icon-xls"></span>
+							<div>Excel</div>
+						</a>
+					</div>
+				</form>				
+			</div>
+		</div>
 	</div>
 </div>
 {% endblock %}
@@ -78,6 +108,11 @@
 <script type="text/javascript">
 var VentasTable;
 var UrlaDTable;
+var DrawCallbackMovimiento;
+var VentasArray = new Array;
+
+var urlExportXLS = "{{ asset('extensiones/reportes_xls/formato_reporte_ventas.php') }}";
+var urlExportPDF = "{{ asset('extensiones/reportes_pdf/formato_reporte_ventas.php') }}";
 
 function getUrlRangoFecha(){
 		var date01 = $("#date01").val().split('/');
@@ -91,7 +126,11 @@ function getUrlRangoFecha(){
 		console.log(Urlreturn);
 		return Urlreturn;
 }
-$(document).ready(function(){	
+$(document).ready(function(){
+	
+	DrawCallbacVentas = function (){
+		VentasArray = VentasTable.fnGetData();
+	};
 	
 	$("#date01,#date02").val(fechaAhora());
 
@@ -131,8 +170,41 @@ $(document).ready(function(){
 	              { "sWidth": "9%","mDataProp": "PrecioVentaContado"},
 	              { "sWidth": "10%","mDataProp": "PrecioVentaCredito"}
 	              ];
-	VentasTable = createDataTable('ventas_table',UrlaDTable,FormatoDTable,null,RowCallBackFunctionVenta);		
+	VentasTable = createDataTable('ventas_table',UrlaDTable,FormatoDTable,DrawCallbacVentas,RowCallBackFunctionVenta);		
 	});
+
+	$("#pdfgen").click(function(){
+		var table_venta = toHTML(crearTablaToArray("tventas",
+				['FECHA REGISTRO','TIENDA','CLIENTE','PRODUCTO','SERIE','CANT','DESCRIPCION','P COSTO','P VENTA CONTADO','P VENTA CREDITO'],
+				[	'style="width: 8%;" class="head" ','style="width: 7%;" class="head" ','style="width: 14%;" class="head" ',
+					'style="width:14%;" class="head" ','style="width: 10%;" class="head" ','style="width: 6%;" class="head" ',
+					'style="width: 11%;" class="head" ','style="width: 11%;" class="head" ','style="width: 9%;" class="head" ',
+					'style="width: 10%;" class="head" '],
+				['FecReg','Tienda','Cliente','Producto','Serie','Cant','Desct','PrecioCosto','PrecioVentaContado','PrecioVentaCredito'],
+				[	'style="width: 8%;" ','style="width: 7%;" ','style="width: 14%;" ',
+					'style="width: 14%;" ','style="width: 10%;" ','style="width: 6%;" ',
+					'style="width: 11%;" ','style="width: 11%;" ','style="width: 9%;" ',
+					'style="width: 10%;" '],
+					VentasArray));
+		$("#title").val("REPORTE DE VENTAS");
+		$("#table_venta").val(table_venta);
+		$("#exportmodal").modal('show');		
+	});
+	
+	$("#pdfbutton").click(function(e){
+		e.preventDefault();
+		$("#CreatePDFForm").attr("action",urlExportPDF);
+		$("#CreatePDFForm").submit();
+		$("#exportmodal").modal('hide');
+	});
+	
+	$("#xlsutton").click(function(e){
+		e.preventDefault();
+		$("#CreatePDFForm").attr("action",urlExportXLS);
+		$("#CreatePDFForm").submit();
+		$("#exportmodal").modal('hide');
+	});
+	
 
 </script>
 {% endblock %}

@@ -22,6 +22,7 @@
 			</div>
 			<div class="span6">
 				<input id="pdfgen" type="button" value="Reporte" class="btn btn-success" style="float: right; margin: 10px 10px 0 0;"/>
+				<input id="pdfdet" type="button" value="Detallado" class="btn btn-success" style="float: right; margin: 10px 10px 0 0;"/>
 			</div>
 		</div>
 		<div class="box-content">
@@ -106,11 +107,12 @@
 				<h3>EXPORTAR</h3>
 			</div>
 			<div class="modal-body">
-				<form method="post" target="_blank" id="CreatePDFForm">
+				<form method="post" id="CreatePDFForm">
 					<input type="hidden" name="title" id="title"/>
-					<input type="hidden" name="table_resumen" id="table_resumen"/>
-					<input type="hidden" name="table_producto" id="table_producto"/>
-					<input type="hidden" name="table_total" id="table_total"/>
+					<input type="hidden" name="table_movimiento" id="table_movimiento" value=""/>
+					<input type="hidden" name="table_ingresos" id="table_ingresos" value=""/>
+					<input type="hidden" name="table_salidas" id="table_salidas" value=""/>
+					<input type="hidden" name="total" id="total" value=""/>
 					<div class="sortable row-fluid ui-sortable">
 						<a id="pdfbutton" data-rel="tooltip" class="well span3 top-block" style="width: 48%;" href="#" data-original-title="Exportar a PDF.">
 							<span class="icon32 icon-color icon-pdf"></span>
@@ -135,10 +137,18 @@
 <script type="text/javascript">
 
 var MovimientoTable;
-var arrayingreso = new Array();
-var arraysalida = new Array();
+var MovimientoArray = new Array();
+
+var TablaIngresos = new Array();
+var TablaSalidas = new Array();
+var Total;
 
 var ReloadTableRegistrar = reloadclosemodal('modalRegistroMov', 'mov_table');
+
+var urlExportXLS = "";
+var urlExportPDF = "";
+
+var total_table;
 
 function getUrlRangoFecha(){
 	var date01 = $("#date01").val().split('/');
@@ -152,8 +162,30 @@ function getUrlRangoFecha(){
 	return Urlreturn;
 }
 
+function PrepareData(){
+	Total = 0;
+	TablaIngresos = new Array();
+	TablaSalidas = new Array();
+	$(MovimientoArray).each(function(index){
+		if(this.valortipo==1){
+			TablaIngresos.push(this);
+			Total += this.monto;
+		}else if(this.valortipo==2){
+			TablaSalidas.push(this);
+			Total -= this.monto;
+		}
+	});
+	console.log(Total);
+	console.log(TablaIngresos);
+	console.log(TablaSalidas);
+}
+
 //Init------------------------------------>
 $(document).ready(function(){
+
+	DrawCallbackMovimiento = function (){
+		MovimientoArray = MovimientoTable.fnGetData();
+	};
 	
 	$("#date01,#date02").val(fechaAhora());
 	
@@ -186,14 +218,52 @@ $(document).ready(function(){
 		              { "sWidth": "16%","mDataProp": "tipo_pago"},
 		              { "sWidth": "16%","mDataProp": "personal"}
 		              ];
-	MovimientoTable = createDataTable('mov_table',UrlaDTable,FormatoDTable, null, null);
+	MovimientoTable = createDataTable('mov_table',UrlaDTable,FormatoDTable, DrawCallbackMovimiento, null);
 
 	$("#pdfgen").click(function(){
-		/*$("#title").val("ORDEN DE COMPRA");
-		$("#table_resumen").val(tablaresumen);
-		$("#table_producto").val(tableproductos);
-		$("#table_total").val(tablatotal);*/
-		$("#exportmodal").modal('show');		
+		urlExportXLS = "{{ asset('extensiones/reportes_xls/formato_reporte_movimiento.php') }}";
+		urlExportPDF = "{{ asset('extensiones/reportes_pdf/formato_reporte_movimiento.php') }}";
+		
+		var table_movimiento = toHTML(crearTablaToArray("tmovimiento",
+				['FECHA REGISTRO','CONCEPTO','MONTO','TIPO MOV','TIPO PAGO','PERSONAL'],
+				[	'style="width: 16%;" class="head" ','style="width: 16%;" class="head" ','style="width: 16%;" class="head" ',
+					'style="width: 16%;" class="head" ','style="width: 16%;" class="head" ','style="width: 16%;" class="head" '],
+				['fecha_reg','concepto','monto','tipo_mov','tipo_pago','personal'],
+				[	'style="width: 16%;" ','style="width: 16%;" ','style="width: 16%;" ',
+					'style="width: 16%;" ','style="width: 16%;" ','style="width: 16%;" '],
+					MovimientoArray));
+		$("#title").val("REPORTE DE MOVIMIENTOS");
+		$("#table_movimiento").val(table_movimiento);
+		$("#exportmodal").modal('show');
+	});
+
+	$("#pdfdet").click(function(){
+		urlExportXLS = "{{ asset('extensiones/reportes_xls/formato_reporte_movimientodet.php') }}";
+		urlExportPDF = "{{ asset('extensiones/reportes_pdf/formato_reporte_movimientodet.php') }}";
+		PrepareData();		
+		var tableingresos = toHTML(crearTablaToArray("tmovimiento",
+				['FECHA','PERSONAL','CONCEPTO','FORMA DE PAGO','MONTO'],
+				[	'style="width: 20%;" class="head" ','style="width: 20%;" class="head" ','style="width: 20%;" class="head" ',
+					'style="width: 20%;" class="head" ','style="width: 20%;" class="head" '],
+				['fecha_reg','personal','concepto','tipo_pago','monto'],
+				[	'style="width: 20%;" ','style="width: 20%;" ','style="width: 20%;" ',
+					'style="width: 20%;" ','style="width: 20%;" '],
+					TablaIngresos));
+
+		var tablesalidas = toHTML(crearTablaToArray("tmovimiento",
+				['FECHA','PERSONAL','CONCEPTO','FORMA DE PAGO','MONTO'],
+				[	'style="width: 20%;" class="head" ','style="width: 20%;" class="head" ','style="width: 20%;" class="head" ',
+					'style="width: 20%;" class="head" ','style="width: 20%;" class="head" '],
+				['fecha_reg','personal','concepto','tipo_pago','monto'],
+				[	'style="width: 20%;" ','style="width: 20%;" ','style="width: 20%;" ',
+					'style="width: 20%;" ','style="width: 20%;" '],
+					TablaSalidas));
+		
+		$("#title").val("REPORTE DE MOVIMIENTOS");
+		$("#table_ingresos").val(tableingresos);
+		$("#table_salidas").val(tablesalidas);
+		$("#total").val(Total);
+		$("#exportmodal").modal('show');
 	});
 	
 	$("#pdfbutton").click(function(e){
