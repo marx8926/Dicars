@@ -46,9 +46,9 @@ dicars_ventas_ingregr_dia:
 dicars_ventas_reporte_zonas:
     pattern: /reporte_zonas
     defaults: { _controller: DicarsVentasBundle:Default:reporte_zonas }
-dicars_ventas_control_salidas:
-    pattern: /control_salidas
-    defaults: { _controller: DicarsVentasBundle:Default:control_salidas }
+dicars_ventas_control_salidas_zonas:
+    pattern: /control_salidas_zonas
+    defaults: { _controller: DicarsVentasBundle:Default:control_salidasZonas }
 dicars_ventas_venta_productos:
     pattern: /venta_productos
     defaults: { _controller: DicarsVentasBundle:Default:venta_productos }

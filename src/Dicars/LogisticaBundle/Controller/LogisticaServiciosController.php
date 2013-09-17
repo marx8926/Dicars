@@ -695,4 +695,20 @@ public function getTablaDetPedidoCompraAction(){
 		$em->close();
 		return new JsonResponse($kardex);
 	}
+	public function gettablasalidaZonasAction($fecha) {
+		$em = $this->getDoctrine()->getEntityManager();
+	
+		$fec = date_create_from_format('Y-m-d', $fecha);
+	
+		$sql = "SELECT * FROM dicarsbd.log_lista_salidacampo  where DATE(FecReg) = '".$fecha."'";
+	
+		$smt = $em->getConnection()->prepare($sql);
+		$smt->execute();
+	
+		$salidaZonas = $smt->fetchAll();
+	
+		$em->clear();
+		$em->close();
+		return new JsonResponse(array('aaData' => $salidaZonas));
+	}
 }

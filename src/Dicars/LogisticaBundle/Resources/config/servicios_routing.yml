@@ -96,3 +96,7 @@ dicars_logistica_servicio_gettablakardex:
 dicars_logistica_servicio_gettablakardexval:
     pattern:  /servicio_gettablakardexval/{fecha}
     defaults: { _controller: DicarsLogisticaBundle:LogisticaServicios:gettablagenerarKardexVal }
+    
+dicars_logistica_servicio_gettablasalzonas:
+    pattern:  /servicio_gettablasalzonas/{fecha}
+    defaults: { _controller: DicarsLogisticaBundle:LogisticaServicios:gettablasalidaZonas }
