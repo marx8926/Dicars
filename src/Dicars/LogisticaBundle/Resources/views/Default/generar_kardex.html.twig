@@ -55,6 +55,8 @@
 		<input type="hidden" name="table_kardexgen" id="table_kardexgen"/>
 	</form>
 	<form method="post" target="_blank" id="CreateXLSValForm">
+		<input type="hidden" name="table_kardexgenval" id="table_kardexgenval"/>
+		<input type="hidden" name="local" id="local"/>
 	</form>
 </div><!--/row-->
 
@@ -139,23 +141,14 @@ $(document).ready(function(){
 	        async: false
 	    }).responseText;
 
+		$('#table_kardexgenval').val(tablakardexval);
+		$('#local').val('Local de Inicio de Sesión')
+
 		$("#CreateXLSValForm").attr("action",urlExportValXLS);
 		
-		$('#CreateXLSValForm').submit(function(e){
-			e.preventDefault();
-			$.ajax({
-				async: false,
-				type: "POST",
-				dataType: 'jsonp',
-	      	  	url: "{{ asset('extensiones/reportes_xls/formato_reporte_kargexval.php') }}",
-	      	  	data: { kardex:"hola" } 
-			}).done(function(result){
-  	      		//windows.open($('#CreateXLSValForm').attr('action'),'_blank');
-  	      		console.log(result);
-			});
-		});
-		
-		$("#CreateXLSValForm").submit();
+		$('#CreateXLSValForm').submit();
+
+		$('#table_kardexgenval').val('');
 	});
 	
 	UrlaDTable = getUrlRangoFecha();
