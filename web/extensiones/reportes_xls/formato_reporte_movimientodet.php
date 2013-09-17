@@ -70,7 +70,7 @@ header('Expires: 0');
 		<table id="total">
 			<tr>
 				<td style="width: 80%;" class="izquierda">Total</td>
-				<td style="width: 20%;"><?php echo $table_total ?></td>
+				<td style="width: 20%;"><?php echo $total ?></td>
 			</tr>
 		</table>
 		<br>
