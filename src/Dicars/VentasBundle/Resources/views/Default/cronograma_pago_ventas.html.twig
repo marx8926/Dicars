@@ -39,7 +39,8 @@
 						<label class="control-label" for="amortizacion">A cuenta</label>
 						<div class="controls">
 							<div class="input-append">
-								<input class="input-xlarge focused" style="margin: 0 0px 0 0;" name="monto" id="monto" type="number" step="0.1" value="0" min="0">
+								<input class="input-xlarge focused" style="margin: 0 0px 0 0;" id="monto" type="number" step="0.1" value="0" min="0">
+								<input type="hidden" name="monto" id="montoapg">
 								<span id="spanamort" class="add-on">s/.</span>
 							</div>
 							<input type="hidden" name="idcredito" id="idcredito">
@@ -52,7 +53,8 @@
 					  <tr>
 						  <th>Fecha de Pago</th>
 						  <th>Nro de Cuota</th>
-						  <th>Monto</th>
+						  <th>Monto Pagar</th>
+						  <th>Monto Aplicado</th>
 					  </tr>
 				  </thead>   
 				  <tbody>			
@@ -108,7 +110,7 @@ var CreditosTable;
 var RowCallBackFunction;
 var jsonData;
 var Band = true;
-var Attr = ['idcrono','monto','band'];
+var Attr = ['idcrono','montoapg','montoapl','band'];
 var ReloadTableCreditos;
 var DetalleVentaTabla;
 var CronogramaReport;
@@ -118,24 +120,31 @@ var urlExportXLS = "{{ asset('extensiones/reportes_xls/formato_reporte_cronpago.
 var urlExportPDF = "{{ asset('extensiones/reportes_pdf/formato_reporte_cronpago.php') }}";
 
 function CalcularPago(){
-	CloneAttrTable(CuotasTable,'cmonto',2);
+	CloneAttrTable(CuotasTable,'cmonto',3);
 	AddAttr(CuotasTable.fnGetData(), 'band',0);
 	var Array = CuotasTable.fnGetData();
-	var Monto = $("#monto").val();
+	var Monto = parseFloat($("#monto").val());
+	var total = 0;
 	$(Array).each(function(index){
-		Monto-=this.monto;
-		var quedan = 0;
-		if(Monto <= 0){
-			quedan = Math.abs(Monto);
-			Monto = 0;
+		var deudacuota = parseFloat(this.montoapg - this.montoapl);
+		if(deudacuota != 0){
+			var aplicado = 0 ;
+			Monto-=deudacuota;
+			if(Monto <= 0){
+				aplicado = parseFloat(this.montoapl) + (Monto) + deudacuota;
+				total = parseFloat(total)+(Monto) + deudacuota;
+				Monto = 0;
+			}
+			else{
+				aplicado = parseFloat(this.montoapg);
+				total = total + parseFloat(this.montoapg - this.montoapl);				
+			}
+			CuotasTable.fnUpdate(aplicado.toFixed(2),index,3);
+			this.band= 1;
 		}
-		else
-			quedan = 0;
-		CuotasTable.fnUpdate(quedan.toFixed(2),index,2);
-		CuotasTable.fnGetData()[index].band= 1;
 		return (Monto != 0);
 	});
-	console.log(CuotasTable.fnGetData());
+	$("#montoapg").val(total.toFixed(2));
 	CopyArray(OtherDataCuotas,CuotasTable.fnGetData(),false,Attr);
 };
 
@@ -166,6 +175,12 @@ function prepararDatos(){
 }
 
 $(document).ready(function(){
+	$("#EnviarVentaForm").bind("keypress", function(e) {
+		  if (e.keyCode == 13) {               
+			    e.preventDefault();
+			    return false;
+		  }
+	});
 	
 	$("#pagar").click(function(e){
 		e.preventDefault();
@@ -199,7 +214,6 @@ $(document).ready(function(){
 			CuotasTable.fnReloadAjax("{{ path('dicars_ventas_servicio_gettablacuotasbyId',{'idcredito':''}) }}/"+aData.idcredito);
 			$("#idcredito").val(aData.idcredito);
 			Band = true;
-			console.log(DetalleVentaTabla);
 		});
 
 		$(nRow).find('.btn-cronograma').click(function(e){
@@ -230,7 +244,8 @@ $(document).ready(function(){
 		"aoColumns": [
 		              { "sWidth": "15%","mDataProp": "fecpago"},
 		              { "sWidth": "15%","mDataProp": "nrocuota"},
-		              { "sWidth": "15%","mDataProp": "monto"}
+		              { "sWidth": "15%","mDataProp": "montoapg"},
+		              { "sWidth": "15%","mDataProp": "montoapl"}
 		              ],
 		"fnCreatedRow": function( nRow, aData, iDisplayIndex ) {
 						aData.band = 1;
@@ -238,7 +253,7 @@ $(document).ready(function(){
 		"fnDrawCallback": function(oSettings ){
 					setTimeout(function() {
 						if(Band){
-							CloneAttr(CuotasTable.fnGetData(),'monto','cmonto');
+							CloneAttr(CuotasTable.fnGetData(),'montoapl','cmonto');
 							
 							if(CuotasTable.fnGetData().length>0)
 								Band = false;

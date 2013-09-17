@@ -326,7 +326,8 @@ class VentaServiciosController extends Controller{
 			$todo[] = array(
 					'fecpago' => $Cronograma -> getNcronpagofecpago() -> format('d/m/Y'),
 					'nrocuota' => $Cronograma -> getNcronpagonrocuota(),
-					'monto' => $Cronograma -> getNcronpagomoncouapg(),
+					'montoapg' => $Cronograma -> getNcronpagomoncouapg(),
+					'montoapl' => $Cronograma -> getNcronpagomoncouapl(),
 					'idcrono' => $Cronograma -> getNcronogramaId()
 			);
 		}

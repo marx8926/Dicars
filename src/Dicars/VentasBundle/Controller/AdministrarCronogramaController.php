@@ -1,6 +1,8 @@
 <?php
 namespace Dicars\VentasBundle\Controller;
 
+use Dicars\DataBundle\Entity\VenTransaccion;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\TransactionRequiredException;
@@ -21,39 +23,51 @@ class AdministrarCronogramaController extends Controller{
 			$Credito = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:VenCredito')
 			->findOneBy(array('nvencreditoId' => $datos["idcredito"]));
-			
-			$Pagado = $datos['monto']+$Credito -> getNvencreditoppag();
-			$Credito -> setNvencreditoppag($Pagado);
 				
 			$Venta = $Credito -> getNventa();
 			
-			$Saldo = $Venta ->getNventasaldo() - $datos['monto'];
+			$venta_trans = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:VenTransaccion')
+			->findOneBy(array('nventa' => $Venta -> getNventaId()));
 			
-			if($Saldo < 0){
-				$Venta -> setNventasaldo(0);
-				$Saldo = 0;
-			}else
-				$Venta -> setNventasaldo($Saldo);
+			$Empleado = $venta_trans -> getNpersonal();
+			$FechaReg = new \DateTime();
 			
-			$VentaPagado = ($Venta -> getNventatotapag() - $Saldo);
-			$Venta -> setNventatotamt($VentaPagado);
+			$Porcentage = ($datos['monto'] + $Venta -> getNventatotamt()) / ($Venta -> getNventatotapag())*100;
+			$Credito -> setNvencreditoppag($Porcentage);
 			
+			$Venta -> setNventatotamt($Venta -> getNventatotamt() + $datos['monto']);
+			$Venta -> setNventasaldo($Venta -> getNventatotapag() - $Venta -> getNventatotamt());
+			
+			if($Porcentage >= 100)
+				$Venta -> setCventaest(2);
+ 				
 			$em = $this->getDoctrine()->getEntityManager();
 			$em->beginTransaction();
-		try {
-			$em->flush();
+		
 			foreach($otherdata as $key => $data){
 				if($data["band"]==1){
 					$Cronograma = $this->getDoctrine()
 					->getRepository('DicarsDataBundle:VenCronpago')
 					->findOneBy(array('ncronogramaId' => $data["idcrono"]));
 					
-					$Cronograma -> setNcronpagofecreg(new \DateTime());
-					$Cronograma -> setNcronpagomoncouapg($data['monto']);
-					$em->flush();
+					$Cronograma -> setNcronpagofecreg($FechaReg);
+					$Cronograma -> setNcronpagomoncouapl($data['montoapl']);
+					
 				}
 			}
-		} catch (Exception $e) {
+			$Transaccion = new VenTransaccion();
+			$Transaccion -> setCtransacciondesc("Pago de cuotas");
+			$Transaccion -> setDtransaccionfecreg($FechaReg);
+			$Transaccion -> setNpersonal($Empleado);
+			$Transaccion -> setNtransaccionmont($datos['monto']);
+			$Transaccion -> setNtransacciontippag(1);
+			$Transaccion -> setNventa($Venta);
+			
+			$em -> persist($Transaccion);
+			try {
+				$em->flush();
+			} catch (Exception $e) {
 			$em->rollback();
 			$em->close();
 			$return = array("responseCode"=>400, "greeting"=>"Bad");

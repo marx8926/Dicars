@@ -377,6 +377,7 @@ function VentaUpdate(){
 	
 	$("#spanamort").text(TipoMoneda);
 	montocuota = $("#saldo").val()/$("#num_cuotas").val();
+	montocuota = Math.ceil(montocuota*100)/100;
 	$("#montocuota").val(montocuota);
 	$("#spancouota").text("x "+TipoMoneda+" "+montocuota.toFixed(2));
 
