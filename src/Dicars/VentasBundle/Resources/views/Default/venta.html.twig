@@ -331,6 +331,8 @@ function VentaUpdate(){
 	var montodesc;
 	var montoigv;
 	var montoproductos;
+
+	$("#prim_cuota").attr("required",false);
 	
 	if($("#tipo_moneda").val()==1)
 		TipoMoneda = " - s/.";
@@ -356,12 +358,14 @@ function VentaUpdate(){
 			$("#resume-credito").show();
 			montoproductos = totalcredito;
 			tipoprecio = 'pcredito';
+			$("#prim_cuota").attr("required",true);
 		}
 
 		else{
 			$("#cuotas_block").hide();
 			montoproductos = totalcontado;
 			tipoprecio = 'pcontado';
+			$('#amortizacion').attr('min', "1");
 		}
 	}
 	

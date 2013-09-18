@@ -84,7 +84,7 @@ class AdministrarVentaController extends Controller {
 			$DesTrans = "Venta al Contado";
 			$MontoTrans = $datos["total"];
 			
-			if ($Saldo == 0) 
+			if ($TipoPago == 1) 
 				$Estado = '2'; //pagada/cancelada
 			else if($Saldo > 0 && $TipoPago == 3)
 				$Estado = '3'; //separada
