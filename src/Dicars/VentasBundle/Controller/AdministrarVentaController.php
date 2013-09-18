@@ -141,10 +141,12 @@ class AdministrarVentaController extends Controller {
 				$em->persist($VentaCredito);
 					
 				for($i = 0 ; $i < $NumCuotas; $i++){
-			
+					
+					$FechaPagoReg = date_create_from_format('d/m/Y', $FechaDiaPago -> format("d/m/Y"));
+					
 					$CronoPago = new VenCronpago();
-					$CronoPago -> setNcronpagofecpago($FechaDiaPago);
-					$CronoPago -> setNcronpagofecreg($FechaDiaPago);
+					$CronoPago -> setNcronpagofecpago($FechaPagoReg);
+					$CronoPago -> setNcronpagofecreg($FechaReg);
 					$CronoPago -> setNcronpagomoncouapg($datos["montocuota"]);
 					$CronoPago -> setNcronpagomoncouapl(0);
 					$CronoPago -> setNvencredito($VentaCredito);

@@ -1,6 +1,6 @@
 <?php
 $title = $_POST['title'];
-$table_ventas = $_POST['table_venta'];
+$table_movimiento = $_POST['table_movimiento'];
 
 header('Content-type: application/x-msdownload; charset=utf-16');
 header('Content-Disposition: attachment; filename=reporte_excel.xls');
@@ -25,18 +25,18 @@ header('Expires: 0');
 		text-transform: uppercase;
 		width: 100%;
 	}
-	#tventas{
+	#tmovimiento{
 		border-collapse: collapse;
 		text-align: center;
 	}
-	#tventas td.head{
+	#tmovimiento td.head{
 		background: #e7e6e6;
 		text-transform: uppercase;
 	}
-	#tventas th, #tventas td{
+	#tmovimiento th, #tmovimiento td{
 		border: black 1px solid;
 	}
-	#tventas td.izquierda{
+	#tmovimiento td.izquierda{
 		text-align: left;
 		padding-left: 17px;
 	}
@@ -47,12 +47,13 @@ header('Expires: 0');
 	</style>
 	</head>
 	<body>
+		Fecha Emision: <?php echo date('d/m/Y'); ?><br>
 		<div id="divh3">
 			<h3><?php echo $title ?></h3>
 		</div>
 		<br>
-		<?php echo $table_ventas ?><br>
+		<?php echo $table_movimiento ?><br>
 		<br>
-		Fecha Emision: <?php echo date('d/m/Y'); ?>
+		
     </body>
     </html>

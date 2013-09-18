@@ -41,13 +41,13 @@ ob_start();
 	-->
 	</style>
 	<page>
+		Fecha Emision: <?php echo date('d/m/Y'); ?><br>
 		<div id="divh3">
 			<h3><?php echo $title ?></h3>
 		</div>
 		<br>
 		<?php echo $table_movimiento ?><br>
 		<br>
-		Fecha Emision: <?php echo date('d/m/Y'); ?>
     </page>
     <?php 
     $content = ob_get_clean();

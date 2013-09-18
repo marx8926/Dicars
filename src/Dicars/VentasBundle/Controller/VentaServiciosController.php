@@ -291,7 +291,7 @@ class VentaServiciosController extends Controller{
 			->getRepository('DicarsDataBundle:VenCredito')
 			->findOneBy(array('nventa' => $Venta -> getNventaId()));
 			
-			if($Venta -> getNventasaldo() == 0)
+			if($Venta -> getCventaest() == 2)
 				$pagado = "<span class='label label-success'>Pagada</span>";
 			else
 				$pagado = "<span class='label label-important'>Pendiente</span>";

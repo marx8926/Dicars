@@ -56,15 +56,17 @@ class AdministrarCronogramaController extends Controller{
 					
 				}
 			}
-			$Transaccion = new VenTransaccion();
-			$Transaccion -> setCtransacciondesc("Pago de cuotas");
-			$Transaccion -> setDtransaccionfecreg($FechaReg);
-			$Transaccion -> setNpersonal($Empleado);
-			$Transaccion -> setNtransaccionmont($datos['monto']);
-			$Transaccion -> setNtransacciontippag(1);
-			$Transaccion -> setNventa($Venta);
+			if($datos['monto'] > 0){
+				$Transaccion = new VenTransaccion();
+				$Transaccion -> setCtransacciondesc("Pago de cuotas");
+				$Transaccion -> setDtransaccionfecreg($FechaReg);
+				$Transaccion -> setNpersonal($Empleado);
+				$Transaccion -> setNtransaccionmont($datos['monto']);
+				$Transaccion -> setNtransacciontippag(1);
+				$Transaccion -> setNventa($Venta);
 			
-			$em -> persist($Transaccion);
+				$em -> persist($Transaccion);
+			}
 			try {
 				$em->flush();
 			} catch (Exception $e) {
