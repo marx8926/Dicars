@@ -2,4 +2,10 @@ dicars_ventas_registrar_venta:
     pattern:  /registrar_venta    
     defaults: { _controller: DicarsVentasBundle:AdministrarVenta:RegistrarVenta }
     requirements:
-          _method: POST                
+          _method: POST
+          
+dicars_ventas_editarr_venta:
+    pattern:  /editar_venta
+    defaults: { _controller: DicarsVentasBundle:AdministrarVenta:EditarVenta }
+    requirements:
+          _method: POST            

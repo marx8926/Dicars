@@ -355,11 +355,11 @@ function VentaUpdate(){
 		$("#importe").attr("min", "0");
 		$("#saldo_block").show();
 		$("#pagocont_block").hide();
+		$("#resume-credito").show();
 		
 		if(formapago == 2){
 			UnselectRow("select_producto_table");
 			$("#cuotas_block").show();
-			$("#resume-credito").show();
 			montoproductos = totalcredito;
 			tipoprecio = 'pcredito';
 			$("#prim_cuota").attr("required",true);

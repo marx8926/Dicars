@@ -147,6 +147,66 @@ class DefaultController extends Controller
     	));
     }
     
+    public function venta_editarAction($idventa)
+    {
+    	$Venta = $this->getDoctrine()
+    	->getRepository('DicarsDataBundle:VenVenta')
+    	->findOneBy(array('nventaId' => $idventa));
+    
+    	if($Venta -> getCventaest() == 0)
+    		$estado = "<span class='label'>Anulada</span>";
+    	else if ($Venta -> getCventaest() == 1)
+    		$estado = "<span class='label label-important'>Pendiente/Deuda</span>";
+    	else if ($Venta -> getCventaest() == 2)
+    		return $this->redirect($this->generateUrl('dicars_ventas_consultar'));
+    	else
+    		$estado = "<span class='label label-warning'>Separada</span>";
+    
+    	$venta_trans = $this->getDoctrine()
+    	->getRepository('DicarsDataBundle:VenTransaccion')
+    	->findOneBy(array('nventa' => $Venta -> getNventaId()));
+    
+    	$tipo_pago = $this->getDoctrine()
+    	->getRepository('DicarsDataBundle:Constante')
+    	->findOneBy(array('nconstanteclase' => '1', 'cconstantevalor' =>$Venta -> getNventatippag()));
+    
+    	$tipo_moneda = $this->getDoctrine()
+    	->getRepository('DicarsDataBundle:VenTipomoneda')
+    	->findOneBy(array('ntipomoneda' => $Venta -> getNtipomoneda()));
+    
+    	$local = $this->getDoctrine()
+    	->getRepository('DicarsDataBundle:Local')
+    	->findOneBy(array('nlocalId' => $Venta -> getNlocal()));
+    
+    	$tipo_IGV = $this->getDoctrine()
+    	->getRepository('DicarsDataBundle:VenTipoigv')
+    	->findOneBy(array('ntipoigv' => $Venta -> getNtipoigv()));
+    
+    	return $this->render('DicarsVentasBundle:Default:venta_editar.html.twig',array(
+    			'id' => $Venta -> getNventaId(),
+    			'fecha_reg' => $Venta -> getCventafecreg() -> format('d/m/Y'),
+    			'cliente' => $Venta -> getNcliente() -> getCclientenom()." ".$Venta -> getNcliente() -> getCclienteape() ,
+    			'direccion' => $Venta -> getNcliente() -> getCclientecdir(),
+    			'vendedor' => $venta_trans -> getNpersonal() -> getCpersonalnom()." ".$venta_trans -> getNpersonal() -> getCpersonalape(),
+    			'tipo_pagoId' => $Venta -> getNventatippag(),
+    			'tipo_pago' => $tipo_pago -> getCconstantedesc(),
+    			'total' => $Venta -> getNventatotapag(),
+    			'estadoId' => $Venta -> getCventaest(),
+    			'estado' => $estado,
+    			'tipo_monedaId' => $Venta -> getNtipomoneda(),
+    			'tipo_moneda' => $tipo_moneda -> getCtipomonedadesc(),
+    			'subtotal' => $Venta -> getNventasubtotal(),
+    			'descuento' => $Venta -> getNventadscto(),
+    			'observacion' => $Venta -> getCventaobsv(),
+    			'amortizado' => $Venta -> getNventatotamt(),
+    			'saldo' => $Venta -> getNventasaldo(),
+    			'localId' => $Venta -> getNlocal(),
+    			'local' => $local,
+    			'tipo_IGVId' => $Venta -> getNtipoigv(),
+    			'tipo_IGV' => $tipo_IGV -> getNtipoigvproc()
+    	));
+    }
+    
     public function ventas_reporteAction()
     {
     	return $this->render('DicarsVentasBundle:Default:venta_reporte.html.twig');
