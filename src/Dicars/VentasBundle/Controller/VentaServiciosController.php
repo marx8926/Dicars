@@ -636,4 +636,18 @@ class VentaServiciosController extends Controller{
 		$em->close();
 		return new JsonResponse(array('aaData' => $ventas));
 	}
+	public function cuadreCajaAction($fecha, $local){
+		$em = $this->getDoctrine()->getEntityManager();
+	
+		$sql = "call sp_venta_cuadrecaja('".$fecha."', ".$local.")";
+	
+		$smt = $em->getConnection()->prepare($sql);
+		$smt->execute();
+	
+		$result = $smt->fetchAll();
+	
+		$em->clear();
+		$em->close();
+		return new JsonResponse($result);
+	}
 }

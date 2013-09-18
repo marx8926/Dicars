@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es_PE">
 <head>
 	<meta charset="utf-8">
 	<title>{% block title %}{% endblock %} DiCars</title>
@@ -101,7 +101,9 @@
 						<li><a class="ajax-link" href="{{ path('dicars_ventas_regimp_tarjetacredito') }}"><i class="icon icon-black icon-profile"></i><span class="hidden-tablet"> Tarjeta de Crédito</span></a></li>
 						<li><a href="{{ path('dicars_admin_movimientos') }}"><i class="icon icon-black icon-transfer-ew"></i><span class="hidden-tablet"> Movimientos</span></a></li>
 						<li><a class="ajax-link" href="{{ path('dicars_ventas_ingregr_dia') }}"><i class="icon icon-black icon-page"></i><span class="hidden-tablet"> Reporte de Caja</span></a></li>
+						<li><a class="ajax-link" href="{{ path('dicars_ventas_reporte') }}"><i class="icon icon-black icon-page"></i><span class="hidden-tablet"> Reporte de Venta de Tienda</span></a></li>
 						<li><a class="ajax-link" href="{{ path('dicars_ventas_reporte_zonas') }}"><i class="icon icon-black icon-page"></i><span class="hidden-tablet"> Reporte de Venta de Zonas</span></a></li>
+						<li><a class="ajax-link" href="#" id="lanza-cuadrecaja"><i class="icon icon-black icon-page"></i><span class="hidden-tablet"> Cuadre de Caja</span></a></li>
 						<li class="nav-header hidden-tablet">Logística</li>
 						<li><a class="ajax-link" href="{{ path('dicars_logistica_productos') }}"><i class="icon icon-black icon-inbox"></i><span class="hidden-tablet"> Administrar Productos</span></a></li>
 						<li><a class="ajax-link" href="{{ path('dicars_logistica_proveedores') }}"><i class="icon icon-black icon-users"></i><span class="hidden-tablet"> Administrar Proveedores</span></a></li>
@@ -111,7 +113,7 @@
 						<li><a class="ajax-link" href="{{ path('dicars_logistica_saldoini') }}"><i class="icon icon-black icon-document"></i><span class="hidden-tablet"> Saldos</span></a></li>
 						<li><a class="ajax-link" href="{{ path('dicars_logistica_kardex') }}"><i class="icon icon-black icon-document"></i><span class="hidden-tablet"> Generar Kardex</span></a></li>
 						<li><a class="ajax-link" href="{{ path('dicars_logistica_cons_salidaproductos') }}"><i class="icon icon-black icon-reply"></i><span class="hidden-tablet"> Salida de Productos</span></a></li>
-						<li><a class="ajax-link" href="{{ path('dicars_ventas_control_salidas_zonas') }}"><i class="icon icon-black icon-page"></i><span class="hidden-tablet"> Control de Salida Zonas</span></a></li>
+						<li><a class="ajax-link" href="{{ path('dicars_ventas_control_salidas_zonas') }}"><i class="icon icon-black icon-page"></i><span class="hidden-tablet"> Reporte Salida Productos</span></a></li>
 						<li><a class="ajax-link" href="#" id="lanza-cierremes"><i class="icon icon-black icon-key"></i><span class="hidden-tablet"> Cierre de Mes</span></a></li>
 						<li class="nav-header hidden-tablet">Administración</li>
 						<li><a class="ajax-link" href="{{ path('dicars_admin_homepage') }}"><i class="icon icon-black icon-user"></i><span class="hidden-tablet"> Panel de Administración</span></a></li>
@@ -182,7 +184,31 @@
 				<a href="#" class="btn" data-dismiss="modal">Cerrar</a>
 			</div>
 		</div>
-
+	
+		<div class="modal hide fade" id="modalcuadrecaja">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">×</button>
+				<h3>EXPORTAR</h3>
+			</div>
+			<div class="modal-body">
+				<form method="post" target="_blank" id="FormCuadreCaja">
+					<input type="hidden" name="table_cuadrecaja" id="table_cuadrecaja"/>
+					<p>Escoga el formato en que desea exportar el Cuadre de Caja</p>
+					<div class="sortable row-fluid ui-sortable">
+						<a id="pdfcuadrecaja" data-rel="tooltip" class="well span3 top-block" style="width: 48%;" href="#" data-original-title="Exportar a PDF.">
+							<span class="icon32 icon-color icon-pdf"></span>
+							<div>PDF</div>
+						</a>
+		
+						<a id="xlscuadrecaja" data-rel="tooltip" class="well span3 top-block" style="width: 48%;" href="#" data-original-title="Exportar a Excel.">
+							<span class="icon32 icon-color icon-xls"></span>
+							<div>Excel</div>
+						</a>
+					</div>
+				</form>				
+			</div>
+		</div>
+		
 		<footer>
 			<p class="pull-left">&copy; <a href="http://clmdevelopers.com" target="_blank">CLM Developers</a> 2013</p>
 			<p class="pull-right">Powered by: <a href="http://clmdevelopers.com" target="_blank">CLM Developers</a></p>
@@ -267,6 +293,9 @@
 	<script type="text/javascript">
 		var urlES =  "{{ asset('js/es_ES.txt')}}";
 
+		var urlExportCierreXLS = "{{ asset('extensiones/reportes_xls/formato_reporte_cuadrecaja.php') }}";
+		var urlExportCierrePDF = "{{ asset('extensiones/reportes_pdf/formato_reporte_cuadrecaja.php') }}";
+
 		$('#lanza-cierremes').click(function(e){
 			e.preventDefault();
 			$('#modalcierremes').modal('show');
@@ -283,6 +312,50 @@
 				$('#aftercierremes').modal('show');
 			});
 		});
+		
+
+		function getUrlCuadreCajaFecha(){
+			var date01 = fechaAhora().split('/');
+			var fecha = date01[2]+'-'+date01[1]+'-'+date01[0];
+			Urlreturn = '{{ path("dicars_ventas_servicio_gettablacuadrecaja",{"fecha":"fecha","local":"local"}) }}';
+			Urlreturn = Urlreturn.replace('fecha',fecha);
+			Urlreturn = Urlreturn.replace('local',2);
+			console.log(fecha);
+			console.log(Urlreturn);
+			return Urlreturn;
+		}
+
+		function prepararDatosCuadreCaja(){
+			tablacuadrecaja = $.ajax({
+		        url: getUrlCuadreCajaFecha(),
+		        async: false
+		    }).responseText;
+
+			$('#table_cuadrecaja').val(tablacuadrecaja);
+		}
+		
+		$('#lanza-cuadrecaja').click(function(e){
+			e.preventDefault();
+			prepararDatosCuadreCaja();
+			$('#modalcuadrecaja').modal('show');
+		});
+
+		$('#pdfcuadrecaja').click(function(e){
+			e.preventDefault();
+			$("#FormCuadreCaja").attr("action",urlExportCierrePDF);
+			$('#FormCuadreCaja').submit();
+			$('#table_cuadrecaja').val('');
+			$('#modalcuadrecaja').modal('hide');
+		});
+
+		$('#xlscuadrecaja').click(function(e){
+			e.preventDefault();
+			$("#FormCuadreCaja").attr("action",urlExportCierreXLS);
+			$('#FormCuadreCaja').submit();
+			$('#table_cuadrecaja').val('');
+			$('#modalcuadrecaja').modal('hide');
+		});
+		
 	</script>
 	{% block javascript %}
 	{% endblock %}
