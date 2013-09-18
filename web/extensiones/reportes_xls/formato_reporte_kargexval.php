@@ -123,7 +123,7 @@ $objkardex = json_decode($tkardexgen);
 							</tr>
 							<tr>
 								<td class='impar'>CÓDIGO:</td>
-								<td>".(string)$producto->{'codigoBarra'}.".</td>
+								<td>".(string)$producto->{'codigoBarra'}."-</td>
 							</tr>
 							<tr>
 								<td class='impar'>DESCRIPCIÓN:</td>

@@ -695,12 +695,12 @@ public function getTablaDetPedidoCompraAction(){
 		$em->close();
 		return new JsonResponse($kardex);
 	}
-	public function gettablasalidaZonasAction($fecha) {
+	public function gettablasalidaZonasAction($fecha, $local) {
 		$em = $this->getDoctrine()->getEntityManager();
 	
 		$fec = date_create_from_format('Y-m-d', $fecha);
 	
-		$sql = "SELECT * FROM dicarsbd.log_lista_salidacampo  where DATE(FecReg) = '".$fecha."'";
+		$sql = "SELECT * FROM dicarsbd.log_lista_salidacampo where nLocal_id = ".$local." and DATE(FecReg) = '".$fecha."'";
 	
 		$smt = $em->getConnection()->prepare($sql);
 		$smt->execute();

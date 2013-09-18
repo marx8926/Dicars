@@ -5,14 +5,14 @@
 	<a href="{{path('dicars_logistica_homepage')}}">Logistica</a> <span class="divider">/</span>
 </li>
 <li>
-	<a href="{{path('dicars_ventas_control_salidas_zonas')}}">Control de Salida de Zonas</a>
+	<a href="{{path('dicars_ventas_control_salidas_zonas')}}">Control de Salida Productos</a>
 </li>
 {% endblock %}
 {% block content %}
 <div class="row-fluid">		
 	<div class="box span12">
 		<div class="box-header well" data-original-title>
-			<h2>CONTROL SALIDA DE ZONAS</h2>
+			<h2>CONTROL SALIDA PRODUCTOS</h2>
 		</div>
 		<div class="row-fluid">
 			<div class="span6">
@@ -71,8 +71,9 @@ var urlExportXLS = "{{ asset('extensiones/reportes_xls/formato_reporte_saldos.ph
 function getUrlRangoFecha(){
 	var date01 = $("#date01").val().split('/');
 	var fecha = date01[2]+'-'+date01[1]+'-'+date01[0];
-	Urlreturn = '{{ path("dicars_logistica_servicio_gettablasalzonas",{"fecha":"fecha"}) }}';
+	Urlreturn = '{{ path("dicars_logistica_servicio_gettablasalzonas",{"fecha":"fecha", "local":"local"}) }}';
 	Urlreturn = Urlreturn.replace('fecha',fecha);
+	Urlreturn = Urlreturn.replace('local',2);
 
 	return Urlreturn;
 }
