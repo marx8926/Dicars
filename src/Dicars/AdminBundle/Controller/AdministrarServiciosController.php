@@ -365,6 +365,26 @@ class AdministrarServiciosController extends Controller {
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
+	public function getTipoMonedasAction(){
+		$em = $this->getDoctrine()->getEntityManager();
+			
+		$monedas = $this->getDoctrine()
+		->getRepository('DicarsDataBundle:VenTipomoneda')
+		->findBy(array('ntipomonedaest' => 1));
+		
+		$todo = array();
+		foreach ($monedas as $key => $moneda){
+			$todo[] = array('id' => $moneda -> getNtipomoneda(),
+					'desc_tipomoneda' => $moneda -> getCtipomonedadesc(),
+					'monto' => $moneda -> getNtipomonedamont(),
+					'estado' => $moneda -> getNtipomonedaest()
+				);
+		}
+		$em->clear();
+		$em->close();
+		return new JsonResponse($todo);
+	}
+	
 	public function getOptionTipoByClaseAction($Clase){
 		$em = $this->getDoctrine()->getEntityManager();
 			

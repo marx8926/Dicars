@@ -167,8 +167,6 @@ class AdministrarVentaController extends Controller {
 				->findOneBy(array('nproductoId' => $data['id']));
 				
 				if($TipoPago != '3'){
-					/*$Stock = $Producto -> getNproductostock();
-					$Producto -> setNproductostock($Stock - $data['cantidad']);*/
 					
 					$DetalleSalProd = new LogDetsalprod();
 					$DetalleSalProd -> setNsalprod($SalProd);
@@ -187,7 +185,7 @@ class AdministrarVentaController extends Controller {
 					$Unitario = $data['pcontado'];
 					$MontoPro = $data['totalcontado'];
 				}
-					
+				
 				$DetVenta = new VenDetventa();
 				$DetVenta -> setNdetventacant( $data['cantidad']);
 				$DetVenta -> setNdetventadscto($data['descuento']);
@@ -205,7 +203,7 @@ class AdministrarVentaController extends Controller {
 			$Transaccion -> setDtransaccionfecreg($FechaReg);
 			$Transaccion -> setNpersonal($EmpleadoTrans);
 			$Transaccion -> setNtransaccionmont($MontoTrans);
-			$Transaccion -> setNtransacciontippag($TipoPago);
+			$Transaccion -> setNtransacciontippag(1);
 			$Transaccion -> setNventa($Venta);
 			
 			$em -> persist($Transaccion);
@@ -277,5 +275,110 @@ class AdministrarVentaController extends Controller {
 		$return = json_encode($return);
 		return new Response($return,200,array('Content-Type'=>'application/json'));
 	}
+	
+	public function EditarVentaAction(){
+		$request = $this->get('request');
+		$form = $request->request->get('formulario');
+	
+		$datos = array();
+		parse_str($form,$datos);
+	
+		$pago = null;
+	
+		if ($form!=null){			
+
+			$em = $this->getDoctrine()->getEntityManager();
+			$em->beginTransaction();
+			
+			$venta_id = $datos['venta_id'];
+			$pago = $datos['pagofinal'];
+			$SerieSalida = $datos['serie_salida'];
+			$NumeroSalida = $datos['numero_salida'];
+			$FechaReg = new \DateTime();
+			
+			$Venta = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:VenVenta')
+			->findOneBy(array('nventaId' => $venta_id));
+			
+			$EmpleadoTrans = $this->getDoctrine()
+			->getRepository('DicarsDataBundle:VenPersonal')
+			->findOneBy(array('npersonalId' => 1));
+			
+			$amortizacion  = $Venta -> getNventatotamt();
+			$saldo = $Venta -> getNventasaldo();
+			
+			$Venta -> setNventatotamt($amortizacion + $pago);
+			$Venta -> setNventasaldo($saldo - $pago);
+			
+			$Transaccion = new VenTransaccion();
+			$Transaccion -> setCtransacciondesc("Pago Separacion");
+			$Transaccion -> setDtransaccionfecreg($FechaReg);
+			$Transaccion -> setNpersonal($EmpleadoTrans);
+			$Transaccion -> setNtransaccionmont($pago);
+			$Transaccion -> setNtransacciontippag(1);
+			$Transaccion -> setNventa($Venta);
+			
+			$em -> persist($Transaccion);
+			
+			if(($saldo - $pago)<= 0){
+					
+				$Local = $this->getDoctrine()
+				->getRepository('DicarsDataBundle:Local')
+				->findOneBy(array('nlocalId' => 2));
+				
+				$SalProd = new  LogSalprod();
+				$SalProd -> setNpersonal($EmpleadoTrans);
+				$SalProd -> setNlocal($Local);
+				$SalProd -> setCsalprodserie($SerieSalida);
+				$SalProd -> setCsalprodnro($NumeroSalida);
+				$SalProd -> setDsalprodfecreg($FechaReg);
+				$SalProd -> setNsalprodmotivo(2);
+				$SalProd -> setNsolicitanteId(1);
+				$SalProd -> setCsalprodobsv("Salida por ventas");
+				$em -> persist($SalProd);
+				
+				$VentaProductos = $this->getDoctrine()
+				->getRepository('DicarsDataBundle:VenDetventa')
+				->findBy(array('nventa' => $venta_id ));
+				
+				foreach ($VentaProductos as $key => $VentaProducto){
+					$Producto = $VentaProducto -> getNproducto();
+					$Cantidad = $VentaProducto -> getNdetventacant();
+					 
+					$DetalleSalProd = new LogDetsalprod();
+					$DetalleSalProd -> setNsalprod($SalProd);
+					$DetalleSalProd -> setNproducto($Producto);
+					$DetalleSalProd -> setDetsalprodcant($Cantidad);
+					$DetalleSalProd -> setCdetsalprodest('1');
+										
+					$em->persist($DetalleSalProd);
+				}
+				
+				$Venta->setCventaest(2);
+			}
+			try {
+				$em->flush();
+			} catch (Exception $e) {
+				$em->rollback();
+				$em->close();
+				$return = array("responseCode"=>400, "greeting"=>"Bad");
+					
+				throw $e;
+			}
+	
+			$em->commit();
+			$em->clear();
+			$em->close();
+	
+			$return = array("responseCode"=>200,"amortizacion" =>$Venta -> getNventatotamt(),"saldo" =>$Venta -> getNventasaldo(), "datos"=>$datos);
+		}
+		else {
+			$return = array("responseCode"=>400, "greeting"=>"Bad");
+		}
+			
+		$return = json_encode($return);
+		return new Response($return,200,array('Content-Type'=>'application/json'));
+	}
+	
 
 }
