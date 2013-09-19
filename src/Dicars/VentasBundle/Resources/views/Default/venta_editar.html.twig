@@ -163,7 +163,8 @@ $(document).ready(function(){
 		$.blockUI({ 
 	    	message: "Registrando...",
 	    	css: { padding: '10px' }, 
-			onBlock: function() { 
+			onBlock: function() {
+				$("#PagarModal").modal('hide');
 				$("#EnviarVentaForm").unbind();
 		    	var ajax = $.ajax({
 					url: "{{ path ('dicars_logistica_servicio_getgenerarcodigosalprod') }}",
