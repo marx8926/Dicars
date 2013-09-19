@@ -1,81 +1,112 @@
 {% extends "::baseCharisma.html.twig" %}
-{% block title %}Consultar - Ventas -{% endblock %}
+{% block title %}Reporte de Ventas - Ventas -{% endblock %}
 {% block breadcrumb %}
 <li>
 	<a href="{{path('dicars_ventas_homepage')}}">Ventas</a><span class="divider">/</span>
 </li>
 <li>
-	<a href="{{path('dicars_ventas_reporte')}}">Reporte de Venta en Tienda</a>
+	<a href="{{path('dicars_ventas_reporte')}}">Reporte de Ventas Tienda/Zona</a>
 </li>
 {% endblock %}
 {% block content %}
 <div class="row-fluid">		
 	<div class="box span12">
 		<div class="box-header well" data-original-title>
-			<h2>REPORTE DE VENTA EN TIENDA</h2>
-			<div class="box-icon">
-				<a href="{{path('dicars_ventas_venta_productos')}}" class="btn btn-round" alt="Registrar Ventas"><i class="icon-plus"></i></a>
-			</div>
-		</div>
-		<div class="row-fluid">
-			<div class="span6">
-			</div>
-			<div class="span6">
-				<input id="pdfgen" type="button" value="Reporte" class="btn btn-success" style="float: right; margin: 10px 10px 0 0;"/>
-			</div>
+			<h2>REPORTE DE VENTAS</h2>
 		</div>
 		<div class="box-content">
-			<div class="form-horizontal">
-				<fieldset>
-					<div class="control-group">
-						<label class="control-label">Del</label>
-						<div class="controls">
-							<input type="text" class="input-xlarge datepicker" id="date01" style="margin: 0 18px 0 0;">
-							<label style="display:inline;">Al</label>
-					  		<input type="text" class="input-xlarge datepicker" id="date02" style="margin: 0 18px;">
-							<button id="buscarfecha" type="button" class="btn btn-info btn-buscarp" style="margin: 0 18px;"><i class="icon-search icon-white"></i>Buscar</button>
+			<ul class="nav nav-tabs" id="myTab">
+				<li class="active"><a href="#tienda">Tienda</a></li>
+				<li><a href="#zona">Zona</a></li>
+			</ul>
+			<div id="myTabContent" class="tab-content">
+				<div class="tab-pane active" id="tienda">
+					<h3>Ventas en Tienda</h3>
+					<div class="row-fluid">
+						<div class="span6">
+						</div>
+						<div class="span6">
+							<input id="pdfgen" type="button" value="Reporte" class="btn btn-success" style="float: right; margin: 10px 10px 0 0;"/>
 						</div>
 					</div>
-					
-				</fieldset>
-			</div>
-			<hr>
-			<table id="ventas_table" class="table table-striped table-bordered bootstrap-datatable datatable">
-				<thead>
-					<tr>
-						<th>Fec. Registro</th>
-						<th>Tienda</th>
-					  	<th>Cliente</th>
-					  	<th>Producto</th>
-					  	<th>Serie</th>
-					  	<th>Cant</th>
-					  	<th>Desct</th>
-					  	<th>P Costo</th>
-					  	<th>P Credito</th>
-					  	<th>P Contado</th>
-				  	</tr>
-			  	</thead>   
-			  	<tbody>
-				</tbody>
-			</table>
-			<div class="modal hide fade" id="modalAnular">
-				<div class="modal-header">
-					<h3>Anular Venta</h3>
+					<div class="form-horizontal">
+						<fieldset>
+							<div class="control-group">
+								<label class="control-label">Del</label>
+								<div class="controls">
+									<input type="text" class="input-xlarge datepicker" id="date01" style="margin: 0 18px 0 0;">
+									<label style="display:inline;">Al</label>
+							  		<input type="text" class="input-xlarge datepicker" id="date02" style="margin: 0 18px;">
+									<button id="buscarfecha" type="button" class="btn btn-info btn-buscarp" style="margin: 0 18px;"><i class="icon-search icon-white"></i>Buscar</button>
+								</div>
+							</div>
+							
+						</fieldset>
+					</div>
+					<hr>
+					<table id="ventas_table" class="table table-striped table-bordered bootstrap-datatable datatable">
+						<thead>
+							<tr>
+								<th>Fec. Registro</th>
+								<th>Tienda</th>
+							  	<th>Cliente</th>
+							  	<th>Producto</th>
+							  	<th>Serie</th>
+							  	<th>Cant</th>
+							  	<th>Desct</th>
+							  	<th>P Costo</th>
+							  	<th>P Credito</th>
+							  	<th>P Contado</th>
+						  	</tr>
+					  	</thead>   
+					  	<tbody>
+						</tbody>
+					</table>
 				</div>
-				<form id="AnularForm" class="form-horizontal" method="post" action="{{ path('dicars_admin_registrar_cargo') }}">
-					<div class="modal-body">
-						<input id="venta_id" name="venta_id" type="hidden" required>
-						<div class="alert alert-error">
-							¿Desea realmente <strong>ANULAR</strong> esta venta?
+				<div class="tab-pane" id="zona">
+					<h3>Ventas en Zona</h3>
+					<div class="row-fluid">
+						<div class="span6">
+						</div>
+						<div class="span6">
+							<input id="reportezona" type="button" value="Reporte" class="btn btn-success" style="float: right; margin: 10px 10px 0 0;"/>
 						</div>
 					</div>
-					<div class="modal-footer">
-						<button type="reset" class="btn btn-cancelarprov" data-dismiss="modal">Cancelar</button>
-						<button type="submit" class="btn btn-primary ">Sí</button>
+					<div class="form-horizontal">
+						<fieldset>
+							<div class="control-group">
+								<label class="control-label">Del</label>
+								<div class="controls">
+									<input type="text" class="input-xlarge datepicker" id="date01zona" style="margin: 0 18px 0 0;">
+									<label style="display:inline;">Al</label>
+							  		<input type="text" class="input-xlarge datepicker" id="date02zona" style="margin: 0 18px;">
+									<button id="buscarfechazona" type="button" class="btn btn-info btn-buscarp" style="margin: 0 18px;"><i class="icon-search icon-white"></i>Buscar</button>
+								</div>
+							</div>
+							
+						</fieldset>
 					</div>
-				</form>
+					<hr>
+					<table id="ventas_table_zona" class="table table-striped table-bordered bootstrap-datatable datatable">
+						<thead>
+							<tr>
+								<th>Fec. Registro</th>
+								<th>Tienda</th>
+							  	<th>Cliente</th>
+							  	<th>Producto</th>
+							  	<th>Serie</th>
+							  	<th>Cant</th>
+							  	<th>Desct</th>
+							  	<th>P Costo</th>
+							  	<th>P Credito</th>
+							  	<th>P Contado</th>
+						  	</tr>
+					  	</thead>   
+					  	<tbody>
+						</tbody>
+					</table>
+				</div>
 			</div>
-		</div>
 		<div class="modal hide fade" id="exportmodal">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">×</button>
@@ -106,10 +137,11 @@
 <script src="{{ asset('js/util/functiongen.js') }}"></script>
 <script src="{{ asset('js/util/datatable_plugins.js') }}"></script>
 <script type="text/javascript">
+
 var VentasTable;
+var VentasTableZona;
 var UrlaDTable;
-var DrawCallbackMovimiento;
-var VentasArray = new Array;
+var UrlaDTableZona
 
 var urlExportXLS = "{{ asset('extensiones/reportes_xls/formato_reporte_ventas.php') }}";
 var urlExportPDF = "{{ asset('extensiones/reportes_pdf/formato_reporte_ventas.php') }}";
@@ -119,43 +151,46 @@ function getUrlRangoFecha(){
 		var date02 = $("#date02").val().split('/');
 		var fecmin = date01[2]+'-'+date01[1]+'-'+date01[0];
 		var fecmax = date02[2]+'-'+date02[1]+'-'+date02[0];
-		Urlreturn = '{{ path("dicars_ventas_servicio_gettablareportevetas",{"fecmin":"fecmin","fecmax":"fecmax"}) }}';
+		Urlreturn = '{{ path("dicars_ventas_servicio_gettablareportevetas",{"tipo":"tipo","fecmin":"fecmin","fecmax":"fecmax","local":"local"}) }}';
+		Urlreturn = Urlreturn.replace('tipo',1);
 		Urlreturn = Urlreturn.replace('fecmin',fecmin);
 		Urlreturn = Urlreturn.replace('fecmax',fecmax);
+		Urlreturn = Urlreturn.replace('local',2);
 
 		console.log(Urlreturn);
 		return Urlreturn;
 }
+
+function getUrlRangoFechaZona(){
+	var date01 = $("#date01zona").val().split('/');
+	var date02 = $("#date02zona").val().split('/');
+	var fecmin = date01[2]+'-'+date01[1]+'-'+date01[0];
+	var fecmax = date02[2]+'-'+date02[1]+'-'+date02[0];
+	Urlreturn = '{{ path("dicars_ventas_servicio_gettablareportevetas",{"tipo":"tipo","fecmin":"fecmin","fecmax":"fecmax","local":"local"}) }}';
+	Urlreturn = Urlreturn.replace('tipo',2);
+	Urlreturn = Urlreturn.replace('fecmin',fecmin);
+	Urlreturn = Urlreturn.replace('fecmax',fecmax);
+	Urlreturn = Urlreturn.replace('local',2);
+
+	console.log(Urlreturn);
+	return Urlreturn;
+}
+
 $(document).ready(function(){
 	
-	DrawCallbacVentas = function (){
-		VentasArray = VentasTable.fnGetData();
-	};
-	
-	$("#date01,#date02").val(fechaAhora());
+	$("#date01,#date02,#date01zona,#date02zona").val(fechaAhora());
 
 	$('#buscarfecha').click(function(e){
 		e.preventDefault();
 		UrlaDTable = getUrlRangoFecha();
 		VentasTable.fnReloadAjax(UrlaDTable);
 	});
-	
-	RowCallBackFunctionVenta = function(nRow, aData, iDisplayIndex){
-		//mostrar Editar Cliente------------------------------------>
-		$(nRow).find('.btn-editar').click(function(e){
-			$(this).attr('href',"{{ path('dicars_ventas_ver',{'idventa':''}) }}/"+aData.id);
-		});
-		//mostrar Ver Datos Trabajador------------------------------------>
-		$(nRow).find('.btn-datos').click(function(e){
-			id=$(this).attr("id-data");
-			$(this).attr('href',"{{ path('dicars_ventas_ver',{'idventa':''}) }}/"+aData.id);
-		});
-		$(nRow).find('.btn-elim').click(function(e){
-			id=$(this).attr("id-data");
-			$('#venta_id').val(aData.id);
-			$('#modalAnular').modal('show');
-		});
-	};
+
+	$('#buscarfechazona').click(function(e){
+		e.preventDefault();
+		UrlaDTable = getUrlRangoFechaZona();
+		VentasTableZona.fnReloadAjax(UrlaDTable);
+	});
 	
 	UrlaDTable = getUrlRangoFecha();
 	FormatoDTable = [
@@ -170,8 +205,23 @@ $(document).ready(function(){
 	              { "sWidth": "9%","mDataProp": "PrecioVentaContado"},
 	              { "sWidth": "10%","mDataProp": "PrecioVentaCredito"}
 	              ];
-	VentasTable = createDataTable('ventas_table',UrlaDTable,FormatoDTable,DrawCallbacVentas,RowCallBackFunctionVenta);		
-	});
+	VentasTable = createDataTable('ventas_table',UrlaDTable,FormatoDTable);		
+
+	UrlaDTableZona = getUrlRangoFechaZona();
+	FormatoDTableZona = [
+				  { "sWidth": "8%","mDataProp": "FecReg"},
+	              { "sWidth": "14%","mDataProp": "Tienda"},
+	              { "sWidth": "14%","mDataProp": "Cliente"},
+	              { "sWidth": "7%","mDataProp": "Producto"},
+	              { "sWidth": "10%","mDataProp": "Serie"},
+	              { "sWidth": "6%","mDataProp": "Cant"},
+	              { "sWidth": "11%","mDataProp": "Desct"},
+	              { "sWidth": "11%","mDataProp": "PrecioCosto"},
+	              { "sWidth": "9%","mDataProp": "PrecioVentaContado"},
+	              { "sWidth": "10%","mDataProp": "PrecioVentaCredito"}
+	              ];
+	VentasTableZona = createDataTable('ventas_table_zona',UrlaDTableZona,FormatoDTableZona);		
+});
 
 	$("#pdfgen").click(function(){
 		var table_venta = toHTML(crearTablaToArray("tventas",
@@ -185,8 +235,28 @@ $(document).ready(function(){
 					'style="width: 14%;" ','style="width: 10%;" ','style="width: 6%;" ',
 					'style="width: 11%;" ','style="width: 11%;" ','style="width: 9%;" ',
 					'style="width: 10%;" '],
-					VentasArray));
-		$("#title").val("REPORTE DE VENTAS");
+					VentasTable.fnGetData()));
+		
+		$("#title").val("REPORTE DE VENTAS DE TIENDA");
+		$("#table_venta").val(table_venta);
+		$("#exportmodal").modal('show');		
+	});
+
+	$("#reportezona").click(function(){
+		var table_venta = toHTML(crearTablaToArray("tventas",
+				['FECHA REGISTRO','TIENDA','CLIENTE','PRODUCTO','SERIE','CANT','DESCRIPCION','P COSTO','P VENTA CONTADO','P VENTA CREDITO'],
+				[	'style="width: 8%;" class="head" ','style="width: 7%;" class="head" ','style="width: 14%;" class="head" ',
+					'style="width:14%;" class="head" ','style="width: 10%;" class="head" ','style="width: 6%;" class="head" ',
+					'style="width: 11%;" class="head" ','style="width: 11%;" class="head" ','style="width: 9%;" class="head" ',
+					'style="width: 10%;" class="head" '],
+				['FecReg','Tienda','Cliente','Producto','Serie','Cant','Desct','PrecioCosto','PrecioVentaContado','PrecioVentaCredito'],
+				[	'style="width: 8%;" ','style="width: 7%;" ','style="width: 14%;" ',
+					'style="width: 14%;" ','style="width: 10%;" ','style="width: 6%;" ',
+					'style="width: 11%;" ','style="width: 11%;" ','style="width: 9%;" ',
+					'style="width: 10%;" '],
+					VentasTableZona.fnGetData()));
+		
+		$("#title").val("REPORTE DE VENTAS DE ZONA");
 		$("#table_venta").val(table_venta);
 		$("#exportmodal").modal('show');		
 	});

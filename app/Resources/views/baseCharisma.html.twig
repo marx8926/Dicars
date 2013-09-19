@@ -101,8 +101,8 @@
 						<li><a class="ajax-link" href="{{ path('dicars_ventas_regimp_tarjetacredito') }}"><i class="icon icon-black icon-profile"></i><span class="hidden-tablet"> Tarjeta de Crédito</span></a></li>
 						<li><a href="{{ path('dicars_admin_movimientos') }}"><i class="icon icon-black icon-transfer-ew"></i><span class="hidden-tablet"> Movimientos</span></a></li>
 						<li><a class="ajax-link" href="{{ path('dicars_ventas_ingregr_dia') }}"><i class="icon icon-black icon-page"></i><span class="hidden-tablet"> Reporte de Caja</span></a></li>
-						<li><a class="ajax-link" href="{{ path('dicars_ventas_reporte') }}"><i class="icon icon-black icon-page"></i><span class="hidden-tablet"> Reporte de Venta de Tienda</span></a></li>
-						<li><a class="ajax-link" href="{{ path('dicars_ventas_reporte_zonas') }}"><i class="icon icon-black icon-page"></i><span class="hidden-tablet"> Reporte de Venta de Zonas</span></a></li>
+						<li><a class="ajax-link" href="{{ path('dicars_ventas_reporte') }}"><i class="icon icon-black icon-page"></i><span class="hidden-tablet"> Reporte de Ventas Tienda/Zona</span></a></li>
+						<li><a class="ajax-link" href="{{ path('dicars_ventas_reporte_zonas') }}"><i class="icon icon-black icon-page"></i><span class="hidden-tablet"> Reporte Clientes/Zona</span></a></li>
 						<li><a class="ajax-link" href="#" id="lanza-cuadrecaja"><i class="icon icon-black icon-page"></i><span class="hidden-tablet"> Cuadre de Caja</span></a></li>
 						<li class="nav-header hidden-tablet">Logística</li>
 						<li><a class="ajax-link" href="{{ path('dicars_logistica_productos') }}"><i class="icon icon-black icon-inbox"></i><span class="hidden-tablet"> Administrar Productos</span></a></li>
@@ -193,6 +193,16 @@
 			<div class="modal-body">
 				<form method="post" target="_blank" id="FormCuadreCaja">
 					<input type="hidden" name="table_cuadrecaja" id="table_cuadrecaja"/>
+					<div class="form-horizontal">
+						<fieldset>
+							<div class="control-group">
+								<label class="control-label" for="datecuadrecaja">Fecha</label>
+								<div class="controls">
+									<input type="text" class="input-xlarge datepicker" id="datecuadrecaja" style="margin: 0 18px 0 0;">
+								</div>
+							</div>
+						</fieldset>
+					</div>
 					<p>Escoga el formato en que desea exportar el Cuadre de Caja</p>
 					<div class="sortable row-fluid ui-sortable">
 						<a id="pdfcuadrecaja" data-rel="tooltip" class="well span3 top-block" style="width: 48%;" href="#" data-original-title="Exportar a PDF.">
@@ -315,7 +325,7 @@
 		
 
 		function getUrlCuadreCajaFecha(){
-			var date01 = fechaAhora().split('/');
+			var date01 = $("#datecuadrecaja").val().split('/');
 			var fecha = date01[2]+'-'+date01[1]+'-'+date01[0];
 			Urlreturn = '{{ path("dicars_ventas_servicio_gettablacuadrecaja",{"fecha":"fecha","local":"local"}) }}';
 			Urlreturn = Urlreturn.replace('fecha',fecha);
@@ -336,12 +346,12 @@
 		
 		$('#lanza-cuadrecaja').click(function(e){
 			e.preventDefault();
-			prepararDatosCuadreCaja();
 			$('#modalcuadrecaja').modal('show');
 		});
 
 		$('#pdfcuadrecaja').click(function(e){
 			e.preventDefault();
+			prepararDatosCuadreCaja();
 			$("#FormCuadreCaja").attr("action",urlExportCierrePDF);
 			$('#FormCuadreCaja').submit();
 			$('#table_cuadrecaja').val('');
@@ -350,6 +360,7 @@
 
 		$('#xlscuadrecaja').click(function(e){
 			e.preventDefault();
+			prepararDatosCuadreCaja();
 			$("#FormCuadreCaja").attr("action",urlExportCierreXLS);
 			$('#FormCuadreCaja').submit();
 			$('#table_cuadrecaja').val('');

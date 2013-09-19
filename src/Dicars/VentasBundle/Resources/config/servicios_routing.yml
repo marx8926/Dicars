@@ -63,7 +63,7 @@ dicars_ventas_servicio_getcronpagoventa:
     defaults: { _controller: DicarsVentasBundle:VentaServicios:getCronPagoVenta }
     
 dicars_ventas_servicio_gettablareportevetas:
-    pattern:  /servicio_gettablareportevetas/{fecmin}/{fecmax}
+    pattern:  /servicio_gettablareportevetas/{tipo}/{fecmin}/{fecmax}/{local}
     defaults: { _controller: DicarsVentasBundle:VentaServicios:getTablaReporteVentas }
 
 dicars_ventas_servicio_gettablacuadrecaja:

@@ -622,10 +622,10 @@ class VentaServiciosController extends Controller{
 		
 	}
 	
-	public function getTablaReporteVentasAction($fecmin,$fecmax){
+	public function getTablaReporteVentasAction($tipo,$fecmin,$fecmax,$local){
 		$em = $this->getDoctrine()->getEntityManager();
 	
-		$sql = "SELECT * FROM dicarsbd.ven_consulta_venta where FecReg between '".$fecmin."' and '".$fecmax."'";
+		$sql = "call sp_consultar_venta(".$tipo.",'".$fecmin."','".$fecmax."',".$local.")";
 		
 		$smt = $em->getConnection()->prepare($sql);
 		$smt->execute();
