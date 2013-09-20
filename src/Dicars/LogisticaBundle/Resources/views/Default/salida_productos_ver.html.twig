@@ -98,6 +98,7 @@
 			</div>
 			<div class="modal-body">
 				<form method="post" target="_blank" id="CreatePDFForm">
+					<input type="hidden" name="nombrearchivo" id="nombrearchivo"/>
 					<input type="hidden" name="title" id="title"/>
 					<input type="hidden" name="table_resumen" id="table_resumen"/>
 					<input type="hidden" name="table_producto" id="table_producto"/>
@@ -173,6 +174,8 @@ $(document).ready(function(){
 	BuscarSalProdTable = createDataTable('salida_productos_table',UrlaDTableSalProd,FormatoDTableSalProd,DrawCallBackSalida);
 
 	$("#pdfgen").click(function(){
+		nombre = "{{ serie }}-{{ nro }}_";
+		$('#nombrearchivo').val("salida_producto_"+nombre);
 		$("#title").val("ORDEN DE SALIDA");
 		$("#table_resumen").val(tablaresumen);
 		$("#table_producto").val(tableproductos);

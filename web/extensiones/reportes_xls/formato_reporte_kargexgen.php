@@ -1,9 +1,11 @@
 <?php
 $tkardexgen = $_POST['table_kardexgen'];
 $titulo = $_POST['titulo'];
+
+$filename = 'reporte_kardex_general_'.date("d-m-Y");
 	
     header('Content-type: application/x-msdownload; charset=utf-16');
-	header('Content-Disposition: attachment; filename=reporte_kardex_general.xls');
+	header('Content-Disposition: attachment; filename='.$filename.'.xls');
 	header('Pragma: no-cache');
 	header('Expires: 0');
 ?>

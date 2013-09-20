@@ -57,7 +57,7 @@ class DefaultController extends Controller
     {
     	$anonimo = $this->getDoctrine()
     	->getRepository('DicarsDataBundle:VenCliente')
-    	->findOneBy(array('cclientenom' => 'ANONIMO'));
+    	->findOneBy(array('cclientedni' => '00000000'));
     	
     	return $this->render('DicarsVentasBundle:Default:venta.html.twig',array(
     			'idanonimo' => $anonimo -> getNclienteId() ,
