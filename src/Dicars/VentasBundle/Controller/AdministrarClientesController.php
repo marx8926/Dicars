@@ -40,7 +40,7 @@ class AdministrarClientesController extends Controller{
 			->findOneBy(array('nzonaId' => $datos["zona"]));
 			
 			$Cliente_linea_op = $datos["lineaop"];
-			$Cliente_arc_credito = $datos["arccredito"];
+			$Cliente_arc_credito = "";
 			$Cliente_ocup = $datos["ocupacion"];										
 				
 			$Cliente = new VenCliente();

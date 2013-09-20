@@ -449,6 +449,9 @@ function prepararDatos(){
 
 $(document).ready(function(){
 
+	$('#cliente').val('{{ nombreanonimo }}' + ' ' + '{{ apellidoanonimo }}');
+	$('#cliente_id').val('{{ idanonimo }}');
+
 	Monedas =  getAjaxObject("{{ path ('dicars_admin_servicio_gettipomoneda') }}");
 
 	$(Monedas).each(function(){

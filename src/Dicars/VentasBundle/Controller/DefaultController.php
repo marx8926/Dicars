@@ -55,7 +55,15 @@ class DefaultController extends Controller
     }
     public function venta_productosAction()
     {
-    	return $this->render('DicarsVentasBundle:Default:venta.html.twig');
+    	$anonimo = $this->getDoctrine()
+    	->getRepository('DicarsDataBundle:VenCliente')
+    	->findOneBy(array('cclientenom' => 'ANONIMO'));
+    	
+    	return $this->render('DicarsVentasBundle:Default:venta.html.twig',array(
+    			'idanonimo' => $anonimo -> getNclienteId() ,
+				'nombreanonimo' => $anonimo -> getCclientenom(),
+				'apellidoanonimo' => $anonimo -> getCclienteape()
+    	));
     }
     public function ofertasAction()
     {
