@@ -1,4 +1,5 @@
 <?php
+$nombrearchivo = $_POST['nombrearchivo'];
 $tdetalle = $_POST['tdetalle'];
 $tcronograma = $_POST['tcronograma'];
 $tresumen = $_POST['tresumen'];
@@ -74,5 +75,5 @@ ob_start();
     $html2pdf = new HTML2PDF('P','A4','es');
     $html2pdf->pdf->SetDisplayMode('fullpage');
     $html2pdf->writeHTML($content);
-    $html2pdf->Output('example.pdf');
+    $html2pdf->Output('creditos_de_'.$nombrearchivo."_".date("d-m-Y").'.pdf');
 ?>

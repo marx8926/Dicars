@@ -1,11 +1,12 @@
 <?php
+	$nombrearchivo = $_POST['nombrearchivo'];
 	$title = $_POST['title'];
 	$table_resumen = $_POST['table_resumen'];
 	$table_producto = $_POST['table_producto'];
 	$table_total = $_POST['table_total'];
 	
     header('Content-type: application/x-msdownload; charset=utf-16');
-	header('Content-Disposition: attachment; filename=reporte_excel.xls');
+	header('Content-Disposition: attachment; filename='.$nombrearchivo.date("d-m-Y").'.xls');
 	header('Pragma: no-cache');
 	header('Expires: 0');
 ?>
