@@ -115,7 +115,7 @@ function cargarEditar(cliente){
 	              	{'label':'Línea Op','type':'inputnumber', 'req':'', 'step':'0.10', 'min':'0', 'max':'1000','value':cliente.linea_credito,'name':'lineaopE'},
 	              	{'label':'Zona','type':'select','name':'zonaE'},	              	
 	              	{'label':'Arc Crédito','type':'file','name':'imagenE'},
-	              	{'type':'hidden','value':cliente.id+"_doc.png",'name':'nombrearchivoE'},
+	              	{'type':'hidden','value':cliente.arccredito,'name':'nombrearchivoE'},
 					{'type':'actions'}];
 		
 	$("#EditarClienteForm").html(crearElementosForm(ArrayDatos));
@@ -149,8 +149,12 @@ $(document).ready(function(){
 	$("#EditarClienteForm").submit(function(e){
 		e.preventDefault();
 		if($("#imagenE").val()!="")
-			uploadFile("imagenE","{{ asset('extensiones/upload.php') }}","../uploads/",idcliente+"_doc.png",finishUploadEditar);
-		else
+		{			
+			var ext = getExtFile("imagenE");
+			console.log(ext);
+			$("#nombrearchivoE").val(idcliente+"_doc"+ext);
+			uploadFile("imagenE","{{ asset('extensiones/upload.php') }}","../uploads/",idcliente+"_doc"+ext,finishUploadEditar);
+		}else
 			finishUploadEditar();
 	});
 
@@ -184,6 +188,7 @@ $(document).ready(function(){
 		});
 		
 		$(nRow).find('.btn-doc').click(function(e){
+				$(this).attr('target', '_blank');
 				$(this).attr('href',"{{ asset('uploads') }}/"+aData.arccredito);
 		});
 	};

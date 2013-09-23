@@ -328,7 +328,7 @@ function crearElementosForm(Array){
 			$modalfooter.append('<button type="reset" class="btn" data-dismiss="modal">Cerrar</button>');
 			break;
 		case 'hidden':
-			$fielset.append('<input type="hidden" name="'+this.name+'" value="'+this.value+'">');
+			$fielset.append('<input type="hidden" id="'+this.name+'" name="'+this.name+'" value="'+this.value+'">');
 			break;
 		default:
 			$div_control_group = $('<div class="control-group">');
@@ -518,6 +518,7 @@ function uploadFile(nameInput, url, path,nameFile,finishUpload){
 	var inputFile  = $("#"+nameInput);
 	file = inputFile[0].files[0];
 	uploadSend(file, url, path,nameFile,finishUpload);
+	getExtFile(file);
 }
 
 function uploadSend(file,url, path,nameFile,finishUpload) {
@@ -539,4 +540,15 @@ function uploadSend(file,url, path,nameFile,finishUpload) {
 	xhr.setRequestHeader("X-File-Name", nameFile);
 	xhr.setRequestHeader("X-Path", path);
 	xhr.send(file);
+}
+
+function getExtFile(nameinput) {
+	var file = new FileReader();
+	var inputFile  = $("#"+nameinput);
+	file = inputFile[0].files[0];
+    fic=file.name;
+    fic = fic.split('\\');
+    nom = fic[fic.length-1];
+    ext = nom.substr(nom.indexOf('.'),nom.length).toLowerCase();
+    return ext;
 }
