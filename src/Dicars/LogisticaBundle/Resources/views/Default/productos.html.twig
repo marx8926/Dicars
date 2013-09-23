@@ -182,14 +182,21 @@ $(document).ready(function(){
 			});
 		ajax.done(function(data){
 			$('#codigo').val(data);
-			$("#nombrearchivo").val(data+".png");
-			uploadFile("imagen","{{ asset('extensiones/upload.php') }}","../uploads/",data+".png",finishUpload);
+			if($("#imagen").val()!=""){
+				$("#nombrearchivo").val(data+".png");
+				uploadFile("imagen","{{ asset('extensiones/upload.php') }}","../uploads/",data+".png",finishUpload);
+			}
+			else
+				finishUpload();
 		});
 	});
 
 	$("#EditarProductoForm").submit(function(e){
 		e.preventDefault();
-		uploadFile("imagenE","{{ asset('extensiones/upload.php') }}","../uploads/",codigoprod+".png",finishUploadEditar);		
+		if($("#imagenE").val()!="")
+			uploadFile("imagenE","{{ asset('extensiones/upload.php') }}","../uploads/",codigoprod+".png",finishUploadEditar);
+		else
+			finishUploadEditar();
 	});
 
 	RowCallBackFunction = function(nRow, aData, iDisplayIndex){
