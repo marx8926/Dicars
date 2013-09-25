@@ -88,7 +88,7 @@ function cargarEditar(producto){
 	              	{'label':'Categoría','type':'select','name':'categoriaE'},
 	              	{'label':'Tipo','type':'select','name':'tipoE'},	              	
 	              	{'label':'Imagen','type':'file','name':'imagenE'},
-	              	{'type':'hidden','value':producto.codigobarras+".png",'name':'nombrearchivoE'},
+	              	{'type':'hidden','value':producto.urlimagen,'name':'nombrearchivoE'},
 	              	{'label':'','type':'img','value':"{{ asset('uploads/') }}"+producto.urlimagen},
 	              	{'label':'Stock Min','type':'inputnumber','req':'true','step':'1', 'min':'0', 'value':producto.stockmin,'name':'stockminE'},
 	  				{'label':'Stock Max','type':'inputnumber', 'req':'true', 'step':'1', 'min':'0','value':producto.stockmax,'name':'stockmaxE'},
@@ -142,6 +142,42 @@ function cargarVer(producto){
 		
 	$("#VerProducto").html(crearElementosForm(ArrayDatos));
 }
+function resetFormRegistrar(){
+
+	$('#RegistrarProductoForm').unbind();
+	$('#RegistrarProductoForm').submit(function(e){
+		e.preventDefault();
+		var ajax = $.ajax({
+			url: "{{ path ('dicars_logistica_servicio_getgenerarcodigoprducto') }}",
+			dataType: "json",
+			async: false
+			});
+		ajax.done(function(data){
+			$('#codigo').val(data);
+			if($("#imagen").val()!=""){
+				var ext = getExtFile("imagen");
+				$("#nombrearchivo").val(data+ext);
+				uploadFile("imagen","{{ asset('extensiones/upload.php') }}","../uploads/",data+ext,finishUpload);
+			}
+			else
+				finishUpload();
+		});
+	});
+}
+function resetFormEditar(){
+	$('#EditarProductoForm').unbind();
+	$("#EditarProductoForm").submit(function(e){
+		e.preventDefault();
+		if($("#imagenE").val()!=""){
+			var ext = getExtFile("imagenE");
+			$("#nombrearchivoE").val(codigoprod+ext);
+			console.log("hola");
+			uploadFile("imagenE","{{ asset('extensiones/upload.php') }}","../uploads/",codigoprod+ext,finishUploadEditar);
+		}
+		else
+			finishUploadEditar();
+	});
+}
 
 //init------------------------------------>
 $(document).ready(function(){
@@ -150,12 +186,14 @@ $(document).ready(function(){
 		$('#RegistrarProductoForm').unbind();
 		enviar('RegistrarProductoForm', ReloadTableRegistrar);
 		$('#RegistrarProductoForm').submit();
+		resetFormRegistrar();
 	};
 
 	finishUploadEditar = function(){
 		$('#EditarProductoForm').unbind();
 		enviar('EditarProductoForm',ReloadTableEditar);
 		$('#EditarProductoForm').submit();
+		resetFormEditar();
 	};
 	
 	Marcas = getAjaxObject("{{ path('dicars_admin_servicio_getoptionmarcas') }}");
@@ -173,31 +211,8 @@ $(document).ready(function(){
 		$('#modalRegistro').modal('show');
 	});
 	
-	$('#RegistrarProductoForm').submit(function(e){
-		e.preventDefault();
-		var ajax = $.ajax({
-			url: "{{ path ('dicars_logistica_servicio_getgenerarcodigoprducto') }}",
-			dataType: "json",
-			async: false
-			});
-		ajax.done(function(data){
-			$('#codigo').val(data);
-			if($("#imagen").val()!=""){
-				$("#nombrearchivo").val(data+".png");
-				uploadFile("imagen","{{ asset('extensiones/upload.php') }}","../uploads/",data+".png",finishUpload);
-			}
-			else
-				finishUpload();
-		});
-	});
-
-	$("#EditarProductoForm").submit(function(e){
-		e.preventDefault();
-		if($("#imagenE").val()!="")
-			uploadFile("imagenE","{{ asset('extensiones/upload.php') }}","../uploads/",codigoprod+".png",finishUploadEditar);
-		else
-			finishUploadEditar();
-	});
+	resetFormRegistrar();
+	resetFormEditar();
 
 	RowCallBackFunction = function(nRow, aData, iDisplayIndex){
 		$(nRow).find('.btn-datos').click(function(e){
