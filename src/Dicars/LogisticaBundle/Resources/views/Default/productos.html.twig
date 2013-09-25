@@ -143,9 +143,10 @@ function cargarVer(producto){
 	$("#VerProducto").html(crearElementosForm(ArrayDatos));
 }
 function resetFormRegistrar(){
-
+	$("#reg_prod_btn").attr("disabled", false);
 	$('#RegistrarProductoForm').unbind();
 	$('#RegistrarProductoForm').submit(function(e){
+		$("#reg_prod_btn").attr("disabled", true);
 		e.preventDefault();
 		var ajax = $.ajax({
 			url: "{{ path ('dicars_logistica_servicio_getgenerarcodigoprducto') }}",
@@ -168,6 +169,7 @@ function resetFormEditar(){
 	$('#EditarProductoForm').unbind();
 	$("#EditarProductoForm").submit(function(e){
 		e.preventDefault();
+		$("#btn_submit").attr("disabled", true);
 		if($("#imagenE").val()!=""){
 			var ext = getExtFile("imagenE");
 			$("#nombrearchivoE").val(codigoprod+ext);
