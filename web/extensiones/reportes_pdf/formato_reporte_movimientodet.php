@@ -76,5 +76,5 @@ ob_start();
     $html2pdf = new HTML2PDF('L','A4','es');
     $html2pdf->pdf->SetDisplayMode('fullpage');
     $html2pdf->writeHTML($content);
-    $html2pdf->Output('example.pdf');
+    $html2pdf->Output('reporte_movimiento_det_'.date("d-m-Y").'.pdf');
 ?>

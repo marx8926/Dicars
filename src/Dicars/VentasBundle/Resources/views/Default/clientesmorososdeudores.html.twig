@@ -47,6 +47,7 @@
 			</div>
 			<div class="modal-body">
 				<form method="post" target="_blank" id="CreatePDFForm">
+					<input type="hidden" name="nombrearchivo" id="nombrearchivo"/>
 					<input type="hidden" name="title" id="title"/>
 					<input type="hidden" name="table_clientes" id="table_clientes"/>
 					<div class="sortable row-fluid ui-sortable">
@@ -115,6 +116,9 @@ $(document).ready(function(){
 					'style="width: 10%;" ','style="width: 5%;" ','style="width: 10%;" ',
 					'style="width: 10%;" '],
 					deudoresgen));
+
+		$('#nombrearchivo').val("reporte_clientes_deudores_gen_");
+		
 		$("#title").val("LISTA DE CLIENTES DEUDORES GENERAL");
 		$("#table_clientes").val(tabla_clientes);
 		$("#exportmodal").modal('show');
@@ -132,6 +136,8 @@ $(document).ready(function(){
 					'style="width: 10%;" ','style="width: 10%;" ','style="width: 10%;" '	],
 					deudoresdetallado));
 		
+		$('#nombrearchivo').val("reporte_clientes_deudores_det_");
+
 		$("#title").val("LISTA DE CLIENTES DEUDORES DETALLADO");
 		$("#table_clientes").val(tabla_clientes);
 		$("#exportmodal").modal('show');

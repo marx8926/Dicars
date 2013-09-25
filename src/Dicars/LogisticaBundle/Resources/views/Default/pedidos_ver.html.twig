@@ -94,6 +94,7 @@
 			</div>
 			<div class="modal-body">
 				<form method="post" target="_blank" id="CreatePDFForm">
+					<input type="hidden" name="nombrearchivo" id="nombrearchivo"/>
 					<input type="hidden" name="title" id="title"/>
 					<input type="hidden" name="table_resumen" id="table_resumen"/>
 					<input type="hidden" name="table_producto" id="table_producto"/>
@@ -169,6 +170,8 @@ $(document).ready(function(){
 	BuscarPedidosTable = createDataTable('productos_table',UrlaDTablePedidos,FormatoDTablePedidos,DrawCallBackPedido);
 
 	$("#pdfgen").click(function(){
+		nombre = "{{ serie }}-{{ nro }}_";
+		$('#nombrearchivo').val("orden_pedido_"+nombre);
 		$("#title").val("ORDEN DE PEDIDO");
 		$("#table_resumen").val(tablaresumen);
 		$("#table_producto").val(tableproductos);

@@ -74,6 +74,9 @@ var RowCallBackFunction;
 var Marcas;
 var codigo;
 var asInitVals = new Array();
+var finishUpload;
+var finishUploadEditar;
+var codigoprod;
 
 function cargarEditar(producto){			
 
@@ -84,8 +87,9 @@ function cargarEditar(producto){
 	              	{'label':'Marca','type':'select','name':'marcaE'},
 	              	{'label':'Categoría','type':'select','name':'categoriaE'},
 	              	{'label':'Tipo','type':'select','name':'tipoE'},	              	
-	              	{'label':'Imagen','type':'file','name':'imagen'},
-	              	{'label':'','type':'img','value':'#'},
+	              	{'label':'Imagen','type':'file','name':'imagenE'},
+	              	{'type':'hidden','value':producto.codigobarras+".png",'name':'nombrearchivoE'},
+	              	{'label':'','type':'img','value':"{{ asset('uploads/') }}"+producto.urlimagen},
 	              	{'label':'Stock Min','type':'inputnumber','req':'true','step':'1', 'min':'0', 'value':producto.stockmin,'name':'stockminE'},
 	  				{'label':'Stock Max','type':'inputnumber', 'req':'true', 'step':'1', 'min':'0','value':producto.stockmax,'name':'stockmaxE'},
 	  				{'label':'Precio Costo','type':'inputnumber', 'req':'true', 'step':'0.01', 'min':'0', 'max':'1000','value':producto.pcosto,'name':'preciocostoE'},
@@ -95,7 +99,8 @@ function cargarEditar(producto){
 					{'label':'Precio','type':'inputnumber', 'req':'true', 'step':'0.01', 'min':'0', 'max':'1000','value':producto.pcredito,'name':'preciocreditoE'},
 					{'label':'Estado','type':'select','name':'estadoE'},
 					{'type':'actions'}];
-		
+
+	codigoprod = producto.codigobarras;
 	$("#EditarProductoForm").html(crearElementosForm(ArrayDatos));
 	
 	cargarSelect(Marcas,'marcaE','id','desc');
@@ -123,7 +128,7 @@ function cargarVer(producto){
 	              	{'label':'Marca','type':'span','value':producto.marca},
 	              	{'label':'Categoría','type':'span','value':producto.categoria},	              	
 	              	{'label':'Tipo','type':'span','value':producto.tipo},
-	              	{'label':'Imagen','type':'img','value':'#'},
+	              	{'label':'','type':'img','value':"{{ asset('uploads/') }}"+producto.urlimagen},
 	              	{'label':'Stock','type':'span','value':producto.stock},
 	  				{'label':'Stock Mínimo','type':'span','value':producto.stockmin},
 	  				{'label':'Stock Máximo','type':'span','value':producto.stockmax},
@@ -141,6 +146,18 @@ function cargarVer(producto){
 //init------------------------------------>
 $(document).ready(function(){
 
+	finishUpload = function(){
+		$('#RegistrarProductoForm').unbind();
+		enviar('RegistrarProductoForm', ReloadTableRegistrar);
+		$('#RegistrarProductoForm').submit();
+	};
+
+	finishUploadEditar = function(){
+		$('#EditarProductoForm').unbind();
+		enviar('EditarProductoForm',ReloadTableEditar);
+		$('#EditarProductoForm').submit();
+	};
+	
 	Marcas = getAjaxObject("{{ path('dicars_admin_servicio_getoptionmarcas') }}");
 	cargarSelect(Marcas,'marca','id','desc');
 
@@ -165,10 +182,21 @@ $(document).ready(function(){
 			});
 		ajax.done(function(data){
 			$('#codigo').val(data);
-			$('#RegistrarProductoForm').unbind();
-			enviar('RegistrarProductoForm', ReloadTableRegistrar);
-			$('#RegistrarProductoForm').submit();
+			if($("#imagen").val()!=""){
+				$("#nombrearchivo").val(data+".png");
+				uploadFile("imagen","{{ asset('extensiones/upload.php') }}","../uploads/",data+".png",finishUpload);
+			}
+			else
+				finishUpload();
 		});
+	});
+
+	$("#EditarProductoForm").submit(function(e){
+		e.preventDefault();
+		if($("#imagenE").val()!="")
+			uploadFile("imagenE","{{ asset('extensiones/upload.php') }}","../uploads/",codigoprod+".png",finishUploadEditar);
+		else
+			finishUploadEditar();
 	});
 
 	RowCallBackFunction = function(nRow, aData, iDisplayIndex){
@@ -202,9 +230,6 @@ $(document).ready(function(){
 
 	ReloadTableEditar = reloadclosemodal('modalEditarDatos','productos_table');
 	ReloadTableRegistrar = reloadclosemodal('modalRegistro','productos_table');
-
-	enviar('EditarProductoForm',ReloadTableEditar);
-
 });
 </script>
 {% endblock %}

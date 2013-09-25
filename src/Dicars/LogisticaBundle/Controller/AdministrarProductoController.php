@@ -51,7 +51,7 @@ class AdministrarProductoController extends Controller{
 			$Producto_prec_contado = $datos["preciocontado"];
 			$Producto_prec_credito = $datos["preciocredito"];
 			$Producto_prec_costo = $datos["preciocosto"];
-			$Producto_archivo = "Hola soy el archivo";
+			$Producto_archivo = $datos["nombrearchivo"];
 			
 			$Producto_categoria =  $this->getDoctrine()
 	    	->getRepository('DicarsDataBundle:VenCategoria')
@@ -128,7 +128,6 @@ class AdministrarProductoController extends Controller{
 		$Producto_prec_contado = null;
 		$Producto_prec_credito = null;
 		$Producto_prec_costo = null;
-		$Producto_cod_barra = null;
 		$Producto_archivo = null;
 		$Producto_categoria=null;
 		$Producto_stock_min = null;
@@ -153,8 +152,7 @@ class AdministrarProductoController extends Controller{
 			$Producto_prec_contado = $datos["preciocontadoE"];
 			$Producto_prec_credito = $datos["preciocreditoE"];
 			$Producto_prec_costo = $datos["preciocostoE"];
-			$Producto_cod_barra = "AER1234";
-			$Producto_archivo = "Hola soy el archivo";
+			$Producto_archivo = $datos["nombrearchivoE"];
 				
 			$Producto_categoria =  $this->getDoctrine()
 			->getRepository('DicarsDataBundle:VenCategoria')
@@ -176,7 +174,6 @@ class AdministrarProductoController extends Controller{
 			$Producto->setNproductopcontado($Producto_prec_contado);
 			$Producto->setNproductopcredito($Producto_prec_credito);
 			$Producto->setNproductopcosto($Producto_prec_costo);
-			$Producto->setCproductocodbarra($Producto_cod_barra);
 			$Producto->setCproductoimage($Producto_archivo);
 			$Producto->setNcategoria($Producto_categoria);
 			$Producto->setNproductostockmin($Producto_stock_min);

@@ -53,6 +53,7 @@
 		</div>
 	</div>
 	<form method="post" target="_blank" id="CreateXLSForm">
+		<input type="hidden" name="nombrearchivo" id="nombrearchivo"/>
 		<input type="hidden" name="titulo" id="titulo"/>
 		<input type="hidden" name="tsaldos" id="tsaldos"/>
 	</form>
@@ -87,7 +88,8 @@ function prepararDatos(){
 			SalZonasTable.fnGetData()));
 
 	var titulo = "Control Salida de Zonas " + $("#date01").val();
-   	
+
+	$('#nombrearchivo').val('reporte_salida_productos_' + $("#date01").val());
 	$('#tsaldos').val(tablasalzonas);
 	$('#titulo').val(titulo);
 }

@@ -5,7 +5,7 @@ $table_salidas = $_POST['table_salidas'];
 $total = $_POST['total'];
 
 header('Content-type: application/x-msdownload; charset=utf-16');
-header('Content-Disposition: attachment; filename=reporte_excel.xls');
+header('Content-Disposition: attachment; filename=reporte_movimiento_det_'.date("d-m-Y").'.xls');
 header('Pragma: no-cache');
 header('Expires: 0');
 ?>

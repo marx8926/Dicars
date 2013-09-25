@@ -76,6 +76,7 @@
 		</div>
 		<div class="modal-body">
 			<form method="post" target="_blank" id="CreatePDFForm">
+				<input type="hidden" name="nombrearchivo" id="nombrearchivo"/>
 				<input type="hidden" name="tcronograma" id="tcronograma"/>
 				<input type="hidden" name="tdetalle" id="tdetalle"/>
 				<input type="hidden" name="tresumen" id="tresumen"/>
@@ -168,7 +169,8 @@ function prepararDatos(){
 	           	{'td1':'FECHA REGISTRO CREDITO:','td2': CronogramaReport.fecreg,'td3':'MONTO TOTAL DEUDA:','td4':CronogramaReport.monto,}	];
 
 	tablaresumen = toHTML(crearTablaToArray("resume",null,null,['td1','td2','td3','td4'],['style="width: 25%;" class="impar" ','style="width:25%;" ','style="width: 25%;" class="impar" ','style="width: 25%;" '],resumen));
-   	
+
+	$('#nombrearchivo').val('{{ nombre_cliente }}');
 	$('#tdetalle').val(tabladetalle);
 	$('#tcronograma').val(tablacronograma);
 	$('#tresumen').val(tablaresumen);

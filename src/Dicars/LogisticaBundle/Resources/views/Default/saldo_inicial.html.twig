@@ -93,6 +93,7 @@
 		</div>
 	</div><!--/span-->
 	<form method="post" target="_blank" id="CreateXLSForm">
+		<input type="hidden" name="nombrearchivo" id="nombrearchivo"/>
 		<input type="hidden" name="titulo" id="titulo"/>
 		<input type="hidden" name="tsaldos" id="tsaldos"/>
 	</form>
@@ -139,7 +140,12 @@ function prepararIniDatos(){
 			saldoiniTable.fnGetData()));
 
 	var titulo = "Saldos Iniciales " + fechaAhora();
-   	
+
+	var date01 = $("#date01").val().split('/');
+	var fecha = date01[2]+'-'+date01[1]+'-'+date01[0];
+	
+	$('#nombrearchivo').val('saldo_inicial_'+fecha);
+	
 	$('#tsaldos').val(tablasaldos);
 	$('#titulo').val(titulo);
 }
@@ -153,7 +159,11 @@ function prepararActDatos(){
 			saldoactualTable.fnGetData()));
 
 	var titulo = "Saldos Actuales " + fechaAhora();
-   	
+	
+	var date02 = $("#date02").val().split('/');
+	var fecha = date02[2]+'-'+date02[1]+'-'+date02[0];
+	$('#nombrearchivo').val('saldo_actual_'+fecha);
+	
 	$('#tsaldos').val(tablasaldos);
 	$('#titulo').val(titulo);
 }
