@@ -290,6 +290,7 @@
 <script src="{{ asset('js/util/functiongen.js') }}"></script>
 <script src="{{ asset('js/util/datatable_plugins.js') }}"></script>
 <script src="{{ asset('js/util/sliding_ventas_form.js') }}"></script>
+<script src="{{ asset('js/printThis.js') }}"></script>
 
 <script type="text/javascript">
 
@@ -459,23 +460,17 @@ $(document).ready(function(){
 	});
 
 	unlockload = function(data){
-		if($("#forma_pago").val() == 2){
-			CronogramaReport = getAjaxObject("{{ path('dicars_ventas_servicio_getcronpagoventa',{'idventa':''}) }}/"+data.idventa);
-			console.log(CronogramaReport);
+			$("#back_to_detalle").attr("disabled",true);
+			$("#finalizar_venta").unbind();
+			$("#finalizar_venta").attr("href","{{ path('dicars_ventas_consultar') }}")
+            $("#resumen_venta").printThis({
+            	importCSS: false
+             });
 			$.unblockUI({
-	            onUnblock: function(){ 
-	            	$('#vercronograma').modal('show');
-	            	prepararDatos(); 
+	            onUnblock: function(){
+		            $(location).attr("href","{{ path('dicars_ventas_consultar') }}"); 
 	            } 
 	        });
-        }
-		else{
-			$.unblockUI({
-	            onUnblock: function(){ 
-	                $(location).attr("href","{{ path('dicars_ventas_consultar') }}"); 
-	            } 
-	        });
-		}
 	};
 
 	volverConsultar = function(){
