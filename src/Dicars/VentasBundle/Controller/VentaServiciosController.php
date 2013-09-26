@@ -292,19 +292,26 @@ class VentaServiciosController extends Controller{
 			->findOneBy(array('nventa' => $Venta -> getNventaId()));
 			
 			if($Venta -> getCventaest() == 2)
+			{
 				$pagado = "<span class='label label-success'>Pagada</span>";
+				$btnpagar = "";
+			}
 			else
+			{
 				$pagado = "<span class='label label-important'>Pendiente</span>";
+				$btnpagar = "<a class='btn btn-success btn-pagar' href='#'>Pagar Cuotas</a>";
+			}
 			
 			$todo[] = array(
 					'idventa' => $Venta -> getNventaId(),
 					'fecha_venta' => $Venta -> getCventafecreg() -> format('d/m/Y'),
 					'pagado' => $pagado,
+					'creditoest' => $Venta -> getCventaest(),
 					'idcredito' => $Credito -> getNvencreditoId(),
 					'montototal' => $Venta -> getNventatotapag(),
 					'montopagado' => $Venta -> getNventatotamt() ,
 					'cuotas' => $Credito -> getNvencreditoncuota(),
-					'ver_pagar' => "<a class='btn btn-success btn-pagar' href='#'>Pagar Cuotas</a>",
+					'ver_pagar' => $btnpagar,
 					'ver_reporte' => "<button type='button' class='btn btn-success btn-cronograma' data-loading-text='Cargando...'>Reporte del Crédito</button>",
 					);
 		}

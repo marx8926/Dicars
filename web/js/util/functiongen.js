@@ -71,7 +71,6 @@ function sumColArray(Array,attr){
 	var total = 0;
 	$(Array).each(function(index){
 		total += this[attr];
-		console.log( this[attr]);
 	});
 	return total;
 }
@@ -295,7 +294,6 @@ jQuery.fn.reset = function () {
 function reloadTable(oTable){
 	var returnfunction = function(data){
 		oTable.fnReloadAjax();
-		console.log(data);
 		};
 	return returnfunction;
 }
@@ -303,7 +301,7 @@ function reloadTable(oTable){
 function reloadclosemodal(idmodal,idaTable){
 	var returnfunction = function(data){
 		$('#'+idaTable).dataTable().fnReloadAjax();
-		console.log(data);
+		//console.log(data);
 		$('#'+idmodal).modal('hide');
 		$('#'+idmodal+" form").reset();
 		};
@@ -322,13 +320,13 @@ function crearElementosForm(Array){
 			$fielset.append('<h3>'+this.label+'</h3>');
 			break;
 		case 'actions':
-			$modalfooter.append('<button type="reset" class="btn" data-dismiss="modal">Cancelar</button>  <button type="submit" class="btn btn-primary">Guardar</button>');
+			$modalfooter.append('<button type="reset" class="btn" data-dismiss="modal">Cancelar</button>  <button type="submit" id="btn_submit" class="btn btn-primary">Guardar</button>');
 			break;
 		case 'close':
 			$modalfooter.append('<button type="reset" class="btn" data-dismiss="modal">Cerrar</button>');
 			break;
 		case 'hidden':
-			$fielset.append('<input type="hidden" name="'+this.name+'" value="'+this.value+'">');
+			$fielset.append('<input type="hidden" id="'+this.name+'" name="'+this.name+'" value="'+this.value+'">');
 			break;
 		default:
 			$div_control_group = $('<div class="control-group">');
@@ -358,7 +356,7 @@ function addElemento(obj){
 	    		$elem.val(obj.value);
 	    		break;
 	    case 'file':
-	    		$elem = $('<input type="file" class="input-xlarge" name="'+obj.name+'">');
+	    		$elem = $('<input type="file" class="input-xlarge" id="'+obj.name+'" name="'+obj.name+'">');
 	    		break;
 	    case 'textarea':
 	    		$elem = $('<textarea class="input-xlarge" name="'+obj.name+'" rows="2" cols="" required="'+obj.req+'" maxlength="'+obj.max+'"></textarea>');
@@ -511,4 +509,44 @@ function getHourFormato(){
     + date.getUTCMinutes()+':'
     + date.getUTCSeconds();
 	return Hora;
+}
+/*>>>>>>>>>>>>>>>>>>>>>>*/
+function uploadFile(nameInput, url, path,nameFile,finishUpload){
+	var file = new FileReader();
+	var inputFile  = $("#"+nameInput);
+	file = inputFile[0].files[0];
+	uploadSend(file, url, path,nameFile,finishUpload);
+	getExtFile(nameInput);
+}
+
+function uploadSend(file,url, path,nameFile,finishUpload) {
+	var xhr = new XMLHttpRequest(),
+    upload = xhr.upload;
+	upload.addEventListener("progress", function (ev) {
+	}, false);
+	
+	upload.addEventListener("load", function (ev) {
+		finishUpload();
+	}, false);
+	upload.addEventListener("error", function (ev) {console.log(ev);}, false);
+	xhr.open(
+	    "POST",
+	    url
+	);
+	xhr.setRequestHeader("Cache-Control", "no-cache");
+	xhr.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+	xhr.setRequestHeader("X-File-Name", nameFile);
+	xhr.setRequestHeader("X-Path", path);
+	xhr.send(file);
+}
+
+function getExtFile(nameinput) {
+	var file = new FileReader();
+	var inputFile  = $("#"+nameinput);
+	file = inputFile[0].files[0];
+    fic=file.name;
+    fic = fic.split('\\');
+    nom = fic[fic.length-1];
+    ext = nom.substr(nom.indexOf('.'),nom.length).toLowerCase();
+    return ext;
 }

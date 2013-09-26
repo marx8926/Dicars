@@ -48,6 +48,7 @@ public function getTablaProductosAction(){
 					'stockmax' => $producto -> getNproductostockmax(), 
 					'estadoId' => $producto -> getCproductoest(),
 					'estadodesc' => $estadodesc,
+					'urlimagen' => $producto -> getCproductoimage(),
 					'porcuti' => $producto -> getNproductoporcuti(),				
 					'utibruta' => $producto -> getNproductoutibruta(), 
 					'marcaId' => $producto -> getNproductomarca() -> getNmarcaId(),

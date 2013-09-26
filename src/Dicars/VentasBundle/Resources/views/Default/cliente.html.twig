@@ -97,6 +97,8 @@ var tabla_clientes;
 
 var CargarBotones;
 var ClientesTable;
+var finishUploadEditar;
+var idcliente;
 
 var urlExportXLS = "{{ asset('extensiones/reportes_xls/formato_reporte_clientes.php') }}";
 var urlExportPDF = "{{ asset('extensiones/reportes_pdf/formato_reporte_clientes.php') }}";
@@ -111,18 +113,31 @@ function cargarEditar(cliente){
 	              	{'label':'Referencia','type':'input','typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç0-9.]*$|','title':'Debe tener el formato correcto', 'req':'', 'max':'200','value':cliente.referencia,'name':'referenciaE'},
 	              	{'label':'Ocupación','type':'input','typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]*$|','title':'Debe tener el formato correcto: solo letras', 'req':'', 'max':'40','value':cliente.ocupacion,'name':'ocupacionE'},
 	              	{'label':'Línea Op','type':'inputnumber', 'req':'', 'step':'0.10', 'min':'0', 'max':'1000','value':cliente.linea_credito,'name':'lineaopE'},
-	              	{'label':'Arc Crédito','type':'input','typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]*$|','title':'Debe tener el formato correcto: solo letras', 'req':'', 'max':'1000','value':cliente.arccredito,'name':'arccreditoE'},
-	              	{'label':'Zona','type':'select','name':'zonaE'},
+	              	{'label':'Zona','type':'select','name':'zonaE'},	              	
+	              	{'label':'Arc Crédito','type':'file','name':'imagenE'},
+	              	{'type':'hidden','value':cliente.arccredito,'name':'nombrearchivoE'},
 					{'type':'actions'}];
 		
 	$("#EditarClienteForm").html(crearElementosForm(ArrayDatos));
-
+	idcliente = cliente.id;
 	cargarSelect(zonas,'zonaE','id','desc');
-	$('#zonaE').val(cliente.zonaId);	
+	$('#zonaE').val(cliente.zonaId);
+}
+
+function resetForm(){
+	$("#EditarClienteForm").submit(function(e){
+		e.preventDefault();
+		if($("#imagenE").val()!="")
+		{		
+			var ext = getExtFile("imagenE");
+			$("#nombrearchivoE").val(idcliente+"_doc"+ext);
+			uploadFile("imagenE","{{ asset('extensiones/upload.php') }}","../uploads/",idcliente+"_doc"+ext,finishUploadEditar);	
+		}else
+			finishUploadEditar();
+	});
 }
 
 function cargarVer(cliente){
-
 	ArrayDatos = [	{'label':'Nombres','type':'span','value':cliente.nombre},
 	              	{'label':'Apellidos','type':'span','value':cliente.apellido},
 	              	{'label':'Dni','type':'span','value':cliente.dni},
@@ -137,6 +152,15 @@ function cargarVer(cliente){
 }
 
 $(document).ready(function(){
+
+	finishUploadEditar = function(){
+		$('#EditarClienteForm').unbind();
+		enviar('EditarClienteForm',ReloadTableEditar);
+		$('#EditarClienteForm').submit();
+		resetForm();
+	};
+
+	resetForm();
 
 	DrawCallbackClientes = function (){
 		tabla_clientes = toHTML(crearTablaToArray("tclientes",
@@ -166,6 +190,11 @@ $(document).ready(function(){
 			cargarEditar(aData);
 			$('#modalEditarDatos').modal('show');
 		});
+		
+		$(nRow).find('.btn-doc').click(function(e){
+				$(this).attr('target', '_blank');
+				$(this).attr('href',"{{ asset('uploads') }}/"+aData.arccredito);
+		});
 	};
 	
 	//mostrar Registrar Cliente------------------------------------>
@@ -191,7 +220,6 @@ $(document).ready(function(){
 	ReloadTableRegistrar = reloadclosemodal('modalRegistro', 'clientes_table');
 	
 	enviar('RegistrarClienteForm', ReloadTableRegistrar);
-	enviar('EditarClienteForm', ReloadTableEditar);
 
 	$("#pdfgen").click(function(){
 		$("#title").val("LISTA DE CLIENTES");

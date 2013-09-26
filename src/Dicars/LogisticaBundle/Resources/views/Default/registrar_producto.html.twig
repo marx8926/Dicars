@@ -49,7 +49,8 @@
 			  <div class="control-group">
 				<label class="control-label" for="imagen">Subir Imágen</label>
 				<div class="controls">
-					<input type="file" class="input-xlarge" name="imagen">
+					<input type="file" class="input-xlarge" name="imagen" id="imagen">
+					<input type="hidden" name="nombrearchivo" id="nombrearchivo" val="">
 				</div>
 			  </div>
 			  <div class="control-group">
@@ -103,7 +104,7 @@
 		</div>
 		<div class="modal-footer">
 			<button type="reset" class="btn btn-cancelarprov" data-dismiss="modal">Cancelar</button>
-			<button type="submit" class="btn btn-primary">Guardar</button>
+			<button id="reg_prod_btn" type="submit" class="btn btn-primary">Guardar</button>
 		</div>
 	</form>
 </div>
