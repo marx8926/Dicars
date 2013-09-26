@@ -15,12 +15,26 @@ ob_start();
 	th{
 		background: #e7e6e6;
 	}
-	#divh3 , .title {
-		background: #ff0;
-		border-radius: 5px;
+	#header{
+		width: 100%;
+	}
+	#logo{
+		width:20%;
+	}
+	#divh3{
+		background: #111;
+		color: #fff;
+		padding-right: 15px;
+		text-align: right;
+		text-transform: uppercase;
+		width: 80%;
+	}
+	.title{
+		background: #111;
+		color: #fff;
+		padding: 5px 0 5px 0;
 		text-align: center;
 		text-transform: uppercase;
-		width: 100%;
 	}
 	#tmovimiento{
 		border-collapse: collapse;
@@ -43,31 +57,44 @@ ob_start();
 	-->
 	</style>
 	<page>
-		Fecha Emision: <?php echo date('d/m/Y'); ?>
-		<br>
-		<div id="divh3">
-			<h3><?php echo $title ?></h3>
+		<div style="border: 2px solid #000;padding:5px; height: 98%; width: 98.5%;">
+			Fecha Emision: <?php echo date('d/m/Y'); ?>
+			<table id="header">
+				<tr>
+					<td id="logo" rowspan="3">
+						<img alt="" src="../../img/logo-dicars-200-100.png">
+					</td>
+				</tr>
+				<tr>
+					<td style="height: 20px;"></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td id="divh3">
+						<h3><?php echo $title ?></h3>
+					</td>
+				</tr>
+				<tr>
+					<td style="height: 20px;"></td>
+				</tr>
+			</table>
+			<br>
+			<div class="title">
+				INGRESOS
+			</div>
+			<?php echo $table_ingresos ?><br>
+			<div class="title">
+				SALIDAS
+			</div>
+			<?php echo $table_salidas ?><br>
+			<table id="total">
+				<tr>
+					<td style="width: 80%;" class="izquierda">Total</td>
+					<td style="width: 20%;"><?php echo $total ?></td>
+				</tr>
+			</table>
+			<br>
 		</div>
-		<br>
-		<table>
-			<tr>
-				<td  class="title">INGRESOS</td>
-			</tr>
-		</table>
-		<?php echo $table_ingresos ?><br>
-		<table>
-			<tr>
-				<td  class="title">SALIDAS</td>
-			</tr>
-		</table>
-		<?php echo $table_salidas ?><br>
-		<table id="total">
-			<tr>
-				<td style="width: 80%;" class="izquierda">Total</td>
-				<td style="width: 20%;"><?php echo $table_total ?></td>
-			</tr>
-		</table>
-		<br>
     </page>
     <?php 
     $content = ob_get_clean();
