@@ -71,7 +71,6 @@ function sumColArray(Array,attr){
 	var total = 0;
 	$(Array).each(function(index){
 		total += this[attr];
-		console.log( this[attr]);
 	});
 	return total;
 }
@@ -295,7 +294,6 @@ jQuery.fn.reset = function () {
 function reloadTable(oTable){
 	var returnfunction = function(data){
 		oTable.fnReloadAjax();
-		console.log(data);
 		};
 	return returnfunction;
 }
@@ -303,7 +301,7 @@ function reloadTable(oTable){
 function reloadclosemodal(idmodal,idaTable){
 	var returnfunction = function(data){
 		$('#'+idaTable).dataTable().fnReloadAjax();
-		console.log(data);
+		//console.log(data);
 		$('#'+idmodal).modal('hide');
 		$('#'+idmodal+" form").reset();
 		};
@@ -322,7 +320,7 @@ function crearElementosForm(Array){
 			$fielset.append('<h3>'+this.label+'</h3>');
 			break;
 		case 'actions':
-			$modalfooter.append('<button type="reset" class="btn" data-dismiss="modal">Cancelar</button>  <button type="submit" class="btn btn-primary">Guardar</button>');
+			$modalfooter.append('<button type="reset" class="btn" data-dismiss="modal">Cancelar</button>  <button type="submit" id="btn_submit" class="btn btn-primary">Guardar</button>');
 			break;
 		case 'close':
 			$modalfooter.append('<button type="reset" class="btn" data-dismiss="modal">Cerrar</button>');
@@ -518,7 +516,7 @@ function uploadFile(nameInput, url, path,nameFile,finishUpload){
 	var inputFile  = $("#"+nameInput);
 	file = inputFile[0].files[0];
 	uploadSend(file, url, path,nameFile,finishUpload);
-	getExtFile(file);
+	getExtFile(nameInput);
 }
 
 function uploadSend(file,url, path,nameFile,finishUpload) {

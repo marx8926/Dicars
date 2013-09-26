@@ -121,7 +121,20 @@ function cargarEditar(cliente){
 	$("#EditarClienteForm").html(crearElementosForm(ArrayDatos));
 	idcliente = cliente.id;
 	cargarSelect(zonas,'zonaE','id','desc');
-	$('#zonaE').val(cliente.zonaId);	
+	$('#zonaE').val(cliente.zonaId);
+}
+
+function resetForm(){
+	$("#EditarClienteForm").submit(function(e){
+		e.preventDefault();
+		if($("#imagenE").val()!="")
+		{		
+			var ext = getExtFile("imagenE");
+			$("#nombrearchivoE").val(idcliente+"_doc"+ext);
+			uploadFile("imagenE","{{ asset('extensiones/upload.php') }}","../uploads/",idcliente+"_doc"+ext,finishUploadEditar);	
+		}else
+			finishUploadEditar();
+	});
 }
 
 function cargarVer(cliente){
@@ -144,19 +157,10 @@ $(document).ready(function(){
 		$('#EditarClienteForm').unbind();
 		enviar('EditarClienteForm',ReloadTableEditar);
 		$('#EditarClienteForm').submit();
+		resetForm();
 	};
 
-	$("#EditarClienteForm").submit(function(e){
-		e.preventDefault();
-		if($("#imagenE").val()!="")
-		{			
-			var ext = getExtFile("imagenE");
-			console.log(ext);
-			$("#nombrearchivoE").val(idcliente+"_doc"+ext);
-			uploadFile("imagenE","{{ asset('extensiones/upload.php') }}","../uploads/",idcliente+"_doc"+ext,finishUploadEditar);
-		}else
-			finishUploadEditar();
-	});
+	resetForm();
 
 	DrawCallbackClientes = function (){
 		tabla_clientes = toHTML(crearTablaToArray("tclientes",
@@ -216,7 +220,6 @@ $(document).ready(function(){
 	ReloadTableRegistrar = reloadclosemodal('modalRegistro', 'clientes_table');
 	
 	enviar('RegistrarClienteForm', ReloadTableRegistrar);
-	enviar('EditarClienteForm', ReloadTableEditar);
 
 	$("#pdfgen").click(function(){
 		$("#title").val("LISTA DE CLIENTES");

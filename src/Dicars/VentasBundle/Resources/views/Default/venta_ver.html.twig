@@ -17,6 +17,7 @@
 		<div class="box-content">
 			<div class="form-horizontal">
 				<fieldset>
+					<div id="resumen_venta">
 					<table class="table table-bordered">
 						<tr>
 							<td style="width: 25%;"><strong>Cliente</strong></td>
@@ -77,10 +78,12 @@
 							</div -->
 						</div>
 					</div>
+					</div>
 				</fieldset>
 			</div>
 			<div class="form-actions">
 				<a href="{{ path('dicars_ventas_consultar') }}" class="btn btn-success"><i class="icon icon-white icon-arrowthick-w"></i> Volver</a>
+				<a href="#" id="imprimir" class="btn btn-success" style="float: right;"><i class="icon icon-white icon-print"></i> Imprimir</a>
 			</div>
 		</div>
 	</div>
@@ -89,8 +92,16 @@
 {% block javascript %}
 <script src="{{ asset('js/util/functiongen.js') }}"></script>
 <script src="{{ asset('js/util/datatable_plugins.js') }}"></script>
+<script src="{{ asset('js/printThis.js') }}"></script>
 <script type="text/javascript">
 $(document).ready(function(){
+
+	$("#imprimir").click(function(e){
+		e.preventDefault();
+		$("#resumen_venta").printThis({
+        	importCSS: false
+         });
+	});
 
 	UrlaDTablePedidos = '{{ path("dicars_ventas_servicio_gettablaventaproductosbyid",{'idventa':''}) }}/{{ id }}';
 	FormatoDTablePedidos = [
