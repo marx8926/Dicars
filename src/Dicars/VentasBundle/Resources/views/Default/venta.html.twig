@@ -285,6 +285,10 @@
 		</div>
 	</div><!--/row-->
 </div>
+<div id="loadingDiv" style="display:none">
+	<p>Registrando...</p>
+    <p><img src="{{ asset('img/ajax-loaders/ajax-loader-7.gif') }}"></p>
+</div>
 {% endblock %}
 {% block javascript %}
 <script src="{{ asset('js/util/functiongen.js') }}"></script>
@@ -532,7 +536,7 @@ $(document).ready(function(){
 	$("#finalizar_venta").click(function(e){
 		e.preventDefault();
 		$.blockUI({ 
-	    	message: "Registrando...",
+	    	message: $('#loadingDiv'),
 	    	css: { padding: '10px' }, 
 			onBlock: function() { 
 				$("#EnviarVentaForm").unbind();
