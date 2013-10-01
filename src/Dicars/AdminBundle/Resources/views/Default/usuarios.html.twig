@@ -31,6 +31,14 @@
 							<input class="input-xlarge focused" id="usuario_id" name="usuario_id" type="text" pattern="|^[a-zA-Z0-9]+$|" title="El usuario puede contener leras y números" maxlength="20" required>
 						</div>
 					</div>
+                                        
+                                        <div class="control-group">
+                                            <label class="control-label" for="email">Email</label>
+                                            <div class="controls">
+                                                <input class="input-xlarge focused" id="email" name="email" type="text">
+                                            </div>
+                                        </div>
+                                        
 					<div class="control-group">
 						<label class="control-label" for="contrasena">Contraseña</label>
 						<div class="controls">
@@ -172,7 +180,9 @@ $(document).ready(function(){
 		
 	};
 
-	ErrorFunction = function(){
+	ErrorFunction = function(data){
+            console.log(data);
+            
 		if($('#nombre_trabajador').val() == ""){
 			datanotyoptions = '{"text":"Por favor complete todos los campos.","layout":"top","type":"error"}';
 			noty( $.parseJSON(datanotyoptions));

@@ -15,7 +15,7 @@ class WelcomeController extends Controller
          */
         //return $this->render('AcmeDemoBundle:Welcome:index.html.twig');
         
-                       return $this->redirect($this->generateUrl('ingreso'));
+                       return $this->redirect($this->generateUrl('fos_user_security_login'));
 
     }
 }

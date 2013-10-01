@@ -1,3 +1,7 @@
+_user_bundle:
+  resource: "@UserBundle/Resources/config/routing.yml"
+  prefix: /
+
 dicars_admin:
     resource: "@DicarsAdminBundle/Resources/config/routing.yml"
     prefix:   /admin/

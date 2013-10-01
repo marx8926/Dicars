@@ -4,36 +4,46 @@ jms_security_extra:
 
 security:
     encoders:
-        Dicards\DataBundle\Entity\Usuario: 
-          algorithm: sha512
-          encode-as-base64: true
-          iterations: 10
+        FOS\UserBundle\Model\UserInterface: sha512
 
     role_hierarchy:
-        ROLE_ADMIN:       [ROLE_USER]
+        ROLE_ADMIN:       [ROLE_JVENTA, ROLE_JLOG, ROLE_JSOP]
+        ROLE_JVENTA: [ROLE_VENDEDOR, ROLE_COBRANZA]
+        ROLE_JLOG: [ROLE_ASIST_ALM, ROLE_ASIST_KARD]
+        ROLE_JSOP: [ROLE_SUPORT_VENTA, ROLE_SUPORT_RH]
+        ROLE_VENDEDOR: [ROLE_USER]
+        ROLE_COBRANZA: [ROLE_USER]
+        ROLE_ASIST_ALM: [ROLE_USER]
+        ROLE_ASIST_KARD: [ROLE_USER]
+        ROLE_SUPORT_VENTA: [ROLE_USER]
+        ROLE_SUPORT_RH: [ROLE_USER]
         ROLE_SUPER_ADMIN: [ROLE_USER, ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     providers:
-       user_db:
-         entity: {class: Dicars\DataBundle\Entity\Usuario, property: cusuarioid}
-         
-    
+       fos_userbundle:
+            id: fos_user.user_provider.username    
+      
 
     firewalls:
-        dev:
-            pattern:  ^/(_(profiler|wdt)|css|images|js)/
-            security: false
-
+    
+        api:
+          pattern: ^/api/.*
+          stateless: true
+          security: true
+          http_basic:
+            realm: "API"
+          
         main:
           pattern: /.*
           form_login:
-            login_path: /ingreso
-            check_path: /ingreso_check
-            remember_me: true
-            default_target_path: /main
+            check_path: /login_check
+            login_path: /login
+            default_target_path: /home
+            provider: fos_userbundle
           logout:
-            path: /salir
-            target: /ingreso
+            path: /logout
+            target: /
+          anonymous: ~
 
           remember_me:
             key: MiPassphrase
@@ -49,10 +59,11 @@ security:
             #    realm: "Secured Demo Area"
 
     access_control:
-        - { path: ^/ingreso, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
         - { path: ^/sobre, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
         - { path: ^/contacto, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
         - { path: ^/contacto_up, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - { path: /api/, role: ROLE_USER }
        # - {path: /user, roles: ROLE_USER }
 #        - {path: /admin, roles: ROLE_ADMIN}
- #       - {path: /.*, roles: ROLE_USER ,requires_channel: https }
+        - {path: /home, roles: ROLE_USER ,requires_channel: https }

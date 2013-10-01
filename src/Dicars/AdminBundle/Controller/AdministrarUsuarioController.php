@@ -6,8 +6,11 @@ use Dicars\DataBundle\Entity\Usuario;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Doctrine\ORM\TransactionRequiredException;
+use FOS\UserBundle\FOSUserBundle;
+use FOS\UserBundle\Model\UserManager;
+use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-class AdministrarUsuarioController  extends Controller{
+class AdministrarUsuarioController  extends Controller {
 
 	public function RegistrarUsuarioAction(){
 		$request = $this->get('request');
@@ -21,6 +24,8 @@ class AdministrarUsuarioController  extends Controller{
 		$Usuario_clave = null;
 		$Usuario_estado = null;
 		$Usuario_fechareg = null;
+                
+                $userManager = $this->get('fos_user.user_manager');
 	
 		if ($form!=null){
 			
@@ -31,20 +36,36 @@ class AdministrarUsuarioController  extends Controller{
 			$Usuario_id = $datos["usuario_id"];
 			$Usuario_clave = $datos["contrasena"];
 			$Usuario_estado = $datos["estado"];
+                        $Usuario_email = $datos["email"];
 			
 			$Usuario_fechareg = new \DateTime();
 			
+                        /*
 			$Usuario = new Usuario();
 			$Usuario->setNpersonal($Usuario_trabajador);
 			$Usuario->setCusuarioid($Usuario_id);
 			$Usuario->setCusuarioclave($Usuario_clave);
 			$Usuario->setCusuarioest($Usuario_estado);
 			$Usuario->setCusuariofecreg($Usuario_fechareg);
+                         * 
+                         */
+                     
 			
 			$em = $this->getDoctrine()->getEntityManager();
 			$em -> beginTransaction();
+                        
+                        $user = $userManager->createUser();
+                        $user->setUsername($Usuario_id);
+                        $user->setPlainPassword($Usuario_clave);
+                        $user->setEnabled(TRUE);
+                        $user->setEmail($Usuario_email);
+                       
+                        $datos = $user->getUsername();
+                        
 			try {
-				$em->persist($Usuario);
+                            
+				$userManager->updateUser($user);
+                                
 				$em->flush();
 			} catch (Exception $e){
 				$em->rollback();
@@ -118,5 +139,10 @@ class AdministrarUsuarioController  extends Controller{
 		$return = json_encode($return);
 		return new Response($return,200,array('Content-Type'=>'application/json'));
 	}
+        
+        
+        public function getParent() {
+            return "FOSUserBundle";
+        }
 	
 }

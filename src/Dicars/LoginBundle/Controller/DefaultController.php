@@ -41,6 +41,7 @@ class DefaultController extends Controller
         $user->setCusuariofecreg(new \DateTime());
         $user->setCusuarioid('root');
         $user->setNpersonal(NULL);
+       
         
         
         $rol = new Rol();
@@ -63,7 +64,7 @@ class DefaultController extends Controller
     
     public function mainAction()
     {
-        return new \Symfony\Component\HttpFoundation\Response('ingreso');
+        return new \Symfony\Component\HttpFoundation\Response('fos_user_security_login');
     }
     public function checkAction()
     {
