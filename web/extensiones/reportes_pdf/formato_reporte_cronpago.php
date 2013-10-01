@@ -15,16 +15,22 @@ ob_start();
 	th{
 		background: #e7e6e6;
 	}
-	#divh3{
-		background: #ff0;
-		border-radius: 5px;
-		text-align: center;
-		text-transform: uppercase;
+	#header{
 		width: 100%;
 	}
+	#logo{
+		width:20%;
+	}
+	#divh3{
+		background: #111;
+		color: #fff;
+		padding-right: 15px;
+		text-align: right;
+		text-transform: uppercase;
+		width: 73%;
+	}
 	#resume, #total{
-		border: #41719c 1px solid;
-		border-radius: 10px;
+		border: #111 1px solid;
 		padding: 10px;
 	}
 	#resume td.impar, .upbold{
@@ -36,7 +42,8 @@ ob_start();
 		text-align: center;
 	}
 	#tdetalle td.prodth, #tcronograma td.prodth{
-		background: #e7e6e6;
+		background: #111;
+		color: #fff;
 		text-transform: uppercase;
 	}
 	#tdetalle th, #tdetalle td, #tcronograma th, #tcronograma td{
@@ -57,15 +64,33 @@ ob_start();
 	-->
 	</style>
 	<page>
-		<div id="divh3">
-			<h3>REPORTE DE CRONOGRAMA DE PAGO</h3>
+		<div style="border: 2px solid #000;padding:5px; height: 98%; width: 98.5%;">
+			<table id="header">
+				<tr>
+					<td id="logo" rowspan="3">
+						<img alt="" src="../../img/logo-dicars-200-100.png">
+					</td>
+				</tr>
+				<tr>
+					<td style="height: 20px;"></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td id="divh3">
+						<h3>REPORTE DE CRONOGRAMA DE PAGO</h3>
+					</td>
+				</tr>
+				<tr>
+					<td style="height: 20px;"></td>
+				</tr>
+			</table>
+			<br>
+			<?php echo $tresumen ?><br>
+			<p>DETALLE DE CONSUMO DE PRODUCTOS</p><br>
+			<?php echo $tdetalle ?><br>
+			<p>DETALLE DE PAGOS</p><br>
+			<?php echo $tcronograma ?>
 		</div>
-		<br>
-		<?php echo $tresumen ?><br>
-		<p>DETALLE DE CONSUMO DE PRODUCTOS</p><br>
-		<?php echo $tdetalle ?><br>
-		<p>DETALLE DE PAGOS</p><br>
-		<?php echo $tcronograma ?>
     </page>
     <?php 
     $content = ob_get_clean();
