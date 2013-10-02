@@ -21,12 +21,43 @@ class User extends BaseUser
     
     
    
-
+     /**
+     * @var \VenPersonal
+     *
+     * @ORM\ManyToOne(targetEntity="VenPersonal")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="nPersonal_id", referencedColumnName="nPersonal_id")
+     * })
+     */
+    protected $npersonal;
+    
     public function __construct()
     {
         parent::__construct();
         // your own logic
     }
     
+     /**
+     * Set npersonal
+     *
+     * @param \Dicars\DataBundle\Entity\VenPersonal $npersonal
+     * @return Usuario
+     */
+    public function setNpersonal(\Dicars\DataBundle\Entity\VenPersonal $npersonal = null)
+    {
+        $this->npersonal = $npersonal;
+    
+        return $this;
+    }
+
+    /**
+     * Get npersonal
+     *
+     * @return \Dicars\DataBundle\Entity\VenPersonal 
+     */
+    public function getNpersonal()
+    {
+        return $this->npersonal;
+    }
   
 }

@@ -1,8 +1,0 @@
-Dicars\UserBundle\Entity\User:
-    type:  entity
-    table: dicars_user
-    id:
-        id:
-            type: integer
-            generator:
-                strategy: AUTO
