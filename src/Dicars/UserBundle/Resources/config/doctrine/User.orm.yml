@@ -1,6 +1,6 @@
 Dicars\UserBundle\Entity\User:
     type:  entity
-    table: fos_user
+    table: dicars_user
     id:
         id:
             type: integer
