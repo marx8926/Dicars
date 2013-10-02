@@ -59,6 +59,7 @@ class AdministrarUsuarioController  extends Controller {
                         $user->setPlainPassword($Usuario_clave);
                         $user->setEnabled(TRUE);
                         $user->setEmail($Usuario_email);
+                        $user->setNpersonal($Usuario_trabajador);
                        
                         $datos = $user->getUsername();
                         
