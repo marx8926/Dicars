@@ -13,13 +13,19 @@ class VentaServiciosController extends Controller{
 
 	public function getTablaClientesAction(){
 		$em = $this->getDoctrine()->getEntityManager();
-			
-		$clientes = $this->getDoctrine()
-		->getRepository('DicarsDataBundle:VenCliente')
-		->findAll();
+		
+                
+                $securityContext = $this->get('security.context');
+        
+                if($securityContext->isGranted('ROLE_VENDEDOR') || $securityContext->isGranted('ROLE_COBRANZA') 
+                        || $securityContext->isGranted('ROLE_SUPORT_RH')  )
+                {     
+                    $clientes = $this->getDoctrine()
+                    ->getRepository('DicarsDataBundle:VenCliente')
+                    ->findAll();
 	
-		$todo = array();
-		foreach ($clientes as $key => $cliente){
+                    $todo = array();
+                    foreach ($clientes as $key => $cliente){
 			$todo[] = array(
 					'id' => $cliente -> getNclienteId() ,
 					'nombre' => $cliente -> getCclientenom() , 
@@ -38,9 +44,13 @@ class VentaServiciosController extends Controller{
 					'ver_btn' => "<a class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
 					'edit_btn' => "<a class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
 					'elim_btn' => "<a class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
-		}
-		$em->clear();
-		$em->close();
+                    }
+                    
+                }
+                else $todo=array();
+                $em->clear();
+                $em->close();
+                
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
@@ -276,16 +286,20 @@ class VentaServiciosController extends Controller{
 	public function getTablaCreditosByIdAction($idcliente){
 		$em = $this->getDoctrine()->getEntityManager();
 			
-		$Ventas = $this->getDoctrine()
-		->getRepository('DicarsDataBundle:VenVenta')
-		->findBy(array('ncliente' => $idcliente ,
+                $securityContext = $this->get('security.context');
+        
+                if( $securityContext->isGranted('ROLE_COBRANZA') )
+                {
+                    $Ventas = $this->getDoctrine()
+                    ->getRepository('DicarsDataBundle:VenVenta')
+                    ->findBy(array('ncliente' => $idcliente ,
 						'nventatippag' => 2
 				));
 		
-		$pagado = null;
+                    $pagado = null;
 	
-		$todo = array();
-		foreach ($Ventas as $key => $Venta){
+                    $todo = array();
+                    foreach ($Ventas as $key => $Venta){
 			
 			$Credito = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:VenCredito')
@@ -314,21 +328,29 @@ class VentaServiciosController extends Controller{
 					'ver_pagar' => $btnpagar,
 					'ver_reporte' => "<button type='button' class='btn btn-success btn-cronograma' data-loading-text='Cargando...'>Reporte del Crédito</button>",
 					);
-		}
-		$em->clear();
-		$em->close();
+                    }
+                    
+                }
+                else $todo = array();
+                $em->clear();
+                $em->close();
+                
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
 	public function getTablaCuotasByIdAction($idcredito){
 		$em = $this->getDoctrine()->getEntityManager();
 			
-		$Cronogramas = $this->getDoctrine()
-		->getRepository('DicarsDataBundle:VenCronpago')
-		->findBy(array('nvencredito' => $idcredito),array('ncronpagofecpago' => 'ASC'));
+                $securityContext = $this->get('security.context');
+        
+                if($securityContext->isGranted('ROLE_VENDEDOR') || $securityContext->isGranted('ROLE_COBRANZA'))
+                {
+                    $Cronogramas = $this->getDoctrine()
+                    ->getRepository('DicarsDataBundle:VenCronpago')
+                    ->findBy(array('nvencredito' => $idcredito),array('ncronpagofecpago' => 'ASC'));
 	
-		$todo = array();
-		foreach ($Cronogramas as $key => $Cronograma){
+                    $todo = array();
+                    foreach ($Cronogramas as $key => $Cronograma){
 				
 			$todo[] = array(
 					'fecpago' => $Cronograma -> getNcronpagofecpago() -> format('d/m/Y'),
@@ -337,21 +359,28 @@ class VentaServiciosController extends Controller{
 					'montoapl' => $Cronograma -> getNcronpagomoncouapl(),
 					'idcrono' => $Cronograma -> getNcronogramaId()
 			);
-		}
-		$em->clear();
-		$em->close();
+                    }
+                    $em->clear();
+                    $em->close();
+                }
+                else $todo = array();
+                
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
 	public function getTablaClientesByZonaAction($idzona){		
 		$em = $this->getDoctrine()->getEntityManager();
 		
-		$clientes = $this->getDoctrine()
-		->getRepository('DicarsDataBundle:VenCliente')
-		->findBy(array('nzona' => $idzona));
+                $securityContext = $this->get('security.context');
+        
+                if( $securityContext->isGranted('ROLE_COBRANZA'))
+                {
+                    $clientes = $this->getDoctrine()
+                    ->getRepository('DicarsDataBundle:VenCliente')
+                    ->findBy(array('nzona' => $idzona));
 	
-		$todo = array();
-		foreach ($clientes as $key => $cliente){
+                    $todo = array();
+                    foreach ($clientes as $key => $cliente){
 			$todo[] = array(
 					'id' => $cliente -> getNclienteId() ,
 					'nombre' => $cliente -> getCclientenom() , 
@@ -364,9 +393,13 @@ class VentaServiciosController extends Controller{
 					'linea_credito' => $cliente -> getNclientelineaop(),
 					'arccredito' => $cliente -> getCclientearccredito(),
 					'ocupacion' => $cliente -> getCclienteocup());
-		}
+                    }
+                }
+                else $todo = array();
+                
 		$em->clear();
 		$em->close();
+                
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
@@ -376,19 +409,23 @@ class VentaServiciosController extends Controller{
 		$fecmindate = date_create_from_format('Y-m-d H:i:s', $fecmin."00:00:00");
 		$fecmaxdate = date_create_from_format('Y-m-d H:i:s', $fecmax."23:59:59");
 		
-		$VentasRepositore = $this->getDoctrine()
-		->getRepository('DicarsDataBundle:VenVenta');
+                $securityContext = $this->get('security.context');
+        
+                if( $securityContext->isGranted('ROLE_VENDEDOR'))
+                {
+                    $VentasRepositore = $this->getDoctrine()
+                    ->getRepository('DicarsDataBundle:VenVenta');
 		
-		$query = $VentasRepositore->createQueryBuilder('v')
-		->where("v.cventafecreg  BETWEEN :fecmin AND :fecmax")
-		->setParameter('fecmin', $fecmindate)
-		->setParameter('fecmax', $fecmaxdate)
-		->getQuery();
+                    $query = $VentasRepositore->createQueryBuilder('v')
+                    ->where("v.cventafecreg  BETWEEN :fecmin AND :fecmax")
+                    ->setParameter('fecmin', $fecmindate)
+                    ->setParameter('fecmax', $fecmaxdate)
+                    ->getQuery();
 		
-		$Ventas = $query->getResult();
+                    $Ventas = $query->getResult();
 	
-		$todo = array();
-		foreach ($Ventas as $key => $Venta){
+                    $todo = array();
+                    foreach ($Ventas as $key => $Venta){
 			$VentaProductos = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:VenDetventa')
 			->findBy(array('nventa' => $Venta -> getNventaId() ));
@@ -465,7 +502,10 @@ class VentaServiciosController extends Controller{
 					'ver_btn' => "<a class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
 					'edit_btn' => $edit,
 					'elim_btn' => "<a class='btn btn-danger btn-elim' href='#'><i class='icon-trash icon-white'></i>Anular</a>");
-		}
+                    }
+                }
+                else $todo = array();
+                
 		$em->clear();
 		$em->close();
 		return new JsonResponse(array('aaData' => $todo));
@@ -474,12 +514,16 @@ class VentaServiciosController extends Controller{
 	public function getTablaVentaProductosByIdAction($idventa){
 		$em = $this->getDoctrine()->getEntityManager();
 			
-		$VentaProductos = $this->getDoctrine()
-		->getRepository('DicarsDataBundle:VenDetventa')
-		->findBy(array('nventa' => $idventa ));
+                $securityContext = $this->get('security.context');
+        
+                if($securityContext->isGranted('ROLE_VENDEDOR') || $securityContext->isGranted('ROLE_COBRANZA'))
+                {    
+                    $VentaProductos = $this->getDoctrine()
+                    ->getRepository('DicarsDataBundle:VenDetventa')
+                    ->findBy(array('nventa' => $idventa ));
 	
-		$todo = array();
-		foreach ($VentaProductos as $key => $VentaProducto){
+                    $todo = array();
+                    foreach ($VentaProductos as $key => $VentaProducto){
 			$Producto = $VentaProducto -> getNproducto();
 				
 			$todo[] = array(
@@ -491,24 +535,34 @@ class VentaServiciosController extends Controller{
 					'importe' => $VentaProducto -> getNdetventatot(),
 					'elim_btn' => "<a class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>"
 					);
-		}
-		$em->clear();
-		$em->close();
+                    }
+                    
+                }
+                else $todo = array();
+                
+                $em->clear();
+                $em->close();
+                
 		return new JsonResponse(array('aaData' => $todo));
 	}
 	
 	public function getTablaDeudoresGenAction(){
 		$em = $this->getDoctrine()->getEntityManager();
+                
+                $securityContext = $this->get('security.context');
+        
+                if( $securityContext->isGranted('ROLE_COBRANZA'))
+                {
 	
-		$sql = "SELECT * FROM dicarsbd.ven_listaclientedeudores";
+                    $sql = "SELECT * FROM dicarsbd.ven_listaclientedeudores";
 	
-		$smt = $em->getConnection()->prepare($sql);
-		$smt->execute();
+                    $smt = $em->getConnection()->prepare($sql);
+                    $smt->execute();
 	
-		$deudores = $smt->fetchAll();
+                    $deudores = $smt->fetchAll();
 	
-		$todo = array();
-		foreach ($deudores as $key => $deudor){
+                    $todo = array();
+                    foreach ($deudores as $key => $deudor){
 			$todo[] = array(
 					'idcliente' => $deudor['id'] ,
 					'nombre' => $deudor['Cliente'] ,
@@ -520,7 +574,9 @@ class VentaServiciosController extends Controller{
 					'saldo' => $deudor['Saldo'],
 					'estado' => $deudor['Estado'],
 					'responsable' => $deudor['Responsable']);
-		}
+                    }
+                }
+                else $todo = array();
 		$em->clear();
 		$em->close();
 		return new JsonResponse(array('aaData' => $todo));
@@ -528,16 +584,20 @@ class VentaServiciosController extends Controller{
 	
 	public function getTablaDeudoresDetAction(){
 		$em = $this->getDoctrine()->getEntityManager();
+                $securityContext = $this->get('security.context');
+        
+                if( $securityContext->isGranted('ROLE_COBRANZA'))
+                {
 	
-		$sql = "SELECT * FROM dicarsbd.ven_listaclientedeudores_detallado";
+                    $sql = "SELECT * FROM dicarsbd.ven_listaclientedeudores_detallado";
 	
-		$smt = $em->getConnection()->prepare($sql);
-		$smt->execute();
+                    $smt = $em->getConnection()->prepare($sql);
+                    $smt->execute();
 	
-		$deudores = $smt->fetchAll();
+                    $deudores = $smt->fetchAll();
 	
-		$todo = array();
-		foreach ($deudores as $key => $deudor){
+                    $todo = array();
+                    foreach ($deudores as $key => $deudor){
 			$todo[] = array(
 					'idcliente' => $deudor['id'] ,
 					'nombre' => $deudor['Cliente'] ,
@@ -551,7 +611,9 @@ class VentaServiciosController extends Controller{
 					'saldo' => $deudor['Saldo'],
 					'estado' => $deudor['Estado'],
 					'responsable' => $deudor['Responsable']);
-		}
+                    }
+                }
+                else $todo = array();
 		$em->clear();
 		$em->close();
 		return new JsonResponse(array('aaData' => $todo));
@@ -560,35 +622,39 @@ class VentaServiciosController extends Controller{
 	public function getCronPagoVentaAction($idventa){
 		$em = $this->getDoctrine()->getEntityManager();
 
-		$Venta = $this->getDoctrine()
-    	->getRepository('DicarsDataBundle:VenVenta')
-    	->findOneBy(array('nventaId' => $idventa));
+                $securityContext = $this->get('security.context');
+        
+                if($securityContext->isGranted('ROLE_VENDEDOR'))
+                {    
+                    $Venta = $this->getDoctrine()
+                ->getRepository('DicarsDataBundle:VenVenta')
+                ->findOneBy(array('nventaId' => $idventa));
 		
-		$Cliente = $Venta -> getNcliente();
+                    $Cliente = $Venta -> getNcliente();
 		
-		$VentaProductos = $this->getDoctrine()
-		->getRepository('DicarsDataBundle:VenDetventa')
-		->findBy(array('nventa' => $idventa ));
+                    $VentaProductos = $this->getDoctrine()
+                    ->getRepository('DicarsDataBundle:VenDetventa')
+                    ->findBy(array('nventa' => $idventa ));
 		
-		$Credito = $this->getDoctrine()
-		->getRepository('DicarsDataBundle:VenCredito')
-		->findOneBy(array('nventa' => $idventa ));
+                    $Credito = $this->getDoctrine()
+                    ->getRepository('DicarsDataBundle:VenCredito')
+                    ->findOneBy(array('nventa' => $idventa ));
 		
-		$Nro = $Credito->getNvencreditoId();
-		$Fecha_reg = $Venta->getCventafecreg()->format('d/m/Y');
-		$Amortizacion = $Venta -> getNventatotapag();
-		$Monto_credito = $Venta -> getNventatotapag();
-		$NombreCliente = $Cliente -> getCclientenom()." ".$Cliente -> getCclienteape();
+                    $Nro = $Credito->getNvencreditoId();
+                    $Fecha_reg = $Venta->getCventafecreg()->format('d/m/Y');
+                    $Amortizacion = $Venta -> getNventatotapag();
+                    $Monto_credito = $Venta -> getNventatotapag();
+                    $NombreCliente = $Cliente -> getCclientenom()." ".$Cliente -> getCclienteape();
 		
-		$sql = "SELECT * FROM ven_listacronpago_by_venta where venta_id =".$idventa;
+                    $sql = "SELECT * FROM ven_listacronpago_by_venta where venta_id =".$idventa;
 		
-		$smt = $em->getConnection()->prepare($sql);
-		$smt->execute();
+                    $smt = $em->getConnection()->prepare($sql);
+                    $smt->execute();
 		
-		$Cronogramas = $smt->fetchAll();
+                    $Cronogramas = $smt->fetchAll();
 		
-		$DetVenta = array();
-		foreach ($VentaProductos as $key => $VentaProducto){
+                    $DetVenta = array();
+                    foreach ($VentaProductos as $key => $VentaProducto){
 			$Producto = $VentaProducto -> getNproducto();
 		
 			$DetVenta[] = array(
@@ -600,10 +666,10 @@ class VentaServiciosController extends Controller{
 					'importe' => $VentaProducto -> getNdetventatot(),
 					'elim_btn' => "<a class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>"
 			);
-		}
+                    }
 		
-		$Cuotas = array();
-		foreach ($Cronogramas as $key => $Cronograma){
+                    $Cuotas = array();
+                    foreach ($Cronogramas as $key => $Cronograma){
 			$estado = '';
 			$Cuotas[] = array(
 					'fecpago' => $Cronograma['FecVenc'],
@@ -613,10 +679,21 @@ class VentaServiciosController extends Controller{
 					'saldo' => $Cronograma['Saldo'],
 					'estado' => $Cronograma['Estado']
 			);
-		}
+                    }
 		
-		$em->clear();
-		$em->close();
+                   
+                }
+                else {
+                    $DetVenta = array();
+                    $Cuotas = array();
+                    $Nro = array();
+                    $Fecha_reg = array();
+                    $Amortizacion = array();
+                    $Monto_credito = array();
+                    $NombreCliente = array();
+                }
+                $em->clear();
+                $em->close();
 		
 		return new JsonResponse(array(
 				'detventas' => $DetVenta,

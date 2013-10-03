@@ -9,6 +9,8 @@
 </li>
 {% endblock %}
 {% block content %}
+
+{% if is_granted('ROLE_COBRANZA')%}
 <div class="row-fluid">		
 	<div class="box span12">
 		<div class="box-header well" data-original-title>
@@ -98,7 +100,9 @@
 		</div>
 	</div>
 </div><!--/row-->
-
+{% else %}
+<h2>No tiene acceso. Por favor contactarse con el administrador</h2>
+{% endif %}
 {% endblock %}
 {% block javascript %}
 <script src="{{ asset('js/util/functiongen.js') }}"></script>

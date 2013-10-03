@@ -7,20 +7,25 @@
 {% endblock %}
 {% block content %}
  <div class="row-fluid">
+     
+        {% if is_granted('ROLE_VENDEDOR')%}
 	<a data-rel="tooltip" title="Ver, agregar y editar Ventas." class="well span3 top-block" href="{{ path('dicars_ventas_consultar') }}">
 		<span class="icon32 icon-color icon-cart"></span>
 		<div>Venta de<br> Productos</div>
 	</a>
+        {% endif %}
 
+        {% if is_granted('ROLE_COBRANZA') %}
 	<a data-rel="tooltip" title="Ver Cronograma y realizar Pagos." class="well span3 top-block" href="{{ path('dicars_ventas_cronograma') }}">
 		<span class="icon32 icon-color icon-document"></span>
 		<div>Cronograma <br>de Pago</div>
 	</a>
-
+        
 	<a data-rel="tooltip" title="Ver Clientes Deudores y Morosos." class="well span3 top-block" href="{{ path('dicars_ventas_clientes_dm') }}">
 		<span class="icon32 icon-color icon-users"></span>
 		<div>Clientes Deudores <br> y Morosos</div>
 	</a>
+        {% endif %}
 	<a data-rel="tooltip" title="Asignar e imprimir Tarjetas de Crédito." class="well span3 top-block" href="{{ path('dicars_ventas_regimp_tarjetacredito') }}">
 		<span class="icon32 icon-color icon-profile"></span>
 		<div>Tarjeta <br> de Crédito</div>

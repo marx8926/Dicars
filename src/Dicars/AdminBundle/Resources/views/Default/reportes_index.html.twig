@@ -17,9 +17,11 @@
 		<div>Reporte de<br>Ingresos/Egresos</div>
 	</a>
 
+        {% if is_granted('ROLE_COBRANZA')%}
 	<a data-rel="tooltip" title="Ver, agregar y editar Usuarios." class="well span3 top-block" href="{{ path('dicars_ventas_reporte_zonas') }}">
 		<span class="icon32 icon-color icon-page"></span>
 		<div>Reporte<br>de Zonas</div>
 	</a>
+        {% endif %}
 </div>
 {% endblock %}

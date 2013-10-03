@@ -96,16 +96,26 @@
 				<div class="well nav-collapse sidebar-nav">
 					<ul class="nav nav-tabs nav-stacked main-menu">
 						<li class="nav-header hidden-tablet">Ventas</li>
+                                                
+                                                {% if is_granted('ROLE_VENDEDOR') %}
 						<li><a class="ajax-link" href="{{ path('dicars_ventas_consultar') }}"><i class="icon icon-black icon-cart"></i><span class="hidden-tablet"> Venta de Productos</span></a></li>
-						<li><a class="ajax-link" href="{{ path('dicars_ventas_cronograma') }}"><i class="icon icon-black icon-document"></i><span class="hidden-tablet"> Cronograma de Pago</span></a></li>
+                                                {% endif %}
+                                                            
+						{% if is_granted('ROLE_COBRANZA') %}
+                                                <li><a class="ajax-link" href="{{ path('dicars_ventas_cronograma') }}"><i class="icon icon-black icon-document"></i><span class="hidden-tablet"> Cronograma de Pago</span></a></li>                                                
 						<li><a class="ajax-link" href="{{ path('dicars_ventas_clientes_dm') }}"><i class="icon icon-black icon-users"></i><span class="hidden-tablet"> Morosos y Deudores</span></a></li>
+                                                {% endif %}
 						<!-- li><a class="ajax-link" href="{{ path('dicars_ventas_ofertas') }}"><i class="icon icon-black icon-tag"></i><span class="hidden-tablet"> Ofertas</span></a></li-->
 						<li><a class="ajax-link" href="{{ path('dicars_ventas_regimp_tarjetacredito') }}"><i class="icon icon-black icon-profile"></i><span class="hidden-tablet"> Tarjeta de Crédito</span></a></li>
 						<li><a class="ajax-link" href="{{ path('dicars_ventas_clientes') }}"><i class="icon icon-black icon-users"></i><span class="hidden-tablet"> Clientes</span></a></li>
 						<li><a href="{{ path('dicars_admin_movimientos') }}"><i class="icon icon-black icon-transfer-ew"></i><span class="hidden-tablet"> Movimientos</span></a></li>
 						<li><a class="ajax-link" href="{{ path('dicars_ventas_reporte') }}"><i class="icon icon-black icon-page"></i><span class="hidden-tablet"> Reporte de Ventas Tienda/Zona</span></a></li>
-						<li><a class="ajax-link" href="{{ path('dicars_ventas_reporte_zonas') }}"><i class="icon icon-black icon-page"></i><span class="hidden-tablet"> Reporte Clientes/Zona</span></a></li>
-						<li><a class="ajax-link" href="#" id="lanza-cuadrecaja"><i class="icon icon-black icon-page"></i><span class="hidden-tablet"> Cuadre de Caja</span></a></li>
+						
+                                                {%if is_granted('ROLE_COBRANZA') %}
+                                                <li><a class="ajax-link" href="{{ path('dicars_ventas_reporte_zonas') }}"><i class="icon icon-black icon-page"></i><span class="hidden-tablet"> Reporte Clientes/Zona</span></a></li>
+						{% endif %}
+                                                            
+                                                <li><a class="ajax-link" href="#" id="lanza-cuadrecaja"><i class="icon icon-black icon-page"></i><span class="hidden-tablet"> Cuadre de Caja</span></a></li>
 						<li class="nav-header hidden-tablet">Logística</li>
 						<li><a class="ajax-link" href="{{ path('dicars_logistica_productos') }}"><i class="icon icon-black icon-inbox"></i><span class="hidden-tablet"> Administrar Productos</span></a></li>
 						<li><a class="ajax-link" href="{{ path('dicars_logistica_proveedores') }}"><i class="icon icon-black icon-users"></i><span class="hidden-tablet"> Administrar Proveedores</span></a></li>

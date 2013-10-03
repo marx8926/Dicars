@@ -20,17 +20,8 @@ class AdministrarUsuarioController  extends Controller {
 	
 		$datos = array();
 		parse_str($form,$datos);  
+                             
                 
-                $admin = NULL;
-                $jventas = NULL;
-                $jlogist = NULL;
-                $jsoport = NULL;
-                $vendedor = NULL;
-                $cobranza = NULL;
-                $asistalm = NULL;
-                $asistkard = NULL;
-                $soportvent = NULL;
-                $soportrh = NULL;
                 $usuario = $datos['code_user'];
                 $userManager = $this->get('fos_user.user_manager');
                 $user = $userManager->findUserByUsername($usuario);
@@ -39,42 +30,49 @@ class AdministrarUsuarioController  extends Controller {
                 {
                     $em = $this->getDoctrine()->getEntityManager();
                     $em -> beginTransaction();
-                     
-                                        
+                                               
                      if(strpos($form, 'administrador')!==false)              
                          $user->addRole("ROLE_ADMIN");
+                     else $user->removeRole("ROLE_ADMIN");
                      
                      if(strpos($form, 'jventas')!==false)
-                         $user->addRole("ROLE_JVENTA");                     
+                         $user->addRole("ROLE_JVENTA"); 
+                     else $user->removeRole("ROLE_JVENTA");
                      
                      if(strpos($form, 'jlogistica')!==false)
                          $user->addRole("ROLE_JLOG");
+                     else $user->removeRole("ROLE_JLOG");
                      
                      if(strpos($form, 'jsoporte')!==false)
-                         $user->addRole("ROLE_JSOP");                     
+                         $user->addRole("ROLE_JSOP"); 
+                     else $user->removeRole("ROLE_JSOP");
                      
                      if(strpos($form, 'vendedor')!==false)
                          $user->addRole("ROLE_VENDEDOR");
+                     else $user->removeRole("ROLE_VENDEDOR");
                      
                      if(strpos($form, 'cobranza')!==false)
-                         $user->addRole("ROLE_COBRANZA");                     
+                         $user->addRole("ROLE_COBRANZA");  
+                     else $user->removeRole("ROLE_COBRANZA");
                      
                      if(strpos($form, 'asistalmacen')!==false)
-                         $user->addRole("ROLE_ASIST_ALM");                     
+                         $user->addRole("ROLE_ASIST_ALM"); 
+                     else $user->removeRole("ROLE_ASIST_ALM");
                      
                      if(strpos($form, 'asistkardex')!==false)
-                         $user->addRole("ROLE_ASIST_KARD");                     
+                         $user->addRole("ROLE_ASIST_KARD"); 
+                     else $user->removeRole("ROLE_ASIST_KARD");
                      
                      if(strpos($form, 'soporteventas')!==false)
                          $user->addRole("ROLE_SUPORT_VENTA");
+                     else $user->removeRole("ROLE_SUPORT_VENTA");
                      
                      if(strpos($form, 'soporterh')!==false)
-                         $user->addRole("ROLE_SUPORT_RH");                    
+                         $user->addRole("ROLE_SUPORT_RH");
+                     else $user->removeRole("ROLE_SUPORT_RH");
                              
-                    try {
-                            
-				$userManager->updateUser($user);
-                                
+                    try {                            
+				$userManager->updateUser($user);                                
 				$em->flush();
 			} catch (Exception $e){
 				$em->rollback();
