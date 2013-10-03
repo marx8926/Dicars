@@ -152,29 +152,34 @@ class AdministrarServiciosController extends Controller {
 
 	public function getTablaUsuarioAction(){
 		$em = $this->getDoctrine()->getEntityManager();
-			
-		$usuarios = $this->getDoctrine()
-		->getRepository('DicarsDataBundle:Usuario')
-		->findAll();
+		
+		$userManager = $this->get('fos_user.user_manager');
+		$usuarios = $userManager->findUsers();
+		
 		$todo = array();
 		foreach ($usuarios as $key => $usuario){
-			$estadochar = $usuario -> getCusuarioest();
-			if($estadochar=="1")
+			if($usuario->isEnabled()=="1")
 				$estado = "<span class='label label-success'>Habilidado</span>";
 			else
 				$estado = "<span class='label label-important'>Inhabilitado</span>";
+			
+			if($usuario-> getLastLogin()!=null)
+				$lastlogin = $usuario-> getLastLogin() -> format('d/m/Y');
+			else
+				$lastlogin = "";	
+			
 			$personal = $usuario -> getNpersonal();
 			
-			$todo[] = array('id' => $usuario -> getNusuarioid(),
+			$todo[] = array(//'id' => $usuario -> getNusuarioid(),
 						'trabajador' => $personal -> getCpersonalnom()." ".$personal -> getCpersonalape(),
-						'usuario_id' => $usuario -> getCusuarioid(),
-						'clave' => $usuario -> getCusuarioclave(),
+						'usuario_name' => $usuario ->getUsername(),
+						'roles' => $usuario -> getRoles(),
+						'password' => $usuario -> getPassword(),
+						'lastlogin' => $lastlogin,
 						'selectEstado' => $estado,
-						'estado' => $usuario -> getCusuarioest(),
-						'fecharegistro' => $usuario -> getCusuariofecreg() -> format('d/m/Y'),
-						'ver_btn' => "<a id-data='".$usuario -> getNusuarioId()."' class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
-						'edit_btn' => "<a id-data='".$usuario -> getNusuarioId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
-						'elim_btn' => "<a id-data='".$usuario -> getNusuarioId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
+						'ver_btn' => "<a class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
+						'edit_btn' => "<a class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
+						'rol_btn' => "<a class='btn btn-rol btn-info' href='#'><i class='icon-trash icon-white'></i>Roles</a>");
 		}
 
 		$em->clear();
