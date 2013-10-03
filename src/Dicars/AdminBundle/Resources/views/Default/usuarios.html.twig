@@ -71,35 +71,14 @@
 				<form id="EditarUsuarioForm" class="form-horizontal" method="post" action="{{ path('dicars_admin_editar_usuario') }}">
 				</form>
 			</div>
-			</div>	
+			</div>
 			
-			<div class="modal hide fade" id="modalVerDatos">
+			<div class="modal hide fade" id="modalRoles">
 			<div class="modal-header">
-				<h3>Datos del Trabajador</h3>
+				<h3>Editar Roles</h3>
 			</div>
 			<div class="modal-body">
-				<div id="VerUsuarioForm" class="form-horizontal">
-				</div>
-			</div>
-			</div> 
-			
-			<table id="usuarios_table" class="table table-striped table-bordered bootstrap-datatable datatable">
-				<thead>
-					<tr>
-						<th>Usuario ID</th>
-					  	<th>Trabajador</th>
-					  	<th>Estado</th>
-					  	<th>Fecha de Registo</th>
-					  	<th></th>
-					  	<th></th>
-					  	<th></th>
-				  	</tr>
-				</thead>
-			</table>
-		</div>
-	</div>
-        
-        <div class="box span12" >
+				<div class="box span12" >
             
             <form type="POST" id="RolUsuarioForm" name="RolUsuarioForm" action="{{path('dicars_admin_roles')}}">
                 
@@ -167,6 +146,34 @@
         
              </form>
         </div>
+			</div>
+			</div>	
+			
+			<div class="modal hide fade" id="modalVerDatos">
+			<div class="modal-header">
+				<h3>Datos del Trabajador</h3>
+			</div>
+			<div class="modal-body">
+				<div id="VerUsuarioForm" class="form-horizontal">
+				</div>
+			</div>
+			</div> 
+			
+			<table id="usuarios_table" class="table table-striped table-bordered bootstrap-datatable datatable">
+				<thead>
+					<tr>
+						<th>Usuario ID</th>
+					  	<th>Trabajador</th>
+					  	<th>Estado</th>
+					  	<th>LastLogin</th>
+					  	<th></th>
+					  	<th></th>
+					  	<th></th>
+				  	</tr>
+				</thead>
+			</table>
+		</div>
+	</div>
 </div>
 {% endblock %}
 {% block javascript %}
@@ -178,10 +185,10 @@ function cargarEditar(usuarioE){
 			
 	ArrayDatos = [	{'type':'hidden','value':usuarioE.id,'name':'idE'},
 	      			{'label':'Trabajador','type':'span','value':usuarioE.trabajador,'name':'trabajadorE'},
-					{'label':'Usuario','type':'input', 'typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]+$|','title':'Debe tener el formato correcto', 'req':'', 'max':'20','value':usuarioE.usuario_id,'name':'usuario_idE'},
+					{'label':'Usuario','type':'input', 'typeinput':'text','pattern':'|^[a-zA-Z ñÑáÁéÉíÍóÓúÚüÜç]+$|','title':'Debe tener el formato correcto', 'req':'', 'max':'20','value':usuarioE.usuario_name,'name':'usuario_idE'},
 	              	{'label':'Clave','type':'input','typeinput':'text','value':usuarioE.clave,'name':'contrasenaE', 'pattern':'|^[a-zA-Z1-9]+$|', 'req':'', 'max':'20'},
 	              	{'label':'Estado','type':'select','name':'estadoE'},
-	              	{'label':'Fecha Registro','type':'span','value':usuarioE.fecharegistro,'name':'fecharegistroE'},
+	              	{'label':'Fecha Registro','type':'span','value':usuarioE.lastlogin,'name':'fecharegistroE'},
 					{'type':'actions'}];		
 	$("#EditarUsuarioForm").html(crearElementosForm(ArrayDatos));
 	$('#estadoE').append('<option value="1">Habilitado</option>');
@@ -204,6 +211,7 @@ function cargarVer(usuario){
 
 var UsuariosTable;
 var SelectTrabajadorData = new Array();
+var SelectUsuarioData= new Array();
 var BuscarTrabajadorTable;
 var CargarBotones;
 var RowCallBackFunctionTrabajador;
@@ -239,6 +247,12 @@ $(document).ready(function(){
 			cargarEditar(aData);
 			$('#modalEditarDatos').modal('show');
 		});
+
+		$(nRow).find('.btn-rol').click(function(e){
+			e.preventDefault();
+			$("#code_user").val(aData.usuario_name);
+			$('#modalRoles').modal('show');
+		});
 	};
 	
 	ReloadTableUsuario = function(data){
@@ -269,15 +283,16 @@ $(document).ready(function(){
 	              ];
 	BuscarTrabajadorTable = createDataTable('select_trabajador_table',UrlaDTable,FormatoDUsuarioTable,null,RowCallBackFunctionTrabajador);	
 	//TABLA CON USUARIOS REGISTRADOS
+	
 	UrlaDTableUser = '{{ path("dicars_admin_servicio_gettablausuario") }}';
 	FormatoDTable = [
-	              { "sWidth": "15%","mDataProp": "usuario_id"},
+	              { "sWidth": "15%","mDataProp": "usuario_name"},
 	              { "sWidth": "15%","mDataProp": "trabajador"},
-	              { "sWidth": "15%","mDataProp": "selectEstado"},
-	              { "sWidth": "15%","mDataProp": "fecharegistro"},	              
+	              { "sWidth": "15%","mDataProp": "selectEstado"},   
+	              { "sWidth": "15%","mDataProp": "lastlogin"},       
 	              { "sWidth": "13%","mDataProp": "ver_btn"},
 	              { "sWidth": "13%","mDataProp": "edit_btn"},
-	              { "sWidth": "14%","mDataProp": "elim_btn"}
+	              { "sWidth": "14%","mDataProp": "rol_btn"}
 	              ];
 	UsuariosTable = createDataTable('usuarios_table',UrlaDTableUser,FormatoDTable,null,RowCallBackFunction);
 
