@@ -12,4 +12,10 @@ dicars_admin_editar_usuario:
           
 dicars_admin_usuarios:
     pattern: /usuarios
-    defaults: { _controller: DicarsAdminBundle:Default:usuario }          
+    defaults: { _controller: DicarsAdminBundle:Default:usuario }   
+    
+dicars_admin_roles:
+    pattern: /admin_roles
+    defaults: {_controller: DicarsAdminBundle:AdministrarUsuario:AdminRoles}
+    requirements:
+          _method: POST

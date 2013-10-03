@@ -11,6 +11,107 @@ use FOS\UserBundle\Model\UserManager;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class AdministrarUsuarioController  extends Controller {
+    
+    
+        public function AdminRolesAction(){
+            
+                $request = $this->get('request');
+		$form = $request->request->get('formulario');
+	
+		$datos = array();
+		parse_str($form,$datos);  
+                
+                $admin = NULL;
+                $jventas = NULL;
+                $jlogist = NULL;
+                $jsoport = NULL;
+                $vendedor = NULL;
+                $cobranza = NULL;
+                $asistalm = NULL;
+                $asistkard = NULL;
+                $soportvent = NULL;
+                $soportrh = NULL;
+                
+                if($form!=NULL)
+                {
+                    $em = $this->getDoctrine()->getEntityManager();
+                    $em -> beginTransaction();
+                     $userManager = $this->get('fos_user.user_manager');
+                     $usuario = $datos['code_user'];
+                     
+                     $user = $userManager->findUserByUsername($usuario);
+
+                    
+                     if(strpos($form, 'administrador')!==false && $user!=NULL)
+                     {  
+                         $datos = $datos['administrador'];
+                         $user->addRole("ROLE_ADMIN");
+                     }
+                     
+                     if(strpos($form, 'jventas')!==false)
+                     {  
+                         $jventas = $datos['jventas'];           
+                     }
+                     
+                     if(strpos($form, 'jlogistica')!==false)
+                     {  
+                         $jlogist = $datos['jlogistica'];           
+                     }
+                     
+                     if(strpos($form, 'jsoporte')!==false)
+                     {  
+                         $jsoport = $datos['jsoporte'];           
+                     }
+                     
+                     if(strpos($form, 'cobranza')!==false)
+                     {  
+                         $cobranza = $datos['cobranza'];           
+                     }
+                     
+                     if(strpos($form, 'asistalmacen')!==false)
+                     {  
+                         $asistalm = $datos['asistalmacen'];           
+                     }
+                     
+                     if(strpos($form, 'asistkardex')!==false)
+                     {  
+                         $asistkard = $datos['asistkardex'];           
+                     }
+                     
+                     if(strpos($form, 'soporteventas')!==false)
+                     {  
+                         $soportvent = $datos['soporteventas'];           
+                     }
+                     
+                     if(strpos($form, 'soporterh')!==false)
+                     {  
+                         $soportrh = $datos['soporterh'];           
+                     }
+                    try {
+                            
+				$userManager->updateUser($user);
+                                
+				$em->flush();
+			} catch (Exception $e){
+				$em->rollback();
+				$em->close();
+				$return = array("responseCode"=>400, "greeting"=>"Bad");					
+				throw $e;
+			}
+			$em->commit();
+			$em->clear();
+			$em->close();			
+			$return = array("responseCode"=>200, "datos"=>$datos);
+		}
+		else {
+			$return = array("responseCode"=>400, "greeting"=>"Bad");
+		}
+	
+                $return = array("responseCode"=>200, "datos"=>$datos);
+		$return = json_encode($return);
+		return new Response($return,200,array('Content-Type'=>'application/json'));
+             
+        }
 
 	public function RegistrarUsuarioAction(){
 		$request = $this->get('request');
@@ -146,4 +247,6 @@ class AdministrarUsuarioController  extends Controller {
             return "FOSUserBundle";
         }
 	
+        
+        
 }

@@ -131,8 +131,10 @@ function enviar(IdForm,successfunction,otherdata, errorfunction){
 	      	  url: url,
 	      	  data: { formulario:$("#"+IdForm).serialize(),otherdata:otherdata }
 	      	});
-        
+      console.log($("#"+IdForm).serialize());
         Consulta.done(function( data ) {
+            console.log(data);
+            
       	  if(data.responseCode==200 ){
 				if(typeof(successfunction)=== 'undefined' || successfunction == null)
 					console.log("no function");
