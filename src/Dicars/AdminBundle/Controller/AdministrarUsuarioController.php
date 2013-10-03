@@ -31,62 +31,46 @@ class AdministrarUsuarioController  extends Controller {
                 $asistkard = NULL;
                 $soportvent = NULL;
                 $soportrh = NULL;
+                $usuario = $datos['code_user'];
+                $userManager = $this->get('fos_user.user_manager');
+                $user = $userManager->findUserByUsername($usuario);
                 
-                if($form!=NULL)
+                if($form!=NULL && $user!= NULL)
                 {
                     $em = $this->getDoctrine()->getEntityManager();
                     $em -> beginTransaction();
-                     $userManager = $this->get('fos_user.user_manager');
-                     $usuario = $datos['code_user'];
                      
-                     $user = $userManager->findUserByUsername($usuario);
-
-                    
-                     if(strpos($form, 'administrador')!==false && $user!=NULL)
-                     {  
-                         $datos = $datos['administrador'];
+                                        
+                     if(strpos($form, 'administrador')!==false)              
                          $user->addRole("ROLE_ADMIN");
-                     }
                      
                      if(strpos($form, 'jventas')!==false)
-                     {  
-                         $jventas = $datos['jventas'];           
-                     }
+                         $user->addRole("ROLE_JVENTA");                     
                      
                      if(strpos($form, 'jlogistica')!==false)
-                     {  
-                         $jlogist = $datos['jlogistica'];           
-                     }
+                         $user->addRole("ROLE_JLOG");
                      
                      if(strpos($form, 'jsoporte')!==false)
-                     {  
-                         $jsoport = $datos['jsoporte'];           
-                     }
+                         $user->addRole("ROLE_JSOP");                     
+                     
+                     if(strpos($form, 'vendedor')!==false)
+                         $user->addRole("ROLE_VENDEDOR");
                      
                      if(strpos($form, 'cobranza')!==false)
-                     {  
-                         $cobranza = $datos['cobranza'];           
-                     }
+                         $user->addRole("ROLE_COBRANZA");                     
                      
                      if(strpos($form, 'asistalmacen')!==false)
-                     {  
-                         $asistalm = $datos['asistalmacen'];           
-                     }
+                         $user->addRole("ROLE_ASIST_ALM");                     
                      
                      if(strpos($form, 'asistkardex')!==false)
-                     {  
-                         $asistkard = $datos['asistkardex'];           
-                     }
+                         $user->addRole("ROLE_ASIST_KARD");                     
                      
                      if(strpos($form, 'soporteventas')!==false)
-                     {  
-                         $soportvent = $datos['soporteventas'];           
-                     }
+                         $user->addRole("ROLE_SUPORT_VENTA");
                      
                      if(strpos($form, 'soporterh')!==false)
-                     {  
-                         $soportrh = $datos['soporterh'];           
-                     }
+                         $user->addRole("ROLE_SUPORT_RH");                    
+                             
                     try {
                             
 				$userManager->updateUser($user);
