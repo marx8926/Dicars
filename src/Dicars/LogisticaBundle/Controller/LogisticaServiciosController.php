@@ -87,12 +87,16 @@ public function getTablaProductosAction(){
 	public function getTablaProveedoresAction(){
 		$em = $this->getDoctrine()->getEntityManager();
 			
-		$proveedores = $this->getDoctrine()
-		->getRepository('DicarsDataBundle:LogProveedor')
-		->findAll();
+                 $securityContext = $this->get('security.context');
+        
+                if($securityContext->isGranted('ROLE_ASIST_ALM') )
+                {
+                    $proveedores = $this->getDoctrine()
+                    ->getRepository('DicarsDataBundle:LogProveedor')
+                    ->findAll();
 		
-		$todo = array();
-		foreach ($proveedores as $key => $proveedor){
+                    $todo = array();
+                    foreach ($proveedores as $key => $proveedor){
 			$todo[] = array('id' => $proveedor -> getNproveedorId(), 
 					'ruc' => $proveedor -> getCproveedorruc(),
 					'razonsocial' => $proveedor -> getCproveedorrazsocial(), 
@@ -105,7 +109,9 @@ public function getTablaProductosAction(){
 					'edit_btn' => "<a id-data='".$proveedor -> getNproveedorId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
 					'elim_btn' => "<a id-data='".$proveedor -> getNproveedorId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>"
 					);
-		}
+                    }
+                }
+                else $todo = array();
 		$em->clear();
 		$em->close();
 		return new JsonResponse(array('aaData' => $todo));
@@ -228,19 +234,25 @@ public function getTablaProductosAction(){
 		$fecmindate = date_create_from_format('Y-m-d H:i:s', $fecmin."00:00:00");
 		$fecmaxdate = date_create_from_format('Y-m-d H:i:s', $fecmax."23:59:59");
 		
-		$ingprodsRepository = $this->getDoctrine()
-		->getRepository('DicarsDataBundle:LogIngprod');
+                 $securityContext = $this->get('security.context');
+        
+                if($securityContext->isGranted('ROLE_ASIST_ALM') )
+                {
+                    
+                
+                    $ingprodsRepository = $this->getDoctrine()
+                    ->getRepository('DicarsDataBundle:LogIngprod');
 		
-		$query = $ingprodsRepository->createQueryBuilder('i')
-		->where("i.dingprodfecreg  BETWEEN :fecmin AND :fecmax")
-		->setParameter('fecmin', $fecmindate)
-		->setParameter('fecmax', $fecmaxdate)
-		->getQuery();
+                    $query = $ingprodsRepository->createQueryBuilder('i')
+                    ->where("i.dingprodfecreg  BETWEEN :fecmin AND :fecmax")
+                    ->setParameter('fecmin', $fecmindate)
+                    ->setParameter('fecmax', $fecmaxdate)
+                    ->getQuery();
 		
-		$ingprods = $query->getResult();
+                    $ingprods = $query->getResult();
 	
-		$todo = array();
-		foreach ($ingprods as $key => $ingprod){
+                    $todo = array();
+                    foreach ($ingprods as $key => $ingprod){
 
 			$personal = $ingprod -> getNpersonal();
 			
@@ -258,7 +270,9 @@ public function getTablaProductosAction(){
 					'ver_btn' => "<a class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
 					'edit_btn' => "<a class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
 					'elim_btn' => "<a class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
-		}
+                    }
+                }
+                else $todo = array();
 		
 		$em->clear();
 		$em->close();
@@ -271,19 +285,23 @@ public function getTablaSalProdAction($fecmin,$fecmax){
 		$fecmindate = date_create_from_format('Y-m-d H:i:s', $fecmin."00:00:00");
 		$fecmaxdate = date_create_from_format('Y-m-d H:i:s', $fecmax."23:59:59");
 		
-		$salprodsRepository = $this->getDoctrine()
-		->getRepository('DicarsDataBundle:LogSalProd');
+                  $securityContext = $this->get('security.context');
+        
+                if($securityContext->isGranted('ROLE_ASIST_ALM') )
+                {
+                    $salprodsRepository = $this->getDoctrine()
+                    ->getRepository('DicarsDataBundle:LogSalProd');
 		
-		$query = $salprodsRepository->createQueryBuilder('s')
-		->where("s.dsalprodfecreg  BETWEEN :fecmin AND :fecmax")
-		->setParameter('fecmin', $fecmindate)
-		->setParameter('fecmax', $fecmaxdate)
-		->getQuery();
+                    $query = $salprodsRepository->createQueryBuilder('s')
+                    ->where("s.dsalprodfecreg  BETWEEN :fecmin AND :fecmax")
+                    ->setParameter('fecmin', $fecmindate)
+                    ->setParameter('fecmax', $fecmaxdate)
+                    ->getQuery();
 		
-		$salprods = $query->getResult();		
+                    $salprods = $query->getResult();		
 	
-		$todo = array();
-		foreach ($salprods as $key => $salprod){
+                    $todo = array();
+                    foreach ($salprods as $key => $salprod){
 			$motivo = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:Constante')
 			->findOneBy(array('nconstanteclase' => '4', 'cconstantevalor' =>$salprod -> getNsalprodmotivo()));
@@ -310,7 +328,9 @@ public function getTablaSalProdAction($fecmin,$fecmax){
 					'edit_btn' => "<a id-data='".$salprod -> getNsalprodId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
 					'elim_btn' => "<a id-data='".$salprod -> getNsalprodId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
 
-		}
+                    }
+                } else $todo = array();
+                
 		$em->clear();
 		$em->close();
 		return new JsonResponse(array('aaData' => $todo));
@@ -494,19 +514,24 @@ public function getTablaDetPedidoCompraAction(){
 		$fecmindate = date_create_from_format('Y-m-d H:i:s', $fecmin."00:00:00");
 		$fecmaxdate = date_create_from_format('Y-m-d H:i:s', $fecmax."23:59:59");
 		
-		$ordcomsRepository = $this->getDoctrine()
-		->getRepository('DicarsDataBundle:LogOrdcom');
+                 $securityContext = $this->get('security.context');
+        
+                if($securityContext->isGranted('ROLE_ASIST_ALM') )
+                {
+                
+                    $ordcomsRepository = $this->getDoctrine()
+                    ->getRepository('DicarsDataBundle:LogOrdcom');
 		
-		$query = $ordcomsRepository->createQueryBuilder('oc')
-		->where("oc.ordcomfecreg  BETWEEN :fecmin AND :fecmax AND oc.cordcomest = '1'")
-		->setParameter('fecmin', $fecmindate)
-		->setParameter('fecmax', $fecmaxdate)
-		->getQuery();
+                    $query = $ordcomsRepository->createQueryBuilder('oc')
+                    ->where("oc.ordcomfecreg  BETWEEN :fecmin AND :fecmax AND oc.cordcomest = '1'")
+                    ->setParameter('fecmin', $fecmindate)
+                    ->setParameter('fecmax', $fecmaxdate)
+                    ->getQuery();
 		
-		$ordcoms = $query->getResult();
+                    $ordcoms = $query->getResult();
 	
-		$todo = array();
-		foreach ($ordcoms as $key => $ordcom){
+                    $todo = array();
+                    foreach ($ordcoms as $key => $ordcom){
 			$registrante = $ordcom -> getNpersonal();
 			$proveedor = $ordcom -> getNproveedor();
 	
@@ -522,7 +547,11 @@ public function getTablaDetPedidoCompraAction(){
 					'edit_btn' => "<a id-data='".$ordcom -> getNordencomId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
 					'elim_btn' => "<a id-data='".$ordcom -> getNordencomId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
 	
-		}
+                    }
+                
+                }
+                else $todo = array();
+                
 		$em->clear();
 		$em->close();
 		return new JsonResponse(array('aaData' => $todo));

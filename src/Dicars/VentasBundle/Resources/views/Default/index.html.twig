@@ -26,15 +26,22 @@
 		<div>Clientes Deudores <br> y Morosos</div>
 	</a>
         {% endif %}
+        
+        {%if is_granted('ROLE_VENDEDOR') %}
 	<a data-rel="tooltip" title="Asignar e imprimir Tarjetas de Crédito." class="well span3 top-block" href="{{ path('dicars_ventas_regimp_tarjetacredito') }}">
 		<span class="icon32 icon-color icon-profile"></span>
 		<div>Tarjeta <br> de Crédito</div>
 	</a>	
+        {% endif %}
 </div>
+
+{% if is_granted('ROLE_VENDEDOR') %}
 <div class="row-fluid">
 	<a data-rel="tooltip" title="Ver y agregar Movimiento de Dinero." class="well span3 top-block" href="{{ path('dicars_admin_movimientos') }}">
 		<span class="icon32 icon-color icon-transfer-ew"></span>
 		<div>Registrar<br> Movimientos</div>
 	</a>
 </div>
+
+{% endif %}
 {% endblock %}

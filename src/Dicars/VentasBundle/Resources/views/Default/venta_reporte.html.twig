@@ -9,6 +9,7 @@
 </li>
 {% endblock %}
 {% block content %}
+{% if is_granted('ROLE_VENDEDOR') %}
 <div class="row-fluid">		
 	<div class="box span12">
 		<div class="box-header well" data-original-title>
@@ -132,6 +133,8 @@
 		</div>
 	</div>
 </div>
+</div>
+{% endif %}
 {% endblock %}
 {% block javascript %}
 <script src="{{ asset('js/util/functiongen.js') }}"></script>

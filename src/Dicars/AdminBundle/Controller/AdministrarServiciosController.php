@@ -661,20 +661,25 @@ class AdministrarServiciosController extends Controller {
 		
 		$fecmindate = date_create_from_format('Y-m-d H:i:s', $fecmin."00:00:00");
 		$fecmaxdate = date_create_from_format('Y-m-d H:i:s', $fecmax."23:59:59");
+                
+                $securityContext = $this->get('security.context');
+        
+                if($securityContext->isGranted('ROLE_VENDEDOR') )
+                { 
 		
-		$movimientosRepository =$this->getDoctrine()
-		->getRepository('DicarsDataBundle:VenMovimiento');
+                    $movimientosRepository =$this->getDoctrine()
+                    ->getRepository('DicarsDataBundle:VenMovimiento');
 		
-		$query = $movimientosRepository->createQueryBuilder('m')
-		->where("m.dmovimientofecreg  BETWEEN :fecmin AND :fecmax")
-		->setParameter('fecmin', $fecmindate)
-		->setParameter('fecmax', $fecmaxdate)
-		->getQuery();
+                    $query = $movimientosRepository->createQueryBuilder('m')
+                    ->where("m.dmovimientofecreg  BETWEEN :fecmin AND :fecmax")
+                    ->setParameter('fecmin', $fecmindate)
+                    ->setParameter('fecmax', $fecmaxdate)
+                    ->getQuery();
 		
-		$movimientos = $query->getResult();
+                    $movimientos = $query->getResult();
 	
-		$todo = array();
-		foreach ($movimientos as $key => $movimiento){
+                    $todo = array();
+                    foreach ($movimientos as $key => $movimiento){
 			$tipo_mov = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:Constante')
 			->findOneBy(array('nconstanteclase' => '6', 'cconstantevalor'  => $movimiento -> getNmovimientotip()));
@@ -692,7 +697,9 @@ class AdministrarServiciosController extends Controller {
 					'tipo_pago' => $tipo_pago -> getCconstantedesc(),
 					'personal' => $movimiento -> getNpersonal() -> getCpersonalnom()." ".$movimiento -> getNpersonal() -> getCpersonalape()
 			);
-		}
+                    }
+                }
+                else $todo = array();
 		$em->clear();
 		$em->close();
 		return new JsonResponse(array('aaData' => $todo));

@@ -7,6 +7,8 @@
 {% endblock %}
 {% block content %}
  <div class="row-fluid">
+     
+        {% if is_granted('ROLE_ASIST_ALM')%}
 	<a data-rel="tooltip" title="Ver, Agregar y editar Productos." class="well span3 top-block" href="{{ path('dicars_logistica_productos') }}">
 		<span class="icon32 icon-color icon-inbox"></span>
 		<div>Administrar <br> Productos</div>
@@ -21,14 +23,16 @@
 		<span class="icon32 icon-color icon-compose"></span>
 		<div>Orden <br> de Pedido</div>
 	</a>
-	
+         
 	<a data-rel="tooltip" title="Ver, Agregar, editar y eliminar Orden Salida." class="well span3 top-block" href="{{ path('dicars_logistica_orden_compra_consultar') }}">
 		<span class="icon32 icon-color icon-compose"></span>
 		<div>Orden <br> de Compra</div>
 	</a>
+        {% endif %}
 </div>
 <div class="row-fluid">
-	<a data-rel="tooltip" title="Ver, Agregar, editar y eliminar Pedidos." class="well span3 top-block" href="{{ path('dicars_logistica_cons_ingresoproductos') }}">
+	{% if is_granted('ROLE_ASISTALM') %}
+        <a data-rel="tooltip" title="Ver, Agregar, editar y eliminar Pedidos." class="well span3 top-block" href="{{ path('dicars_logistica_cons_ingresoproductos') }}">
 		<span class="icon32 icon-color icon-archive"></span>
 		<div>Ingreso <br> de Productos</div>
 	</a>
@@ -37,6 +41,8 @@
 		<span class="icon32 icon-color icon-reply"></span>
 		<div>Salida <br> de Productos</div>
 	</a>
+        {% endif %}
+        
 	<a data-rel="tooltip" title="Ver Saldo Inicial." class="well span3 top-block" href="{{ path('dicars_logistica_saldoini') }}">
 		<span class="icon32 icon-color icon-document"></span>
 		<div>Saldo <br> Inicial</div>

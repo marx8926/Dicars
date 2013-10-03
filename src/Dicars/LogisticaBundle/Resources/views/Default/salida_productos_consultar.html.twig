@@ -9,6 +9,8 @@
 </li>
 {% endblock %}
 {% block content %}
+
+{% if is_granted('ROLE_ASIST_ALM') %}
 <div class="row-fluid">		
 	<div class="box span12">
 		<div class="box-header well" data-original-title>
@@ -52,6 +54,10 @@
 		</div>
 	</div>
 </div>
+{% else%}
+<h2>Sin acceso disponible. Por favor consulte al administrador.</h2>
+{% endif %}
+
 {% endblock %}
 {% block javascript %}
 <script src="{{ asset('js/util/functiongen.js') }}"></script>

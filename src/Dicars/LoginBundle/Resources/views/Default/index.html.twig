@@ -15,9 +15,12 @@
 		<span class="icon32 icon-color icon-users"></span>
 		<div>Administración</div>
 	</a>
+        
+        {% if is_granted('ROLE_VENDEDOR') %}
 	<a data-rel="tooltip" class="well span3 top-block" href="{{ path('dicars_ventas_regimp_tarjetacredito') }}">
 		<span class="icon32 icon-color icon-document"></span>
 		<div>Reportes</div>
 	</a>	
+        {% endif %}
 </div>
 {% endblock %}

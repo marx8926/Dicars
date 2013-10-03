@@ -709,13 +709,19 @@ class VentaServiciosController extends Controller{
 	public function getTablaReporteVentasAction($tipo,$fecmin,$fecmax,$local){
 		$em = $this->getDoctrine()->getEntityManager();
 	
-		$sql = "call sp_consultar_venta(".$tipo.",'".$fecmin."','".$fecmax."',".$local.")";
+                $securityContext = $this->get('security.context');
+        
+                if($securityContext->isGranted('ROLE_VENDEDOR') )
+                {
+                    $sql = "call sp_consultar_venta(".$tipo.",'".$fecmin."','".$fecmax."',".$local.")";
 		
-		$smt = $em->getConnection()->prepare($sql);
-		$smt->execute();
+                    $smt = $em->getConnection()->prepare($sql);
+                    $smt->execute();
 		
-		$ventas = $smt->fetchAll();
-		
+                    $ventas = $smt->fetchAll();
+                }
+                else $ventas = array();
+                
 		$em->clear();
 		$em->close();
 		return new JsonResponse(array('aaData' => $ventas));
@@ -723,12 +729,18 @@ class VentaServiciosController extends Controller{
 	public function cuadreCajaAction($fecha, $local){
 		$em = $this->getDoctrine()->getEntityManager();
 	
-		$sql = "call sp_venta_cuadrecaja('".$fecha."', ".$local.")";
+                $securityContext = $this->get('security.context');
+        
+                if($securityContext->isGranted('ROLE_VENDEDOR') )
+                {
+                    $sql = "call sp_venta_cuadrecaja('".$fecha."', ".$local.")";
 	
-		$smt = $em->getConnection()->prepare($sql);
-		$smt->execute();
+                    $smt = $em->getConnection()->prepare($sql);
+                    $smt->execute();
 	
-		$result = $smt->fetchAll();
+                    $result = $smt->fetchAll();
+                }
+                else $result = array();
 	
 		$em->clear();
 		$em->close();

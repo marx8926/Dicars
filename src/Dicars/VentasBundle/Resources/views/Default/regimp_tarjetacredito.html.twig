@@ -9,6 +9,8 @@
 </li>
 {% endblock %}
 {% block content %}
+
+{% if is_granted('ROLE_VENDEDOR') %}
 <div class="row-fluid sortable">		
 	<div class="box span12">
 		<div class="box-header well" data-original-title>
@@ -60,4 +62,6 @@
 		</div>
 	</div>
 </div>
+{% endif %}
+
 {% endblock %}

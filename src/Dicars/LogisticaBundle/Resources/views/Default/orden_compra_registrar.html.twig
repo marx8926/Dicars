@@ -4,9 +4,12 @@
 <li>
 	<a href="{{path('dicars_logistica_homepage')}}">Logística</a><span class="divider">/</span>
 </li>
+{% if is_granted('ROLE_ASIST_ALM') %}
 <li>
 	<a href="{{path('dicars_logistica_orden_compra_consultar')}}">Orden Compra</a>
 </li>
+{% endif %}
+
 {% endblock %}
 {% block content %}
 <div class="row-fluid">		
