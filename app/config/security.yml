@@ -67,3 +67,7 @@ security:
        # - {path: /user, roles: ROLE_USER }
 #        - {path: /admin, roles: ROLE_ADMIN}
         - {path: /home, roles: ROLE_USER ,requires_channel: https }
+        - {path: /admin/* , roles: ROLE_USER , requires_channel: https}
+        - {path: /contabilidad/*, roles: ROLE_USER, requires_channel: https}
+        - {path: /logistica/*, roles: ROLE_USER, requires_channel: https}
+        - {path: /ventas/*, roles: ROLE_USER, requires_channel: https}
