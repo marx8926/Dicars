@@ -149,12 +149,16 @@ class VentaServiciosController extends Controller{
 	public function getTablaOfertasAction(){
 		$em = $this->getDoctrine()->getEntityManager();
 			
-		$ofertas = $this->getDoctrine()
-		->getRepository('DicarsDataBundle:Oferta')
-		->findAll();
+                 $securityContext = $this->get('security.context');
+        
+                if($securityContext->isGranted('ROLE_SUPORT_VENTA')  )
+                {
+                    $ofertas = $this->getDoctrine()
+                    ->getRepository('DicarsDataBundle:Oferta')
+                    ->findAll();
 	
-		$todo = array();
-		foreach ($ofertas as $key => $oferta){
+                    $todo = array();
+                    foreach ($ofertas as $key => $oferta){
 			
 			$FechaHoy = new \DateTime();
 			
@@ -175,7 +179,10 @@ class VentaServiciosController extends Controller{
 					'fecvencimiento' => $oferta -> getDofertafecvencto() -> format('d/m/Y'),
 					'edit_btn' => "<a id-data='".$oferta -> getNofertaId()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
 					'elim_btn' => "<a id-data='".$oferta -> getNofertaId()."' class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
-		}
+                    }
+                }
+                else $todo = array();
+                
 		$em->clear();
 		$em->close();
 		return new JsonResponse(array('aaData' => $todo));
@@ -218,15 +225,19 @@ class VentaServiciosController extends Controller{
 	public function getTablaVentaProductoSinOfertaAction(){
 		$em = $this->getDoctrine()->getEntityManager();
 	
-		$sql = "SELECT * from Ven_productossinoferta";
+                $securityContext = $this->get('security.context');
+        
+                if($securityContext->isGranted('ROLE_SUPORT_VENTA')  )
+                {
+                    $sql = "SELECT * from Ven_productossinoferta";
 	
-		$smt = $em->getConnection()->prepare($sql);
-		$smt->execute();
+                    $smt = $em->getConnection()->prepare($sql);
+                    $smt->execute();
 	
-		$productos = $smt->fetchAll();
+                    $productos = $smt->fetchAll();
 	
-		$todo = array();
-		foreach ($productos as $key => $producto){
+                    $todo = array();
+                    foreach ($productos as $key => $producto){
 			$todo[] = array(
 					'idproducto' => $producto['nProducto_id'] ,
 					'talla' => $producto['cProductoTalla'] ,
@@ -242,7 +253,9 @@ class VentaServiciosController extends Controller{
 					'ver_btn' => "<a class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
 					'edit_btn' => "<a class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
 					'elim_btn' => "<a class='btn btn-danger' href='#'><i class='icon-trash icon-white'></i>Eliminar</a>");
-		}
+                    }
+                }
+                else $todo = array();
 		$em->clear();
 		$em->close();
 		return new JsonResponse(array('aaData' => $todo));

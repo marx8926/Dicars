@@ -110,9 +110,11 @@
                                                 {% if is_granted('ROLE_VENDEDOR') %}
                                                 <li><a class="ajax-link" href="{{ path('dicars_ventas_regimp_tarjetacredito') }}"><i class="icon icon-black icon-profile"></i><span class="hidden-tablet"> Tarjeta de Crédito</span></a></li>
 						{% endif %}
-                                                            
+                                                 
+                                                {% if is_granted('ROLE_SUPORT_RH')%}
                                                 <li><a class="ajax-link" href="{{ path('dicars_ventas_clientes') }}"><i class="icon icon-black icon-users"></i><span class="hidden-tablet"> Clientes</span></a></li>
-						
+						{% endif %}
+                                                            
                                                 {% if is_granted('ROLE_VENDEDOR') %}
                                                 <li><a href="{{ path('dicars_admin_movimientos') }}"><i class="icon icon-black icon-transfer-ew"></i><span class="hidden-tablet"> Movimientos</span></a></li>
 						{% endif %}
@@ -143,16 +145,24 @@
 						<li><a class="ajax-link" href="{{ path('dicars_logistica_orden_compra_consultar') }}"><i class="icon icon-black icon-compose"></i><span class="hidden-tablet"> Orden de Compra</span></a></li>
                                                 <li><a class="ajax-link" href="{{ path('dicars_logistica_cons_ingresoproductos') }}"><i class="icon icon-black icon-archive"></i><span class="hidden-tablet"> Ingreso de Productos</span></a></li>
                                                 {% endif %}
-                                                            
+                                                        
+                                                {% if is_granted('ROLE_ASIST_KARD') %}
 						<li><a class="ajax-link" href="{{ path('dicars_logistica_saldoini') }}"><i class="icon icon-black icon-document"></i><span class="hidden-tablet"> Saldos</span></a></li>
+                                                
+                                                            
 						<li><a class="ajax-link" href="{{ path('dicars_logistica_kardex') }}"><i class="icon icon-black icon-document"></i><span class="hidden-tablet"> Generar Kardex</span></a></li>
 						
+                                                {% endif %}
+                                                
                                                 {% if is_granted('ROLE_ASIST_ALM') %}
                                                 <li><a class="ajax-link" href="{{ path('dicars_logistica_cons_salidaproductos') }}"><i class="icon icon-black icon-reply"></i><span class="hidden-tablet"> Salida de Productos</span></a></li>
                                                 {% endif %}
-                                                            
+                                                   
+                                                {% if is_granted('ROLE_ASIST_KARD') %}
 						<li><a class="ajax-link" href="{{ path('dicars_ventas_control_salidas_zonas') }}"><i class="icon icon-black icon-page"></i><span class="hidden-tablet"> Reporte Salida Productos</span></a></li>
-						<li><a class="ajax-link" href="#" id="lanza-cierremes"><i class="icon icon-black icon-key"></i><span class="hidden-tablet"> Cierre de Mes</span></a></li>
+						{% endif %}
+                                                            
+                                                <li><a class="ajax-link" href="#" id="lanza-cierremes"><i class="icon icon-black icon-key"></i><span class="hidden-tablet"> Cierre de Mes</span></a></li>
 						<li class="nav-header hidden-tablet">Administración</li>
 						<li><a class="ajax-link" href="{{ path('dicars_admin_homepage') }}"><i class="icon icon-black icon-user"></i><span class="hidden-tablet"> Panel de Administración</span></a></li>
 						<!-- li><a class="ajax-link" href="{{ path('dicars_ventas_trabajadores') }}"><i class="icon icon-black icon-users"></i><span class="hidden-tablet"> Trabajadores</span></a></li>

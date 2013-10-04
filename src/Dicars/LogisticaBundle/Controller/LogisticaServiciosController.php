@@ -649,16 +649,22 @@ public function getTablaDetPedidoCompraAction(){
 	}
 	public function getTableSaldosAction($fecha){
 		$em = $this->getDoctrine()->getEntityManager();
+                
+                $securityContext = $this->get('security.context');
+        
+                if($securityContext->isGranted('ROLE_ASIST_KARD')  )
+                {    
+                    $fec = date_create_from_format('Y-m-d', $fecha);
 		
-		$fec = date_create_from_format('Y-m-d', $fecha);
+                
+                    $sql = "call spF_kardex_SaldoInicial(".$fec->format('Y').",".$fec->format('m').",2)";
 		
-		$sql = "call spF_kardex_SaldoInicial(".$fec->format('Y').",".$fec->format('m').",2)";
+                    $smt = $em->getConnection()->prepare($sql);
+                    $smt->execute();
 		
-		$smt = $em->getConnection()->prepare($sql);
-		$smt->execute();
-		
-		$saldos = $smt->fetchAll();
-		
+                    $saldos = $smt->fetchAll();
+                }
+                else $saldos = array();
 		$em->clear();
 		$em->close();
 		return new JsonResponse(array('aaData' => $saldos));
@@ -666,15 +672,20 @@ public function getTablaDetPedidoCompraAction(){
 	public function getTableSaldoActualAction($fecha){
 		$em = $this->getDoctrine()->getEntityManager();
 	
-		$fec = date_create_from_format('Y-m-d', $fecha);
+                $securityContext = $this->get('security.context');
+        
+                if($securityContext->isGranted('ROLE_ASIST_KARD')  )
+                {
+                    $fec = date_create_from_format('Y-m-d', $fecha);
 	
-		$sql = "call spF_kardex_StockActual(".$fec->format('Y').",".$fec->format('m').",2)";
+                    $sql = "call spF_kardex_StockActual(".$fec->format('Y').",".$fec->format('m').",2)";
 	
-		$smt = $em->getConnection()->prepare($sql);
-		$smt->execute();
+                    $smt = $em->getConnection()->prepare($sql);
+                    $smt->execute();
 	
-		$saldos = $smt->fetchAll();
-	
+                    $saldos = $smt->fetchAll();
+                }
+                else $saldos = array();
 		$em->clear();
 		$em->close();
 		return new JsonResponse(array('aaData' => $saldos));
@@ -682,13 +693,20 @@ public function getTablaDetPedidoCompraAction(){
 	public function cierreMesAction($idlocal){
 		$em = $this->getDoctrine()->getEntityManager();
 	
-		$sql = "call spI_cierreMes(".$idlocal.")";
+                $securityContext = $this->get('security.context');
+        
+                if($securityContext->isGranted('ROLE_ASIST_KARD')  )
+                {
+                    $sql = "call spI_cierreMes(".$idlocal.")";
 
-		$smt = $em->getConnection()->prepare($sql);
-		$smt->execute();
+                    $smt = $em->getConnection()->prepare($sql);
+                    $smt->execute();
 	
-		$result = $smt->fetchAll();
+                    $result = $smt->fetchAll();
 		
+                }
+                else $result = array();
+                
 		$em->clear();
 		$em->close();
 		return new JsonResponse(array('aaData' => $result));
@@ -696,15 +714,21 @@ public function getTablaDetPedidoCompraAction(){
 	public function gettablagenerarKardexAction($fecha) {
 		$em = $this->getDoctrine()->getEntityManager();
 		
-		$fec = date_create_from_format('Y-m-d', $fecha);
+                $securityContext = $this->get('security.context');
+        
+                if($securityContext->isGranted('ROLE_ASIST_KARD')  )
+                {
+                    $fec = date_create_from_format('Y-m-d', $fecha);
 	
-		$sql = "SELECT * FROM dicarsbd.log_consultar_kardex where Anio =".$fec->format('Y')." and NroMes =".$fec->format('m');
+                    $sql = "SELECT * FROM dicarsbd.log_consultar_kardex where Anio =".$fec->format('Y')." and NroMes =".$fec->format('m');
 
-		$smt = $em->getConnection()->prepare($sql);
-		$smt->execute();
+                    $smt = $em->getConnection()->prepare($sql);
+                    $smt->execute();
 	
-		$kardex = $smt->fetchAll();
-		
+                    $kardex = $smt->fetchAll();
+                }
+                else $kardex = array();
+                
 		$em->clear();
 		$em->close();
 		return new JsonResponse(array('aaData' => $kardex));
@@ -712,15 +736,21 @@ public function getTablaDetPedidoCompraAction(){
 	public function gettablagenerarKardexValAction($fecha) {
 		$em = $this->getDoctrine()->getEntityManager();
 	
-		$fec = date_create_from_format('Y-m-d', $fecha);
+                $securityContext = $this->get('security.context');
+        
+                if($securityContext->isGranted('ROLE_ASIST_KARD')  )
+                {
+                    $fec = date_create_from_format('Y-m-d', $fecha);
 	
-		$sql = "SELECT * FROM dicarsbd.log_consultar_kardexvalorizado where Anio =".$fec->format('Y')." and NroMes =".$fec->format('m');
+                    $sql = "SELECT * FROM dicarsbd.log_consultar_kardexvalorizado where Anio =".$fec->format('Y')." and NroMes =".$fec->format('m');
 	
-		$smt = $em->getConnection()->prepare($sql);
-		$smt->execute();
+                    $smt = $em->getConnection()->prepare($sql);
+                    $smt->execute();
 	
-		$kardex = $smt->fetchAll();
-	
+                    $kardex = $smt->fetchAll();
+                }
+                else $kardex = array();
+                
 		$em->clear();
 		$em->close();
 		return new JsonResponse($kardex);

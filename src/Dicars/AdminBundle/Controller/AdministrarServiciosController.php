@@ -345,12 +345,16 @@ class AdministrarServiciosController extends Controller {
 	public function getTablaTipoMonedaAction(){
 		$em = $this->getDoctrine()->getEntityManager();
 			
-		$monedas = $this->getDoctrine()
-		->getRepository('DicarsDataBundle:VenTipomoneda')
-		->findAll();
+                $securityContext = $this->get('security.context');
+        
+                if($securityContext->isGranted('ROLE_SUPORT_VENTA') )
+                {
+                    $monedas = $this->getDoctrine()
+                    ->getRepository('DicarsDataBundle:VenTipomoneda')
+                    ->findAll();
 	
-		$todo = array();
-		foreach ($monedas as $key => $moneda){
+                    $todo = array();
+                    foreach ($monedas as $key => $moneda){
 			if($moneda -> getNtipomonedaest() == 1){
 				$estado = "<span class='label label-success'>Habilidado</span>";
 			}
@@ -364,7 +368,10 @@ class AdministrarServiciosController extends Controller {
 					'estado' => $moneda -> getNtipomonedaest(),
 					'edit_btn' => "<a id-data='".$moneda -> getNtipomoneda()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>"
 			);
-		}
+                    }
+                }
+                else $todo = array();
+                
 		$em->clear();
 		$em->close();
 		return new JsonResponse(array('aaData' => $todo));
@@ -511,12 +518,16 @@ class AdministrarServiciosController extends Controller {
 	public function getTablaTipoIGVAction(){
 		$em = $this->getDoctrine()->getEntityManager();
 			
-		$tipos = $this->getDoctrine()
-		->getRepository('DicarsDataBundle:VenTipoigv')
-		->findAll();
+                 $securityContext = $this->get('security.context');
+        
+                if($securityContext->isGranted('ROLE_SUPORT_VENTA') )
+                {
+                    $tipos = $this->getDoctrine()
+                    ->getRepository('DicarsDataBundle:VenTipoigv')
+                    ->findAll();
 	
-		$todo = array();
-		foreach ($tipos as $key => $tipo){
+                    $todo = array();
+                    foreach ($tipos as $key => $tipo){
 			$todo[] = array('id' => $tipo -> getNtipoigv(),
 					'tipo' => $tipo -> getCtipoigv(),
 					'porcentaje' => $tipo -> getNtipoigvproc(),
@@ -524,7 +535,9 @@ class AdministrarServiciosController extends Controller {
 					'estado' => $tipo -> getCtipoigvest(),
 					'edit_btn' => "<a id-data='".$tipo -> getNtipoigv()."' class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>"
 			);
-		}
+                    }
+                }
+                else $todo = array();
 		$em->clear();
 		$em->close();
 		return new JsonResponse(array('aaData' => $todo));
