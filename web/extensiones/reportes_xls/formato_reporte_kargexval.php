@@ -85,10 +85,16 @@ $objkardex = json_decode($tkardexgen);
 		
 		$totalsalcant = 0;
 		$totalsalcosttotal = 0;
+		
+		$inventario_inicial = 0;
+		$inventario_final = 0;
+		$costo_ventas = 0;
 
 		foreach ($objkardex as $key => $producto){
 			if ($producto->{'id'} != $id) {
 				if ($id != -1) { /* FIN DE LA TABLA */
+					$inventario_final = $totalentcosttotal - $totalsalcosttotal;
+					$costo_ventas = $inventario_inicial + $totalentcosttotal - $inventario_final;
 					echo "	<tr>
 								<td colspan='2'>TOTAL:</td>
 								<td>$totalentcant</td>
@@ -103,12 +109,37 @@ $objkardex = json_decode($tkardexgen);
 							</tr>
 						</table>
    						<br>
+   						<table id='tproductos'>
+							<tr>
+								<th colspan=2 style='background: #ffff00;'>COMPROBACIÓN</th>
+							</tr>
+							<tr>
+								<td>INV. INICIAL</td>
+								<td>$inventario_inicial</td>
+							</tr>
+							<tr>
+								<td>(+)COMPRAS</td>
+								<td>$totalentcosttotal</td>
+							</tr>
+							<tr>
+								<td>(-)INV. FINAL</td>
+								<td>$inventario_final</td>
+							</tr>
+							<tr>
+								<td>(=)COSTO VENTAS</td>
+								<td>$costo_ventas</td>
+							</tr>
+						</table>
    					";
 					$totalentcant = 0;
 					$totalentcosttotal = 0;
 					
 					$totalsalcant = 0;
 					$totalsalcosttotal = 0;
+					
+					$inventario_inicial = 0;
+					$inventario_final = 0;
+					$costo_ventas = 0;
 				}
 				$id = $producto->{'id'};
 				/* TABLA DE RESUMEN, INICIO DE TABLA PRODUCTOS (CABECERA Y PRIMER TR) */
@@ -187,6 +218,7 @@ $objkardex = json_decode($tkardexgen);
 							<td></td>
 							<td></td>
 							<td></td>";
+					$inventario_inicial = $producto->{'PrecTot'};
 				}
 				echo "<td>".$producto->{'Cantidad'}."</td>
 					<td>".$producto->{'PrecUnit'}."</td>
@@ -227,6 +259,8 @@ $objkardex = json_decode($tkardexgen);
 			}
 		}
 		
+		$inventario_final = $totalentcosttotal - $totalsalcosttotal;
+		$costo_ventas = $inventario_inicial + $totalentcosttotal - $inventario_final;
 		echo "<tr>
 				<td colspan='2'>TOTAL:</td>
 				<td>$totalentcant</td>
@@ -239,7 +273,30 @@ $objkardex = json_decode($tkardexgen);
 				<td></td>
 				<td></td>
 			</tr>
-		</table>";
+		</table>
+		<br>
+		<table id='tproductos'>
+			<tr>
+				<th colspan=2 style='background: #ffff00;'>COMPROBACIÓN</th>
+			</tr>
+			<tr>
+				<td>INV. INICIAL</td>
+				<td>$inventario_inicial</td>
+			</tr>
+			<tr>
+				<td>(+)COMPRAS</td>
+				<td>$totalentcosttotal</td>
+			</tr>
+			<tr>
+				<td>(-)INV. FINAL</td>
+				<td>$inventario_final</td>
+			</tr>
+			<tr>
+				<td>(=)COSTO VENTAS</td>
+				<td>$costo_ventas</td>
+			</tr>
+		</table>
+		";
 		?>		
 	</body>
 </html>

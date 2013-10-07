@@ -462,7 +462,7 @@ class AdministrarServiciosController extends Controller {
 			
 		$cargos = $this->getDoctrine()
 		->getRepository('DicarsDataBundle:VenCargo')
-		->findAll();
+		->findBy(array('ccargocoest' => '1'));
 	
 		$todo = array();
 		foreach ($cargos as $key => $cargo){
