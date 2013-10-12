@@ -7,7 +7,7 @@
 {% endblock %}
 {% block content %}
  <div class="row-fluid">
-        {% if is_granted('ROLE_SUPORT_VENTA') || is_granted('ROLE_SUPORT_RH')%}
+        {% if is_granted('ROLE_SUPORT_VENTA') or is_granted('ROLE_SUPORT_RH')%}
 	<a data-rel="tooltip" title="Ver, agregar y editar Clientes." class="well span3 top-block" href="{{ path('dicars_ventas_clientes') }}">
 		<span class="icon32 icon-color icon-users"></span>
 		<div>Administrar<br> Clientes</div>
@@ -25,7 +25,7 @@
 	</a>
         {% endif %}
          
-        {% if is_granted('ROLE_SUPORT_VENTA') || is_granted('ROLE_SUPORT_RH')%}
+        {% if is_granted('ROLE_SUPORT_VENTA') or is_granted('ROLE_SUPORT_RH')%}
 	<a data-rel="tooltip" title="Ver, agregar y editar Locales." class="well span3 top-block" href="{{ path('dicars_logistica_locales') }}">
 		<span class="icon32 icon-color icon-home"></span>
 		<div>Administrar<br> Locales</div>
@@ -39,7 +39,7 @@
 		<div>Administrar<br> Cargos</div>
 	</a>
         {% endif %}
-        {% if is_granted('ROLE_SUPORT_VENTA') || is_granted('ROLE_SUPORT_RH')%}
+        {% if is_granted('ROLE_SUPORT_VENTA') or is_granted('ROLE_SUPORT_RH')%}
 	<a data-rel="tooltip" title="Ver, Agregar y editar Categorías." class="well span3 top-block" href="{{ path('dicars_admin_categorias') }}">
 		<span class="icon32 icon-color icon-bookmark"></span>
 		<div>Administrar<br> Categorías</div>
@@ -57,7 +57,7 @@
         {% endif %}
 </div>
 <div class="row-fluid">
-        {% if is_granted('ROLE_SUPORT_VENTA') || is_granted('ROLE_SUPORT_RH')%}
+        {% if is_granted('ROLE_SUPORT_VENTA') or is_granted('ROLE_SUPORT_RH')%}
 	<a data-rel="tooltip" title="Ver, Agregar y editar Zona/Editar." class="well span3 top-block" href="{{ path('dicars_admin_zonapersonal') }}">
 		<span class="icon32 icon-color icon-user"></span>
 		<div>Zona<br>Personal</div>
@@ -82,7 +82,7 @@
         {% endif %}
 </div>
 <div class="row-fluid">
-        {% if is_granted('ROLE_SUPORT_VENTA') || is_granted('ROLE_SUPORT_RH')%}
+        {% if is_granted('ROLE_SUPORT_VENTA') or is_granted('ROLE_SUPORT_RH')%}
 	<a data-rel="tooltip" title="Ver, Agregar y editar las Ofertas." class="well span3 top-block" href="{{ path('dicars_ventas_ofertas') }}">
 		<span class="icon32 icon-color icon-tag"></span>
 		<div><br>Ofertas </div>

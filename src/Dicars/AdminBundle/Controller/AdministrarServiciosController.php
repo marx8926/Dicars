@@ -158,6 +158,11 @@ class AdministrarServiciosController extends Controller {
 		
 		$todo = array();
 		foreach ($usuarios as $key => $usuario){
+                    
+                    
+                    $personal = $usuario -> getNpersonal();
+                    if($personal!=NULL)
+                    {
 			if($usuario->isEnabled()=="1")
 				$estado = "<span class='label label-success'>Habilidado</span>";
 			else
@@ -168,7 +173,7 @@ class AdministrarServiciosController extends Controller {
 			else
 				$lastlogin = "";	
 			
-			$personal = $usuario -> getNpersonal();
+			
 			
 			$todo[] = array(//'id' => $usuario -> getNusuarioid(),
 						'trabajador' => $personal -> getCpersonalnom()." ".$personal -> getCpersonalape(),
@@ -179,8 +184,10 @@ class AdministrarServiciosController extends Controller {
 						'selectEstado' => $estado,
 						'ver_btn' => "<a class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
 						'edit_btn' => "<a class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
-						'rol_btn' => "<a class='btn btn-rol btn-info' href='#'><i class='icon-trash icon-white'></i>Roles</a>");
-		}
+                    			'rol_btn' => "<a class='btn btn-rol btn-info' href='#'><i class='icon-trash icon-white'></i>Roles</a>");
+		
+                   }
+                }
 
 		$em->clear();
 		$em->close();
