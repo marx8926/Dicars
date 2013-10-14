@@ -457,7 +457,8 @@ function cargarSelect(arreglo, idselect, attrvalue, attrdescripcion){
 	var result = '';
 	
 	$(arreglo).each(function(){
-		result += '<option value="'+this[attrvalue]+'">'+this[attrdescripcion]+'</option>';		
+		if(typeof(this[attrvalue]) != 'undefined')
+			result += '<option value="'+this[attrvalue]+'">'+this[attrdescripcion]+'</option>';		
 	});
 	$select.html(result);
 }
