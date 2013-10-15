@@ -26,10 +26,15 @@ security:
 
     firewalls:
     
+        #wsse_secured:
+        #  pattern:   ^/api/.*
+        #  wsse:      { nonce_dir: null, realm: "Secured API", profile: "UsernameToken" }
+        
         api:
           pattern: ^/api/.*
           stateless: true
           security: true
+          lifetime: 300
           http_basic:
             realm: "API"
           
