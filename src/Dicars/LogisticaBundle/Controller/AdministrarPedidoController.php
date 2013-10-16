@@ -37,11 +37,13 @@ class AdministrarPedidoController extends Controller{
 			
 			$Local = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:Local')
-			->findOneBy(array('nlocalId' => 2));			
-			
-			$Empleado = $this->getDoctrine()
-			->getRepository('DicarsDataBundle:VenPersonal')
-			->findOneBy(array('npersonalId' => 1));
+			->findOneBy(array('nlocalId' => 2));
+					
+			$userManager = $this->container->get('fos_user.user_manager');
+			$user = $userManager->findUserByUsername($this->container->get('security.context')
+					->getToken()
+					->getUser());
+			$Empleado = $user->getNPersonal();
 			
 			$Pedido = new  LogOrdped();
 			$Pedido -> setCordpedserie($Serie);

@@ -31,10 +31,12 @@ class AdministrarIngresoProdController extends Controller{
 		$Estado = null;
 	
 		if ($form != null){
-				
-			$Registrante = $this->getDoctrine()
-			->getRepository('DicarsDataBundle:VenPersonal')
-			->findOneBy(array('npersonalId' => 1));
+			
+			$userManager = $this->container->get('fos_user.user_manager');
+			$user = $userManager->findUserByUsername($this->container->get('security.context')
+					->getToken()
+					->getUser());
+			$Registrante = $user->getNPersonal();
 				
 			$Local = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:Local')

@@ -26,9 +26,11 @@ class AdministrarMovimientoController extends Controller {
 		if ($form!=null){
 			$fecha_reg = new \DateTime();
 			
-			$personal = $this->getDoctrine()
-			->getRepository('DicarsDataBundle:VenPersonal')
-			->findOneBy(array('npersonalId'  => 1));
+			$userManager = $this->container->get('fos_user.user_manager');
+			$user = $userManager->findUserByUsername($this->container->get('security.context')
+					->getToken()
+					->getUser());
+			$personal = $user->getNPersonal();
 			
 			$monto = $datos["monto"];
 			$concepto = $datos["concepto"];

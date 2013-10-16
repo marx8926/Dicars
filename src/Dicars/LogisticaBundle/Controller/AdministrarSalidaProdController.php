@@ -29,10 +29,12 @@ class AdministrarSalidaProdController extends Controller{
 		$Observacion = null;
 	
 		if ($form != null){
+			$userManager = $this->container->get('fos_user.user_manager');
+			$user = $userManager->findUserByUsername($this->container->get('security.context')
+					->getToken()
+					->getUser());
+			$Registrante = $user->getNPersonal();
 			
-			$Registrante = $this->getDoctrine()
-			->getRepository('DicarsDataBundle:VenPersonal')
-			->findOneBy(array('npersonalId' => 1));
 			
 			$Local = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:Local')

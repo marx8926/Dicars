@@ -49,9 +49,15 @@ class AdministrarVentaController extends Controller {
 			$FechaReg = new \DateTime();
 			$Observacion = $datos["observacion"];
 			
-			$EmpleadoTrans = $this->getDoctrine()
+			$userManager = $this->container->get('fos_user.user_manager');
+			$user = $userManager->findUserByUsername($this->container->get('security.context')
+					->getToken()
+					->getUser());
+	    	$EmpleadoTrans = $user->getNPersonal();
+			
+			/*$EmpleadoTrans = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:VenPersonal')
-			->findOneBy(array('npersonalId' => 1));
+			->findOneBy(array('npersonalId' => 1));*/
 			
 			$Cliente = $this->getDoctrine()
 			->getRepository('DicarsDataBundle:VenCliente')
@@ -300,9 +306,11 @@ class AdministrarVentaController extends Controller {
 			->getRepository('DicarsDataBundle:VenVenta')
 			->findOneBy(array('nventaId' => $venta_id));
 			
-			$EmpleadoTrans = $this->getDoctrine()
-			->getRepository('DicarsDataBundle:VenPersonal')
-			->findOneBy(array('npersonalId' => 1));
+			$userManager = $this->container->get('fos_user.user_manager');
+			$user = $userManager->findUserByUsername($this->container->get('security.context')
+					->getToken()
+					->getUser());
+	    	$EmpleadoTrans = $user->getNPersonal();
 			
 			$amortizacion  = $Venta -> getNventatotamt();
 			$saldo = $Venta -> getNventasaldo();
