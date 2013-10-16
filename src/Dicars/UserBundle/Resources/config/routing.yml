@@ -16,7 +16,8 @@ fos_user_resetting:
 fos_user_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profile
-    
+ 
+
 api_login:
   pattern: /api/login
-  defaults: {_controller: DicarsUserBundle:User:apiLogin}
+  defaults: {_controller: UserBundle:Default:apiLogin}
