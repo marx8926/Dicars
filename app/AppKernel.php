@@ -28,6 +28,7 @@ class AppKernel extends Kernel
             new Dicars\UserBundle\UserBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Escape\WSSEAuthenticationBundle\EscapeWSSEAuthenticationBundle(),
+            new Dicars\MovilBundle\DicarsMovilBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

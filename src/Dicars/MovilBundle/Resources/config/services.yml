@@ -1,0 +1,7 @@
+parameters:
+#    dicars_movil.example.class: Dicars\MovilBundle\Example
+
+services:
+#    dicars_movil.example:
+#        class: %dicars_movil.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

@@ -1,3 +1,7 @@
+dicars_movil:
+    resource: "@DicarsMovilBundle/Resources/config/routing.yml"
+    prefix:   /
+
 _user_bundle:
   resource: "@UserBundle/Resources/config/routing.yml"
   prefix: /

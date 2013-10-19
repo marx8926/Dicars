@@ -1,0 +1,3 @@
+dicars_movil_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: DicarsMovilBundle:Default:index }
