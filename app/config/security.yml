@@ -34,7 +34,6 @@ security:
           pattern: ^/api/.*
           stateless: true
           security: true
-          lifetime: 300
           http_basic:
             realm: "API"
           
@@ -64,15 +63,15 @@ security:
             #    realm: "Secured Demo Area"
 
     access_control:
-        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
-        - { path: ^/sobre, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
-        - { path: ^/contacto, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
-        - { path: ^/contacto_up, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: http }
+        - { path: ^/sobre, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: http }
+        - { path: ^/contacto, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: http }
+        - { path: ^/contacto_up, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: http }
         - { path: /api/, role: ROLE_USER }
        # - {path: /user, roles: ROLE_USER }
 #        - {path: /admin, roles: ROLE_ADMIN}
-        - {path: /home, roles: ROLE_USER ,requires_channel: https }
-        - {path: /admin/* , roles: ROLE_USER , requires_channel: https}
-        - {path: /contabilidad/*, roles: ROLE_USER, requires_channel: https}
-        - {path: /logistica/*, roles: ROLE_USER, requires_channel: https}
-        - {path: /ventas/*, roles: ROLE_USER, requires_channel: https}
+        - {path: /home, roles: ROLE_USER ,requires_channel: http }
+        - {path: /admin/* , roles: ROLE_USER , requires_channel: http}
+        - {path: /contabilidad/*, roles: ROLE_USER, requires_channel: http}
+        - {path: /logistica/*, roles: ROLE_USER, requires_channel: http}
+        - {path: /ventas/*, roles: ROLE_USER, requires_channel: http}
