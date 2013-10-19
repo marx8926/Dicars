@@ -1,3 +1,7 @@
 dicars_movil_homepage:
     pattern:  /hello/{name}
     defaults: { _controller: DicarsMovilBundle:Default:index }
+
+dicars_lugar_json:
+    pattern: /locales
+    defaults: { _controller: DicarsMovilBundle:MovilServicios:lugar}
