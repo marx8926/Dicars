@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="UsuarioLocal" table="usuario_local">
+    <id name="nusuariolocalId" type="integer" column="nUsuarioLocal_id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="cusuariolocalestado" type="string" column="cUsuarioLocalEstado" length="1" nullable="false"/>
+    <many-to-one field="nusuario" target-entity="DicarsUser">
+      <join-columns>
+        <join-column name="nUsuario_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="nlocal" target-entity="Local">
+      <join-columns>
+        <join-column name="nLocal_id" referenced-column-name="nLocal_id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>
