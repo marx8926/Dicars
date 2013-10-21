@@ -27,7 +27,6 @@ class AppKernel extends Kernel
             new Dicars\AdminBundle\DicarsAdminBundle(),
             new Dicars\UserBundle\UserBundle(),
             new FOS\UserBundle\FOSUserBundle(),
-            new Escape\WSSEAuthenticationBundle\EscapeWSSEAuthenticationBundle(),
             new Dicars\MovilBundle\DicarsMovilBundle(),
         );
 

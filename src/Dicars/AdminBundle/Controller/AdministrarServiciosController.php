@@ -157,37 +157,33 @@ class AdministrarServiciosController extends Controller {
 		$usuarios = $userManager->findUsers();
 		
 		$todo = array();
-		foreach ($usuarios as $key => $usuario){
-                    
-                    
-                    $personal = $usuario -> getNpersonal();
-                    if($personal!=NULL)
-                    {
-			if($usuario->isEnabled()=="1")
-				$estado = "<span class='label label-success'>Habilidado</span>";
-			else
-				$estado = "<span class='label label-important'>Inhabilitado</span>";
-			
-			if($usuario-> getLastLogin()!=null)
-				$lastlogin = $usuario-> getLastLogin() -> format('d/m/Y');
-			else
-				$lastlogin = "";	
-			
-			
-			
-			$todo[] = array(//'id' => $usuario -> getNusuarioid(),
-						'trabajador' => $personal -> getCpersonalnom()." ".$personal -> getCpersonalape(),
-						'usuario_name' => $usuario ->getUsername(),
-						'roles' => $usuario -> getRoles(),
-						'password' => $usuario -> getPassword(),
-						'lastlogin' => $lastlogin,
-						'selectEstado' => $estado,
-						'ver_btn' => "<a class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
-						'edit_btn' => "<a class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
-                    			'rol_btn' => "<a class='btn btn-rol btn-info' href='#'><i class='icon-trash icon-white'></i>Roles</a>");
-		
-                   }
-                }
+		foreach ($usuarios as $key => $usuario){                    
+            
+            $personal = $usuario -> getNpersonal();
+            if($personal!=NULL){
+				if($usuario->isEnabled()=="1")
+					$estado = "<span class='label label-success'>Habilidado</span>";
+				else
+					$estado = "<span class='label label-important'>Inhabilitado</span>";
+				
+				if($usuario-> getLastLogin()!=null)
+					$lastlogin = $usuario-> getLastLogin() -> format('d/m/Y');
+				else
+					$lastlogin = "";				
+				
+				$todo[] = array(//'id' => $usuario -> getNusuarioid(),
+							'trabajador' => $personal -> getCpersonalnom()." ".$personal -> getCpersonalape(),
+							'usuario_name' => $usuario ->getUsername(),
+							'roles' => $usuario -> getRoles(),
+							'password' => $usuario -> getPassword(),
+							'lastlogin' => $lastlogin,
+							'selectEstado' => $estado,
+							'ver_btn' => "<a class='btn btn-success btn-datos' href='#'><i class='icon-zoom-in icon-white'></i>Ver Datos</a>",
+							'edit_btn' => "<a class='btn btn-info btn-editar' href='#'><i class='icon-edit icon-white'></i>Editar</a>",
+	                    	'rol_btn' => "<a class='btn btn-rol btn-info' href='#'><i class='icon-trash icon-white'></i>Roles</a>",
+							'local_btn' => "<a class='btn btn-rol btn-info' href='#'><i class='icon-edit icon-white'></i>Local</a>");
+				}
+			}
 
 		$em->clear();
 		$em->close();

@@ -30,7 +30,6 @@
 					  <th>Tipo de Rubro</th>
 					  <th></th>
 					  <th></th>
-					  <th></th>
 				  </tr>
 			  </thead>   
 			  <tbody>
@@ -188,6 +187,10 @@ function cargarVer(local){
 	$("#VerLocal").html(crearElementosForm(ArrayDatos));
 }
 
+function cargarListaLocales(Array1,Array2){
+	
+}
+
 //init------------------------------------>
 $(document).ready(function(){	
 
@@ -227,8 +230,7 @@ $(document).ready(function(){
 		              { "sWidth": "16%","mDataProp": "direccion"},
 		              { "sWidth": "13%","mDataProp": "tiprub"},
 		              { "sWidth": "11%","mDataProp": "ver_btn"},
-		              { "sWidth": "10%","mDataProp": "edit_btn"},
-		              { "sWidth": "10%","mDataProp": "elim_btn"}
+		              { "sWidth": "10%","mDataProp": "edit_btn"}
 		              ];
 	oTable = createDataTable('locales_table',UrlaDTable,FormatoDTable,null, RowCallBackFunction);
 });

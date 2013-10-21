@@ -74,6 +74,21 @@
 			</div>
 			</div>
 			
+			<div class="modal hide fade" id="modalLocales">
+			<div class="modal-header">
+				<h3>Locales</h3>
+			</div>
+			<div class="modal-body">
+				<form id="EditarUsuarioLocalForm" class="form-horizontal" method="post" action="{{ path('dicars_admin_editar_usuario') }}">
+					<div id="listalocales">
+					</div>
+					<div class="row-fluid">
+	                      <input class="btn btn-small btn-primary" type="submit" name="login" title="Guardar" value="Guardar" />
+	                </div>
+				</form>
+			</div>
+			</div>
+			
 			<div class="modal hide fade" id="modalRoles">
 			<div class="modal-header">
 				<h3>Editar Roles</h3>
@@ -89,65 +104,65 @@
                     <div class="span2">
                         <label > Administrador</label>
                         <input type="checkbox" id="administrador" name="administrador" class="checkbox">
-                    </div>
-                    
-                    <div class="span2">
-                        <label > Jefe de <br> Ventas </label>
-                        <input type="checkbox" id="jventas" name="jventas" class="checkbox">
-                    </div>
-                 
-                    <div class="span2">
-                        <label > Jefe de <br> Logística</label>
-                        <input type="checkbox" id="jlogistica" name="jlogistica" class="checkbox">
-                    </div>
-                    
-                    <div class="span2">
-                        <label > Jefe de <br> Soporte</label>
-                        <input type="checkbox" id="jsoporte" name="jsoporte" class="checkbox">
-                    </div>
-            
-                    <div class="span2">
-                        <label > Vendedor <br> </label>
-                        <input type="checkbox" id="vendedor" name="vendedor" class="checkbox">
-                    </div>
-                    
-                    <div class="span2">
-                        <label > Cobranza <br> </label>
-                        <input type="checkbox" id="cobranza" name="cobranza" class="checkbox">
-                    </div>
-                </div>
-                
-                <div class="row-fluid">
-                    
-                    <div class="span2">
-                        <label > Asistente de <br> Almacén</label>
-                        <input type="checkbox" id="asistalmacen" name="asistalmacen" class="checkbox"> 
-                    </div>
-                    
-                    <div class="span2">
-                        <label > Asistente de <br> Kardex</label>
-                        <input type="checkbox" id="asistkardex" name="asistkardex" class="checkbox"> 
-                    </div>
-                
-                    <div class="span2">
-                        <label > Soporte <br> Ventas</label>
-                        <input type="checkbox" id="soporteventas" name="soporteventas" class="checkbox"> 
-                    </div>
-                   
-                   
-                    <div class="span2">
-                        <label > Soporte de <br> R.H </label>
-                        <input type="checkbox" id="soporterh" name="soporterh" class="checkbox"> 
-                    </div>
-                </div>
-                
-                
-                <div class="row-fluid">
-                      <input class="btn btn-small btn-primary" type="submit" name="login" title="Guardar" value="Guardar" />
-                </div>
-        
-             </form>
-        </div>
+	                    </div>
+	                    
+	                    <div class="span2">
+	                        <label > Jefe de <br> Ventas </label>
+	                        <input type="checkbox" id="jventas" name="jventas" class="checkbox">
+	                    </div>
+	                 
+	                    <div class="span2">
+	                        <label > Jefe de <br> Logística</label>
+	                        <input type="checkbox" id="jlogistica" name="jlogistica" class="checkbox">
+	                    </div>
+	                    
+	                    <div class="span2">
+	                        <label > Jefe de <br> Soporte</label>
+	                        <input type="checkbox" id="jsoporte" name="jsoporte" class="checkbox">
+	                    </div>
+	            
+	                    <div class="span2">
+	                        <label > Vendedor <br> </label>
+	                        <input type="checkbox" id="vendedor" name="vendedor" class="checkbox">
+	                    </div>
+	                    
+	                    <div class="span2">
+	                        <label > Cobranza <br> </label>
+	                        <input type="checkbox" id="cobranza" name="cobranza" class="checkbox">
+	                    </div>
+	                </div>
+	                
+	                <div class="row-fluid">
+	                    
+	                    <div class="span2">
+	                        <label > Asistente de <br> Almacén</label>
+	                        <input type="checkbox" id="asistalmacen" name="asistalmacen" class="checkbox"> 
+	                    </div>
+	                    
+	                    <div class="span2">
+	                        <label > Asistente de <br> Kardex</label>
+	                        <input type="checkbox" id="asistkardex" name="asistkardex" class="checkbox"> 
+	                    </div>
+	                
+	                    <div class="span2">
+	                        <label > Soporte <br> Ventas</label>
+	                        <input type="checkbox" id="soporteventas" name="soporteventas" class="checkbox"> 
+	                    </div>
+	                   
+	                   
+	                    <div class="span2">
+	                        <label > Soporte de <br> R.H </label>
+	                        <input type="checkbox" id="soporterh" name="soporterh" class="checkbox"> 
+	                    </div>
+	                </div>
+	                
+	                
+	                <div class="row-fluid">
+	                      <input class="btn btn-small btn-primary" type="submit" name="login" title="Guardar" value="Guardar" />
+	                </div>
+	        
+	             </form>
+	        </div>
 			</div>
 			</div>	
 			
@@ -168,6 +183,7 @@
 					  	<th>Trabajador</th>
 					  	<th>Estado</th>
 					  	<th>LastLogin</th>
+					  	<th></th>
 					  	<th></th>
 					  	<th></th>
 					  	<th></th>
@@ -241,6 +257,9 @@ $(document).ready(function(){
 		$('#nombre_trabajador').val(data.nombres + " " + data.apellidos);
 		$('#modalBuscarTrabajador').modal('hide');
 	});
+
+	
+	$( "#listalocales" ).selectable();
 	
 	RowCallBackFunction = function(nRow, aData, iDisplayIndex){
 		$(nRow).find('.btn-datos').click(function(e){
@@ -298,15 +317,17 @@ $(document).ready(function(){
 	              { "sWidth": "15%","mDataProp": "lastlogin"},       
 	              { "sWidth": "13%","mDataProp": "ver_btn"},
 	              { "sWidth": "13%","mDataProp": "edit_btn"},
-	              { "sWidth": "14%","mDataProp": "rol_btn"}
+	              { "sWidth": "14%","mDataProp": "rol_btn"},
+	              { "sWidth": "14%","mDataProp": "local_btn"}
 	              ];
 	UsuariosTable = createDataTable('usuarios_table',UrlaDTableUser,FormatoDTable,null,RowCallBackFunction);
 
 	ReloadTableEditar = reloadclosemodal('modalEditarDatos', 'usuarios_table');
+	ReloadTableRoles = reloadclosemodal('modalRoles', 'usuarios_table');
+	
 	enviar("RegistrarUsuarioForm",ReloadTableUsuario, null, ErrorFunction);
-	enviar('EditarUsuarioForm', ReloadTableEditar);	
-        
-        enviar("RolUsuarioForm");
+	enviar('EditarUsuarioForm', ReloadTableEditar);
+	enviar("RolUsuarioForm",ReloadTableRoles);
 });
 </script>
 {% endblock %}
